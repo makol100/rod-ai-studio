@@ -1,8 +1,12 @@
-services:
+ services:
   api:
     image: python:3.14-slim
     container_name: fabryka-api
+    restart: unless-stopped
     working_dir: /app
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./apps/api:/app
     command: >

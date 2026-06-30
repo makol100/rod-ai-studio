@@ -15,3 +15,13 @@ def get_topics():
             "TOP 10 faktów"
         ]
     }
+
+from fastapi import Body
+from src.ai.ollama import generate
+
+@router.post("/generate")
+def generate_text(data: dict = Body(...)):
+    return {
+        "status": "ok",
+        "text": generate(data["prompt"])
+    }
