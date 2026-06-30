@@ -1,0 +1,13 @@
+services:
+  api:
+    image: python:3.14-slim
+    container_name: fabryka-api
+    working_dir: /app
+    volumes:
+      - ./apps/api:/app
+    command: >
+      sh -c "python -m venv venv &&
+      ./venv/bin/pip install -r /app/requirements.txt &&
+      ./venv/bin/uvicorn src.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - "8000:8000"
