@@ -1,0 +1,57 @@
+SCENA 1
+UJĘCIE: Szeroki plan. Pusta, biała sala konferencyjna. Jedyna osoba – robot Anya, stojący nieruchomo przy stole. Na stole leży papier z notatkami.
+
+LEKTOR: (Cisza)
+
+SCENA 2
+UJĘCIE:Zbliżenie na twarz Anyi. Jednostronnie migające diody LED sygnalizują działanie.
+
+LEKTOR: Okay! This is a test response. 😊
+
+SCENA 3
+UJĘCIE: Kameralny plan. Dłoń operatora – Anji – delikatnie dotyka papieru z notatkami.
+
+LEKTOR: How did it go?
+
+SCENA 4
+UJĘCIE:  Ujęcie środkowe. Anya wykonuje skan twarzy, analizując dane. Powoli kręcą się diody.
+
+LEKTOR: Did you want me to do anything specific in this test?
+
+SCENA 5
+UJĘCIE:  Szybkie montowanie - zbliżenia na różne przyciski i elementy interfejsu Anyi.
+
+LEKTOR: For example, would you like me to:
+
+SCENA 6
+UJĘCIE: Anja wyświetla na ekranie komputera graficzną tabelę z liczbami. Jakiś prosty algorytm w działaniu.
+
+LEKTOR: Answer a question?
+
+SCENA 7
+UJĘCIE:  Anja patrzy (bez emocji) na operatora, który zadaje pytanie: "Jaka jest kwadratowa pierwiastek z 144?".
+
+LEKTOR: (Operator) Jaka jest kwadratowa pierwiastek z 144?
+
+SCENA 8
+UJĘCIE: Szybkie ujęcie na ekranie komputera Anyi. Wyświetlany jest wynik "12".
+
+LEKTOR: 12.
+
+SCENA 9
+UJĘCIE: Powrót do szerokiego planu sali konferencyjnej. Anja wykonuje kolejne skanowanie.
+
+LEKTOR: Generate some text (a poem, story, etc.)?
+
+SCENA 10
+UJĘCIE: Anya zaczyna generować tekst na ekranie - słowa układają się w krótką, syntetyczną wers.
+
+LEKTOR:  "The rain falls softly on the trees."
+
+SCENA 11
+UJĘCIE:  Zbliżenie na twarz operatora – uśmiech.
+
+LEKTOR: (Operator) Świetnie!
+
+SCENA 12
+UJĘCIE: Szeroki plan. Anja ponownie stoi nieruchomo przy stole, diody LED świecą jasno. Cicha, biała sala.

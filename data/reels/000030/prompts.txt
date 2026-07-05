@@ -1,0 +1,35 @@
+PROMPT 1:
+Photorealistic photograph of a wide shot of a sun-drenched allotment garden on a bright afternoon. Janek, a man in his late 60s with weathered hands and a worn work shirt, stands amidst a dense row of tomato plants, holding a sack of sulfur. The ground is slightly uneven, covered in loose soil and scattered leaves.  A simple wooden shed with a corrugated iron roof is partially visible in the background, alongside a rusty watering barrel. The lighting is strong and directional, casting sharp shadows across the scene; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 2:
+Photorealistic photograph of a close-up shot focusing on the face of Zosia (10), a young girl with wide, curious eyes, looking at Janek in disbelief. Her freckled skin is slightly flushed from the sun. She wears a simple cotton dress and holds a small trowel.  The background shows Janek’s hand holding sulfur, adding to her confusion. The scene captures a moment of bewilderment; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 3:
+Photorealistic photograph of Urszula (35), a woman with tired eyes and dirt-stained gardening gloves, struggling to extract a ripe tomato from its terracotta pot.  Her brow is furrowed in frustration. The pot is overflowing with dark, compacted soil – evidence of poor drainage. A small, weathered garden table stands beside her, covered in tools. The scene is filled with warm sunlight; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 4:
+Photorealistic photograph of Michał (32), a man wearing jeans and a plaid shirt, attempting to plant a tall tomato variety into an overly small terracotta pot, a determined smile on his face. The ground is dry and cracked around the pot. A simple wooden fence and a collection of gardening tools are visible in the background.  The lighting emphasizes the scale difference; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 5:
+Photorealistic photograph of Ewa (48), a woman with worried eyes and grey hair pulled back in a bun, studying a tomato plant displaying yellowing leaves. The leaves have a pale green hue indicating nutrient deficiency. A watering can sits nearby, half-filled with water.  The surrounding garden is slightly overgrown, suggesting a lack of consistent attention. The lighting is soft and overcast; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 6:
+Photorealistic photograph of Piotr (28), a young man carefully extracting newly sprouted tomato seedlings from small plastic pots with gentle hands, showing signs of nervous concentration.  He wears worn work boots and jeans. The background features a makeshift greenhouse made of foil and wooden pallets; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 7:
+Photorealistic photograph of Anna (42), a woman with sun-kissed skin and a determined expression, attempting to tie a tomato plant stem with a strip of burlap tape, with the setting sun casting long shadows behind her. The scene is filled with golden light at dusk; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 8:
+Photorealistic photograph of Tomasz (51), a man with a frustrated grimace as he surveys a sprawling tomato vine extending across the ground, clearly lacking support.  The vine is laden with unripe fruit, indicating insufficient pruning. He wears practical gardening clothes and has dirt under his fingernails; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 9:
+Photorealistic photograph of Marta (35), a woman sitting wearily on a weathered wooden bench amidst a tangle of weeds and unkempt vegetation, clearly exhausted after a day's work. Her posture is slumped; she wears an old gardening apron. The scene captures a moment of respite and frustration; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 10:
+Photorealistic photograph of Zdzisław (72), an elderly man with a serious expression, meticulously examining the small yellow spots on the leaves of a tomato plant – visible signs of pest damage. He wears thick glasses and holds a magnifying glass; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 11:
+Photorealistic photograph of Kasia (24), a young woman struggling to push a new tomato into a crowded row of plants, with her hands and tools covered in soil; she is visibly straining; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.
+
+PROMPT 12:
+Photorealistic photograph of Dawid (29), a man intently observing the flow of water from a rusty tap connected to a watering hose, a worried expression on his face, suggesting concerns about high levels of chlorine contamination;  the setting sun casts long shadows across the allotment; photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting, realistic textures, ordinary gardener, no stock photo look, no AI look, vertical composition 9:16.

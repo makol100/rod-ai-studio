@@ -1,0 +1,47 @@
+SCENA 1
+UJĘCIE: Szeroki plan biura, dwóch programistów siedzących przy komputerach. Jeden (Adam) wygląda na zmęczonego, drugi (Basia) jest zdeterminowana.
+LEKTOR: (Narracja) "Wszystko zaczynało się od prostego pytania... Czy to połączenie naprawdę działa?"
+
+SCENA 2
+UJĘCIE: Zbity plan komputera Adama – okno konsoli, w którym wyświetlane są linie kodu.
+LEKTOR: Adam (mruczy): "Rozumiem, chcesz sprawdzić połączenie między aplikacjami."
+
+SCENA 3
+UJĘCIE: Basia pisze szybko na klawiaturze, ekran pokazuje panel z pytaniami o testy.
+LEKTOR: Basia: "Jasne, ale muszę najpierw dowiedzieć się, które aplikacje chcemy testować!"
+
+SCENA 4
+UJĘCIE: Animacja przedstawiająca dwa ikony aplikacji – "Aplikacja X" (zaskakująca w kolorach) i "Aplikacja Y" (neutralna).
+LEKTOR: Narracja: “Pierwsze pytanie dotyczy nazw.”
+
+SCENA 5
+UJĘCIE: Adam pisze na klawiaturze, wpisując nazwy aplikacji.
+LEKTOR: Adam: "Aplikacja X i Aplikacja Y."
+
+SCENA 6
+UJĘCIE: Basia wpatruje się w ekran, analizując dane.
+LEKTOR: Basia: “Dobrze, a jaki typ połączenia jest testowany?”
+
+SCENA 7
+UJĘCIE: Rzut widokowy sieci komputerowej – węzły i kable reprezentujące różne typy połączeń (sieć, baza danych, API).
+LEKTOR: Narracja: "Kolejne pytanie dotyczy sposobu komunikacji."
+
+SCENA 8
+UJĘCIE: Zbity plan okna Postmana z wczytanym URL endpointu.
+LEKTOR: Adam: “Połączenie sieciowe. Aplikacja X komunikuje się przez internet, adres IP to 192.168.1.100.”
+
+SCENA 9
+UJĘCIE: Basia kładzie nacisk na ekran, gestykulując.
+LEKTOR: Basia: "A bazę danych? Aplikacja X musi zapytać bazę danych, której używa aplikacja Y?"
+
+SCENA 10
+UJĘCIE: Animacja przedstawiająca przepływ danych pomiędzy dwoma bazami danych.
+LEKTOR: Narracja: “Potem API, czy endpointy są znane?”
+
+SCENA 11
+UJĘCIE: Adam wpisuje adres URL do Postmana – "https://api.aplikacjaxy.com/v1/data".
+LEKTOR: Adam: “Używam Postmana, endpoint to https://api.aplikacjaxy.com/v1/data.”
+
+SCENA 12
+UJĘCIE: Szeroki plan biura – Adam i Basia patrzą na siebie z uśmiechami, po pomyślanej komunikacji.
+LEKTOR: (Narracja) “Więcej informacji = więcej możliwości. Połączenie… działało.”

@@ -1,17 +1,25 @@
- services:
+services:
   api:
-    image: python:3.14-slim
+    build:
+      context: ./apps/api
     container_name: fabryka-api
     restart: unless-stopped
     working_dir: /app
+    environment:
+      - FAL_KEY=4e9942d8-03a5-44f4-ab3b-cc5a463071eb:06b55c462ba6c80274cd7df82f450a7d
 
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
     volumes:
       - ./apps/api:/app
+      - ./data:/root/rod-ai-studio/data
+      - ./assets:/root/rod-ai-studio/assets
+
     command: >
       sh -c "python -m venv venv &&
       ./venv/bin/pip install -r /app/requirements.txt &&
       ./venv/bin/uvicorn src.main:app --host 0.0.0.0 --port 8000"
+
     ports:
       - "8000:8000"

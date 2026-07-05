@@ -1,0 +1,25 @@
+Oto 8 promptów dla modelu FLUX na podstawie przedstawionych scen, zgodnie z podanym formatem:
+
+PROMPT 1:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment. A slow-motion shot of a meticulously manicured rose garden at twilight. Dewdrops cling to the petals of various roses. Dramatic volumetric lighting from a distant sunset illuminates the scene. Focus on intricate details of the blooms and vibrant green foliage.
+
+PROMPT 2:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment. Close-up shot of Aster novae-angliae flowers in shades of white, purple, pink, and red arranged against a backdrop of lush green grass. The camera slowly circles the flower heads, capturing their delicate texture and vibrant color. Realistic lighting highlights the subtle variations in each bloom.
+
+PROMPT 3:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment.  A female hand gently pruning a wilting Aster flower. Macro shot emphasizing the details of the stem being cut, with droplets of water glistening on the leaves. Focus on realistic textures and lighting creates an intimate moment within the garden setting.
+
+PROMPT 4:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment. Extreme close-up on a Gazania bulbosa rhizome – a bright red flower emerging from its compact, cylindrical base. Slow panning reveals the intricate patterns of the plant's growth and texture. High-resolution rendering with diffused light for impactful detail.
+
+PROMPT 5:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment.  Wide shot showcasing Rudbeckia hirta (golden eye) flowers scattered throughout a vibrant garden. The camera gradually recedes, displaying the plant's dominance in the landscape as sunlight fades towards the horizon. Atmospheric lighting and emphasis on mass of blooms.
+
+PROMPT 6:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment.  A hand carefully watering Geranium macrorrhizum plants within a rock garden setting. Focus on the texture of damp soil and moisture droplets surrounding the roots, emphasizing the plant's resilience. Realistic lighting highlights water reflections and textures.
+
+PROMPT 7:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment.  Macro shot of Crocus speciosus flowers in vibrant purple color, gently illuminated by a soft, diffused light. The focus is on the delicate petals and intricate details of the flower’s structure – close-up photography to emphasize beauty.
+
+PROMPT 8:
+Vertical 9:16, Ultra Detailed, Cinematic, Industrial Environment.  Panoramic view of an expansive garden showcasing all five flower varieties - Asters, Gazelias, Rudbekia, Geranium Makaronowe and Crocus – bathed in the warm hues of a setting sun. The scene evokes tranquility and beauty highlighting abundant late-summer blooms. Realistic lighting with long shadows creates a dramatic feel.

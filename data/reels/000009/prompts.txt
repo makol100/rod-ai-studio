@@ -1,0 +1,25 @@
+Oto 8 promptów dla modelu FLUX na podstawie dostarczonych scen, zgodnych z podanymi wymaganiami:
+
+PROMPT 1:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. A sweeping cinematic shot of a vibrant garden bursting with yellow and orange Mexican marigolds in full sunlight. The camera slowly moves through the flowerbeds, showcasing their intense colors. Realistic lighting, photorealistic.
+
+PROMPT 2:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. Close-up on a single crimson tagetes bloom, petals fully open to the sun's rays. The background is softly blurred with green foliage. Realistic lighting, photorealistic.
+
+PROMPT 3:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. A weathered hand gently removing a wilted tagete head from a flowerbed.  A man’s forehead is slightly furrowed in concentration as he observes the process. Realistic lighting, photorealistic.
+
+PROMPT 4:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. A cascading display of terracotta and yellow gazelle plant flowers overflowing from a balcony. The sun bathes the delicate petals in warm light. Realistic lighting, photorealistic.
+
+PROMPT 5:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. Hands carefully sowing gazelle seeds into a clay pot. Focus on the details of the planting process and sunlight filtering through the window. Realistic lighting, photorealistic.
+
+PROMPT 6:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. A panoramic view showcasing large, complex aster flower heads growing in sandy soil.  The camera pulls back to reveal a vast, sun-drenched landscape. Realistic lighting, photorealistic.
+
+PROMPT 7:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. Macro shot of the vibrant leaves and delicate petals of a leafy geranium plant in a terracotta pot. A hand gently trims off wilted flowers. Realistic lighting, photorealistic.
+
+PROMPT 8:
+Vertical 9:16, Ultra detailed, Industrial environment, Cinematic. A majestic Queen Ester flower with long, persistent blooms bathed in golden sunlight. The camera focuses on the intricate details of the flower head. Realistic lighting, photorealistic.

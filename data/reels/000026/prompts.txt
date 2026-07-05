@@ -1,0 +1,35 @@
+PROMPT 1:
+Photorealistic photograph of an elderly Polish gardener, around 70 years old, wearing a worn blue work shirt and brown trousers, carefully examining a ripening tomato plant in his allotment bed. The soil is dark and rich, with scattered leaves and small stones. A weathered wooden stake supports one of the tomato plants. Sunlight filters through the canopy of trees overhead, casting dappled shadows on the ground. He uses a small trowel to gently loosen the soil around the base of the plant, checking for pests. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 2:
+Photorealistic photograph of a middle-aged woman, approximately 55 years old, wearing rubber boots and gloves, meticulously weeding around the base of a row of beetroot plants in her allotment garden. The beetroot leaves are dark green and healthy, with some slight wilting at the edges. She uses a small hand fork to lift out the weeds, carefully avoiding damaging the roots of the beetroot. A rusty metal watering can sits nearby on a wooden crate. Sunlight filters through the leaves, creating soft shadows. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 3:
+Photorealistic photograph of a young man, around 28 years old, diligently watering his vegetable garden with a plastic watering can. The water droplets hang in the air, glistening in the sunlight. Several tomato plants and cucumber vines are visible, laden with ripening fruit. A small, patched-up altanka shed stands in the background. He wears a simple grey t-shirt and jeans. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 4:
+Photorealistic photograph of an elderly man, approximately 65 years old, carefully pruning a climbing bean plant with secateurs. The beans are long and green, clinging to a wire support system. He wears a faded orange waistcoat over his shirt. Some leaves have been cleanly cut, while others remain intact. A small compost bin sits nearby, filled with decaying vegetable matter. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 5:
+Photorealistic photograph of a woman, around 48 years old, inspecting a patch of leafy green lettuce in her allotment bed. The leaves are vibrant and healthy, with some slight imperfections – a few brown spots and small holes caused by insects. She uses a hand to gently touch the leaves, assessing their condition. A rain barrel stands behind her, filled with rainwater. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 6:
+Photorealistic photograph of a young boy, approximately 10 years old, carefully collecting fallen tomatoes from the ground into a woven basket. He wears a bright yellow t-shirt and wellington boots. The soil is muddy around his feet. Several ripe tomatoes are scattered on the ground beside him. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 7:
+Photorealistic photograph of an elderly man, around 72 years old, carefully stacking wooden crates filled with freshly harvested vegetables – tomatoes, cucumbers and peppers – in his allotment shed. The crates are weathered and slightly worn. He wears a grey woolly hat. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 8:
+Photorealistic photograph of a woman, approximately 50 years old, hand-picking ripe cherry tomatoes from a vine in her allotment garden. She wears rubber gloves and a practical apron. The tomatoes are bright red and plump. A small bucket sits beneath the vine to collect the fallen fruit. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 9:
+Photorealistic photograph of a young man, around 35 years old, repairing a section of a weathered wooden fence in his allotment garden using a hammer and nails. He wears a work shirt and sturdy boots. The fence is partially damaged, with some loose planks. A small toolbox sits nearby. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 10:
+Photorealistic photograph of an elderly woman, around 78 years old, carefully spreading compost onto her vegetable beds with a shovel. The compost is dark and rich, and smells earthy. She wears a floral print dress and gardening gloves. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 11:
+Photorealistic photograph of a man, approximately 52 years old, examining a tomato plant with yellowing leaves and small holes in the foliage, using a magnifying glass. He wears a brown shirt and work trousers. A small notebook and pen lie nearby. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
+
+PROMPT 12:
+Photorealistic photograph of a young girl, approximately 8 years old, sitting on the ground next to her father, examining a large, ripe pumpkin lying in the grass in their allotment garden. She wears a pink dress and wellington boots. The sunlight casts long shadows across the scene. High botanical accuracy, natural daylight, realistic textures, natural colours, real soil, real plants, realistic hands, no stock photo look, no CGI, no AI appearance, vertical composition 9:16.
