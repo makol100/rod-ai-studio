@@ -187,3 +187,5 @@ def generate_image_prompts(scenes: str) -> str:
 
     prompt = PROMPT_HEADER.format(scene_count=scene_count, format_block=format_block, scenes=scenes)
     return generate(prompt).strip()
+    
+### TEST_HOST_OK ###

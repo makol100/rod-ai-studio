@@ -1,28 +1,81 @@
 from pathlib import Path
-from src.config import SCENE_COUNT
 import subprocess
+
+from src.config import SCENE_COUNT
 
 
 def run(cmd):
     subprocess.run(cmd, check=True, capture_output=True)
 
 
-def make_clip(image: Path, output: Path, duration: float):
-    run([
+def audio_duration(audio: Path) -> float:
+    r = subprocess.run(
+        [
+            "ffprobe",
+            "-v", "error",
+            "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1",
+            str(audio),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return max(float(r.stdout.strip()), 1.0)
+
+
+def make_clip(image: Path, audio: Path | None, output: Path, duration: float):
+    cmd = [
         "ffmpeg", "-y",
         "-loop", "1",
         "-t", str(duration),
         "-i", str(image),
+    ]
+
+    if audio and audio.exists():
+        cmd += ["-i", str(audio)]
+    else:
+        cmd += ["-f", "lavfi", "-t", str(duration), "-i", "anullsrc=channel_layout=stereo:sample_rate=44100"]
+
+    cmd += [
         "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30,format=yuv420p",
         "-c:v", "libx264",
         "-pix_fmt", "yuv420p",
-        "-movflags", "+faststart",
-        str(output),
-    ])
+        "-preset", "veryfast",
+        "-crf", "18",
+    ]
+
+    cmd += ["-c:a", "aac", "-b:a", "192k", "-shortest"]
+
+    cmd += ["-movflags", "+faststart", str(output)]
+    run(cmd)
+
+
+def concat_parts(parts: list[Path], output: Path):
+    n = len(parts)
+    cmd = ["ffmpeg", "-y"]
+    for p in parts:
+        cmd += ["-i", str(p)]
+
+    audio_norm = "".join(
+        f"[{i}:a:0]aformat=sample_rates=24000:channel_layouts=mono[a{i}];" for i in range(n)
+    )
+    concat_inputs = "".join(f"[{i}:v:0][a{i}]" for i in range(n))
+    filt = audio_norm + concat_inputs + f"concat=n={n}:v=1:a=1[outv][outa]"
+
+    cmd += [
+        "-filter_complex", filt,
+        "-map", "[outv]", "-map", "[outa]",
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p",
+        "-c:a", "aac", "-b:a", "192k",
+        "-movflags", "+faststart", str(output),
+    ]
+    run(cmd)
 
 
 def render_video(folder: Path):
     images = folder / "images"
+    audio = folder / "audio"
     video = folder / "video"
     video.mkdir(exist_ok=True)
 
@@ -37,14 +90,16 @@ def render_video(folder: Path):
     try:
         if intro.exists():
             intro_clip = parts_dir / "00_intro.mp4"
-            make_clip(intro, intro_clip, 2)
+            make_clip(intro, None, intro_clip, 2)
             parts.append(intro_clip)
 
         for i in range(1, SCENE_COUNT + 1):
-            img = images / f"{i:02}.jpg"
+            img = images / f"{i:02d}.jpg"
+            wav = audio / f"{i:02d}.wav"
             if img.exists():
-                clip = parts_dir / f"{i:02}.mp4"
-                make_clip(img, clip, 2.5)
+                clip = parts_dir / f"{i:02d}.mp4"
+                duration = audio_duration(wav) if wav.exists() else 2.5
+                make_clip(img, wav if wav.exists() else None, clip, duration)
                 parts.append(clip)
 
         if not parts:
@@ -55,15 +110,7 @@ def render_video(folder: Path):
             encoding="utf-8"
         )
 
-        run([
-            "ffmpeg", "-y",
-            "-f", "concat",
-            "-safe", "0",
-            "-i", str(concat_file),
-            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "veryfast", "-crf", "18",
-            "-movflags", "+faststart",
-            str(output),
-        ])
+        concat_parts(parts, output)
 
         return {
             "status": "ok",
@@ -76,6 +123,6 @@ def render_video(folder: Path):
     except subprocess.CalledProcessError as e:
         return {
             "status": "error",
-            "stderr": e.stderr.decode(errors="ignore"),
+            "stderr": e.stderr.decode(errors="ignore") if isinstance(e.stderr, bytes) else str(e.stderr),
             "concat": concat_file.read_text(encoding="utf-8") if concat_file.exists() else "",
         }

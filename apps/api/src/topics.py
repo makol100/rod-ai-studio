@@ -1,5 +1,8 @@
 import re
-from fastapi import APIRouter, Body
+from pathlib import Path
+import subprocess
+import shutil
+from fastapi import APIRouter, Body, HTTPException
 
 from src.ai.ollama import generate
 from src.db.database import save_reel, list_reels
@@ -92,3 +95,65 @@ def generate_image_prompts_endpoint(data: dict = Body(...)):
 @router.post("/generate-reel")
 def generate_reel_endpoint(data: dict = Body(...)):
     return generate_reel(data["prompt"])
+
+PROMPTS_FILE = Path(__file__).resolve().parent / "images" / "prompts.py"
+
+@router.get("/host/prompts-py")
+def host_get_prompts_py():
+    return {
+        "status": "ok",
+        "path": "apps/api/src/images/prompts.py",
+        "content": PROMPTS_FILE.read_text(encoding="utf-8")
+    }
+
+
+
+
+@router.get("/host/status")
+def host_status():
+    from pathlib import Path
+
+    prompts = Path("/app/prompts/prompts.py").exists()
+
+    return {
+        "host": True,
+        "prompts": prompts,
+        "write": True,
+    }
+
+@router.post("/host/prompts-py")
+def host_set_prompts_py(payload: dict = Body(...)):
+    content = payload["content"]
+
+    if not content.strip():
+        raise HTTPException(status_code=400, detail="Odmowa wdrożenia: plik jest pusty.")
+
+    old_size = PROMPTS_FILE.stat().st_size
+    new_size = len(content.encode("utf-8"))
+
+    if old_size > 3000 and new_size < 500:
+        raise HTTPException(status_code=400, detail=f"Odmowa wdrożenia: nowy plik ma tylko {new_size} bajtów.")
+
+    shutil.copy2(PROMPTS_FILE, PROMPTS_FILE.with_suffix(".py.bak"))
+    PROMPTS_FILE.write_text(content, encoding="utf-8")
+
+    return {
+        "status": "ok",
+        "path": "apps/api/src/images/prompts.py",
+        "bytes": new_size,
+        "backup": str(PROMPTS_FILE.with_suffix(".py.bak"))
+    }
+
+
+@router.post("/host/restart-api")
+def host_restart_api():
+    r = subprocess.run(
+        ["docker","restart","fabryka-api"],
+        capture_output=True,
+        text=True
+    )
+    return {
+        "status":"ok" if r.returncode==0 else "error",
+        "stdout":r.stdout,
+        "stderr":r.stderr
+    }

@@ -1,67 +1,85 @@
 import { useState } from "react";
 import "./App.css";
 
-const API_URL = "http://157.90.155.155:8000/generate-reel";
+const API = "http://157.90.155.155:8000";
 
 export default function App() {
-  const [prompt, setPrompt] = useState("");
+
   const [status, setStatus] = useState("");
-  const [result, setResult] = useState(null);
+  const [content, setContent] = useState("");
+  const [testResult, setTestResult] = useState("");
+const [hostStatus, setHostStatus] = useState("...");
+    const canDeploy = content.trim().length > 0;
 
-  async function generateReel() {
-    if (!prompt.trim()) {
-      setStatus("Wpisz temat rolki.");
-      return;
-    }
+  
+async function loadHostStatus() {
+  try {
+    const r = await fetch(`${API}/host/status`);
+    const d = await r.json();
+    setHostStatus(d.host ? "🟢 HOST gotowy" : "🔴 HOST offline");
+  } catch {
+    setHostStatus("🔴 HOST offline");
+  }
+}
 
-    setStatus("Generuję rolkę...");
-    setResult(null);
-
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Błąd API: " + response.status);
-      }
-
-      const data = await response.json();
-      setResult(data);
-      setStatus("Gotowe.");
-    } catch (error) {
-      setStatus("Błąd: " + error.message);
-    }
+async function loadPrompts() {
+    setStatus("Pobieram prompts.py...");
+    const r = await fetch(`${API}/host/prompts-py`);
+    const data = await r.json();
+    setContent(data.content);
+    setStatus("Pobrano prompts.py");
   }
 
-  return (
-    <main style={{ maxWidth: 700, margin: "40px auto", padding: 20, fontFamily: "Arial, sans-serif" }}>
-      <h1>ROD AI Studio</h1>
-      <p>Generator rolek dla ogrodu.</p>
+  async function deployPv() {
+    setStatus("Wdrażam prompts.pv jako prompts.py...");
+    const r = await fetch(`${API}/host/prompts-py`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content }),
+    });
+    const data = await r.json();
+    setStatus("Wdrożono plik. Teraz wymagany reset API.");
+    setTestResult(JSON.stringify(data, null, 2));
+  }
+
+  async function testPrompt() {
+    setStatus("Testuję generate-image-prompts...");
+    const r = await fetch(`${API}/generate-image-prompts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        scenes: "SCENA 1: Ogrodnik sprawdza pomidory na polskiej działce ROD.",
+      }),
+    });
+    const data = await r.json();
+    setStatus("Test zakończony.");
+    setTestResult(JSON.stringify(data, null, 2));
+  }
+
+  loadHostStatus();
+
+return (
+    <main style={{ maxWidth: 900, margin: "30px auto", padding: 20, fontFamily: "Arial, sans-serif" }}>
+      <h1>ROD AI HOST</h1>\n<p>{hostStatus}</p>
+      <p>Przebudowa HOSTA — praca bez kopiuj-wklej.</p>
+
+      <button onClick={loadPrompts}>📥 Pobierz prompts.py</button>
+      <button onClick={deployPv} disabled={!canDeploy} style={{ marginLeft: 8 }}>✅ Wdróż prompts.pv</button>
+      <button onClick={testPrompt} style={{ marginLeft: 8 }}>🧪 Test promptów</button>
+
+      <p><strong>{status}</strong></p>
 
       <textarea
-        rows={6}
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        placeholder="Np. 12 najczęstszych błędów podczas uprawy pomidorów"
-        style={{ width: "100%", fontSize: 16, padding: 12, boxSizing: "border-box" }}
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Tutaj pojawi się prompts.py / prompts.pv"
+        style={{ width: "100%", height: 420, fontFamily: "monospace", fontSize: 13, padding: 12 }}
       />
 
-      <br /><br />
-
-      <button onClick={generateReel} style={{ width: "100%", padding: 16, fontSize: 18 }}>
-        Generuj rolkę
-      </button>
-
-      {status && <p><strong>{status}</strong></p>}
-
-      {result && (
-        <pre style={{ whiteSpace: "pre-wrap", background: "#222", padding: 12 }}>
-{JSON.stringify(result, null, 2)}
-        </pre>
-      )}
+      <pre style={{ whiteSpace: "pre-wrap", background: "#111", color: "#eee", padding: 12 }}>
+        {testResult}
+      </pre>
     </main>
   );
 }
+// TEST 1783323390

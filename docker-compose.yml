@@ -15,6 +15,7 @@ services:
       - ./apps/api:/app
       - ./data:/root/rod-ai-studio/data
       - ./assets:/root/rod-ai-studio/assets
+      - ./tools:/root/rod-ai-studio/tools
 
     command: >
       sh -c "python -m venv venv &&

@@ -7,6 +7,7 @@ from src.images.generator import generate_images
 from src.ai.image_backend import generate_image
 from src.video.renderer import render_video
 from src.reels import create_reel_folder, save_text
+from src.audio.generator import generate_audio
 
 
 def generate_reel(prompt: str):
@@ -17,6 +18,8 @@ def generate_reel(prompt: str):
 
     scenes = generate_scenes(article)
     save_text(folder, "scenes.txt", scenes)
+
+    audio = generate_audio(folder, scenes)
 
     image_prompts = generate_image_prompts(scenes)
     save_text(folder, "prompts.txt", image_prompts)
@@ -45,5 +48,6 @@ def generate_reel(prompt: str):
         "image_prompts": image_prompts,
         "images": images,
         "generated_images": generated_images,
+        "audio": audio,
         "video": video,
     }
