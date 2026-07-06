@@ -8,7 +8,7 @@ from src.ai.ollama import generate
 from src.db.database import save_reel, list_reels
 from src.scenes.generator import generate_scenes
 from src.images.prompts import generate_image_prompts
-from src.reels.pipeline import generate_reel
+from src.reels.pipeline import generate_reel, render_from_scenes
 
 router = APIRouter()
 
@@ -81,7 +81,7 @@ def get_reels():
 
 @router.post("/generate-scenes")
 def generate_scenes_endpoint(data: dict = Body(...)):
-    return {"status": "ok", "scenes": generate_scenes(data["text"])}
+    return {"status": "ok", "scenes": generate_scenes(data["text"], data.get("scene_count"))}
 
 
 @router.post("/generate-image-prompts")
@@ -94,7 +94,7 @@ def generate_image_prompts_endpoint(data: dict = Body(...)):
 
 @router.post("/generate-reel")
 def generate_reel_endpoint(data: dict = Body(...)):
-    return generate_reel(data["prompt"])
+    return generate_reel(data["prompt"], data.get("scene_count"))
 
 PROMPTS_FILE = Path(__file__).resolve().parent / "images" / "prompts.py"
 
@@ -157,3 +157,8 @@ def host_restart_api():
         "stdout":r.stdout,
         "stderr":r.stderr
     }
+
+
+@router.post("/render-scenes")
+def render_scenes_endpoint(data: dict = Body(...)):
+    return render_from_scenes(data["scenes"])

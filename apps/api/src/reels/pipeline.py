@@ -1,4 +1,5 @@
 from pathlib import Path
+import traceback
 
 from src.ai.ollama import generate
 from src.scenes.generator import generate_scenes
@@ -10,44 +11,116 @@ from src.reels import create_reel_folder, save_text
 from src.audio.generator import generate_audio
 
 
-def generate_reel(prompt: str):
-    folder = create_reel_folder()
+def _log(msg: str):
+    # widoczne na żywo w: docker logs -f fabryka-api
+    print(f"[reel] {msg}", flush=True)
 
-    article = generate(prompt)
-    save_text(folder, "article.md", article)
 
-    scenes = generate_scenes(article)
+def _produce_media(folder: Path, scenes: str, result: dict) -> dict:
+    """
+    Druga połowa pipeline'u: gotowy scenariusz -> audio -> prompty -> obrazy -> wideo.
+    Współdzielona przez generate_reel (pełny bieg) i render_from_scenes (z gotowego skryptu).
+    Odporna: błąd jednego obrazu nie zabija reszty; render sam pomija brakujące klatki.
+    """
     save_text(folder, "scenes.txt", scenes)
+    result["scenes_file"] = str(folder / "scenes.txt")
 
+    _log("audio (edge-tts)…")
     audio = generate_audio(folder, scenes)
+    result["audio_count"] = len(audio)
 
+    _log("prompty obrazow…")
     image_prompts = generate_image_prompts(scenes)
     save_text(folder, "prompts.txt", image_prompts)
+    result["prompts_file"] = str(folder / "prompts.txt")
 
     images = generate_images(folder)
+    total = len(images)
+    _log(f"obrazy fal.ai: {total} szt…")
 
-    generated_images = []
+    ok = 0
+    failed = []
     for img in images:
-        generated_images.append(
-            generate_image(
-                img["prompt"],
-                Path(img["output"])
-            )
-        )
+        idx = img.get("index")
+        try:
+            res = generate_image(img["prompt"], Path(img["output"]))
+            if res.get("status") == "ok":
+                ok += 1
+                _log(f"    obraz {idx}/{total} OK")
+            else:
+                failed.append(idx)
+                _log(f"    obraz {idx}/{total} BLAD: {res.get('error')}")
+        except Exception as e:
+            failed.append(idx)
+            _log(f"    obraz {idx}/{total} WYJATEK: {e}")
 
+    result["images_ok"] = ok
+    result["images_failed"] = failed
+
+    if ok == 0:
+        result["status"] = "error"
+        result["error"] = "Zaden obraz sie nie wygenerowal — render pominiety."
+        _log("PRZERWANE: brak obrazow, render pominiety.")
+        return result
+
+    _log("renderuje wideo…")
     video = render_video(folder)
+    result["video"] = video
+    if isinstance(video, dict) and video.get("status") == "ok":
+        result["video_file"] = video.get("output")
+        _log(f"GOTOWE: {video.get('output')} (obrazy {ok}/{total})")
+    else:
+        result["status"] = "partial"
+        _log(f"Render zwrocil blad: {video}")
 
-    return {
-        "status": "ok",
-        "folder": str(folder),
-        "article_file": str(folder / "article.md"),
-        "scenes_file": str(folder / "scenes.txt"),
-        "prompts_file": str(folder / "prompts.txt"),
-        "article": article,
-        "scenes": scenes,
-        "image_prompts": image_prompts,
-        "images": images,
-        "generated_images": generated_images,
-        "audio": audio,
-        "video": video,
-    }
+    return result
+
+
+def generate_reel(prompt: str, scene_count=None):
+    """Pełny pipeline: prompt -> artykuł -> sceny -> (audio, obrazy, wideo)."""
+    folder = create_reel_folder()
+    _log(f"START (pelny) folder={folder}")
+    result = {"status": "ok", "folder": str(folder), "mode": "generate_reel"}
+    try:
+        _log("artykul…")
+        article = generate(prompt)
+        save_text(folder, "article.md", article)
+        result["article_file"] = str(folder / "article.md")
+
+        _log("sceny…")
+        scenes = generate_scenes(article, scene_count)
+
+        return _produce_media(folder, scenes, result)
+
+    except Exception as e:
+        _log(f"BLAD KRYTYCZNY: {e}")
+        result["status"] = "error"
+        result["error"] = str(e)
+        result["trace"] = traceback.format_exc().splitlines()[-3:]
+        return result
+
+
+def render_from_scenes(scenes: str):
+    """
+    Z gotowego, zatwierdzonego scenariusza: -> (audio, obrazy, wideo).
+    Pomija generowanie artykułu i scen — renderuje DOKŁADNIE to, co podasz.
+    Scenariusz musi być w formacie: SCENA N: / UJĘCIE: / LEKTOR:.
+    """
+    folder = create_reel_folder()
+    _log(f"START (z gotowego skryptu) folder={folder}")
+    result = {"status": "ok", "folder": str(folder), "mode": "render_from_scenes"}
+    try:
+        if not scenes or not scenes.strip():
+            result["status"] = "error"
+            result["error"] = "Pusty scenariusz."
+            _log("PRZERWANE: pusty scenariusz.")
+            return result
+
+        return _produce_media(folder, scenes.strip(), result)
+
+    except Exception as e:
+        _log(f"BLAD KRYTYCZNY: {e}")
+        result["status"] = "error"
+        result["error"] = str(e)
+        result["trace"] = traceback.format_exc().splitlines()[-3:]
+        return result
