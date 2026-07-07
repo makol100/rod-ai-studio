@@ -1,0 +1,101 @@
+SCENA 1:
+UJĘCIE: 
+*Ziemia w grządce z saletrą liściatą, widoczne korzenie i liście.*
+LEKTOR: Dlaczego warto siać sałatę liściową w lipcu?
+*Odpowiedź:* Bo jest odporna na chłody i można ją zbierać jesienią!
+
+SCENA 2:
+UJĘCIE: 
+*Podlewanie saletry, woda kapie z konewki.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego podlewania, bo może gnić korzenie!
+
+SCENA 3:
+UJĘCIE: 
+*Rzodkiewka w ziemi, widoczne liście i korzeń.*
+LEKTOR: Dlaczego warto siać rzodkiewkę?
+*Odpowiedź:* Ma krótki okres wegetacji i można ją zbierać jesienią!
+
+SCENA 4:
+UJĘCIE: 
+*Nawożenie rzodkiewki, widać rozsypany nawóz.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego nawożenia azotem, bo liście przerosną korzenie!
+
+SCENA 5:
+UJĘCIE: 
+*Kalarepa w ziemi, widoczne liście i korzeń.*
+LEKTOR: Dlaczego warto siać kalarepę?
+*Odpowiedź:* Dobrze znosi chłody i można ją zbierać nawet w październiku!
+
+SCENA 6:
+UJĘCIE: 
+*Podlewanie kalarepy, woda kapie z konewki.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego podlewania, bo korzenie mogą zgnić!
+
+SCENA 7:
+UJĘCIE: 
+*Szpinak w ziemi, widoczne liście i korzeń.*
+LEKTOR: Dlaczego warto siać szpinak?
+*Odpowiedź:* Jest odporny na chłody i można go zbierać przez całą jesień!
+
+SCENA 8:
+UJĘCIE: 
+*Nawożenie szpinaku, widać rozsypany nawóz.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego nawożenia azotem, bo liście przerosną wartości odżywcze!
+
+SCENA 9:
+UJĘCIE: 
+*Koperek w ziemi, widoczne liście i łodyga.*
+LEKTOR: Dlaczego warto siać koper?
+*Odpowiedź:* Łatwy w uprawie i można go zbierać przez cały sezon, nawet jesienią!
+
+SCENA 10:
+UJĘCIE: 
+*Podlewanie kopru, woda kapie z konewki.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego podlewania, bo korzenie mogą zgnić!
+
+SCENA 11:
+UJĘCIE: 
+*Kapusta włoska w ziemi, widoczne liście i główka.*
+LEKTOR: Dlaczego warto siać kapustę włoską?
+*Odpowiedź:* Dobrze znosi chłody i można ją zbierać nawet w listopadzie!
+
+SCENA 12:
+UJĘCIE: 
+*Nawożenie kapusty, widać rozsypany nawóz.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego nawożenia azotem, bo liście przerosną główki!
+
+SCENA 13:
+UJĘCIE: 
+*Czarna rzodkiew w ziemi, widoczne liście i korzeń.*
+LEKTOR: Dlaczego warto siać czarną rzodkiewkę?
+*Odpowiedź:* Ma długi okres wegetacji i można ją zbierać jesienią!
+
+SCENA 14:
+UJĘCIE: 
+*Podlewanie czarnej rzodkwi, woda kapie z konewki.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego podlewania, bo korzenie mogą zgnić!
+
+SCENA 15:
+UJĘCIE: 
+*Fasola szparagowa w ziemi, widoczne strąki i łodygi.*
+LEKTOR: Dlaczego warto siać fasolkę szparagową?
+*Odpowiedź:* Dobrze znosi chłody i można ją zbierać nawet w październiku!
+
+SCENA 16:
+UJĘCIE: 
+*Nawożenie fasolki, widać rozsypany nawóz.*
+LEKTOR: Na co uważać?
+*Odpowiedź:* Unikaj nadmiernego nawożenia azotem, bo strąki przerosną jakością nasiona!
+
+SCENA 17:
+UJĘCIE: 
+*Ziemia w grządce z saletrą liściatą, widoczne korzenie i liście.*
+LEKTOR: Pamiętaj o regularnym odchwaszczaniu i podlewaniu!
+*Deliktne wezwanie:* Obserwuj po więcej porad z działki!

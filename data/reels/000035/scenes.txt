@@ -1,0 +1,47 @@
+SCENA 1
+UJĘCIE: Szeroki plan lasu, deszcz powoli pada. Dźwięk kropli i szeleszczenia igliwów.
+LEKTOR: (Narracja) "Lasy to skomplikowane ekosystemy, zawsze narażone na zagrożenia. Jednym z nich są choroby iglaków – złożony problem, który dotyka lasy i sadzonki na całym świecie."
+
+SCENA 2
+UJĘCIE: Makro plan – detale brązowej igliwki obumierającej pod wodą.
+LEKTOR: "Wśród nich najgroźniejszym jest *Phytophthora ramorum*, nazywany 'martwą zlewką'."
+
+SCENA 3
+UJĘCIE:  Zwierzęta leśne (sowa, wiewiórka) obserwują drzewo z wyraźnie brązowymi igłami.
+LEKTOR: "Objawy chorób iglaków są różnorodne – od obumierania pojedynczych igieł po całkowite wyginięcie całych obszarów lasu."
+
+SCENA 4
+UJĘCIE:  Laborant w laboratorium, badający próbkę ziemi pod igliwkiem.
+LEKTOR: "Grzyby, bakterie i wirusy – to są główne winowajce. Każdy z nich ma swój specyficzny wpływ."
+
+SCENA 5
+UJĘCIE:  Animacja – bakteria *Erwinia neovitalis* atakuje igłę, powodując powstawanie niebieskich plam.
+LEKTOR: "Śiatłokręt bakterii igliwki, to jeden z przykładów -  błękitne plamy na igłach to pierwszy znak."
+
+SCENA 6
+UJĘCIE:  Dinozaur (w wyobraźni) – młody drzewo iglaste, obumierające wewnątrz. Ciemne, wilgotne wnętrze.
+LEKTOR: "Często choroba przebiega bez widocznych objawów na zewnątrz – wewnętrzne obumieranie jest szczególnie niebezpieczne."
+
+SCENA 7
+UJĘCIE:  Arborist, badający pnie drzew - wyczulający guzki i narośla.
+LEKTOR: "Przez obserwację zmian w pniu, możemy zdiagnozować problemy zanim staną się krytyczne."
+
+SCENA 8
+UJĘCIE: Montaż – zbliżenia na różne objawy: obumierające igły, krzywe gałęzie, guzki na pniu.
+LEKTOR: "Obumieranie igieł to charakterystyczny symptom. Duże ilości usychających igieł są również ważne do zauważenia."
+
+SCENA 9
+UJĘCIE:  Robot sprzątający obumierłe drzewa – dbałość o izolację zarażonych drzew.
+LEKTOR: "Izolacja zarażonych drzew to kluczowa pierwsza reakcja - zapobieganie rozprzestrzenianiu się choroby."
+
+SCENA 10
+UJĘCIE:  Badacz pracujący w terenie, zbierający próbki roślinności.
+LEKTOR: "Regularne monitorowanie lasów i szybkie wykrycie objawów – to daje szansę na skuteczne działanie."
+
+SCENA 11
+UJĘCIE: Ekran komputera – mapka z zaznaczonymi obszarami występowania *Phytophthora ramorum*.
+LEKTOR: "Współpraca między agencjami ochrony przyrody i badaczami, to fundament skutecznej walki z chorobami iglaków."
+
+SCENA 12
+UJĘCIE: Szeroki plan lasu – słońce przebija się przez chmury.
+LEKTOR: (Narracja) "Lasy są kruche, ale dzięki wiedzy i współdziałaniu możemy je chronić przed zagrożeniami, takimi jak choroby iglaków."

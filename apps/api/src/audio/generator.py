@@ -12,13 +12,25 @@ _TTS_ENV["LANG"] = "C.UTF-8"
 
 
 def extract_narration(scenes: str) -> list[str]:
+    raw_lines = scenes.splitlines()
     lines = []
-    for line in scenes.splitlines():
-        line = line.strip()
-        if line.startswith("LEKTOR:"):
-            text = line.replace("LEKTOR:", "", 1).strip()
+    i = 0
+    while i < len(raw_lines):
+        line = raw_lines[i].strip()
+        m = re.match(r"^LEKTO\w*:\s*(.*)", line)
+        if m:
+            text = m.group(1).strip()
+            if not text and i + 1 < len(raw_lines):
+                next_line = raw_lines[i + 1].strip()
+                if next_line and not re.match(r"^(SCENA|UJ[E\u0118]CIE|LEKTO\w*)\s*:", next_line, re.IGNORECASE):
+                    text = next_line
+                    i += 1
+            text = text.strip('"').strip("*").replace("*", "").strip()
             if text:
                 lines.append(text)
+        i += 1
+    if not lines:
+        print("[audio] UWAGA: 0 linii LEKTOR w scenach - sprawdz format scenes.txt")
     return lines
 
 

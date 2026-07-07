@@ -66,6 +66,15 @@ def _produce_media(folder: Path, scenes: str, result: dict) -> dict:
     _log("renderuje wideo…")
     video = render_video(folder)
     result["video"] = video
+
+    if video.get("status") == "ok":
+        from src.audio.music import add_background_music
+        video_path = Path(video["output"])
+        music_output = video_path.with_name("final_with_music.mp4")
+        music_result = add_background_music(video_path, music_output)
+        result["music"] = music_result
+        if music_result.get("status") == "ok":
+            video["output"] = music_result["output"]
     if isinstance(video, dict) and video.get("status") == "ok":
         result["video_file"] = video.get("output")
         _log(f"GOTOWE: {video.get('output')} (obrazy {ok}/{total})")

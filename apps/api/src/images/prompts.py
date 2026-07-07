@@ -1,6 +1,21 @@
 from src.ai.ollama import generate
 from src.config import SCENE_COUNT
 import re
+import time
+import requests
+
+
+def _unload_text_model():
+    """Zwalnia Bielika z RAM przed seria wywolan gemmy - zapobiega OOM."""
+    try:
+        requests.post(
+            "http://host.docker.internal:11434/api/generate",
+            json={"model": "SpeakLeash/bielik-4.5b-v3.0-instruct:Q8_0", "keep_alive": 0},
+            timeout=15,
+        )
+        time.sleep(2)
+    except Exception:
+        pass  # brak Bielika w pamieci to nie blad - jedziemy dalej
 
 
 SCENE_MATCH_PATTERN = r"SCENA\s+\d+\s*:"
@@ -178,14 +193,88 @@ def _count_scenes(scenes: str) -> int:
     return len(matches) if matches else SCENE_COUNT
 
 
+SINGLE_SCENE_HEADER = """You are FLUX Photo Engine V3 for ROD AI Studio.
+
+Given ONE garden scene below, write exactly ONE photorealistic English image-generation prompt (3-5 sentences, 80-120 words) describing ONLY the plant/vegetable/fruit and garden bed.
+
+The goal is NOT to create beautiful AI art. The goal is authentic documentary photographs from real Polish allotment gardens.
+
+STRICT RULES:
+- NEVER mention people, hands, fingers, gardeners, or any human figure or body part.
+- NEVER mention tools being held by someone.
+- Describe only the vegetable/fruit, soil, garden bed, natural light and textures.
+- Every prompt must start with: Photorealistic photograph of
+- Style: natural lighting, shallow depth of field, vertical composition 9:16.
+
+REALISM FIRST
+Must look like a real photograph taken by a real person. Avoid advertising style, stock photo style, perfect symmetry. Prefer natural imperfections.
+
+POLISH ALLOTMENT ATMOSPHERE
+Modest plots, weathered wooden elements, reused materials, compost areas. Avoid luxury gardens, showroom aesthetics.
+
+BOTANICAL ACCURACY - MOST IMPORTANT RULE
+Plants must be botanically accurate: correct leaves, stems, roots and growth stages for the SPECIFIC named vegetable/fruit. Avoid impossible anatomy, duplicated leaves/fruits, fantasy vegetation, plastic-looking plants. If uncertain about a species' exact appearance, keep it visually generic and botanically plausible rather than inventing details or substituting a different-looking plant.
+
+Context-aware plant rules (use when the scene matches):
+- Kohlrabi (kalarepa): edible bulb swells ABOVE the soil on a short thick stem. Never use the words "buried", "underground" or "root vegetable" for kohlrabi - it sits fully visible on top of the soil, NOT an onion, NOT a cabbage head. Smooth round bulb (pale green or purple) with thin leaf stalks radiating outward in a starburst pattern.
+- Dill (koper/koperek): extremely fine, thread-like, hair-thin feathery fronds - wispy, blue-green. NOT broad or fan-shaped like parsley or cilantro.
+- Black Spanish radish (czarna rzodkiew): round root with ROUGH, MATTE, DULL charcoal-BLACK skin like dry tree bark, crisp SNOW-WHITE flesh inside. Half-lifted from dark soil, skin brushed clean so the black surface is clearly visible. NEVER purple, NEVER red, NEVER pink, NEVER glossy or shiny. NOT a beetroot, NOT a turnip, NOT a common red radish.
+- Tomato plants: serrated leaves, natural branching stems, realistic trusses, correct fruit attachment points.
+- Cherry tomatoes: fruits about 2-3 cm, realistic trusses, not grape-like bunches, not white plastic spheres.
+- Cucumbers: realistic vines, tendrils, rough leaves, natural elongated fruit.
+- Lettuce and leafy vegetables: natural leaf veins, irregular edges, believable colour variation.
+- Strawberries: correct trifoliate leaves, small white flowers when present, realistic red fruit shape.
+- Carrots, onions, garlic, beets: correct leaves and visible harvest form when shown.
+
+MATERIAL AND LIGHTING
+Soil with real texture: crumbs, organic matter, moisture or dryness depending on scene. Natural, believable colours - not oversaturated.
+
+FORBIDDEN
+Never describe: video, clip, animation, camera movement, timelapse, visible text, logos, watermark, UI. Never create: illustration, painting, cartoon, CGI, 3D render, plastic plants, advertising style, AI-generated appearance, duplicated objects.
+
+End naturally with descriptors like: photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting.
+
+SCENE:
+{scene}
+
+Respond with ONLY the prompt text. No "PROMPT" label, no quotes, no markdown, no extra commentary."""
+
+
+def _split_scene_blocks(scenes: str) -> list:
+    parts = re.split(f"({SCENE_MATCH_PATTERN})", scenes, flags=re.IGNORECASE)
+    blocks = []
+    i = 1
+    while i < len(parts):
+        header = parts[i]
+        body = parts[i + 1] if i + 1 < len(parts) else ""
+        blocks.append((header + body).strip())
+        i += 2
+    return blocks
+
+
 def generate_image_prompts(scenes: str) -> str:
-    scene_count = _count_scenes(scenes)
+    blocks = _split_scene_blocks(scenes)
+    if not blocks:
+        blocks = [scenes.strip()]
 
-    format_block = "\n\n".join(
-        PROMPT_START_TEMPLATE.format(i=i) for i in range(1, scene_count + 1)
-    )
+    _unload_text_model()
 
-    prompt = PROMPT_HEADER.format(scene_count=scene_count, format_block=format_block, scenes=scenes)
-    return generate(prompt).strip()
+    prompts = []
+    for idx, block in enumerate(blocks, start=1):
+        single_prompt = SINGLE_SCENE_HEADER.format(scene=block)
+        result = None
+        for attempt in range(3):
+            try:
+                result = generate(single_prompt, model="gemma3:4b").strip()
+                break
+            except Exception as e:
+                print(f"[prompts] scena {idx} próba {attempt+1}/3 nieudana: {e}")
+                time.sleep(5)
+        if result is None:
+            raise RuntimeError(f"Nie udalo sie wygenerowac promptu dla sceny {idx} po 3 probach")
+        prompts.append(f"PROMPT {idx}:\n{result}")
+        time.sleep(1.5)
+
+    return "\n\n".join(prompts)
     
 ### TEST_HOST_OK ###

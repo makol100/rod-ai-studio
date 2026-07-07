@@ -93,7 +93,9 @@ def render_video(folder: Path):
             make_intro_animated(intro, intro_clip)
             parts.append(intro_clip)
 
-        for i in range(1, SCENE_COUNT + 1):
+        real_scene_count = len(list(images.glob('*.jpg'))) if images.exists() else 0
+        upper_bound = max(real_scene_count, SCENE_COUNT)
+        for i in range(1, upper_bound + 1):
             img = images / f"{i:02d}.jpg"
             wav = audio / f"{i:02d}.wav"
             if img.exists():

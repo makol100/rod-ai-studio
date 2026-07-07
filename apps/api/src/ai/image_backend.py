@@ -3,7 +3,7 @@ import requests
 import fal_client
 
 # Model i limity — dobrane pod FLUX schnell (szybki) na fal.ai.
-FAL_MODEL = "fal-ai/flux-1/schnell"
+FAL_MODEL = "fal-ai/flux-1/dev"
 FAL_TIMEOUT = 90          # maks. czas generowania jednego obrazu (s)
 FAL_START_TIMEOUT = 60    # maks. czas oczekiwania w kolejce fal (s)
 DOWNLOAD_TIMEOUT = 120    # maks. czas pobrania gotowego JPG (s)

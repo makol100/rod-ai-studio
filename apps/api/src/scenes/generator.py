@@ -18,22 +18,26 @@ import re
 
 
 PROMPT_TEMPLATE = """
-Jesteś scenarzystą krótkich, pionowych rolek (format 9:16) dla polskiego kanału o ogrodnictwie działkowym (ROD).
-Widz to praktyczny działkowiec, często po pięćdziesiątce. Piszesz prosto, konkretnie i z sensem — bez lania wody.
+Jesteś scenarzystą krótkich, pionowych rolek (9:16) dla polskiego kanału o ogrodnictwie działkowym (ROD).
+Widz to praktyczny działkowiec po pięćdziesiątce. Piszesz prosto, konkretnie, po polsku — bez lania wody.
 
 Na podstawie poniższego tekstu napisz scenariusz złożony z DOKŁADNIE {scene_count} scen.
 
-ZASADY TREŚCI:
-- SCENA 1 to HACZYK. W pierwszym zdaniu zaskocz, zadaj pytanie albo wytknij częsty błąd. Widz musi zostać w ciągu 1 sekundy.
-- Każda kolejna scena rozwija JEDNĄ myśl. Bez powtórzeń, bez ogólników, bez "dziś powiem wam o...".
-- LEKTOR to tekst MÓWIONY: krótkie zdania, 6-14 słów, naturalny język. Tak jak człowiek mówi do drugiego człowieka.
-- Trzymaj się faktów z tekstu. Nie zmyślaj liczb, nazw odmian ani terminów.
-- Ostatnia scena to puenta i delikatne wezwanie, np.: "Zapisz, żeby nie zapomnieć." albo "Obserwuj po więcej porad z działki."
+BUDOWA SCENARIUSZA:
+- SCENA 1 to HACZYK: zaskocz, zadaj pytanie albo wytknij częsty błąd. Widz musi zostać w 1 sekundę.
+- OSTATNIA scena to puenta i delikatne wezwanie, np.: "Zapisz, żeby nie zapomnieć." albo "Obserwuj po więcej porad z działki."
+- SCENY POMIĘDZY: przejdź przez KONKRETNE punkty z tekstu (każde warzywo / każdą poradę) — po JEDNEJ scenie na punkt, w kolejności z tekstu. Nie pomijaj ważnych punktów i NIE dopychaj scenariusza powtórkami ani ogólnym "podlewajcie regularnie".
 
-ZASADY UJĘCIA:
-- UJĘCIE opisuje JEDNO realne, dokumentalne zdjęcie pasujące do tego, co mówi lektor w tej scenie.
-- Opisuj to, co widać: roślinę, dłonie, glebę, narzędzie, objaw problemu. Konkret, nie ozdoby.
-- Bez ruchu kamery, bez "przejście", bez tekstu na obrazie.
+LEKTOR (tekst mówiony):
+- Krótkie, naturalne zdania, 6-14 słów. Tak jak człowiek mówi do drugiego człowieka.
+- TYLKO prawdziwe, poprawne polskie słowa. Nie wymyślaj słów ani terminów. Nie zmyślaj liczb ani nazw odmian.
+
+UJĘCIE (opis jednego zdjęcia) — TU UWAŻAJ, to najczęstsze źródło błędów:
+- Bohaterem kadru jest ROŚLINA lub WARZYWO, o którym mówi lektor. Pokaż samą roślinę: liście, owoc, warzywo w ziemi, grządkę.
+- Realne, dokumentalne zdjęcie ogrodowe — takie, jakie zrobiłbyś telefonem na działce.
+- ZAKAZANE w kadrze: przedmioty domowe i absurdy (zlew, kran, młynek, mikser, losowe sprzęty), narzędzia jako główny temat, dużo rąk i ludzi, dziwne lub nierealne sceny. Dłonie dopuszczalne wyjątkowo, ale nigdy jako bohater kadru.
+- Każde UJĘCIE musi być INNE. Nie powtarzaj tego samego opisu (np. "liście i korzeń widoczne") w kolejnych scenach.
+- Bez ruchu kamery, bez "przejście", bez tekstu ani logo na obrazie.
 
 FORMAT WYJŚCIA (trzymaj się co do znaku):
 SCENA 1:
@@ -44,11 +48,11 @@ SCENA 2:
 UJĘCIE: ...
 LEKTOR: ...
 
-...i tak dalej aż do SCENA {scene_count}:
+...aż do SCENA {scene_count}:
 
 Nie używaj markdown. Nie dodawaj wstępu, komentarzy ani podsumowania.
 Nie pisz niczego przed "SCENA 1:" ani niczego po ostatniej scenie.
-Zanim skończysz, po cichu sprawdź, że istnieją wszystkie sceny od 1 do {scene_count} i każda ma UJĘCIE oraz LEKTOR.
+Zanim skończysz, po cichu sprawdź: (1) jest dokładnie {scene_count} scen, (2) żadne UJĘCIE się nie powtarza, (3) w kadrach nie ma zlewów, młynków ani przypadkowych przedmiotów.
 
 Tekst:
 {text}
@@ -57,14 +61,14 @@ Tekst:
 
 # Etykiety tolerują warianty gemma3:4b (ogonki, dwukropek/myślnik, wielkość liter).
 _HEADER_RE = re.compile(r"^\s*scena\s*(\d+)\b", re.IGNORECASE)
-_UJECIE_RE = re.compile(r"^\s*uj[eę]cie\s*[:\-]\s*", re.IGNORECASE)
-_LEKTOR_RE = re.compile(r"^\s*lektor\s*[:\-]\s*", re.IGNORECASE)
+_UJECIE_RE = re.compile(r"^\s*uj[eę]ci\w*\s*[:\-]\s*", re.IGNORECASE)
+_LEKTOR_RE = re.compile(r"^\s*lektor\w*\s*[:\-]\s*", re.IGNORECASE)
 _COUNT_RE = re.compile(r"^SCENA\s+\d+:", re.IGNORECASE | re.MULTILINE)
 
 
 def _normalize(raw: str) -> str:
     """Sprząta wyjście modelu do kanonicznego formatu SCENA N: / UJĘCIE: / LEKTOR:."""
-    raw = re.sub(r"```[a-zA-Z]*", "", raw).replace("```", "").strip()
+    raw = re.sub(r"```[a-zA-Z]*", "", raw).replace("```", "").replace("**", "").strip()
 
     out = []
     for line in raw.splitlines():
@@ -117,7 +121,7 @@ def generate_scenes(text: str, scene_count=None) -> str:
     result = _normalize(generate(prompt))
 
     # Jeśli model kompletnie spudłował (0 scen), jedna próba naprawcza ze wzmocnieniem formatu.
-    if _count(result) == 0:
+    if _count(result) < count:
         retry = generate(
             prompt
             + "\n\nPRZYPOMNIENIE: Zacznij dokładnie od 'SCENA 1:' i w każdej scenie użyj etykiet 'UJĘCIE:' oraz 'LEKTOR:'."
