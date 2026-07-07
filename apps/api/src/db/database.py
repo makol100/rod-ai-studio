@@ -56,3 +56,148 @@ def list_reels(limit=20):
     ).fetchall()
     conn.close()
     return [dict(row) for row in rows]
+
+
+# ============================================================
+#  KATEGORIE I TEMATY — rozszerzenie (losowanie wazone + seed)
+# ============================================================
+import random
+
+
+def init_topics_db():
+    conn = get_connection()
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS categories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nazwa TEXT UNIQUE NOT NULL,
+        aktywna INTEGER DEFAULT 1
+    )
+    """)
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS topics (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        category_id INTEGER NOT NULL,
+        tekst TEXT NOT NULL,
+        uzyty_razy INTEGER DEFAULT 0,
+        ostatnio_uzyty TIMESTAMP,
+        aktywny INTEGER DEFAULT 1,
+        FOREIGN KEY (category_id) REFERENCES categories(id)
+    )
+    """)
+    conn.commit()
+    conn.close()
+    _seed_if_empty()
+
+
+def add_category(nazwa):
+    conn = get_connection()
+    conn.execute("INSERT OR IGNORE INTO categories(nazwa) VALUES (?)", (nazwa.strip(),))
+    conn.commit()
+    row = conn.execute("SELECT id FROM categories WHERE nazwa = ?", (nazwa.strip(),)).fetchone()
+    conn.close()
+    return row["id"] if row else None
+
+
+def list_categories():
+    conn = get_connection()
+    rows = conn.execute("""
+        SELECT c.id, c.nazwa, c.aktywna, COUNT(t.id) AS liczba_tematow
+        FROM categories c
+        LEFT JOIN topics t ON t.category_id = c.id AND t.aktywny = 1
+        GROUP BY c.id ORDER BY c.id
+    """).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+def add_topic(category_id, tekst):
+    conn = get_connection()
+    cur = conn.execute("INSERT INTO topics(category_id, tekst) VALUES (?, ?)", (category_id, tekst.strip()))
+    conn.commit()
+    new_id = cur.lastrowid
+    conn.close()
+    return new_id
+
+
+def list_topics(category_id=None):
+    conn = get_connection()
+    if category_id is not None:
+        rows = conn.execute("""
+            SELECT t.id, t.tekst, t.uzyty_razy, t.ostatnio_uzyty, t.aktywny,
+                   c.nazwa AS kategoria, t.category_id
+            FROM topics t JOIN categories c ON c.id = t.category_id
+            WHERE t.category_id = ? ORDER BY t.uzyty_razy ASC, t.id ASC
+        """, (category_id,)).fetchall()
+    else:
+        rows = conn.execute("""
+            SELECT t.id, t.tekst, t.uzyty_razy, t.ostatnio_uzyty, t.aktywny,
+                   c.nazwa AS kategoria, t.category_id
+            FROM topics t JOIN categories c ON c.id = t.category_id
+            ORDER BY c.id, t.uzyty_razy ASC
+        """).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+def random_topic():
+    conn = get_connection()
+    rows = conn.execute("""
+        SELECT t.id, t.tekst, t.uzyty_razy, c.nazwa AS kategoria
+        FROM topics t JOIN categories c ON c.id = t.category_id
+        WHERE t.aktywny = 1 AND c.aktywna = 1
+    """).fetchall()
+    if not rows:
+        conn.close()
+        return None
+    wagi = [1.0 / (r["uzyty_razy"] + 1) for r in rows]
+    wybor = random.choices(rows, weights=wagi, k=1)[0]
+    conn.execute(
+        "UPDATE topics SET uzyty_razy = uzyty_razy + 1, ostatnio_uzyty = CURRENT_TIMESTAMP WHERE id = ?",
+        (wybor["id"],))
+    conn.commit()
+    conn.close()
+    return {"id": wybor["id"], "kategoria": wybor["kategoria"],
+            "temat": wybor["tekst"], "uzyty_razy": wybor["uzyty_razy"] + 1}
+
+
+SEED = {
+    "Co siac / co robic teraz": [
+        "Co wysiac na dzialce w lipcu", "Prace na dzialce w tym miesiacu",
+        "Druga tura wysiewu - co jeszcze zdazysz", "Kiedy sadzic czosnek na zime",
+        "Co siac we wrzesniu na jesienne zbiory", "Przygotowanie grzadek po zimie",
+        "Ostatni moment na wysiew rozsady"],
+    "Sprawdzone triki dzialkowca": [
+        "Jak podlewac pomidory, zeby nie chorowaly", "Fasola na siatce - wiecej plonu z metra",
+        "Ogorki na siatce zamiast na ziemi", "Kawa i fusy w ogrodzie - tak czy nie",
+        "Pasynkowanie pomidorow krok po kroku", "Kompost - co wrzucac, czego unikac",
+        "Nagietek i aksamitka miedzy warzywami"],
+    "Najczestsze bledy": [
+        "3 bledy przy sadzeniu rozsady", "Dlaczego twoja rzodkiewka gorzknieje",
+        "Najczestszy blad przy podlewaniu w upaly", "Nie rob tego z kompostem",
+        "Bledy przy przechowywaniu plonow", "Dlaczego pomidory pekaja"],
+    "Zycie ROD Wozniki": [
+        "Kwitnace dzialki wiosna na naszym ROD", "Zbiory na dzialkach ROD Wozniki",
+        "Przygotowanie dzialki do zimy", "Konkurs na najpiekniejsza dzialke",
+        "Prace porzadkowe na ogrodzie"],
+    "Ciekawostki i mity": [
+        "Czarna rzodkiew - zapomniane warzywo naszych babc",
+        "Czy wiedziales, ze nagietek chroni warzywa?",
+        "Zapomniane warzywa: pasternak, topinambur",
+        "Najwiekszy mit o podlewaniu wieczorem", "5 ciekawostek o komposcie"],
+}
+
+
+def _seed_if_empty():
+    conn = get_connection()
+    n = conn.execute("SELECT COUNT(*) AS c FROM categories").fetchone()["c"]
+    conn.close()
+    if n > 0:
+        return
+    for nazwa, tematy in SEED.items():
+        cid = add_category(nazwa)
+        for t in tematy:
+            add_topic(cid, t)
+    print(f"[seed] {len(SEED)} kategorii, {sum(len(v) for v in SEED.values())} tematow")
+
+
+init_topics_db()
