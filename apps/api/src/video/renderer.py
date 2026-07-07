@@ -101,7 +101,7 @@ def render_video(folder: Path):
             if img.exists():
                 clip = parts_dir / f"{i:02d}.mp4"
                 duration = audio_duration(wav) if wav.exists() else 2.5
-                make_clip_kb(img, wav if wav.exists() else None, clip, duration)
+                make_clip_kb(img, wav if wav.exists() else None, clip, duration, subs=(folder / "subs" / f"{i:02d}.ass"))
                 parts.append(clip)
 
         # OUTRO — plansza logo na koncu kazdej rolki.
@@ -140,7 +140,7 @@ def render_video(folder: Path):
         }
 
 
-def make_clip_kb(image: Path, audio: Path | None, output: Path, duration: float):
+def make_clip_kb(image: Path, audio: Path | None, output: Path, duration: float, subs: Path | None = None):
     """
     Klip sceny z subtelnym najazdem Ken Burns (powolny zoom-in ~6%, wycentrowany).
     Ciecie miedzy scenami zostaje twarde - kazda scena od razu delikatnie wjezdza.
@@ -165,8 +165,13 @@ def make_clip_kb(image: Path, audio: Path | None, output: Path, duration: float)
     else:
         cmd += ["-f", "lavfi", "-t", str(duration), "-i", "anullsrc=channel_layout=stereo:sample_rate=44100"]
 
+    vf = zoom
+    if subs is not None and Path(subs).exists():
+        subs_esc = str(subs).replace("\\", "/").replace(":", "\\:")
+        vf = zoom + ",ass=" + subs_esc
+
     cmd += [
-        "-vf", zoom,
+        "-vf", vf,
         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "veryfast", "-crf", "18",
         "-c:a", "aac", "-b:a", "192k", "-shortest",
         "-movflags", "+faststart", str(output),

@@ -9,6 +9,7 @@ from src.ai.image_backend import generate_image
 from src.video.renderer import render_video
 from src.reels import create_reel_folder, save_text
 from src.audio.generator import generate_audio
+from src.subtitles.generator import make_subtitles
 
 
 def _log(msg: str):
@@ -62,6 +63,10 @@ def _produce_media(folder: Path, scenes: str, result: dict) -> dict:
         result["error"] = "Zaden obraz sie nie wygenerowal — render pominiety."
         _log("PRZERWANE: brak obrazow, render pominiety.")
         return result
+
+    _log("napisy (whisper)…")
+    subs_res = make_subtitles(folder)
+    result["subs_count"] = subs_res.get("count", 0)
 
     _log("renderuje wideo…")
     video = render_video(folder)
