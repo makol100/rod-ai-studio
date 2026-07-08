@@ -1,4 +1,6 @@
 
 
-## ZAMKNIĘTE (08.07.2026, 13:35) — kategoria #3 przebudowana
-"Najczestsze bledy" (id=3): stare 6 tematow usuniete (mialy historie uzycia 3-6x), zastapione 50 nowymi w gestym stylu wizualnym (kontrast zdrowe/zniszczone). Baza: 15 kategorii, 690 tematow.
+## ZAMKNIĘTE (08.07.2026, 13:40) — kategoria usunieta
+"Zycie ROD Wozniki" (byla id=4, 5 tematow z historia uzycia 3-8x) usunieta calkowicie na wyrazna prosbe Tomasza (kategoria + wszystkie tematy). Baza: 14 kategorii, 685 tematow.
+
+**UWAGA numeracji ID:** ID kategorii NIE sa teraz ciagle 1..14 - kategoria 4 zniknela, wiec istniejace ID to np. 1,2,3,5,6... Nie zakladaj ciaglosci ID przy pisaniu przyszlych zapytan po category_id - zawsze pytaj po nazwie (WHERE nazwa=?) tak jak dotychczas.
