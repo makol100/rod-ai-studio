@@ -198,3 +198,61 @@ def _seed_if_empty():
 
 
 init_topics_db()
+
+
+# ============================================================
+#  ZAPOWIEDZI SERII — calkowicie osobna sciezka od kategorii/tematow.
+#  Uzywane dla rolek typu "odcinek serii / coming soon", ktore NIE
+#  pochodza z bazy tematow ogrodniczych. Ustalone w Dyskusji 08.07.2026.
+# ============================================================
+
+def init_zapowiedzi_db():
+    conn = get_connection()
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS zapowiedzi (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        tresc_promptu TEXT NOT NULL,
+        utworzony TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        uzyty_razy INTEGER DEFAULT 0,
+        ostatnio_uzyty TIMESTAMP,
+        reel_id TEXT
+    )
+    """)
+    conn.commit()
+    conn.close()
+
+
+def add_zapowiedz(tresc_promptu, reel_id=None, uzyty_razy=0, ostatnio_uzyty=None):
+    """reel_id/uzyty_razy/ostatnio_uzyty opcjonalne - do retroaktywnego
+    dopisania juz uzytych zapowiedzi (odcinek 1, 2) z pelna historia."""
+    conn = get_connection()
+    cur = conn.execute(
+        "INSERT INTO zapowiedzi(tresc_promptu, reel_id, uzyty_razy, ostatnio_uzyty) VALUES (?, ?, ?, ?)",
+        (tresc_promptu.strip(), reel_id, uzyty_razy, ostatnio_uzyty)
+    )
+    conn.commit()
+    new_id = cur.lastrowid
+    conn.close()
+    return new_id
+
+
+def list_zapowiedzi():
+    conn = get_connection()
+    rows = conn.execute(
+        "SELECT id, tresc_promptu, utworzony, uzyty_razy, ostatnio_uzyty, reel_id FROM zapowiedzi ORDER BY id"
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+def oznacz_uzyta_zapowiedz(zapowiedz_id, reel_id):
+    conn = get_connection()
+    conn.execute(
+        "UPDATE zapowiedzi SET uzyty_razy = uzyty_razy + 1, ostatnio_uzyty = CURRENT_TIMESTAMP, reel_id = ? WHERE id = ?",
+        (reel_id, zapowiedz_id)
+    )
+    conn.commit()
+    conn.close()
+
+
+init_zapowiedzi_db()

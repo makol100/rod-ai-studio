@@ -1,4 +1,4 @@
-from src.ai.ollama import generate
+from src.ai.ollama import generate, PROMPT_MODEL
 from src.config import SCENE_COUNT
 import re
 import time
@@ -6,16 +6,41 @@ import requests
 
 
 def _unload_text_model():
-    """Zwalnia Bielika z RAM przed seria wywolan llama3.1:8b - zapobiega OOM (oba modele naraz sie nie miesza na 7.6GB VPS)."""
+    """Zwalnia aktualny model tekstowy (DEFAULT_MODEL) z RAM przed seria
+    wywolan modelu do promptow obrazow (PROMPT_MODEL) - zapobiega OOM.
+
+    NAPRAWIONE 08.07.2026: wczesniej mial zahardkodowana STARA nazwe
+    Bielika-4.5B, wiec po podmianie na Bielika-11B w ogole nie zwalnial
+    faktycznie zaladowanego modelu (probowal zwolnic cos, co i tak nie
+    bylo zaladowane) - cichy, niewidoczny bug. Teraz czyta DEFAULT_MODEL
+    dynamicznie, i uzywa tego samego pollingu + bufora bezpieczenstwa co
+    reels/pipeline.py::_unload_model (jeden OOM za duzo przy 22GB RAM
+    pokazal, ze sam polling bez bufora czasem nie wystarcza)."""
+    from src.ai.ollama import DEFAULT_MODEL
     try:
         requests.post(
             "http://host.docker.internal:11434/api/generate",
-            json={"model": "SpeakLeash/bielik-4.5b-v3.0-instruct:Q8_0", "keep_alive": 0},
+            json={"model": DEFAULT_MODEL, "keep_alive": 0},
             timeout=15,
         )
-        time.sleep(2)
     except Exception:
-        pass  # brak Bielika w pamieci to nie blad - jedziemy dalej
+        pass
+
+    t0 = time.time()
+    zniknal = False
+    while time.time() - t0 < 20:
+        try:
+            r = requests.get("http://host.docker.internal:11434/api/ps", timeout=5)
+            zaladowane = [m.get("name", "") for m in r.json().get("models", [])]
+            if not any(DEFAULT_MODEL in nazwa for nazwa in zaladowane):
+                zniknal = True
+                break
+        except Exception:
+            pass
+        time.sleep(1)
+
+    if zniknal:
+        time.sleep(10)  # bufor bezpieczenstwa - patrz komentarz w reels/pipeline.py
 
 
 SCENE_MATCH_PATTERN = r"SCENA\s+\d+\s*:"
@@ -240,6 +265,48 @@ SCENE:
 Respond with ONLY the prompt text. No "PROMPT" label, no quotes, no markdown, no extra commentary."""
 
 
+SINGLE_SCENE_HEADER_CZYSTY = """Write ONE photorealistic English image-generation prompt (5-7 sentences, at least 90 words) for a vertical 9:16 photo, based on the scene below. Start with "Photorealistic photograph of". End with this exact sentence: "Photorealistic, authentic documentary photography, real Polish allotment garden, natural lighting."
+
+SCENE:
+{scene}
+
+Respond with ONLY the prompt text. No label, no quotes, no markdown, no commentary."""
+
+
+def generate_image_prompts_czysty(scenes: str) -> str:
+    """Wariant generate_image_prompts() dla Drogi #2 (Dyskusja 08.07.2026) -
+    BEZ sekcji "Context-aware plant rules" (kalarepa, koper, czarna rzodkiew
+    itd.) z SINGLE_SCENE_HEADER. Te przykuly sa uzyteczne dla prawdziwych
+    tematow warzywnych (Droga #1), ale dla tematow niezwiazanych z tymi
+    konkretnymi warzywami (jak zapowiedzi, iglaki, grzyby) model czasem
+    "przyczepial sie" do najdluzszego przykladu (kalarepa) zamiast czytac
+    wlasciwa tresc sceny - potwierdzone na zywo w rolce 000065 (5/9 scen
+    bez zwiazku z tematem). Reszta logiki identyczna jak oryginal."""
+    blocks = _split_scene_blocks(scenes)
+    if not blocks:
+        blocks = [scenes.strip()]
+
+    _unload_text_model()
+
+    prompts = []
+    for idx, block in enumerate(blocks, start=1):
+        single_prompt = SINGLE_SCENE_HEADER_CZYSTY.format(scene=block)
+        result = None
+        for attempt in range(3):
+            try:
+                result = generate(single_prompt, model=PROMPT_MODEL, temperature=0.3).strip()
+                break
+            except Exception as e:
+                print(f"[prompts_czysty] scena {idx} próba {attempt+1}/3 nieudana: {e}")
+                time.sleep(5)
+        if result is None:
+            raise RuntimeError(f"Nie udalo sie wygenerowac promptu dla sceny {idx} po 3 probach")
+        prompts.append(f"PROMPT {idx}:\n{result}")
+        time.sleep(1.5)
+
+    return "\n\n".join(prompts)
+
+
 def _split_scene_blocks(scenes: str) -> list:
     parts = re.split(f"({SCENE_MATCH_PATTERN})", scenes, flags=re.IGNORECASE)
     blocks = []
@@ -265,7 +332,7 @@ def generate_image_prompts(scenes: str) -> str:
         result = None
         for attempt in range(3):
             try:
-                result = generate(single_prompt, model="llama3.1:8b", temperature=0.3).strip()
+                result = generate(single_prompt, model=PROMPT_MODEL, temperature=0.3).strip()
                 break
             except Exception as e:
                 print(f"[prompts] scena {idx} próba {attempt+1}/3 nieudana: {e}")

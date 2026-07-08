@@ -2,7 +2,7 @@
 Naprawa istniejacej rolki na podstawie zgloszenia uzytkownika (funkcja "NAPRAW" w panelu).
 
 Dwuetapowy przeplyw, zeby nie placic za fal.ai bez przegladu:
-  1) sprawdz_zmiany(folder, skarga) -> model przepisuje CALY scenariusz (llama3.1:8b,
+  1) sprawdz_zmiany(folder, skarga) -> model przepisuje CALY scenariusz (PROMPT_MODEL - obecnie qwen3:14b,
      za darmo, lokalnie), kod diffuje stary vs nowy scena-po-scenie.
   2) zastosuj_zmiany(folder, ...) -> scala stary+nowy wg zaakceptowanych numerow scen,
      i SURGICZNIE regeneruje TYLKO to co faktycznie zaakceptowano:
@@ -14,7 +14,7 @@ Dwuetapowy przeplyw, zeby nie placic za fal.ai bez przegladu:
 from pathlib import Path
 import subprocess
 
-from src.ai.ollama import generate
+from src.ai.ollama import generate, PROMPT_MODEL
 from src.scenes.generator import _normalize, parse_scenes
 from src.images.prompts import generate_image_prompts
 from src.images.generator import generate_images
@@ -54,7 +54,7 @@ Nie pisz nic przed SCENA 1 ani po ostatniej scenie. Nie dodawaj wstepu ani podsu
     _unload_text_model()  # zwolnij Bielika z RAM (7.6GB VPS, oba modele naraz sie nie miesza)
     # gemma3:4b: w testach dużo bardziej wiarygodny niż Bielik-Q8_0 przy "przepisz prawie bez zmian"
     # (Bielik gubił/wymyslal litery nawet przy temp=0; gemma3:4b powtarzalnie poprawny 2x z rzedu)
-    nowy_tekst = _normalize(generate(prompt, model="llama3.1:8b", temperature=0.1))  # lepszy niz gemma3:4b: lapie WSZYSTKIE wystapienia literowki, nie tylko pierwsze
+    nowy_tekst = _normalize(generate(prompt, model=PROMPT_MODEL, temperature=0.1))  # lepszy niz gemma3:4b: lapie WSZYSTKIE wystapienia literowki, nie tylko pierwsze
 
     stare = {s["scena"]: s for s in parse_scenes(stary_tekst)}
     nowe = {s["scena"]: s for s in parse_scenes(nowy_tekst)}
