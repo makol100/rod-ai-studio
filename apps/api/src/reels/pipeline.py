@@ -90,11 +90,15 @@ def _produce_media(folder: Path, scenes: str, result: dict) -> dict:
     return result
 
 
-def generate_reel(prompt: str, scene_count=None):
-    """Pełny pipeline: prompt -> artykuł -> sceny -> (audio, obrazy, wideo)."""
+def generate_reel(prompt: str, scene_count=None, tryb: str = "organizm"):
+    """Pełny pipeline: prompt -> artykuł -> sceny -> (audio, obrazy, wideo).
+
+    tryb -- "organizm" (domyslnie) albo "sprzet", wybiera wariant promptu
+    scenariusza w scenes/generator.py (patrz TELEPORT_fabryka.md).
+    """
     folder = create_reel_folder()
-    _log(f"START (pelny) folder={folder}")
-    result = {"status": "ok", "folder": str(folder), "mode": "generate_reel"}
+    _log(f"START (pelny) folder={folder} tryb={tryb}")
+    result = {"status": "ok", "folder": str(folder), "mode": "generate_reel", "tryb": tryb}
     try:
         _log("artykul…")
         article = generate(prompt)
@@ -102,7 +106,7 @@ def generate_reel(prompt: str, scene_count=None):
         result["article_file"] = str(folder / "article.md")
 
         _log("sceny…")
-        scenes = generate_scenes(article, scene_count)
+        scenes = generate_scenes(article, scene_count, tryb=tryb)
 
         return _produce_media(folder, scenes, result)
 

@@ -140,24 +140,21 @@ def list_topics(category_id=None):
 
 
 def random_topic():
+    from datetime import datetime
+    m = datetime.now().month
+    okno = {((m - 1 + k) % 12) + 1 for k in range(3)}
     conn = get_connection()
-    rows = conn.execute("""
-        SELECT t.id, t.tekst, t.uzyty_razy, c.nazwa AS kategoria
-        FROM topics t JOIN categories c ON c.id = t.category_id
-        WHERE t.aktywny = 1 AND c.aktywna = 1
-    """).fetchall()
-    if not rows:
+    rows = conn.execute('SELECT t.id, t.tekst, t.uzyty_razy, t.miesiace, c.nazwa AS kategoria FROM topics t JOIN categories c ON c.id = t.category_id WHERE t.aktywny = 1 AND c.aktywna = 1').fetchall()
+    kand = [r for r in rows if r['miesiace'] is None or (okno & {int(x) for x in r['miesiace'].split(',')})]
+    if not kand:
         conn.close()
         return None
-    wagi = [1.0 / (r["uzyty_razy"] + 1) for r in rows]
-    wybor = random.choices(rows, weights=wagi, k=1)[0]
-    conn.execute(
-        "UPDATE topics SET uzyty_razy = uzyty_razy + 1, ostatnio_uzyty = CURRENT_TIMESTAMP WHERE id = ?",
-        (wybor["id"],))
+    wagi = [1.0 / (r['uzyty_razy'] + 1) for r in kand]
+    wybor = random.choices(kand, weights=wagi, k=1)[0]
+    conn.execute('UPDATE topics SET uzyty_razy = uzyty_razy + 1, ostatnio_uzyty = CURRENT_TIMESTAMP WHERE id = ?', (wybor['id'],))
     conn.commit()
     conn.close()
-    return {"id": wybor["id"], "kategoria": wybor["kategoria"],
-            "temat": wybor["tekst"], "uzyty_razy": wybor["uzyty_razy"] + 1}
+    return {'id': wybor['id'], 'kategoria': wybor['kategoria'], 'temat': wybor['tekst'], 'uzyty_razy': wybor['uzyty_razy'] + 1}
 
 
 SEED = {

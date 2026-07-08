@@ -6,7 +6,7 @@ import requests
 
 
 def _unload_text_model():
-    """Zwalnia Bielika z RAM przed seria wywolan gemmy - zapobiega OOM."""
+    """Zwalnia Bielika z RAM przed seria wywolan llama3.1:8b - zapobiega OOM (oba modele naraz sie nie miesza na 7.6GB VPS)."""
     try:
         requests.post(
             "http://host.docker.internal:11434/api/generate",
@@ -195,7 +195,7 @@ def _count_scenes(scenes: str) -> int:
 
 SINGLE_SCENE_HEADER = """You are FLUX Photo Engine V3 for ROD AI Studio.
 
-Given ONE garden scene below, write exactly ONE photorealistic English image-generation prompt (3-5 sentences, 80-120 words) describing ONLY the plant/vegetable/fruit and garden bed.
+Given ONE garden scene below, write exactly ONE photorealistic English image-generation prompt describing ONLY the plant/vegetable/fruit and garden bed. REQUIRED LENGTH: 5-7 full sentences, at least 90 words - this is a hard minimum, do not stop early.
 
 The goal is NOT to create beautiful AI art. The goal is authentic documentary photographs from real Polish allotment gardens.
 
@@ -232,7 +232,7 @@ Soil with real texture: crumbs, organic matter, moisture or dryness depending on
 FORBIDDEN
 Never describe: video, clip, animation, camera movement, timelapse, visible text, logos, watermark, UI. Never create: illustration, painting, cartoon, CGI, 3D render, plastic plants, advertising style, AI-generated appearance, duplicated objects.
 
-End naturally with descriptors like: photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting.
+MANDATORY FINAL SENTENCE - always include this exact closing sentence as the very last sentence: Photorealistic, authentic documentary photography, real Polish allotment garden, botanical accuracy, natural lighting.
 
 SCENE:
 {scene}
@@ -265,7 +265,7 @@ def generate_image_prompts(scenes: str) -> str:
         result = None
         for attempt in range(3):
             try:
-                result = generate(single_prompt, model="gemma3:4b").strip()
+                result = generate(single_prompt, model="llama3.1:8b", temperature=0.3).strip()
                 break
             except Exception as e:
                 print(f"[prompts] scena {idx} próba {attempt+1}/3 nieudana: {e}")

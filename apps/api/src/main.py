@@ -29,3 +29,10 @@ def root():
         "status": "ok",
         "message": "Fabryka Rolek API"
     }
+
+
+@app.get("/panel")
+def panel():
+    from fastapi.responses import HTMLResponse
+    with open("/app/src/panel.html", encoding="utf-8") as f:
+        return HTMLResponse(f.read())

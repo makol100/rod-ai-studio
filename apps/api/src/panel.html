@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fabryka Rolek — panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F6F2; --surface:#FFFFFF; --surface-2:#EDF1EA; --line:#DCE4D8;
+    --brand:#2E7D46; --accent:#43A047; --gold:#C8961E; --text:#1A231C;
+    --muted:#6B7A6E; --alert:#D14A32;
+    --brand-soft:#E4EEE3; --gold-soft:#F6ECD4; --alert-soft:#F7E1DB;
+    --shadow:0 1px 2px rgba(26,35,28,.04), 0 6px 20px rgba(26,35,28,.05);
+    --r-card:16px; --r-ctrl:10px; --r-pill:999px;
+    --disp:'Space Grotesk',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--body);
+    font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+    padding-bottom:64px;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:20px 16px 0}
+  a{color:var(--brand)}
+  ::selection{background:var(--gold-soft)}
+
+  /* ---------- header ---------- */
+  .topbar{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:6px 2px 18px;
+  }
+  .brandmark{display:flex; align-items:center; gap:12px; margin-right:auto}
+  .logo{
+    width:42px; height:42px; border-radius:12px; flex:none;
+    background:linear-gradient(150deg,var(--brand),var(--accent));
+    display:grid; place-items:center; color:#fff; box-shadow:var(--shadow);
+  }
+  .logo svg{width:22px; height:22px}
+  .brandtext h1{
+    font-family:var(--disp); font-weight:700; font-size:20px; letter-spacing:-.02em;
+    margin:0; line-height:1.05;
+  }
+  .brandtext .kick{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); margin-top:3px;
+  }
+  .season{
+    font-family:var(--mono); font-size:11.5px; color:var(--muted);
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-pill);
+    padding:6px 12px; white-space:nowrap;
+  }
+  .season b{color:var(--brand); font-weight:600}
+  .hoststat{
+    display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:500;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-pill);
+    padding:6px 13px; white-space:nowrap;
+  }
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--muted); flex:none}
+  .dot.on{background:var(--accent); box-shadow:0 0 0 3px var(--brand-soft)}
+  .dot.off{background:var(--alert)}
+
+  /* ---------- demo banner ---------- */
+  .demo{
+    display:none; align-items:center; gap:10px; margin-bottom:18px;
+    background:var(--gold-soft); border:1px solid #E7D5A8; border-radius:var(--r-ctrl);
+    padding:11px 14px; font-size:13px; color:#7a5b12;
+  }
+  .demo.show{display:flex}
+  .demo svg{width:17px; height:17px; flex:none}
+
+  /* ---------- section shell ---------- */
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px;
+  }
+  .stat{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+    padding:14px 16px; box-shadow:var(--shadow);
+  }
+  .stat .num{font-family:var(--mono); font-size:26px; font-weight:600; letter-spacing:-.02em; line-height:1}
+  .stat .lbl{font-size:12px; color:var(--muted); margin-top:5px; letter-spacing:.01em}
+
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+    box-shadow:var(--shadow); padding:22px; margin-bottom:20px;
+  }
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:18px}
+  .sec-head h2{
+    font-family:var(--disp); font-weight:600; font-size:15px; letter-spacing:.02em;
+    text-transform:uppercase; margin:0;
+  }
+  .sec-head .idx{
+    font-family:var(--mono); font-size:12px; color:var(--gold); font-weight:600;
+  }
+  .sec-head .spacer{margin-left:auto}
+
+  /* ---------- production line (signature) ---------- */
+  .line-card{padding:24px 22px 26px}
+  .line-status{
+    display:flex; align-items:center; gap:10px; margin-bottom:20px; min-height:22px;
+  }
+  .line-status .badge{
+    font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); background:var(--surface-2); padding:4px 10px; border-radius:var(--r-pill);
+  }
+  .line-status .badge.run{color:#7a5b12; background:var(--gold-soft)}
+  .line-status .badge.ok{color:var(--brand); background:var(--brand-soft)}
+  .line-status .badge.err{color:var(--alert); background:var(--alert-soft)}
+  .line-status .msg{font-size:13px; color:var(--muted)}
+  .line-status .clock{margin-left:auto; font-family:var(--mono); font-size:13px; color:var(--muted)}
+
+  .line{position:relative; display:grid; grid-template-columns:repeat(6,1fr); gap:0}
+  .line-track{
+    position:absolute; left:0; right:0; top:29px; height:3px; background:var(--line);
+    border-radius:3px; z-index:0;
+  }
+  .line-fill{
+    position:absolute; left:0; top:29px; height:3px; width:0;
+    background:linear-gradient(90deg,var(--accent),var(--gold));
+    border-radius:3px; z-index:1; transition:width .6s cubic-bezier(.4,0,.2,1);
+  }
+  .stage{position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center}
+  .stage .node{
+    width:60px; height:60px; border-radius:16px; background:var(--surface);
+    border:2px solid var(--line); display:grid; place-items:center; color:var(--muted);
+    transition:all .35s ease; position:relative;
+  }
+  .stage .node svg{width:26px; height:26px}
+  .stage .snum{
+    position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%;
+    background:var(--surface-2); color:var(--muted); font-family:var(--mono); font-size:10px;
+    font-weight:600; display:grid; place-items:center; border:1.5px solid var(--surface);
+  }
+  .stage .name{
+    font-size:11.5px; margin-top:9px; color:var(--muted); font-weight:500; letter-spacing:.01em;
+  }
+  .stage.is-active .node{
+    border-color:var(--gold); color:var(--gold); background:var(--gold-soft);
+    animation:pulse 1.4s ease-in-out infinite;
+  }
+  .stage.is-active .snum{background:var(--gold); color:#fff; border-color:var(--gold-soft)}
+  .stage.is-active .name{color:var(--text); font-weight:600}
+  .stage.is-done .node{border-color:var(--accent); color:#fff; background:var(--accent)}
+  .stage.is-done .snum{background:var(--brand); color:#fff}
+  .stage.is-done .name{color:var(--brand)}
+  .stage.is-error .node{border-color:var(--alert); color:#fff; background:var(--alert); animation:none}
+  .stage.is-error .snum{background:var(--alert); color:#fff}
+  .stage.is-error .name{color:var(--alert); font-weight:600}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,150,30,.35)}50%{box-shadow:0 0 0 8px rgba(200,150,30,0)}}
+  @media (prefers-reduced-motion: reduce){.stage.is-active .node{animation:none}}
+
+  /* ---------- controls ---------- */
+  label.field{display:block; font-size:12.5px; font-weight:600; color:var(--muted); margin-bottom:7px; letter-spacing:.01em}
+  textarea,input[type=text]{
+    width:100%; font-family:var(--body); font-size:15px; color:var(--text);
+    background:var(--surface); border:1.5px solid var(--line); border-radius:var(--r-ctrl);
+    padding:12px 14px; resize:vertical; transition:border-color .2s;
+  }
+  textarea{min-height:78px; line-height:1.45}
+  textarea:focus,input[type=text]:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--brand-soft)}
+  ::placeholder{color:#a7b3a8}
+
+  .row{display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end}
+  .row > .grow{flex:1 1 260px}
+
+  .seg{display:inline-flex; background:var(--surface-2); border-radius:var(--r-ctrl); padding:3px; gap:2px}
+  .seg button{
+    font-family:var(--mono); font-size:13px; font-weight:500; border:none; background:none;
+    color:var(--muted); padding:8px 13px; border-radius:8px; cursor:pointer; transition:all .15s;
+  }
+  .seg button.on{background:var(--surface); color:var(--brand); box-shadow:var(--shadow)}
+  .seg button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+
+  .btn{
+    font-family:var(--disp); font-weight:600; font-size:14px; letter-spacing:.01em;
+    border:1.5px solid var(--line); background:var(--surface); color:var(--text);
+    padding:11px 18px; border-radius:var(--r-ctrl); cursor:pointer; transition:all .18s;
+    display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+  }
+  .btn svg{width:17px; height:17px}
+  .btn:hover{border-color:var(--muted)}
+  .btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .btn:disabled{opacity:.5; cursor:not-allowed}
+  .btn.primary{background:var(--brand); border-color:var(--brand); color:#fff}
+  .btn.primary:hover{background:#276b3c; border-color:#276b3c}
+  .btn.gold{background:var(--gold); border-color:var(--gold); color:#fff}
+  .btn.gold:hover{background:#b0831a; border-color:#b0831a}
+  .btn.ghost{background:none}
+  .btn.sm{padding:8px 13px; font-size:13px}
+  .spin{width:15px; height:15px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:none}
+  .btn.is-loading .spin{display:inline-block}
+  .btn.is-loading .btn-ico{display:none}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .chip{
+    display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px;
+    background:var(--brand-soft); color:var(--brand); padding:4px 10px; border-radius:var(--r-pill);
+    font-weight:500;
+  }
+  .chip.muted{background:var(--surface-2); color:var(--muted)}
+  .chip.gold{background:var(--gold-soft); color:#7a5b12}
+  .picked{margin-top:12px; min-height:0}
+  .picked:empty{display:none}
+
+  /* ---------- result card ---------- */
+  .result{margin-top:18px; border-top:1px dashed var(--line); padding-top:18px; display:none}
+  .result.show{display:block}
+  .result h3{font-family:var(--disp); font-size:16px; margin:0 0 4px}
+  .result .meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+  .result .block{margin-top:12px}
+  .result .block .bh{display:flex; align-items:center; gap:8px; margin-bottom:6px}
+  .result .block .bh .t{font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.03em}
+  .result .txt{
+    background:var(--surface-2); border-radius:var(--r-ctrl); padding:12px 14px; font-size:14px;
+    white-space:pre-wrap; word-break:break-word;
+  }
+  .result .txt.mono{font-family:var(--mono); font-size:12.5px; color:var(--brand)}
+
+  /* ---------- grid ---------- */
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start}
+
+  /* ---------- reels list ---------- */
+  .reel{border:1px solid var(--line); border-radius:12px; padding:14px 15px; margin-bottom:11px; transition:border-color .2s}
+  .reel:last-child{margin-bottom:0}
+  .reel:hover{border-color:#c8d3c4}
+  .reel .rhead{display:flex; align-items:center; gap:10px; cursor:pointer}
+  .reel .rid{font-family:var(--mono); font-size:12px; color:var(--muted); font-weight:600; flex:none}
+  .reel .rtitle{font-weight:600; font-size:14.5px; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .badge-st{font-family:var(--mono); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; padding:3px 9px; border-radius:var(--r-pill); flex:none}
+  .st-pub{background:var(--brand-soft); color:var(--brand)}
+  .st-ready{background:var(--gold-soft); color:#7a5b12}
+  .st-err{background:var(--alert-soft); color:var(--alert)}
+  .st-other{background:var(--surface-2); color:var(--muted)}
+  .reel .rdate{font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:6px}
+  .reel .rbody{display:none; margin-top:12px; border-top:1px dashed var(--line); padding-top:12px}
+  .reel.open .rbody{display:block}
+  .reel .rprompt{font-size:13px; color:var(--muted); margin-bottom:8px}
+
+  /* ---------- naprawa rolki ---------- */
+  .napraw-section{margin-top:12px; border-top:1px dashed var(--line); padding-top:12px}
+  .napraw-form{margin-top:10px; display:flex; flex-direction:column; gap:8px}
+  .napraw-form textarea{width:100%; min-height:56px; border:1px solid var(--line); border-radius:8px; padding:9px 11px; font:inherit; font-size:13.5px; resize:vertical; box-sizing:border-box; background:var(--surface)}
+  .napraw-form textarea:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  .napraw-wyniki{margin-top:10px}
+  .napraw-scene{border:1px solid var(--line); border-radius:9px; padding:10px 12px; margin-bottom:8px; display:flex; gap:10px; align-items:flex-start}
+  .napraw-scene input[type=checkbox]{margin-top:3px; flex:none; width:16px; height:16px; accent-color:var(--brand)}
+  .napraw-scene .ns-body{flex:1; min-width:0}
+  .napraw-scene .ns-head{display:flex; gap:6px; align-items:center; margin-bottom:5px; flex-wrap:wrap}
+  .napraw-scene .ns-num{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--muted)}
+  .napraw-scene .ns-old{font-size:12.5px; color:var(--muted); text-decoration:line-through; margin-bottom:3px}
+  .napraw-scene .ns-new{font-size:13px; color:var(--text)}
+  .napraw-summary{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; flex-wrap:wrap}
+
+  /* ---------- topics editor ---------- */
+  .cat-tabs{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:16px}
+  .cat-tab{
+    font-size:12.5px; font-weight:500; border:1px solid var(--line); background:var(--surface);
+    color:var(--muted); padding:6px 12px; border-radius:var(--r-pill); cursor:pointer; transition:all .15s;
+  }
+  .cat-tab:hover{border-color:#c8d3c4}
+  .cat-tab.on{background:var(--brand); border-color:var(--brand); color:#fff}
+  .cat-tab:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+
+  .topic{display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--surface-2)}
+  .topic:last-of-type{border-bottom:none}
+  .topic .tdot{width:8px; height:8px; border-radius:50%; margin-top:6px; flex:none; background:var(--line)}
+  .topic .tdot.season{background:var(--accent); box-shadow:0 0 0 3px var(--brand-soft)}
+  .topic .tmain{flex:1; min-width:0}
+  .topic .ttext{font-size:14px; line-height:1.35}
+  .topic.off .ttext{color:var(--muted); text-decoration:line-through}
+  .topic .tmonths{display:flex; gap:4px; flex-wrap:wrap; margin-top:5px}
+  .mchip{font-family:var(--mono); font-size:10px; padding:2px 6px; border-radius:5px; background:var(--surface-2); color:var(--muted)}
+  .mchip.hot{background:var(--brand-soft); color:var(--brand); font-weight:600}
+  .mchip.all{background:var(--gold-soft); color:#7a5b12}
+  .topic .tused{font-family:var(--mono); font-size:11px; color:var(--muted); flex:none; margin-top:3px; white-space:nowrap}
+
+  .adder{margin-top:16px; border-top:1px dashed var(--line); padding-top:16px}
+  .adder summary{font-family:var(--disp); font-size:13px; font-weight:600; cursor:pointer; color:var(--brand); list-style:none; display:flex; align-items:center; gap:7px}
+  .adder summary::-webkit-details-marker{display:none}
+  .adder summary svg{width:15px; height:15px; transition:transform .2s}
+  .adder[open] summary svg{transform:rotate(45deg)}
+  .adder .form{margin-top:14px}
+  .month-pick{display:flex; gap:5px; flex-wrap:wrap; margin-top:8px}
+  .mbtn{font-family:var(--mono); font-size:12px; width:38px; padding:6px 0; text-align:center; border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:7px; cursor:pointer; transition:all .12s}
+  .mbtn.on{background:var(--brand); border-color:var(--brand); color:#fff}
+  .mbtn:disabled{opacity:.4; cursor:not-allowed}
+  .mbtn:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  .allyear{display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--muted); margin-top:11px; cursor:pointer; user-select:none}
+  .allyear input{width:16px; height:16px; accent-color:var(--brand)}
+
+  /* ---------- diagnostics ---------- */
+  .diag-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px}
+  .diag{background:var(--surface-2); border-radius:var(--r-ctrl); padding:12px 14px}
+  .diag .dk{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em}
+  .diag .dv{font-family:var(--mono); font-size:15px; font-weight:500; margin-top:4px; word-break:break-word}
+
+  /* ---------- misc ---------- */
+  .empty{text-align:center; padding:26px 10px; color:var(--muted); font-size:13.5px}
+  .empty svg{width:26px; height:26px; opacity:.4; margin-bottom:8px}
+  .loading-txt{color:var(--muted); font-size:13px; font-family:var(--mono)}
+  .iconbtn{border:1px solid var(--line); background:var(--surface); border-radius:8px; width:30px; height:30px; display:grid; place-items:center; cursor:pointer; color:var(--muted); transition:all .15s}
+  .iconbtn:hover{border-color:#c8d3c4; color:var(--text)}
+  .iconbtn svg{width:15px; height:15px}
+  .iconbtn:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+
+  /* ---------- toasts ---------- */
+  #toasts{position:fixed; top:16px; right:16px; z-index:50; display:flex; flex-direction:column; gap:8px; max-width:340px}
+  .toast{
+    background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--muted);
+    border-radius:var(--r-ctrl); padding:11px 14px; font-size:13.5px; box-shadow:0 8px 24px rgba(26,35,28,.12);
+    animation:slidein .25s ease; word-break:break-word;
+  }
+  .toast.ok{border-left-color:var(--accent)}
+  .toast.err{border-left-color:var(--alert)}
+  .toast.info{border-left-color:var(--gold)}
+  @keyframes slidein{from{transform:translateX(20px); opacity:0}to{transform:translateX(0); opacity:1}}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    .grid2{grid-template-columns:1fr}
+    .card{padding:18px}
+    .line-card{padding:20px 16px 22px}
+    /* production line becomes a vertical rail */
+    .line{grid-template-columns:1fr; gap:0}
+    .line-track{left:29px; right:auto; top:0; bottom:0; width:3px; height:auto}
+    .line-fill{left:29px; top:0; width:3px !important; height:0; background:linear-gradient(180deg,var(--accent),var(--gold)); transition:height .6s cubic-bezier(.4,0,.2,1)}
+    .stage{flex-direction:row; align-items:center; text-align:left; gap:14px; padding:7px 0}
+    .stage .name{margin-top:0; font-size:13.5px}
+    .stage .snum{top:-5px; right:auto; left:-6px}
+  }
+  @media (max-width:420px){
+    .stat-row{grid-template-columns:1fr 1fr}
+    .stat-row .stat:last-child{grid-column:1 / -1}
+    .topbar{gap:10px}
+  }
+</style>
+</head>
+<body>
+<div id="toasts"></div>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="topbar">
+    <div class="brandmark">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2.4" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div class="brandtext">
+        <h1>Fabryka Rolek</h1>
+        <div class="kick">panel dowodzenia · ROD Woźniki</div>
+      </div>
+    </div>
+    <div class="season" id="season">sezon: <b>—</b></div>
+    <div class="hoststat"><span class="dot" id="hostdot"></span><span id="hostlabel">łączę…</span></div>
+  </div>
+
+  <!-- DEMO BANNER -->
+  <div class="demo" id="demoBanner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5h.01"/></svg>
+    <span><b>Tryb demo.</b> Panel nie jest połączony z API Fabryki — pokazuję dane przykładowe. Na serwerze połączy się sam.</span>
+  </div>
+
+  <!-- QUICK STATS -->
+  <div class="stat-row">
+    <div class="stat"><div class="num" id="statCats">–</div><div class="lbl">kategorie tematów</div></div>
+    <div class="stat"><div class="num" id="statTopics">–</div><div class="lbl">tematy w bazie</div></div>
+    <div class="stat"><div class="num" id="statReels">–</div><div class="lbl">wygenerowane rolki</div></div>
+  </div>
+
+  <!-- PRODUCTION LINE (signature) -->
+  <div class="card line-card">
+    <div class="line-status">
+      <span class="badge" id="lineBadge">bezczynna</span>
+      <span class="msg" id="lineMsg">Linia gotowa do pracy.</span>
+      <span class="clock" id="lineClock"></span>
+    </div>
+    <div class="line" id="line">
+      <div class="line-track"></div>
+      <div class="line-fill" id="lineFill"></div>
+      <!-- stages injected -->
+    </div>
+  </div>
+
+  <!-- GENERATOR -->
+  <div class="card">
+    <div class="sec-head"><span class="idx">01</span><h2>Nowa rolka</h2></div>
+    <label class="field" for="prompt">Temat rolki</label>
+    <textarea id="prompt" placeholder="Wpisz temat albo wylosuj z bazy sezonowej…"></textarea>
+    <div class="picked" id="picked"></div>
+
+    <div class="row" style="margin-top:16px">
+      <div>
+        <label class="field">Liczba scen</label>
+        <div class="seg" id="sceneSeg" role="group" aria-label="Liczba scen">
+          <button data-sc="" class="on">Auto</button>
+          <button data-sc="5">5</button>
+          <button data-sc="6">6</button>
+          <button data-sc="7">7</button>
+          <button data-sc="8">8</button>
+          <button data-sc="9">9</button>
+        </div>
+      </div>
+      <div class="grow" style="text-align:right; display:flex; gap:10px; justify-content:flex-end">
+        <button class="btn ghost" id="btnRandom">
+          <span class="btn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span>
+          <span class="spin"></span>Losuj temat
+        </button>
+        <button class="btn primary" id="btnGenerate">
+          <span class="btn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+          <span class="spin"></span>Generuj rolkę
+        </button>
+      </div>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <!-- GRID: reels + topics -->
+  <div class="grid2">
+
+    <!-- REELS -->
+    <div class="card" style="margin-bottom:0">
+      <div class="sec-head">
+        <span class="idx">02</span><h2>Ostatnie rolki</h2>
+        <span class="spacer"></span>
+        <button class="iconbtn" id="btnReloadReels" title="Odśwież" aria-label="Odśwież rolki">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>
+        </button>
+      </div>
+      <div id="reelsList"><div class="loading-txt">ładuję…</div></div>
+    </div>
+
+    <!-- TOPICS -->
+    <div class="card" style="margin-bottom:0">
+      <div class="sec-head">
+        <span class="idx">03</span><h2>Tematy sezonowe</h2>
+        <span class="spacer"></span>
+        <button class="iconbtn" id="btnReloadTopics" title="Odśwież" aria-label="Odśwież tematy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>
+        </button>
+      </div>
+      <div class="cat-tabs" id="catTabs"></div>
+      <div id="topicsList"><div class="loading-txt">ładuję…</div></div>
+
+      <details class="adder" id="adderTopic">
+        <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Dodaj temat</summary>
+        <div class="form">
+          <label class="field" for="newTopicText">Treść tematu</label>
+          <input type="text" id="newTopicText" placeholder="np. Kiedy sadzić czosnek na zimę">
+          <label class="field" style="margin-top:12px">Miesiące (kiedy pasuje)</label>
+          <div class="month-pick" id="monthPick"></div>
+          <label class="allyear"><input type="checkbox" id="allYear">cały rok (uniwersalny — zawsze w puli)</label>
+          <div style="margin-top:14px"><button class="btn primary sm" id="btnAddTopic"><span class="spin"></span><span class="btn-ico">Dodaj temat</span></button></div>
+        </div>
+      </details>
+
+      <details class="adder" id="adderCat">
+        <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nowa kategoria</summary>
+        <div class="form">
+          <div class="row">
+            <div class="grow"><input type="text" id="newCatName" placeholder="Nazwa kategorii"></div>
+            <button class="btn sm" id="btnAddCat"><span class="spin"></span><span class="btn-ico">Dodaj</span></button>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- DIAGNOSTICS -->
+  <div class="card">
+    <div class="sec-head">
+      <span class="idx">04</span><h2>Diagnostyka serwera</h2>
+      <span class="spacer"></span>
+      <button class="iconbtn" id="btnReloadStatus" title="Odśwież" aria-label="Odśwież status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>
+      </button>
+      <button class="btn ghost sm" id="btnRestart" style="margin-left:8px">
+        <span class="spin"></span><span class="btn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg></span>Restart API
+      </button>
+    </div>
+    <div class="diag-grid" id="diagGrid"><div class="loading-txt">ładuję…</div></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const $ = s => document.querySelector(s);
+  const API_BASE = ''; // same-origin na VPS
+  let DEMO = false;
+
+  const MNAMES = ['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'];
+  const MFULL  = ['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień'];
+  const nowMonth = () => new Date().getMonth() + 1;
+  const seasonWin = () => [0,1,2].map(k => ((nowMonth()-1+k)%12)+1);
+
+  const STAGES = [
+    {n:'01', name:'Sceny',  ic:'<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 8h8M8 12h8M8 16h5"/>'},
+    {n:'02', name:'Obrazy', ic:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/>'},
+    {n:'03', name:'Lektor', ic:'<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/>'},
+    {n:'04', name:'Napisy', ic:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h5M14 15h3M7 11h3M13 11h4"/>'},
+    {n:'05', name:'Render', ic:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 9l5 3-5 3z"/>'},
+    {n:'06', name:'Muzyka', ic:'<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.4"/><circle cx="16.5" cy="16" r="2.4"/>'}
+  ];
+
+  function svg(inner, cls){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="'+(cls||'')+'">'+inner+'</svg>';
+  }
+
+  /* ---------- toasts ---------- */
+  function toast(msg, type){
+    const t = document.createElement('div');
+    t.className = 'toast ' + (type||'info');
+    t.textContent = msg;
+    $('#toasts').appendChild(t);
+    setTimeout(()=>{ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, 4200);
+  }
+
+  /* ---------- API layer ---------- */
+  async function api(path, opts){
+    if(DEMO) return demoApi(path, opts||{});
+    const o = Object.assign({headers:{'Content-Type':'application/json'}}, opts||{});
+    const res = await fetch(API_BASE+path, o);
+    if(!res.ok){
+      let extra=''; try{ extra = (await res.text()).slice(0,180); }catch(e){}
+      throw new Error('HTTP '+res.status+(extra?' — '+extra:''));
+    }
+    const ct = res.headers.get('content-type')||'';
+    return ct.includes('json') ? res.json() : res.text();
+  }
+
+  /* ---------- demo data ---------- */
+  const demoCats = [
+    {id:1,nazwa:'Co siać / co robić teraz',aktywna:1},
+    {id:2,nazwa:'Sprawdzone triki działkowca',aktywna:1},
+    {id:3,nazwa:'Najczęstsze błędy',aktywna:1},
+    {id:4,nazwa:'Życie ROD Woźniki',aktywna:1},
+    {id:5,nazwa:'Ciekawostki i mity',aktywna:1},
+    {id:8,nazwa:'Kompostownik i gnojówki',aktywna:1},
+    {id:9,nazwa:'Iglaki',aktywna:1}
+  ];
+  let demoTopics = [
+    {id:1,category_id:1,tekst:'Co wysiać na działce w lipcu',uzyty_razy:2,aktywny:1,miesiace:'7'},
+    {id:2,category_id:1,tekst:'Druga tura wysiewu — co jeszcze zdążysz',uzyty_razy:0,aktywny:1,miesiace:'7,8'},
+    {id:3,category_id:1,tekst:'Kiedy sadzić czosnek na zimę',uzyty_razy:1,aktywny:1,miesiace:'9,10'},
+    {id:4,category_id:1,tekst:'Przygotowanie grządek po zimie',uzyty_razy:0,aktywny:1,miesiace:'3,4'},
+    {id:10,category_id:2,tekst:'Jak podlewać pomidory, żeby nie chorowały',uzyty_razy:4,aktywny:1,miesiace:null},
+    {id:11,category_id:2,tekst:'Fasola na siatce — więcej plonu z metra',uzyty_razy:1,aktywny:1,miesiace:null},
+    {id:30,category_id:8,tekst:'Gnojówka z pokrzywy — krok po kroku',uzyty_razy:0,aktywny:1,miesiace:'5,6,7'},
+    {id:31,category_id:8,tekst:'Jak założyć kompostownik od zera',uzyty_razy:0,aktywny:1,miesiace:null},
+    {id:32,category_id:8,tekst:'Kompost jesienią — co robić z liśćmi',uzyty_razy:0,aktywny:1,miesiace:'10,11'},
+    {id:40,category_id:9,tekst:'Kiedy przycinać tuje i żywotniki',uzyty_razy:0,aktywny:1,miesiace:'4,5,6'},
+    {id:41,category_id:9,tekst:'Podlewanie iglaków w upały',uzyty_razy:0,aktywny:1,miesiace:'6,7,8'},
+    {id:42,category_id:9,tekst:'Ochrona iglaków przed osypywaniem śniegu',uzyty_razy:0,aktywny:1,miesiace:'11,12,1'}
+  ];
+  let demoReels = [
+    {id:59,title:'Co siać w lipcu',status:'gotowa',created_at:'2026-07-07 12:10',prompt:'Co wysiać na działce w lipcu',text:'W lipcu na działce wciąż dużo się dzieje. To ostatni moment na drugą turę wysiewu — sałaty, rzodkiewki i fasolki szparagowej zdążą jeszcze wydać plon przed jesienią...',hashtags:'#ROD #działka #lipiec #ogród #warzywnik #Woźniki #porady #działkowiec'},
+    {id:50,title:'Zapowiedź serii',status:'opublikowana',created_at:'2026-07-05 09:00',prompt:'Zapowiedź serii filmów o działce',text:'Startujemy z serią krótkich filmów dla działkowiczów z ROD Woźniki. Co tydzień garść konkretnych porad prosto z grządki...',hashtags:'#ROD #Woźniki #działka #ogród #społeczność'}
+  ];
+  let demoNextTid = 100, demoNextCid = 20, demoNextRid = 60;
+
+  function demoApi(path, opts){
+    return new Promise((resolve)=>{
+      const method = (opts.method||'GET').toUpperCase();
+      const body = opts.body ? JSON.parse(opts.body) : {};
+      const [p, qs] = path.split('?');
+      const q = new URLSearchParams(qs||'');
+      setTimeout(()=>{
+        if(p==='/categories' && method==='GET') return resolve(demoCats.map(c=>Object.assign({},c)));
+        if(p==='/categories' && method==='POST'){ const c={id:demoNextCid++,nazwa:body.nazwa,aktywna:1}; demoCats.push(c); return resolve(c); }
+        if(p==='/topics-db' && method==='GET'){
+          const cid = q.get('category_id');
+          let list = demoTopics.slice();
+          if(cid) list = list.filter(t=>t.category_id==cid);
+          return resolve(list.map(t=>Object.assign({},t)));
+        }
+        if(p==='/topics-db' && method==='POST'){
+          const t={id:demoNextTid++,category_id:body.category_id,tekst:body.tekst,uzyty_razy:0,aktywny:1,ostatnio_uzyty:null,miesiace:body.miesiace??null};
+          demoTopics.push(t); return resolve(Object.assign({},t));
+        }
+        if(p==='/random-topic'){
+          const win = seasonWin();
+          const pool = demoTopics.filter(t=>t.aktywny && (t.miesiace===null || t.miesiace.split(',').some(m=>win.includes(+m))));
+          const pick = pool[Math.floor(Math.random()*pool.length)];
+          const cat = demoCats.find(c=>c.id===pick.category_id);
+          return resolve({id:pick.id,kategoria:cat?cat.nazwa:'—',temat:pick.tekst,uzyty_razy:pick.uzyty_razy+1});
+        }
+        if(p==='/reels') return resolve(demoReels.map(r=>Object.assign({},r)));
+        if(p==='/host/status') return resolve({kontener:'fabryka-api',status:'online',ram:'0.9 / 7.6 GB',dysk:'15% z 150 GB',uptime:'3 dni 4 godz',obciazenie:'0.08',model_ai:'llama3.1:8b'});
+        if(p==='/generate-reel'){
+          const r={id:demoNextRid++,title:(body.prompt||'').slice(0,44),status:'gotowa',created_at:new Date().toISOString().slice(0,16).replace('T',' '),prompt:body.prompt,text:'(demo) Przykładowy opis rolki dla tematu „'+body.prompt+'". W prawdziwej Fabryce tutaj pojawi się tekst wygenerowany przez model, dopasowany do '+(body.scene_count||'auto')+' scen.',hashtags:'#ROD #działka #ogród #Woźniki #porady #działkowiec'};
+          demoReels.unshift(r);
+          return resolve(r);
+        }
+        resolve({});
+      }, method==='GET' ? 250 : (p==='/generate-reel'? 7400 : 500));
+    });
+  }
+
+  /* ---------- mode detection ---------- */
+  async function detectMode(){
+    try{
+      const r = await fetch(API_BASE+'/categories', {method:'GET'});
+      if(!r.ok) throw 0;
+      const d = await r.json();
+      if(!Array.isArray(d)) throw 0;
+      DEMO = false;
+    }catch(e){ DEMO = true; }
+    $('#demoBanner').classList.toggle('show', DEMO);
+  }
+
+  /* ---------- season header ---------- */
+  function renderSeason(){
+    const win = seasonWin().map(m=>MNAMES[m-1]).join(' · ');
+    $('#season').innerHTML = 'sezon: <b>'+MFULL[nowMonth()-1]+'</b> · okno '+win;
+  }
+
+  /* ---------- production line ---------- */
+  const lineEl = $('#line'), fillEl = $('#lineFill');
+  let stageEls = [], schedTimers = [], clockTimer = null;
+
+  function buildLine(){
+    STAGES.forEach(s=>{
+      const d = document.createElement('div');
+      d.className = 'stage is-idle';
+      d.innerHTML = '<div class="node">'+svg(s.ic)+'<span class="snum">'+s.n+'</span></div><span class="name">'+s.name+'</span>';
+      lineEl.appendChild(d);
+      stageEls.push(d);
+    });
+  }
+  const isMobile = () => window.matchMedia('(max-width:760px)').matches;
+  function setFill(pct){
+    if(isMobile()){ fillEl.style.height = pct+'%'; fillEl.style.width='3px'; }
+    else { fillEl.style.width = pct+'%'; fillEl.style.height='3px'; }
+  }
+  function setStage(i, state){
+    const el = stageEls[i]; if(!el) return;
+    el.className = 'stage is-'+state;
+  }
+  function resetLine(){
+    schedTimers.forEach(clearTimeout); schedTimers=[];
+    stageEls.forEach((e,i)=>setStage(i,'idle'));
+    setFill(0);
+  }
+  function markProgress(active){
+    for(let i=0;i<STAGES.length;i++){
+      if(i<active) setStage(i,'done');
+      else if(i===active) setStage(i,'active');
+      else setStage(i,'idle');
+    }
+    setFill(active/(STAGES.length-1)*100);
+  }
+  function startLine(){
+    resetLine();
+    $('#lineBadge').className='badge run'; $('#lineBadge').textContent='pracuje';
+    $('#lineMsg').textContent='Uruchamiam linię…';
+    markProgress(0);
+    // szacowany harmonogram (obrazy i render trwają najdłużej); trzyma się na Muzyce do odpowiedzi
+    const sched = DEMO ? [0,1150,2400,3650,4900,6100] : [0,7000,34000,50000,66000,82000];
+    STAGES.forEach((s,i)=>{
+      schedTimers.push(setTimeout(()=>{
+        markProgress(i);
+        $('#lineMsg').textContent = 'Etap '+s.n+' — '+s.name.toLowerCase()+'…';
+      }, sched[i]));
+    });
+  }
+  function lineDone(){
+    schedTimers.forEach(clearTimeout); schedTimers=[];
+    stageEls.forEach((e,i)=>setStage(i,'done'));
+    setFill(100);
+    $('#lineBadge').className='badge ok'; $('#lineBadge').textContent='gotowe';
+    $('#lineMsg').textContent='Rolka zmontowana.';
+  }
+  function lineError(msg){
+    let active = stageEls.findIndex(e=>e.classList.contains('is-active'));
+    if(active<0) active=0;
+    schedTimers.forEach(clearTimeout); schedTimers=[];
+    stageEls.forEach((e,i)=>{ if(i<active) setStage(i,'done'); else if(i===active) setStage(i,'error'); else setStage(i,'idle'); });
+    $('#lineBadge').className='badge err'; $('#lineBadge').textContent='błąd';
+    $('#lineMsg').textContent = msg || 'Linia zatrzymana.';
+  }
+
+  /* ---------- scene count segmented ---------- */
+  let sceneCount = null;
+  $('#sceneSeg').addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    $('#sceneSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    sceneCount = b.dataset.sc === '' ? null : parseInt(b.dataset.sc,10);
+  });
+
+  /* ---------- loading state on buttons ---------- */
+  function busy(btn, on){ btn.classList.toggle('is-loading', on); btn.disabled = on; }
+
+  /* ---------- topic id tracking (dla trybu promptu: organizm/sprzet) ---------- */
+  let currentTopicId = null;
+  $('#prompt').addEventListener('input', ()=>{ currentTopicId = null; });
+
+  /* ---------- random topic ---------- */
+  $('#btnRandom').addEventListener('click', async ()=>{
+    busy($('#btnRandom'), true);
+    try{
+      const t = await api('/random-topic');
+      currentTopicId = t.id ?? null;
+      $('#prompt').value = t.temat || '';
+      $('#picked').innerHTML = '<span class="chip">'+esc(t.kategoria||'—')+'</span> <span class="chip muted">wylosowano · użyto '+(t.uzyty_razy??0)+'×</span>';
+    }catch(e){
+      if(String(e.message).indexOf('404')>=0) toast('Brak tematu w oknie sezonowym. Dodaj temat pasujący do bieżących miesięcy.', 'info');
+      else toast('Nie udało się wylosować tematu: '+e.message, 'err');
+    }finally{ busy($('#btnRandom'), false); }
+  });
+
+  /* ---------- generate ---------- */
+  $('#btnGenerate').addEventListener('click', async ()=>{
+    const prompt = $('#prompt').value.trim();
+    if(!prompt){ toast('Wpisz temat rolki albo wylosuj z bazy.', 'info'); $('#prompt').focus(); return; }
+    busy($('#btnGenerate'), true); busy($('#btnRandom'), true);
+    $('#result').classList.remove('show');
+    startLine();
+    const t0 = Date.now();
+    clockTimer = setInterval(()=>{ $('#lineClock').textContent = fmtClock(Date.now()-t0); }, 500);
+    try{
+      const reel = await api('/generate-reel', {method:'POST', body: JSON.stringify({prompt, scene_count: sceneCount, topic_id: currentTopicId})});
+      lineDone();
+      showResult(reel);
+      toast('Rolka wygenerowana.', 'ok');
+      loadReels(); loadStats();
+    }catch(e){
+      lineError('Generowanie przerwane.');
+      toast('Generowanie nie powiodło się: '+e.message, 'err');
+    }finally{
+      clearInterval(clockTimer);
+      busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
+    }
+  });
+
+  function showResult(reel){
+    reel = reel || {};
+    const title = reel.title || reel.temat || reel.prompt || 'Nowa rolka';
+    const id = reel.id!=null ? String(reel.id).padStart(6,'0') : '';
+    const txt = reel.text || reel.opis || '';
+    const tags = reel.hashtags || '';
+    const st = statusBadge(reel.status);
+    let html = '<h3>'+esc(title)+'</h3><div class="meta">';
+    if(id) html += '<span class="chip muted">#'+id+'</span>';
+    html += st + '</div>';
+    if(txt){
+      html += '<div class="block"><div class="bh"><span class="t">Opis</span>'+copyBtn('opis')+'</div><div class="txt" data-copy>'+esc(txt)+'</div></div>';
+    }
+    if(tags){
+      html += '<div class="block"><div class="bh"><span class="t">Hashtagi</span>'+copyBtn('hashtagi')+'</div><div class="txt mono" data-copy>'+esc(tags)+'</div></div>';
+    }
+    const r = $('#result'); r.innerHTML = html; r.classList.add('show');
+    r.querySelectorAll('.copy-btn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const box = b.closest('.block').querySelector('[data-copy]');
+        copyText(box.textContent, b);
+      });
+    });
+  }
+  function copyBtn(){ return '<button class="iconbtn copy-btn" title="Kopiuj" aria-label="Kopiuj" style="margin-left:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>'; }
+  function copyText(text, btn){
+    const ok = ()=>{ toast('Skopiowano do schowka.', 'ok'); if(btn){ btn.style.color='var(--accent)'; setTimeout(()=>btn.style.color='',900); } };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok).catch(()=>fallbackCopy(text,ok));
+    } else fallbackCopy(text, ok);
+  }
+  function fallbackCopy(text, ok){
+    const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); ok(); }catch(e){ toast('Nie udało się skopiować — zaznacz ręcznie.', 'info'); }
+    ta.remove();
+  }
+
+  /* ---------- reels ---------- */
+  async function loadReels(){
+    const box = $('#reelsList'); box.innerHTML = '<div class="loading-txt">ładuję…</div>';
+    try{
+      let reels = await api('/reels');
+      if(!Array.isArray(reels)) reels = [];
+      reels.sort((a,b)=> (num(b.id)) - (num(a.id)));
+      if(!reels.length){ box.innerHTML = emptyState('Brak rolek. Wygeneruj pierwszą powyżej.'); return; }
+      box.innerHTML = '';
+      reels.slice(0,12).forEach(r=>{
+        const id = r.id!=null ? String(r.id).padStart(6,'0') : '——';
+        const el = document.createElement('div'); el.className='reel'; el.dataset.reelId = id;
+        el.innerHTML =
+          '<div class="rhead"><span class="rid">#'+id+'</span>'+
+          '<span class="rtitle">'+esc(r.title||r.prompt||'(bez tytułu)')+'</span>'+
+          statusBadge(r.status)+'</div>'+
+          '<div class="rdate">'+esc(r.created_at||'')+'</div>'+
+          '<div class="rbody">'+
+            (r.prompt?'<div class="rprompt">Temat: '+esc(r.prompt)+'</div>':'')+
+            (r.text?'<div class="txt" style="margin-bottom:8px">'+esc(r.text)+'</div>':'')+
+            (r.hashtags?'<div class="txt mono">'+esc(r.hashtags)+'</div>':'')+
+            '<div class="napraw-section">'+
+              '<button class="btn ghost sm" data-action="toggle-napraw">🔧 Zgłoś problem</button>'+
+              '<div class="napraw-form" style="display:none">'+
+                '<textarea class="napraw-input" placeholder="Co nie gra? np. literówka w nazwie rośliny, scena się powtarza, lektor mówi błędnie..."></textarea>'+
+                '<button class="btn primary sm" data-action="sprawdz">Sprawdź</button>'+
+              '</div>'+
+              '<div class="napraw-wyniki"></div>'+
+            '</div>'+
+          '</div>';
+        el.querySelector('.rhead').addEventListener('click', ()=> el.classList.toggle('open'));
+        box.appendChild(el);
+      });
+    }catch(e){ box.innerHTML = emptyState('Nie udało się wczytać rolek: '+e.message); }
+  }
+
+  /* ---------- naprawa rolki ---------- */
+  const naprawState = new Map();
+
+  function renderNaprawWyniki(reelId, data){
+    const reelEl = document.querySelector('.reel[data-reel-id="'+reelId+'"]');
+    if(!reelEl) return;
+    const box = reelEl.querySelector('.napraw-wyniki');
+    const zmiany = (data.zmiany||[]).filter(z=>z.zmiana_obrazu || z.zmiana_audio);
+    if(!zmiany.length){
+      naprawState.delete(reelId);
+      box.innerHTML = '<div class="chip muted">Nie znaleziono żadnej pasującej zmiany. Spróbuj opisać dokładniej albo podać poprawną wartość wprost.</div>';
+      return;
+    }
+    naprawState.set(reelId, {nowy_scenariusz: data.nowy_scenariusz, zmiany: data.zmiany});
+    let html = data.ostrzezenie ? '<div class="chip gold" style="margin-bottom:8px">⚠ '+esc(data.ostrzezenie)+'</div>' : '';
+    zmiany.forEach(z=>{
+      let badge = '';
+      if(z.zmiana_obrazu && z.zmiana_audio) badge = '🖼️ obraz + 🔊 audio';
+      else if(z.zmiana_obrazu) badge = '🖼️ obraz';
+      else badge = '🔊 audio';
+      html += '<div class="napraw-scene" data-scene="'+z.scena+'">'+
+        '<input type="checkbox" checked data-role="scene-check">'+
+        '<div class="ns-body">'+
+          '<div class="ns-head"><span class="ns-num">SCENA '+z.scena+'</span><span class="chip muted">'+badge+'</span></div>'+
+          (z.zmiana_obrazu ? '<div class="ns-old">'+esc(z.stare_ujecie)+'</div><div class="ns-new">'+esc(z.nowe_ujecie)+'</div>' : '')+
+          (z.zmiana_audio ? '<div class="ns-old" style="margin-top:'+(z.zmiana_obrazu?'7px':'0')+'">'+esc(z.stary_lektor)+'</div><div class="ns-new">'+esc(z.nowy_lektor)+'</div>' : '')+
+        '</div>'+
+      '</div>';
+    });
+    html += '<div class="napraw-summary"><span class="chip" data-role="count-label">'+zmiany.length+' z '+zmiany.length+' zaznaczonych</span>'+
+      '<button class="btn primary sm" data-action="zastosuj">Zastosuj zaznaczone</button></div>';
+    box.innerHTML = html;
+  }
+
+  async function naprawSprawdz(reelId){
+    const reelEl = document.querySelector('.reel[data-reel-id="'+reelId+'"]');
+    const ta = reelEl.querySelector('.napraw-input');
+    const skarga = ta.value.trim();
+    if(!skarga){ toast('Opisz, co nie gra.', 'info'); ta.focus(); return; }
+    const btn = reelEl.querySelector('[data-action="sprawdz"]');
+    const box = reelEl.querySelector('.napraw-wyniki');
+    busy(btn, true);
+    box.innerHTML = '<div class="loading-txt">sprawdzam… (chwilę to zajmie, model czyta cały scenariusz)</div>';
+    try{
+      const data = await api('/napraw-sprawdz', {method:'POST', body: JSON.stringify({reel_id: reelId, skarga})});
+      renderNaprawWyniki(reelId, data);
+    }catch(e){
+      box.innerHTML = '';
+      toast('Nie udało się sprawdzić: '+e.message, 'err');
+    }finally{
+      busy(btn, false);
+    }
+  }
+
+  async function naprawZastosuj(reelId){
+    const state = naprawState.get(reelId);
+    if(!state) return;
+    const reelEl = document.querySelector('.reel[data-reel-id="'+reelId+'"]');
+    const checked = Array.from(reelEl.querySelectorAll('.napraw-scene input[data-role="scene-check"]:checked'))
+      .map(cb => Number(cb.closest('.napraw-scene').dataset.scene));
+    if(!checked.length){ toast('Zaznacz przynajmniej jedną scenę.', 'info'); return; }
+    const iloscObrazow = state.zmiany.filter(z => checked.includes(z.scena) && z.zmiana_obrazu).length;
+    const opis = iloscObrazow>0 ? ('To wygeneruje '+iloscObrazow+' nowych obraz'+(iloscObrazow===1?'':(iloscObrazow<5?'y':'ów'))+' (koszt fal.ai) i przerenderuje wideo. Kontynuować?') : 'To przerenderuje wideo (bez kosztu obrazów). Kontynuować?';
+    if(!confirm(opis)) return;
+    const btn = reelEl.querySelector('[data-action="zastosuj"]');
+    busy(btn, true);
+    try{
+      await api('/napraw-zastosuj', {method:'POST', body: JSON.stringify({
+        reel_id: reelId, nowy_scenariusz: state.nowy_scenariusz, zaakceptowane_sceny: checked
+      })});
+      toast('Poprawka zastosowana, rolka przerenderowana.', 'ok');
+      naprawState.delete(reelId);
+      loadReels();
+    }catch(e){
+      toast('Nie udało się zastosować poprawki: '+e.message, 'err');
+    }finally{
+      busy(btn, false);
+    }
+  }
+
+  $('#reelsList').addEventListener('click', (e)=>{
+    const toggleBtn = e.target.closest('[data-action="toggle-napraw"]');
+    if(toggleBtn){
+      const form = toggleBtn.nextElementSibling;
+      form.style.display = (form.style.display==='none') ? 'flex' : 'none';
+      return;
+    }
+    const sprawdzBtn = e.target.closest('[data-action="sprawdz"]');
+    if(sprawdzBtn){
+      naprawSprawdz(sprawdzBtn.closest('.reel').dataset.reelId);
+      return;
+    }
+    const zastosujBtn = e.target.closest('[data-action="zastosuj"]');
+    if(zastosujBtn){
+      naprawZastosuj(zastosujBtn.closest('.reel').dataset.reelId);
+      return;
+    }
+  });
+  $('#reelsList').addEventListener('change', (e)=>{
+    if(e.target.matches('.napraw-scene input[data-role="scene-check"]')){
+      const box = e.target.closest('.napraw-wyniki');
+      const total = box.querySelectorAll('.napraw-scene').length;
+      const checked = box.querySelectorAll('.napraw-scene input[data-role="scene-check"]:checked').length;
+      const label = box.querySelector('[data-role="count-label"]');
+      if(label) label.textContent = checked+' z '+total+' zaznaczonych';
+    }
+  });
+
+  function statusBadge(status){
+    const s = (status||'').toLowerCase();
+    let cls='st-other', label=status||'—';
+    if(s.indexOf('opublik')>=0){ cls='st-pub'; }
+    else if(s.indexOf('gotow')>=0){ cls='st-ready'; }
+    else if(s.indexOf('błąd')>=0||s.indexOf('blad')>=0||s.indexOf('error')>=0){ cls='st-err'; }
+    return '<span class="badge-st '+cls+'">'+esc(label)+'</span>';
+  }
+
+  /* ---------- topics editor ---------- */
+  let cats = [], activeCat = null;
+  async function loadCategories(){
+    try{
+      cats = await api('/categories'); if(!Array.isArray(cats)) cats=[];
+      const tabs = $('#catTabs'); tabs.innerHTML='';
+      cats.forEach(c=>{
+        const b=document.createElement('button');
+        b.className='cat-tab'+(c.id===activeCat?' on':'');
+        b.textContent=c.nazwa; b.dataset.cid=c.id;
+        b.addEventListener('click', ()=>{ activeCat=c.id; loadCategories(); loadTopics(c.id); });
+        tabs.appendChild(b);
+      });
+      if(activeCat==null && cats.length){ activeCat=cats[0].id; loadCategories(); loadTopics(activeCat); }
+    }catch(e){ $('#catTabs').innerHTML='<span class="loading-txt">nie udało się wczytać kategorii</span>'; }
+  }
+  async function loadTopics(cid){
+    const box=$('#topicsList'); box.innerHTML='<div class="loading-txt">ładuję…</div>';
+    try{
+      let topics = await api('/topics-db?category_id='+cid); if(!Array.isArray(topics)) topics=[];
+      if(!topics.length){ box.innerHTML=emptyState('Brak tematów w tej kategorii. Dodaj poniżej.'); return; }
+      const win = seasonWin();
+      box.innerHTML='';
+      topics.forEach(t=>{
+        const months = t.miesiace!=null ? t.miesiace.split(',').map(x=>+x) : null;
+        const inSeason = months===null || months.some(m=>win.includes(m));
+        const el=document.createElement('div');
+        el.className='topic'+(t.aktywny==0?' off':'');
+        let mchips='';
+        if(months===null) mchips='<span class="mchip all">cały rok</span>';
+        else mchips = months.map(m=>'<span class="mchip'+(win.includes(m)?' hot':'')+'">'+MNAMES[m-1]+'</span>').join('');
+        el.innerHTML =
+          '<span class="tdot'+(inSeason?' season':'')+'" title="'+(inSeason?'w sezonie teraz':'poza sezonem')+'"></span>'+
+          '<div class="tmain"><div class="ttext">'+esc(t.tekst)+'</div><div class="tmonths">'+mchips+'</div></div>'+
+          '<span class="tused">'+(t.uzyty_razy??0)+'×</span>';
+        box.appendChild(el);
+      });
+    }catch(e){ box.innerHTML=emptyState('Nie udało się wczytać tematów: '+e.message); }
+  }
+
+  /* month picker */
+  const monthState = new Set();
+  function buildMonthPick(){
+    const wrap=$('#monthPick');
+    for(let m=1;m<=12;m++){
+      const b=document.createElement('button'); b.type='button'; b.className='mbtn'; b.textContent=MNAMES[m-1]; b.dataset.m=m;
+      b.addEventListener('click', ()=>{ if(monthState.has(m)){monthState.delete(m);b.classList.remove('on');}else{monthState.add(m);b.classList.add('on');} });
+      wrap.appendChild(b);
+    }
+  }
+  $('#allYear').addEventListener('change', e=>{
+    const on=e.target.checked;
+    $('#monthPick').querySelectorAll('.mbtn').forEach(b=>{ b.disabled=on; if(on){b.classList.remove('on');} });
+    if(on) monthState.clear();
+  });
+
+  $('#btnAddTopic').addEventListener('click', async ()=>{
+    const text=$('#newTopicText').value.trim();
+    if(!text){ toast('Wpisz treść tematu.', 'info'); $('#newTopicText').focus(); return; }
+    if(activeCat==null){ toast('Najpierw wybierz kategorię.', 'info'); return; }
+    const allYear=$('#allYear').checked;
+    let miesiace=null;
+    if(!allYear){
+      if(monthState.size===0){ toast('Zaznacz miesiące albo „cały rok".', 'info'); return; }
+      miesiace = Array.from(monthState).sort((a,b)=>a-b).join(',');
+    }
+    busy($('#btnAddTopic'), true);
+    try{
+      await api('/topics-db', {method:'POST', body: JSON.stringify({category_id:activeCat, tekst:text, miesiace})});
+      toast('Temat dodany.', 'ok');
+      $('#newTopicText').value=''; $('#allYear').checked=false; monthState.clear();
+      $('#monthPick').querySelectorAll('.mbtn').forEach(b=>{b.classList.remove('on');b.disabled=false;});
+      loadTopics(activeCat); loadStats();
+    }catch(e){ toast('Nie udało się dodać tematu: '+e.message, 'err'); }
+    finally{ busy($('#btnAddTopic'), false); }
+  });
+
+  $('#btnAddCat').addEventListener('click', async ()=>{
+    const name=$('#newCatName').value.trim();
+    if(!name){ toast('Wpisz nazwę kategorii.', 'info'); $('#newCatName').focus(); return; }
+    busy($('#btnAddCat'), true);
+    try{
+      const c = await api('/categories', {method:'POST', body: JSON.stringify({nazwa:name})});
+      toast('Kategoria dodana.', 'ok');
+      $('#newCatName').value=''; if(c && c.id) activeCat=c.id;
+      loadCategories(); loadStats();
+    }catch(e){ toast('Nie udało się dodać kategorii: '+e.message, 'err'); }
+    finally{ busy($('#btnAddCat'), false); }
+  });
+
+  /* ---------- diagnostics ---------- */
+  async function loadStatus(){
+    const box=$('#diagGrid'); box.innerHTML='<div class="loading-txt">ładuję…</div>';
+    try{
+      const st = await api('/host/status');
+      $('#hostdot').className='dot on'; $('#hostlabel').textContent = DEMO ? 'demo' : 'API online';
+      if(st && typeof st==='object' && !Array.isArray(st)){
+        box.innerHTML='';
+        Object.keys(st).forEach(k=>{
+          const d=document.createElement('div'); d.className='diag';
+          d.innerHTML='<div class="dk">'+esc(prettyKey(k))+'</div><div class="dv">'+esc(String(st[k]))+'</div>';
+          box.appendChild(d);
+        });
+      } else { box.innerHTML='<div class="diag"><div class="dk">odpowiedź</div><div class="dv">'+esc(String(st))+'</div></div>'; }
+    }catch(e){
+      $('#hostdot').className='dot off'; $('#hostlabel').textContent='API offline';
+      box.innerHTML = emptyState('Serwer nie odpowiada: '+e.message);
+    }
+  }
+  function prettyKey(k){ return k.replace(/_/g,' ').replace(/\b\w/g, c=>c.toUpperCase()); }
+
+  $('#btnRestart').addEventListener('click', async ()=>{
+    if(!confirm('Zrestartować API Fabryki? Panel będzie chwilę niedostępny (~8 s).')) return;
+    busy($('#btnRestart'), true);
+    try{
+      await api('/host/restart-api', {method:'POST'});
+      toast('Restartuję API — odczekaj ~8 s i odśwież status.', 'info');
+    }catch(e){
+      // restart często zrywa połączenie, zanim wróci odpowiedź — to normalne
+      toast('Zlecono restart. Jeśli status zniknął, odśwież za chwilę.', 'info');
+    }finally{ busy($('#btnRestart'), false); }
+  });
+
+  /* ---------- stats ---------- */
+  async function loadStats(){
+    try{ const c=await api('/categories'); $('#statCats').textContent=Array.isArray(c)?c.length:'–'; }catch(e){ $('#statCats').textContent='–'; }
+    try{ const t=await api('/topics-db'); $('#statTopics').textContent=Array.isArray(t)?t.length:'–'; }catch(e){ $('#statTopics').textContent='–'; }
+    try{ const r=await api('/reels'); $('#statReels').textContent=Array.isArray(r)?r.length:'–'; }catch(e){ $('#statReels').textContent='–'; }
+  }
+
+  /* ---------- helpers ---------- */
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function num(v){ const n=parseInt(v,10); return isNaN(n)?-1:n; }
+  function fmtClock(ms){ const s=Math.floor(ms/1000); const m=Math.floor(s/60); return (m>0? m+':' + String(s%60).padStart(2,'0') : s+' s'); }
+  function emptyState(msg){ return '<div class="empty">'+svg('<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>')+'<div>'+esc(msg)+'</div></div>'; }
+
+  /* ---------- boot ---------- */
+  async function boot(){
+    buildLine(); buildMonthPick(); renderSeason();
+    await detectMode();
+    loadStats();
+    loadReels();
+    loadCategories();
+    loadStatus();
+  }
+  boot();
+  window.addEventListener('resize', ()=>{ /* keep fill orientation correct if line already progressed */ });
+})();
+</script>
+</body>
+</html>
