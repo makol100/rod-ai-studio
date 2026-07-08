@@ -1,6 +1,8 @@
 
 
-## ZAMKNIĘTE (08.07.2026, 13:50) — kategoria "Ciekawostki i mity" przebudowana
-id=5: stare 5 tematow usuniete (historia uzycia 3-6x), zastapione 50 nowymi (fakty/mity naukowe, botanika, zwierzeta, prawo ROD). Wiekszosc uniwersalna (None) - to tresc typu fakt/mit, nie sezonowa porada. Baza: 14 kategorii, 730 tematow.
+## POPRAWKA (08.07.2026, 13:25) — prawdziwa przyczyna "brak rolek" znaleziona
+Dzisiejsza wczesniejsza "naprawa" /reels (skanowanie dysku) byla NIEPELNA - poprawilem backend, ale nie sprawdzilem czy frontend poprawnie odpakowuje odpowiedz. `/reels` zwraca `{"status":"ok","reels":[...]}`, a `loadReels()` robilo `let reels = await api('/reels'); if(!Array.isArray(reels)) reels=[];` - poniewaz CALY obiekt {status,reels} nigdy nie jest tablica, ZAWSZE ladowalo na reels=[], niezaleznie od realnych danych w srodku. Bug istnial od rana (od zbudowania panelu), moja poranna "naprawa" backendu tego nie ujawnila bo testowalem tylko surowym curlem, nie symulujac dokladnej logiki JS.
 
-Tomasz oznaczyl to jako "Ostatnia aktualizacja" - mozliwe ze to koniec serii przebudowy oryginalnych 5 kategorii (Co siac, Sprawdzone triki, Najczestsze bledy, Zycie ROD Wozniki [usunieta], Ciekawostki i mity). Wszystkie 5 oryginalnych kategorii albo przebudowane, albo usuniete.
+Naprawione: `loadReels()` teraz poprawnie odpakowuje `.reels` z odpowiedzi (obsluguje tez demo-mode ktory zwraca gola tablice). Zweryfikowane przez node -e symulujacy DOKLADNIE logike przegladarki (nie tylko surowy endpoint) - 20 rolek poprawnie wyodrebnionych.
+
+**LEKCJA na przyszlosc:** przy debugowaniu "X nie dziala w panelu" nie wystarczy sprawdzic czy backend endpoint zwraca dobre dane (curl) - trzeba tez zweryfikowac, czy JS PO STRONIE KLIENTA poprawnie ja konsumuje/odpakowuje. To dwa oddzielne miejsca gdzie bug moze siedziec.

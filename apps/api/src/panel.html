@@ -783,8 +783,8 @@
   async function loadReels(){
     const box = $('#reelsList'); box.innerHTML = '<div class="loading-txt">ładuję…</div>';
     try{
-      let reels = await api('/reels');
-      if(!Array.isArray(reels)) reels = [];
+      let resp = await api('/reels');
+      let reels = Array.isArray(resp) ? resp : (Array.isArray(resp && resp.reels) ? resp.reels : []);
       reels.sort((a,b)=> (num(b.id)) - (num(a.id)));
       if(!reels.length){ box.innerHTML = emptyState('Brak rolek. Wygeneruj pierwszą powyżej.'); return; }
       box.innerHTML = '';
