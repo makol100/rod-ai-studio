@@ -794,7 +794,9 @@
         el.innerHTML =
           '<div class="rhead"><span class="rid">#'+id+'</span>'+
           '<span class="rtitle">'+esc(r.title||r.prompt||'(bez tytułu)')+'</span>'+
-          statusBadge(r.status)+'</div>'+
+          statusBadge(r.status)+
+          '<button class="iconbtn" data-action="delete-reel" title="Usuń rolkę" aria-label="Usuń rolkę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'+
+          '</div>'+
           '<div class="rdate">'+esc(r.created_at||'')+'</div>'+
           '<div class="rbody">'+
             (r.prompt?'<div class="rprompt">Temat: '+esc(r.prompt)+'</div>':'')+
@@ -896,6 +898,24 @@
   }
 
   $('#reelsList').addEventListener('click', (e)=>{
+    const delBtn = e.target.closest('[data-action="delete-reel"]');
+    if(delBtn){
+      e.stopPropagation();
+      const reelEl = delBtn.closest('.reel');
+      const reelId = reelEl.dataset.reelId;
+      const tytul = reelEl.querySelector('.rtitle').textContent;
+      const msg = 'Usun\u0105\u0107 rolk\u0119 #'+reelId+' na sta\u0142e ('+tytul+')?\n\nTego nie da si\u0119 cofn\u0105\u0107 \u2014 kasuje scenariusz, obrazy, audio i wideo z dysku.';
+      if(!confirm(msg)) return;
+      busy(delBtn, true);
+      api('/reels/'+reelId, {method:'DELETE'}).then(()=>{
+        toast('Rolka #'+reelId+' usuni\u0119ta.', 'ok');
+        loadReels(); loadStats();
+      }).catch(e=>{
+        toast('Nie uda\u0142o si\u0119 usun\u0105\u0107: '+e.message, 'err');
+        busy(delBtn, false);
+      });
+      return;
+    }
     const toggleBtn = e.target.closest('[data-action="toggle-napraw"]');
     if(toggleBtn){
       const form = toggleBtn.nextElementSibling;

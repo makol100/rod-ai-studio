@@ -145,6 +145,18 @@ def get_reels():
     }
 
 
+@router.delete("/reels/{reel_id}")
+def delete_reel(reel_id: str):
+    """Usuwa caly folder rolki z dysku (scenariusz, obrazy, audio, napisy, wideo).
+    Nieodwracalne. Numeracja pozostalych rolek sie nie zmienia."""
+    from src.naprawa import znajdz_folder
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    shutil.rmtree(folder)
+    return {"status": "ok", "deleted": reel_id}
+
+
 @router.post("/generate-scenes")
 def generate_scenes_endpoint(data: dict = Body(...)):
     return {"status": "ok", "scenes": generate_scenes(data["text"], data.get("scene_count"))}
@@ -192,7 +204,7 @@ def host_get_prompts_py():
 def host_status():
     from pathlib import Path
 
-    prompts = Path("/app/prompts/prompts.py").exists()
+    prompts = Path("/app/src/images/prompts.py").exists()
 
     return {
         "host": True,
