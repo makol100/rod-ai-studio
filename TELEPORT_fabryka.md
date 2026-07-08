@@ -251,3 +251,24 @@ Artykul+scenariusz o pomidorach: format poprawny, tresc trafna. JEDNA nowa uster
 
 ### Sprzatanie (08.07.2026 wieczor)
 Usuniete z repo: wszystkie tymczasowe skrypty testowe (test_*.py, faza*.py, wynik_*.txt) ktore przypadkiem trafily do bind-mounta. `data/reels/` dodane do .gitignore (duze pliki multimedialne, dane wynikowe, nie kod).
+
+## POPRAWKI ROLKI 000066 (08.07.2026, pozno w nocy) - POTWIERDZONE PRZEZ TOMASZA
+Zastosowane TANIA metoda (patch, nie pelna regeneracja):
+1. Obraz 08: aksamitka z poprawnym opisem wizualnym (pomaranczowo-zolte, geste platki, Tagetes) zamiast bialego kwiatka z fioletowymi zylkami (byla niespojnosc UJECIE/LEKTOR z Dyskusji wczesniej tego dnia)
+2. Obraz 09: zielona tabliczka "OGRODY ROD" zamiast czerwonej "ROD Wozniki" (redundancja z intro/outro)
+3. Napisy: wszystkie 9 scen przez naprawiony transcribe_scene (podstawianie znanego tekstu)
+
+DODATKOWY bug znaleziony i naprawiony przy tej okazji: licznik slow do porownania (transcribe_scene) zle liczyl samodzielne znaki interpunkcyjne (np. "-") jako osobne "slowo" - w mowie nie maja odpowiednika, wiec Whisper nigdy nie da dla nich osobnego tokenu. Naprawione: filtr `any(c.isalnum() for c in w)` przy dzieleniu oczekiwanego tekstu na slowa.
+
+POTWIERDZONE PRZEZ TOMASZA: "Pozytywnie poprawione. Napisy Ok." - wszystkie 3 poprawki dzialaja.
+
+WAZNA LEKCJA (blad Claude'a wczesniej tego dnia): przy prosbie o poprawke 2-3 konkretnych elementow istniejacej rolki, ZAWSZE uzywac tanich metod patchowania (podmiana prompts.txt + generate_image dla pojedynczych obrazow, ponowne wywolanie make_subtitles/render_video/add_background_music) - NIGDY nie odpalac pelnego /generate-reel-async od zera, bo to bezsensownie generuje WSZYSTKIE obrazy na nowo (w tym te ktore juz byly dobre), marnujac koszt fal.ai. Ta zasada byla juz ustalona wczesniej (patrz "Cost-saving rule" na poczatku pliku) ale zostala zignorowana raz w tej sesji - poprawiono przy nastepnej prosbie.
+
+## PUBLIKACJA FB - STAN NA KONIEC DNIA (08.07.2026, noc)
+Rolka 000066 gotowa do publikacji (po poprawkach wyzej), opis wygenerowany (2 warianty: szczegolowy + zapowiedz-teaser stylu "kolejne rolki nadchodza").
+
+**Token FB w n8n workflow "Auto Publikacja FB" (credential JqZNdgyrpWXTCyFS) POTWIERDZONY jako wciaz placeholder** - Tomasz potwierdzil "Czeka" (na wklejenie z Node-RED). n8n API nie ujawnia wartosci sekretow, wiec nie da sie tego zweryfikowac zdalnie - trzeba pytac wprost.
+
+Rozwazona i SWIADOMIE ODRZUCONA alternatywa: istnieje inny, dzialajacy token FB do TEJ SAMEJ strony (1174205105781401), uzywany przez system alarmow burzowych (Node-RED, flow "Ogrodnik") na instancji HA Dom - ale ten token nigdy nie byl testowany do wgrywania WIDEO (tylko tekst/alerty), i nie jest podpiety do tej rozmowy/infrastruktury Fabryki. Decyzja: NIE improwizowac nowej sciezki publikacji przez pozyczony token bez testow, szczegolnie na zywej, publicznej stronie bez mozliwosci cofniecia.
+
+**Droga na dzis**: reczne wgranie przez aplikacje Facebook (Tomasz wgrywa final_with_music.mp4 + wkleja opis recznie). Automatyczna publikacja z tego czatu bedzie mozliwa po uzupelnieniu tokenu w n8n.

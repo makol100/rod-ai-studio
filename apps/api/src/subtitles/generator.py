@@ -44,7 +44,17 @@ def _ass_escape(text):
     return text.replace("{", "(").replace("}", ")").strip()
 
 
-def transcribe_scene(wav):
+def transcribe_scene(wav, oczekiwany_tekst=None):
+    """oczekiwany_tekst -- znany, poprawny tekst lektora dla tej sceny
+    (z scenes.txt). Jesli podany I liczba slow zgadza sie z tym co
+    rozpoznal Whisper, PODSTAWIAMY nasze wlasne, znane slowa zamiast
+    tego co Whisper "uslyszal" - zachowujemy TYLKO czasy (timing) od
+    Whispera. Naprawia przypadki jak "Sadz aksamitki" rozpoznane przez
+    Whisper jako "Saciak samitki" (bledna transkrypcja rzadszego slowa
+    fonetycznie), mimo ze audio i tekst zrodlowy byly poprawne.
+    Ustalone w Dyskusji 08.07.2026 po awarii rolki 000066.
+    Jesli liczba slow SIE NIE zgadza (Whisper cos pominal/dodal),
+    bezpiecznie wracamy do oryginalnego zachowania (tekst od Whispera)."""
     last_err = None
     for attempt in range(1, RETRIES + 2):
         try:
@@ -67,6 +77,21 @@ def transcribe_scene(wav):
                 txt = (ch.get("text") or "").strip()
                 if txt and start is not None and end is not None:
                     words.append({"start": float(start), "end": float(end), "text": txt})
+
+            if oczekiwany_tekst:
+                # Pomijamy tokeny ktore sa WYLACZNIE znakami interpunkcyjnymi
+                # (np. samodzielny "-") - w mowie nie maja odpowiednika, wiec
+                # Whisper nigdy nie da dla nich osobnego "slowa". Bez tego
+                # filtra liczba slow sie nie zgadzala mimo poprawnego tekstu
+                # (znaleziono na scenie 08, rolka 000066, Dyskusja 08.07.2026).
+                znane_slowa = [w for w in oczekiwany_tekst.split() if any(c.isalnum() for c in w)]
+                if len(znane_slowa) == len(words):
+                    for w, znane in zip(words, znane_slowa):
+                        w["text"] = znane
+                    print(f"[napisy] {wav.name}: podstawiono znany tekst (liczba slow zgadza sie: {len(words)})", flush=True)
+                else:
+                    print(f"[napisy] {wav.name}: liczba slow NIE zgadza sie (Whisper={len(words)}, znany={len(znane_slowa)}) - zostaje tekst Whispera", flush=True)
+
             groups = []
             for k in range(0, len(words), WORDS_PER_LINE):
                 grp = words[k:k + WORDS_PER_LINE]
@@ -77,7 +102,7 @@ def transcribe_scene(wav):
                 return groups
             full = (result.get("text") or "").strip()
             if full:
-                return [{"start": 0.0, "end": None, "text": full}]
+                return [{"start": 0.0, "end": None, "text": oczekiwany_tekst or full}]
             return []
         except Exception as e:
             last_err = e
@@ -120,6 +145,22 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, Effect, Text
     return out
 
 
+def _wczytaj_znane_teksty(folder):
+    """Wczytuje scenes.txt (jesli istnieje) i wyciaga liste tekstow LEKTORA
+    w tej samej kolejnosci co pliki audio (01.wav = pierwszy, itd.) - do
+    podstawiania w miejsce ewentualnie zle rozpoznanych slow przez Whisper."""
+    try:
+        from src.audio.generator import extract_narration
+        scenes_path = folder / "scenes.txt"
+        if not scenes_path.is_file():
+            return []
+        tekst = scenes_path.read_text(encoding="utf-8")
+        return extract_narration(tekst)
+    except Exception as e:
+        print(f"[napisy] nie udalo sie wczytac znanych tekstow: {e}", flush=True)
+        return []
+
+
 def make_subtitles(folder):
     audio_dir = folder / "audio"
     subs_dir = folder / "subs"
@@ -127,12 +168,18 @@ def make_subtitles(folder):
     if not audio_dir.exists():
         print("[napisy] brak katalogu audio", flush=True)
         return {"status": "error", "reason": "no audio dir", "count": 0, "files": []}
+    znane_teksty = _wczytaj_znane_teksty(folder)
     wavs = sorted(audio_dir.glob("*.wav"))
     made = []
     for wav in wavs:
         stem = wav.stem
         print(f"[napisy] transkrypcja sceny {stem}...", flush=True)
-        segments = transcribe_scene(wav)
+        try:
+            idx = int(stem)
+            oczekiwany = znane_teksty[idx - 1] if 0 < idx <= len(znane_teksty) else None
+        except ValueError:
+            oczekiwany = None
+        segments = transcribe_scene(wav, oczekiwany_tekst=oczekiwany)
         if not segments:
             print(f"[napisy] scena {stem}: brak segmentow, pomijam", flush=True)
             continue

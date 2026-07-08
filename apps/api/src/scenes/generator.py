@@ -126,6 +126,11 @@ Based on the text below, write a script made of EXACTLY {scene_count} scenes.
 SCRIPT STRUCTURE:
 - SCENE 1 is the HOOK: surprise the viewer, ask a question, or point out a common mistake.
 - The LAST scene is the payoff and a gentle call to action, e.g. "Follow for more allotment tips."
+  For the LAST scene's SHOT: do NOT describe a sign, plaque, or banner spelling out the
+  channel/community name (e.g. "ROD Wozniki") as visible text in the image. The video already
+  has a separate intro and outro that cover branding - repeating the name as in-image text is
+  redundant, and image models render such text unreliably anyway. Show a simple, warm, generic
+  closing image instead (e.g. a garden path, a full harvest basket, a sunset over the plots).
 - SCENES IN BETWEEN: go through the SPECIFIC points from the text (each plant / each tip) -
   ONE scene per point, in the order given in the text. Do not skip points, do not pad with
   repeats or generic filler like "water regularly".
@@ -139,6 +144,11 @@ NARRATOR (spoken line):
 SHOT (description of one photo) - PAY ATTENTION HERE, this is the most common source of errors:
 - The subject of the frame is the PLANT or VEGETABLE the narrator is talking about. Show the
   plant itself: leaves, fruit, vegetable in soil, garden bed.
+- CRITICAL CONSISTENCY CHECK: the SHOT must describe the SAME species named or implied in the
+  LEKTOR line of that SAME scene - never a different plant. Example of what NOT to do: LEKTOR
+  says "marigolds" but SHOT describes "white flowers with purple veins" (marigolds are always
+  orange/yellow/red, never white) - this is WRONG. Before writing each SHOT, check: does this
+  visual match the actual real-world appearance of the plant named in this scene's LEKTOR?
 - Real, documentary-style garden photo - the kind you'd take with a phone at an allotment.
 - FORBIDDEN in frame: household objects and absurd items (sink, tap, blender, random appliances),
   tools as the main subject, lots of hands or people, strange or unrealistic scenes. Hands are
