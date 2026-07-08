@@ -240,6 +240,8 @@
   .reel .rbody{display:none; margin-top:12px; border-top:1px dashed var(--line); padding-top:12px}
   .reel.open .rbody{display:block}
   .reel .rprompt{font-size:13px; color:var(--muted); margin-bottom:8px}
+  .reel .video-wrap{margin-bottom:10px}
+  .reel .video-wrap video{width:100%; border-radius:10px; display:block; background:#000}
 
   /* ---------- naprawa rolki ---------- */
   .napraw-section{margin-top:12px; border-top:1px dashed var(--line); padding-top:12px}
@@ -795,10 +797,12 @@
           '<div class="rhead"><span class="rid">#'+id+'</span>'+
           '<span class="rtitle">'+esc(r.title||r.prompt||'(bez tytułu)')+'</span>'+
           statusBadge(r.status)+
+          (r.status==='gotowa' ? '<button class="iconbtn" data-action="play-reel" title="Odtwórz" aria-label="Odtwórz rolkę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>' : '')+
           '<button class="iconbtn" data-action="delete-reel" title="Usuń rolkę" aria-label="Usuń rolkę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'+
           '</div>'+
           '<div class="rdate">'+esc(r.created_at||'')+'</div>'+
           '<div class="rbody">'+
+            '<div class="video-wrap"></div>'+
             (r.prompt?'<div class="rprompt">Temat: '+esc(r.prompt)+'</div>':'')+
             (r.text?'<div class="txt" style="margin-bottom:8px">'+esc(r.text)+'</div>':'')+
             (r.hashtags?'<div class="txt mono">'+esc(r.hashtags)+'</div>':'')+
@@ -898,6 +902,20 @@
   }
 
   $('#reelsList').addEventListener('click', (e)=>{
+    const playBtn = e.target.closest('[data-action="play-reel"]');
+    if(playBtn){
+      e.stopPropagation();
+      const reelEl = playBtn.closest('.reel');
+      const reelId = reelEl.dataset.reelId;
+      const wrap = reelEl.querySelector('.video-wrap');
+      reelEl.classList.add('open');
+      if(wrap.querySelector('video')){
+        wrap.innerHTML = '';
+      } else {
+        wrap.innerHTML = '<video controls autoplay playsinline src="/reels/'+reelId+'/video"></video>';
+      }
+      return;
+    }
     const delBtn = e.target.closest('[data-action="delete-reel"]');
     if(delBtn){
       e.stopPropagation();
