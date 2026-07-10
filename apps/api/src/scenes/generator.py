@@ -178,6 +178,45 @@ Text:
 # Alias wsteczny — gdyby cos jeszcze importowalo stara nazwe bezposrednio.
 PROMPT_TEMPLATE = PROMPT_TEMPLATE_ORGANIZM
 
+PROMPT_TEMPLATE_CZYSTY = """
+Napisz scenariusz krotkiego, pionowego (9:16) filmu skladajacy sie z DOKLADNIE {scene_count} scen, na podstawie ponizszego tekstu.
+
+WYMAGANIA:
+- Trzymaj sie WYLACZNIE tresci ponizszego tekstu. Nie dodawaj wlasnego tematu, kontekstu ani gatunku filmu, ktorego tekst nie zawiera.
+- SCENA 1: zaczep uwage widza w pierwszej sekundzie - pytaniem, zaskoczeniem albo konkretnym faktem z tekstu.
+- OSTATNIA scena: krotkie podsumowanie lub zamkniecie mysli z tekstu.
+- SCENY POMIEDZY: przejdz przez KONKRETNE punkty/fakty z tekstu, po jednej scenie na punkt, w kolejnosci wystepowania w tekscie. Nie wymyslaj tresci, ktorej nie ma w tekscie.
+
+LEKTOR (tekst mowiony):
+- Krotkie, naturalne zdania, 6-14 slow, po polsku.
+- TYLKO prawdziwe, poprawne polskie slowa. Nie wymyslaj slow, terminow, liczb ani nazw.
+- Skroty, kody i nazwy techniczne z tekstu zrodlowego przepisz DOKLADNIE litera w litere.
+
+UJECIE (opis jednego zdjecia):
+- Opisz to, co widac na obrazie, wynikajace WPROST z tego, o czym mowi LEKTOR w tej samej scenie. Nic ponadto.
+- Realne, dokumentalne, fotograficzne ujecie - bez tekstu i logo na obrazie.
+- Kazde UJECIE musi byc INNE - inny kadr, inny dystans lub inny element. Nie powtarzaj tego samego opisu w kolejnych scenach.
+- Bez ruchu kamery, bez okreslen typu "przejscie".
+
+FORMAT WYJSCIA (trzymaj sie co do znaku):
+SCENA 1:
+UJECIE: ...
+LEKTOR: ...
+
+SCENA 2:
+UJECIE: ...
+LEKTOR: ...
+
+...az do SCENA {scene_count}:
+
+Nie uzywaj markdown. Nie dodawaj wstepu, komentarzy ani podsumowania.
+Nie pisz niczego przed "SCENA 1:" ani niczego po ostatniej scenie.
+
+Tekst:
+{text}
+""".strip()
+
+
 _TEMPLATES = {
     "organizm": PROMPT_TEMPLATE_ORGANIZM,
     "sprzet": PROMPT_TEMPLATE_SPRZET,
@@ -254,6 +293,106 @@ def generate_scenes(text: str, scene_count=None, tryb: str = "organizm") -> str:
         retry = generate(
             prompt
             + "\n\nPRZYPOMNIENIE: Zacznij dokładnie od 'SCENA 1:' i w każdej scenie użyj etykiet 'UJĘCIE:' oraz 'LEKTOR:'."
+        )
+        result = _normalize(retry)
+
+    return result
+
+
+PROMPT_TEMPLATE_CZYSTY_EN = """
+Write a script for a short, vertical (9:16) video made of EXACTLY {scene_count} scenes, based on the text below.
+
+Write in ENGLISH - this English version will be used directly for image generation, and the
+narrator lines will be translated to Polish in a separate later step.
+
+REQUIREMENTS:
+- Stick EXCLUSIVELY to the content of the text below. Do not add your own topic, genre, or context that the text does not contain.
+- SCENE 1: hook the viewer in the first second - a question, a surprise, or a concrete fact from the text.
+- LAST scene: a short wrap-up or closing thought from the text.
+- SCENES IN BETWEEN: go through the SPECIFIC points/facts from the text, one scene per point, in the order they appear. Do not invent content that is not in the text.
+
+NARRATOR (spoken line):
+- Short, natural sentences, 6-14 words.
+- ONLY real, correct English words. Do not invent words, terms, numbers, or names.
+- Abbreviations, codes, and technical terms from the source text must be copied EXACTLY letter for letter.
+
+SHOT (description of one photo):
+- Describe what is visible in the image, following DIRECTLY from what the NARRATOR says in that same scene. Nothing more.
+- Real, documentary-style, photographic shot - no text or logo in the image.
+- Every SHOT must be DIFFERENT - different framing, different distance, or a different element. Do not repeat the same description across scenes.
+- No camera movement, no "transition".
+
+OUTPUT FORMAT (follow exactly - KEEP these exact labels, even though the content is English):
+SCENA 1:
+UJĘCIE: ...
+LEKTOR: ...
+
+SCENA 2:
+UJĘCIE: ...
+LEKTOR: ...
+
+...through SCENA {scene_count}:
+
+Do not use markdown. Do not add an introduction, comments, or a summary.
+Do not write anything before "SCENA 1:" or anything after the last scene.
+
+Text:
+{text}
+""".strip()
+
+
+def generate_scenes_czysty_en(text: str, scene_count=None, model: str = None) -> str:
+    """CZYSTA DROGA, wariant EN (Dyskusja 09.07.2026, poprawiona architektura na
+    zadanie Tomasza): scenariusz po angielsku (jak w sciezce zapowiedzi), zeby
+    obrazy FLUX szly z angielskiego promptu, a tlumaczenie lektora na polski
+    (Bielikiem) i audio robia sie DOPIERO PO obrazach - patrz _produce_media_en_pl.
+    Neutralny szablon PROMPT_TEMPLATE_CZYSTY_EN, model domyslnie Qwen3:14B."""
+    from src.ai.ollama import PROMPT_MODEL
+    try:
+        sc = int(scene_count)
+    except (TypeError, ValueError):
+        sc = None
+    count = sc if (sc and 1 <= sc <= 20) else SCENE_COUNT
+
+    prompt = PROMPT_TEMPLATE_CZYSTY_EN.format(scene_count=count, text=text)
+    uzyty_model = model or PROMPT_MODEL
+    result = _normalize(generate(prompt, model=uzyty_model, temperature=0.3))
+
+    if _count(result) < count:
+        retry = generate(
+            prompt
+            + "\n\nREMINDER: Start exactly with 'SCENA 1:' and use the labels 'UJĘCIE:' and 'LEKTOR:' in every scene.",
+            model=uzyty_model, temperature=0.3
+        )
+        result = _normalize(retry)
+
+    return result
+
+
+def generate_scenes_czysty(text: str, scene_count=None, model: str = None) -> str:
+    """Czysta sciezka (Dyskusja 09.07.2026, na zadanie Tomasza): ZERO nakladek
+    tematycznych ROD/ogrodnictwo - neutralny szablon PROMPT_TEMPLATE_CZYSTY,
+    domyslnie model Qwen3:14B (PROMPT_MODEL) zamiast Bielika, bo Bielik przy
+    dluzszych scenariuszach (15 scen) potrafil "zjechac" w wyuczony wzorzec
+    dzialkowo-ogrodowy nawet gdy artykul byl o czyms zupelnie innym (rolka
+    000068 - artykul o rozdzielnicy elektrycznej, scenariusz o pomidorach).
+    """
+    from src.ai.ollama import PROMPT_MODEL
+    try:
+        sc = int(scene_count)
+    except (TypeError, ValueError):
+        sc = None
+    count = sc if (sc and 1 <= sc <= 20) else SCENE_COUNT
+
+    prompt = PROMPT_TEMPLATE_CZYSTY.format(scene_count=count, text=text)
+    uzyty_model = model or PROMPT_MODEL
+    result = _normalize(generate(prompt, model=uzyty_model, temperature=0.3))
+
+    if _count(result) < count:
+        retry = generate(
+            prompt
+            + "\n\nPRZYPOMNIENIE: Zacznij dokladnie od 'SCENA 1:' i w kazdej scenie uzyj etykiet 'UJECIE:' oraz 'LEKTOR:'.",
+            model=uzyty_model, temperature=0.3
         )
         result = _normalize(retry)
 

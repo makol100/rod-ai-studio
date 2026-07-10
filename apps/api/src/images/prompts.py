@@ -265,7 +265,7 @@ SCENE:
 Respond with ONLY the prompt text. No "PROMPT" label, no quotes, no markdown, no extra commentary."""
 
 
-SINGLE_SCENE_HEADER_CZYSTY = """Write ONE photorealistic English image-generation prompt (5-7 sentences, at least 90 words) for a vertical 9:16 photo, based on the scene below. Start with "Photorealistic photograph of". End with this exact sentence: "Photorealistic, authentic documentary photography, real Polish allotment garden, natural lighting."
+SINGLE_SCENE_HEADER_CZYSTY = """Write ONE photorealistic English image-generation prompt (5-7 sentences, at least 90 words) for a vertical 9:16 photo, based on the scene below. Base EVERYTHING strictly on what the scene describes - do not assume any location, setting, or theme (e.g. garden, allotment, nature) that the scene does not explicitly state. Start with "Photorealistic photograph of". End with this exact sentence: "Photorealistic, authentic documentary photography, natural lighting."
 
 SCENE:
 {scene}
@@ -273,7 +273,21 @@ SCENE:
 Respond with ONLY the prompt text. No label, no quotes, no markdown, no commentary."""
 
 
-def generate_image_prompts_czysty(scenes: str) -> str:
+# Wariant polski (Dyskusja 09.07.2026, na zyczenie Tomasza) - dla 'Czysta
+# Droga Bielik'. Sensowne teraz, bo: (1) caly scenariusz i tak jest po
+# polsku, angielski byl tylko technicznym wymogiem starego FLUX.1; (2)
+# FLUX.2 [max] (aktualny model obrazow) rozumie prompt przez Mistral-3 24B,
+# wielojezyczny model tekstowy - nie ma juz tej samej przewagi angielskiego
+# co przy FLUX.1 (CLIP/T5, glownie angielskie dane treningowe)."""
+SINGLE_SCENE_HEADER_CZYSTY_PL = """Napisz JEDEN fotorealistyczny prompt do generowania obrazu PO POLSKU (5-7 zdan, co najmniej 90 slow) dla pionowego zdjecia 9:16, na podstawie ponizszej sceny. Bazuj WYLACZNIE na tym, co opisuje scena - nie zakladaj zadnej lokalizacji/tematu (np. ogrod), ktorego scena wprost nie opisuje. Zacznij od "Fotorealistyczne zdjecie...". Zakoncz dokladnie tym zdaniem: "Fotorealistyczne, autentyczna fotografia dokumentalna, naturalne oswietlenie."
+
+SCENA:
+{scene}
+
+Odpowiedz WYLACZNIE tekstem promptu. Bez etykiety, bez cudzyslowow, bez markdown, bez komentarza."""
+
+
+def generate_image_prompts_czysty(scenes: str, on_progress=None, model=None, jezyk: str = "en") -> str:
     """Wariant generate_image_prompts() dla Drogi #2 (Dyskusja 08.07.2026) -
     BEZ sekcji "Context-aware plant rules" (kalarepa, koper, czarna rzodkiew
     itd.) z SINGLE_SCENE_HEADER. Te przykuly sa uzyteczne dla prawdziwych
@@ -281,20 +295,42 @@ def generate_image_prompts_czysty(scenes: str) -> str:
     konkretnymi warzywami (jak zapowiedzi, iglaki, grzyby) model czasem
     "przyczepial sie" do najdluzszego przykladu (kalarepa) zamiast czytac
     wlasciwa tresc sceny - potwierdzone na zywo w rolce 000065 (5/9 scen
-    bez zwiazku z tematem). Reszta logiki identyczna jak oryginal."""
+    bez zwiazku z tematem). Reszta logiki identyczna jak oryginal.
+
+    on_progress -- opcjonalny callback(idx, total) wolany PO kazdej scenie
+    (Dyskusja 09.07.2026 - wczesniej ten etap byl "czarna skrzynka" w panelu,
+    pokazywal tylko "obrazy" bez informacji ktora z N scen sie akurat liczy).
+
+    model -- opcjonalnie nadpisuje domyslny PROMPT_MODEL (Qwen). Dodane
+    09.07.2026 dla 'Czysta Droga Bielik' - NAPRAWIONE po incydencie z rolka
+    000081, gdzie 'Czysta Droga Bielik' bledie kierowala prompty obrazow
+    przez SKAZONY generate_image_prompts (SINGLE_SCENE_HEADER z ta sama
+    'kalarepa' zawartoscia) zamiast przez ta czysta wersje - model
+    (Bielik) na 2 z 7 scen wprost ODMOWIL wygenerowania promptu, bo
+    szablon narzucal 'to ma byc scena ogrodowa' na scene o rozdzielnicy.
+
+    jezyk -- "en" (domyslnie, jak dotychczas) albo "pl". Dodane 09.07.2026
+    dla 'Czysta Droga Bielik' - skoro caly scenariusz i tak jest po polsku,
+    a FLUX.2 [max] (Mistral-3 24B) rozumie polski dobrze, zbedny jest
+    detour przez angielski jak przy starym FLUX.1."""
+    from src.ai.ollama import DEFAULT_MODEL
+    uzyty_model = model or PROMPT_MODEL
     blocks = _split_scene_blocks(scenes)
     if not blocks:
         blocks = [scenes.strip()]
+    total = len(blocks)
 
-    _unload_text_model()
+    if uzyty_model != DEFAULT_MODEL:
+        _unload_text_model()
 
     prompts = []
     for idx, block in enumerate(blocks, start=1):
-        single_prompt = SINGLE_SCENE_HEADER_CZYSTY.format(scene=block)
+        naglowek = SINGLE_SCENE_HEADER_CZYSTY_PL if jezyk == "pl" else SINGLE_SCENE_HEADER_CZYSTY
+        single_prompt = naglowek.format(scene=block)
         result = None
         for attempt in range(3):
             try:
-                result = generate(single_prompt, model=PROMPT_MODEL, temperature=0.3).strip()
+                result = generate(single_prompt, model=uzyty_model, temperature=0.3).strip()
                 break
             except Exception as e:
                 print(f"[prompts_czysty] scena {idx} próba {attempt+1}/3 nieudana: {e}")
@@ -302,6 +338,11 @@ def generate_image_prompts_czysty(scenes: str) -> str:
         if result is None:
             raise RuntimeError(f"Nie udalo sie wygenerowac promptu dla sceny {idx} po 3 probach")
         prompts.append(f"PROMPT {idx}:\n{result}")
+        if on_progress:
+            try:
+                on_progress(idx, total)
+            except Exception:
+                pass  # postep to tylko UI-owy bonus, nigdy nie ma wywalic generowania
         time.sleep(1.5)
 
     return "\n\n".join(prompts)
@@ -319,12 +360,26 @@ def _split_scene_blocks(scenes: str) -> list:
     return blocks
 
 
-def generate_image_prompts(scenes: str) -> str:
+def generate_image_prompts(scenes: str, on_progress=None, model=None) -> str:
+    """on_progress -- opcjonalny callback(idx, total) wolany PO kazdej scenie
+    (Dyskusja 09.07.2026 - widocznosc postepu w panelu, patrz analogiczny
+    komentarz w generate_image_prompts_czysty).
+
+    model -- opcjonalnie nadpisuje domyslny PROMPT_MODEL (Qwen). Dodane dla
+    sciezki 'Czysta Droga Bielik' (Dyskusja 09.07.2026) - Tomasz chce
+    Bielika na WSZYSTKICH krokach tekstowych, zero Qwena/Gemmy. Jesli model
+    == DEFAULT_MODEL (Bielik), pomijamy _unload_text_model() ponizej - nie
+    ma sensu zwalniac Bielika z RAM tylko po to zeby zaraz go zaladowac
+    ponownie do tego samego zadania."""
+    from src.ai.ollama import DEFAULT_MODEL
+    uzyty_model = model or PROMPT_MODEL
     blocks = _split_scene_blocks(scenes)
     if not blocks:
         blocks = [scenes.strip()]
+    total = len(blocks)
 
-    _unload_text_model()
+    if uzyty_model != DEFAULT_MODEL:
+        _unload_text_model()
 
     prompts = []
     for idx, block in enumerate(blocks, start=1):
@@ -332,7 +387,7 @@ def generate_image_prompts(scenes: str) -> str:
         result = None
         for attempt in range(3):
             try:
-                result = generate(single_prompt, model=PROMPT_MODEL, temperature=0.3).strip()
+                result = generate(single_prompt, model=uzyty_model, temperature=0.3).strip()
                 break
             except Exception as e:
                 print(f"[prompts] scena {idx} próba {attempt+1}/3 nieudana: {e}")
@@ -340,8 +395,49 @@ def generate_image_prompts(scenes: str) -> str:
         if result is None:
             raise RuntimeError(f"Nie udalo sie wygenerowac promptu dla sceny {idx} po 3 probach")
         prompts.append(f"PROMPT {idx}:\n{result}")
+        if on_progress:
+            try:
+                on_progress(idx, total)
+            except Exception:
+                pass
         time.sleep(1.5)
 
     return "\n\n".join(prompts)
     
 ### TEST_HOST_OK ###
+
+
+def zbuduj_konteksty_gemini(scenes: str, prompty: str) -> dict:
+    """Buduje PELNY kontekst per scena dla Nano Banana Pro / Gemini 3 Pro
+    Image (Dyskusja 09.07.2026, pomysl Tomasza po nieudanych probach FLUX.2
+    w rolce 000084). W przeciwienstwie do FLUX (czysty model dyfuzyjny,
+    dostaje TYLKO oderwany, "przetlumaczony" prompt fotorealistyczny),
+    Nano Banana Pro to pelny model jezykowy z rozumowaniem - lepiej rozumie
+    SCENE gdy dostanie WIECEJ kontekstu naraz: oryginalne UJECIE i LEKTOR
+    (o czym naprawde jest ta scena, nie tylko jak ma "wygladac zdjecie"),
+    PLUS gotowy prompt fotorealistyczny napisany przez Bielika (fachowa
+    strona wizualna: oswietlenie, kompozycja, styl). Razem - mniej okazji
+    do plytkiej, oderwanej od tematu generacji jak przy samym FLUX.
+
+    Zwraca dict {nr_sceny: pelny_tekst_kontekstu}."""
+    from src.scenes.generator import parse_scenes
+    from src.images.generator import parse_prompts
+
+    sceny = parse_scenes(scenes)
+    prompty_lista = parse_prompts(prompty)
+
+    wynik = {}
+    for s in sceny:
+        nr = s["scena"]
+        prompt_tej_sceny = prompty_lista[nr - 1] if 0 < nr <= len(prompty_lista) else ""
+        kontekst = (
+            f"KONTEKST SCENY (o czym jest ten moment filmu):\n"
+            f"Co widac: {s['ujecie']}\n"
+            f"Co mowi lektor w tym momencie: {s['lektor']}\n\n"
+            f"SZCZEGOLOWY OPIS FOTOGRAFICZNY (kompozycja, swiatlo, styl):\n"
+            f"{prompt_tej_sceny}\n\n"
+            f"Wygeneruj JEDNO fotorealistyczne zdjecie pionowe 9:16 zgodne z powyzszym - "
+            f"kontekst sceny okresla CO ma byc na zdjeciu, opis fotograficzny okresla JAK ma wygladac."
+        )
+        wynik[nr] = kontekst
+    return wynik

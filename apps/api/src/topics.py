@@ -1,15 +1,17 @@
 import re
+import json
 from pathlib import Path
 from datetime import datetime
 import subprocess
 import shutil
-from fastapi import APIRouter, Body, HTTPException
+from fastapi import APIRouter, Body, HTTPException, UploadFile, File
 
 from src.ai.ollama import generate
 from src.db.database import save_reel, list_reels
 from src.scenes.generator import generate_scenes
 from src.images.prompts import generate_image_prompts
-from src.reels.pipeline import generate_reel, render_from_scenes
+from src.reels.pipeline import generate_reel, render_from_scenes, wznow_po_checkpoincie
+from src.naprawa import znajdz_folder, audytuj_checkpoint
 
 router = APIRouter()
 
@@ -124,6 +126,27 @@ def _scan_reels_from_disk(limit=20):
             created = ""
 
         warning = (d / "WARNING.json").is_file()
+        opublikowana = (d / "opublikowano.txt").is_file()
+        grupy_fb = _wczytaj_grupy_fb(d)
+
+        # NAPRAWIONE 10.07.2026 (Dyskusja) - stary kod patrzyl TYLKO na
+        # istnienie wideo, ignorujac status.json calkowicie. Rolka
+        # celowo/trwale przerwana przez Tomasza (STOP.flag/"przerwano")
+        # pokazywala sie jako "w trakcie" NA ZAWSZE, mylaco sugerujac ze
+        # cos sie jeszcze dzieje mimo ze nic juz nigdy sie nie wydarzy.
+        status = "gotowa" if has_video else "w trakcie"
+        if not has_video:
+            try:
+                stan = json.loads((d / "status.json").read_text(encoding="utf-8"))
+                etap = stan.get("etap", "")
+                if etap == "przerwano":
+                    status = "przerwana"
+                elif etap == "blad":
+                    status = "błąd"
+                elif etap == "zatrzymano_walidacja":
+                    status = "zatrzymana (walidacja)"
+            except Exception:
+                pass
 
         wyniki.append({
             "id": int(d.name),
@@ -131,9 +154,11 @@ def _scan_reels_from_disk(limit=20):
             "prompt": title,
             "text": "",
             "hashtags": "",
-            "status": "gotowa" if has_video else "w trakcie",
+            "status": status,
             "created_at": created,
             "warning": warning,
+            "opublikowana": opublikowana,
+            "grupy_fb": grupy_fb,
         })
 
     wyniki.sort(key=lambda r: r["id"], reverse=True)
@@ -146,6 +171,87 @@ def get_reels():
         "status": "ok",
         "reels": _scan_reels_from_disk()
     }
+
+
+@router.post("/reels/{reel_id}/opublikowano")
+def oznacz_opublikowana(reel_id: str):
+    """Oznacza rolke jako opublikowana na Facebooku - prosty znacznik
+    plikowy (Dyskusja 09.07.2026, Tomasz publikuje recznie, wklejajac
+    wygenerowany opis)."""
+    from src.naprawa import znajdz_folder
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    (folder / "opublikowano.txt").write_text(
+        datetime.now().strftime("%Y-%m-%d %H:%M"), encoding="utf-8"
+    )
+    return {"status": "ok", "reel_id": reel_id, "opublikowana": True}
+
+
+@router.delete("/reels/{reel_id}/opublikowano")
+def odznacz_opublikowana(reel_id: str):
+    """Cofa oznaczenie 'opublikowana' (np. pomylka)."""
+    from src.naprawa import znajdz_folder
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    (folder / "opublikowano.txt").unlink(missing_ok=True)
+    return {"status": "ok", "reel_id": reel_id, "opublikowana": False}
+
+
+GRUPY_FB = {
+    "rod": "Rodzinne Ogrody Działkowe",
+    "rodcp": "Rodzinne Ogródki Działkowe - Cała Polska",
+    "dio": "Działkowicze i Ogrodnicy",
+}
+
+
+def _wczytaj_grupy_fb(folder) -> dict:
+    """Odczytuje ktore grupy FB juz zaznaczone jako udostepnione (Dyskusja
+    10.07.2026). To wylacznie RECZNE oznaczenie przez Tomasza - Meta
+    zablokowala API do Grup w 2024, wiec system NIE MA jak sam wykryc czy
+    cos zostalo udostepnione w grupie, to musi zaznaczyc czlowiek."""
+    import json
+    p = folder / "grupy_fb.json"
+    if not p.is_file():
+        return {}
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+@router.post("/reels/{reel_id}/grupa/{grupa_id}")
+def oznacz_grupe_fb(reel_id: str, grupa_id: str):
+    """Zaznacza rolke jako udostepniona w danej grupie FB (recznie przez
+    Tomasza, patrz komentarz przy _wczytaj_grupy_fb)."""
+    import json
+    from src.naprawa import znajdz_folder
+    if grupa_id not in GRUPY_FB:
+        raise HTTPException(status_code=400, detail=f"Nieznana grupa: {grupa_id}")
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    dane = _wczytaj_grupy_fb(folder)
+    dane[grupa_id] = datetime.now().strftime("%Y-%m-%d %H:%M")
+    (folder / "grupy_fb.json").write_text(json.dumps(dane, ensure_ascii=False), encoding="utf-8")
+    return {"status": "ok", "reel_id": reel_id, "grupy": dane}
+
+
+@router.delete("/reels/{reel_id}/grupa/{grupa_id}")
+def odznacz_grupe_fb(reel_id: str, grupa_id: str):
+    """Cofa oznaczenie udostepnienia w danej grupie FB."""
+    import json
+    from src.naprawa import znajdz_folder
+    if grupa_id not in GRUPY_FB:
+        raise HTTPException(status_code=400, detail=f"Nieznana grupa: {grupa_id}")
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    dane = _wczytaj_grupy_fb(folder)
+    dane.pop(grupa_id, None)
+    (folder / "grupy_fb.json").write_text(json.dumps(dane, ensure_ascii=False), encoding="utf-8")
+    return {"status": "ok", "reel_id": reel_id, "grupy": dane}
 
 
 @router.delete("/reels/{reel_id}")
@@ -300,7 +406,7 @@ def aktywne_generowanie_endpoint():
     import json, time
     if not REELS_DIR.is_dir():
         return {"aktywna": None}
-    KONCOWE = {"gotowe", "blad", "zatrzymano_walidacja"}
+    KONCOWE = {"gotowe", "blad", "zatrzymano_walidacja", "przerwano"}  # przerwano dodane 09.07.2026 - bug: STOP nie byl uznawany za koniec
     PROG_MAX_WIEK_S = 20 * 60  # 20 minut - dluzej niz to = uznajemy za porzucone/martwe
 
     najnowsza = None
@@ -317,9 +423,13 @@ def aktywne_generowanie_endpoint():
         etap = dane.get("etap")
         if etap in KONCOWE:
             continue
-        wiek = time.time() - sp.stat().st_mtime
-        if wiek > PROG_MAX_WIEK_S:
-            continue  # zbyt stare, prawdopodobnie porzucone po crashu
+        if etap == "checkpoint" and (d / "STOP.flag").exists():
+            continue  # martwy checkpoint - user juz kliknal Totalny STOP kiedys,
+            # zaden watek go juz nie obsluguje, nie ma co straszyc panelu (Dyskusja 09.07.2026)
+        if etap != "checkpoint":  # checkpoint czeka na czlowieka - nie ma limitu wieku
+            wiek = time.time() - sp.stat().st_mtime
+            if wiek > PROG_MAX_WIEK_S:
+                continue  # zbyt stare, prawdopodobnie porzucone po crashu
         if najnowsza is None or sp.stat().st_mtime > najnowsza[1]:
             najnowsza = (d.name, sp.stat().st_mtime, dane)
 
@@ -327,6 +437,318 @@ def aktywne_generowanie_endpoint():
         return {"aktywna": None}
     reel_id, _, dane = najnowsza
     return {"aktywna": reel_id, "status": dane}
+
+
+@router.post("/reel-stop/{reel_id}")
+def reel_stop(reel_id: str):
+    """Przerwij aktywne generowanie (Dyskusja 09.07.2026). Kooperacyjne -
+    ustawia plik-flage sprawdzana miedzy obrazami w pipeline.py, wiec
+    zatrzymuje sie PRZED kolejnym kosztownym wywolaniem fal.ai, a nie w
+    trakcie (nie przerywa polwykonanego zapisu pliku)."""
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    (folder / "STOP.flag").write_text("stop", encoding="utf-8")
+    # Totalny STOP (Dyskusja 09.07.2026): oznacza status od razu, bo na
+    # checkpoincie nic aktywnie nie leci w petli - sama flaga plikowa
+    # nic by nie zatrzymala, dopoki ktos by nie kliknal OK. Nadpisanie
+    # statusu blokuje to z gory + jest natychmiast widoczne w panelu.
+    import json, datetime
+    try:
+        (folder / "status.json").write_text(
+            json.dumps({"etap": "przerwano", "extra": {"powod": "STOP uzytkownika"}, "ts": datetime.datetime.now().isoformat()}, ensure_ascii=False),
+            encoding="utf-8"
+        )
+    except Exception:
+        pass
+    return {"status": "ok", "reel_id": folder.name}
+
+
+@router.get("/live-log")
+def live_log_endpoint(linie: int = 200):
+    """Ostatnie linie logu pipeline'u na zywo (Dyskusja 09.07.2026 - 'jak w
+    Termius'). To dokladnie ten sam strumien co docker logs -f fabryka-api,
+    tylko dostepny z panelu bez SSH."""
+    from pathlib import Path as _Path
+    log_path = _Path("/root/rod-ai-studio/data/live.log")
+    if not log_path.is_file():
+        return {"linie": []}
+    try:
+        tekst = log_path.read_text(encoding="utf-8")
+    except Exception:
+        return {"linie": []}
+    wszystkie = tekst.splitlines()
+    return {"linie": wszystkie[-linie:]}
+
+
+def _odczytaj_tryb_jezykowy(folder):
+    """Prawdziwy tryb jezykowy ze znacznika zapisanego przy starcie generowania
+    (Dyskusja 09.07.2026) - dokladniejszy niz zgadywanie z obecnosci plikow,
+    bo od 'czysty_bielik' mamy wiecej niz dwie sciezki zapisujace do scenes.txt.
+    Fallback na stare zgadywanie (po plikach) dla rolek sprzed wprowadzenia znacznika."""
+    znacznik = folder / "tryb_jezykowy.txt"
+    if znacznik.is_file():
+        try:
+            wartosc = znacznik.read_text(encoding="utf-8").strip()
+            if wartosc:
+                return wartosc
+        except Exception:
+            pass
+    scenes_en_p = folder / "scenes_en.txt"
+    scenes_pl_p = folder / "scenes.txt"
+    return "en_pl" if (scenes_en_p.is_file() and not scenes_pl_p.is_file()) else "pl"
+
+
+@router.get("/reel-checkpoint/{reel_id}")
+def reel_checkpoint_get(reel_id: str):
+    """Zwraca artykul + scenariusz do recznej weryfikacji PRZED produkcja
+    obrazow/wideo (kosztowna czesc). Dyskusja 09.07.2026 - po incydencie
+    z rolka 000068 (scenariusz odjechal od tematu, pipeline lecial dalej
+    i zaczal placic za fal.ai zanim ktokolwiek to zobaczyl)."""
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+
+    import json
+    status_p = folder / "status.json"
+    etap = None
+    if status_p.is_file():
+        try:
+            etap = json.loads(status_p.read_text(encoding="utf-8")).get("etap")
+        except Exception:
+            pass
+
+    article_p = folder / "article.md"
+    tryb_jezykowy = _odczytaj_tryb_jezykowy(folder)
+    # TYLKO en_pl/czysty (Qwen) czytaja scenes_en.txt. "czysty_bielik" i zwykla
+    # "pl" zawsze scenes.txt (po polsku) - NIGDY angielski plik (Dyskusja 09.07.2026).
+    scenariusz_p = (folder / "scenes_en.txt") if tryb_jezykowy in ("en_pl", "czysty") else (folder / "scenes.txt")
+
+    warning = None
+    warn_p = folder / "WARNING.json"
+    if warn_p.is_file():
+        try:
+            warning = json.loads(warn_p.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+
+    prompts_p = folder / "prompts.txt"
+
+    return {
+        "reel_id": folder.name,
+        "etap": etap,
+        "tryb_jezykowy": tryb_jezykowy,
+        "article": article_p.read_text(encoding="utf-8") if article_p.is_file() else "",
+        "scenariusz": scenariusz_p.read_text(encoding="utf-8") if scenariusz_p.is_file() else "",
+        "prompty_obrazow": prompts_p.read_text(encoding="utf-8") if prompts_p.is_file() else "",
+        "prompty_ts": prompts_p.stat().st_mtime if prompts_p.is_file() else None,
+        "warning": warning,
+    }
+
+
+@router.post("/reel-checkpoint/{reel_id}/zapisz")
+def reel_checkpoint_zapisz(reel_id: str, data: dict = Body(...)):
+    """'Wroc do poprawy scenariusza' - zapisuje recznie poprawiony tekst
+    na dysku, ALE NIE rusza produkcji. Checkpoint zostaje otwarty do
+    ponownego sprawdzenia."""
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    scenariusz = data.get("scenariusz", "")
+    if not scenariusz.strip():
+        raise HTTPException(status_code=400, detail="Pusty scenariusz")
+
+    tryb_jezykowy = _odczytaj_tryb_jezykowy(folder)
+    target = (folder / "scenes_en.txt") if tryb_jezykowy in ("en_pl", "czysty") else (folder / "scenes.txt")
+    target.write_text(scenariusz, encoding="utf-8")
+
+    # Scenariusz sie zmienil - stare prompty obrazow juz nie pasuja, przelicz
+    # je od nowa (Dyskusja 09.07.2026, darmowe, ale zajmuje ok. 1-3 min).
+    from src.reels.pipeline import _przygotuj_prompty_na_checkpoint
+    nowe_prompty = _przygotuj_prompty_na_checkpoint(folder, scenariusz, tryb_jezykowy)
+
+    # NAPRAWIONE 10.07.2026 (Dyskusja) - Tomasz chcial WYRAZNE potwierdzenie
+    # ze prompty faktycznie sie przeliczyly, nie tylko cichy zapis w tle.
+    liczba_promptow = nowe_prompty.count("PROMPT ") if nowe_prompty else 0
+    prompts_p = folder / "prompts.txt"
+    znacznik_czasu = prompts_p.stat().st_mtime if prompts_p.is_file() else None
+
+    return {
+        "status": "ok",
+        "zapisano": str(target),
+        "prompty_obrazow": nowe_prompty,
+        "liczba_promptow": liczba_promptow,
+        "prompty_ts": znacznik_czasu,
+    }
+
+
+@router.post("/reel-checkpoint/{reel_id}/prompty")
+def reel_checkpoint_zapisz_prompty(reel_id: str, data: dict = Body(...)):
+    """Zapisuje RECZNIE poprawione przez Tomasza prompty obrazow, bez
+    przeliczania na nowo (Dyskusja 10.07.2026) - Tomasz chce moc samemu
+    doprecyzowac pojedynczy prompt (np. dodac szczegol ktorego model
+    pominal), zamiast tylko podgladac wynik automatycznego przeliczenia."""
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    prompty = data.get("prompty_obrazow", "")
+    if not prompty.strip():
+        raise HTTPException(status_code=400, detail="Puste prompty")
+    (folder / "prompts.txt").write_text(prompty, encoding="utf-8")
+    return {"status": "ok", "prompty_ts": (folder / "prompts.txt").stat().st_mtime}
+
+
+@router.post("/reel-checkpoint/{reel_id}/audytuj")
+def reel_checkpoint_audytuj(reel_id: str, data: dict = Body(None)):
+    """Automatyczna weryfikacja checkpointu (Dyskusja 09.07.2026) - qwen3:14b
+    porownuje artykul ze scenariuszem, wypisuje wady i proponuje poprawiony
+    scenariusz. Darmowe (lokalny model). Przyjmuje aktualny (mozliwe ze
+    jeszcze niezapisany) tekst scenariusza z panelu, zeby audytowac to co
+    Tomasz akurat widzi na ekranie, nie to co ostatnio zapisane na dysku."""
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+
+    article_p = folder / "article.md"
+    artykul = article_p.read_text(encoding="utf-8") if article_p.is_file() else ""
+
+    scenariusz = (data or {}).get("scenariusz")
+    if not scenariusz:
+        tryb_jezykowy = _odczytaj_tryb_jezykowy(folder)
+        target = (folder / "scenes_en.txt") if tryb_jezykowy in ("en_pl", "czysty") else (folder / "scenes.txt")
+        scenariusz = target.read_text(encoding="utf-8") if target.is_file() else ""
+
+    if not artykul or not scenariusz:
+        raise HTTPException(status_code=400, detail="Brak artykulu lub scenariusza do audytu")
+
+    return audytuj_checkpoint(artykul, scenariusz)
+
+
+@router.post("/reel-checkpoint/{reel_id}/popraw-przez-claude")
+def reel_checkpoint_popraw_przez_claude(reel_id: str, data: dict = Body(...)):
+    """Poprawia scenariusz BEZPOSREDNIO w oknie checkpointu przez Claude API
+    (Dyskusja 10.07.2026) - Tomasz widzi problem w gotowym scenariuszu,
+    chce go poprawic recznym opisem ("popraw to a to") bez przenoszenia sie
+    do osobnej karty asystenta i kopiowania tekstu tam i z powrotem.
+    Dostaje AKTUALNY tekst scenariusza (to co jest w edytowalnym polu w
+    danym momencie - moze byc juz recznie zmieniony przez Tomasza) +
+    artykul zrodlowy jako kontekst + instrukcje co poprawic. Zwraca CALY
+    poprawiony scenariusz w tym samym formacie SCENA/UJECIE/LEKTOR, gotowy
+    do wstawienia w miejsce starego."""
+    import os
+    import requests as req
+    from src.naprawa import znajdz_folder
+
+    scenariusz_aktualny = (data or {}).get("scenariusz", "").strip()
+    instrukcja = (data or {}).get("instrukcja", "").strip()
+    if not scenariusz_aktualny:
+        raise HTTPException(status_code=400, detail="Brak scenariusza")
+    if not instrukcja:
+        raise HTTPException(status_code=400, detail="Napisz co poprawic")
+
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+
+    article_p = folder / "article.md"
+    artykul = article_p.read_text(encoding="utf-8") if article_p.is_file() else ""
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="Brak skonfigurowanego klucza ANTHROPIC_API_KEY na serwerze")
+
+    system_prompt = (
+        "Jesteś redaktorem poprawiającym gotowy scenariusz krótkiej rolki wideo "
+        "(9:16) dla ROD im. Józefa Lompy w Woźnikach, polskiego ogrodu "
+        "działkowego. Dostajesz artykuł źródłowy (kontekst), obecny scenariusz "
+        "w formacie 'SCENA N: / UJĘCIE: / LEKTOR:' oraz konkretną instrukcję "
+        "od Tomasza co poprawić. Zastosuj TYLKO to, o co prosi - nie zmieniaj "
+        "niczego innego bez powodu. Zachowaj DOKŁADNIE ten sam format i liczbę "
+        "scen (chyba że instrukcja wprost mówi inaczej). LEKTOR ma brzmieć "
+        "naturalnie, mówione zdania 6-14 słów, zero żargonu jeśli nie jest "
+        "konieczny. Odpowiedz WYŁĄCZNIE poprawionym scenariuszem w formacie "
+        "'SCENA N:\nUJĘCIE: ...\nLEKTOR: ...', bez komentarza przed ani po."
+    )
+
+    user_message = (
+        f"ARTYKUŁ ŹRÓDŁOWY (kontekst):\n{artykul}\n\n"
+        f"OBECNY SCENARIUSZ:\n{scenariusz_aktualny}\n\n"
+        f"INSTRUKCJA OD TOMASZA: {instrukcja}"
+    )
+
+    try:
+        resp = req.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 3000,
+                "system": system_prompt,
+                "messages": [{"role": "user", "content": user_message}],
+            },
+            timeout=90,
+        )
+        resp.raise_for_status()
+        wynik = resp.json()
+        tekst = "".join(blok.get("text", "") for blok in wynik.get("content", []) if blok.get("type") == "text")
+        return {"status": "ok", "scenariusz_poprawiony": tekst.strip()}
+    except req.exceptions.HTTPError as e:
+        detail = f"Blad API Anthropic: {e.response.status_code} - {e.response.text[:200]}"
+        raise HTTPException(status_code=502, detail=detail)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Nie udalo sie polaczyc z API Anthropic: {e}")
+
+
+@router.post("/reel-checkpoint/{reel_id}/tlumacz")
+def reel_checkpoint_tlumacz(reel_id: str, data: dict = Body(None)):
+    """Podglad tlumaczenia CALEGO scenariusza na polski (Dyskusja 09.07.2026)
+    - Tomasz chce porownac polski z angielskim przed zatwierdzeniem,
+    zwlaszcza dla CZYSTEJ DROGI gdzie scenariusz jest po angielsku.
+    NIC nie zapisuje na dysku - to tylko podglad w panelu. Darmowe (Bielik)."""
+    from src.reels.pipeline import przetlumacz_scenariusz_podglad_pl
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+
+    scenariusz = (data or {}).get("scenariusz")
+    if not scenariusz:
+        tryb_jezykowy = _odczytaj_tryb_jezykowy(folder)
+        target = (folder / "scenes_en.txt") if tryb_jezykowy in ("en_pl", "czysty") else (folder / "scenes.txt")
+        scenariusz = target.read_text(encoding="utf-8") if target.is_file() else ""
+
+    if not scenariusz:
+        raise HTTPException(status_code=400, detail="Brak scenariusza do przetlumaczenia")
+
+    tlumaczenie = przetlumacz_scenariusz_podglad_pl(scenariusz)
+    return {"scenariusz_pl": tlumaczenie}
+
+
+@router.post("/reel-checkpoint/{reel_id}/zatwierdz")
+def reel_checkpoint_zatwierdz(reel_id: str, data: dict = Body(None)):
+    """OK na checkpoincie - odpala produkcje mediow (audio/obrazy/render),
+    czyli wlasnie ta kosztowna czesc z fal.ai. Opcjonalnie przyjmuje
+    poprawiony scenariusz w tym samym wywolaniu (zeby nie klikac 2x)."""
+    import threading
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+
+    tryb_jezykowy = _odczytaj_tryb_jezykowy(folder)
+    scenariusz = (data or {}).get("scenariusz") or None
+    # silnik_obrazow: opcjonalny wybor Tomasza (Dyskusja 09.07.2026) - "nano_banana_pro"
+    # zamiast domyslnego FLUX.2 [max], po utracie zaufania do FLUX dla tematow
+    # technicznych (rolka 000084, 80% obrazow odrzuconych mimo identycznego promptu).
+    silnik_obrazow = (data or {}).get("silnik_obrazow") or None
+
+    def _uruchom():
+        wznow_po_checkpoincie(folder, scenariusz=scenariusz, tryb_jezykowy=tryb_jezykowy, silnik_obrazow=silnik_obrazow)
+
+    threading.Thread(target=_uruchom, daemon=True).start()
+    return {"status": "started", "reel_id": folder.name}
 
 
 @router.get("/reel-status/{reel_id}")
@@ -431,6 +853,77 @@ def render_scenes_endpoint(data: dict = Body(...)):
     return render_from_scenes(data["scenes"])
 
 
+@router.post("/asystent-promptu")
+def asystent_promptu(data: dict = Body(...)):
+    """Pomocnik do ulepszania slabych/goloslownych tematow przed wrzuceniem
+    do Czystej Drogi (Dyskusja 10.07.2026) - Tomasz czasem ma temat ktory
+    sam zweryfikowal jako za slaby/ogolnikowy, i wie ze surowy Bielik by go
+    jeszcze bardziej pogmatwal. Woła prawdziwe Claude (Sonnet) przez API
+    Anthropic (WLASNY klucz Tomasza, osobne rozliczenie od Claude.ai) -
+    dostaje slaby temat + instrukcje Tomasza, zwraca gotowy, rozbudowany
+    prompt (podobnej jakosci jak te ktore Tomasz sam pisze recznie do
+    Czystej Drogi), do recznego skopiowania przez Tomasza do pola tematu."""
+    import os
+    import requests as req
+
+    temat = (data or {}).get("temat", "").strip()
+    instrukcja = (data or {}).get("instrukcja", "").strip()
+    if not temat:
+        raise HTTPException(status_code=400, detail="Brak tematu")
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="Brak skonfigurowanego klucza ANTHROPIC_API_KEY na serwerze")
+
+    system_prompt = (
+        "Jesteś asystentem pomagającym doprecyzować słaby, ogólnikowy temat "
+        "na pełny, szczegółowy prompt do generowania rolki (krótkiego wideo "
+        "9:16) na Facebooka dla ROD im. Józefa Lompy w Woźnikach - polskiego "
+        "ogrodu działkowego (Rodzinny Ogród Działkowy). Odbiorca to zwykły "
+        "działkowiec-amator, często po pięćdziesiątce - NIE ekspert, NIE "
+        "elektryk/inżynier jeśli temat techniczny. Twój wynik zostanie "
+        "wklejony bezpośrednio jako prompt dla innego modelu (Bielik), który "
+        "napisze z niego artykuł i scenariusz sceny po scenie - więc Twój "
+        "prompt musi być SAMOWYSTARCZALNY i precyzyjny: podaj kontekst "
+        "(Polska, rok 2026, ROD), poziom trudności językowej, styl wizualny "
+        "jeśli to temat wymagający zdjęć (np. sprzęt/technika), oraz "
+        "wprost napisz czego unikać, jeśli temat jest podatny na błędy "
+        "(np. wymyślanie faktów, zbyt fachowy język, złe skojarzenia "
+        "wizualne). Odpowiedz WYŁĄCZNIE gotowym promptem po polsku, bez "
+        "komentarza przed ani po, gotowym do wklejenia."
+    )
+
+    user_message = f"SŁABY TEMAT: {temat}"
+    if instrukcja:
+        user_message += f"\n\nDODATKOWA INSTRUKCJA OD TOMASZA: {instrukcja}"
+
+    try:
+        resp = req.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 1500,
+                "system": system_prompt,
+                "messages": [{"role": "user", "content": user_message}],
+            },
+            timeout=60,
+        )
+        resp.raise_for_status()
+        wynik = resp.json()
+        tekst = "".join(blok.get("text", "") for blok in wynik.get("content", []) if blok.get("type") == "text")
+        return {"status": "ok", "prompt_ulepszony": tekst.strip()}
+    except req.exceptions.HTTPError as e:
+        detail = f"Blad API Anthropic: {e.response.status_code} - {e.response.text[:200]}"
+        raise HTTPException(status_code=502, detail=detail)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Nie udalo sie polaczyc z API Anthropic: {e}")
+
+
 @router.get('/random-topic')
 def random_topic_endpoint():
     from src.db.database import random_topic
@@ -482,6 +975,47 @@ def topics_db_add_endpoint(data: dict = Body(...)):
     return {'id': tid, 'category_id': data['category_id'], 'tekst': data['tekst'], 'miesiace': mies}
 
 
+@router.get("/reels/{reel_id}/przebieg")
+def reel_przebieg(reel_id: str):
+    """Zwraca pelny przebieg rolki scena po scenie: UJECIE + LEKTOR + PROMPT
+    obrazu (Dyskusja 10.07.2026 - Tomasz chce to widziec po kliknieciu na
+    gotowa rolke w panelu, nie tylko sam plik wideo)."""
+    from src.naprawa import znajdz_folder
+    from src.scenes.generator import parse_scenes
+    from src.images.generator import parse_prompts
+
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+
+    prompt_oryginalny_p = folder / "prompt_oryginalny.txt"
+    prompt_oryginalny = prompt_oryginalny_p.read_text(encoding="utf-8") if prompt_oryginalny_p.is_file() else ""
+
+    scenes_p = folder / "scenes.txt"
+    scenes_en_p = folder / "scenes_en.txt"
+    scenariusz_p = scenes_p if scenes_p.is_file() else scenes_en_p
+    scenariusz = scenariusz_p.read_text(encoding="utf-8") if scenariusz_p.is_file() else ""
+
+    prompts_p = folder / "prompts.txt"
+    prompty_tekst = prompts_p.read_text(encoding="utf-8") if prompts_p.is_file() else ""
+
+    sceny = parse_scenes(scenariusz) if scenariusz else []
+    prompty_lista = parse_prompts(prompty_tekst) if prompty_tekst else []
+
+    wynik = []
+    for s in sceny:
+        nr = s.get("scena")
+        prompt_tej_sceny = prompty_lista[nr - 1] if (nr and 0 < nr <= len(prompty_lista)) else ""
+        wynik.append({
+            "scena": nr,
+            "ujecie": s.get("ujecie", ""),
+            "lektor": s.get("lektor", ""),
+            "prompt": prompt_tej_sceny,
+        })
+
+    return {"reel_id": folder.name, "prompt_oryginalny": prompt_oryginalny, "sceny": wynik}
+
+
 @router.get("/reels/{reel_id}/video")
 def reel_video(reel_id: str):
     import os
@@ -504,6 +1038,18 @@ def reel_video(reel_id: str):
         if os.path.isfile(p):
             return FileResponse(p, media_type="video/mp4", filename="reel_"+reel_id+".mp4")
     raise HTTPException(status_code=404, detail="Brak finalnego MP4")
+
+
+@router.get("/reels/{reel_id}/image/{n}")
+def reel_image(reel_id: str, n: int):
+    from fastapi.responses import FileResponse
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    p = folder / "images" / f"{n:02d}.jpg"
+    if not p.is_file():
+        raise HTTPException(status_code=404, detail="Brak obrazu")
+    return FileResponse(p, media_type="image/jpeg")
 
 
 @router.post("/napraw-sprawdz")

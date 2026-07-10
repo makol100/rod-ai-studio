@@ -23,7 +23,7 @@ from src.audio.generator import EDGE_TTS_BIN, EDGE_TTS_VOICE, _TTS_ENV
 from src.images.prompts import _unload_text_model
 from src.subtitles.generator import transcribe_scene, build_ass
 from src.video.renderer import render_video
-from src.audio.music import add_background_music
+# add_background_music juz niepotrzebny tutaj - render_video wmiksowuje muzyke sam (Dyskusja 09.07.2026)
 
 
 def znajdz_folder(base: str, reel_id: str):
@@ -151,13 +151,91 @@ def zastosuj_zmiany(folder: Path, stary_tekst: str, nowy_tekst: str, zaakceptowa
         except Exception as e:
             wynik["audio_blad"].append({"scena": n, "blad": str(e)})
 
-    video = render_video(folder)  # darmowe (ffmpeg)
+    video = render_video(folder)  # darmowe (ffmpeg), muzyka juz wmiksowana w jednym przebiegu
     wynik["video"] = video
     if isinstance(video, dict) and video.get("status") == "ok":
-        video_path = Path(video["output"])
-        music_output = video_path.with_name("final_with_music.mp4")
-        music_result = add_background_music(video_path, music_output)  # darmowe
-        wynik["music"] = music_result
-        wynik["video_final"] = music_result.get("output") if music_result.get("status") == "ok" else video["output"]
+        wynik["video_final"] = video["output"]
+        if video.get("music"):
+            wynik["music"] = {"status": "ok", "music": video["music"]}
 
     return wynik
+
+
+def audytuj_checkpoint(artykul: str, scenariusz: str) -> dict:
+    """Automatyczna weryfikacja checkpointu (Dyskusja 09.07.2026): qwen3:14b
+    porownuje artykul ze scenariuszem, wypisuje wady (odjechanie od tematu,
+    bledy rzeczowe, powtorzenia) i proponuje poprawiony scenariusz w tym
+    samym wywolaniu. Darmowe (lokalny model), wiec mozna sprawdzac za
+    kazdym razem przed kliknieciem OK.
+
+    Uzywa PROMPT_MODEL (qwen3:14b) zamiast DEFAULT_MODEL (Bielik), bo to ten
+    sam model co przy funkcji NAPRAW - sprawdzony jako wiarygodny przy
+    zadaniu 'przepisz scenariusz zachowujac format' (patrz sprawdz_zmiany()
+    wyzej: Bielik gubil/wymyslal litery przy temp=0, qwen3 nie).
+    """
+    prompt = f'''Ponizej jest artykul zrodlowy oraz wygenerowany na jego podstawie scenariusz rolki wideo (format SCENA N: / UJECIE: / LEKTOR:).
+
+Sprawdz CZY scenariusz FAKTYCZNIE trzyma sie tematu artykulu - czy UJECIA i LEKTOR pasuja tresciowo do tego, o czym jest artykul, czy nie ma bledow rzeczowych, czy tresc nie "odjechala" w zupelnie inny temat.
+
+ARTYKUL:
+{artykul}
+
+SCENARIUSZ:
+{scenariusz}
+
+Odpowiedz WYLACZNIE w dokladnie takim formacie, bez zadnego komentarza przed ani po:
+
+PROBLEMY:
+- (krotki opis problemu, po polsku. Jesli scenariusz trzyma sie tematu i nie ma bledow, napisz dokladnie: "Brak problemow - scenariusz trzyma sie tematu artykulu.")
+
+PROPOZYCJA_SCENARIUSZA:
+(Jesli sa problemy: przepisz CALY scenariusz od SCENA 1 do ostatniej sceny, naprawiajac WYLACZNIE wskazane problemy tak, zeby scenariusz pasowal do artykulu, w DOKLADNIE takim samym formacie SCENA N: / UJECIE: / LEKTOR:, z ta sama liczba scen co oryginal. Jesli scenariusz jest juz dobry, przepisz go bez zmian, litera w litere.)'''
+
+    _unload_text_model()  # zwolnij Bielika z RAM przed qwen3:14b (7.6GB VPS)
+    # max_tokens podbity (4096) - odpowiedz musi pomiescic WADY + caly przepisany
+    # scenariusz (do 20 scen), domyslne 2048 potrafilo uciac scenariusz w polowie
+    # (Dyskusja 09.07.2026, zauwazone jako "0 zmian" mimo widocznych roznic tresci)
+    odpowiedz = generate(prompt, model=PROMPT_MODEL, temperature=0.2, max_tokens=4096)
+
+    marker = "PROPOZYCJA_SCENARIUSZA:"
+    if marker in odpowiedz:
+        czesc_problemy, czesc_propozycja = odpowiedz.split(marker, 1)
+    else:
+        czesc_problemy, czesc_propozycja = odpowiedz, ""
+
+    czesc_problemy = czesc_problemy.replace("PROBLEMY:", "", 1).strip()
+    problemy = [l.strip(" -") for l in czesc_problemy.splitlines() if l.strip().startswith("-")]
+    if not problemy and czesc_problemy:
+        problemy = [czesc_problemy]
+
+    propozycja = _normalize(czesc_propozycja.strip())
+
+    brak_problemow = len(problemy) == 1 and "brak problemow" in problemy[0].lower()
+
+    # Diff scena-po-scenie (Dyskusja 09.07.2026) - ten sam mechanizm co w
+    # sprawdz_zmiany() powyzej: pokazuje DOKLADNIE co model zmienil, zamiast
+    # kazac Tomaszowi porownywac dwa dlugie bloki tekstu na oko.
+    zmiany = []
+    if propozycja and not brak_problemow:
+        stare = {s["scena"]: s for s in parse_scenes(scenariusz)}
+        nowe = {s["scena"]: s for s in parse_scenes(propozycja)}
+        for n in sorted(stare):
+            a = stare[n]
+            b = nowe.get(n)
+            if b is None:
+                continue
+            zm_uj = a["ujecie"].strip() != b["ujecie"].strip()
+            zm_lek = a["lektor"].strip() != b["lektor"].strip()
+            if zm_uj or zm_lek:
+                zmiany.append({
+                    "scena": n, "zmiana_obrazu": zm_uj, "zmiana_audio": zm_lek,
+                    "stare_ujecie": a["ujecie"], "nowe_ujecie": b["ujecie"],
+                    "stary_lektor": a["lektor"], "nowy_lektor": b["lektor"],
+                })
+
+    return {
+        "problemy": problemy,
+        "propozycja_scenariusza": propozycja,
+        "brak_problemow": brak_problemow,
+        "zmiany": zmiany,
+    }

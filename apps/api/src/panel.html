@@ -280,7 +280,9 @@
   .cat-tab.on{background:var(--brand); border-color:var(--brand); color:#fff}
   .cat-tab:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 
-  .topic{display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--surface-2)}
+  .topic{display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--surface-2); cursor:pointer; transition:background .12s; border-radius:8px}
+  .topic:hover{background:var(--surface-2)}
+  .topic.picked{background:var(--brand-soft)}
   .topic:last-of-type{border-bottom:none}
   .topic .tdot{width:8px; height:8px; border-radius:50%; margin-top:6px; flex:none; background:var(--line)}
   .topic .tdot.season{background:var(--accent); box-shadow:0 0 0 3px var(--brand-soft)}
@@ -324,6 +326,65 @@
 
   /* ---------- toasts ---------- */
   #toasts{position:fixed; top:16px; right:16px; z-index:50; display:flex; flex-direction:column; gap:8px; max-width:340px}
+
+  /* ---------- CHECKPOINT MODAL (Dyskusja 09.07.2026) ---------- */
+  #cpOverlay{
+    position:fixed; inset:0; background:rgba(26,35,28,.55); z-index:80;
+    display:none; align-items:flex-end; justify-content:center;
+  }
+  #cpOverlay.show{display:flex}
+  #cpSheet{
+    background:var(--surface); width:100%; max-width:720px; max-height:92vh;
+    border-radius:20px 20px 0 0; padding:18px 18px calc(18px + env(safe-area-inset-bottom));
+    display:flex; flex-direction:column; gap:12px; overflow:hidden;
+    box-shadow:0 -6px 30px rgba(26,35,28,.25);
+  }
+  #cpSheet h3{margin:0; font-family:var(--disp); font-size:18px}
+  #cpSheet .cpSub{font-size:12.5px; color:var(--muted); margin-top:-8px}
+  #cpBody{overflow-y:auto; display:flex; flex-direction:column; gap:12px; padding-right:2px}
+  #cpBody label.field{margin-bottom:4px}
+  #cpArticle{
+    font-size:13px; line-height:1.5; background:var(--surface-2); border-radius:10px;
+    padding:12px; max-height:160px; overflow-y:auto; white-space:pre-wrap;
+  }
+  #cpScenariusz{
+    width:100%; min-height:280px; font-family:var(--mono); font-size:12.5px; line-height:1.5;
+    border:1px solid var(--line); border-radius:10px; padding:12px; background:var(--surface);
+    resize:vertical;
+  }
+  #cpWarn{
+    background:var(--alert-soft); color:var(--alert); border-radius:10px; padding:10px 12px;
+    font-size:12.5px; display:none;
+  }
+  #cpWarn.show{display:block}
+  #cpBtns{display:flex; gap:8px; flex-wrap:wrap; padding-top:2px}
+  #cpBtns button{flex:1; min-width:120px; padding:12px 10px; border-radius:10px; border:1px solid var(--line); font:inherit; font-weight:600; cursor:pointer}
+  #cpOk{background:var(--brand); color:#fff; border-color:var(--brand)}
+  #cpSave{background:var(--gold-soft); color:#7A5A0E; border-color:var(--gold)}
+  #cpPause{background:var(--surface-2); color:var(--text)}
+  #cpAudit{
+    background:var(--brand-soft); border-radius:10px; padding:12px; font-size:13px;
+    display:none;
+  }
+  #cpAudit.show{display:block}
+  #cpAudit ul{margin:6px 0 10px; padding-left:18px}
+  #cpAudit .cpAuditOk{color:var(--brand); font-weight:600}
+  #cpAgree{
+    background:var(--brand); color:#fff; border:none; border-radius:8px; padding:8px 14px;
+    font:inherit; font-weight:600; cursor:pointer; margin-top:4px;
+  }
+  #cpAuditBtn{background:var(--surface-2); color:var(--text)}
+  .cpDiff{border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin:6px 0; font-size:12.5px; background:var(--surface)}
+  .cpDiff .cpDiffScena{font-weight:600; margin-bottom:4px}
+  .cpDiff .old{color:var(--alert); text-decoration:line-through; opacity:.8}
+  .cpDiff .new{color:var(--brand); font-weight:500}
+  .cpDiff .lbl{color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.02em}
+  .cpScene{border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px; background:var(--surface)}
+  .cpScene .cpSceneNr{font-weight:700; font-size:12.5px; margin-bottom:4px}
+  .cpScene .cpSceneTxt{font-family:var(--mono); font-size:11px; line-height:1.45; color:var(--text); white-space:pre-wrap; margin-bottom:8px}
+  .cpScene .cpRefRow{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .cpScene input[type=file]{font-size:11px; max-width:150px}
+
   .toast{
     background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--muted);
     border-radius:var(--r-ctrl); padding:11px 14px; font-size:13.5px; box-shadow:0 8px 24px rgba(26,35,28,.12);
@@ -356,6 +417,61 @@
 </head>
 <body>
 <div id="toasts"></div>
+
+<div id="cpOverlay">
+  <div id="cpSheet">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px">
+      <div>
+        <h3>Checkpoint — sprawdź scenariusz</h3>
+        <div class="cpSub" id="cpReelLabel">rolka #—</div>
+      </div>
+      <button id="cpClose" type="button" aria-label="Zamknij" style="background:none; border:none; font-size:22px; line-height:1; color:var(--muted); cursor:pointer; padding:2px 6px; flex:none">✕</button>
+    </div>
+    <div id="cpWarn"></div>
+    <div id="cpBody">
+      <div>
+        <label class="field">Artykuł źródłowy</label>
+        <div id="cpArticle"></div>
+      </div>
+      <div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px">
+          <label class="field" style="margin-bottom:0">Scenariusz (edytowalny — popraw jeśli trzeba)</label>
+          <button id="cpTranslateBtn" type="button" style="background:none; border:1px solid var(--line); border-radius:8px; padding:4px 10px; font:inherit; font-size:11.5px; color:var(--muted); cursor:pointer; margin-bottom:7px">🌐 Pokaż po polsku</button>
+        </div>
+        <textarea id="cpScenariusz" spellcheck="false"></textarea>
+        <div id="cpTranslateBox" style="display:none; margin-top:8px; background:var(--surface-2); border-radius:10px; padding:12px; font-size:12.5px; line-height:1.5; max-height:280px; overflow-y:auto; white-space:pre-wrap"></div>
+        <div style="margin-top:10px; background:var(--surface-2); border-radius:10px; padding:10px">
+          <label class="field" style="margin-bottom:6px">🤖 Popraw przez Claude (bezpośrednio tutaj)</label>
+          <textarea id="cpClaudeInstrukcja" placeholder='np. "usuń wymyślony fakt w scenie 3" albo "scena 5 brzmi zbyt fachowo, uprość"' style="min-height:44px; margin-bottom:6px"></textarea>
+          <button id="cpClaudeBtn" type="button" class="btn ghost sm" style="width:100%">✨ Popraw scenariusz</button>
+        </div>
+      </div>
+      <div id="cpPromptsWrap" style="display:none">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:4px">
+          <label class="field" style="margin:0">Prompty obrazów (edytowalne — to dokładnie pójdzie do wybranego silnika)</label>
+          <span id="cpPromptyBadge" style="font-size:10.5px; color:var(--brand); white-space:nowrap"></span>
+        </div>
+        <div id="cpPromptsBox" style="max-height:400px; overflow-y:auto"></div>
+        <button id="cpPromptySaveBtn" type="button" class="btn ghost sm" style="width:100%; margin-top:8px">💾 Zapisz ręcznie poprawione prompty</button>
+      </div>
+    </div>
+    <div id="cpAudit"></div>
+    <div style="display:flex; align-items:center; gap:8px; margin:10px 0 4px">
+      <label for="cpSilnikObrazow" style="font-size:11.5px; color:var(--muted); white-space:nowrap">Silnik obrazów:</label>
+      <select id="cpSilnikObrazow" style="flex:1; padding:6px 8px; border-radius:8px; border:1px solid var(--line); background:var(--surface); font:inherit; font-size:12px">
+        <option value="">FLUX.2 [max] (domyślnie, $0.07/obraz)</option>
+        <option value="nano_banana_pro">Nano Banana Pro / Gemini 3 ($0.15/obraz)</option>
+      </select>
+    </div>
+    <div id="cpBtns">
+      <button id="cpAuditBtn" type="button">🔍 Sprawdź automatycznie</button>
+      <button id="cpPause" type="button">⏸ Pauza</button>
+      <button id="cpSave" type="button">✏️ Zapisz poprawki</button>
+      <button id="cpOk" type="button">✅ OK — generuj dalej</button>
+      <button id="cpStop" type="button" style="background:var(--alert); color:#fff; border-color:var(--alert)">🛑 Totalny STOP</button>
+    </div>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -421,6 +537,7 @@
       <span class="badge" id="lineBadge">bezczynna</span>
       <span class="msg" id="lineMsg">Linia gotowa do pracy.</span>
       <span class="clock" id="lineClock"></span>
+      <button id="btnStop" type="button" style="display:none; margin-left:8px; background:var(--alert); color:#fff; border:none; border-radius:8px; padding:6px 12px; font:inherit; font-weight:600; font-size:12.5px; cursor:pointer">🛑 Przerwij</button>
     </div>
     <div class="line" id="line">
       <div class="line-track"></div>
@@ -429,34 +546,78 @@
     </div>
   </div>
 
+  <!-- NA ZYWO (terminal) - Dyskusja 09.07.2026: "jak w Termius", dokladnie ten
+       sam strumien co docker logs -f fabryka-api, tylko z panelu. -->
+  <div class="card">
+    <div class="sec-head" style="cursor:pointer" id="liveLogToggle">
+      <span class="idx">•</span><h2>Na żywo</h2><span class="spacer"></span>
+      <span id="liveLogArrow" style="font-size:12px; color:var(--muted)">▲ zwiń</span>
+    </div>
+    <div id="liveLogWrap">
+      <pre id="liveLogBox" style="background:#12161a; color:#c9d1d9; font-family:var(--mono); font-size:11.5px; line-height:1.5; border-radius:10px; padding:12px; max-height:280px; overflow-y:auto; white-space:pre-wrap; word-break:break-word; margin:0">czekam na dane…</pre>
+    </div>
+  </div>
+
+  <!-- ASYSTENT PROMPTU (Dyskusja 10.07.2026) -->
+  <div class="card">
+    <div class="sec-head"><span class="idx">00</span><h2>Asystent promptu (Claude)</h2></div>
+    <p style="font-size:11.5px; color:var(--muted); line-height:1.5; margin:0 0 10px">
+      Masz słaby/ogólnikowy temat, który Bielik by tylko pogmatwał? Wklej go tutaj razem z instrukcją co chcesz osiągnąć — Claude (przez Twój własny klucz API, osobny koszt od Claude.ai) rozbuduje to na gotowy, precyzyjny prompt do skopiowania w pole "Temat rolki" poniżej.
+    </p>
+    <label class="field" for="apTemat">Słaby temat</label>
+    <textarea id="apTemat" placeholder="np. skoszona trawa" style="min-height:50px; margin-bottom:10px"></textarea>
+    <label class="field" for="apInstrukcja">Instrukcja / czego oczekujesz (opcjonalnie)</label>
+    <textarea id="apInstrukcja" placeholder='np. "popraw mi to, chcę z tego rolkę na Facebooka o kompostowaniu skoszonej trawy"' style="min-height:50px; margin-bottom:10px"></textarea>
+    <button class="btn primary" id="apBtn" style="width:100%; margin-bottom:10px">✨ Ulepsz prompt</button>
+    <div id="apWynikWrap" style="display:none">
+      <label class="field">Gotowy prompt (skopiuj i wklej niżej w "Temat rolki")</label>
+      <textarea id="apWynik" style="min-height:160px; margin-bottom:8px" readonly></textarea>
+      <button class="btn ghost sm" id="apUzyjBtn" style="width:100%">⬇️ Użyj jako temat rolki (wklej niżej)</button>
+    </div>
+  </div>
+
   <!-- GENERATOR -->
   <div class="card">
     <div class="sec-head"><span class="idx">01</span><h2>Nowa rolka</h2></div>
-    <label class="field" for="zapowiedzSelect">Zapowiedź serii (osobna sciezka, nie z bazy tematow)</label>
-    <select id="zapowiedzSelect" style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:var(--surface); font:inherit; margin-bottom:10px">
-      <option value="">— żadna (zwykły temat z bazy poniżej) —</option>
+    <label class="field" for="drogaSelect">Drogi generowania</label>
+    <select id="drogaSelect" style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:var(--surface); font:inherit; margin-bottom:6px; font-weight:600">
+      <option value="pl">PL — zwykła rolka</option>
+      <option value="czysty">CZYSTA DROGA (Qwen, EN→PL)</option>
+      <option value="czysty_bielik">CZYSTA DROGA BIELIK (PL, zero EN)</option>
     </select>
-    <div id="trybJezykowyWrap" style="display:none; margin-bottom:14px">
-      <label class="field">Sposob pisania artykulu (tylko dla zapowiedzi)</label>
-      <div class="seg" id="trybJezykowySeg" role="group" aria-label="Sposob pisania">
-        <button data-tj="pl" class="on">PL bezposrednio</button>
-        <button data-tj="en_pl">EN→PL (test, Llama+Bielik)</button>
-      </div>
+    <p style="font-size:11.5px; color:var(--muted); line-height:1.5; margin:0 0 14px">
+      <strong>PL — zwykła rolka</strong>: temat z bazy tematów niżej (kategorie organizm/sprzęt), Bielik pisze artykuł i scenariusz od razu po polsku.<br>
+      <strong>CZYSTA DROGA (Qwen, EN→PL)</strong>: własny prompt, Qwen3:14B pisze artykuł i scenariusz PO ANGIELSKU (dla obrazów), lektor tłumaczony na polski po obrazach przez Bielika.<br>
+      <strong>CZYSTA DROGA BIELIK (PL, zero EN)</strong>: własny prompt, WSZYSTKO Bielikiem i WSZYSTKO po polsku od początku do końca — artykuł, scenariusz, prompty obrazów. Zero angielskiego, zero tłumaczenia.
+    </p>
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:8px">
+      <label class="field" for="prompt" style="margin-bottom:0">Temat rolki</label>
+      <button id="btnClearPrompt" type="button" style="background:none; border:1px solid var(--line); border-radius:8px; padding:4px 10px; font:inherit; font-size:11.5px; color:var(--muted); cursor:pointer; margin-bottom:7px">✕ Wyczyść</button>
     </div>
-    <label class="field" for="prompt">Temat rolki</label>
     <textarea id="prompt" placeholder="Wpisz temat albo wylosuj z bazy sezonowej…"></textarea>
     <div class="picked" id="picked"></div>
 
     <div class="row" style="margin-top:16px">
       <div>
         <label class="field">Liczba scen</label>
-        <div class="seg" id="sceneSeg" role="group" aria-label="Liczba scen">
+        <div class="seg" id="sceneSeg" role="group" aria-label="Liczba scen" style="flex-wrap:wrap">
           <button data-sc="" class="on">Auto</button>
           <button data-sc="5">5</button>
           <button data-sc="6">6</button>
           <button data-sc="7">7</button>
           <button data-sc="8">8</button>
           <button data-sc="9">9</button>
+          <button data-sc="10">10</button>
+          <button data-sc="11">11</button>
+          <button data-sc="12">12</button>
+          <button data-sc="13">13</button>
+          <button data-sc="14">14</button>
+          <button data-sc="15">15</button>
+          <button data-sc="16">16</button>
+          <button data-sc="17">17</button>
+          <button data-sc="18">18</button>
+          <button data-sc="19">19</button>
+          <button data-sc="20">20</button>
         </div>
       </div>
       <div class="grow" style="text-align:right; display:flex; gap:10px; justify-content:flex-end">
@@ -554,18 +715,45 @@
   const nowMonth = () => new Date().getMonth() + 1;
   const seasonWin = () => [0,1,2].map(k => ((nowMonth()-1+k)%12)+1);
 
-  // Kolejnosc zgodna z RZECZYWISTYM wykonaniem backendu (nie zalozeniem UI).
-  // Ustalone w Dyskusji 08.07.2026: Sceny -> Lektor -> Obrazy -> Napisy -> Render -> Muzyka
-  // (audio faktycznie generuje sie PRZED obrazami w pipeline.py, nie po).
-  const STAGES = [
-    {n:'01', name:'Sceny',  key:'sceny',  ic:'<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 8h8M8 12h8M8 16h5"/>'},
-    {n:'02', name:'Lektor', key:'lektor', ic:'<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/>'},
-    {n:'03', name:'Obrazy', key:'obrazy', ic:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/>'},
-    {n:'04', name:'Napisy', key:'napisy', ic:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h5M14 15h3M7 11h3M13 11h4"/>'},
-    {n:'05', name:'Render', key:'render', ic:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 9l5 3-5 3z"/>'},
-    {n:'06', name:'Muzyka', key:'muzyka', ic:'<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.4"/><circle cx="16.5" cy="16" r="2.4"/>'}
+  // DWA zestawy etapow - kazda sciezka pipeline'u ma INNA rzeczywista kolejnosc
+  // (Dyskusja 09.07.2026, po tym jak jeden staly pasek klamal dla sciezki en_pl/CZYSTA DROGA):
+  //   "pl"  (domyslna, zwykle rolki): Sceny -> Lektor -> Obrazy -> Napisy -> Render -> Muzyka
+  //   "en"  (Zapowiedz / CZYSTA DROGA): Sceny -> Obrazy -> Tlumaczenie -> Lektor -> Napisy -> Render -> Muzyka
+  // Backend teraz mowi ktora kolejnosc jest aktywna przez pole "kolejnosc" w /reel-status.
+  const ICONY = {
+    sceny:  '<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+    lektor: '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/>',
+    obrazy: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/>',
+    tlumaczenie: '<path d="M4 5h7M7.5 3v2M4 8c1 3 3 5 5 6M11 5c-1 3-3 6-6.5 8"/><path d="M14 21l4-9 4 9M15.5 18h5"/>',
+    napisy: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h5M14 15h3M7 11h3M13 11h4"/>',
+    render: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 9l5 3-5 3z"/>',
+    muzyka: '<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.4"/><circle cx="16.5" cy="16" r="2.4"/>'
+  };
+  // NAPRAWIONE 09.07.2026 (Dyskusja) - "Muzyka" usunieta jako osobny krok:
+  // od scalenia renderu+muzyki w JEDEN przebieg ffmpeg (patrz render_video()
+  // w video/renderer.py), backend juz NIGDY nie zapisuje statusu etap="muzyka" -
+  // przeskakuje prosto z "render" do "gotowe". Ten krok zostawiony osobno
+  // nigdy by sie nie zaswiecil, sprawiajac mylne wrazenie ze pasek "utknal"
+  // przed koncem, mimo ze rolka faktycznie sie konczyla poprawnie.
+  const STAGES_PL = [
+    {n:'01', name:'Sceny',  key:'sceny',  ic:ICONY.sceny},
+    {n:'02', name:'Lektor', key:'lektor', ic:ICONY.lektor},
+    {n:'03', name:'Obrazy', key:'obrazy', ic:ICONY.obrazy},
+    {n:'04', name:'Napisy', key:'napisy', ic:ICONY.napisy},
+    {n:'05', name:'Render', key:'render', ic:ICONY.render}
   ];
-  const STAGE_INDEX = {}; STAGES.forEach((s,i)=>STAGE_INDEX[s.key]=i);
+  const STAGES_EN = [
+    {n:'01', name:'Sceny',       key:'sceny',       ic:ICONY.sceny},
+    {n:'02', name:'Obrazy',      key:'obrazy',      ic:ICONY.obrazy},
+    {n:'03', name:'Tłumaczenie', key:'tlumaczenie', ic:ICONY.tlumaczenie},
+    {n:'04', name:'Lektor',      key:'lektor',      ic:ICONY.lektor},
+    {n:'05', name:'Napisy',      key:'napisy',      ic:ICONY.napisy},
+    {n:'06', name:'Render',      key:'render',      ic:ICONY.render}
+  ];
+  function stageIndexOf(stages){ const m={}; stages.forEach((s,i)=>m[s.key]=i); return m; }
+  const STAGE_INDEX_PL = stageIndexOf(STAGES_PL);
+  const STAGE_INDEX_EN = stageIndexOf(STAGES_EN);
+  let STAGES = STAGES_PL, STAGE_INDEX = STAGE_INDEX_PL, aktywnaKolejnosc = 'pl';
 
   function svg(inner, cls){
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="'+(cls||'')+'">'+inner+'</svg>';
@@ -680,10 +868,13 @@
   }
 
   /* ---------- production line ---------- */
-  const lineEl = $('#line'), fillEl = $('#lineFill');
+  const lineEl = $('#line'); let fillEl = $('#lineFill');
   let stageEls = [], schedTimers = [], clockTimer = null;
 
   function buildLine(){
+    lineEl.innerHTML = '<div class="line-track"></div><div class="line-fill" id="lineFill"></div>';
+    fillEl = $('#lineFill');
+    stageEls = [];
     STAGES.forEach(s=>{
       const d = document.createElement('div');
       d.className = 'stage is-idle';
@@ -691,6 +882,16 @@
       lineEl.appendChild(d);
       stageEls.push(d);
     });
+  }
+  function przelaczKolejnosc(kolejnosc){
+    // Przebudowuje pasek na wlasciwy zestaw etapow (Dyskusja 09.07.2026) -
+    // "pl" (zwykle rolki) albo "en" (Zapowiedz / CZYSTA DROGA, gdzie obrazy
+    // ida PRZED tlumaczeniem+lektorem, nie po).
+    if(kolejnosc === aktywnaKolejnosc) return;
+    aktywnaKolejnosc = kolejnosc;
+    if(kolejnosc === 'en'){ STAGES = STAGES_EN; STAGE_INDEX = STAGE_INDEX_EN; }
+    else { STAGES = STAGES_PL; STAGE_INDEX = STAGE_INDEX_PL; }
+    buildLine();
   }
   const isMobile = () => window.matchMedia('(max-width:760px)').matches;
   function setFill(pct){
@@ -715,40 +916,119 @@
     setFill(active/(STAGES.length-1)*100);
   }
   function startLine(){
+    aktywnaKolejnosc = null; przelaczKolejnosc('pl'); // domyslny start, pierwszy poll skoryguje jesli trzeba
     resetLine();
     $('#lineBadge').className='badge run'; $('#lineBadge').textContent='pracuje';
     $('#lineMsg').textContent='Uruchamiam linię…';
     markProgress(0);
   }
 
+  /* ---------- NA ZYWO (terminal) - Dyskusja 09.07.2026 ---------- */
+  let liveLogTimer = null, liveLogOstatniaLiczba = 0, liveLogAutoscroll = true;
+  const liveLogBox = $('#liveLogBox');
+  liveLogBox.addEventListener('scroll', ()=>{
+    // jesli user recznie przewinie w gore, przestan wymuszac autoscroll,
+    // az wroci na sam dol - tak jak w prawdziwym terminalu.
+    const dol = liveLogBox.scrollHeight - liveLogBox.scrollTop - liveLogBox.clientHeight;
+    liveLogAutoscroll = dol < 30;
+  });
+  async function odswiezLiveLog(){
+    try{
+      const d = await api('/live-log?linie=200');
+      const linie = d.linie || [];
+      if(linie.length === liveLogOstatniaLiczba) return; // nic nowego - nie dotykaj DOM (flicker)
+      liveLogOstatniaLiczba = linie.length;
+      liveLogBox.textContent = linie.length ? linie.join('\n') : '(pusto - brak aktywnosci od restartu API)';
+      if(liveLogAutoscroll) liveLogBox.scrollTop = liveLogBox.scrollHeight;
+    }catch(e){ /* cicho - brak endpointu w DEMO albo chwilowy blad */ }
+  }
+  function startLiveLog(){
+    if(liveLogTimer) return;
+    odswiezLiveLog();
+    liveLogTimer = setInterval(odswiezLiveLog, 1500);
+  }
+  startLiveLog(); // leci zawsze, niezaleznie od tego czy user generuje cos w TEJ karcie przegladarki
+
+  $('#liveLogToggle').addEventListener('click', ()=>{
+    const wrap = $('#liveLogWrap'), arrow = $('#liveLogArrow');
+    const zwiniete = wrap.style.display === 'none';
+    wrap.style.display = zwiniete ? '' : 'none';
+    arrow.textContent = zwiniete ? '▲ zwiń' : '▼ rozwiń';
+  });
+
   let statusPollTimer = null;
+  let statusPollReelId = null;  // zapamietane zeby wznowic po powrocie z tla (patrz visibilitychange nizej)
   // Prawdziwy pasek postepu - odpytuje /reel-status/{id}, NIE symuluje czasu.
   // Ustalone w Dyskusji 08.07.2026, zasada "weryfikacja nie halucynacja".
+
+  // NAPRAWIONE 09.07.2026 (Dyskusja) - mobilne przegladarki (Chrome Android)
+  // usypiaja setInterval gdy karta jest w tle (np. przelaczenie na inna
+  // aplikacje zeby zrobic zrzut ekranu) - odpytywanie ciho przestawalo
+  // dzialac, a pasek postepu zamrazal sie na ostatnim znanym etapie mimo
+  // ze rolka juz dawno sie skonczyla w tle na serwerze. Ten nasluch wymusza
+  // natychmiastowe odswiezenie stanu w momencie powrotu do karty, zamiast
+  // czekac (czasem w nieskonczonosc) az przegladarka wznowi throttlowany timer.
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible' && statusPollReelId){
+      startStatusPolling(statusPollReelId);
+    }
+  });
+
   function startStatusPolling(reelId){
+    statusPollReelId = reelId;
     if(statusPollTimer) clearInterval(statusPollTimer);
     statusPollTimer = setInterval(async ()=>{
       let st;
       try{ st = await api('/reel-status/'+reelId); }
       catch(e){ return; } // status.json jeszcze nie istnieje na samym starcie - normalne
+      if(st.kolejnosc) przelaczKolejnosc(st.kolejnosc);
       const etap = st.etap;
       if(etap === 'gotowe'){
-        clearInterval(statusPollTimer); statusPollTimer = null;
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
         lineDone();
         await finishGeneration(reelId, true, st);
         return;
       }
       if(etap === 'blad' || etap === 'zatrzymano_walidacja'){
-        clearInterval(statusPollTimer); statusPollTimer = null;
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
         lineError(etap === 'zatrzymano_walidacja' ? 'Zatrzymano: scenariusz nie przeszedl walidacji.' : 'Blad generowania.');
         await finishGeneration(reelId, false, st);
+        return;
+      }
+      if(etap === 'przerwano'){
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
+        clearInterval(clockTimer);
+        busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
+        $('#lineBadge').className='badge'; $('#lineBadge').textContent='przerwano';
+        $('#lineMsg').textContent='Przerwano na życzenie użytkownika.';
+        loadReels(); loadStats();
+        return;
+      }
+      if(etap === 'checkpoint'){
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
+        clearInterval(clockTimer);
+        busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
+        $('#lineBadge').className='badge'; $('#lineBadge').textContent='checkpoint';
+        $('#lineMsg').textContent='Scenariusz gotowy — czeka na weryfikację.';
+        openCheckpoint(reelId);
         return;
       }
       const idx = STAGE_INDEX[etap];
       if(idx !== undefined){
         markProgress(idx);
         let msg = 'Etap '+STAGES[idx].n+' — '+STAGES[idx].name.toLowerCase()+'…';
-        if(etap === 'obrazy' && st.extra && st.extra.total){
-          msg += ' ('+st.extra.i+'/'+st.extra.total+')';
+        if(etap === 'obrazy' && st.extra){
+          // Dyskusja 09.07.2026: etap "obrazy" ma DWIE fazy - najpierw Qwen
+          // pisze prompty scena-po-scenie (tanie, lokalne), potem dopiero
+          // fal.ai faktycznie renderuje obrazy (kosztowne). Bez rozroznienia
+          // faz user widzial tylko "obrazy" bez wiedzy co konkretnie sie liczy.
+          if(st.extra.faza === 'prompty'){
+            msg = 'Etap '+STAGES[idx].n+' — prompty obrazów (Qwen)';
+            if(st.extra.total) msg += ' ('+st.extra.i+'/'+st.extra.total+')';
+            msg += '…';
+          } else if(st.extra.total){
+            msg += ' ('+st.extra.i+'/'+st.extra.total+')';
+          }
         }
         $('#lineMsg').textContent = msg;
       }
@@ -784,43 +1064,43 @@
 
   /* ---------- topic id tracking (dla trybu promptu: organizm/sprzet) ---------- */
   let currentTopicId = null;
-  $('#prompt').addEventListener('input', ()=>{ currentTopicId = null; currentZapowiedzId = null; $('#zapowiedzSelect').value=''; $('#trybJezykowyWrap').style.display='none'; });
+  $('#prompt').addEventListener('input', ()=>{ currentTopicId = null; });
 
-  /* ---------- zapowiedzi serii (osobna sciezka do promptu, poza baza tematow) ---------- */
-  let currentZapowiedzId = null;
-  async function loadZapowiedzi(){
-    try{
-      const lista = await api('/zapowiedzi');
-      const sel = $('#zapowiedzSelect');
-      sel.innerHTML = '<option value="">— żadna (zwykły temat z bazy poniżej) —</option>';
-      lista.forEach(z=>{
-        const opt = document.createElement('option');
-        opt.value = z.id;
-        opt.textContent = 'Zapowiedź #'+z.id+' (użyto '+z.uzyty_razy+'×)'+(z.reel_id ? ' → rolka #'+z.reel_id : '');
-        opt.dataset.tresc = z.tresc_promptu;
-        sel.appendChild(opt);
-      });
-    }catch(e){ /* cicho - to opcjonalna sekcja */ }
-  }
-  $('#zapowiedzSelect').addEventListener('change', (e)=>{
-    const opt = e.target.selectedOptions[0];
-    const wrap = $('#trybJezykowyWrap');
-    if(!opt || !opt.value){ currentZapowiedzId = null; wrap.style.display='none'; return; }
-    currentZapowiedzId = parseInt(opt.value,10);
+  $('#btnClearPrompt').addEventListener('click', ()=>{
+    $('#prompt').value = '';
     currentTopicId = null;
-    $('#prompt').value = opt.dataset.tresc || '';
-    $('#picked').innerHTML = '<span class="chip">Zapowiedź serii</span>';
-    wrap.style.display = ''; // widoczny TYLKO dla zapowiedzi, nie dla zwyklych tematow
+    $('#picked').innerHTML = '';
+    $('#prompt').focus();
   });
-  loadZapowiedzi();
 
-  /* ---------- tryb jezykowy (tylko dla zapowiedzi serii) ---------- */
-  let trybJezykowy = 'pl';
-  $('#trybJezykowySeg').addEventListener('click', e=>{
-    const b = e.target.closest('button'); if(!b) return;
-    $('#trybJezykowySeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    trybJezykowy = b.dataset.tj;
+  /* ---------- Drogi generowania (Dyskusja 09.07.2026): dokladnie 2 opcje - PL / CZYSTA DROGA ---------- */
+  $('#drogaSelect').addEventListener('change', (e)=>{
+    $('#picked').innerHTML = e.target.value === 'czysty' ? '<span class="chip">CZYSTA DROGA</span>' : '';
+  });
+
+  /* ---------- asystent promptu (Dyskusja 10.07.2026, Claude przez API) ---------- */
+  $('#apBtn').addEventListener('click', async ()=>{
+    const temat = $('#apTemat').value.trim();
+    if(!temat){ toast('Wpisz temat do ulepszenia.', 'info'); $('#apTemat').focus(); return; }
+    const instrukcja = $('#apInstrukcja').value.trim();
+    busy($('#apBtn'), true);
+    try{
+      const wynik = await api('/asystent-promptu', {method:'POST', body: JSON.stringify({temat, instrukcja})});
+      $('#apWynik').value = wynik.prompt_ulepszony || '';
+      $('#apWynikWrap').style.display = '';
+      $('#apWynik').scrollIntoView({behavior:'smooth', block:'center'});
+    }catch(e){
+      toast('Nie udało się wygenerować: '+e.message, 'err');
+    }finally{ busy($('#apBtn'), false); }
+  });
+  $('#apUzyjBtn').addEventListener('click', ()=>{
+    const wartosc = $('#apWynik').value;
+    if(!wartosc) return;
+    currentTopicId = null;
+    $('#prompt').value = wartosc;
+    $('#picked').innerHTML = '<span class="chip">Z asystenta promptu (Claude)</span>';
+    $('#prompt').scrollIntoView({behavior:'smooth', block:'center'});
+    toast('Wklejono do pola tematu poniżej.', 'ok');
   });
 
   /* ---------- random topic ---------- */
@@ -843,9 +1123,6 @@
   async function finishGeneration(reelId, ok, statusObj){
     clearInterval(clockTimer);
     busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
-    if(currentZapowiedzId){
-      api('/zapowiedzi/'+currentZapowiedzId+'/uzyj', {method:'POST', body: JSON.stringify({reel_id: reelId})}).then(loadZapowiedzi).catch(()=>{});
-    }
     if(ok){
       try{
         const lista = await api('/reels');
@@ -869,7 +1146,8 @@
     const t0 = Date.now();
     clockTimer = setInterval(()=>{ $('#lineClock').textContent = fmtClock(Date.now()-t0); }, 500);
     try{
-      const start = await api('/generate-reel-async', {method:'POST', body: JSON.stringify({prompt, scene_count: sceneCount, topic_id: currentTopicId, tryb_jezykowy: currentZapowiedzId ? trybJezykowy : 'pl'})});
+      const trybWysylany = $('#drogaSelect').value; // "pl" albo "czysty" - dokladnie 2 drogi generowania
+      const start = await api('/generate-reel-async', {method:'POST', body: JSON.stringify({prompt, scene_count: sceneCount, topic_id: currentTopicId, tryb_jezykowy: trybWysylany})});
       startStatusPolling(start.reel_id);
       // busy() zostaje TRUE az do finishGeneration - to moze potrwac kilka minut, celowo.
     }catch(e){
@@ -936,6 +1214,7 @@
           statusBadge(r.status)+
           (r.warning ? warningBadge() : '')+
           (r.status==='gotowa' ? '<button class="iconbtn" data-action="play-reel" title="Odtwórz" aria-label="Odtwórz rolkę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>' : '')+
+          (r.status==='gotowa' ? ('<button class="iconbtn" data-action="toggle-published" data-published="'+(r.opublikowana?'1':'0')+'" title="'+(r.opublikowana?'Cofnij oznaczenie opublikowana':'Oznacz jako opublikowana')+'" aria-label="Opublikowana" style="'+(r.opublikowana?'color:var(--brand)':'')+'">'+(r.opublikowana?'✅':'📤')+'</button>') : '')+
           '<button class="iconbtn" data-action="delete-reel" title="Usuń rolkę" aria-label="Usuń rolkę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'+
           '</div>'+
           '<div class="rdate">'+esc(r.created_at||'')+'</div>'+
@@ -944,6 +1223,8 @@
             (r.prompt?'<div class="rprompt">Temat: '+esc(r.prompt)+'</div>':'')+
             (r.text?'<div class="txt" style="margin-bottom:8px">'+esc(r.text)+'</div>':'')+
             (r.hashtags?'<div class="txt mono">'+esc(r.hashtags)+'</div>':'')+
+            (r.status==='gotowa' ? grupyFbHtml(r) : '')+
+            (r.status==='gotowa' ? ('<button class="btn ghost sm" data-action="toggle-przebieg" style="margin-bottom:8px">📋 Pokaż przebieg (UJĘCIE-LEKTOR-PROMPT)</button><div class="przebieg-wrap" style="display:none"></div>') : '')+
             '<div class="napraw-section">'+
               '<button class="btn ghost sm" data-action="toggle-napraw">🔧 Zgłoś problem</button>'+
               '<div class="napraw-form" style="display:none">'+
@@ -1072,6 +1353,52 @@
       });
       return;
     }
+    const pubBtn = e.target.closest('[data-action="toggle-published"]');
+    if(pubBtn){
+      e.stopPropagation();
+      const reelEl = pubBtn.closest('.reel');
+      const reelId = reelEl.dataset.reelId;
+      const jestOpublikowana = pubBtn.dataset.published === '1';
+      busy(pubBtn, true);
+      const metoda = jestOpublikowana ? 'DELETE' : 'POST';
+      api('/reels/'+reelId+'/opublikowano', {method: metoda}).then(()=>{
+        toast(jestOpublikowana ? 'Cofnięto oznaczenie #'+reelId+'.' : 'Rolka #'+reelId+' oznaczona jako opublikowana.', 'ok');
+        loadReels();
+      }).catch(e=>{
+        toast('Nie udało się zmienić: '+e.message, 'err');
+        busy(pubBtn, false);
+      });
+      return;
+    }
+    const przebiegBtn = e.target.closest('[data-action="toggle-przebieg"]');
+    if(przebiegBtn){
+      e.stopPropagation();
+      const reelEl = przebiegBtn.closest('.reel');
+      const reelId = reelEl.dataset.reelId;
+      const wrap = przebiegBtn.nextElementSibling;
+      const otwarte = wrap.style.display !== 'none';
+      if(otwarte){ wrap.style.display = 'none'; return; }
+      wrap.style.display = '';
+      if(wrap.dataset.loaded === '1'){ return; }
+      wrap.innerHTML = '<div class="loading-txt">ładuję…</div>';
+      api('/reels/'+reelId+'/przebieg').then(d=>{
+        const sceny = d.sceny || [];
+        if(!sceny.length){ wrap.innerHTML = '<div class="txt" style="color:var(--muted)">Brak danych o scenach.</div>'; return; }
+        const promptOryginalny = d.prompt_oryginalny
+          ? '<div class="cpScene" style="background:var(--surface-2)"><div class="cpSceneNr">Oryginalny prompt (na wejściu)</div><div class="txt">'+esc(d.prompt_oryginalny)+'</div></div>'
+          : '<div class="txt" style="color:var(--muted); margin-bottom:8px; font-size:11px">(oryginalny prompt niedostępny — ta rolka powstała przed dodaniem tego zapisu)</div>';
+        wrap.innerHTML = promptOryginalny + sceny.map(s=>
+          '<div class="cpScene">'+
+          '<div class="cpSceneNr">Scena '+s.scena+'</div>'+
+          '<div class="txt" style="margin-bottom:4px"><strong>UJĘCIE:</strong> '+esc(s.ujecie||'—')+'</div>'+
+          '<div class="txt" style="margin-bottom:4px"><strong>LEKTOR:</strong> '+esc(s.lektor||'(brak)')+'</div>'+
+          '<div class="txt mono" style="font-size:11px"><strong>PROMPT:</strong> '+esc(s.prompt||'—')+'</div>'+
+          '</div>'
+        ).join('');
+        wrap.dataset.loaded = '1';
+      }).catch(e=>{ wrap.innerHTML = '<div class="txt" style="color:var(--alert)">Nie udało się wczytać: '+e.message+'</div>'; });
+      return;
+    }
     const toggleBtn = e.target.closest('[data-action="toggle-napraw"]');
     if(toggleBtn){
       const form = toggleBtn.nextElementSibling;
@@ -1096,9 +1423,43 @@
       const checked = box.querySelectorAll('.napraw-scene input[data-role="scene-check"]:checked').length;
       const label = box.querySelector('[data-role="count-label"]');
       if(label) label.textContent = checked+' z '+total+' zaznaczonych';
+      return;
+    }
+    if(e.target.matches('input[data-action="toggle-grupa-fb"]')){
+      const chk = e.target;
+      const reelEl = chk.closest('.reel');
+      const reelId = reelEl.dataset.reelId;
+      const grupaId = chk.dataset.grupa;
+      const metoda = chk.checked ? 'POST' : 'DELETE';
+      chk.disabled = true;
+      api('/reels/'+reelId+'/grupa/'+grupaId, {method: metoda}).then(()=>{
+        chk.disabled = false;
+      }).catch(err=>{
+        chk.checked = !chk.checked; // cofnij wizualnie jesli sie nie udalo
+        chk.disabled = false;
+        toast('Nie udało się zapisać: '+err.message, 'err');
+      });
+      return;
     }
   });
 
+  const GRUPY_FB_LISTA = [
+    {id:'rod', nazwa:'Rodzinne Ogrody Działkowe'},
+    {id:'rodcp', nazwa:'Rodzinne Ogródki Działkowe - Cała Polska'},
+    {id:'dio', nazwa:'Działkowicze i Ogrodnicy'},
+  ];
+  function grupyFbHtml(r){
+    const grupy = r.grupy_fb || {};
+    const wiersze = GRUPY_FB_LISTA.map(g=>{
+      const zaznaczone = !!grupy[g.id];
+      return '<label style="display:flex; align-items:center; gap:6px; font-size:11.5px; margin-bottom:3px; cursor:pointer">'+
+        '<input type="checkbox" data-action="toggle-grupa-fb" data-grupa="'+g.id+'" '+(zaznaczone?'checked':'')+'> '+
+        esc(g.nazwa)+'</label>';
+    }).join('');
+    return '<div style="background:var(--surface-2); border-radius:8px; padding:8px 10px; margin-bottom:8px">'+
+      '<div style="font-size:11px; color:var(--muted); margin-bottom:4px">Udostępnione w grupach FB (zaznacz ręcznie):</div>'+
+      wiersze+'</div>';
+  }
   function statusBadge(status){
     const s = (status||'').toLowerCase();
     let cls='st-other', label=status||'—';
@@ -1146,6 +1507,17 @@
           '<span class="tdot'+(inSeason?' season':'')+'" title="'+(inSeason?'w sezonie teraz':'poza sezonem')+'"></span>'+
           '<div class="tmain"><div class="ttext">'+esc(t.tekst)+'</div><div class="tmonths">'+mchips+'</div></div>'+
           '<span class="tused">'+(t.uzyty_razy??0)+'×</span>';
+        if(t.id === currentTopicId) el.classList.add('picked');
+        el.addEventListener('click', ()=>{
+          currentTopicId = t.id ?? null;
+          $('#prompt').value = t.tekst || '';
+          const katNazwa = (cats.find(c=>c.id===t.category_id)||{}).nazwa || '—';
+          $('#picked').innerHTML = '<span class="chip">'+esc(katNazwa)+'</span> <span class="chip muted">wybrano z listy · użyto '+(t.uzyty_razy??0)+'×</span>';
+          box.querySelectorAll('.topic').forEach(x=>x.classList.remove('picked'));
+          el.classList.add('picked');
+          $('#prompt').scrollIntoView({behavior:'smooth', block:'center'});
+          toast('Temat wybrany do generowania.', 'ok');
+        });
         box.appendChild(el);
       });
     }catch(e){ box.innerHTML=emptyState('Nie udało się wczytać tematów: '+e.message); }
@@ -1246,6 +1618,240 @@
   function num(v){ const n=parseInt(v,10); return isNaN(n)?-1:n; }
   function fmtClock(ms){ const s=Math.floor(ms/1000); const m=Math.floor(s/60); return (m>0? m+':' + String(s%60).padStart(2,'0') : s+' s'); }
   function emptyState(msg){ return '<div class="empty">'+svg('<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>')+'<div>'+esc(msg)+'</div></div>'; }
+
+  /* ---------- CHECKPOINT (Dyskusja 09.07.2026): pauza PRZED kosztowna
+     produkcja obrazow/wideo - po incydencie z rolka 000068 (scenariusz
+     odjechal od tematu artykulu, wykryte przez has_repetition_loop, ale
+     pipeline lecial dalej i zaczal placic za fal.ai zanim ktokolwiek
+     to zobaczyl). Panel pokazuje artykul + edytowalny scenariusz i
+     czeka na jedna z trzech decyzji: OK / Zapisz poprawki / Pauza. ---------- */
+  let cpReelId = null;
+
+  function parsePromptyScen(tekst){
+    // dzieli tekst na bloki wg "PROMPT N:" - ta sama logika co backend parse_prompts
+    const parts = tekst.split(/PROMPT\s+(\d+)\s*:/i);
+    const sceny = [];
+    for(let i=1;i<parts.length;i+=2){
+      const nr = parseInt(parts[i],10);
+      const tresc = (parts[i+1]||'').trim();
+      if(tresc) sceny.push({nr, tresc});
+    }
+    return sceny;
+  }
+
+  function renderujScenyPromptow(reelId, tekst){
+    // NAPRAWIONE 10.07.2026 (Dyskusja) - prompty teraz EDYTOWALNE (textarea
+    // zamiast statycznego div), zeby Tomasz mogl recznie doprecyzowac
+    // pojedynczy prompt bez czekania na przeliczenie calego scenariusza.
+    const sceny = parsePromptyScen(tekst||'');
+    const box = $('#cpPromptsBox');
+    box.innerHTML = sceny.map(s=>
+      '<div class="cpScene"><div class="cpSceneNr">Scena '+s.nr+'</div>'+
+      '<textarea data-prompt-nr="'+s.nr+'" style="width:100%; min-height:90px; font-size:11.5px; font-family:monospace">'+esc(s.tresc)+'</textarea></div>'
+    ).join('');
+  }
+  function pokazZnacznikPromptow(tsUnix){
+    const badge = $('#cpPromptyBadge');
+    if(!badge) return;
+    if(!tsUnix){ badge.textContent = ''; return; }
+    const d = new Date(tsUnix*1000);
+    badge.textContent = '✓ przeliczono ' + d.toLocaleTimeString('pl-PL', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    badge.style.background = 'var(--brand-soft)';
+    setTimeout(()=>{ badge.style.background = ''; }, 2000);
+  }
+  function zbierzEdytowanePrompty(){
+    const areas = $('#cpPromptsBox').querySelectorAll('textarea[data-prompt-nr]');
+    const bloki = [];
+    areas.forEach(a=>{
+      bloki.push('PROMPT '+a.dataset.promptNr+':\n'+a.value.trim());
+    });
+    return bloki.join('\n\n');
+  }
+
+  async function openCheckpoint(reelId){
+    try{
+      const d = await api('/reel-checkpoint/'+reelId);
+      cpReelId = d.reel_id || reelId;
+      const etykietyTrybu = {
+        'en_pl': ' · zapowiedź (EN→PL)',
+        'czysty': ' · CZYSTA DROGA (Qwen, EN→PL)',
+        'czysty_bielik': ' · CZYSTA DROGA BIELIK (PL, zero EN)'
+      };
+      $('#cpReelLabel').textContent = 'rolka #'+cpReelId+(etykietyTrybu[d.tryb_jezykowy] || '');
+      $('#cpArticle').textContent = d.article || '(brak artykułu)';
+      $('#cpScenariusz').value = d.scenariusz || '';
+      $('#cpAudit').classList.remove('show'); $('#cpAudit').innerHTML='';
+      $('#cpTranslateBox').style.display = 'none'; $('#cpTranslateBox').textContent = '';
+      if(d.prompty_obrazow){
+        $('#cpPromptsWrap').style.display = '';
+        renderujScenyPromptow(cpReelId, d.prompty_obrazow);
+        pokazZnacznikPromptow(d.prompty_ts);
+      } else {
+        $('#cpPromptsWrap').style.display = 'none';
+      }
+      const warnBox = $('#cpWarn');
+      if(d.warning && d.warning.ostrzezenia && d.warning.ostrzezenia.length){
+        warnBox.innerHTML = '⚠️ Automatyczny detektor wykrył potencjalny problem (pętla powtórzeń / odjechanie od tematu) na etapie: '
+          + d.warning.ostrzezenia.map(o=>esc(o.etap)).join(', ') + '. Sprawdź scenariusz uważnie przed zatwierdzeniem.';
+        warnBox.classList.add('show');
+      } else {
+        warnBox.classList.remove('show'); warnBox.innerHTML='';
+      }
+      $('#cpOverlay').classList.add('show');
+    }catch(e){ toast('Nie udało się wczytać checkpointu: '+e.message, 'err'); }
+  }
+  function closeCheckpoint(){ $('#cpOverlay').classList.remove('show'); cpReelId = null; $('#cpAudit').classList.remove('show'); $('#cpAudit').innerHTML=''; }
+
+  $('#cpTranslateBtn').addEventListener('click', async ()=>{
+    if(!cpReelId) return;
+    const tekst = $('#cpScenariusz').value.trim();
+    if(!tekst){ toast('Scenariusz nie może być pusty.', 'info'); return; }
+    const box = $('#cpTranslateBox');
+    box.style.display = '';
+    box.textContent = 'Tłumaczę (Bielik)… może potrwać minutę…';
+    busy($('#cpTranslateBtn'), true);
+    try{
+      const wynik = await api('/reel-checkpoint/'+cpReelId+'/tlumacz', {method:'POST', body: JSON.stringify({scenariusz: tekst})});
+      box.textContent = wynik.scenariusz_pl;
+    }catch(e){
+      box.textContent = 'Nie udało się przetłumaczyć: '+e.message;
+    }finally{ busy($('#cpTranslateBtn'), false); }
+  });
+
+  $('#cpClaudeBtn').addEventListener('click', async ()=>{
+    if(!cpReelId) return;
+    const scenariusz = $('#cpScenariusz').value.trim();
+    const instrukcja = $('#cpClaudeInstrukcja').value.trim();
+    if(!scenariusz){ toast('Scenariusz nie może być pusty.', 'info'); return; }
+    if(!instrukcja){ toast('Napisz co poprawić.', 'info'); $('#cpClaudeInstrukcja').focus(); return; }
+    busy($('#cpClaudeBtn'), true);
+    try{
+      const wynik = await api('/reel-checkpoint/'+cpReelId+'/popraw-przez-claude', {method:'POST', body: JSON.stringify({scenariusz, instrukcja})});
+      $('#cpScenariusz').value = wynik.scenariusz_poprawiony || scenariusz;
+      $('#cpClaudeInstrukcja').value = '';
+      toast('Scenariusz poprawiony przez Claude — sprawdź i kliknij "Zapisz poprawki".', 'ok');
+    }catch(e){
+      toast('Nie udało się poprawić: '+e.message, 'err');
+    }finally{ busy($('#cpClaudeBtn'), false); }
+  });
+
+  $('#cpAuditBtn').addEventListener('click', async ()=>{
+    if(!cpReelId) return;
+    const tekst = $('#cpScenariusz').value.trim();
+    if(!tekst){ toast('Scenariusz nie może być pusty.', 'info'); return; }
+    busy($('#cpAuditBtn'), true);
+    $('#cpAudit').classList.add('show');
+    $('#cpAudit').innerHTML = '<span class="loading-txt">Sprawdzam (qwen3:14b)… to może potrwać minutę…</span>';
+    try{
+      const wynik = await api('/reel-checkpoint/'+cpReelId+'/audytuj', {method:'POST', body: JSON.stringify({scenariusz: tekst})});
+      if(wynik.brak_problemow){
+        $('#cpAudit').innerHTML = '<span class="cpAuditOk">✔ Model nie widzi problemów — scenariusz trzyma się tematu artykułu.</span>';
+      } else {
+        let html = '<strong>Znalezione wady:</strong><ul>' + wynik.problemy.map(p=>'<li>'+esc(p)+'</li>').join('') + '</ul>';
+        const zm = wynik.zmiany || [];
+        if(zm.length){
+          html += '<div class="lbl" style="margin-bottom:4px">Co dokładnie model zmienił (scena po scenie):</div>';
+          zm.forEach(z=>{
+            html += '<div class="cpDiff"><div class="cpDiffScena">Scena '+z.scena+'</div>';
+            if(z.zmiana_obrazu){
+              html += '<div class="lbl">Ujęcie</div><div class="old">'+esc(z.stare_ujecie)+'</div><div class="new">→ '+esc(z.nowe_ujecie)+'</div>';
+            }
+            if(z.zmiana_audio){
+              html += '<div class="lbl" style="margin-top:4px">Lektor</div><div class="old">'+esc(z.stary_lektor)+'</div><div class="new">→ '+esc(z.nowy_lektor)+'</div>';
+            }
+            html += '</div>';
+          });
+        } else {
+          html += '<div style="font-size:12px; color:var(--muted); margin-bottom:6px">Model wskazał problem, ale nie zmienił żadnej sceny 1:1 (np. zmieniła się liczba scen) — porównaj ręcznie.</div>';
+        }
+        html += '<button id="cpAgree" type="button">👍 Zgadzam się z Tobą — wstaw poprawkę</button>';
+        $('#cpAudit').innerHTML = html;
+        $('#cpAgree').addEventListener('click', ()=>{
+          $('#cpScenariusz').value = wynik.propozycja_scenariusza;
+          $('#cpAudit').classList.remove('show'); $('#cpAudit').innerHTML='';
+          toast('Wstawiono poprawiony scenariusz. Sprawdź i kliknij OK, jeśli dobrze.', 'ok');
+        });
+      }
+    }catch(e){
+      $('#cpAudit').innerHTML = 'Nie udało się sprawdzić: '+esc(e.message);
+    }finally{ busy($('#cpAuditBtn'), false); }
+  });
+
+  $('#cpPause').addEventListener('click', ()=>{
+    closeCheckpoint();
+    toast('Wstrzymano. Rolka czeka na dysku — wróć do niej kiedy chcesz.', 'info');
+  });
+
+  $('#cpClose').addEventListener('click', ()=>{
+    // Samo zamkniecie okna, bez komunikatu - rownowazne Pauzie, ale bez toasta
+    // (Dyskusja 09.07.2026 - krzyzyk w rogu, standardowy sposob zamkniecia).
+    closeCheckpoint();
+  });
+
+  $('#cpSave').addEventListener('click', async ()=>{
+    if(!cpReelId) return;
+    const tekst = $('#cpScenariusz').value.trim();
+    if(!tekst){ toast('Scenariusz nie może być pusty.', 'info'); return; }
+    busy($('#cpSave'), true);
+    toast('Zapisuję i przeliczam prompty obrazów… to może potrwać kilka minut.', 'info');
+    try{
+      const wynik = await api('/reel-checkpoint/'+cpReelId+'/zapisz', {method:'POST', body: JSON.stringify({scenariusz: tekst})});
+      if(wynik.prompty_obrazow){
+        $('#cpPromptsWrap').style.display = '';
+        renderujScenyPromptow(cpReelId, wynik.prompty_obrazow);
+        pokazZnacznikPromptow(wynik.prompty_ts);
+        $('#cpPromptsWrap').scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      toast('Zapisano — '+(wynik.liczba_promptow||0)+' promptów obrazów przeliczonych na nowo. Sprawdź je poniżej i kliknij OK.', 'ok');
+    }catch(e){ toast('Nie udało się zapisać: '+e.message, 'err'); }
+    finally{ busy($('#cpSave'), false); }
+  });
+
+  $('#cpPromptySaveBtn').addEventListener('click', async ()=>{
+    if(!cpReelId) return;
+    const prompty = zbierzEdytowanePrompty();
+    if(!prompty.trim()){ toast('Brak promptów do zapisania.', 'info'); return; }
+    busy($('#cpPromptySaveBtn'), true);
+    try{
+      const wynik = await api('/reel-checkpoint/'+cpReelId+'/prompty', {method:'POST', body: JSON.stringify({prompty_obrazow: prompty})});
+      pokazZnacznikPromptow(wynik.prompty_ts);
+      toast('Ręcznie poprawione prompty zapisane.', 'ok');
+    }catch(e){ toast('Nie udało się zapisać: '+e.message, 'err'); }
+    finally{ busy($('#cpPromptySaveBtn'), false); }
+  });
+
+  $('#cpStop').addEventListener('click', async ()=>{
+    if(!cpReelId) return;
+    if(!confirm('Na pewno CAŁKOWICIE przerwać rolkę #'+cpReelId+'? Nie da się jej już wznowić.')) return;
+    busy($('#cpStop'), true);
+    try{
+      await api('/reel-stop/'+cpReelId, {method:'POST'});
+      const reelId = cpReelId;
+      closeCheckpoint();
+      toast('Rolka #'+reelId+' całkowicie przerwana.', 'ok');
+      loadReels(); loadStats();
+    }catch(e){ toast('Nie udało się przerwać: '+e.message, 'err'); }
+    finally{ busy($('#cpStop'), false); }
+  });
+
+  $('#cpOk').addEventListener('click', async ()=>{
+    if(!cpReelId) return;
+    const tekst = $('#cpScenariusz').value.trim();
+    if(!tekst){ toast('Scenariusz nie może być pusty.', 'info'); return; }
+    busy($('#cpOk'), true);
+    try{
+      const silnikObrazow = $('#cpSilnikObrazow').value;
+      await api('/reel-checkpoint/'+cpReelId+'/zatwierdz', {method:'POST', body: JSON.stringify({scenariusz: tekst, silnik_obrazow: silnikObrazow || null})});
+      const reelId = cpReelId;
+      closeCheckpoint();
+      toast('Zatwierdzono' + (silnikObrazow ? ' (Nano Banana Pro)' : '') + ' — generuję obrazy i wideo.', 'ok');
+      startLine(); busy($('#btnGenerate'), true); busy($('#btnRandom'), true);
+      const t0 = Date.now();
+      clockTimer = setInterval(()=>{ $('#lineClock').textContent = fmtClock(Date.now()-t0); }, 500);
+      startStatusPolling(reelId);
+    }catch(e){ toast('Nie udało się zatwierdzić: '+e.message, 'err'); }
+    finally{ busy($('#cpOk'), false); }
+  });
 
   /* ---------- wykrywanie aktywnego generowania z ZEWNATRZ (skrypt, n8n,
      inna sesja przegladarki) - panel ma pokazywac prawdziwy pasek postepu
