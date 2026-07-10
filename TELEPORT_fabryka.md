@@ -426,3 +426,6 @@ Zmiany z popoludniowej sesji (ta z padlym czatem), odtworzone z git diff - NIE b
 5. Przebieg #000088: wygenerowana 12:09 (kawa i fusy, czysty_bielik) -> checkpoint -> poprawki Tomasza do 13:27 -> Totalny STOP 13:30 (nieporozumienie co do znaczenia przycisku) -> wskrzeszona 14:14 (recepta wyzej).
 
 Czego NIE da sie odtworzyc: samej tresci rozmowy z padlego czatu (uzasadnienia/decyzje poza sladami w kodzie i komentarzach).
+
+### docker-compose.yml - PULAPKA, NIE COMMITOWAC
+Popoludniowa sesja dodala tez ANTHROPIC_API_KEY do environment kontenera (compose zmodyfikowany 12:13, cel nieznany - pewnie planowana funkcja z API Claude). Plik celowo zostawiony NIEZACOMMITOWANY, bo zawiera sekrety plaintext (FAL_KEY + ANTHROPIC_API_KEY). UWAGA: stara wersja z FAL_KEY JUZ SIEDZI w historii GitHuba. Docelowo: przeniesc sekrety do .env (gitignore) + env_file w compose, zrotowac oba klucze. Do tego czasu: NIGDY git add docker-compose.yml.
