@@ -7,6 +7,9 @@ on:
       - 'android/**'
       - '.github/workflows/build-apk.yml'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,3 +41,13 @@ jobs:
           name: FabrykaRolek-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      - name: Publish APK to Release
+        if: github.ref == 'refs/heads/main'
+        continue-on-error: true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: "Fabryka Rolek — najnowszy APK"
+          body: "Najnowszy build apki Fabryka Rolek. Pobierz app-debug.apk ponizej i zainstaluj (w Androidzie wlacz instalacje z nieznanych zrodel dla przegladarki/menedzera plikow)."
+          files: android/app/build/outputs/apk/debug/app-debug.apk
