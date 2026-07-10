@@ -272,3 +272,145 @@ Rolka 000066 gotowa do publikacji (po poprawkach wyzej), opis wygenerowany (2 wa
 Rozwazona i SWIADOMIE ODRZUCONA alternatywa: istnieje inny, dzialajacy token FB do TEJ SAMEJ strony (1174205105781401), uzywany przez system alarmow burzowych (Node-RED, flow "Ogrodnik") na instancji HA Dom - ale ten token nigdy nie byl testowany do wgrywania WIDEO (tylko tekst/alerty), i nie jest podpiety do tej rozmowy/infrastruktury Fabryki. Decyzja: NIE improwizowac nowej sciezki publikacji przez pozyczony token bez testow, szczegolnie na zywej, publicznej stronie bez mozliwosci cofniecia.
 
 **Droga na dzis**: reczne wgranie przez aplikacje Facebook (Tomasz wgrywa final_with_music.mp4 + wkleja opis recznie). Automatyczna publikacja z tego czatu bedzie mozliwa po uzupelnieniu tokenu w n8n.
+
+---
+
+## SESJA 09.07.2026 (popołudnie-wieczór) — Czysta Droga Bielik, Checkpoint++, FLUX.2, Nano Banana Pro
+
+### CHECKPOINT rozbudowany o kluczowe funkcje
+1. **Prompty obrazów widoczne PRZED checkpointem** (nie po) - generowane od razu po scenariuszu, darmowe (lokalny model). Zapisane do `prompts.txt`; przy zatwierdzeniu pipeline SPRAWDZA czy plik juz istnieje i jesli tak, NIE liczy drugi raz. Funkcja: `_przygotuj_prompty_na_checkpoint()` w pipeline.py.
+2. **"Zapisz poprawki"** teraz automatycznie przelicza prompty obrazow dla nowego tekstu scenariusza (endpoint `/reel-checkpoint/{id}/zapisz`).
+3. **"Pokaż po polsku"** - tlumaczenie CALEGO scenariusza (UJECIE+LEKTOR) na checkpoincie, endpoint `/reel-checkpoint/{id}/tlumacz`, funkcja `przetlumacz_scenariusz_podglad_pl()` w pipeline.py. Bug: przycisk czasem nie wysyla requestu z niewyjasnionej przyczyny (Tomasz obszedl to reczna translacja).
+4. **Zdjecia referencyjne per-scena** (Dyskusja - Tomasz chce wplynac na wyglad konkretnej sceny wlasnym zdjeciem): endpoint `POST/DELETE /reel-checkpoint/{id}/referencje/{scena}`, zapisywane do `folder/refs/{scena:02d}_{n}.jpg`. Uzywaja FLUX.1 Kontext [pro] multi (`fal-ai/flux-pro/kontext/multi`, $0.04/obraz) - bierze kilka zdjec + ISTNIEJACY prompt tekstowy (opis sceny ZAWSZE zostaje), generuje NOWA scene inspirowana referencjami. Funkcja `_znajdz_referencje()` w pipeline.py. Wymagalo doinstalowania `python-multipart` (brakujacy pakiet, bez niego caly serwer nie startowal).
+5. **Detektor petli powtorzen zlagodzony**: `has_repetition_loop(min_len=15,min_repeats=3)` -> `(min_len=25,min_repeats=4)` - stary lapal falszywe alarmy na naturalnym powtorzeniu krotkich fraz (np. "UJĘCIE: Zbliżenie" w 3 scenach).
+
+### NOWA SCIEZKA: "Czysta Droga Bielik" (`tryb_jezykowy="czysty_bielik"`)
+Trzecia sciezka obok PL (baza tematow) i CZYSTA DROGA (Qwen, EN->PL). Bielik robi WSZYSTKO po polsku - artykul, scenariusz (`generate_scenes_czysty`, szablon `PROMPT_TEMPLATE_CZYSTY`), prompty obrazow. ZERO angielskiego, ZERO tlumaczenia (bo nigdy nie przechodzi przez angielski). Idzie przez `_produce_media` (jak zwykla "pl"), nie `_produce_media_en_pl`.
+
+**Krytyczny bug znaleziony i naprawiony (rolka 000081)**: pierwotnie kierowana przez `generate_image_prompts` (zwykla funkcja, SINGLE_SCENE_HEADER ma zaszyta sekcje "kalarepa/koper" dla tematow warzywnych) - model albo ODMAWIAL dla scen niezwiazanych z ogrodem, albo wymyslal warzywa. Naprawione: musi isc przez `generate_image_prompts_czysty` (bez tej sekcji), z `model=DEFAULT_MODEL` (Bielik) i nowym parametrem `jezyk="pl"` (Bielik pisze prompt obrazu PO POLSKU, nie po angielsku jak w oryginalnej wersji dla Qwena - bo FLUX.2 [max] rozumie polski przez Mistral-3, wiec detour przez angielski juz niepotrzebny).
+
+**Nowy szablon**: `SINGLE_SCENE_HEADER_CZYSTY_PL` w images/prompts.py, kopia angielskiej wersji ale po polsku.
+
+**Naprawiona tez naleciałość w SAMEJ angielskiej wersji** (`SINGLE_SCENE_HEADER_CZYSTY`): konczyla sie na sztywno "real Polish allotment garden" - usuniete, teraz neutralne "natural lighting" + jawna instrukcja "nie zakladaj lokalizacji ktorej scena nie opisuje".
+
+**Znacznik trybu na dysku**: `folder/tryb_jezykowy.txt` zapisywany na starcie `generate_reel()` - bo od "czysty_bielik" mamy WIECEJ NIZ DWIE sciezki zapisujace do tego samego `scenes.txt` (zwykla "pl" i "czysty_bielik"), samo istnienie pliku juz nie wystarcza do rozroznienia. Odczytywany w `wznow_po_checkpoincie()` (nadpisuje zgadywany parametr) i w `_odczytaj_tryb_jezykowy()` (topics.py, z fallbackiem na stare zgadywanie dla rolek sprzed tej zmiany).
+
+**Testy jakosci (rolka 000084, prompt o modernizacji rozdzielnicy TN-C->TN-S)**: Bielik dal bardzo dobry artykul+scenariusz+prompty (Tomasz: "Bielik odpierdolil kawal zajebistej roboty"). Model poprawnie zbalansowal sprzeczne instrukcje (np. "unikaj starych zardzewialych" vs "TREŚĆ: przejscie z ukladu TN-C" ktore logicznie wymaga pokazania punktu startowego) - pokazal krotki kontrast tylko w 1 scenie, reszta konsekwentnie nowoczesna.
+
+### Bielik podniesiony na Q8_0
+`DEFAULT_MODEL`: `SpeakLeash/bielik-11b-v3.0-instruct:Q6_K` -> **`SpeakLeash/bielik-11b-v3.0-instruct:Q8_0`** (11.87GB, wyzsza precyzja kwantyzacji). Wyraznie wolniejszy (cala Czysta Droga Bielik ~13 min zamiast wczesniejszych ~7 min), ale RAM (22GB, jeden model naraz) spokojnie to udzwiga.
+
+**Sprzatanie modeli Ollama**: usuniete jako martwe (zero realnych wywolan w kodzie): `gemma3:4b`, `llama3.1:8b`, `SpeakLeash/bielik-4.5b-v3.0-instruct:Q8_0`, `SpeakLeash/bielik-11b-v3.0-instruct:Q6_K`. Zwolnione ~21GB dysku (57GB->36GB uzyte). Zostaly TYLKO: Bielik-11B-Q8_0 (DEFAULT_MODEL) i qwen3:14b (PROMPT_MODEL).
+
+### KRYTYCZNY bug w audio - `extract_narration()` (audio/generator.py)
+Funkcja czytala TYLKO PIERWSZA LINIE bloku LEKTOR. Jesli Bielik napisal LEKTOR jako kilka linii (lista punktowana z myslnikami, numeracja 1./2./3.), wszystko po pierwszej linii bylo CICHO GUBIONE - nigdy nie trafialo do edge-tts. Potwierdzone na rolce 000084: scena z 622 znakami tekstu miala tylko 8s audio (78 znak/s zamiast normalnych ~15-17 znak/s), inna scena z 347 znakami miala tylko 2.6s (134 znak/s - prawie nic nie przeczytane).
+
+Naprawione: zbiera WSZYSTKIE linie nalezace do bloku LEKTOR (konczy na pustej linii albo nowym naglowku SCENA/UJĘCIE/LEKTOR), laczy spacja. Test potwierdzony: po naprawie sceny wroci do normalnego tempa (14-16 znak/s).
+
+**Wniosek dla Tomasza (lekcja na przyszlosc)**: jesli prosisz o poprawki tekstu ze STRUKTURA (myslniki, numeracja), lepiej przepisac na plynne zdania (Tomasz to zrobil recznie dla scen 4/6/7 rolki 000084) - unika i tego bugu (juz naprawionego), i po prostu lepiej sie czyta na glos.
+
+### FLUX.2 - decyzja, potem podwazona, potem ostatecznie ODRZUCONA na rzecz Nano Banana Pro
+1. Sprawdzona analiza: FLUX.2 [max] (`fal-ai/flux-2-max`) wybrany mimo zglaszanych przez userow (Hugging Face, community) problemow z anatomia (dlonie/konczyny) - Tomasz swiadomie zaakceptowal ryzyko.
+2. **PO TEScie na rolce 000084 (identyczny prompt wygenerowany przez Tomasza recznie w Gemini vs FLUX.2)**: FLUX wygenerowal TYLKO zewnetrzne, puste zdjecie (np. "stare drzwi" zamiast wnetrza skrzynki z bezpiecznikami) - powierzchowna "atrapa" niezwiazana tresciowo z promptem. Gemini/Nano Banana Pro pokazal PRAWDZIWA, szczegolowa tresc (bezpieczniki, przewody, tabliczki). Tomasz: "Flux ze super zajebistym proptem nic nie pomoze... 80% zdjęć do wymiany".
+3. **DECYZJA: przelaczenie na Nano Banana Pro** (`fal-ai/nano-banana-pro` na fal.ai, $0.15/obraz vs FLUX.2 $0.07). Sprawdzone przez badania (nie test): negatywne opinie o Nano Banana Pro dotycza SCHEMATOW ELEKTRYCZNYCH (rysunki logiki polaczen) - "produkuje obwody ktore wysadzilyby bezpiecznik" - ale to INNE zadanie niz FOTOREALISTYCZNE ZDJECIA fizycznego sprzetu (to czego potrzebuje Fabryka Rolek). Mocne strony potwierdzone: najlepszy w branzy text rendering, lepsza dokladnosc dłoni/twarzy niz poprzednie modele, wierne trzymanie sie promptu bez niepotrzebnych halucynacji.
+
+**WAZNE ograniczenie odkryte przy okazji**: subskrypcja Gemini Pro (konsumencka, do rozmow) to ZUPELNIE INNA rzecz niz dostep API - nie daje darmowych obrazow przez API.
+
+### Zbudowana integracja Nano Banana Pro (KOD GOTOWY, NIE UZYTY jeszcze produkcyjnie)
+- `FAL_MODEL_NANO_BANANA_PRO = "fal-ai/nano-banana-pro"` w image_backend.py
+- `generate_image()` ma nowy param `silnik` (nadpisuje domyslna logike referencje/FLUX)
+- Argumenty API roznia sie od FLUX: `aspect_ratio="9:16"` (string) zamiast `image_size` (enum)
+- **Kluczowy pomysl Tomasza zrealizowany**: `zbuduj_konteksty_gemini()` w images/prompts.py - laczy UJECIE+LEKTOR (oryginalny kontekst sceny) + gotowy prompt fotograficzny Bielika w JEDEN bogaty kontekst wysylany do Nano Banana Pro (bo to pelny model jezykowy z rozumowaniem, nie czysty dyfuzyjny jak FLUX - lepiej rozumie WIECEJ kontekstu, nie tylko oderwany prompt)
+- `silnik_obrazow` parametr przeciagniety przez `_produce_media`/`_produce_media_en_pl`/`wznow_po_checkpoincie`
+- UI: dropdown na checkpoincie "Silnik obrazów: FLUX.2 [max] (domyslnie) / Nano Banana Pro ($0.15/obraz)"
+- Referencje (Kontext FLUX.1) maja PIERWSZENSTWO nad silnik_obrazow jesli sa wgrane dla danej sceny
+
+### ARCHITEKTURA: Muzyka wmiksowana w JEDNYM przebiegu ffmpeg (nie dwoch)
+**Problem znaleziony przez Tomasza**: renderowanie tworzylo `final.mp4` (bez muzyki), POTEM osobny przebieg `add_background_music()` tworzyl `final_with_music.mp4` - OBA pliki zostawaly na dysku na zawsze (474MB zbednych duplikatow w sumie na wszystkich rolkach, bo `-c:v copy` = identyczne wideo, final.mp4 nigdy wiecej nie czytany).
+
+**Naprawa (opcja B z dwoch zaproponowanych - Tomasz wybral trudniejsza, "wlasciwa" architektonicznie)**: nowa funkcja `concat_parts_with_music()` w video/renderer.py - sklejanie scen + sidechain ducking muzyki pod lektorem w JEDNYM wywolaniu ffmpeg. `render_video()` przebudowany: zbiera `total_duration` (suma dlugosci wszystkich czesci - intro 2.5s + kazda scena + outro 3.0s) PRZED renderowaniem, zeby przyciac zapetlona muzyke bez potrzeby wczesniejszego pomiaru gotowego pliku. Jesli brak sciezki muzyki w `assets/music/` - fallback na sam "final.mp4" bez muzyki (rzadki przypadek).
+
+`pipeline.py` (`_produce_media`, `_produce_media_en_pl`) i `naprawa.py` zaktualizowane - juz NIE woluja `add_background_music()` osobno, tylko odczytuja `video["music"]` z wyniku `render_video()`.
+
+**Test potwierdzony (darmowy, lokalny ffmpeg na juz istniejacych materialach rolki 000084)**: jeden plik wynikowy `final_with_music.mp4`, 1080x1920, 145s, audio -26.5dB mean/-9.6dB max (poprawne poziomy), muzyka faktycznie wmiksowana.
+
+**Posprzatane rowniez 267.7MB z 15 starych rolek** ktore mialy juz bezpieczny duplikat (final.mp4 usuniety TYLKO tam gdzie final_with_music.mp4 istnial). 52 stare rolki majace WYLACZNIE final.mp4 (bez wersji z muzyka, sprzed tej funkcji) zostawione NIETKNIETE - to ich jedyne prawdziwe wideo.
+
+### WAZNA ZASADA USTALONA DZIS: kontrola kosztow
+Tomasz jednoznacznie: **KAZDA decyzja wiazaca sie z realnym kosztem (zatwierdzenie checkpointu, generowanie obrazow fal.ai, cokolwiek platnego) wymaga wyraznego, jednoznacznego polecenia Tomasza** - nigdy nie zgadywac/domyslac sie zgody z niejasnych sformulowan, nawet entuzjastycznie brzmiacych ("Teraz FLUX2" NIE bylo zgoda na zatwierdzenie checkpointu - bylem zbyt pochopny i sam kliknalem, co wywolalo silna reakcje "kto ci pozwolil"). Zapisane jako trwala pamiec (memory_user_edits #17).
+
+### Rolka 000084 - STATUS: TEMAT ZAMKNIETY (09.07.2026 wieczor)
+Miala sluzyc jako testowa/robocza dla Czystej Drogi Bielik + naprawy audio + test FLUX.2 vs Nano Banana Pro. Tomasz zamknal temat tej konkretnej rolki (nie bedzie dalej dopracowywana) - wiedza z niej wykorzystana do napraw kodu (extract_narration, prompty Nano Banana, render+muzyka), ale sama rolka NIE jest kandydatem do publikacji w obecnym stanie (obrazy FLUX.2 w duzej czesci odrzucone przez Tomasza).
+
+### OTWARTE / DO ROZWAZENIA na przyszlosc
+- Nano Banana Pro - POTWIERDZONE DZIALA W PRODUKCJI (Tomasz uzyl przy zatwierdzeniu rolki 000085 - wszystkie 9/9 obrazow "OK (Nano Banana Pro)" w logu, rolka opublikowana). Sprawa zamknieta.
+- Przycisk "Pokaz po polsku" na checkpoincie - czasem nie wysyla requestu, przyczyna nieznana (obejscie: recznie w zewnetrznym tlumaczu). ODLOZONE na pozniej, nie priorytet.
+
+---
+
+## SESJA 10.07.2026 — Poprawki rolki 000085, publikacje, zasięg FB
+
+### Rolka #000085 — wielorundowa korekta (przed publikacją)
+Testowa rolka "Czysta Droga Bielik" (rozdzielnica TN-C→TN-S) przeszła przez wiele rund poprawek po checkpoincie i PO zatwierdzeniu (Tomasz ręcznie podmieniał zdjęcia, zgłaszał błędy stopniowo zamiast za jednym razem):
+
+1. **Błąd wymowy "altanka"**: Whisper transkrybował "w Twojej altance" jako "Altans" - ustalone że to prawdopodobnie wada wymowy samego glosu edge-tts (nie halucynacja Whisper), bo tekst zrodlowy byl poprawny. Docelowo zmieniono cala forme "altanka"->"altana" (regex na wszystkie odmiany: altanki->altany, altance->altanie, altanke->altane) w scenes.txt, article.md, subs/*.ass, potem PRZELICZONO CALY LEKTOR OD NOWA (nie tylko napisy) - bo problem siedzial w samym audio, nie tylko w transkrypcji.
+2. **Blad semantyczny "nie porazi" -> zle brzmiace w syntezie**: przeformulowano na "ryzyko porazenia pradem jest duzo mniejsze" (rzeczownik zamiast odmienionego czasownika - omija slowo ktore zle sie syntetyzowalo).
+3. **KRYTYCZNY bug w kodzie**: `extract_narration()` (audio/generator.py) czytal TYLKO PIERWSZA LINIE bloku LEKTOR - gdy Bielik pisal LEKTOR jako liste punktowana (myslniki, numeracja "1.","2.","3."), wszystko po pierwszej linii bylo CICHO GUBIONE, nigdy nie trafialo do edge-tts. NAPRAWIONE: zbiera teraz WSZYSTKIE linie bloku (konczy na pustej linii albo nowym naglowku SCENA/UJĘCIE/LEKTOR).
+4. **Placeholder "(brak tekstu)" byl dosłownie wypowiadany na glos**: gdy Bielik oznaczal pusta scene doslownym tekstem "(brak tekstu)", stary kod to syntetyzowal i transkrybowal. NAPRAWIONE: `extract_narration()` rozpoznaje wzorzec `^\(?\s*brak\s+tekstu\s*\)?\.?$` (regex, case-insensitive) i zwraca pusty string dla tej sceny (zachowujac wyrownanie numeracji), a `generate_audio()` pomija generowanie pliku .wav dla pustych scen (renderer i tak ma fallback 2.5s ciszy dla brakujacego audio).
+5. **"Styl artykulowy" w mowionym scenariuszu**: frazy jak "Zdjęcie poniżej: ..." (redundantne, widz i tak WIDZI obraz) i numerowane/wypunktowane listy w LEKTORZE ("1. Szyny miedziane...", "• Bezpieczeństwo: ...") brzmia sztucznie czytane na glos. Przeformulowane na naturalny mowiony styl ("Kolejny element to...", "Po pierwsze/drugie/trzecie..."). Tomasz (elektryk) zlapał tez merytoryczne bledy: RCD opisywany w liczbie mnogiej i zlym kolorze (bialy zamiast pomaranczowy), mieszanie RCD z bezpiecznikami nadpradowymi, i błędna rama bezpieczeństwa "wcisnij przycisk RCD gdy cos nie tak" (przycisk TEST sluzy do okresowego sprawdzania, RCD dziala automatycznie, nie recznie).
+6. **Usuwanie calych scen**: Tomasz kazal usunac scene 9 (i wczesniej analogicznie 5) CALKOWICIE z rolki - usuwajac tylko images/NN.jpg (renderer automatycznie pomija scene bez obrazu). Znaleziony i naprawiony bug przy tym: `real_scene_count = len(list(images.glob('*.jpg')))` liczyl PLIKI, nie NAJWYZSZY NUMER - przy usunieciu srodkowej sceny (np. 09), liczba plikow spadala, wiec petla `range(1, upper_bound+1)` nie docierala juz do wyzszych numerow (np. 10) mimo ze istnialy. NAPRAWIONE: liczy teraz najwyzszy numer wsrod plikow (`max(int(p.stem) for p in images.glob('*.jpg') if p.stem.isdigit())`), nie sama ich ilosc.
+7. **Wydluzanie sceny przez pad audio**: gdy usunieto scene 5, Tomasz chcial zeby scena 6 "wyswietlala sie dluzej" (zeby dlugosc calosci nie skrocila sie gwaltownie). Zrobione przez `ffmpeg -af apad=pad_dur=Xs` na audio/06.wav (dopisanie ciszy na koncu) - `render_video()` i tak liczy duration z `audio_duration(wav)`, wiec dluzsze audio automatycznie wydluza klatke obrazu.
+
+Wszystkie te poprawki (poza transkrypcja Whisper, na ktora Tomasz dal stala zgode bez pytania - patrz pamiec #18) byly darmowe - edycja tekstu + lokalny edge-tts + lokalny ffmpeg, zero fal.ai.
+
+### Rolka #000085 finalnie OPUBLIKOWANA na Facebooku
+Pierwsza w pelni opublikowana rolka z nowego pipeline'u (Czysta Droga Bielik + FLUX.2 [max] + Nano Banana Pro reference). Opis do posta wygenerowany w stylu "Bezpieczeństwo i Infrastruktura | [temat]" z emoji, konkretnymi punktami tresci i pytaniem na koncu zachecajacym do komentarzy.
+
+### Nowa funkcja: oznaczanie rolek jako "opublikowana"
+Dodany prosty znacznik plikowy `folder/opublikowano.txt` (data w srodku) + endpointy:
+- `POST /reels/{reel_id}/opublikowano` - oznacza
+- `DELETE /reels/{reel_id}/opublikowano` - cofa oznaczenie
+`_scan_reels_from_disk()` (topics.py) zwraca teraz pole `opublikowana: bool`. W panelu przy kazdej gotowej rolce jest przycisk 📤 (nieoznaczona) / ✅ (oznaczona), klikniecie przelacza stan (`data-action="toggle-published"`).
+
+**Trzy rolki potwierdzone jako faktycznie opublikowane na FB** (ustalone przez rozmowe + sprawdzanie folderow na dysku pod katem obecnosci wideo): **#000050** (pierwsza zapowiedz serii), **#000066** (angielski szkic "Exciting News! ROD Wozniki video series..." o iglakach/grzybach - poprawna tresc bez halucynowanej nazwy hosta), **#000085** (dzisiejsza, rozdzielnica). WAZNE odkrycie przy tej okazji: proby #000061/#000062/#000064/#000071 (rozne wersje "zapowiedzi drugiego odcinka") WSZYSTKIE mialy halucynowana, blednas nazwe hosta/serii ("Roza Wozniak", "Rod Wojniki") - zadna nie nadawala sie do publikacji bez recznej edycji, i dwie z nich (#000064, #000071) nie mialy nawet dokonczonego wideo.
+
+### Duze sprzatanie dysku (na wyrazne polecenie Tomasza)
+Usuniete BEZPOWROTNIE wszystkie foldery rolek OPROCZ trzech opublikowanych (#000050, #000066, #000085) - 82 foldery, 1,1GB zwolnione. Potwierdzone: serwer nie ma zadnego mechanizmu "kosza" (zwykly Linux bez GUI, `shutil.rmtree()` kasuje natychmiast i bezpowrotnie).
+
+### Strategia zasiegu na Facebooku (Dyskusja z Tomaszem, research)
+Sprawdzone aktualne (2026) zasady algorytmu FB: czas oglądania do konca > wszystko inne, pierwsze 3 sekundy decyduja, zapisy/udostepnienia wazniejsze niz lajki, odpowiadanie na komentarze w pierwszych 6h podbija zasieg, 2-4 trafne hashtagi (nie wiecej). **KLUCZOWE ograniczenie techniczne**: Meta calkowicie wylaczyla Graph API dla Grup w kwietniu 2024 (ochrona przed spamem) - **zaden kod/automatyzacja nie moze postowac do Grup FB**, to musi zostac krok reczny Tomasza (Udostepnij → Udostepnij w grupie). Nie ma tez zadnego dostepnego MCP connectora do przegladania/postowania na Facebooku (sprawdzone przez search_mcp_registry - sa tylko narzedzia do analityki Meta Ads, nie do zwyklego Facebooka).
+
+**Ustalone docelowe grupy do reczneho udostepniania kazdej rolki** (po researchu + dyskusji, kilka rund zmian decyzji Tomasza): **"Rodzinne Ogrody Działkowe"** (20 tys. czlonkow) i **"Rodzinne Ogródki Działkowe - Cała Polska"** (4,8 tys. czlonkow). Odrzucone (swiadomie): grupy scisle slaskie/lokalne (Dzialki ROD Slask, Gmina WOZNIKI) i najwieksza ogolna (Fajny Ogrod 851 tys.).
+
+**NOWA STALA ZASADA (zapisana w pamieci #21)**: przy KAZDYM generowaniu opisu/tekstu posta do rolki, Claude ma przypominac Tomaszowi o reczne udostepnienie w tych dwoch grupach.
+
+### Otwarte/niedokonczone z tej sesji
+- Strona "ROD im. Józefa Lompy Woźniki." (typ Spolecznosc, 15 obserwujacych) - POTWIERDZONE przez Tomasza, to JEGO oficjalna grupa, nie martwy duplikat. Sprawa zamknieta.
+
+## SESJA 10.07.2026 (popoludnie) — STOP/Pauza, wskrzeszenie #000088, odzysk kontekstu przez teleport
+
+### Incydent: padniety widget w czacie
+Czat z 16:04 wywalil sie na widgecie "Asking User Input" (czerwony trojkat) - to blad renderowania WIDGETU, nie smierc czatu. Kontynuacja w nowym oknie przez odczyt tego teleportu. Wniosek: teleport zadzialal dokladnie tak jak mial.
+
+### AKTUALIZACJA NARZEDZI CONNECTORA (wazne - sekcja ostrzezen na gorze pliku czesciowo nieaktualna)
+Connector `fabryka` ma teraz PIEC narzedzi: execute_command, write_file, **read_file, append_file, list_dir**. Zasada "write_file NADPISUJE caly plik" wciaz obowiazuje - do dopisywania do TEGO pliku uzywac append_file albo bash cat >>.
+
+### Mechanizm Totalny STOP - fakty z kodu (nie z pamieci)
+POST /reel-stop/{id} (topics.py ~442): zapisuje STOP.flag + status.json etap="przerwano". **Folder NIE jest kasowany** - artykul, scenariusz, prompty zostaja na dysku. "Nieodwracalne" znaczy tylko: watek pipeline'u zakonczony, panel pokazuje "przerwana". Rolka zatrzymana NA CHECKPOINCIE = zero poniesionego kosztu fal.ai, cala darmowa robota Bielika ocalona.
+
+### Wskrzeszenie #000088 ("Kawa i fusy w ogrodzie", czysty_bielik) - WYKONANE
+Recepta (uzyta i zweryfikowana):
+1. rm STOP.flag
+2. status.json -> {"etap":"checkpoint","extra":{"warning":false},"ts":...,"kolejnosc":"pl"}
+   (kolejnosc dla czysty_bielik i zwyklej "pl" = "pl"; dla en_pl/czystej-Qwen = "en"; odczytac tryb z tryb_jezykowy.txt)
+3. Weryfikacja: /reel-status/{id} pokazuje checkpoint, /reels pokazuje status "w trakcie" (= klikalna w panelu, otwiera checkpoint z poprawkami z scenes.txt)
+UWAGA dla #000088: prompts.txt (13:24) STARSZY niz scenes.txt (13:27) - po otwarciu checkpointu kliknac "Zapisz poprawki" zeby przeliczyc prompty pod ostatnie poprawki (darmowe, lokalny Bielik).
+#000087 = ukonczona rolka (Kompostownik i gnojowki), status gotowa, NIEopublikowana.
+
+### Zaproponowane ulepszenia mechanizmu (czekaja na decyzje Tomasza)
+A) Przycisk "Przywroc na checkpoint" przy rolkach "przerwana" - endpoint robiacy dokladnie recepte wyzej (STOP przestaje byc pulapka)
+B) Osobny status "czeka na checkpoint" w liscie rolek - dzis etap=checkpoint wyswietla sie jako "w trakcie", nieodroznialne od realnie mielacej rolki (_scan_reels_from_disk, topics.py ~137)
+C) Poprawka tekstu confirma przed STOP (panel.html ~1825) - obecny tekst "Nie da sie jej juz wznowic" jest nieprawdziwy
+
+### BEZPIECZENSTWO - do zrobienia
+docker-compose.yml zawiera FAL_KEY i ANTHROPIC_API_KEY plaintext; plik zostal wyswietlony w czacie 10.07 przy diagnostyce. Zalecana rotacja obu kluczy przy okazji. NIE catowac docker-compose.yml w czacie - uzywac grep pod konkretny klucz konfiguracyjny.
