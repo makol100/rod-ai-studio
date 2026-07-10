@@ -435,3 +435,19 @@ Dwie funkcje w panelu wołaja api.anthropic.com BEZPOSREDNIO (model `claude-sonn
 1. **POST /asystent-promptu** (~856) — sekcja "00 Asystent promptu" w panelu. Bierze slaby/ogolnikowy temat + instrukcje Tomasza, rozbudowuje na gotowy precyzyjny prompt do wklejenia w "Temat rolki". (To ta funkcja co Tomasz nazwal "okno chata w app".)
 2. **POST /reel-checkpoint/{id}/popraw-przez-claude** (~627) — pole "🤖 Popraw przez Claude" NA CHECKPOINCIE. Bierze artykul (kontekst) + obecny scenariusz + instrukcje ("usun wymyslony fakt w scenie 3", "scena 5 zbyt fachowa"), zwraca poprawiony scenariusz w tym samym formacie SCENA/UJECIE/LEKTOR. System prompt kaze zmieniac TYLKO to o co proszono, zachowac format i liczbe scen.
 Uwaga: to jedyne miejsca w Fabryce uzywajace Claude API. Reszta pipeline'u (artykul, scenariusz, prompty obrazow, NAPRAW) chodzi na LOKALNYCH modelach Ollama (Bielik-11B, Qwen3-14B) - darmowych. Claude API to swiadomy wyjatek: platny model wyzszej klasy do zadan gdzie lokalne modele nie wystarczaja (rozbudowa slabego promptu, celna redakcja scenariusza).
+
+### NAPRAWIONY MECHANIZM PAUZA/STOP (10.07.2026, ~15:20) - PRZYCZYNA + FIX + ZWERYFIKOWANE
+Prawdziwa przyczyna auto-otwierania okna checkpointu po Pauzie (znaleziona w kodzie, nie zgadywana):
+`$('#cpPause')` byl CZYSTO frontendowy (tylko closeCheckpoint()+toast) - NIGDY nie mowil backendowi ze user pauzuje. status.json zostawal "checkpoint" na zawsze. `/aktywne-generowanie` (heartbeat co 15s, `checkAktywneGenerowanie()`) nie ma limitu wieku dla etap=="checkpoint" - wiec co 15s ZNOWU zglaszal ta rolke jako "aktywna", co wywolywalo `startStatusPolling()` -> `openCheckpoint()` od nowa. Stad wrazenie "zamykam X, samo sie otwiera".
+
+FIX (zaimplementowany, wdrozony, zweryfikowany 8-krokowym testem end-to-end):
+- Nowy plik-znacznik `PAUZA.flag` (analogiczny do STOP.flag) - zapisywany przez nowy endpoint `POST /reel-checkpoint/{id}/pauza`
+- `/aktywne-generowanie` wyklucza checkpointy z PAUZA.flag (dokladnie jak juz wykluczal STOP.flag)
+- Nowy endpoint `POST /reel-checkpoint/{id}/wznow` - usuwa STOP.flag I PAUZA.flag, przywraca status.json na checkpoint z poprawna kolejnoscia (pl/en, czytane z tryb_jezykowy.txt). Dziala dla OBU przypadkow (Pauza i Totalny STOP) - realizuje wprost prosbe Tomasza "Stop to Stop ale odwracalne po przycisnieciu edytuj".
+- `_scan_reels_from_disk`: nowe statusy w liscie "checkpoint" i "pauza" (zamiast mylacego "w trakcie" ktore bylo nieodrozniane od realnie mielacej rolki - stary, znany bug tez przy okazji naprawiony)
+- Panel: nowy przycisk ✏️ (`data-action="wznow-checkpoint"`) w karcie rolki na liscie Ostatnie Rolki, widoczny dla status pauza/checkpoint/przerwana. To JEDYNY sposob ponownego otwarcia checkpointu - zero automatyki (zgodnie z wyrazna prosba: "Aktywowac tylko przyciskiem kolo ostatnie rolki")
+- Poprawiony nieprawdziwy tekst confirm() przy Totalny STOP (mowil "nie da sie wznowic" - teraz zgodny z prawda)
+
+Test end-to-end na #000088 (8 krokow, wszystkie potwierdzone): pauza -> PAUZA.flag na dysku -> /aktywne-generowanie poprawnie zwraca null -> lista pokazuje status "pauza" -> wznow -> PAUZA.flag skasowany -> lista wraca do "checkpoint" -> status.json poprawny.
+
+Metoda edycji: recznie napisany python (count-i-replace, analogiczne do str_replace) przez fabryka:execute_command, bo VPS-owy connector nie ma str_replace. Restart TYLKO kontenera fabryka-api (nie Ollama, nie VPS) - 4s do gory.
