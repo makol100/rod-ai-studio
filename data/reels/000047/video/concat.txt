@@ -1,7 +1,0 @@
-file '/root/rod-ai-studio/data/reels/000047/video/parts/00_intro.mp4'
-file '/root/rod-ai-studio/data/reels/000047/video/parts/01.mp4'
-file '/root/rod-ai-studio/data/reels/000047/video/parts/02.mp4'
-file '/root/rod-ai-studio/data/reels/000047/video/parts/03.mp4'
-file '/root/rod-ai-studio/data/reels/000047/video/parts/04.mp4'
-file '/root/rod-ai-studio/data/reels/000047/video/parts/05.mp4'
-file '/root/rod-ai-studio/data/reels/000047/video/parts/99_outro.mp4'

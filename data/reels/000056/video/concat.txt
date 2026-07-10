@@ -1,3 +1,0 @@
-file '/root/rod-ai-studio/data/reels/000056/video/parts/00_intro.mp4'
-file '/root/rod-ai-studio/data/reels/000056/video/parts/01.mp4'
-file '/root/rod-ai-studio/data/reels/000056/video/parts/99_outro.mp4'
