@@ -508,3 +508,12 @@ Tomasz: przycisk edycji rolki (✏️ na liscie / checkpoint) otwieral bottom-sh
 
 ### NOWA STALA ZASADA: sprawdzaj VPS przed wdrozeniem (10.07.2026, pamiec #22)
 Przed KAZDYM wdrozeniem/restartem sprawdzic czy VPS nie jest zajety: /aktywne-generowanie == {"aktywna":null}, brak procesow ffmpeg/whisper/pipeline, load spokojny, Ollama bez modelu - zeby nie ubic trwajacego generowania ani nie zawiesic serwera. Dopiero po potwierdzeniu wolnego wdrazac. Fakt pomocny: panel.html idzie na zywo bez restartu (odczyt z dysku per request), wiec jego edycja = zero ryzyka przerwania.
+
+### TRIK: naprawa zlej wymowy edge-tts (potwierdzony 10.07 - "fusy" czytane jako "Fjusy", rolka 000088)
+Problem: edge-tts (pl-PL-MarekNeural) czasem czyta POPRAWNIE zapisane polskie slowo zle - "fusy" -> "Fjusy" (wstawka [j], jakby po angielsku). To wada glosu, nie danych; tekst zrodlowy poprawny.
+Naprawa (ZERO kosztu - tylko edge-tts + ffmpeg lokalnie; obrazy i napisy NIETKNIETE):
+1. Znalezc ktore SCENY maja slowo w LEKTORZE (nie w UJECIU - UJECIE nie jest czytane). Tu: sceny 1,7,8 (grep "fus" scenes.txt, patrzec tylko na linie LEKTOR:).
+2. Regenerowac audio TYLKO tych scen z FONETYCZNA respisownia slowa w tekscie podawanym do edge-tts: "fusy" -> "fósy". Polskie "ó" = ta sama gloska [u], wiec czyta "fusy" bez [j]. KLUCZOWE: NIE zmieniac scenes.txt ani napisow na dysku - tylko tekst podany do edge-tts. Dzieki temu na EKRANIE zostaje poprawne "fusy", zmienia sie tylko glos.
+   Metoda: python w kontenerze -> import audio.generator (EDGE_TTS_BIN, EDGE_TTS_VOICE, _TTS_ENV=locale C.UTF-8); dla wybranych scen edge-tts --write-media NN.mp3 potem ffmpeg -i NN.mp3 NN.wav (dokladnie jak generate_audio robi). Nadpisuje audio/NN.wav.
+3. render_video(folder) - renderuje z ISTNIEJACYCH obrazow + audio + napisow (subs/*.ass burnowane as-is, ZERO transkrypcji = zero fal.ai). Dlugosc sceny liczona z audio_duration(wav), wiec drobna zmiana dlugosci audio (tu -24..48ms bo "fósy" krotsze od "fjusy") uwzglednia sie sama; napisy zostaja w sync.
+Ogolna zasada: przy zlej wymowie edge-tts probowac fonetycznej respisowni SAMEGO tekstu-do-lektora (ó zamiast u itp.), trzymajac scenes.txt i napisy poprawne - zamiast SSML (edge-tts nie wspiera pewnie <phoneme>) czy zmiany calego slowa/formy (jak przy "altanka"->"altana" na 000085, gdzie akurat forma tez byla ok w napisach). Weryfikacja zawsze uchem u Tomasza. Backup audio (.bak) usuwac po potwierdzeniu.
