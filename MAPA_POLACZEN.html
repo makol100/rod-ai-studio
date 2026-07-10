@@ -178,7 +178,7 @@
   <div class="zone">
     <div class="zone-head">VPS · Hetzner 157.90.155.155 · 22GB RAM / 12 vCPU<span class="badge">żyje</span></div>
     <div class="zone-body">
-      <div class="comp"><span class="dot">▸</span><div><b>Caddy (reverse proxy)</b> <span>— host network, terminuje HTTPS (Let\'s Encrypt) dla 2 hostów sslip.io: <b>157-90-155-155.sslip.io</b> → MCP :8765, <b>panel.157-90-155-155.sslip.io</b> → panel :8000 <span style="color:var(--bp-active)">(NOWE 10.07)</span></span></div></div>
+      <div class="comp"><span class="dot">▸</span><div><b>Caddy (reverse proxy)</b> <span>— host network, terminuje HTTPS (Let's Encrypt) dla 2 hostów sslip.io: <b>157-90-155-155.sslip.io</b> → MCP :8765, <b>panel.157-90-155-155.sslip.io</b> → panel :8000 <span style="color:var(--bp-active)">(NOWE 10.07)</span></span></div></div>
       <div class="comp"><span class="dot">▸</span><div><b>mcp-fabryka.service</b> <span>— systemd :8765 — obsługuje connector "fabryka" (Claude ↔ VPS)</span></div></div>
       <div class="comp"><span class="dot">▸</span><div><b>fabryka-api</b> <span>— Docker, FastAPI :8000 — panel + endpointy + pipeline rolek. Panel po HTTPS: <b>panel.157-90-155-155.sslip.io/panel</b></span></div></div>
       <div class="comp"><span class="dot">▸</span><div><b>Ollama (lokalnie)</b> <span>— Bielik-11B <b>Q8_0</b> (polski: artykuł/sceny/lektor/prompty obrazów) + Qwen3-14B (prompty EN Droga #2 + NAPRAW). SEKWENCYJNIE — jeden model naraz, oba = OOM nawet na 22GB.</span></div></div>
