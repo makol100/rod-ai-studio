@@ -1135,3 +1135,76 @@ def zapowiedzi_uzyj_endpoint(zapowiedz_id: int, data: dict = Body(...)):
     from src.db.database import oznacz_uzyta_zapowiedz
     oznacz_uzyta_zapowiedz(zapowiedz_id, data.get('reel_id'))
     return {'status': 'ok'}
+
+
+# ==== Publikacja rolki na Facebooka jako Reel (10.07.2026) ====
+from fastapi import Body as _FBBody
+
+@router.post("/reels/{reel_id}/publikuj-fb")
+def publikuj_fb_reel(reel_id: str, opis: str = _FBBody("", embed=True)):
+    import os, json, time, urllib.request, urllib.parse, urllib.error
+    from fastapi import HTTPException
+
+    tok_path = "/root/rod-ai-studio/data/.secrets/fb_page_token"
+    if not os.path.isfile(tok_path):
+        raise HTTPException(status_code=400, detail="Brak tokenu FB na serwerze.")
+    tok = open(tok_path, encoding="utf-8").read().strip()
+    if not tok.startswith("EAA"):
+        raise HTTPException(status_code=400, detail="Token FB wyglada nieprawidlowo.")
+
+    PAGE_ID = "1174205105781401"
+    V = "v21.0"
+    base_id = reel_id.zfill(6) if reel_id.isdigit() else reel_id
+    folder = os.path.join("/root/rod-ai-studio/data/reels", base_id)
+    have_video = any(os.path.isfile(os.path.join(folder, "video", n))
+                     for n in ("final_napisy_muzyka.mp4", "final_with_music.mp4", "final.mp4"))
+    if not have_video:
+        raise HTTPException(status_code=404, detail="Rolka nie ma gotowego wideo.")
+
+    video_url = f"https://panel.157-90-155-155.sslip.io/reels/{base_id}/video"
+
+    def graph_post(path, params):
+        params = dict(params); params["access_token"] = tok
+        url = f"https://graph.facebook.com/{V}/{path}"
+        req = urllib.request.Request(url, data=urllib.parse.urlencode(params).encode(), method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            try: eb = json.loads(e.read().decode())
+            except Exception: eb = {}
+            msg = (eb.get("error") or {}).get("message", "blad")
+            raise HTTPException(status_code=502, detail=f"FB API ({e.code}): {msg}")
+        except Exception as ex:
+            raise HTTPException(status_code=502, detail=f"FB API niedostepne ({type(ex).__name__})")
+
+    start = graph_post(f"{PAGE_ID}/video_reels", {"upload_phase": "start"})
+    video_id = start.get("video_id"); upload_url = start.get("upload_url")
+    if not (video_id and upload_url):
+        raise HTTPException(status_code=502, detail="FB nie zwrocil video_id/upload_url.")
+
+    up_req = urllib.request.Request(
+        upload_url, data=b"",
+        headers={"Authorization": "OAuth " + tok, "file_url": video_url}, method="POST")
+    try:
+        with urllib.request.urlopen(up_req, timeout=180) as r:
+            r.read()
+    except urllib.error.HTTPError as e:
+        try: eb = e.read().decode()
+        except Exception: eb = ""
+        raise HTTPException(status_code=502, detail=f"FB upload ({e.code}): {eb[:180]}")
+    except Exception as ex:
+        raise HTTPException(status_code=502, detail=f"FB upload niedostepny ({type(ex).__name__})")
+
+    fin = graph_post(f"{PAGE_ID}/video_reels", {
+        "upload_phase": "finish", "video_id": video_id,
+        "video_state": "PUBLISHED", "description": opis or ""})
+
+    try:
+        open(os.path.join(folder, "opublikowano.txt"), "w", encoding="utf-8").write(
+            time.strftime("%Y-%m-%d %H:%M") + " | FB Reel video_id=" + str(video_id))
+    except Exception:
+        pass
+
+    return {"ok": True, "video_id": video_id,
+            "link": f"https://www.facebook.com/reel/{video_id}", "finish": fin}

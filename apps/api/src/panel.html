@@ -360,6 +360,17 @@
   #cpBtns{display:flex; gap:8px; flex-wrap:wrap; padding-top:2px}
   #cpBtns button{flex:1; min-width:120px; padding:12px 10px; border-radius:10px; border:1px solid var(--line); font:inherit; font-weight:600; cursor:pointer}
   #cpOk{background:var(--brand); color:#fff; border-color:var(--brand)}
+  #fbPubOverlay{position:fixed; inset:0; background:rgba(26,35,28,.55); z-index:90; display:none; align-items:center; justify-content:center; padding:16px}
+  #fbPubOverlay.show{display:flex}
+  #fbPubSheet{background:var(--surface); width:100%; max-width:560px; max-height:90vh; border-radius:16px; padding:18px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; box-shadow:0 10px 40px rgba(26,35,28,.3)}
+  #fbPubSheet h3{margin:0; font-family:var(--disp); font-size:18px}
+  #fbPubSheet .fbSub{font-size:12.5px; color:var(--muted)}
+  #fbPubWarn{background:var(--alert-soft); color:var(--alert); border-radius:10px; padding:10px 12px; font-size:12.5px; line-height:1.45}
+  #fbPubOpis{width:100%; min-height:170px; font:inherit; font-size:13px; line-height:1.5; border:1px solid var(--line); border-radius:10px; padding:12px; background:var(--surface); resize:vertical}
+  #fbPubBtns{display:flex; gap:8px; padding-top:2px}
+  #fbPubBtns button{flex:1; padding:12px; border-radius:10px; font:inherit; font-weight:600; cursor:pointer; border:1px solid var(--line)}
+  #fbPubSend{background:var(--brand); color:#fff; border-color:var(--brand)}
+  #fbPubCancel{background:var(--surface); color:var(--text)}
   #cpSave{background:var(--gold-soft); color:#7A5A0E; border-color:var(--gold)}
   #cpPause{background:var(--surface-2); color:var(--text)}
   #cpAudit{
@@ -417,6 +428,19 @@
 </head>
 <body>
 <div id="toasts"></div>
+
+<div id="fbPubOverlay">
+  <div id="fbPubSheet">
+    <h3>Publikuj na Facebooka</h3>
+    <div class="fbSub" id="fbPubLabel">rolka #—</div>
+    <div id="fbPubWarn">⚠️ To wrzuci Reel na ŻYWĄ stronę ROD (publicznie). Grupy udostępnij ręcznie po publikacji.</div>
+    <textarea id="fbPubOpis" placeholder="Opis, który pojawi się pod Reelem na Facebooku…"></textarea>
+    <div id="fbPubBtns">
+      <button id="fbPubCancel" type="button">Anuluj</button>
+      <button id="fbPubSend" type="button">📘 Publikuj</button>
+    </div>
+  </div>
+</div>
 
 <div id="cpOverlay">
   <div id="cpSheet">
@@ -1226,6 +1250,7 @@
             (r.text?'<div class="txt" style="margin-bottom:8px">'+esc(r.text)+'</div>':'')+
             (r.hashtags?'<div class="txt mono">'+esc(r.hashtags)+'</div>':'')+
             (r.status==='gotowa' ? grupyFbHtml(r) : '')+
+            (r.status==='gotowa' ? ('<button class="btn primary sm" data-action="publikuj-fb" data-opis="'+btoa(unescape(encodeURIComponent(((r.text||'')+((r.hashtags)?('\n\n'+r.hashtags):'')).trim())))+'" style="width:100%; margin-bottom:8px">📘 Publikuj na stronę FB</button>') : '')+
             (r.status==='gotowa' ? ('<button class="btn ghost sm" data-action="toggle-przebieg" style="margin-bottom:8px">📋 Pokaż przebieg (UJĘCIE-LEKTOR-PROMPT)</button><div class="przebieg-wrap" style="display:none"></div>') : '')+
             '<div class="napraw-section">'+
               '<button class="btn ghost sm" data-action="toggle-napraw">🔧 Zgłoś problem</button>'+
@@ -1346,6 +1371,15 @@
       a.download = 'rolka_'+reelId+'.mp4';
       document.body.appendChild(a); a.click(); a.remove();
       toast('Pobieranie rolki #'+reelId+'…', 'info');
+      return;
+    }
+    const pubFbBtn = e.target.closest('[data-action="publikuj-fb"]');
+    if(pubFbBtn){
+      e.stopPropagation();
+      const reelId = pubFbBtn.closest('.reel').dataset.reelId;
+      let opis='';
+      try{ opis = decodeURIComponent(escape(atob(pubFbBtn.dataset.opis||''))); }catch(_){}
+      openFbPublish(reelId, opis);
       return;
     }
     const wznowBtn = e.target.closest('[data-action="wznow-checkpoint"]');
@@ -1735,6 +1769,32 @@
     }catch(e){ toast('Nie udało się wczytać checkpointu: '+e.message, 'err'); }
   }
   function closeCheckpoint(){ $('#cpOverlay').classList.remove('show'); cpReelId = null; cpBackActive = false; $('#cpAudit').classList.remove('show'); $('#cpAudit').innerHTML=''; }
+
+  // ==== Publikacja na Facebooka ====
+  let fbPubReelId = null;
+  function openFbPublish(reelId, opisText){
+    fbPubReelId = reelId;
+    $('#fbPubLabel').textContent = 'rolka #'+reelId;
+    $('#fbPubOpis').value = opisText || '';
+    $('#fbPubOverlay').classList.add('show');
+  }
+  function closeFbPublish(){ $('#fbPubOverlay').classList.remove('show'); fbPubReelId = null; }
+  $('#fbPubCancel').addEventListener('click', closeFbPublish);
+  $('#fbPubSend').addEventListener('click', async ()=>{
+    if(!fbPubReelId) return;
+    const opis = $('#fbPubOpis').value.trim();
+    if(!confirm('Na pewno opublikować rolkę #'+fbPubReelId+' jako Reel na stronie ROD? To pójdzie publicznie.')) return;
+    busy($('#fbPubSend'), true);
+    toast('Wysyłam na Facebooka… FB pobiera i przetwarza wideo, to może chwilę potrwać.', 'info');
+    try{
+      await api('/reels/'+fbPubReelId+'/publikuj-fb', {method:'POST', body: JSON.stringify({opis})});
+      toast('✅ Opublikowano na stronie ROD! Teraz udostępnij ręcznie w grupach.', 'ok');
+      closeFbPublish();
+      loadReels();
+    }catch(e){
+      toast('Nie udało się opublikować: '+e.message, 'err');
+    }finally{ busy($('#fbPubSend'), false); }
+  });
 
   $('#cpTranslateBtn').addEventListener('click', async ()=>{
     if(!cpReelId) return;
