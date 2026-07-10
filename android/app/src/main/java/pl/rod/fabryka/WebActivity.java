@@ -74,6 +74,27 @@ public class WebActivity extends Activity {
             }
         });
 
+        web.setDownloadListener(new android.webkit.DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                try {
+                    android.app.DownloadManager.Request req = new android.app.DownloadManager.Request(android.net.Uri.parse(url));
+                    String name = android.webkit.URLUtil.guessFileName(url, contentDisposition, mimetype);
+                    if (name == null || name.isEmpty()) name = "rolka.mp4";
+                    if (userAgent != null) req.addRequestHeader("User-Agent", userAgent);
+                    req.setMimeType(mimetype != null ? mimetype : "video/mp4");
+                    req.setNotificationVisibility(android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    req.setDestinationInExternalPublicDir(android.os.Environment.DIRECTORY_DOWNLOADS, name);
+                    req.allowScanningByMediaScanner();
+                    android.app.DownloadManager dm = (android.app.DownloadManager) getSystemService(android.content.Context.DOWNLOAD_SERVICE);
+                    if (dm != null) dm.enqueue(req);
+                    android.widget.Toast.makeText(WebActivity.this, "Pobieram: " + name, android.widget.Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    android.widget.Toast.makeText(WebActivity.this, "Nie udalo sie pobrac: " + e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         if (savedInstanceState == null) {
             web.loadUrl(PANEL_URL);
         } else {
