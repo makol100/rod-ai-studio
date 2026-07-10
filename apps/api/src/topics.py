@@ -1208,3 +1208,95 @@ def publikuj_fb_reel(reel_id: str, opis: str = _FBBody("", embed=True)):
 
     return {"ok": True, "video_id": video_id,
             "link": f"https://www.facebook.com/reel/{video_id}", "finish": fin}
+
+
+# ==== Auto-opis FB: Bielik (darmowy) ====
+@router.post("/reels/{reel_id}/generuj-opis-fb")
+def generuj_opis_fb(reel_id: str, force: bool = False):
+    import os
+    from fastapi import HTTPException
+    base_id = reel_id.zfill(6) if reel_id.isdigit() else reel_id
+    folder = os.path.join("/root/rod-ai-studio/data/reels", base_id)
+    cache_path = os.path.join(folder, "opis_fb.txt")
+    if not force and os.path.isfile(cache_path):
+        cached = open(cache_path, encoding="utf-8").read().strip()
+        if cached:
+            return {"ok": True, "opis": cached, "cache": True}
+    art_path = os.path.join(folder, "article.md")
+    if not os.path.isfile(art_path):
+        raise HTTPException(status_code=404, detail="Rolka nie ma artykulu (article.md).")
+    article = open(art_path, encoding="utf-8").read().strip()[:3000]
+    prompt = (
+        "Napisz krotki, angazujacy opis posta na Facebooka do rolki wideo dla ROD im. Jozefa Lompy "
+        "w Wozniki (ogrod dzialkowy). Odbiorca: zwykly dzialkowiec, czesto po 50-tce.\n"
+        "STRUKTURA:\n"
+        "- Mocny pierwszy wers (hook) z jednym emoji na poczatku\n"
+        "- 3 do 5 konkretnych korzysci lub faktow z tresci, kazdy w osobnej linii z emoji na poczatku\n"
+        "- Jedno zdanie podsumowania\n"
+        "- Pytanie na koncu zachecajace do komentarzy\n"
+        "- Na koncu 3-4 trafne hashtagi po polsku (np. #ogrod #dzialka)\n"
+        "Pisz naturalnie po polsku. Odpowiedz WYLACZNIE gotowym opisem posta, bez zadnego komentarza przed ani po.\n\n"
+        "TRESC ROLKI:\n" + article
+    )
+    try:
+        from src.ai.ollama import generate
+    except Exception:
+        from ai.ollama import generate
+    opis = (generate(prompt) or "").strip()
+    if not opis:
+        raise HTTPException(status_code=502, detail="Bielik nie zwrocil opisu.")
+    try:
+        open(cache_path, "w", encoding="utf-8").write(opis)
+    except Exception:
+        pass
+    return {"ok": True, "opis": opis, "cache": False}
+
+
+# ==== Popraw opis FB przez Claude (platne, na zadanie) ====
+@router.post("/reels/{reel_id}/opis-przez-claude")
+def opis_przez_claude(reel_id: str, data: dict = Body(...)):
+    import os
+    from fastapi import HTTPException
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="Brak ANTHROPIC_API_KEY na serwerze.")
+    base_id = reel_id.zfill(6) if reel_id.isdigit() else reel_id
+    folder = os.path.join("/root/rod-ai-studio/data/reels", base_id)
+    obecny = (data.get("opis") or "").strip()
+    article = ""
+    art_path = os.path.join(folder, "article.md")
+    if os.path.isfile(art_path):
+        article = open(art_path, encoding="utf-8").read().strip()[:3000]
+    system_prompt = (
+        "Jestes redaktorem social media dla ROD im. Jozefa Lompy w Wozniki (ogrod dzialkowy). "
+        "Napisz DOPRACOWANY, angazujacy opis posta na Facebooka do rolki wideo. Odbiorca: dzialkowicze, "
+        "czesto po 50-tce. Zasady algorytmu FB: mocny hook w pierwszym wersie, konkretne korzysci, pytanie "
+        "zachecajace do komentarzy, 3-4 trafne hashtagi po polsku. Styl: cieply, konkretny, z emoji. "
+        "Odpowiedz WYLACZNIE gotowym opisem posta, bez komentarza przed ani po."
+    )
+    user_message = ""
+    if obecny:
+        user_message += "OBECNY OPIS (popraw i podkrec, zachowujac sens):\n" + obecny + "\n\n"
+    if article:
+        user_message += "TRESC ROLKI (kontekst):\n" + article
+    if not user_message.strip():
+        raise HTTPException(status_code=400, detail="Brak tresci do opracowania.")
+    try:
+        resp = req.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={"x-api-key": api_key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
+            json={"model": "claude-sonnet-4-6", "max_tokens": 1000, "system": system_prompt,
+                  "messages": [{"role": "user", "content": user_message}]},
+            timeout=60)
+        resp.raise_for_status()
+        wynik = resp.json()
+        tekst = "".join(b.get("text", "") for b in wynik.get("content", []) if b.get("type") == "text").strip()
+        try:
+            open(os.path.join(folder, "opis_fb.txt"), "w", encoding="utf-8").write(tekst)
+        except Exception:
+            pass
+        return {"ok": True, "opis": tekst}
+    except req.exceptions.HTTPError as e:
+        raise HTTPException(status_code=502, detail=f"Claude API: {e.response.status_code} - {e.response.text[:200]}")
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Claude API blad: {e}")

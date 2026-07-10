@@ -435,6 +435,8 @@
     <div class="fbSub" id="fbPubLabel">rolka #—</div>
     <div id="fbPubWarn">⚠️ To wrzuci Reel na ŻYWĄ stronę ROD (publicznie). Grupy udostępnij ręcznie po publikacji.</div>
     <textarea id="fbPubOpis" placeholder="Opis, który pojawi się pod Reelem na Facebooku…"></textarea>
+    <div id="fbPubStatus" style="font-size:11.5px; color:var(--muted); min-height:16px"></div>
+    <button id="fbPubClaude" type="button" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--surface-2); font:inherit; font-weight:600; cursor:pointer">✨ Popraw opis przez Claude (płatne)</button>
     <div id="fbPubBtns">
       <button id="fbPubCancel" type="button">Anuluj</button>
       <button id="fbPubSend" type="button">📘 Publikuj</button>
@@ -1772,14 +1774,38 @@
 
   // ==== Publikacja na Facebooka ====
   let fbPubReelId = null;
-  function openFbPublish(reelId, opisText){
+  async function openFbPublish(reelId, opisFallback){
     fbPubReelId = reelId;
     $('#fbPubLabel').textContent = 'rolka #'+reelId;
-    $('#fbPubOpis').value = opisText || '';
     $('#fbPubOverlay').classList.add('show');
+    const ta = $('#fbPubOpis');
+    ta.value=''; ta.disabled=true;
+    $('#fbPubStatus').textContent='🌱 Bielik pisze opis… (chwilę to potrwa, ładuje model)';
+    try{
+      const r = await api('/reels/'+reelId+'/generuj-opis-fb', {method:'POST'});
+      ta.value = (r && r.opis) ? r.opis : (opisFallback||'');
+      $('#fbPubStatus').textContent = 'Opis gotowy (Bielik) — możesz edytować albo podkręcić przez Claude.';
+    }catch(e){
+      ta.value = opisFallback || '';
+      $('#fbPubStatus').textContent = 'Nie wygenerowano opisu — wpisz ręcznie. ('+e.message+')';
+    }finally{ ta.disabled=false; }
   }
   function closeFbPublish(){ $('#fbPubOverlay').classList.remove('show'); fbPubReelId = null; }
   $('#fbPubCancel').addEventListener('click', closeFbPublish);
+  $('#fbPubClaude').addEventListener('click', async ()=>{
+    if(!fbPubReelId) return;
+    if(!confirm('Poprawić opis przez Claude? To płatne wywołanie (API Anthropic).')) return;
+    const obecny = $('#fbPubOpis').value.trim();
+    busy($('#fbPubClaude'), true);
+    $('#fbPubStatus').textContent = '✨ Claude dopracowuje opis…';
+    try{
+      const r = await api('/reels/'+fbPubReelId+'/opis-przez-claude', {method:'POST', body: JSON.stringify({opis: obecny})});
+      if(r && r.opis) $('#fbPubOpis').value = r.opis;
+      $('#fbPubStatus').textContent = 'Opis dopracowany przez Claude ✨';
+    }catch(e){
+      $('#fbPubStatus').textContent = 'Claude nie dał rady: '+e.message;
+    }finally{ busy($('#fbPubClaude'), false); }
+  });
   $('#fbPubSend').addEventListener('click', async ()=>{
     if(!fbPubReelId) return;
     const opis = $('#fbPubOpis').value.trim();

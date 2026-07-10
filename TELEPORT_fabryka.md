@@ -529,3 +529,8 @@ Zrobione BEZPOSREDNIO w backendzie (nie przez n8n - to byla droga dla auto-crona
 
 ### POBIERANIE ROLKI + EDYTOR JAKO STRONA (10.07.2026) - w skrocie
 Przycisk ⬇️ pobierz w panelu + WebView DownloadListener (menedzer pobieran Androida, zapis do Downloads) - WYMAGA APK v1.2 (rebuild na GitHub). Endpoint /reels/{id}/video ma juz Content-Disposition attachment. Edytor rolki (checkpoint) zamieniony z modala na pelna strone + fizyczny Wstecz zamyka. Szczegoly w commitach.
+
+### AUTO-OPIS FB + POPRAW PRZEZ CLAUDE (10.07.2026) — ZBUDOWANE, przetestowany Bielik
+- `POST /reels/{id}/generuj-opis-fb` (topics.py) — Bielik (generate(), DARMOWY) pisze gotowy opis FB (hook+emoji, 3-5 korzysci, pytanie, 3-4 hashtagi) z article.md. CACHE: zapisuje opis_fb.txt; kolejne wolania zwracaja cache (chyba ze ?force=true). Zweryfikowany na 000088 = dobry opis (fusy).
+- `POST /reels/{id}/opis-przez-claude` (topics.py) — Claude API (claude-sonnet-4-6, PLATNE, ANTHROPIC_API_KEY z env, wzor jak asystent-promptu). Bierze {opis}+article.md, dopracowuje, zapisuje opis_fb.txt. Import Bielika: `from src.ai.ollama import generate` (fallback ai.ollama).
+- Panel: okienko Publikuj przy OTWARCIU auto-generuje opis Bielikiem (1. raz ~30s bo laduje model, potem cache natychmiast) -> textarea. Przycisk "✨ Popraw opis przez Claude (platne)" z confirm (klik=zgoda na koszt) -> podmienia opis. Panel na zywo; endpointy wymagaly restartu.
