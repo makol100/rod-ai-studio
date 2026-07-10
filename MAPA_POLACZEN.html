@@ -3,262 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mapa połączeń — Fabryka Rolek / HA Dom / HA Działka</title>
+<title>Mapa połączeń — galaktyka</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
-
-  :root{
-    --bp-bg: #0a2f4d;
-    --bp-bg-deep: #082539;
-    --bp-line: #6fa8c9;
-    --bp-line-dim: rgba(111,168,201,0.35);
-    --bp-text: #e8f4fd;
-    --bp-text-dim: #a9c9dd;
-    --bp-active: #f0b429;
-    --bp-active-glow: rgba(240,180,41,0.45);
-    --bp-planned: #7f95a6;
-    --bp-fb: #4d94ff;
-    --bp-tg: #4fc3e8;
-    --bp-claude: #f0b429;
-    --mono: 'JetBrains Mono', monospace;
-    --sans: 'Space Grotesk', sans-serif;
-  }
-
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{
-    background:
-      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--bp-line-dim) 27px, var(--bp-line-dim) 28px),
-      repeating-linear-gradient(90deg, transparent, transparent 27px, var(--bp-line-dim) 27px, var(--bp-line-dim) 28px),
-      var(--bp-bg);
-    color: var(--bp-text);
-    font-family: var(--mono);
-    padding: 28px 14px 60px;
+    background:radial-gradient(ellipse 90% 60% at 50% 20%, #141743 0%, #0a0c26 40%, #05060f 72%, #020309 100%);
+    color:#e8ecff; font-family:'JetBrains Mono',monospace; padding:24px 12px 50px;
+    min-height:100vh;
   }
-
   .wrap{max-width:460px;margin:0 auto}
+  header{text-align:center;margin-bottom:6px}
+  .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9fb0e8;
+    border:1px solid rgba(159,176,232,0.3);border-radius:20px;display:inline-block;padding:4px 14px;margin-bottom:12px}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:25px;margin:0 0 5px;
+    letter-spacing:-.01em;background:linear-gradient(90deg,#ffd66b,#8fb0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:12px;color:#9fb0e8;margin:0}
 
-  header{text-align:center;margin-bottom:36px}
-  .eyebrow{
-    font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
-    color:var(--bp-text-dim); border:1px solid var(--bp-line-dim); border-radius:20px;
-    display:inline-block; padding:4px 14px; margin-bottom:14px;
-  }
-  h1{
-    font-family:var(--sans); font-weight:700; font-size:26px; line-height:1.15;
-    margin:0 0 6px; letter-spacing:-.01em;
-  }
-  .sub{font-size:12px; color:var(--bp-text-dim); margin:0}
+  svg{width:100%;max-width:460px;height:auto;display:block;margin:2px auto 0}
+  @keyframes tw{0%,100%{opacity:.18}50%{opacity:1}}
+  @keyframes coreP{0%,100%{opacity:.5}50%{opacity:.9}}
+  #coreGlow{animation:coreP 5s ease-in-out infinite}
 
-  /* --- wire (connector) --- */
-  .wire{
-    width:2px; height:34px; background:var(--bp-line); margin:0 auto;
-    position:relative;
-  }
-  .wire.dashed{background:none; border-left:2px dashed var(--bp-planned)}
-  .wire::after{
-    content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%);
-    width:6px; height:6px; background:var(--bp-line); border-radius:50%;
-  }
-  .wire.dashed::after{background:var(--bp-planned)}
-  .wire.short{height:20px}
+  .legend{margin:10px auto 24px;display:flex;flex-wrap:wrap;gap:7px 14px;justify-content:center;font-size:10.5px;color:#9fb0e8}
+  .legend .k{display:flex;align-items:center;gap:6px}
+  .legend .ln{width:22px;height:0;border-top:2px solid #6fa8c9;flex:none}
+  .legend .ln.gold{border-color:#ffd66b} .legend .ln.green{border-color:#57e08a} .legend .ln.dash{border-top-style:dashed;border-color:#5bd6f5}
 
-  /* --- node boxes --- */
-  .node{
-    border:1.5px solid var(--bp-line); border-radius:4px; background:rgba(232,244,253,0.03);
-    padding:14px 16px; position:relative;
-  }
-  .node .port{
-    position:absolute; top:-6px; left:50%; transform:translateX(-50%);
-    width:11px; height:11px; background:var(--bp-bg); border:2px solid var(--bp-line);
-    border-radius:50%;
-  }
-  .node.port-bottom .port{top:auto; bottom:-6px}
-
-  .claude-node{
-    text-align:center; border-color:var(--bp-claude); box-shadow:0 0 24px var(--bp-active-glow);
-    padding:20px;
-  }
-  .claude-node .tag{font-family:var(--sans); font-weight:700; font-size:20px; color:var(--bp-claude); letter-spacing:.02em}
-  .claude-node .cap{font-size:11px; color:var(--bp-text-dim); margin-top:4px}
-
-  .zone{
-    border:1.5px solid var(--bp-line); border-radius:6px; padding:0; margin-bottom:8px; overflow:hidden;
-  }
-  .zone-head{
-    font-family:var(--sans); font-weight:600; font-size:15px; padding:11px 14px;
-    background:rgba(111,168,201,0.14); border-bottom:1px solid var(--bp-line-dim);
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .zone-head .badge{
-    font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase;
-    color:var(--bp-active); border:1px solid var(--bp-active); border-radius:3px; padding:2px 6px;
-  }
-  .zone-body{padding:12px 14px 14px}
-  .comp{
-    display:flex; gap:9px; align-items:flex-start; font-size:12px; padding:6px 0;
-    border-top:1px dotted var(--bp-line-dim);
-  }
-  .comp:first-child{border-top:none}
-  .comp .dot{color:var(--bp-line); flex:none; margin-top:1px}
-  .comp b{color:var(--bp-text); font-weight:700}
-  .comp span{color:var(--bp-text-dim)}
-
-  .hub-row{display:flex; gap:8px; margin:0 0 8px}
-  .hub-row .wire-h{flex:1; align-self:center; height:2px; background:var(--bp-line); margin-top:-8px}
-
-  .tunnel{
-    display:flex; align-items:center; gap:6px; justify-content:center; margin:2px 0 14px;
-    font-size:10.5px; color:var(--bp-text-dim); letter-spacing:.04em;
-  }
-  .tunnel .line{flex:1; height:0; border-top:2px dashed var(--bp-line)}
-  .tunnel .lbl{white-space:nowrap; border:1px solid var(--bp-line-dim); border-radius:12px; padding:3px 10px}
-
-  .platforms{display:flex; gap:10px; margin-top:6px}
-  .platform{
-    flex:1; border-radius:6px; padding:13px 12px; text-align:center;
-    border:1.5px solid; position:relative;
-  }
-  .platform .port{
-    position:absolute; top:-6px; left:50%; transform:translateX(-50%);
-    width:11px; height:11px; background:var(--bp-bg); border-radius:50%; border-width:2px; border-style:solid;
-  }
-  .platform.fb{border-color:var(--bp-fb)}
-  .platform.fb .port{border-color:var(--bp-fb)}
-  .platform.tg{border-color:var(--bp-tg)}
-  .platform.tg .port{border-color:var(--bp-tg)}
-  .platform .name{font-family:var(--sans); font-weight:700; font-size:15px}
-  .platform.fb .name{color:var(--bp-fb)}
-  .platform.tg .name{color:var(--bp-tg)}
-  .platform .use{font-size:10px; color:var(--bp-text-dim); margin-top:5px; line-height:1.4}
-
-  .legend{
-    margin-top:34px; padding-top:16px; border-top:1px solid var(--bp-line-dim);
-    display:flex; flex-direction:column; gap:8px; font-size:11px; color:var(--bp-text-dim);
-  }
-  .legend .row{display:flex; align-items:center; gap:9px}
-  .legend .swatch{width:26px; height:0; border-top:2px solid var(--bp-line); flex:none}
-  .legend .swatch.dash{border-top-style:dashed; border-color:var(--bp-planned)}
-  .legend .swatch.gold{border-color:var(--bp-active); box-shadow:0 0 6px var(--bp-active-glow)}
-
-  footer{text-align:center; margin-top:26px; font-size:10px; color:var(--bp-text-dim); opacity:.7}
+  .details{display:flex;flex-direction:column;gap:10px}
+  .row2{display:flex;gap:10px}.row2>.card{flex:1;margin:0}
+  .card{border:1px solid rgba(255,255,255,0.12);border-radius:10px;overflow:hidden;
+    background:rgba(255,255,255,0.035);backdrop-filter:blur(2px)}
+  .card .ch{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;padding:9px 12px;
+    display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .card .ch .dot{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor}
+  .card .cb{padding:9px 12px;font-size:11.5px;line-height:1.55;color:#b8c2e0}
+  .card .cb b{color:#eef2ff;font-weight:600}
+  .card.vps{border-color:rgba(67,224,216,0.5)}.card.vps .ch,.card.vps .dot{color:#43e0d8}
+  .card.apka{border-color:rgba(87,224,138,0.5)}.card.apka .ch,.card.apka .dot{color:#57e08a}
+  .card.dom{border-color:rgba(143,176,255,0.5)}.card.dom .ch,.card.dom .dot{color:#8fb0ff}
+  .card.dz{border-color:rgba(255,177,92,0.5)}.card.dz .ch,.card.dz .dot{color:#ffb15c}
+  .card.ext .ch{color:#eef2ff}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:10.5px;padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,0.14);color:#b8c2e0}
+  .chip b{color:#eef2ff;font-weight:600}
+  footer{text-align:center;margin-top:22px;font-size:10px;color:#8a97c8;opacity:.85;line-height:1.6}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <header>
     <span class="eyebrow">Mapa połączeń · 10.07.2026</span>
     <h1>Kto z kim rozmawia</h1>
-    <p class="sub">Fabryka Rolek · Apka Android · HA Dom · HA Działka</p>
+    <p class="sub">galaktyka · Claude w jądrze · orbity systemów</p>
   </header>
 
-  <!-- CLAUDE -->
-  <div class="node claude-node port-bottom">
-    <div class="tag">CLAUDE</div>
-    <div class="cap">jedna instancja, trzy połączenia MCP</div>
-    <div class="port"></div>
-  </div>
-  <div class="wire"></div>
+  <svg viewBox="0 0 460 470" role="img" aria-label="Galaktyka połączeń">
+    <defs>
+      <radialGradient id="gBg" cx="50%" cy="48%" r="62%">
+        <stop offset="0" stop-color="#2a2560" stop-opacity="0.55"/>
+        <stop offset="45%" stop-color="#0d0e2c" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#04050e" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="gCore"><stop offset="0" stop-color="#fffbe8"/><stop offset="22%" stop-color="#ffe08a"/><stop offset="55%" stop-color="#ffb03a" stop-opacity="0.6"/><stop offset="100%" stop-color="#ff9a2a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gVps"><stop offset="0" stop-color="#c9fffb"/><stop offset="35%" stop-color="#43e0d8"/><stop offset="72%" stop-color="#2ba7a0" stop-opacity="0.35"/><stop offset="100%" stop-color="#2ba7a0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gApka"><stop offset="0" stop-color="#d6ffe4"/><stop offset="40%" stop-color="#57e08a"/><stop offset="100%" stop-color="#2f9e5a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gDom"><stop offset="0" stop-color="#eaf0ff"/><stop offset="38%" stop-color="#8fb0ff"/><stop offset="100%" stop-color="#4a5fd0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gDz"><stop offset="0" stop-color="#fff0dd"/><stop offset="38%" stop-color="#ffb15c"/><stop offset="100%" stop-color="#d07a2a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gGh"><stop offset="0" stop-color="#f2f6fb"/><stop offset="45%" stop-color="#cdd6e0"/><stop offset="100%" stop-color="#8792a0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gFal"><stop offset="0" stop-color="#ffe0f0"/><stop offset="45%" stop-color="#ff8fc4"/><stop offset="100%" stop-color="#b0417a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gApi"><stop offset="0" stop-color="#fff6d8"/><stop offset="45%" stop-color="#ffd66b"/><stop offset="100%" stop-color="#c9971f" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gFb"><stop offset="0" stop-color="#dfeaff"/><stop offset="45%" stop-color="#5b9dff"/><stop offset="100%" stop-color="#2e5fbf" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gTg"><stop offset="0" stop-color="#e0f9ff"/><stop offset="45%" stop-color="#5bd6f5"/><stop offset="100%" stop-color="#2789a8" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gNebP" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#6a4bd0" stop-opacity="0.28"/><stop offset="100%" stop-color="#6a4bd0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gNebT" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2b8fb0" stop-opacity="0.22"/><stop offset="100%" stop-color="#2b8fb0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gNebM" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b0417a" stop-opacity="0.20"/><stop offset="100%" stop-color="#b0417a" stop-opacity="0"/></radialGradient>
+    </defs>
 
-  <!-- three-way split -->
-  <div style="display:flex; gap:6px; margin-bottom:2px">
-    <div style="flex:1; height:2px; background:var(--bp-line); margin-top:9px; border-radius:2px 0 0 2px"></div>
-    <div style="flex:1; height:2px; background:var(--bp-line); margin-top:9px"></div>
-    <div style="flex:1; height:2px; background:var(--bp-line); margin-top:9px; border-radius:0 2px 2px 0"></div>
-  </div>
-  <div style="display:flex; gap:6px; margin-bottom:10px">
-    <div style="flex:1; text-align:center; font-size:9.5px; color:var(--bp-text-dim)">connector "fabryka"</div>
-    <div style="flex:1; text-align:center; font-size:9.5px; color:var(--bp-text-dim)">connector<br>"Home Assistant"</div>
-    <div style="flex:1; text-align:center; font-size:9.5px; color:var(--bp-text-dim)">connector<br>"HA DZIAŁKA"</div>
-  </div>
+    <!-- deep space -->
+    <rect x="0" y="0" width="460" height="470" fill="#04050e"/>
+    <rect x="0" y="0" width="460" height="470" fill="url(#gBg)"/>
+    <!-- nebula clouds (spiral hint) -->
+    <ellipse cx="150" cy="150" rx="180" ry="120" fill="url(#gNebP)" transform="rotate(-25 150 150)"/>
+    <ellipse cx="330" cy="300" rx="160" ry="110" fill="url(#gNebT)" transform="rotate(20 330 300)"/>
+    <ellipse cx="250" cy="360" rx="150" ry="100" fill="url(#gNebM)"/>
 
-  <!-- VPS ZONE -->
-  <div class="wire short"></div>
-  <div class="zone">
-    <div class="zone-head">VPS · Hetzner 157.90.155.155 · 22GB RAM / 12 vCPU<span class="badge">żyje</span></div>
-    <div class="zone-body">
-      <div class="comp"><span class="dot">▸</span><div><b>Caddy (reverse proxy)</b> <span>— host network, terminuje HTTPS (Let's Encrypt) dla 2 hostów sslip.io: <b>157-90-155-155.sslip.io</b> → MCP :8765, <b>panel.157-90-155-155.sslip.io</b> → panel :8000 <span style="color:var(--bp-active)">(NOWE 10.07)</span></span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>mcp-fabryka.service</b> <span>— systemd :8765 — obsługuje connector "fabryka" (Claude ↔ VPS)</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>fabryka-api</b> <span>— Docker, FastAPI :8000 — panel + endpointy + pipeline rolek. Panel po HTTPS: <b>panel.157-90-155-155.sslip.io/panel</b></span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Ollama (lokalnie)</b> <span>— Bielik-11B <b>Q8_0</b> (polski: artykuł/sceny/lektor/prompty obrazów) + Qwen3-14B (prompty EN Droga #2 + NAPRAW). SEKWENCYJNIE — jeden model naraz, oba = OOM nawet na 22GB.</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>SQLite content.db</b> <span>— 14 kategorii, 730 tematów</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>data/reels/</b> <span>— sceny, obrazy, audio, gotowe wideo na dysku</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>n8n</b> <span>— Docker :5678, Claude ma bezpośredni dostęp przez API (klucz w /root/.n8n_api_key). Workflow "Auto Publikacja FB" zbudowany, nieaktywny (czeka na token FB)</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>git → GitHub</b> <span>makol100/rod-ai-studio — kod na hasło "Update wszędzie". <b>GitHub Actions</b> buduje APK apki → Release <b>apk-latest</b> <span style="color:var(--bp-active)">(NOWE 10.07)</span></span></div></div>
-    </div>
-  </div>
+    <!-- rotating orbital rings + arms -->
+    <g stroke-linecap="round" fill="none">
+      <circle cx="230" cy="225" r="150" stroke="rgba(159,176,232,0.10)" stroke-width="1" stroke-dasharray="2 7"/>
+      <circle cx="230" cy="225" r="96" stroke="rgba(159,176,232,0.08)" stroke-width="1" stroke-dasharray="2 8"/>
+      <circle cx="230" cy="225" r="205" stroke="rgba(159,176,232,0.05)" stroke-width="1"/>
+      <path d="M230,225 C300,150 360,180 330,300" stroke="rgba(138,120,220,0.10)" stroke-width="14"/>
+      <path d="M230,225 C150,300 110,260 150,120" stroke="rgba(80,150,200,0.09)" stroke-width="14"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 230 225" to="360 230 225" dur="220s" repeatCount="indefinite"/>
+    </g>
 
-  <!-- APKA ANDROID -->
-  <div class="wire short"></div>
-  <div class="zone">
-    <div class="zone-head">Apka Android · Fabryka Rolek<span class="badge">nowe</span></div>
-    <div class="zone-body">
-      <div class="comp"><span class="dot">▸</span><div><b>Klient panelu (WebView)</b> <span>— łączy się po HTTPS do <b>panel.157-90-155-155.sslip.io</b> (Caddy → fabryka-api :8000). Natywny dashboard z kartami, deep-link do sekcji panelu.</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Build: GitHub Actions</b> <span>— push do repo → workflow <b>build-apk</b> (JDK17 + Gradle 8.7 → assembleDebug) → APK jako <b>Release apk-latest</b> → telefon (Samsung).</span></div></div>
-    </div>
-  </div>
+    <!-- starfield (JS) -->
+    <g id="stars"></g>
 
-  <!-- HA DOM -->
-  <div class="wire short"></div>
-  <div class="zone">
-    <div class="zone-head">HA Dom · Linz/Walding (AT)<span class="badge">żyje</span></div>
-    <div class="zone-body">
-      <div class="comp"><span class="dot">▸</span><div><b>Node-RED</b> <span>— flow "Ogrodnik", token Facebooka w node KONFIG</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Telegram bot</b> <span>— /krystyna /dom /pv /bms /jackuzzi /mietek /burze /temperatury</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Łowcy Burz</b> <span>— burze.dzis.net, grafiki PIL, auto-post na FB</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Krystyna, Mietek, panel-rosalia</b> <span>— kosiarka, odkurzacz, panel ESP32</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Nuki (oba zamki)</b> <span>— mieszkanie ORAZ Działka widoczne tu razem</span></div></div>
-    </div>
-  </div>
+    <!-- ===== CONNECTION BEAMS ===== -->
+    <g fill="none">
+      <!-- MCP gold beams from core -->
+      <line x1="230" y1="196" x2="230" y2="108" stroke="#ffd66b" stroke-width="2" opacity="0.85"/>
+      <path d="M207,244 Q150,300 121,313" stroke="#ffd66b" stroke-width="2" opacity="0.8"/>
+      <path d="M253,244 Q310,300 339,313" stroke="#ffd66b" stroke-width="2" opacity="0.8"/>
+      <!-- HTTPS green apka->vps -->
+      <line x1="166" y1="124" x2="211" y2="92" stroke="#57e08a" stroke-width="1.8" opacity="0.85"/>
+      <!-- VPS -> service moons -->
+      <line x1="210" y1="64" x2="150" y2="58" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <line x1="252" y1="64" x2="307" y2="58" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <line x1="256" y1="82" x2="338" y2="112" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <!-- Dom -> FB / TG -->
+      <line x1="80" y1="352" x2="60" y2="388" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <line x1="120" y1="354" x2="150" y2="396" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <!-- Tailscale Dom <-> Dzialka -->
+      <path d="M127,340 Q230,405 333,340" stroke="#5bd6f5" stroke-width="1.6" stroke-dasharray="6 5" opacity="0.75"/>
+    </g>
 
-  <!-- tunnel -->
-  <div class="tunnel"><span class="line"></span><span class="lbl">⇄ tunel Tailscale</span><span class="line"></span></div>
+    <!-- ===== MOONS (services) ===== -->
+    <!-- GitHub -->
+    <circle cx="135" cy="55" r="15" fill="url(#gGh)"/><circle cx="135" cy="55" r="4" fill="#eef2ff"/>
+    <text x="135" y="80" text-anchor="middle" font-size="9.5" fill="#cdd6e0" stroke="#05060f" stroke-width="2.6" paint-order="stroke" font-family="'JetBrains Mono',monospace">GitHub</text>
+    <!-- fal.ai -->
+    <circle cx="322" cy="55" r="15" fill="url(#gFal)"/><circle cx="322" cy="55" r="4" fill="#ffe0f0"/>
+    <text x="322" y="80" text-anchor="middle" font-size="9.5" fill="#ff8fc4" stroke="#05060f" stroke-width="2.6" paint-order="stroke">fal.ai</text>
+    <!-- Claude API -->
+    <circle cx="352" cy="118" r="16" fill="url(#gApi)"/><circle cx="352" cy="118" r="4" fill="#fff6d8"/>
+    <text x="352" y="145" text-anchor="middle" font-size="9.5" fill="#ffd66b" stroke="#05060f" stroke-width="2.6" paint-order="stroke">Claude API</text>
+    <!-- Apka -->
+    <circle cx="150" cy="132" r="19" fill="url(#gApka)"/><circle cx="150" cy="132" r="5" fill="#d6ffe4"/>
+    <text x="150" y="162" text-anchor="middle" font-size="10.5" fill="#57e08a" stroke="#05060f" stroke-width="2.8" paint-order="stroke" font-weight="700">Apka</text>
+    <!-- Facebook -->
+    <circle cx="48" cy="400" r="16" fill="url(#gFb)"/><circle cx="48" cy="400" r="4" fill="#dfeaff"/>
+    <text x="48" y="427" text-anchor="middle" font-size="9.5" fill="#5b9dff" stroke="#05060f" stroke-width="2.6" paint-order="stroke">Facebook</text>
+    <!-- Telegram -->
+    <circle cx="150" cy="410" r="16" fill="url(#gTg)"/><circle cx="150" cy="410" r="4" fill="#e0f9ff"/>
+    <text x="150" y="437" text-anchor="middle" font-size="9.5" fill="#5bd6f5" stroke="#05060f" stroke-width="2.6" paint-order="stroke">Telegram</text>
 
-  <!-- HA DZIAŁKA -->
-  <div class="zone">
-    <div class="zone-head">HA Działka · Woźniki (PL)<span class="badge">żyje</span></div>
-    <div class="zone-body">
-      <div class="comp"><span class="dot">▸</span><div><b>PV / JK-BMS ×2 / InfiniSolar</b> <span>— falownik, baterie, Solar Assistant + MQTT</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Reolink + Nuki</b> <span>— kamery Garaz/Drzewo/Fotowoltaika, zamek altany</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Jacuzzi + zraszacze</b> <span>— layzspa, nawadnianie Nr 1-4</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Migracja N150</b> <span>— zaplanowana, jeszcze niezrobiona</span></div></div>
-    </div>
-  </div>
+    <!-- ===== DOMAIN SYSTEMS ===== -->
+    <!-- VPS -->
+    <circle cx="230" cy="78" r="34" fill="url(#gVps)"/><circle cx="230" cy="78" r="9" fill="#c9fffb"/>
+    <text x="230" y="82" text-anchor="middle" font-size="12.5" font-weight="700" fill="#04262b" font-family="'Space Grotesk',sans-serif">VPS</text>
+    <text x="230" y="128" text-anchor="middle" font-size="9.5" fill="#43e0d8" stroke="#05060f" stroke-width="2.8" paint-order="stroke" font-family="'JetBrains Mono',monospace">Hetzner · Fabryka</text>
+    <!-- HA Dom -->
+    <circle cx="100" cy="330" r="30" fill="url(#gDom)"/><circle cx="100" cy="330" r="8" fill="#eaf0ff"/>
+    <text x="100" y="334" text-anchor="middle" font-size="11" font-weight="700" fill="#0a1440" font-family="'Space Grotesk',sans-serif">Dom</text>
+    <text x="100" y="374" text-anchor="middle" font-size="9.5" fill="#8fb0ff" stroke="#05060f" stroke-width="2.8" paint-order="stroke">HA Dom (AT)</text>
+    <!-- HA Dzialka -->
+    <circle cx="360" cy="330" r="30" fill="url(#gDz)"/><circle cx="360" cy="330" r="8" fill="#fff0dd"/>
+    <text x="360" y="334" text-anchor="middle" font-size="11" font-weight="700" fill="#3a1e04" font-family="'Space Grotesk',sans-serif">Działka</text>
+    <text x="360" y="374" text-anchor="middle" font-size="9.5" fill="#ffb15c" stroke="#05060f" stroke-width="2.8" paint-order="stroke">HA Działka (PL)</text>
 
-  <!-- platforms -->
-  <div style="margin-top:22px; text-align:center; font-size:10.5px; color:var(--bp-text-dim); letter-spacing:.06em; text-transform:uppercase">na zewnątrz</div>
-  <div class="platforms" style="margin-top:10px">
-    <div class="platform fb"><div class="port"></div><div class="name">Facebook</div><div class="use">ROD Woźniki<br>1174205105781401</div></div>
-    <div class="platform tg"><div class="port"></div><div class="name">Telegram</div><div class="use">status domu<br>chat 8339659505</div></div>
-  </div>
+    <!-- ===== CORE: CLAUDE ===== -->
+    <circle id="coreGlow" cx="230" cy="225" r="72" fill="url(#gCore)"/>
+    <circle cx="230" cy="225" r="34" fill="url(#gCore)"/>
+    <circle cx="230" cy="225" r="24" fill="#fff6da"/>
+    <text x="230" y="223" text-anchor="middle" font-size="14.5" font-weight="700" fill="#3a2a05" font-family="'Space Grotesk',sans-serif">CLAUDE</text>
+    <text x="230" y="237" text-anchor="middle" font-size="8" fill="#6b5010" font-family="'JetBrains Mono',monospace">jądro · 3× MCP</text>
 
-  <!-- FB connections detail -->
-  <div style="margin-top:14px; font-size:10.5px; color:var(--bp-text-dim); line-height:1.7; border-left:2px dashed var(--bp-planned); padding-left:10px">
-    <b style="color:var(--bp-planned)">VPS → Facebook</b> — planowane, czeka na token (siedzi w Node-RED, jeszcze nie wyciągnięty)
-  </div>
-  <div style="margin-top:8px; font-size:10.5px; color:var(--bp-text-dim); line-height:1.7; border-left:2px solid var(--bp-active); padding-left:10px">
-    <b style="color:var(--bp-active)">HA Dom → Facebook</b> — aktywne, Łowcy Burz publikuje już teraz przez Node-RED
-  </div>
-  <div style="margin-top:8px; font-size:10.5px; color:var(--bp-text-dim); line-height:1.7; border-left:2px solid var(--bp-active); padding-left:10px">
-    <b style="color:var(--bp-active)">HA Dom → Telegram</b> — aktywne, bot pełni funkcję pulpitu domu
-  </div>
-
-  <div style="margin-top:8px; font-size:10.5px; color:var(--bp-text-dim); line-height:1.7; border-left:2px solid var(--bp-active); padding-left:10px">
-    <b style="color:var(--bp-active)">fabryka-api → fal.ai</b> — obrazy (Nano Banana Pro domyślnie / FLUX.2 opcja) + napisy Whisper. Płatne — tylko za wyraźną zgodą Tomasza.
-  </div>
-  <div style="margin-top:8px; font-size:10.5px; color:var(--bp-text-dim); line-height:1.7; border-left:2px solid var(--bp-claude); padding-left:10px">
-    <b style="color:var(--bp-claude)">panel → Claude API</b> — api.anthropic.com (Asystent promptu + Popraw scenariusz). Płatny, osobny od Claude.ai.
-  </div>
+    <!-- Tailscale label -->
+    <g font-family="'JetBrains Mono',monospace">
+      <text x="230" y="392" text-anchor="middle" font-size="9" fill="#5bd6f5" stroke="#05060f" stroke-width="2.6" paint-order="stroke">⇄ Tailscale</text>
+    </g>
+  </svg>
 
   <div class="legend">
-    <div class="row"><span class="swatch"></span> połączenie aktywne, sprawdzone dziś</div>
-    <div class="row"><span class="swatch dash"></span> połączenie planowane / niedokończone</div>
-    <div class="row"><span class="swatch gold"></span> Claude — jedna instancja, trzy connectory MCP</div>
+    <div class="k"><span class="ln gold"></span> MCP (Claude ↔)</div>
+    <div class="k"><span class="ln green"></span> HTTPS (apka → panel)</div>
+    <div class="k"><span class="ln dash"></span> Tailscale</div>
   </div>
 
-  <footer>Aktualizacja 10.07: panel wystawiony po HTTPS (sslip.io), apka Android łączy się bezpiecznie, GitHub Actions buduje APK. VPS→Facebook wciąż czeka na token z Node-RED.</footer>
+  <div class="details">
+    <div class="card vps">
+      <div class="ch"><span class="dot"></span>VPS · Hetzner 22GB / 12 vCPU</div>
+      <div class="cb"><b>Caddy</b> — reverse proxy, 2 hosty HTTPS (sslip.io): MCP :8765 + panel :8000 · <b>fabryka-api</b> :8000 — panel + pipeline rolek · <b>Ollama</b> — Bielik-11B Q8_0 + Qwen3-14B (sekwencyjnie) · <b>n8n</b> :5678 · SQLite + data/reels · <b>git → GitHub</b> (Actions buduje APK)</div>
+    </div>
+    <div class="card apka">
+      <div class="ch"><span class="dot"></span>Apka Android · Fabryka Rolek</div>
+      <div class="cb">WebView, natywny dashboard z kartami · łączy się po <b>HTTPS</b> do panelu · build przez <b>GitHub Actions</b> → Release <b>apk-latest</b></div>
+    </div>
+    <div class="row2">
+      <div class="card dom">
+        <div class="ch"><span class="dot"></span>HA Dom (AT)</div>
+        <div class="cb"><b>Node-RED</b> (Ogrodnik) · <b>Telegram</b> bot · <b>Łowcy Burz</b> (post FB) · Krystyna/Mietek/panel · <b>Nuki</b> (oba zamki)</div>
+      </div>
+      <div class="card dz">
+        <div class="ch"><span class="dot"></span>HA Działka (PL)</div>
+        <div class="cb"><b>PV</b>/JK-BMS×2/InfiniSolar · <b>Reolink</b>+Nuki · Jacuzzi+zraszacze · <b>Migracja N150</b></div>
+      </div>
+    </div>
+    <div class="card ext">
+      <div class="ch">Świat zewnętrzny</div>
+      <div class="cb"><div class="chips">
+        <span class="chip"><b>Facebook</b> — Dom aktywne, VPS planowane</span>
+        <span class="chip"><b>Telegram</b> — pulpit domu</span>
+        <span class="chip"><b>fal.ai</b> — obrazy + napisy</span>
+        <span class="chip"><b>Claude API</b> — asystent + popraw</span>
+      </div></div>
+    </div>
+  </div>
 
+  <footer>Jądro = Claude, trzy złote wiązki MCP trzymają na orbicie VPS, Dom i Działkę. Zielona = apka po HTTPS. Przerywana = tunel Tailscale.<br>VPS → Facebook wciąż czeka na token z Node-RED.</footer>
 </div>
+
+<script>
+(function(){
+  var layer=document.getElementById('stars');
+  if(!layer) return;
+  var W=460,H=470,cx=230,cy=225,out='';
+  for(var i=0;i<150;i++){
+    var ang=Math.random()*Math.PI*2, rr=Math.pow(Math.random(),1.7)*250;
+    var x=cx+Math.cos(ang)*rr, y=cy+Math.sin(ang)*rr;
+    if(i%3===0){x=Math.random()*W;y=Math.random()*H;}
+    if(x<2||x>W-2||y<2||y>H-2){x=Math.random()*W;y=Math.random()*H;}
+    var r=(Math.random()*1.1+0.3).toFixed(2);
+    var o=(Math.random()*0.7+0.25).toFixed(2);
+    var d=(Math.random()*4+2.5).toFixed(1);
+    var dl=(Math.random()*5).toFixed(1);
+    out+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r+'" fill="#eaf2ff" opacity="'+o+'" style="animation:tw '+d+'s ease-in-out '+dl+'s infinite"/>';
+  }
+  var hero=[[70,90],[390,110],[410,250],[60,220],[300,420],[200,60]];
+  for(var j=0;j<hero.length;j++){
+    out+='<circle cx="'+hero[j][0]+'" cy="'+hero[j][1]+'" r="1.6" fill="#ffffff" opacity="0.95" style="animation:tw '+(3+j*0.4).toFixed(1)+'s ease-in-out '+(j*0.6).toFixed(1)+'s infinite"/>';
+  }
+  layer.innerHTML=out;
+})();
+</script>
 </body>
 </html>
