@@ -414,3 +414,15 @@ C) Poprawka tekstu confirma przed STOP (panel.html ~1825) - obecny tekst "Nie da
 
 ### BEZPIECZENSTWO - do zrobienia
 docker-compose.yml zawiera FAL_KEY i ANTHROPIC_API_KEY plaintext; plik zostal wyswietlony w czacie 10.07 przy diagnostyce. Zalecana rotacja obu kluczy przy okazji. NIE catowac docker-compose.yml w czacie - uzywac grep pod konkretny klucz konfiguracyjny.
+
+### UZUPELNIENIE (10.07 ~16:30): rekonstrukcja popoludnia z git diff + porzadki w gicie
+ODKRYCIE: zaden kod nie byl commitowany od 08.07 23:03 - cale sesje 09.07 i 10.07 (12 plikow, ~2268 linii) wisialy niezapisane w working tree. Teraz zacommitowane i wypchniete. data/reels wyjete z indeksu gita (git rm -r --cached - dopelnienie decyzji .gitignore z 08.07; pliki na dysku nietkniete).
+
+Zmiany z popoludniowej sesji (ta z padlym czatem), odtworzone z git diff - NIE bylo ich wczesniej w teleporcie:
+1. **System grup FB per rolka**: grupy_fb.json w folderze rolki; GRUPY_FB = {rod: Rodzinne Ogrody Dzialkowe, rodcp: ...Cala Polska, dio: Dzialkowicze i Ogrodnicy}; endpointy POST/DELETE /reels/{id}/grupa/{grupa_id}; pole grupy_fb w /reels; checkboxy w panelu przy kazdej gotowej rolce. Wylacznie RECZNE odhaczanie przez Tomasza (Meta nie ma API do grup).
+2. **Funkcja "referencje" (FLUX.1 Kontext, zdjecia referencyjne per-scena) USUNIETA z kodu na wyrazne polecenie Tomasza** - sekcja z 09.07 wyzej opisuje ja jako istniejaca: JUZ NIEAKTUALNA.
+3. **prompt_oryginalny.txt** - surowy prompt Tomasza zapisywany do folderu rolki (naprawa: /reels pokazywalo poczatek artykulu Bielika zamiast tego, co user faktycznie wpisal).
+4. Fix statusow w liscie rolek: przerwana / blad / zatrzymana (walidacja) zamiast wiecznego "w trakcie" (komentarz "NAPRAWIONE 10.07.2026" w topics.py).
+5. Przebieg #000088: wygenerowana 12:09 (kawa i fusy, czysty_bielik) -> checkpoint -> poprawki Tomasza do 13:27 -> Totalny STOP 13:30 (nieporozumienie co do znaczenia przycisku) -> wskrzeszona 14:14 (recepta wyzej).
+
+Czego NIE da sie odtworzyc: samej tresci rozmowy z padlego czatu (uzasadnienia/decyzje poza sladami w kodzie i komentarzach).
