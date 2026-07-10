@@ -145,6 +145,8 @@ def _scan_reels_from_disk(limit=20):
                     status = "błąd"
                 elif etap == "zatrzymano_walidacja":
                     status = "zatrzymana (walidacja)"
+                elif etap == "checkpoint":
+                    status = "pauza" if (d / "PAUZA.flag").is_file() else "checkpoint"
             except Exception:
                 pass
 
@@ -423,9 +425,9 @@ def aktywne_generowanie_endpoint():
         etap = dane.get("etap")
         if etap in KONCOWE:
             continue
-        if etap == "checkpoint" and (d / "STOP.flag").exists():
-            continue  # martwy checkpoint - user juz kliknal Totalny STOP kiedys,
-            # zaden watek go juz nie obsluguje, nie ma co straszyc panelu (Dyskusja 09.07.2026)
+        if etap == "checkpoint" and ((d / "STOP.flag").exists() or (d / "PAUZA.flag").exists()):
+            continue  # martwy/wstrzymany checkpoint - user kliknal Totalny STOP albo Pauze,
+            # zaden watek go juz nie obsluguje, nie ma co straszyc panelu (Dyskusja 09.07/10.07.2026)
         if etap != "checkpoint":  # checkpoint czeka na czlowieka - nie ma limitu wieku
             wiek = time.time() - sp.stat().st_mtime
             if wiek > PROG_MAX_WIEK_S:
@@ -461,6 +463,44 @@ def reel_stop(reel_id: str):
         )
     except Exception:
         pass
+    return {"status": "ok", "reel_id": folder.name}
+
+
+@router.post("/reel-checkpoint/{reel_id}/pauza")
+def reel_checkpoint_pauza(reel_id: str):
+    """Pauza (Dyskusja 10.07.2026, naprawa bledu auto-otwierania okna).
+    W odroznieniu od Totalny STOP, NIE zmienia status.json - checkpoint
+    zostaje checkpointem, to legalny odwracalny stan czekajacy na czlowieka.
+    Jedyna rola: zapisac PAUZA.flag, zeby /aktywne-generowanie przestalo
+    zglaszac ta rolke jako 'aktywna' - to byla prawdziwa przyczyna ze okno
+    checkpointu wyskakiwalo samo co ok. 15s (heartbeat checkAktywneGenerowanie
+    w panelu), bo Pauza nigdy wczesniej nie mowila backendowi nic."""
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    (folder / "PAUZA.flag").write_text("pauza", encoding="utf-8")
+    return {"status": "ok", "reel_id": folder.name}
+
+
+@router.post("/reel-checkpoint/{reel_id}/wznow")
+def reel_checkpoint_wznow(reel_id: str):
+    """Wznow checkpoint po Pauzie ALBO po Totalnym STOP (Dyskusja 10.07.2026 -
+    Tomasz: "Stop to Stop ale odwracalne po przycisnieciu edytuj"). Usuwa obie
+    mozliwe flagi + przywraca status.json na checkpoint z poprawna kolejnoscia
+    (pl/en) czytana z tryb_jezykowy.txt. Aktywowane WYLACZNIE recznym
+    przyciskiem przy rolce na liscie - nigdy automatycznie."""
+    folder = znajdz_folder(str(REELS_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
+    (folder / "STOP.flag").unlink(missing_ok=True)
+    (folder / "PAUZA.flag").unlink(missing_ok=True)
+    tryb_jezykowy = _odczytaj_tryb_jezykowy(folder)
+    kolejnosc = "en" if tryb_jezykowy in ("en_pl", "czysty") else "pl"
+    import json, datetime
+    (folder / "status.json").write_text(
+        json.dumps({"etap": "checkpoint", "extra": {"warning": False}, "ts": datetime.datetime.now().isoformat(), "kolejnosc": kolejnosc}, ensure_ascii=False),
+        encoding="utf-8"
+    )
     return {"status": "ok", "reel_id": folder.name}
 
 

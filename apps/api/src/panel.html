@@ -1213,6 +1213,7 @@
           '<span class="rtitle">'+esc(r.title||r.prompt||'(bez tytułu)')+'</span>'+
           statusBadge(r.status)+
           (r.warning ? warningBadge() : '')+
+          ((r.status==='pauza'||r.status==='checkpoint'||r.status==='przerwana') ? '<button class="iconbtn" data-action="wznow-checkpoint" title="Wróć do checkpointu" aria-label="Wznów checkpoint">✏️</button>' : '')+
           (r.status==='gotowa' ? '<button class="iconbtn" data-action="play-reel" title="Odtwórz" aria-label="Odtwórz rolkę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>' : '')+
           (r.status==='gotowa' ? ('<button class="iconbtn" data-action="toggle-published" data-published="'+(r.opublikowana?'1':'0')+'" title="'+(r.opublikowana?'Cofnij oznaczenie opublikowana':'Oznacz jako opublikowana')+'" aria-label="Opublikowana" style="'+(r.opublikowana?'color:var(--brand)':'')+'">'+(r.opublikowana?'✅':'📤')+'</button>') : '')+
           '<button class="iconbtn" data-action="delete-reel" title="Usuń rolkę" aria-label="Usuń rolkę"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'+
@@ -1333,6 +1334,21 @@
       } else {
         wrap.innerHTML = '<video controls autoplay playsinline src="/reels/'+reelId+'/video"></video>';
       }
+      return;
+    }
+    const wznowBtn = e.target.closest('[data-action="wznow-checkpoint"]');
+    if(wznowBtn){
+      e.stopPropagation();
+      const reelEl = wznowBtn.closest('.reel');
+      const reelId = reelEl.dataset.reelId;
+      busy(wznowBtn, true);
+      api('/reel-checkpoint/'+reelId+'/wznow', {method:'POST'}).then(()=>{
+        openCheckpoint(reelId);
+        loadReels();
+      }).catch(e=>{
+        toast('Nie udało się wznowić: '+e.message, 'err');
+        busy(wznowBtn, false);
+      });
       return;
     }
     const delBtn = e.target.closest('[data-action="delete-reel"]');
@@ -1777,9 +1793,14 @@
     }finally{ busy($('#cpAuditBtn'), false); }
   });
 
-  $('#cpPause').addEventListener('click', ()=>{
+  $('#cpPause').addEventListener('click', async ()=>{
+    const reelId = cpReelId;
+    if(reelId){
+      try{ await api('/reel-checkpoint/'+reelId+'/pauza', {method:'POST'}); }catch(e){ /* i tak zamykamy lokalnie */ }
+    }
     closeCheckpoint();
-    toast('Wstrzymano. Rolka czeka na dysku — wróć do niej kiedy chcesz.', 'info');
+    toast('Wstrzymano. Wróć do tej rolki przyciskiem ✏️ przy niej na liście Ostatnie rolki.', 'info');
+    loadReels();
   });
 
   $('#cpClose').addEventListener('click', ()=>{
@@ -1822,7 +1843,7 @@
 
   $('#cpStop').addEventListener('click', async ()=>{
     if(!cpReelId) return;
-    if(!confirm('Na pewno CAŁKOWICIE przerwać rolkę #'+cpReelId+'? Nie da się jej już wznowić.')) return;
+    if(!confirm('Na pewno przerwać rolkę #'+cpReelId+'? Nie zniknie z dysku — będzie można do niej wrócić przyciskiem ✏️ na liście Ostatnie rolki.')) return;
     busy($('#cpStop'), true);
     try{
       await api('/reel-stop/'+cpReelId, {method:'POST'});
