@@ -148,9 +148,9 @@
 <div class="wrap">
 
   <header>
-    <span class="eyebrow">Mapa połączeń · 08.07.2026</span>
+    <span class="eyebrow">Mapa połączeń · 10.07.2026</span>
     <h1>Kto z kim rozmawia</h1>
-    <p class="sub">Fabryka Rolek · HA Dom · HA Działka</p>
+    <p class="sub">Fabryka Rolek · Apka Android · HA Dom · HA Działka</p>
   </header>
 
   <!-- CLAUDE -->
@@ -178,13 +178,24 @@
   <div class="zone">
     <div class="zone-head">VPS · Hetzner 157.90.155.155 · 22GB RAM / 12 vCPU<span class="badge">żyje</span></div>
     <div class="zone-body">
-      <div class="comp"><span class="dot">▸</span><div><b>mcp-fabryka.service</b> <span>— systemd, port 8765, za Caddy (HTTPS/sslip.io) — to on obsługuje connector "fabryka"</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>fabryka-api</b> <span>— Docker, FastAPI :8000 — panel, endpointy, cały pipeline rolek</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>Ollama (lokalnie)</b> <span>— Bielik 11B Q6_K (artykuły/sceny/lektor) + Qwen3 14B (obrazy FLUX + NAPRAW). SEKWENCYJNIE - jeden model na raz, oba naraz dają OOM nawet na 22GB.</span></div></div>
+      <div class="comp"><span class="dot">▸</span><div><b>Caddy (reverse proxy)</b> <span>— host network, terminuje HTTPS (Let\'s Encrypt) dla 2 hostów sslip.io: <b>157-90-155-155.sslip.io</b> → MCP :8765, <b>panel.157-90-155-155.sslip.io</b> → panel :8000 <span style="color:var(--bp-active)">(NOWE 10.07)</span></span></div></div>
+      <div class="comp"><span class="dot">▸</span><div><b>mcp-fabryka.service</b> <span>— systemd :8765 — obsługuje connector "fabryka" (Claude ↔ VPS)</span></div></div>
+      <div class="comp"><span class="dot">▸</span><div><b>fabryka-api</b> <span>— Docker, FastAPI :8000 — panel + endpointy + pipeline rolek. Panel po HTTPS: <b>panel.157-90-155-155.sslip.io/panel</b></span></div></div>
+      <div class="comp"><span class="dot">▸</span><div><b>Ollama (lokalnie)</b> <span>— Bielik-11B <b>Q8_0</b> (polski: artykuł/sceny/lektor/prompty obrazów) + Qwen3-14B (prompty EN Droga #2 + NAPRAW). SEKWENCYJNIE — jeden model naraz, oba = OOM nawet na 22GB.</span></div></div>
       <div class="comp"><span class="dot">▸</span><div><b>SQLite content.db</b> <span>— 14 kategorii, 730 tematów</span></div></div>
       <div class="comp"><span class="dot">▸</span><div><b>data/reels/</b> <span>— sceny, obrazy, audio, gotowe wideo na dysku</span></div></div>
       <div class="comp"><span class="dot">▸</span><div><b>n8n</b> <span>— Docker :5678, Claude ma bezpośredni dostęp przez API (klucz w /root/.n8n_api_key). Workflow "Auto Publikacja FB" zbudowany, nieaktywny (czeka na token FB)</span></div></div>
-      <div class="comp"><span class="dot">▸</span><div><b>git → GitHub</b> <span>makol100/rod-ai-studio — na Twoje hasło "Update wszędzie"</span></div></div>
+      <div class="comp"><span class="dot">▸</span><div><b>git → GitHub</b> <span>makol100/rod-ai-studio — kod na hasło "Update wszędzie". <b>GitHub Actions</b> buduje APK apki → Release <b>apk-latest</b> <span style="color:var(--bp-active)">(NOWE 10.07)</span></span></div></div>
+    </div>
+  </div>
+
+  <!-- APKA ANDROID -->
+  <div class="wire short"></div>
+  <div class="zone">
+    <div class="zone-head">Apka Android · Fabryka Rolek<span class="badge">nowe</span></div>
+    <div class="zone-body">
+      <div class="comp"><span class="dot">▸</span><div><b>Klient panelu (WebView)</b> <span>— łączy się po HTTPS do <b>panel.157-90-155-155.sslip.io</b> (Caddy → fabryka-api :8000). Natywny dashboard z kartami, deep-link do sekcji panelu.</span></div></div>
+      <div class="comp"><span class="dot">▸</span><div><b>Build: GitHub Actions</b> <span>— push do repo → workflow <b>build-apk</b> (JDK17 + Gradle 8.7 → assembleDebug) → APK jako <b>Release apk-latest</b> → telefon (Samsung).</span></div></div>
     </div>
   </div>
 
@@ -233,13 +244,20 @@
     <b style="color:var(--bp-active)">HA Dom → Telegram</b> — aktywne, bot pełni funkcję pulpitu domu
   </div>
 
+  <div style="margin-top:8px; font-size:10.5px; color:var(--bp-text-dim); line-height:1.7; border-left:2px solid var(--bp-active); padding-left:10px">
+    <b style="color:var(--bp-active)">fabryka-api → fal.ai</b> — obrazy (Nano Banana Pro domyślnie / FLUX.2 opcja) + napisy Whisper. Płatne — tylko za wyraźną zgodą Tomasza.
+  </div>
+  <div style="margin-top:8px; font-size:10.5px; color:var(--bp-text-dim); line-height:1.7; border-left:2px solid var(--bp-claude); padding-left:10px">
+    <b style="color:var(--bp-claude)">panel → Claude API</b> — api.anthropic.com (Asystent promptu + Popraw scenariusz). Płatny, osobny od Claude.ai.
+  </div>
+
   <div class="legend">
     <div class="row"><span class="swatch"></span> połączenie aktywne, sprawdzone dziś</div>
     <div class="row"><span class="swatch dash"></span> połączenie planowane / niedokończone</div>
     <div class="row"><span class="swatch gold"></span> Claude — jedna instancja, trzy connectory MCP</div>
   </div>
 
-  <footer>To samo dwa różne tokeny FB do jednej strony — VPS potrzebuje wyciągnąć swój z Node-RED, żeby zacząć publikować.</footer>
+  <footer>Aktualizacja 10.07: panel wystawiony po HTTPS (sslip.io), apka Android łączy się bezpiecznie, GitHub Actions buduje APK. VPS→Facebook wciąż czeka na token z Node-RED.</footer>
 
 </div>
 </body>
