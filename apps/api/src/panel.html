@@ -329,19 +329,19 @@
 
   /* ---------- CHECKPOINT MODAL (Dyskusja 09.07.2026) ---------- */
   #cpOverlay{
-    position:fixed; inset:0; background:rgba(26,35,28,.55); z-index:80;
-    display:none; align-items:flex-end; justify-content:center;
+    position:fixed; inset:0; background:var(--bg); z-index:80;
+    display:none; flex-direction:column;
   }
   #cpOverlay.show{display:flex}
   #cpSheet{
-    background:var(--surface); width:100%; max-width:720px; max-height:92vh;
-    border-radius:20px 20px 0 0; padding:18px 18px calc(18px + env(safe-area-inset-bottom));
+    background:var(--surface); width:100%; max-width:100%; height:100%; max-height:100%;
+    border-radius:0; padding:calc(14px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
     display:flex; flex-direction:column; gap:12px; overflow:hidden;
-    box-shadow:0 -6px 30px rgba(26,35,28,.25);
+    box-shadow:none;
   }
   #cpSheet h3{margin:0; font-family:var(--disp); font-size:18px}
   #cpSheet .cpSub{font-size:12.5px; color:var(--muted); margin-top:-8px}
-  #cpBody{overflow-y:auto; display:flex; flex-direction:column; gap:12px; padding-right:2px}
+  #cpBody{flex:1 1 auto; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:12px; padding-right:2px}
   #cpBody label.field{margin-bottom:4px}
   #cpArticle{
     font-size:13px; line-height:1.5; background:var(--surface-2); border-radius:10px;
@@ -420,12 +420,12 @@
 
 <div id="cpOverlay">
   <div id="cpSheet">
-    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px">
+    <div style="display:flex; align-items:center; gap:10px">
+      <button id="cpClose" type="button" aria-label="Wróć" style="background:none; border:none; font-size:24px; line-height:1; color:var(--text); cursor:pointer; padding:2px 8px 2px 0; flex:none">←</button>
       <div>
-        <h3>Checkpoint — sprawdź scenariusz</h3>
+        <h3>Edycja rolki</h3>
         <div class="cpSub" id="cpReelLabel">rolka #—</div>
       </div>
-      <button id="cpClose" type="button" aria-label="Zamknij" style="background:none; border:none; font-size:22px; line-height:1; color:var(--muted); cursor:pointer; padding:2px 6px; flex:none">✕</button>
     </div>
     <div id="cpWarn"></div>
     <div id="cpBody">
@@ -1642,6 +1642,10 @@
      to zobaczyl). Panel pokazuje artykul + edytowalny scenariusz i
      czeka na jedna z trzech decyzji: OK / Zapisz poprawki / Pauza. ---------- */
   let cpReelId = null;
+  let cpBackActive = false;
+  window.addEventListener('popstate', function(){
+    if(document.getElementById('cpOverlay').classList.contains('show')){ closeCheckpoint(); }
+  });
 
   function parsePromptyScen(tekst){
     // dzieli tekst na bloki wg "PROMPT N:" - ta sama logika co backend parse_prompts
@@ -1714,9 +1718,11 @@
         warnBox.classList.remove('show'); warnBox.innerHTML='';
       }
       $('#cpOverlay').classList.add('show');
+      window.scrollTo(0,0);
+      if(!cpBackActive){ history.pushState({cpEdit:1}, ''); cpBackActive = true; }
     }catch(e){ toast('Nie udało się wczytać checkpointu: '+e.message, 'err'); }
   }
-  function closeCheckpoint(){ $('#cpOverlay').classList.remove('show'); cpReelId = null; $('#cpAudit').classList.remove('show'); $('#cpAudit').innerHTML=''; }
+  function closeCheckpoint(){ $('#cpOverlay').classList.remove('show'); cpReelId = null; cpBackActive = false; $('#cpAudit').classList.remove('show'); $('#cpAudit').innerHTML=''; }
 
   $('#cpTranslateBtn').addEventListener('click', async ()=>{
     if(!cpReelId) return;
@@ -1804,9 +1810,8 @@
   });
 
   $('#cpClose').addEventListener('click', ()=>{
-    // Samo zamkniecie okna, bez komunikatu - rownowazne Pauzie, ale bez toasta
-    // (Dyskusja 09.07.2026 - krzyzyk w rogu, standardowy sposob zamkniecia).
-    closeCheckpoint();
+    // Przycisk Wroc - jak fizyczny back w telefonie (pelna strona, nie modal).
+    if(cpBackActive){ history.back(); } else { closeCheckpoint(); }
   });
 
   $('#cpSave').addEventListener('click', async ()=>{
