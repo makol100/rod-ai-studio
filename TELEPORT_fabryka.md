@@ -105,7 +105,11 @@ Credential "Facebook Page Token (ROD Wozniki)" (id JqZNdgyrpWXTCyFS, typ httpQue
 Otwarte do sprawdzenia: czy PAGE_ID 1174205105781401 ma poprawnie przypisane uprawnienia pages_manage_posts dla tokenu; czy plik wideo spelnia wymogi FB Reels (9:16, min 4s/max 60s, min rozdzielczosc 540x960 - Ken Burns 1080x1920 z pipeline'u powinien spelniac).
 
 ## SLOWA-KLUCZE OD TOMASZA (ustalone 08.07.2026)
-- **"Update wszedzie"** = zaktualizuj TELEPORT (ten plik + TELEPORT_HA.md + MAPA_POLACZEN.html jesli dotyczy) ORAZ wypchnij na GitHub. Oba naraz.
+- **"Aktualizuj wszędzie" / "Update wszędzie"** (Tomasz uzywa OBU form — to jedno i to samo haslo) = pelny zapis stanu w TRZECH miejscach jednoczesnie. Domyslny rytual zamkniecia wiekszej zmiany, NIE pomijac zadnego z trzech:
+    1. **TELEPORT** — dopisz sesje do TELEPORT_fabryka.md (ten plik) ORAZ do /root/TELEPORT_HA.md jesli zmiana dotyczy HA
+    2. **MAPA POLACZEN** — zaktualizuj MAPA_POLACZEN.html (OBIE kopie: /root/ oraz w repo) jesli zmienila sie architektura/polaczenia
+    3. **GITHUB** — wypchnij to co w repo (TELEPORT_fabryka.md + MAPA_POLACZEN.html) na makol100/rod-ai-studio; `git add` TYLKO konkretne pliki, NIGDY `docker-compose.yml` (sekrety). TELEPORT_HA.md jest POZA repo, zapisywany lokalnie na VPS.
+  (Uwaga do siebie: ten schemat raz sie zgubil — pushowalem kod bez aktualizacji teleportu. Przy KAZDYM "aktualizuj wszedzie" przejsc wszystkie trzy punkty.)
 - **"DYSKUSJA"** = zatrzymaj wszelkie akcje (generowanie, publikacja, edycje), tylko rozmawiaj, czekaj na dalsze wyrazne instrukcje zanim cokolwiek zrobisz.
 
 ## NAPRAWA: Bielik czasem wypluwal spam emoji zamiast artykulu (08.07.2026)
@@ -451,3 +455,47 @@ FIX (zaimplementowany, wdrozony, zweryfikowany 8-krokowym testem end-to-end):
 Test end-to-end na #000088 (8 krokow, wszystkie potwierdzone): pauza -> PAUZA.flag na dysku -> /aktywne-generowanie poprawnie zwraca null -> lista pokazuje status "pauza" -> wznow -> PAUZA.flag skasowany -> lista wraca do "checkpoint" -> status.json poprawny.
 
 Metoda edycji: recznie napisany python (count-i-replace, analogiczne do str_replace) przez fabryka:execute_command, bo VPS-owy connector nie ma str_replace. Restart TYLKO kontenera fabryka-api (nie Ollama, nie VPS) - 4s do gory.
+
+---
+
+## SESJA 10.07.2026 (wieczór) — APKA ANDROID + HTTPS PANELU + BUILD GITHUB ACTIONS
+
+Tego NIE bylo w teleporcie (robota po ostatnim zapisie ~16:30). Wczesniejszy czat zaczal temat apki, ale padl na widgecie "Asking User Input" zanim cokolwiek powstalo — kontynuacja w nowym oknie, odzysk przez teleport, potwierdzone ze na VPS nie bylo jeszcze zadnych plikow apki (samo planowanie).
+
+### DECYZJA: panel po HTTPS (opcja A, nie cleartext)
+Panel siedzi na czystym http://157.90.155.155:8000; Android domyslnie blokuje cleartext. Wybor Tomasza: **A — HTTPS przez sslip.io** (odrzucone B — cleartext exception). Uzasadnienie: HTTPS dla MCP juz stal, wiec panel = jedna dodatkowa trasa w Caddy; a panel steruje platnymi operacjami (fal.ai) i publikacja na publicznej stronie ROD, wiec hasla/dane nie moga leciec otwartym tekstem.
+
+### HTTPS PANELU — ZROBIONE I ZWERYFIKOWANE
+Caddy (`caddy-mcp`, obraz caddy:2) jedzie na **sieci host** — siega uslug przez localhost, nie przez siec docker. Aktywny Caddyfile: `/root/claude-vps-mcp/Caddyfile` (montowany read-only do /etc/caddy/Caddyfile). Mial jeden blok MCP: `157-90-155-155.sslip.io { reverse_proxy localhost:8765 }` — ZADNEGO sekretu w Caddyfile (token waliduje serwer MCP).
+Dodany DRUGI blok (backup Caddyfile.bak-20260710-1800 zrobiony najpierw):
+```
+panel.157-90-155-155.sslip.io {
+	reverse_proxy localhost:8000
+}
+```
+Reload: `docker exec caddy-mcp caddy reload --config /etc/caddy/Caddyfile` (plynny, MCP nietkniety — komendy tego czatu leca przez MCP = zywy dowod). Cert Let's Encrypt wystawil sie sam. Zweryfikowane: `https://panel.157-90-155-155.sslip.io/panel` → 200, `/system-health` → 200 JSON. **Panel wola API jako same-origin** (`API_BASE=''` w panel.html, wszystkie fetch wzgledne), wiec jeden host HTTPS obsluguje /panel I wszystkie endpointy naraz. NOWY adres panelu: **https://panel.157-90-155-155.sslip.io/panel**.
+UWAGA: `caddy fmt --overwrite` NIE dziala w kontenerze (config read-only) — ostrzezenie o formatowaniu przy reloadzie jest kosmetyczne.
+
+### APKA ANDROID — ZBUDOWANA (repo, katalog android/)
+Swiadomie minimalna dla pewnosci buildu: **Java, ZERO AndroidX** (framework: android.app.Activity + android.webkit.WebView), minSdk 26 (ikona adaptacyjna w samym XML, zadnych binarnych PNG), compile/target 34, AGP 8.5.2, Gradle 8.7, JDK 17. applicationId `pl.rod.fabryka`.
+- **MainActivity = natywny dashboard z kartami** (budowany programowo): zielony naglowek z gradientem + 6 kart (Nowa rolka→01, Ostatnie rolki→02, Tematy→03, Asystent→00, Diagnostyka→04, Caly panel→gora), kazda: kolorowy kafelek emoji + tytul + podtytul + strzalka, zaokraglenie + cien + ripple.
+- **WebActivity = WebView** ladujacy panel po HTTPS. Karty deep-linkuja: intent extra "section" → po onPageFinished JS skroluje do `.sec-head` ktorej `.idx`==numer (panel ma sekcje `.sec-head > .idx` 00–04). Back (webview history), file chooser (WebChromeClient), zapamietywanie stanu przy obrocie.
+- Manifest: MainActivity=LAUNCHER, WebActivity=child, `usesCleartextTraffic="false"` (bo HTTPS). KLUCZOWE: `compileOptions.encoding "UTF-8"` w app/build.gradle — konieczne przez emoji/polskie znaki w literalach String.
+
+### BUILD: GITHUB ACTIONS → APK JAKO RELEASE
+`.github/workflows/build-apk.yml` (repo nie mialo wczesniej workflow): trigger push do `android/**` + workflow_dispatch. checkout → JDK17 (temurin) → android-actions/setup-android@v3 → gradle/actions/setup-gradle@v4 (gradle-version 8.7; NIE ma commitowanego wrapper-jara, gradle instaluje akcja) → `gradle assembleDebug` → upload artefaktu → **Release** (softprops/action-gh-release@v2, tag ruchomy `apk-latest`, `continue-on-error:true`, `permissions: contents:write`).
+**Bezposredni link do APK** (jeden tap, bez zipa): https://github.com/makol100/rod-ai-studio/releases/download/apk-latest/app-debug.apk
+
+### APK ZWERYFIKOWANY (verify not hallucinate)
+Build zielony. APK pobrany na VPS: kompletny (AndroidManifest + classes.dex + classes2.dex + resources.arsc + zasoby), **podpisany v2** (blok "APK Sig Block 42" obecny; minSdk 26 → v2 wystarcza, instalowalny). Rozmiar ~17 KB = NORMALNE przy zerowych zaleznosciach (framework w telefonie, nie w APK). versionCode 2 / versionName 1.1.
+
+### MAPA POLACZEN zaktualizowana
+Dodane: blok "Apka Android", Caddy jako reverse proxy z 2 hostami HTTPS, panel po HTTPS, git→Actions→APK, oraz brakujace fal.ai i Claude API. Bielik Q6_K→Q8_0. Obie kopie zsynchronizowane, wypchniete.
+
+### PLIKI APKI (repo)
+android/{settings.gradle, build.gradle, gradle.properties, .gitignore}, android/app/build.gradle, android/app/src/main/AndroidManifest.xml, android/app/src/main/java/pl/rod/fabryka/{MainActivity,WebActivity}.java, android/app/src/main/res/{values/{strings,colors,themes}.xml, drawable/{card_bg,card_ripple,header_bg,ic_launcher_foreground}.xml, mipmap-anydpi-v26/{ic_launcher,ic_launcher_round}.xml}, .github/workflows/build-apk.yml
+
+### OTWARTE
+- Apka: po odpaleniu na telefonie ew. poprawki wygladu (kolory/kolejnosc kart/tresc) → push → Release sam sie aktualizuje pod tym samym linkiem apk-latest.
+- Nierobione ulepszenia apki: pull-to-refresh, zapamietywanie ostatniej sekcji, natywny wskaznik "serwer online".
+- Jesli krok Release kiedys da 403: Settings→Actions→Workflow permissions → Read and write (na razie Release sie utworzyl = uprawnienia OK).
