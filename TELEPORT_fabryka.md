@@ -738,3 +738,53 @@ Dopasowanie plik-z-czatu <-> plik-na-VPS: **przez md5** (pliki sa bajtowo identy
    edge-tts (pl-PL-MarekNeural), Whisper (stala zgoda), render_video() + muzyka.
    ZERO fal.ai - wszystkie obrazy wlasne. ZERO kosztow.
 3. Publikacja: TYLKO strona ROD Wozniki. ZADNYCH grup ogolnopolskich.
+
+
+---
+
+## ROLKA O PRĄDZIE — ZŁOŻONA (000089), 12.07.2026 ~00:40
+
+**`data/reels/000089/video/final_with_music.mp4`** — 1080x1920, h264, 30fps, **462.3s = 7 min 42 s**, 166 MB.
+Panel: status "gotowa", warning=false, opublikowana=false.
+Link: https://panel.157-90-155-155.sslip.io/reels/000089/video
+
+### CO POSZŁO W ROLKĘ
+40 scen. Wszystkie obrazy WŁASNE z `data/rolka-prad/do-rolki/` (24 pliki, każdy 1080x1920).
+Lektor: edge-tts pl-PL-MarekNeural. Napisy: Whisper (fal.ai). Render + muzyka: ffmpeg (Morning.mp3).
+**ZERO fal.ai na obrazy** — jedyny koszt to Whisper na ~6 min audio (grosze). Decyzja Tomasza: wariant A (jedna rolka, bez dzielenia — klamra spalona-skrzynka musi zostać w całości).
+
+### ⚠️ KOREKTA TEMPA MOWY — WAŻNE NA PRZYSZŁOŚĆ
+Szacowałem 15,5 znaku/s. **pl-PL-MarekNeural czyta realnie 11,6 znaku/s** (zmierzone na 40 scenach).
+Podałem Tomaszowi 5:47, wyszło 7:42 — pomyłka o 33%. **DO PRZYSZŁYCH SZACUNKÓW UŻYWAĆ 11,6 zn/s.**
+(Krótkie zdania mają jeszcze niższe tempo, ok. 8-10 zn/s — to normalne, nie bug.)
+
+### BUGI ZŁAPANE I NAPRAWIONE PRZY SKŁADANIU
+1. **Scena 28 - błąd merytoryczny**: pierwotnie mapa ZK3 (alejka północna) pod zdaniem "Kable są w ziemi".
+   Na ZK3 kable NIE SĄ wkopane (mapa = PLAN). Podmienione na ETAP3. Tomasz-elektryk wyłapałby to na zebraniu.
+2. **Scena 02 - Whisper zmyślił**: usłyszał "Latami, latami" (13 słów zamiast 12) -> `transcribe_scene`
+   NIE podstawiło znanego tekstu (wymaga IDENTYCZNEJ liczby słów) i zostawiło błąd w napisach.
+3. **Scena 18 - Whisper nic nie zwrócił** ("brak segmentow, pomijam") - 2,5s, za krótka. Zero napisów.
+   NAPRAWA (obie): skrypt `_fix_subs_89.py` (usunięty po użyciu) - gdy liczba słów się nie zgadza albo
+   brak segmentów, rozkłada ZNANE słowa ze scenes.txt **proporcjonalnie do długości** na czasie audio.
+   Zweryfikowane: tekst w napisach = tekst w scenariuszu, co do słowa.
+
+**WNIOSEK DO KODU (nie zrobione, do rozważenia):** `transcribe_scene` powinno mieć ten fallback na stałe
+zamiast rezygnować z podstawienia przy rozjeździe liczby słów. Dziś przy KAŻDYM rozjeździe do napisów
+trafia zmyślenie Whispera. To cichy bug - nie krzyczy, tylko psuje tekst.
+
+### WERYFIKACJA (nie deklaracja)
+- 40/40 obrazów, 40/40 wav, 40/40 .ass (żaden pusty)
+- tempo mowy per scena: wszystkie 9-15 zn/s -> nic nie zgubione (tak wykryto buga extract_narration na #000084)
+- audio finalne: mean -26.6 dB / max -8.5 dB (dla porównania #000085: -26.5/-9.6 - zgodne)
+- napisy wypalone POTWIERDZONE NA PIKSELACH: dolny pas 1080x380 w scenie 21 (ciemna ziemia) ma 14k pikseli
+  bardzo jasnych + 22k bardzo ciemnych (biel + czarna obwódka), a 9,3% pikseli zmienia się między t=222 a
+  t=226 = linijka napisu się przewija. `make_clip_kb` dokleja `,ass=<plik>` do filtra - sprawdzone w kodzie.
+- panel /reels: id=89, status "gotowa", warning=false
+- link HTTPS: HTTP 206 (działa)
+
+### CO ZOSTAŁO
+1. Tomasz ogląda i zatwierdza (albo zgłasza poprawki - tanie: podmiana tekstu -> edge-tts -> render, bez fal.ai)
+2. Opis do posta
+3. **PUBLIKACJA: TYLKO strona ROD Woźniki (1174205105781401). ŻADNYCH grup ogólnopolskich** - materiał wewnętrzny.
+   Przycisk "📘 Publikuj na stronę FB" w panelu (endpoint /reels/89/publikuj-fb).
+   UWAGA: to będzie PIERWSZA publikacja przez ten przycisk - endpoint nietestowany end-to-end.
