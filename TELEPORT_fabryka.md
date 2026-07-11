@@ -545,3 +545,36 @@ SKALA: fal.ai dashboard pokazal zuzycie zgodne z wlasnym (310 req/7dni, modele w
 NAPRAWIONE: (1) Tomasz utworzyl NOWY klucz fal (Scope: **API** - wezsze, bez dostepu do billingu/kluczy) i SKASOWAL stary. (2) Nowy klucz w `data/.secrets/fal_key` (chmod 600) + wstawiony do lokalnego docker-compose.yml. (3) `git rm --cached docker-compose.yml` + wpis w `.gitignore` (+ `*.bak*`). (4) Dodany `docker-compose.yml.example` z placeholderami (repo dalej odtwarzalne). (5) Kontener ODTWORZONY (`docker compose up -d --force-recreate api`) - UWAGA: zwykly `docker restart` NIE przeladowuje env z compose, trzeba recreate. Zweryfikowano, ze kontener ma nowy klucz.
 CZYSTE: ANTHROPIC_API_KEY nigdy nie byl w gicie (sprawdzone `git log --all -S`). Token FB czysty (w repo tylko 7-znakowy prefiks z mojej notatki). Stary klucz zostaje w HISTORII gita na zawsze, ale po revoke jest martwy = nieszkodliwy (nie trzeba filter-repo).
 LEKCJA NA PRZYSZLOSC: sekrety NIGDY w plikach sledzonych przez git. Przed kazdym `git add` sprawdzac `git ls-files` czy plik z sekretami nie jest juz w indeksie. Nazwa uslugi w compose to `api` (nie `fabryka-api` - to container_name).
+
+---
+
+## 🗺️ MAPA FUNDAMENTALNA ROD WOZNIKI + ZASILANIE (sesja 11.07.2026)
+
+### HIERARCHIA MAP (zasada Tomasza)
+1. **MAPA EWIDENCYJNA ogrodu** (skan dokumentu, Dysk Google Tomasza) = **FUNDAMENT, zrodlo prawdy**. Tomasz: "mapa ewidencyjna to fundament fundamentow". Ma numery geodezyjne (592/42, 494/42, 119/41...), legende (tuje 120 szt., 2 kompostowniki, wiata smietnikowa, budki legowe/karmniki, 2 hotele dla owadow), ZOLTE = CALA czesc wspolna (alejki I przejscia).
+2. **NASZA MAPA** = DRUGA, pochodna. Czytelna wersja robocza/prezentacyjna. ZAWSZE weryfikowana przeciw ewidencyjnej. Przy watpliwosci: sprawdzac ewidencyjna, NIE ZGADYWAC (kosztowalo to ~1h zbednych iteracji).
+
+### UKLAD OGRODU (ZATWIERDZONY: "Ta mapa jest idealna")
+- **51 dzialek** + **DOM DZIALKOWCA = DZIALKA 0** (Mlynska 40c, zachodnia granica)
+- 3 alejki, 6 rzedow. Od polnocy: rzad 43-51 | ALEJKA POLNOCNA | rzad 34-42 | [tyly] | rzad 28-33 (6 dzialek - od zachodu dom + parking) | ALEJKA SRODKOWA | rzad 19-27 | [tyly] | rzad 10-18 | ALEJKA POLUDNIOWA | rzad 1-9
+- **NUMERACJA WEZEM**: 1->9, zawraca 10->18, 19->27, zawraca 28->33, 34->42, zawraca 43->51
+- **ALEJKI ZAMKNIETE OD WSCHODU**: pary dzialek **43+42, 28+27, 10+9** sa WIEKSZE - siegaja do POLOWY alejki i tam sie lacza, domykajac jej wylot. NIE MA pustego konca alejki!
+- **PIONOWE PRZEJSCIE** laczy wszystkie 3 alejki: granica 36|37, obok 33, dalej 21|22 i 16|15
+- **Dojscie na parking nr 2**: osobne, miedzy dzialkami 44|43
+- **4 BRAMY** (wszystkie od DROGI, zachod): (1) wjazd na parking nr 2, (2) brama polnocna, (3) BRAMA GLOWNA + wjazd na parking nr 1, (4) brama poludniowa
+- **PARKING NR 1**: jeden ciagly obszar ksztaltu L - od bramy glownej pasem wzdluz poludniowej sciany domu dzialkowca + zatoka prostopadla po stronie wschodniej, az do przejscia (BEZ LUK)
+- **PARKING NR 2**: klin miedzy UKOSNA granica polnocna a rzedem 43-51 (granica polnocna: nizej po zachodzie, wyzej po wschodzie)
+- **WIATA SMIETNIKOWA**: przy prawym dolnym rogu dzialki 36 (przy przejsciu)
+- Pliki: `mapa-ogrodu-rod-wozniki.svg` + `.jpg`, generator `MAPA_FUNDAMENT.py` (ciemne tlo, dzialki zielone, czesc wspolna piaskowa, dom czerwony, bramy zolte)
+
+### ZASILANIE - ETAPY (do rolki na FB)
+**ETAP 1 (uklad pierwotny)**: jedno przylacze z sieci -> DOM DZIALKOWCA (LICZNIK GLOWNY, rozlicza caly ogrod z zakladem) -> **3 NITKI** wzdluz alejek, dzialki kaskadowo, KAZDA DZIALKA MA PODLICZNIK.
+Podzial nitek: **dolna/poludniowa = dzialki 1-18**, **srodkowa = 19-33**, **gorna/polnocna = 34-51**. Prad plynie z zachodu (dom) na WSCHOD.
+
+**ETAP 2 (odciazenie)**: 7 dzialek najblizej drogi - **1, 2, 3, 4, 16, 17, 18** - wypieto z domu dzialkowca i wpieto w **DRUGIE, OSOBNE PRZYLACZE ZE SLUPA** stojacego na drodze od zachodu. Ma **DRUGI LICZNIK GLOWNY ROD**. Na przylaczu 1 zostaly 44 dzialki (5-15, 19-33, 34-51).
+ROZLICZENIA: ogrod ma **DWA OSOBNE RACHUNKI**. Cena kWh zalezy od zuzycia (im wiecej, tym taniej) -> na przylaczu 1 (44 dzialki) kWh tansza niz na przylaczu 2 (7 dzialek). Tomasz: to NIE problem, po prostu roznica w cenie. **NIE MA rozliczenia usredniajacego** - dzialkowcy z przylacza 2 placa po swojej stawce.
+
+**ETAP 3**: obecna przebudowa przylaczy - **W TOKU, SZCZEGOLY DO USTALENIA**. To ma byc temat rolki na FB.
+
+### LEKCJA Z TEJ SESJI
+Nie dlubac poprawka po poprawce na oko. Gdy jest dokument zrodlowy (mapa ewidencyjna) - czytac go dokladnie i pytac konkretnie, zamiast zgadywac i generowac kolejne wersje. Tomasz jest elektrykiem i czlonkiem zarzadu ROD - weryfikuje poprawnosc techniczna i wylapuje kazdy blad.
