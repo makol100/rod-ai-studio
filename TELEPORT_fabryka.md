@@ -656,3 +656,14 @@ Filmy źródłowe: `FILM-A-koparka-3s.mp4`, `FILM-B-wykop-36s.mp4` (oba z Messen
 - Przy wyborze klatek z filmu: korelacja z potwierdzonym kadrem + wykrywanie koloru (np. czerwień ogrodniczek).
 - Gemini masakruje polskie napisy — do map dawać podkład BEZ tekstu, napisy nakładać samemu (PIL).
 - Gemini myli trasy kabli — wymazywać jego kable (OpenCV inpaint) i rysować własne.
+
+### POPRAWKA (11.07, 23:15) — MAPY W FORMACIE ROLKI
+Mapy są POZIOME (GEMINI 1113x944, ZK 1700x1000), a rolka to 9:16. Zrobiona wersja do montażu:
+mapa wpisana w kadr 1080x1920, tło = rozmyta+przyciemniona kopia tej samej mapy (zero czarnych pasów).
+Pliki: `data/rolka-prad/do-rolki/*.jpg` (7 map + 3 grafiki + STARY-LICZNIK — wszystko 1080x1920).
+Skrypt osadzania (PIL): resize LANCZOS do szer. 1040px, tło = ta sama mapa powiększona + GaussianBlur(30) + jasność 0.55.
+
+UWAGA: `mapa-ogrodu-rod-wozniki.jpg` (FUNDAMENT) musi być wgrana na VPS — wcześniej istniała tylko
+w sandboxie Claude (ulotny!). Generatory (MAPA_FUNDAMENT.py, RYSUJ_KABLE.py, NAPRAW_GEMINI.py, ETAP3.py,
+ETAP3_ALEJKA.py, GRAFIKI.py) też żyją tylko w sandboxie — jeśli będą potrzebne ponownie, trzeba je odtworzyć
+albo poprosić Tomasza o zachowanie. Same MAPY (wynikowe .jpg) są ważniejsze niż generatory.
