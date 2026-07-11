@@ -606,3 +606,53 @@ Generatory (w sandboxie Claude, nie na VPS): MAPA_FUNDAMENT.py, RYSUJ_KABLE.py, 
 
 ### ZASADA NUMER 1 (Tomasz, 11.07.2026)
 **WERYFIKACJA, NIE HALUCYNACJA.** Nigdy nie twierdzic ze cos zrobione, dopoki nie zostalo FAKTYCZNIE wykonane I SPRAWDZONE. Zakazane: pisac "poprawiam/zapisuje" bez wywolania narzedzia; mowic "gotowe" bez obejrzenia wyniku; zakladac ze dziala bo "powinno". Claude lamal to dzis wielokrotnie (~2h stracone na zgadywanie ukladu ogrodu zamiast czytania mapy ewidencyjnej).
+
+---
+
+## ROLKA O PRĄDZIE W ROD WOŹNIKI — STAN NA 11.07.2026, 23:00 (PRZERWANE, DO DOKOŃCZENIA)
+
+**Publikacja: TYLKO strona ROD Woźniki. ŻADNYCH grup ogólnopolskich** (materiał wewnętrzny).
+
+### CO JEST GOTOWE
+- **SCENARIUSZ** — `data/rolka-prad/SCENARIUSZ.md` (274 linie, ZATWIERDZONY: "Zajebiście").
+  Struktura: OTWARCIE (spalona skrzynka) → 1. Kto komu sprzedaje prąd → 2. Skąd cena za kWh →
+  3. Lata łatania → 4. Dlaczego łatanie się skończyło → 5. Co zbudowaliśmy → 6. Co Ty z tego masz →
+  7. Co musisz zrobić → ZAKOŃCZENIE (klamra "od teraz Tauron zna Twoją działkę").
+  ZASADY TONU w pliku — NIE ŁAMAĆ (delikatnie, zero wytykania palcem, konsekwencja jako fakt nie groźba).
+- **7 MAP** — zatwierdzone, opisane w sekcji wyżej.
+- **GRAFIKI (3)** — `GRAF-faktura.jpg` (odwzorowana 1:1 wg prawdziwego wzoru Tauronu: logo, SPRZEDAWCA/NABYWCA,
+  tabela pozycji, RAZEM DO ZAPŁATY 14 400 PLN, ŚREDNIA CENA 1 kWh = 1,20 zł), `GRAF-kroki.jpg` (5 kroków,
+  etykiety płacisz/za darmo), `GRAF-klamra.jpg` (DO TERAZ nie zna → OD TERAZ zna).
+- **ZDJĘCIA PRAWDZIWE**: `01-SPALONA-SKRZYNKA.jpg`, `STARY-LICZNIK.jpg` (wygenerowany w Gemini ze zdjęcia
+  SZAFKA-gotowa — przerobiony na starą plątaninę + licznik tarczowy, inne tło), `SZAFKA-gotowa.jpg`
+  (szafka dz. 19 z WAGO, gotowa do przepięcia), `KABEL-NA-PLOCIE.jpg` (WYGENEROWANY — kabel przewieszony
+  przez płot; do rozdz. 7, przy zdaniu o wyłączeniu starych obwodów: pokazuje NIEDOKOŃCZONE przyłącze),
+  `02-ZK-front.jpg`, `03-ZK-z-tablica-ogrodu.jpg`.
+
+### ⚠️ NAJWAŻNIEJSZE — NOWY MATERIAŁ (11.07 wieczór)
+Tomasz wgrał **24 PRAWDZIWE ZDJĘCIA Z BUDOWY** (1536x2048, pełna jakość) → `data/rolka-prad/budowa/01..24.jpg`.
+**TE ZDJĘCIA ZASTĘPUJĄ KADRY Z FILMU** — Tomasz wprost: "wykorzystaj jak najmniej z kadrów z filmu, bo są fatalne".
+Co na nich jest (widziane w czacie): wykop w alejce (rów w dal), BEDNARKA (krzyże złączy w rowie),
+kable ułożone w rowie, WACHLARZ KABLI rozchodzących się do działek, PAN Z ŁOPATĄ stojący w rowie (portret,
+patrzy w obiektyw — TO JEST KADR "ludzie kopali za darmo"), człowiek z łopatami + czerwona folia ostrzegawcza,
+ZK w tle z wchodzącymi kablami, rów z taśmą ostrzegawczą.
+**Tomasz wgra je jeszcze raz w NOWYM OKNIE CZATU** — trzeba je obejrzeć i przypisać do scen.
+
+### KADRY Z FILMU (SŁABE — używać minimalnie)
+`wybrane/KADR-kable.jpg` = TO JEST KADR Z LUDŹMI (pan w czerwonych ogrodniczkach + operator koparki, z Messengera,
+niska jakość). `wybrane/KADR-wykop.jpg`, `wybrane/KADR-ludzie.jpg` = wykop bez ludzi.
+Filmy źródłowe: `FILM-A-koparka-3s.mp4`, `FILM-B-wykop-36s.mp4` (oba z Messengera, skompresowane).
+
+### CO ZOSTAŁO DO ZROBIENIA
+1. Obejrzeć 24 zdjęcia z budowy, wybrać 5-6 najlepszych, przekadrować z 1536x2048 (3:4) na 1080x1920 (9:16).
+2. Rozpisać SCENARIUSZ.md na sceny (format scenes.txt: "SCENA N:" / "UJĘCIE:" / "LEKTOR:").
+3. Złożyć rolkę RĘCZNIE (NIE przez panel!): folder `data/reels/NNNNNN/`, obrazy jako `images/01.jpg`...,
+   lektor edge-tts (pl-PL-MarekNeural), napisy Whisper (stała zgoda Tomasza), render_video() + muzyka.
+   **ZERO fal.ai — wszystkie obrazy są własne (zdjęcia + mapy + grafiki). Zero kosztów.**
+4. Publikacja: TYLKO strona ROD Woźniki.
+
+### LEKCJE Z TEJ SESJI
+- Detekcja twarzy Haar KŁAMIE (bierze kamienie za twarze) — nie polegać na niej przy wyborze kadrów.
+- Przy wyborze klatek z filmu: korelacja z potwierdzonym kadrem + wykrywanie koloru (np. czerwień ogrodniczek).
+- Gemini masakruje polskie napisy — do map dawać podkład BEZ tekstu, napisy nakładać samemu (PIL).
+- Gemini myli trasy kabli — wymazywać jego kable (OpenCV inpaint) i rysować własne.
