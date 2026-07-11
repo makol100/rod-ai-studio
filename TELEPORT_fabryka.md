@@ -667,3 +667,74 @@ UWAGA: `mapa-ogrodu-rod-wozniki.jpg` (FUNDAMENT) musi być wgrana na VPS — wcz
 w sandboxie Claude (ulotny!). Generatory (MAPA_FUNDAMENT.py, RYSUJ_KABLE.py, NAPRAW_GEMINI.py, ETAP3.py,
 ETAP3_ALEJKA.py, GRAFIKI.py) też żyją tylko w sandboxie — jeśli będą potrzebne ponownie, trzeba je odtworzyć
 albo poprosić Tomasza o zachowanie. Same MAPY (wynikowe .jpg) są ważniejsze niż generatory.
+
+
+---
+
+## ROLKA O PRĄDZIE — MATERIAŁ WIZUALNY GOTOWY (11.07.2026, 23:30)
+
+### `data/rolka-prad/do-rolki/` — 25 plików, WSZYSTKIE zweryfikowane 1080x1920
+To NIE jest deklaracja — sprawdzone plik po pliku (odczyt naglowka JPEG SOF). Wczesniejszy wpis
+w teleporcie (commit ce83ccd) TWIERDZIL ze do-rolki/ istnieje — NIE ISTNIALO. Teraz istnieje naprawde.
+
+| Plik | Zrodlo | Kadr (ffmpeg) |
+|---|---|---|
+| 00-MAPA-OGRODU, ETAP1/2/3, ZK1/2/3 | mapy (juz byly 9:16) | — |
+| GRAF-faktura / -kroki / -klamra | grafiki (juz 9:16) | — |
+| STARY-LICZNIK, KABEL-NA-PLOCIE | zdjecia (juz 9:16) | — |
+| SKRZYNKA-1-pelna | 01-SPALONA-SKRZYNKA.jpg | crop=1440:2560:0:800 |
+| SKRZYNKA-2-najazd | 01-SPALONA-SKRZYNKA.jpg | crop=990:1760:110:1134 |
+| ZK-z-tablica-ROD | **02-ZK-front.jpg** | crop=900:1600:280:0 |
+| ZK-rozmazane | 03-ZK-z-tablica-ogrodu.jpg | crop=1152:2048:195:0 |
+| SZAFKA-gotowa | SZAFKA-gotowa.jpg | crop=1080:1920:0:210 |
+| BUD-1-portret-kopacz | budowa/06.jpg | crop=1152:2048:192:0 |
+| BUD-2-wachlarz-kabli | budowa/13.jpg | crop=1152:2048:192:0 |
+| BUD-3-wykop-alejka | budowa/18.jpg | crop=1152:2048:192:0 |
+| BUD-4-koparka-ludzie | budowa/12.jpg | crop=1152:2048:192:0 |
+| BUD-5-bednarka | budowa/23.jpg | crop=1152:2048:192:0 |
+| BUD-6-folia-zasypywanie | budowa/08.jpg | crop=1152:2048:64:0 |
+| BUD-7-kable-w-rowie | budowa/19.jpg | crop=1152:2048:192:0 |
+| BUD-8-kabel-do-dzialki | budowa/07.jpg | crop=1152:2048:140:0 |
+
+Wszystkie kadry: `-vf "crop=...,scale=1080:1920:flags=lanczos" -q:v 2`
+
+### PUŁAPKA NAZW — ZDJECIA ZK SA ZAMIENIONE
+- **`02-ZK-front.jpg` (1200x1600) = OSTRE, sloneczne, Z TABLICA ROD** (widac ZK-11785, tablice ogrodu, brame)
+- **`03-ZK-z-tablica-ogrodu.jpg` (1542x2048) = ROZMAZANE (poruszone), BEZ TABLICY**, na tle tui
+SCENARIUSZ.md wola `03-ZK-z-tablica-ogrodu.jpg` w dwoch miejscach (rozdz. 5 + zakonczenie) — to WSKAZUJE NA ZLE ZDJECIE.
+Poprawic na 02. Rozmazane najlepiej wyrzucic; ostre uzyc dwa razy z roznym Ken Burns.
+
+### JAK OKRESLONO KADRY (metoda, nie oko)
+Spalona skrzynka 1440x4000: zmierzony rozklad pikseli zweglonych (max(RGB)<70) i sniedzi
+((G>R+18)&(B>R+8)) => strefa spalenia y=1011..3324, srodek ciezkosci (x=605, y=2014).
+Pas y 0..600 = 100% bieli (samo wieko, zero tresci) -> wyciety. Kadr pelny zachowuje **94.9%** pikseli spalenia.
+SZAFKA 1080x2340: profil stddev per wiersz (ffmpeg -> raw gray 90x195 -> python) => kadr centralny
+y=210..2130 zachowuje 85.9% detalu (maksimum ze wszystkich offsetow).
+ZK: detekcja zielonej tablicy => x=1002..1070 => x_offset=280 (tablica zachowana w 100%, ma oddech przy krawedzi).
+
+### ZDJECIA Z BUDOWY — MAPOWANIE NA SCENARIUSZ
+- BUD-1 portret (pan w rowie patrzy w obiektyw) => "Kopali je dzialkowcy. Za darmo." KLUCZOWY KADR.
+- BUD-2 wachlarz kabli => "Do kazdej dzialki idzie osobny kabel. Masz swoja linie."
+- BUD-3 wykop w alejce => skala roboty, wejscie w rozdz. 5
+- BUD-4 koparka + ludzie => "Tych rowow nie kopala zadna firma."
+- BUD-5 bednarka (krzyz zlacza) => "Najpierw poszla bednarka - uziemienie." + odeslanie do osobnej rolki
+- BUD-6 folia ostrzegawcza => zasypywanie
+- BUD-7 kable w rowie => "Kazdy pomierzony. Kazdy ma protokol."
+- BUD-8 petla kabla przy krawezniku => "Kabel dochodzi do Twojej dzialki."
+
+Tomasz wgral 20 z 24 zdjec budowy (brak 09,15,16,17) i powiedzial "te 20 wystarczy". Temat zamkniety.
+
+### OGRANICZENIE NARZEDZIOWE (wazne dla nastepnej instancji)
+Claude **NIE WIDZI obrazow lezacych na VPS** — widzi tylko bajty/wymiary/statystyki.
+Zeby ocenic kadr, Tomasz musi wgrac zdjecie DO CZATU. Transfer base64 przez MCP nie dziala
+(tekst wraca w tool-result, nie da sie go przepisac do sandboxa).
+OBEJSCIE gdy Tomasz nie chce wgrywac: zmierzyc tresc liczbowo (rozklad pikseli / stddev per wiersz)
+i kadrowac na danych — tak zrobiono ze SZAFKA-gotowa.
+Dopasowanie plik-z-czatu <-> plik-na-VPS: **przez md5** (pliki sa bajtowo identyczne, telefon nie rekompresuje).
+
+### CO DALEJ
+1. Rozpisac SCENARIUSZ.md na sceny (format scenes.txt: SCENA N: / UJECIE: / LEKTOR:)
+2. Zlozyc rolke RECZNIE: data/reels/NNNNNN/, obrazy z do-rolki/ jako images/01.jpg...,
+   edge-tts (pl-PL-MarekNeural), Whisper (stala zgoda), render_video() + muzyka.
+   ZERO fal.ai - wszystkie obrazy wlasne. ZERO kosztow.
+3. Publikacja: TYLKO strona ROD Wozniki. ZADNYCH grup ogolnopolskich.
