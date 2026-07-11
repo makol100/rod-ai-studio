@@ -6,7 +6,8 @@ services:
     restart: unless-stopped
     working_dir: /app
     environment:
-      - FAL_KEY=4e9942d8-03a5-44f4-ab3b-cc5a463071eb:06b55c462ba6c80274cd7df82f450a7d
+      - FAL_KEY=TU_WKLEJ_SWOJ_KLUCZ_FAL
+      - ANTHROPIC_API_KEY=TU_WKLEJ_SWOJ_KLUCZ_ANTHROPIC
 
     extra_hosts:
       - "host.docker.internal:host-gateway"
