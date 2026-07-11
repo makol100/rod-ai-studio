@@ -578,3 +578,31 @@ ROZLICZENIA: ogrod ma **DWA OSOBNE RACHUNKI**. Cena kWh zalezy od zuzycia (im wi
 
 ### LEKCJA Z TEJ SESJI
 Nie dlubac poprawka po poprawce na oko. Gdy jest dokument zrodlowy (mapa ewidencyjna) - czytac go dokladnie i pytac konkretnie, zamiast zgadywac i generowac kolejne wersje. Tomasz jest elektrykiem i czlonkiem zarzadu ROD - weryfikuje poprawnosc techniczna i wylapuje kazdy blad.
+
+---
+
+## MAPY ROD WOZNIKI — ZATWIERDZONE (11.07.2026, Tomasz: "Zatwierdzam wszystkie mapy")
+
+**7 map gotowych i zatwierdzonych. NIE RUSZAC bez wyraznego polecenia.**
+
+| Plik | Co pokazuje |
+|---|---|
+| `mapa-ogrodu-rod-wozniki.jpg` | FUNDAMENT — ogrod bez elektryki (51 dzialek, 3 alejki, przejscie, 4 bramy, 2 parkingi, wiata) |
+| `GEMINI-etap1.jpg` | ETAP 1 — jedno przylacze -> dom dzialkowca (dz. 0) -> 3 OBWODY na alejki, 51 podlicznikow |
+| `GEMINI-etap2.jpg` | ETAP 2 — drugie przylacze ze SLUPA (brama 4), 7 dzialek (1-4, 16-18), dwa liczniki glowne |
+| `GEMINI-etap3.jpg` | ETAP 3 — 3 ZK przy bramach, 51 licznikow, osobny kabel do kazdej dzialki |
+| `ETAP3-ZK1-poludniowa.jpg` | zblizenie: ZK 1, 18 licznikow (dzialki 1-18) |
+| `ETAP3-ZK2-srodkowa.jpg` | zblizenie: ZK 2, 15 licznikow (19-33), gorny rzad krotszy (dom dzialkowca) |
+| `ETAP3-ZK3-polnocna.jpg` | zblizenie: ZK 3, 18 licznikow (34-51) — oznaczone jako PLAN (kable nie wkopane) |
+
+### JAK POWSTALY (do odtworzenia gdyby trzeba)
+Mapy 2-4: **podklad graficzny z Gemini** (ladny, top-down, akwarela) + **wlasne kable narysowane przez Claude** (bo Gemini mylil trasy — prowadzil fiolet z licznika 1, gubil przylacze do domu) + **wlasne polskie napisy** (bo Gemini masakruje polskie znaki — "ALEJA SKODOWA", "Mlyfieka 40c").
+Metoda: OpenCV inpaint wymazuje kable Gemini -> PIL rysuje wlasne trasy + numery -> nowe opisy pod mapa.
+Generatory (w sandboxie Claude, nie na VPS): MAPA_FUNDAMENT.py, RYSUJ_KABLE.py, NAPRAW_GEMINI.py, ETAP3.py, ETAP3_ALEJKA.py
+
+### NAZEWNICTWO (Tomasz poprawil — WAZNE)
+**PRZYLACZE** = punkt gdzie Tauron oddaje prad, konczy sie na LICZNIKU GLOWNYM. W ogrodzie sa DWA: (1) dom dzialkowca (dz. 0), (2) slup przy drodze.
+**OBWODY** = to co wychodzi z domu dzialkowca na 3 alejki. To NIE sa przylacza — to wewnetrzna instalacja ogrodu.
+
+### ZASADA NUMER 1 (Tomasz, 11.07.2026)
+**WERYFIKACJA, NIE HALUCYNACJA.** Nigdy nie twierdzic ze cos zrobione, dopoki nie zostalo FAKTYCZNIE wykonane I SPRAWDZONE. Zakazane: pisac "poprawiam/zapisuje" bez wywolania narzedzia; mowic "gotowe" bez obejrzenia wyniku; zakladac ze dziala bo "powinno". Claude lamal to dzis wielokrotnie (~2h stracone na zgadywanie ukladu ogrodu zamiast czytania mapy ewidencyjnej).
