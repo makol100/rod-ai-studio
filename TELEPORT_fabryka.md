@@ -788,3 +788,85 @@ trafia zmyślenie Whispera. To cichy bug - nie krzyczy, tylko psuje tekst.
 3. **PUBLIKACJA: TYLKO strona ROD Woźniki (1174205105781401). ŻADNYCH grup ogólnopolskich** - materiał wewnętrzny.
    Przycisk "📘 Publikuj na stronę FB" w panelu (endpoint /reels/89/publikuj-fb).
    UWAGA: to będzie PIERWSZA publikacja przez ten przycisk - endpoint nietestowany end-to-end.
+
+---
+
+# SESJA 12.07.2026 — ZWROT: ROBIMY FILM, NIE ROLKĘ
+
+## DECYZJA (Tomasz, wprost): "Robimy film. I rolkę zapowiadającą"
+Powód: materiał o przebudowie prądu ma **7:42 i 42 sceny** — to nigdy nie była rolka.
+Shorts kończy się na 3 min. Działkowiec musi móc zatrzymać, cofnąć, znaleźć SWOJĄ działkę na mapie.
+
+- **FILM 16:9 (1920x1080)** → nowy kanał YouTube "ROD Woźniki", **niepubliczny (dostęp z linkiem)**
+- **ROLKA 9:16** → zapowiedź, publicznie: strona ROD Woźniki + Shorts
+
+⚠️ **KONSEKWENCJA DLA PRYWATNOŚCI:** film z linkiem = twarze ekipy OK.
+Ale **rolka idzie publicznie** → w rolce **BEZ TWARZY** (tylko rów, kable, koparka, mapy).
+Katalog `data/rolka-prad/bez_twarzy/` już istnieje — użyć go.
+
+## SKĄD SIĘ WZIĄŁ ZWROT
+Tomasz: "Strasznie małe te mapy w rolce". Zmierzone: mapy ZK są POZIOME (1700x1000),
+kadr rolki PIONOWY → mapa zajmowała **14% wysokości ekranu**, reszta rozmyte tło.
+Próba obrócenia ogrodu o 90° (ZK1-PION.jpg) — działała, ale Tomasz słusznie: "Bo wyjdzie z tego rolka".
+W 16:9 problem znika sam: ogród jest szeroki, kadr jest szeroki. Zero obracania.
+
+## MAPY — GOTOWE, 7 SZTUK, styl jasny GEMINI (zatwierdzony: "gra", "bardzo idealnie")
+Generator: **`/root/rod-ai-studio/tools/mapa_rod/`** (żeby drugi raz nie przepadł!)
+- `baza_mapy.py` — wspólny podkład (51 działek, 3 alejki, 4 bramy, 2 parkingi, dom, ukośna granica N)
+- `mapy_zk.py` — ZK 1/2/3
+- `mapy_etapy.py` — ETAP 1/2/3 (na wspólnej bazie — w filmie ten sam ogród, zmienia się instalacja)
+- `kadr_filmu.py` — layout kadru: pionowy materiał w oknie + panel z tekstem
+Wyjście: `data/rolka-prad/mapy-16x9/`
+
+⚠️ **PIERWSZY KROK NASTĘPNEJ SESJI: na VPS NIE MA Pillow.**
+`docker exec fabryka-api pip install pillow` (albo systemowo `--break-system-packages`) → ZAPYTAJ TOMASZA.
+Bez tego generatory nie ruszą. Skrypty się parsują (py_compile OK), ale nie były na VPS uruchomione.
+Gotowe JPG są u Tomasza (pobrane z czatu) — nie zdążyły trafić na VPS (3 MB, za dużo na transfer).
+
+## FAKTY POTWIERDZONE W TEJ SESJI
+- ZK 1 — alejka południowa, działki 1–18, 18 liczników, kable wkopane
+- ZK 2 — alejka środkowa, działki 19–33, 15 liczników. Rząd północny od zachodu:
+  DOM DZIAŁKOWCA (2 kolumny) + PARKING NR 1 (1 kolumna), potem 33..28
+- ZK 3 — alejka północna, 34–51, 18 liczników. Złącze stoi, kable NIEWKOPANE = PLAN
+- ETAP 1 (rekonstrukcja, zaakceptowana): jedno przyłącze przy domu, 3 wspólne przewody, podliczniki
+- ETAP 2 (odtworzony 1:1 z oryginału Tomasza): drugie przyłącze ze słupa, 2 liczniki główne,
+  7 działek wypiętych: **1, 2, 3, 4 oraz 16, 17, 18**. Pozostałe 44 po staremu
+- ETAP 3: trzy ZK, 51 liczników, osobny kabel do każdej działki
+
+## MATERIAŁ Z BUDOWY — PRAWDZIWY, ZASTĘPUJE AI
+Tomasz wrzucił 8 zdjęć (1500x2000) + 4 filmy. **Obrazy AI z fal.ai stały się ZBĘDNE** —
+mamy prawdziwych ludzi z ROD: koparzystę z papierosem, ekipę na łopatach, gościa kującego skałę.
+**KLUCZOWE ZDJĘCIE: pan z łopatą, a pod nim w rowie leży WIĄZKA KABLI** — dosłowna ilustracja mapy ZK.
+Mapa mówi schemat, zdjęcie mówi że to naprawdę leży w ziemi.
+
+⚠️ Filmy przyszły przez WhatsApp → zduszone do **478x850**. Tomasz: "pokażesz je w oknie
+zamiast na pełnym ekranie" — zgoda, w oknie 900 px wysokości skala 1.06x = praktycznie natywne.
+
+## LAYOUT KADRU FILMU (nowość, zatwierdzona)
+Cały materiał jest PIONOWY. Zamiast przycinać do poziomu (utrata 2/3 kadru, ucięte głowy):
+pionowy materiał w oknie 900 px + panel z tekstem obok.
+- zdjęcie 1500x2000 → okno 675x900 = skala **0.45x** (zmniejszenie, ostre)
+- film 478x850 → okno 506x900 = skala **1.06x** (natywne)
+
+⚠️ **DO POPRAWY:** panel bywa ZA PUSTY. Sam tytuł + 2 linijki to za mało na pół ekranu.
+Każdy kadr musi dostać: liczbę ALBO kawałek mapy ALBO 3–4 wiersze.
+
+## CO ZOSTAŁO DO ZROBIENIA
+1. **Pillow na VPS** → wygenerować 7 map na miejscu (patrz wyżej)
+2. **Przełącznik formatu w Fabryce** — 9:16 zaszyte w 4 miejscach:
+   - `apps/api/src/video/renderer.py` — scale/crop 1080:1920 w ~6 miejscach + Ken Burns + intro
+   - `apps/api/src/subtitles/generator.py` — PlayResX/Y 1080x1920
+   - `apps/api/src/images/prompts.py` — prompty "vertical 9:16"
+   - `apps/api/src/ai/image_backend.py` — fal.ai `aspect_ratio: "9:16"`
+   - `apps/api/src/scenes/generator.py` — scenarzysta proszony o "pionowe rolki"
+3. **Tomasz miał opisać, co jest na 4 filmach** (kontaktówka 20 klatek wysłana, nie zdążył)
+4. **Nowy scenariusz pod film** (stary był pod rolkę)
+5. Więcej materiału z budowy — Tomasz ma jeszcze zdjęcia/filmy
+
+## ⚠️ PROBLEM TECHNICZNY TEJ SESJI
+**Podgląd obrazów w Claude padł w połowie sesji** (`view` na JPG/PNG zwracał pustkę,
+sprawdzone na 1920x1080, 1080x1920 i miniaturze 640x360). Skutek:
+- mapy ZK 2, ZK 3, mapa ogrodu i wszystkie 3 etapy **nie były przeze mnie obejrzane** —
+  tylko zweryfikowane liczbowo (bboxy tekstów, kolizje, szerokości)
+- wybrałem klatkę z filmu na ślepo i trafiłem w twarz Tomasza pod podpisem "Koparka przeszła alejkę" 🤣
+**Następna instancja: sprawdź czy podgląd działa. Jeśli tak — OBEJRZYJ te mapy zanim pójdą do filmu.**
