@@ -46,7 +46,9 @@ def panel():
 #   zdjęcia (.jpg/.png/...)  -> data/rolka-prad/budowa/
 # ---------------------------------------------------------------
 BAZA = "/root/rod-ai-studio/data/rolka-prad"
+MUZYKA_KAT = "/root/rod-ai-studio/assets/music"
 ROZSZ_FILM = {".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v", ".3gp"}
+ROZSZ_AUDIO = {".mp3", ".wav", ".m4a", ".aac", ".ogg", ".flac"}
 
 
 @app.post("/upload")
@@ -55,9 +57,11 @@ async def upload(pliki: list[UploadFile] = File(...)):
     for p in pliki:
         nazwa = os.path.basename(p.filename or "bez_nazwy")
         ext = os.path.splitext(nazwa)[1].lower()
-        podkatalog = "filmy" if ext in ROZSZ_FILM else "budowa"
-
-        katalog = os.path.join(BAZA, podkatalog)
+        if ext in ROZSZ_AUDIO:
+            podkatalog, katalog = "muzyka", MUZYKA_KAT
+        else:
+            podkatalog = "filmy" if ext in ROZSZ_FILM else "budowa"
+            katalog = os.path.join(BAZA, podkatalog)
         os.makedirs(katalog, exist_ok=True)
         cel = os.path.join(katalog, nazwa)
 
@@ -90,3 +94,13 @@ def upload_lista():
         else:
             out[pod] = []
     return out
+
+
+@app.get("/film")
+def film():
+    """Pobranie gotowego filmu."""
+    from fastapi.responses import FileResponse
+    p = os.path.join(BAZA, "FILM-ROD-16x9.mp4")
+    if not os.path.exists(p):
+        return {"status": "brak", "info": "film jeszcze nie zbudowany"}
+    return FileResponse(p, media_type="video/mp4", filename="FILM-ROD-16x9.mp4")

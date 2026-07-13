@@ -1013,3 +1013,23 @@ Sortowanie automatyczne po rozszerzeniu:
 python-multipart był już w requirements.txt (w VENV kontenera, nie w systemowym pythonie!).
 Backupy: `src/main.py.bak-20260713-1627`, `src/panel.html.bak-20260713-1627`.
 Kontener zrestartowany, endpoint przetestowany. ⚠️ docker-compose.yml (z kluczami API) jest w .gitignore — OK.
+
+## 🎵 MUZYKA DO FILMU — WYBRANA (Tomasz, 13.07)
+**Precious Memories — Shane Ivers** (3:59, fortepian, ciepły)
+Ton: "z ciężarem, ale ciepły — bo to jednak historia o ludziach, którzy zrobili coś razem za darmo".
+⚠️ Muzyka KRÓTSZA niż film (3:59 vs 4:42) → zapętlana (ffmpeg `-stream_loop -1`). Sprawdzić szew.
+
+### ⚠️ ATRYBUCJA — OBOWIĄZKOWA W OPISIE FILMU NA YOUTUBE (CC BY 4.0)
+```
+Music: Precious Memories by Shane Ivers - https://www.silvermansound.com
+Licensed under Creative Commons Attribution 4.0 International License
+https://creativecommons.org/licenses/by/4.0/
+Music promoted by https://www.chosic.com/free-music/all/
+```
+Bez tego licencja jest naruszona. Wkleić do opisu przy publikacji.
+
+## FILM — PIERWSZA WERSJA ZBUDOWANA (13.07) ✔
+`data/rolka-prad/FILM-ROD-16x9.mp4` — 4:42, 1920x1080, 20 MB, lektor MarekNeural.
+Skrypty: `tools/film_rod/buduj_film.py` (silnik) + `film_pelny.py` (scenariusz, 23 sceny).
+Podgląd dla Tomasza: **GET /film** (endpoint w panelu, FileResponse).
+Upload rozszerzony o audio → `.mp3/.wav/...` ląduje w `assets/music/`.
