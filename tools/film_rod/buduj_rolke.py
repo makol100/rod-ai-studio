@@ -56,8 +56,7 @@ def napis(txt, duzy, plik):
     img.save(plik)
 
 
-def scena(zrodlo, tekst, txt_ekran, od, out, duzy=False):
-    czas = lektor(tekst, f"{TMP}/a.mp3") + 0.6 if tekst else 4.0
+def scena(zrodlo, czas, txt_ekran, od, out, duzy=False):
     n = f"{TMP}/n.png"
     napis(txt_ekran, duzy, n)
     wideo = zrodlo.endswith(".mp4")
@@ -79,12 +78,18 @@ def plansza(out, czas=6.0):
         l, t, r, b = d.textbbox((0, 0), txt, font=f)
         d.text(((W - (r - l)) / 2 - l, y), txt, font=f, fill=k)
 
-    d.line([(W / 2 - 60, 700), (W / 2 + 60, 700)], fill=ZIELEN, width=7)
-    srodek(790, "Teraz", font("Bold", 96), TEKST)
-    srodek(900, "Twoja kolej", font("Bold", 96), TEKST)
-    srodek(1080, "Cały film", font("Regular", 46), TEKST_2)
-    srodek(1145, "na kanale", font("Regular", 46), TEKST_2)
-    srodek(1230, "ROD WOŹNIKI", font("Bold", 54), ZIELEN_C)
+    d.line([(W / 2 - 60, 660), (W / 2 + 60, 660)], fill=ZIELEN, width=7)
+    srodek(750, "Teraz", font("Bold", 104), TEKST)
+    srodek(872, "Twoja kolej", font("Bold", 104), TEKST)
+
+    # film jest NIEPUBLICZNY — na kanale go nie ma. Kierujemy do linku.
+    d.rounded_rectangle([120, 1090, W - 120, 1290], radius=20,
+                        fill="#FFFFFF", outline=ZIELEN, width=5)
+    srodek(1130, "CAŁY FILM", font("Bold", 46), ZIELEN_C)
+    srodek(1200, "link w opisie", font("Regular", 44), TEKST_2)
+
+    srodek(1420, "ROD im. Józefa Lompy", font("Regular", 38), TEKST_2)
+
     p = f"{TMP}/pl.png"
     img.save(p)
     subprocess.run(["ffmpeg", "-v", "error", "-loop", "1", "-i", p, "-t", str(czas),
@@ -131,16 +136,14 @@ if __name__ == "__main__":
         czas = lektor(tekst, a)
         subprocess.run(["ffmpeg", "-v", "error", "-i", a, "-af", "apad=pad_dur=0.6",
                         "-t", str(czas + 0.6), f"{TMP}/s{i}p.mp3", "-y"], check=True)
-        scena(zr, None, ekran, od, v, duzy)
-        subprocess.run(["ffmpeg", "-v", "error", "-i", v, "-t", str(czas + 0.6),
-                        "-c", "copy", f"{TMP}/v{i}f.mp4", "-y"], check=True)
-        czesci.append(f"{TMP}/v{i}f.mp4")
+        scena(zr, czas + 0.6, ekran, od, v, duzy)
+        czesci.append(v)
         audio.append(f"{TMP}/s{i}p.mp3")
         print(f"  [{i}] {czas+0.6:4.1f}s  {os.path.basename(zr)}", flush=True)
 
     # plansza końcowa
     pv = f"{TMP}/vpl.mp4"
-    pc = plansza(pv, 6.5)
+    pc = plansza(pv, 7.5)
     subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono",
                     "-t", str(pc), f"{TMP}/spl.mp3", "-y"], check=True)
     czesci.append(pv)

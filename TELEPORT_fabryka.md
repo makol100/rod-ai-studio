@@ -1045,3 +1045,9 @@ Pobranie: GET /film
 Skrypt: `tools/film_rod/buduj_rolke.py`. Pobranie: GET /rolka
 Sceny: skała (WA0008) → 18 kabli w rowie → ekipa "za darmo" → kabel na siatce → licznik czeka → plansza.
 ⚠️ PUBLIKACJA: ROD Woźniki — **TYLKO STRONA, NIE GRUPY** (to reel wewnętrzny ogrodu).
+
+## ⚠️ KANAŁ YOUTUBE = **makol100** (NIE "ROD Woźniki"!)
+Tomasz (13.07): "nie ma kanału rod wozniki. Jest na makol100".
+Film: https://youtu.be/xKHxqNi02MQ (niepubliczny, dostęp z linkiem)
+W planszy końcowej rolki NIE podajemy nazwy kanału — film jest niepubliczny, więc na kanale
+i tak go nie widać. Plansza mówi: "CAŁY FILM — link w opisie".
