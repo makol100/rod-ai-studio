@@ -929,3 +929,36 @@ Wszystkie 478x850 (WhatsApp), 60 fps → w oknie 900 px = skala 1.06x, praktyczn
 Poppins (Regular/Medium/Bold) pobrany z github.com/google/fonts → /usr/share/fonts/truetype/google-fonts/
 **Bez Poppins mapy wskakiwały na DejaVu i wyglądały inaczej niż te zatwierdzone.**
 Wszystkie 7 map wygenerowane na miejscu: `data/rolka-prad/mapy-16x9/`
+
+## ⚡ CIĘŻAR FILMU: "DOKOŃCZ U SIEBIE" (Tomasz, 13.07)
+"Nacisk na kończenie u siebie w działkach — przyłącze gotowe, kable w ziemi, a co niektórzy walą w chuja."
+
+Film NIE jest sprawozdaniem z robót. Film jest **wezwaniem**. Ogród swoje zrobił:
+złącze stoi, kable leżą, licznik czeka w szafie. Dalej nikt tego za działkowca nie zrobi.
+
+**Blok 5 to nie "co z tego masz", tylko "TERAZ TWOJA KOLEJ"** (~90 s, nie 60).
+
+### DROGA DZIAŁKOWCA — 5 kroków (POTWIERDZONE przez Tomasza)
+1. Elektryk z uprawnieniami robi instalację **na działce**
+2. **PROTOKÓŁ** — potwierdza: zabezpieczenia + **rozdział PEN na PE i N** + uziom
+   (⚠️ NIE protokół na kable w ziemi — te ogród już pomierzył i ma własny)
+3. Karta z zarządu
+4. **Działkowiec sam** podpisuje umowę z Tauronem — na siebie, nie na ogród
+5. Elektryk zarządu przepina; stary licznik odczytany do rozliczenia końcowego
+
+### FAKTY TECHNICZNE (potwierdzone 13.07) — układ TN-C-S
+- **Rozdział PEN → PE + N następuje W DZIAŁCE** (w rozdzielnicy działkowca), NIE w ZK.
+  Z ZK do działki idzie PEN.
+- **BEDNARKA = UZIOM WSPÓLNY** biegnie w alejce wzdłuż rowu. Jeden dla wszystkich działek.
+  Każdy podpina się do niej w punkcie rozdziału PEN. **Nikt nie robi własnego uziomu.**
+
+### SCENA, KTÓREJ NIE BYŁO W SZKIELECIE
+Ludzie widzieli bednarkę w wykopie i nie wiedzą, po co tam leży.
+Powiedzieć wprost: to uziom, ogród położył go RAZ, dla wszystkich, i bez niego
+rozdział PEN nie ma się o co oprzeć.
+
+### TON (ustalone)
+Nie besztać. Obrażą się i będą zwlekać na złość. Mocniejszy jest fakt:
+"Kabel leży pod Twoją działką od pół roku. Licznik czeka w szafie. Brakuje jednego papieru — Twojego."
+Konsekwencja jako fakt, nie groźba: gdy alejka przechodzi na nowe, stary obwód idzie w dół —
+nie z zemsty, tylko dlatego, że nie ma z czego brać prądu.
