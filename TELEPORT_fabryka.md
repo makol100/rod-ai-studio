@@ -870,3 +870,20 @@ sprawdzone na 1920x1080, 1080x1920 i miniaturze 640x360). Skutek:
   tylko zweryfikowane liczbowo (bboxy tekstów, kolizje, szerokości)
 - wybrałem klatkę z filmu na ślepo i trafiłem w twarz Tomasza pod podpisem "Koparka przeszła alejkę" 🤣
 **Następna instancja: sprawdź czy podgląd działa. Jeśli tak — OBEJRZYJ te mapy zanim pójdą do filmu.**
+
+## ⚠️ KOREKTA REDAKCYJNA (Tomasz, koniec sesji 12.07)
+"Za dużo pierdzenia o tym Tauronie. Prościej — budowy sieci i przebudowa.
+Na etap 3 wtedy musi być o Tauronie."
+
+**Film NIE jest o formalnościach. Film jest o ROBOCIE.** Tauron = puenta, nie wykład na wstępie.
+Nowy szkielet:
+1. ROBOTA — koparka, rów, ludzie z łopatami. Bez gadania, po prostu się dzieje.
+2. PO CO — spalona skrzynka. Jedno zdanie: stara instalacja nie wyrabiała.
+3. CO ZBUDOWALIŚMY — mapa ogrodu, ZK 1 i ZK 2, 18 kabli w rowie, liczniki w szafach.
+4. CO ZOSTAŁO — ZK 3, złącze stoi, kable czekają.
+5. CO Z TEGO MASZ — **TU i tylko tu Tauron**: własny licznik, własna umowa, koniec podliczników.
+
+Skutek dla map: ETAP 1 i ETAP 2 mają w podtytułach żargon ("przyłącze", "licznik główny").
+**DO ROZSTRZYGNIĘCIA:** czy etapy 1/2 zostają w filmie jako kilkunastosekundowa wstawka,
+czy wypadają całkiem (film idzie prosto: robota → co zbudowaliśmy → co z tego macie).
+Mapy są zrobione, więc zostawienie ich nic nie kosztuje. Tomasz zdecyduje.
