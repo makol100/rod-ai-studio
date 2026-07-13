@@ -11,7 +11,7 @@ D = "/root/rod-ai-studio/data/rolka-prad"
 M = f"{D}/mapy-16x9"
 B = f"{D}/budowa"
 F = f"{D}/filmy"
-MUZYKA = "/root/rod-ai-studio/assets/music/Morning.mp3"
+MUZYKA = "/root/rod-ai-studio/assets/music/precious-memories(chosic.com)-1.mp3"
 
 # --- plansze tekstowe (bez zdjęcia — sam panel) ---
 def plansza(nazwa, tytul, linie):
@@ -28,12 +28,14 @@ PL_KROKI = plansza("kroki", "Pięć rzeczy", [
 ])
 
 sceny = [
-    # ============ 1. ROBOTA (bez lektora) ============
-    ("klip", f"{F}/VID-20260712-WA0000.mp4", None,
-     "ROD im. Józefa Lompy", ["Przebudowa sieci elektrycznej"], 7.0),
+    # ============ 1. ROBOTA ============
+    # obraz -> tytuł -> obraz. Bez tekstu w oknie, bez adresu.
+    ("pelny", f"{F}/VID-20260712-WA0000.mp4", None, None, None, 7.0, 3),
 
-    ("klip", f"{F}/VID-20260712-WA0004.mp4", None,
-     "", ["Woźniki, Młyńska 40c"], 6.0),
+    ("tytul", None, None, "ROD im. Józefa Lompy",
+     ["Przebudowa sieci elektrycznej", ""], 4.5),
+
+    ("pelny", f"{F}/VID-20260712-WA0004.mp4", None, None, None, 6.0, 12),
 
     # ============ 2. PO CO ============
     ("foto", f"{D}/01-SPALONA-SKRZYNKA.jpg",
@@ -64,6 +66,11 @@ sceny = [
      "Zaczęliśmy od alejki południowej. Złącze ZK 1, osiemnaście liczników. "
      "Osobny kabel do każdej działki."),
 
+    ("foto", f"{D}/02-ZK-front.jpg",
+     "Tak wygląda złącze. Stoi przy bramie, od strony drogi. "
+     "W środku — osiemnaście liczników. Każdy podpisany numerem działki.",
+     "Złącze ZK 1", ["Osiemnaście liczników.", "Każdy z numerem działki."]),
+
     ("foto", f"{B}/1000098548.jpg",
      "To nie jest rysunek. To jest nasza alejka. Tyle kabli poszło w jeden rów. "
      "Nikt już nie wisi na wspólnym przewodzie.",
@@ -89,12 +96,16 @@ sceny = [
     ("foto", f"{B}/1000098519.jpg",
      "Po pracy. W weekendy.", "Po pracy", ["W weekendy."]),
 
+    ("klip", f"{F}/VID-20260712-WA0000.mp4",
+     "I mimo wszystko — humor dopisywał.",
+     "Humor dopisywał", ["Mimo wszystko."], 30),
+
     ("foto", f"{B}/1000098520.jpg",
      "Robili to nasi ludzie. Za darmo. Nikt za to nie wziął ani złotówki.",
      "Nasi ludzie", ["Za darmo.", "Nikt nie wziął ani złotówki."]),
 
     # --- BEDNARKA ---
-    ("foto", f"{B}/1000098539.jpg",
+    ("foto", f"{B}/01.jpg",
      "W tym rowie leży jeszcze coś. Obok kabli — stalowa taśma. Bednarka. "
      "To jest uziom. Wspólny, dla całej alejki. Ogród położył go raz, dla wszystkich. "
      "Nikt nie musi robić własnego uziomu u siebie. Zapamiętajcie — za chwilę wróci.",
@@ -114,6 +125,10 @@ sceny = [
     ("mapa", f"{M}/ZK3-16x9.jpg",
      "Została alejka północna. Złącze już stoi, osiemnaście liczników czeka w środku. "
      "Ale kable nie są jeszcze wkopane. To następny etap."),
+
+    ("foto", f"{D}/03-ZK-z-tablica-ogrodu.jpg",
+     "Trzecie złącze stoi już w ogrodzie. Czeka na kable.",
+     "ZK 3 stoi", ["Czeka na kable."]),
 
     # ============ 5. TERAZ TWOJA KOLEJ ============
     ("mapa", f"{M}/ETAP3-16x9.jpg",
@@ -142,6 +157,15 @@ sceny = [
      "A kiedy cała alejka przejdzie na nowe, stary obwód zostanie zdjęty. Nie z zemsty. "
      "Po prostu nie ma po co wisieć — każdy będzie miał swój licznik.",
      "Teraz\nTwoja kolej", ["Brakuje jednego papieru.", "Twojego."]),
+
+    # ============ PLANSZA KOŃCOWA ============
+    ("koniec", None, None, "Zrobiliśmy to sami",
+     ["Teraz Twoja kolej.", "", "ROD im. Józefa Lompy · Woźniki"], 7.0),
 ]
+
+sceny.append(
+    ("tytul", None, None, "ROD im. Józefa Lompy",
+     ["Przebudowa sieci elektrycznej", "2026"], 6.0)
+)
 
 buduj(sceny, "/root/rod-ai-studio/data/rolka-prad/FILM-ROD-16x9.mp4", muzyka=MUZYKA)

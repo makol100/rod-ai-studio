@@ -1033,3 +1033,15 @@ Bez tego licencja jest naruszona. Wkleić do opisu przy publikacji.
 Skrypty: `tools/film_rod/buduj_film.py` (silnik) + `film_pelny.py` (scenariusz, 23 sceny).
 Podgląd dla Tomasza: **GET /film** (endpoint w panelu, FileResponse).
 Upload rozszerzony o audio → `.mp3/.wav/...` ląduje w `assets/music/`.
+
+## 🎬 FILM OPUBLIKOWANY (13.07.2026)
+**https://youtu.be/xKHxqNi02MQ** — YouTube, niepubliczny (dostęp z linkiem), kanał ROD Woźniki.
+Film: 5:31, 1920x1080, 29 scen, lektor MarekNeural, muzyka Precious Memories (CC BY, atrybucja w opisie).
+Skrypty: `tools/film_rod/buduj_film.py` + `film_pelny.py`.
+Pobranie: GET /film
+
+## ROLKA ZAPOWIADAJĄCA — GOTOWA (13.07)
+`data/rolka-prad/ROLKA-ZAPOWIEDZ.mp4` — 26 s, 1080x1920, **Z TWARZAMI** (Tomasz zmienił decyzję).
+Skrypt: `tools/film_rod/buduj_rolke.py`. Pobranie: GET /rolka
+Sceny: skała (WA0008) → 18 kabli w rowie → ekipa "za darmo" → kabel na siatce → licznik czeka → plansza.
+⚠️ PUBLIKACJA: ROD Woźniki — **TYLKO STRONA, NIE GRUPY** (to reel wewnętrzny ogrodu).

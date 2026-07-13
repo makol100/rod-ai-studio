@@ -8,3 +8,4 @@ data/reels/
 data/.secrets/
 docker-compose.yml
 *.bak*
+data/rolka-prad/

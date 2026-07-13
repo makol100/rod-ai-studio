@@ -104,3 +104,29 @@ def film():
     if not os.path.exists(p):
         return {"status": "brak", "info": "film jeszcze nie zbudowany"}
     return FileResponse(p, media_type="video/mp4", filename="FILM-ROD-16x9.mp4")
+
+
+@app.get("/kontaktowka")
+def kontaktowka():
+    """Plansza ze wszystkimi zdjęciami z budowy — do wskazywania kadrów."""
+    from fastapi.responses import FileResponse
+    p = os.path.join(BAZA, "KONTAKTOWKA-budowa.jpg")
+    if not os.path.exists(p):
+        return {"status": "brak"}
+    return FileResponse(p, media_type="image/jpeg")
+
+
+@app.get("/klatki")
+def klatki():
+    from fastapi.responses import FileResponse
+    p = os.path.join(BAZA, "KONTAKTOWKA-klatki.jpg")
+    return FileResponse(p, media_type="image/jpeg") if os.path.exists(p) else {"status": "brak"}
+
+
+@app.get("/rolka")
+def rolka():
+    from fastapi.responses import FileResponse
+    p = os.path.join(BAZA, "ROLKA-ZAPOWIEDZ.mp4")
+    if not os.path.exists(p):
+        return {"status": "brak"}
+    return FileResponse(p, media_type="video/mp4", filename="ROLKA-ZAPOWIEDZ.mp4")
