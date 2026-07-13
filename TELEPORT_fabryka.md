@@ -911,3 +911,21 @@ Nowa rzecz do napisania: **wstawianie klipów WIDEO w okno + panel obok**.
 W ffmpeg = overlay na statycznym tle:
   ffmpeg -loop 1 -i panel.png -i klip.mp4 -filter_complex "[1:v]scale=506:900[v];[0:v][v]overlay=90:90" ...
 Tło (panel z tekstem) generuje PIL, klip leci w oknie. Zero deployu, zero restartu.
+
+## DŹWIĘK Z FILMÓW — NIE UŻYWAMY
+Tomasz (13.07): "Nie używaj ścieżki dźwiękowej z filmów. Tam to bzdury."
+Klipy wideo wchodzą do filmu **TYLKO JAKO OBRAZ** (ffmpeg: `-an` na wejściu klipu).
+Audio filmu = lektor edge-tts (pl-PL-MarekNeural) + podkład muzyczny. Nic więcej.
+
+## CO JEST NA FILMACH (Tomasz, 13.07) — koniec zgadywania
+- **VID-...WA0000** (36 s) — gość idzie z telefonem i kręci (obchód, przejście alejką)
+- **VID-...WA0004** (50 s) — wykopaliska; widać, jak trudno się kopie, kamienie wszędzie
+- **VID-...WA0008** (63 s) — dalsze wykopaliska, chłop strasznie się męczy
+- **VID-...WA0012** (110 s) — zasypywanie (koniec roboty)
+Wszystkie 478x850 (WhatsApp), 60 fps → w oknie 900 px = skala 1.06x, praktycznie natywne.
+
+## PILLOW + POPPINS ZAINSTALOWANE NA VPS (13.07) ✔
+`pip install pillow --break-system-packages` → PIL 12.3.0
+Poppins (Regular/Medium/Bold) pobrany z github.com/google/fonts → /usr/share/fonts/truetype/google-fonts/
+**Bez Poppins mapy wskakiwały na DejaVu i wyglądały inaczej niż te zatwierdzone.**
+Wszystkie 7 map wygenerowane na miejscu: `data/rolka-prad/mapy-16x9/`
