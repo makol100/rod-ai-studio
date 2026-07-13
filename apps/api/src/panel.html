@@ -727,7 +727,77 @@
     <div class="diag-grid" id="diagGrid"><div class="loading-txt">ładuję…</div></div>
   </div>
 
+  <div class="card">
+    <div class="sec-head">
+      <span class="idx">05</span><h2>Materiał do filmu</h2>
+      <span class="spacer"></span>
+      <button class="iconbtn" id="btnMatOdswiez" title="Odśwież listę" aria-label="Odśwież listę">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>
+      </button>
+    </div>
+
+    <input type="file" id="matPliki" multiple accept="image/*,video/*" style="display:none">
+    <button class="btn" id="btnMatWybierz" style="width:100%; padding:13px; font-weight:600">
+      <span class="btn-ico">📎</span>Wgraj zdjęcia i filmy z telefonu
+    </button>
+    <div style="font-size:11.5px; color:var(--muted); margin-top:7px; line-height:1.5">
+      Filmy trafią do <b>filmy/</b>, zdjęcia do <b>budowa/</b> — sortowane automatycznie.
+    </div>
+
+    <div id="matStatus" style="font-size:12.5px; margin-top:10px; min-height:18px"></div>
+    <div id="matLista" style="font-size:12px; color:var(--muted); margin-top:8px; line-height:1.7"></div>
+  </div>
+
 </div>
+
+<script>
+(function(){
+  const wej = document.getElementById('matPliki');
+  const btn = document.getElementById('btnMatWybierz');
+  const st  = document.getElementById('matStatus');
+  const li  = document.getElementById('matLista');
+
+  btn.onclick = () => wej.click();
+  document.getElementById('btnMatOdswiez').onclick = lista;
+
+  wej.onchange = async () => {
+    if (!wej.files.length) return;
+    const fd = new FormData();
+    let mb = 0;
+    for (const f of wej.files) { fd.append('pliki', f); mb += f.size; }
+    mb = (mb / 1048576).toFixed(1);
+
+    btn.disabled = true;
+    st.textContent = `Wysyłam ${wej.files.length} plik(ów), ${mb} MB…`;
+    try {
+      const r = await fetch('/upload', { method: 'POST', body: fd });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      st.innerHTML = `<b style="color:var(--ok,#2E9E7A)">✅ Wgrano ${j.ile}</b>`;
+      lista();
+    } catch (e) {
+      st.innerHTML = `<b style="color:#c0392b">❌ ${e.message}</b>`;
+    } finally {
+      btn.disabled = false;
+      wej.value = '';
+    }
+  };
+
+  async function lista(){
+    try {
+      const j = await (await fetch('/upload/lista')).json();
+      let h = '';
+      for (const k of ['filmy','budowa']) {
+        const n = (j[k] || []).length;
+        const mb = (j[k] || []).reduce((a,x) => a + x.mb, 0).toFixed(1);
+        h += `<div><b>${k}/</b> — ${n} plik(ów), ${mb} MB</div>`;
+      }
+      li.innerHTML = h;
+    } catch(e) { li.textContent = ''; }
+  }
+  lista();
+})();
+</script>
 
 <script>
 (function(){

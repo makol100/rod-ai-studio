@@ -992,3 +992,24 @@ Po prostu nie ma po co wisieć — każdy będzie miał swój licznik."
 Film 6:01 · 5 bloków · lektor 3200+ znaków · rolka zapowiadająca ~40 s (BEZ TWARZY).
 DO USTALENIA: czy ekipa pracowała społecznie (zdanie "nikt nie wziął ani złotówki" — nie użyte,
 bo niepotwierdzone). Blok 3 (serce filmu) można rozbudować kosztem bloku 2.
+
+## DOBÓR UJĘĆ — poprawka (Tomasz, 13.07)
+**VID-...WA0008 = NAJLEPSZE UJĘCIE NA "ROBOTĘ W SKALE".** Idzie pod scenę:
+"Pod alejkami jest skała. Nie ziemia — skała. Gdzie koparka nie dała rady, trzeba było
+rozkuwać młotem. Ręcznie. Metr po metrze."
+(Chłop, który się męczy, mówi o twardości gruntu więcej niż sam widok kamieni.)
+WA0004 → schodzi do ogólnego kopania / podkład pod rów w alejce.
+
+## ⚠️ TELEFON TOMASZA PADŁ (13.07) — filmy uratowane
+Stary telefon rozbity. Kopia WhatsAppa miała **wyłączone "Dołącz filmy"** → filmy NIE były w backupie.
+Uratowane tylko dlatego, że Tomasz wysłał je w czacie 12.07 — oddane mu z powrotem przez present_files.
+**Dopóki nie wgra ich przez panel, istnieją tylko w czacie.** To nie jest archiwum.
+
+## UPLOAD W PANELU — ZROBIONY (13.07) ✔
+Karta "05 Materiał" w panelu. Endpoint `POST /upload` + `GET /upload/lista` w `apps/api/src/main.py`.
+Sortowanie automatyczne po rozszerzeniu:
+  filmy (.mp4/.mov/.avi/.mkv/.webm/.m4v/.3gp) -> `data/rolka-prad/filmy/`
+  reszta (zdjęcia)                            -> `data/rolka-prad/budowa/`
+python-multipart był już w requirements.txt (w VENV kontenera, nie w systemowym pythonie!).
+Backupy: `src/main.py.bak-20260713-1627`, `src/panel.html.bak-20260713-1627`.
+Kontener zrestartowany, endpoint przetestowany. ⚠️ docker-compose.yml (z kluczami API) jest w .gitignore — OK.

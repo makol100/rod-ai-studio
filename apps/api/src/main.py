@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from src.topics import router as topics_router
+import os
+import shutil
 
 app = FastAPI(title="Fabryka Rolek")
 
@@ -36,3 +38,55 @@ def panel():
     from fastapi.responses import HTMLResponse
     with open("/app/src/panel.html", encoding="utf-8") as f:
         return HTMLResponse(f.read())
+
+
+# ---------------------------------------------------------------
+# UPLOAD MATERIAŁU (zdjęcia i filmy z telefonu)
+#   filmy   (.mp4/.mov/...)  -> data/rolka-prad/filmy/
+#   zdjęcia (.jpg/.png/...)  -> data/rolka-prad/budowa/
+# ---------------------------------------------------------------
+BAZA = "/root/rod-ai-studio/data/rolka-prad"
+ROZSZ_FILM = {".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v", ".3gp"}
+
+
+@app.post("/upload")
+async def upload(pliki: list[UploadFile] = File(...)):
+    wgrane = []
+    for p in pliki:
+        nazwa = os.path.basename(p.filename or "bez_nazwy")
+        ext = os.path.splitext(nazwa)[1].lower()
+        podkatalog = "filmy" if ext in ROZSZ_FILM else "budowa"
+
+        katalog = os.path.join(BAZA, podkatalog)
+        os.makedirs(katalog, exist_ok=True)
+        cel = os.path.join(katalog, nazwa)
+
+        with open(cel, "wb") as f:
+            shutil.copyfileobj(p.file, f)
+
+        wgrane.append({
+            "plik": nazwa,
+            "gdzie": podkatalog,
+            "mb": round(os.path.getsize(cel) / 1048576, 1),
+        })
+
+    return {"status": "ok", "ile": len(wgrane), "wgrane": wgrane}
+
+
+@app.get("/upload/lista")
+def upload_lista():
+    """Co już leży w katalogach materiału."""
+    out = {}
+    for pod in ("filmy", "budowa"):
+        k = os.path.join(BAZA, pod)
+        if os.path.isdir(k):
+            out[pod] = sorted(
+                {"plik": f, "mb": round(os.path.getsize(os.path.join(k, f)) / 1048576, 1)}
+                for f in os.listdir(k) if not f.startswith(".")
+            ) if False else [
+                {"plik": f, "mb": round(os.path.getsize(os.path.join(k, f)) / 1048576, 1)}
+                for f in sorted(os.listdir(k)) if not f.startswith(".")
+            ]
+        else:
+            out[pod] = []
+    return out
