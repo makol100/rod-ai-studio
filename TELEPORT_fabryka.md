@@ -887,3 +887,8 @@ Skutek dla map: ETAP 1 i ETAP 2 mają w podtytułach żargon ("przyłącze", "li
 **DO ROZSTRZYGNIĘCIA:** czy etapy 1/2 zostają w filmie jako kilkunastosekundowa wstawka,
 czy wypadają całkiem (film idzie prosto: robota → co zbudowaliśmy → co z tego macie).
 Mapy są zrobione, więc zostawienie ich nic nie kosztuje. Tomasz zdecyduje.
+
+**ROZSTRZYGNIĘTE (Tomasz): "Etap 1 i 2 zostaje"** — obie mapy wchodzą do filmu jako wstawka
+pokazująca historię instalacji. Nic nie trzeba przerabiać: sprawdzone, że słowo "Tauron"
+pada TYLKO na mapie ETAP 3. Etapy 1 i 2 mówią wyłącznie o instalacji (wspólne przewody,
+podliczniki, 7 wypiętych działek) — bez formalności. Zgodne z korektą redakcyjną.
