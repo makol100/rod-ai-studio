@@ -962,3 +962,33 @@ Nie besztać. Obrażą się i będą zwlekać na złość. Mocniejszy jest fakt:
 "Kabel leży pod Twoją działką od pół roku. Licznik czeka w szafie. Brakuje jednego papieru — Twojego."
 Konsekwencja jako fakt, nie groźba: gdy alejka przechodzi na nowe, stary obwód idzie w dół —
 nie z zemsty, tylko dlatego, że nie ma z czego brać prądu.
+
+## 🔑 KABEL NA SIATCE — SEDNO PRZEKAZU (Tomasz, 13.07)
+**Kabel z ZK jest już DOCIĄGNIĘTY do każdej działki i WISI NA SIATCE, od strony alejki.**
+Każdy działkowiec widzi go u siebie. Ogród doprowadził go pod sam płot.
+**Robota działkowca: wkopać go u siebie — OD SIATKI DO SKRZYNKI — i zabezpieczyć.**
+Zdjęcie: `data/rolka-prad/KABEL-NA-PLOCIE.jpg` → kluczowy kadr filmu.
+
+### DROGA DZIAŁKOWCA — 5 kroków (POPRAWIONE, krok 1 to ŁOPATA nie elektryk)
+1. **Wkopujesz kabel u siebie** (od siatki do skrzynki) i zabezpieczasz
+2. Elektryk z uprawnieniami: instalacja + **protokół** (zabezpieczenia, rozdział PEN→PE+N, uziom)
+3. Karta z zarządu
+4. **Ty** podpisujesz umowę z Tauronem — na siebie, nie na ogród
+5. Elektryk zarządu przepina; stary licznik odczytany do rozliczenia
+
+### DLACZEGO STARY OBWÓD ZNIKA — poprawione uzasadnienie
+❌ BŁĄD (moja pierwsza wersja): "nie będzie z czego brać prądu" — Tomasz to odrzucił.
+✅ PRAWDA: **stary obwód jest ZBĘDNY.** "A po chuja ten obwód? Każdy będzie miał swój licznik."
+Zostanie zdjęty, bo nie ma po co wisieć — nie z zemsty, nie jako kara.
+
+Zdanie końcowe filmu:
+"Kabel wisi na Twojej siatce. Licznik czeka w szafie, z numerem Twojej działki.
+Brakuje jednego papieru — i Twojej łopaty.
+A kiedy cała alejka przejdzie na nowe, stary obwód zostanie zdjęty. Nie z zemsty.
+Po prostu nie ma po co wisieć — każdy będzie miał swój licznik."
+
+## SCENARIUSZ FILMU — GOTOWY (13.07)
+`SCENARIUSZ-FILM.md` (u Tomasza w czacie; wgrać na VPS przy następnej sesji).
+Film 6:01 · 5 bloków · lektor 3200+ znaków · rolka zapowiadająca ~40 s (BEZ TWARZY).
+DO USTALENIA: czy ekipa pracowała społecznie (zdanie "nikt nie wziął ani złotówki" — nie użyte,
+bo niepotwierdzone). Blok 3 (serce filmu) można rozbudować kosztem bloku 2.
