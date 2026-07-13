@@ -892,3 +892,22 @@ Mapy są zrobione, więc zostawienie ich nic nie kosztuje. Tomasz zdecyduje.
 pokazująca historię instalacji. Nic nie trzeba przerabiać: sprawdzone, że słowo "Tauron"
 pada TYLKO na mapie ETAP 3. Etapy 1 i 2 mówią wyłącznie o instalacji (wspólne przewody,
 podliczniki, 7 wypiętych działek) — bez formalności. Zgodne z korektą redakcyjną.
+
+## ⚠️ ODWOŁANE: PRZEŁĄCZNIK FORMATU 16:9 W FABRYCE — NIE ROBIMY
+Tomasz (13.07): "To niepotrzebne. To jedyny taki film i rolka."
+
+**FABRYKA ZOSTAJE NIETKNIĘTA.** Nie ruszamy `renderer.py`, `prompts.py`, `image_backend.py`,
+`subtitles/generator.py`, `scenes/generator.py`. Dalej robi rolki 9:16 — tak jak robiła.
+Przebudowa pipeline'u pod format użyty JEDEN raz = niepotrzebne ryzyko zepsucia działającej maszyny.
+
+**ZAMIAST TEGO: osobny skrypt `tools/film_rod/buduj_film.py`** (poza apps/api!).
+Korzysta z narzędzi, które już stoją na VPS:
+- edge-tts (pl-PL-MarekNeural, 11.6 znaku/sek) — lektor
+- Whisper — napisy
+- ffmpeg — render 1920x1080
+- PIL — klatki (mapy z tools/mapa_rod + kadry z kadr_filmu.py)
+
+Nowa rzecz do napisania: **wstawianie klipów WIDEO w okno + panel obok**.
+W ffmpeg = overlay na statycznym tle:
+  ffmpeg -loop 1 -i panel.png -i klip.mp4 -filter_complex "[1:v]scale=506:900[v];[0:v][v]overlay=90:90" ...
+Tło (panel z tekstem) generuje PIL, klip leci w oknie. Zero deployu, zero restartu.
