@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.os.Build;
+import java.util.concurrent.TimeUnit;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 public class MainActivity extends Activity {
 
@@ -82,6 +87,20 @@ public class MainActivity extends Activity {
         root.addView(footer);
 
         setContentView(scroll);
+
+        // Android 13+: zgoda na powiadomienia
+        if (Build.VERSION.SDK_INT >= 33) {
+            if (checkSelfPermission("android.permission.POST_NOTIFICATIONS")
+                    != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 1);
+            }
+        }
+
+        // pilnuj gotowych rolek co ~15 min
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "rolki-notif",
+                ExistingPeriodicWorkPolicy.KEEP,
+                new PeriodicWorkRequest.Builder(NotifWorker.class, 15, TimeUnit.MINUTES).build());
     }
 
     private void addCard(LinearLayout parent, String emoji, String tintBg,
