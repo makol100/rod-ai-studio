@@ -1051,3 +1051,12 @@ Tomasz (13.07): "nie ma kanału rod wozniki. Jest na makol100".
 Film: https://youtu.be/xKHxqNi02MQ (niepubliczny, dostęp z linkiem)
 W planszy końcowej rolki NIE podajemy nazwy kanału — film jest niepubliczny, więc na kanale
 i tak go nie widać. Plansza mówi: "CAŁY FILM — link w opisie".
+
+## 📱 APKA v1.2 — POWIADOMIENIA (14.07)
+NotifWorker (WorkManager, polling /reels co 15 min) → powiadomienie "Rolka #NNNNNN gotowa 🎬",
+tap otwiera sekcję Ostatnie rolki. Zgoda POST_NOTIFICATIONS przy pierwszym starcie (Android 13+).
+APK: 2.3 MB (WorkManager). Podpis: **v2 scheme** — META-INF pusty to NORMALNE, nie brak podpisu!
+Workflow: jawny debug keystore + weryfikacja apksigner po buildzie.
+⚠️ Chrome Tomasza nie zapisywał pobrania z GitHuba → **APK wystawiony też na panelu: GET /apk**.
+Po każdym buildzie skopiować nowy APK do data/rolka-prad/app-debug.apk (TODO: zautomatyzować w workflow).
+Samsung ubija tło → jak powiadomienia znikną: bateria dla Fabryki = "bez ograniczeń".

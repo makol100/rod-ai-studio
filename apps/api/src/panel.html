@@ -425,6 +425,43 @@
     .topbar{gap:10px}
   }
 </style>
+
+<style>
+  /* ---- ZAKŁADKI — DOLNY PASEK, jak w apce mobilnej ---- */
+  .taby{
+    position:fixed; left:0; right:0; bottom:0; z-index:100;
+    display:flex; gap:0; padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(12px);
+    border-top:1px solid rgba(0,0,0,.08);
+    box-shadow:0 -4px 20px rgba(0,0,0,.06);
+  }
+  .tab{
+    flex:1; border:0; background:transparent; cursor:pointer;
+    padding:9px 4px 7px; border-radius:12px;
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+    font:600 11px/1.2 inherit; color:var(--muted,#9a958b);
+    transition:color .15s, background .15s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .tab .ico{ font-size:21px; line-height:1 }
+  .tab:active{ background:rgba(0,0,0,.05) }
+  .tab.on{ color:var(--accent,#2E9E7A) }
+  .tab.on .ico{ transform:translateY(-1px) }
+
+  /* miejsce na pasek, zeby nie zaslanial tresci */
+  .wrap{ padding-bottom:96px !important }
+
+  [data-tab]{ display:none }
+  [data-tab].on{ display:block }
+  .pobierz-box{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px }
+  .pobierz-box a{
+    flex:1; min-width:130px; text-align:center; padding:12px;
+    border-radius:10px; text-decoration:none; font-weight:600; font-size:13.5px;
+    background:var(--accent,#2E9E7A); color:#fff;
+  }
+  .pobierz-box a.alt{ background:#fff; color:var(--accent,#2E9E7A); border:2px solid var(--accent,#2E9E7A) }
+</style>
 </head>
 <body>
 <div id="toasts"></div>
@@ -2119,6 +2156,129 @@
   }
   boot();
   window.addEventListener('resize', ()=>{ /* keep fill orientation correct if line already progressed */ });
+})();
+</script>
+
+<script>
+(function(){
+  const wrap = document.querySelector('.wrap');
+  if (!wrap) return;
+
+  // 1) przypisz bloki do zakładek (po nagłówku h2)
+  [...wrap.children].forEach(el => {
+    if (el.classList.contains('grid2')) { el.dataset.tab = 'rolki'; return; }  // Ostatnie rolki + Tematy
+    const h = el.querySelector('h2');
+    const n = h ? h.textContent.trim() : '';
+    if (/Asystent|Nowa rolka/i.test(n))   el.dataset.tab = 'rolki';
+    else if (/Diagnostyka/i.test(n))      el.dataset.tab = 'serwer';
+    else if (/Materiał/i.test(n))         el.dataset.tab = 'film';
+    // "Na żywo" i status — bez data-tab, czyli zawsze widoczne
+  });
+
+  // 2) pasek zakładek — wstaw przed pierwszym blokiem z data-tab
+  const pierwszy = wrap.querySelector('[data-tab]');
+  if (!pierwszy) return;
+  const nav = document.createElement('nav');
+  nav.className = 'taby';
+  nav.innerHTML = `
+    <button class="tab on" data-cel="rolki"><span class="ico">🎬</span>Rolki</button>
+    <button class="tab"    data-cel="film"><span class="ico">🎞️</span>Film</button>
+    <button class="tab"    data-cel="serwer"><span class="ico">⚙️</span>Serwer</button>`;
+  document.body.appendChild(nav);
+
+  // 3) w zakładce FILM — przyciski pobierania gotowych plików
+  const kartaFilm = wrap.querySelector('[data-tab="film"]');
+  if (kartaFilm) {
+    const box = document.createElement('div');
+    box.className = 'pobierz-box';
+    box.innerHTML = `
+      <a href="/film" download>⬇ Pobierz FILM (16:9)</a>
+      <a href="/rolka" download class="alt">⬇ Pobierz ROLKĘ (9:16)</a>`;
+    kartaFilm.appendChild(box);
+  }
+
+  // 4) przełączanie + zapamiętanie wyboru
+  function pokaz(cel){
+    wrap.querySelectorAll('[data-tab]').forEach(el =>
+      el.classList.toggle('on', el.dataset.tab === cel));
+    nav.querySelectorAll('.tab').forEach(b =>
+      b.classList.toggle('on', b.dataset.cel === cel));
+    try { sessionStorage.setItem('fabryka_tab', cel); } catch(e){}
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  nav.addEventListener('click', e => {
+    const b = e.target.closest('.tab');
+    if (b) pokaz(b.dataset.cel);
+  });
+
+  let start = 'rolki';
+  try { start = sessionStorage.getItem('fabryka_tab') || 'rolki'; } catch(e){}
+  pokaz(start);
+})();
+</script>
+
+<script>
+/* ---- OPIS DO PUBLIKACJI: przycisk przy każdej rolce ---- */
+(function(){
+  const CSS = `
+    .opis-btn{
+      width:100%; margin-top:10px; padding:11px; border:0; border-radius:10px;
+      background:var(--accent,#2E9E7A); color:#fff; font:600 13px/1 inherit;
+      cursor:pointer; -webkit-tap-highlight-color:transparent;
+    }
+    .opis-btn:disabled{ opacity:.55 }
+    .opis-box{
+      margin-top:10px; padding:13px; border-radius:10px;
+      background:#fff; border:1px solid rgba(0,0,0,.09);
+      font-size:13.5px; line-height:1.65; white-space:pre-wrap;
+    }
+    .opis-kop{
+      margin-top:9px; width:100%; padding:10px; border-radius:9px; cursor:pointer;
+      background:#fff; color:var(--accent,#2E9E7A);
+      border:2px solid var(--accent,#2E9E7A); font:600 12.5px/1 inherit;
+    }`;
+  const st = document.createElement('style'); st.textContent = CSS;
+  document.head.appendChild(st);
+
+  function podepnij(){
+    document.querySelectorAll('[data-reel-id]').forEach(el => {
+      if (el.querySelector('.opis-btn') || el.querySelector('.opis-box')) return;
+      // tylko rolki GOTOWE — te maja przycisk odtwarzania
+      if (!el.querySelector('[data-action="play-reel"]')) return;
+      const id = el.dataset.reelId;
+      const b = document.createElement('button');
+      b.className = 'opis-btn';
+      b.textContent = '📝 Napisz opis do posta';
+      b.onclick = async () => {
+        b.disabled = true; b.textContent = 'Bielik pisze…';
+        try{
+          const j = await (await fetch('/opis/' + id)).json();
+          if (j.opis){
+            const box = document.createElement('div');
+            box.className = 'opis-box';
+            box.textContent = j.opis;
+            const k = document.createElement('button');
+            k.className = 'opis-kop';
+            k.textContent = '📋 Kopiuj';
+            k.onclick = () => {
+              navigator.clipboard.writeText(j.opis);
+              k.textContent = '✅ Skopiowane';
+              setTimeout(()=> k.textContent='📋 Kopiuj', 1800);
+            };
+            b.replaceWith(box); box.after(k);
+          } else {
+            b.textContent = '❌ ' + (j.info || 'nie wyszło');
+            b.disabled = false;
+          }
+        }catch(e){
+          b.textContent = '❌ ' + e.message; b.disabled = false;
+        }
+      };
+      el.appendChild(b);
+    });
+  }
+  podepnij();
+  new MutationObserver(podepnij).observe(document.body, {childList:true, subtree:true});
 })();
 </script>
 </body>

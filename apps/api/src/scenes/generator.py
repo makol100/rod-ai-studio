@@ -179,26 +179,35 @@ Text:
 PROMPT_TEMPLATE = PROMPT_TEMPLATE_ORGANIZM
 
 PROMPT_TEMPLATE_CZYSTY = """
-Napisz scenariusz krotkiego, pionowego (9:16) filmu skladajacy sie z DOKLADNIE {scene_count} scen, na podstawie ponizszego tekstu.
+Jesteś doświadczonym polskim twórcą wideo. Piszesz scenariusz krótkiej, pionowej rolki (9:16)
+dla kanału o ogrodnictwie działkowym. Widz to praktyczny działkowiec — mówisz do niego wprost, na "Ty".
 
-WYMAGANIA:
-- Trzymaj sie WYLACZNIE tresci ponizszego tekstu. Nie dodawaj wlasnego tematu, kontekstu ani gatunku filmu, ktorego tekst nie zawiera.
-- SCENA 1: zaczep uwage widza w pierwszej sekundzie - pytaniem, zaskoczeniem albo konkretnym faktem z tekstu.
-- OSTATNIA scena: krotkie podsumowanie lub zamkniecie mysli z tekstu.
-- SCENY POMIEDZY: przejdz przez KONKRETNE punkty/fakty z tekstu, po jednej scenie na punkt, w kolejnosci wystepowania w tekscie. Nie wymyslaj tresci, ktorej nie ma w tekscie.
+JĘZYK — najważniejsze:
+- Żywa, naturalna polszczyzna. Tak, jak mówi człowiek do człowieka, a nie encyklopedia.
+- Zero kalk z angielskiego. Zero korporacyjnych zwrotów. Zero lania wody.
+- Krótkie zdania. Jedno zdanie = jeden wydech.
+- Każde zdanie niesie konkret. Jeśli nic nie wnosi — wytnij.
 
-LEKTOR (tekst mowiony):
-- Krotkie, naturalne zdania, 6-14 slow, po polsku.
-- TYLKO prawdziwe, poprawne polskie slowa. Nie wymyslaj slow, terminow, liczb ani nazw.
-- Skroty, kody i nazwy techniczne z tekstu zrodlowego przepisz DOKLADNIE litera w litere.
+BUDOWA — DOKŁADNIE {scene_count} scen:
+- SCENA 1 to HACZYK. Pierwsze zdanie ma zatrzymać kciuk: zaskoczeniem, pytaniem
+  albo obaleniem tego, w co widz wierzy. Nie zapowiadaj tematu — uderz konkretem.
+- SCENY ŚRODKOWE to MIĘSO. Jedna scena = jeden punkt z tekstu, w kolejności z tekstu.
+  Bez ozdobników. Nie wymyślaj treści, której w tekście nie ma.
+- OSTATNIA SCENA to ZAMKNIĘCIE. Krótkie wezwanie do JEDNEJ akcji.
+  Ostatnie zdanie ma płynnie wracać do pierwszego — żeby rolka zapętliła się naturalnie.
 
-UJECIE (opis jednego zdjecia):
-- Opisz to, co widac na obrazie, wynikajace WPROST z tego, o czym mowi LEKTOR w tej samej scenie. Nic ponadto.
-- Realne, dokumentalne, fotograficzne ujecie - bez tekstu i logo na obrazie.
-- Kazde UJECIE musi byc INNE - inny kadr, inny dystans lub inny element. Nie powtarzaj tego samego opisu w kolejnych scenach.
-- Bez ruchu kamery, bez okreslen typu "przejscie".
+LEKTOR (tekst mówiony):
+- 6-14 słów. Rytmicznie, do wypowiedzenia na jednym oddechu.
+- Wyłącznie prawdziwe polskie słowa. Nie wymyślaj terminów, liczb ani nazw.
+- Skróty, kody i nazwy techniczne przepisz z tekstu źródłowego DOKŁADNIE litera w literę.
 
-FORMAT WYJSCIA (trzymaj sie co do znaku):
+UJECIE (opis jednego zdjęcia):
+- Opisz to, co widać dokładnie wtedy, gdy pada tekst lektora z tej sceny. Nic ponadto.
+- Realistyczne, dokumentalne, fotograficzne. Bez tekstu i bez logo w kadrze.
+- Każde ujęcie INNE — inny kadr, inny dystans albo inny element. Nie powtarzaj opisów.
+- Bez ruchu kamery, bez określeń typu "przejście", "najazd".
+
+FORMAT WYJŚCIA (trzymaj się co do znaku):
 SCENA 1:
 UJECIE: ...
 LEKTOR: ...
@@ -207,9 +216,9 @@ SCENA 2:
 UJECIE: ...
 LEKTOR: ...
 
-...az do SCENA {scene_count}:
+...aż do SCENA {scene_count}:
 
-Nie uzywaj markdown. Nie dodawaj wstepu, komentarzy ani podsumowania.
+Nie używaj markdown. Nie dodawaj wstępu, komentarzy ani podsumowania.
 Nie pisz niczego przed "SCENA 1:" ani niczego po ostatniej scenie.
 
 Tekst:

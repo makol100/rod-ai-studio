@@ -130,3 +130,28 @@ def rolka():
     if not os.path.exists(p):
         return {"status": "brak"}
     return FileResponse(p, media_type="video/mp4", filename="ROLKA-ZAPOWIEDZ.mp4")
+
+
+# ---------------------------------------------------------------
+# OPIS DO PUBLIKACJI — generowany Bielikiem z gotowego scenariusza
+# ---------------------------------------------------------------
+@app.get("/opis/{reel_id}")
+def opis_rolki(reel_id: str):
+    from src.opis import generuj_opis
+    try:
+        return generuj_opis(reel_id)
+    except FileNotFoundError as e:
+        return {"status": "brak", "info": str(e)}
+    except Exception as e:
+        return {"status": "blad", "info": str(e)}
+
+
+@app.get("/apk")
+def apk():
+    """Instalka apki — omija problemy Chrome z GitHubem."""
+    from fastapi.responses import FileResponse
+    p = os.path.join(BAZA, "app-debug.apk")
+    if not os.path.exists(p):
+        return {"status": "brak"}
+    return FileResponse(p, media_type="application/vnd.android.package-archive",
+                        filename="FabrykaRolek.apk")
