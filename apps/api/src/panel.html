@@ -2329,5 +2329,57 @@
   };
 })();
 </script>
+
+<script>
+/* ---- ZYWY LICZNIK ETAPU: Bielik odpowiada jednym kawalkiem, wiec miedzy
+   wpisami logu jest cisza. Ten licznik pokazuje, ze cos sie dzieje. ---- */
+(function(){
+  const el = document.createElement('div');
+  el.id = 'etapLicznik';
+  el.style.cssText = 'font:600 12.5px/1.4 monospace;color:#C8922E;padding:8px 12px;'
+    + 'display:none;align-items:center;gap:8px';
+  el.innerHTML = '<span class="pulsak">⏳</span><span id="etapTxt"></span>';
+
+  const st = document.createElement('style');
+  st.textContent = '@keyframes pulsak{0%,100%{opacity:1}50%{opacity:.35}}'
+    + '.pulsak{animation:pulsak 1.6s infinite}';
+  document.head.appendChild(st);
+
+  // wstaw pod naglowkiem "NA ZYWO"
+  function zamontuj(){
+    const naglowki = [...document.querySelectorAll('h2')];
+    const naZywo = naglowki.find(h => /na żywo|na zywo/i.test(h.textContent));
+    if (naZywo && !document.getElementById('etapLicznik')) {
+      const karta = naZywo.closest('.card') || naZywo.parentElement;
+      karta.appendChild(el);
+    }
+  }
+  zamontuj();
+  new MutationObserver(zamontuj).observe(document.body, {childList:true, subtree:true});
+
+  let ts = null, etap = null;
+  async function pobierz(){
+    try{
+      const j = await (await fetch('/aktywne-generowanie')).json();
+      if (j && j.aktywna && j.status && j.status.ts) {
+        // ts z serwera jest w UTC ale BEZ litery Z — bez tej poprawki
+        // przegladarka czyta go jako czas polski i licznik klamie o 2 h
+        const raw = j.status.ts;
+        ts = new Date(/[Z+]/.test(raw.slice(10)) ? raw : raw + 'Z');
+        etap = j.status.etap;
+      } else { ts = null; }
+    }catch(e){ ts = null; }
+  }
+  function tyknij(){
+    if (!ts) { el.style.display = 'none'; return; }
+    el.style.display = 'flex';
+    const s = Math.max(0, Math.floor((Date.now() - ts.getTime()) / 1000));
+    const m = Math.floor(s / 60), r = s % 60;
+    document.getElementById('etapTxt').textContent =
+      `etap „${etap}" trwa ${m ? m + ' min ' : ''}${r} s — Bielik/Qwen mieli, to normalne`;
+  }
+  pobierz(); setInterval(pobierz, 15000); setInterval(tyknij, 1000);
+})();
+</script>
 </body>
 </html>

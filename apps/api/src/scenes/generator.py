@@ -202,6 +202,9 @@ LEKTOR (tekst mówiony):
 - Skróty, kody i nazwy techniczne przepisz z tekstu źródłowego DOKŁADNIE litera w literę.
 
 UJECIE (opis jednego zdjęcia):
+- Akcja dzieje się NA DZIAŁCE: grządki, altana, alejki, krzewy, narzędzia ogrodowe.
+  NIGDY w mieszkaniu, kuchni ani na parapecie i NIGDY na roślinach doniczkowych —
+  chyba że tekst źródłowy wyraźnie mówi inaczej. Widz to działkowiec: ma zobaczyć swój ogród.
 - Opisz to, co widać dokładnie wtedy, gdy pada tekst lektora z tej sceny. Nic ponadto.
 - Realistyczne, dokumentalne, fotograficzne. Bez tekstu i bez logo w kadrze.
 - Każde ujęcie INNE — inny kadr, inny dystans albo inny element. Nie powtarzaj opisów.
@@ -295,7 +298,7 @@ def generate_scenes(text: str, scene_count=None, tryb: str = "organizm") -> str:
 
     template = _TEMPLATES.get(tryb, PROMPT_TEMPLATE_ORGANIZM)
     prompt = template.format(scene_count=count, text=text)
-    result = _normalize(generate(prompt))
+    result = _normalize(generate(prompt, postep_log=postep_log))
 
     # Jeśli model kompletnie spudłował (0 scen), jedna próba naprawcza ze wzmocnieniem formatu.
     if _count(result) < count:
@@ -365,7 +368,7 @@ def generate_scenes_czysty_en(text: str, scene_count=None, model: str = None) ->
 
     prompt = PROMPT_TEMPLATE_CZYSTY_EN.format(scene_count=count, text=text)
     uzyty_model = model or PROMPT_MODEL
-    result = _normalize(generate(prompt, model=uzyty_model, temperature=0.3))
+    result = _normalize(generate(prompt, model=uzyty_model, temperature=0.3, postep_log=postep_log))
 
     if _count(result) < count:
         retry = generate(
@@ -395,7 +398,7 @@ def generate_scenes_czysty(text: str, scene_count=None, model: str = None) -> st
 
     prompt = PROMPT_TEMPLATE_CZYSTY.format(scene_count=count, text=text)
     uzyty_model = model or PROMPT_MODEL
-    result = _normalize(generate(prompt, model=uzyty_model, temperature=0.3))
+    result = _normalize(generate(prompt, model=uzyty_model, temperature=0.3, postep_log=postep_log))
 
     if _count(result) < count:
         retry = generate(

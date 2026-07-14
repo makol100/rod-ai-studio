@@ -11,7 +11,7 @@ PROMPT_MODEL = "qwen3:14b"  # dlugie angielskie prompty obrazow + zadanie NAPRAW
 # Stara Llama ZOSTAJE pobrana na dysku jako bezpieczna droga powrotu.
 
 
-def generate(prompt: str, model: str = None, temperature: float = None, repeat_penalty: float = 1.15, max_tokens: int = 2048):
+def generate(prompt: str, model: str = None, temperature: float = None, repeat_penalty: float = 1.15, max_tokens: int = 2048, postep_log=None):
     options = {
         "num_ctx": 8192,  # 8192 to twardy sufit architektury Bielika - wiecej nie ma sensu
         "num_predict": max_tokens,  # domyslnie 2048; podbij dla dlugich odpowiedzi (np. audyt = wady + caly przepisany scenariusz)
@@ -20,19 +20,57 @@ def generate(prompt: str, model: str = None, temperature: float = None, repeat_p
     if temperature is not None:
         options["temperature"] = temperature
 
-    response = requests.post(
+    # postep_log: opcjonalny callback (str) -> None. Gdy podany, uzywamy
+    # streamingu i co ~20 s raportujemy liczbe znakow — zeby w panelu
+    # bylo widac, ze Bielik zyje, a nie wisi.
+    if postep_log is None:
+        response = requests.post(
+            OLLAMA_URL,
+            json={
+                "model": model or DEFAULT_MODEL,
+                "prompt": prompt,
+                "stream": False,
+                "options": options,
+            },
+            timeout=600,
+        )
+        response.raise_for_status()
+        return response.json()["response"]
+
+    import json as _json
+    import time as _time
+    czesci = []
+    ostatni_raport = _time.time()
+    with requests.post(
         OLLAMA_URL,
         json={
             "model": model or DEFAULT_MODEL,
             "prompt": prompt,
-            "stream": False,
+            "stream": True,
             "options": options,
         },
         timeout=600,
-    )
-
-    response.raise_for_status()
-    return response.json()["response"]
+        stream=True,
+    ) as response:
+        response.raise_for_status()
+        for linia in response.iter_lines():
+            if not linia:
+                continue
+            try:
+                d = _json.loads(linia)
+            except Exception:
+                continue
+            czesci.append(d.get("response", ""))
+            if d.get("done"):
+                break
+            teraz = _time.time()
+            if teraz - ostatni_raport >= 20:
+                ostatni_raport = teraz
+                try:
+                    postep_log(f"…{sum(len(x) for x in czesci)} znaków")
+                except Exception:
+                    pass
+    return "".join(czesci)
 
 
 def has_repetition_loop(text: str, min_len: int = 25, min_repeats: int = 4) -> bool:

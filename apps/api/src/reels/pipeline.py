@@ -79,15 +79,15 @@ def _przygotuj_prompty_na_checkpoint(folder: Path, scenariusz: str, tryb_jezykow
     patrz reel_checkpoint_zapisz w topics.py, ktore wlasnie to robi)."""
     from src.ai.ollama import PROMPT_MODEL, DEFAULT_MODEL
     if tryb_jezykowy in ("en_pl", "czysty"):
-        prompty = generate_image_prompts_czysty(scenariusz)
+        prompty = generate_image_prompts_czysty(scenariusz, on_progress=lambda i, n: _log(f"   prompt {i}/{n}"))
     elif tryb_jezykowy == "czysty_bielik":
         # NAPRAWIONE (rolka 000081): musi isc przez _czysty (bez sekcji
         # "kalarepa/koper" z SINGLE_SCENE_HEADER), inaczej Bielik dostaje
         # szablon narzucajacy "to ma byc ogrod" i albo odmawia dla scen
         # niezwiazanych z ogrodem, albo sam wymysla warzywa ignorujac scene.
-        prompty = generate_image_prompts_czysty(scenariusz, model=DEFAULT_MODEL, jezyk="pl")
+        prompty = generate_image_prompts_czysty(scenariusz, model=DEFAULT_MODEL, jezyk="pl", on_progress=lambda i, n: _log(f"   prompt {i}/{n}"))
     else:
-        prompty = generate_image_prompts(scenariusz)
+        prompty = generate_image_prompts(scenariusz, on_progress=lambda i, n: _log(f"   prompt {i}/{n}"))
     save_text(folder, "prompts.txt", prompty)
     return prompty
 
@@ -667,7 +667,7 @@ def generate_reel(prompt: str, scene_count=None, tryb: str = "organizm", folder=
             from src.ai.ollama import DEFAULT_MODEL
             from src.scenes.generator import generate_scenes_czysty
             _log("artykul (CZYSTA DROGA BIELIK, po polsku)…")
-            article = generate(prompt)  # domyslny model = Bielik (DEFAULT_MODEL)
+            article = generate(prompt, postep_log=lambda t: _log(f"   artykul {t}"))  # Bielik
             save_text(folder, "article.md", article)
             result["article_file"] = str(folder / "article.md")
             if has_repetition_loop(article):
@@ -675,7 +675,7 @@ def generate_reel(prompt: str, scene_count=None, tryb: str = "organizm", folder=
                 ostrzezenia.append({"etap": "artykul", "fragment": article[:150]})
 
             _log("sceny (CZYSTA DROGA BIELIK, po polsku, bez szablonu tematycznego)…")
-            scenes = generate_scenes_czysty(article, scene_count, model=DEFAULT_MODEL)
+            scenes = generate_scenes_czysty(article, scene_count, model=DEFAULT_MODEL, postep_log=lambda t: _log(f'   sceny {t}'))
             if has_repetition_loop(scenes):
                 _log("OSTRZEZENIE: wykryto petle powtorzen w scenariuszu!")
                 ostrzezenia.append({"etap": "scenariusz", "fragment": scenes[:150]})
@@ -718,7 +718,7 @@ def generate_reel(prompt: str, scene_count=None, tryb: str = "organizm", folder=
 
         # SCIEZKA "pl" (domyslna, NIEZMIENIONA od dzisiejszej konsolidacji modeli)
         _log("artykul…")
-        article = generate(prompt)
+        article = generate(prompt, postep_log=lambda t: _log(f"   artykul {t}"))
         save_text(folder, "article.md", article)
         result["article_file"] = str(folder / "article.md")
         if has_repetition_loop(article):
@@ -726,7 +726,7 @@ def generate_reel(prompt: str, scene_count=None, tryb: str = "organizm", folder=
             ostrzezenia.append({"etap": "artykul", "fragment": article[:150]})
 
         _log("sceny…")
-        scenes = generate_scenes(article, scene_count, tryb=tryb)
+        scenes = generate_scenes(article, scene_count, tryb=tryb, postep_log=lambda t: _log(f'   sceny {t}'))
         if has_repetition_loop(scenes):
             _log("OSTRZEZENIE: wykryto petle powtorzen w scenariuszu!")
             ostrzezenia.append({"etap": "scenariusz", "fragment": scenes[:150]})
