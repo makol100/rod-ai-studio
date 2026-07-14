@@ -1074,3 +1074,11 @@ Progi: 75+ IDŹ DO LASU / 55+ warto sprawdzić / 30+ coś się rusza / sucho.
 Pierwszy odczyt 14.07: **100/100 wszędzie** (37mm/10d, 16.5°C) — zgadza się z gotującą się grupą FB.
 DO ZROBIENIA: link/kafelek na ogrodnik-rod.pages.dev (deploy CF jest po stronie Tomasza — na VPS
 nie ma wranglera); ewentualnie kalibracja progów po sezonie; powiadomienie w apce przy 75+.
+
+## 🍄 BAROMETR → POWIADOMIENIA (14.07, dokończone)
+Decyzja Tomasza: "Nie musi być za każdym razem rolka. Wystarczą powiadomienia."
+Endpoint: GET /barometr/sygnal → {data, wynik, status, alarm: wynik>=75}
+Apka (NotifWorker, ten sam worker co rolki): przy alarmie powiadomienie
+"Barometr: N/100 🍄 IDŹ DO LASU" — **max RAZ NA DOBĘ** (klucz: barometr_dzien w SharedPreferences).
+Tap → strona /barometr. Kanał notyfikacji: "barometr". APK v1.3 na GitHub + panel (/apk).
+Rolka z barometru = opcja ręczna, nie automat.
