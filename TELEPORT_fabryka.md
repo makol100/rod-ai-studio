@@ -1147,3 +1147,7 @@ Tomasza i publikację.
 Szare mydło na mszyce — pierwsza rolka w pełni z nowego świata: nowy prompt
 (haczyk/pętla), czysty_bielik, reguła "akcja na działce", patch anty-cegła.
 Temat 611 z nowej kategorii "Pogotowie: choroby i szkodniki".
+
+## N150 — ZAMROŻONE (decyzja Tomasza 14.07)
+Migracja i ściąganie backupów z Nuki: NIE ruszać, NIE proponować. Tomasz wraca
+do tematu sam, kiedy zechce. (Ryzyko backupów na starym serwerze — zakomunikowane.)
