@@ -1,3 +1,8 @@
+> ⚡ **SECOND BRAIN (od 14.07.2026):** zanim zaczniesz czytać ten dziennik,
+> przeczytaj `wiedza/INDEX.md` i potrzebne destylaty (ARCHITEKTURA / PROCEDURY /
+> NAUKI / STYL). Ten plik to DZIENNIK sesji — czytaj tylko ostatnie sekcje
+> i zaległości. Trwałe wnioski z każdej sesji lądują w `wiedza/`, nie tutaj.
+
 # TELEPORT — Fabryka Rolek (ROD Woźniki)
 **Ostatnia pełna rekonstrukcja: 08.07.2026, ~14:00 (po odkryciu że plik był nadpisywany zamiast dopisywany — patrz sekcja na końcu)**
 
@@ -1130,3 +1135,10 @@ Checkpoint uratował koszty (obrazy nie ruszyły). 000092 przerwana, 000093 odpa
 **REGUŁA: rolki odpalane przez Claude przez API = ZAWSZE tryb_jezykowy="czysty_bielik"**
 (wartości: "pl"=zwykła, "czysty"=Qwen EN→PL, "czysty_bielik"=wszystko Bielikiem po polsku).
 Panel ma "czysty_bielik" jako selected — to jest tryb testowany przez Tomasza.
+
+## SECOND BRAIN URUCHOMIONY (14.07, wieczór)
+Katalog `wiedza/`: INDEX + ARCHITEKTURA + PROCEDURY + NAUKI + STYL — destylaty
+zamiast kroniki. Protokół: sesja startuje od INDEX, teleport czytany wybiórczo
+(ostatnia sesja + zaległości). Rolka 000093 (szare mydło na mszyce): GOTOWA po patchu
+(lektor "Szare mydło", obrazy 1-2 z kotwicą anty-cegła, $0.30). Czeka na ocenę
+Tomasza i publikację.
