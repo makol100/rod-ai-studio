@@ -1122,3 +1122,11 @@ Sprzątanie po Bieliku: 113 tematów z resztkami markdown (**) naprawione; 1 be�
 w Trawniku). Dezaktywowane NIE skasowane — aktywny=0, do ew. przeglądu w panelu.
 STAN AKTYWNYCH: Owoce 37, Pogotowie 42, Woda 36, Zbiory 30, Zima 44, Trawnik 42.
 Backup bazy sprzed operacji: data/content.db.bak-20260714-1510.
+
+## ⚠️ BŁĄD I NAUKA (14.07 wieczór): tryb_jezykowy przy odpalaniu przez API
+Odpaliłem 000092 z tryb_jezykowy="pl" (ZWYKŁA rolka) zamiast "czysty_bielik" —
+prompty poszły Qwenem PO ANGIELSKU, scenariusz starym szablonem. Tomasz słusznie wkurzony.
+Checkpoint uratował koszty (obrazy nie ruszyły). 000092 przerwana, 000093 odpalona poprawnie.
+**REGUŁA: rolki odpalane przez Claude przez API = ZAWSZE tryb_jezykowy="czysty_bielik"**
+(wartości: "pl"=zwykła, "czysty"=Qwen EN→PL, "czysty_bielik"=wszystko Bielikiem po polsku).
+Panel ma "czysty_bielik" jako selected — to jest tryb testowany przez Tomasza.
