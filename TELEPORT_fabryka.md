@@ -1060,3 +1060,17 @@ Workflow: jawny debug keystore + weryfikacja apksigner po buildzie.
 ⚠️ Chrome Tomasza nie zapisywał pobrania z GitHuba → **APK wystawiony też na panelu: GET /apk**.
 Po każdym buildzie skopiować nowy APK do data/rolka-prad/app-debug.apk (TODO: zautomatyzować w workflow).
 Samsung ubija tło → jak powiadomienia znikną: bateria dla Fabryki = "bez ograniczeń".
+
+## 🍄 TESTOWY BAROMETR GRZYBIARZA (14.07)
+Pomysł Tomasza: grupa FB "Grzybiarze-woj. Śląskie" (86k, PRYWATNA) pokazuje że się sypie.
+Scraping grupy = ryzyko blokady konta FB → NIE robimy. Zamiast tego SYGNAŁ Z POGODY.
+
+**Strona: https://panel.157-90-155-155.sslip.io/barometr** (+ /barometr.json dla integracji)
+Kod: `apps/api/src/barometr.py` + `barometr.html`. Cache 3h (Open-Meteo, bez klucza, legalnie).
+4 lokalizacje: Woźniki, Lubliniec, Koszęcin, Boronów.
+Algorytm 0-100: opady 10d (→45 pkt, nasycenie 25mm) + deszcz sprzed 4-10 dni (→15, grzybnia
+potrzebuje czasu) + temp 5d (→40, optimum 12-19°C) − kara przymrozek (−20).
+Progi: 75+ IDŹ DO LASU / 55+ warto sprawdzić / 30+ coś się rusza / sucho.
+Pierwszy odczyt 14.07: **100/100 wszędzie** (37mm/10d, 16.5°C) — zgadza się z gotującą się grupą FB.
+DO ZROBIENIA: link/kafelek na ogrodnik-rod.pages.dev (deploy CF jest po stronie Tomasza — na VPS
+nie ma wranglera); ewentualnie kalibracja progów po sezonie; powiadomienie w apce przy 75+.

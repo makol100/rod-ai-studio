@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testowy barometr grzybiarza — Woźniki</title>
+<style>
+  :root{ --tlo:#F7F3EA; --tekst:#2C2C2C; --muted:#6B675E; --linia:#C9C3B4; --karta:#FFFFFF; }
+  *{ box-sizing:border-box }
+  body{ margin:0; background:var(--tlo); color:var(--tekst);
+        font-family:'Segoe UI',system-ui,sans-serif; padding:20px 14px 50px }
+  .wrap{ max-width:640px; margin:0 auto }
+  h1{ font-size:26px; margin:6px 0 2px }
+  .sub{ color:var(--muted); font-size:14px; margin-bottom:22px }
+  .badge{ display:inline-block; font-size:11px; font-weight:700; letter-spacing:.06em;
+          padding:3px 9px; border-radius:20px; background:#C8922E22; color:#8a6420;
+          border:1px solid #C8922E55; vertical-align:middle; margin-left:8px }
+
+  .zegar{ background:var(--karta); border-radius:18px; padding:28px 20px; text-align:center;
+          box-shadow:0 2px 14px rgba(0,0,0,.06); margin-bottom:16px }
+  .kolo{ width:170px; height:170px; border-radius:50%; margin:0 auto 14px;
+         display:flex; flex-direction:column; align-items:center; justify-content:center;
+         border:10px solid var(--kolor,#2E9E7A); }
+  .kolo .num{ font-size:52px; font-weight:800; line-height:1 }
+  .kolo .max{ font-size:13px; color:var(--muted) }
+  .status{ font-size:24px; font-weight:800; color:var(--kolor,#2E9E7A) }
+  .opis{ color:var(--muted); font-size:14.5px; margin-top:6px }
+
+  .karta{ background:var(--karta); border-radius:14px; padding:16px;
+          box-shadow:0 2px 10px rgba(0,0,0,.05); margin-bottom:14px }
+  .karta h2{ font-size:15px; margin:0 0 12px; color:var(--muted);
+             text-transform:uppercase; letter-spacing:.04em }
+  .lok{ display:flex; align-items:center; gap:10px; padding:9px 0;
+        border-bottom:1px solid var(--linia) }
+  .lok:last-child{ border-bottom:0 }
+  .lok .n{ flex:1; font-weight:600 }
+  .pasek{ flex:2; height:9px; background:#00000010; border-radius:6px; overflow:hidden }
+  .pasek i{ display:block; height:100% }
+  .lok .w{ width:34px; text-align:right; font-weight:700 }
+
+  .slupki{ display:flex; align-items:flex-end; gap:4px; height:90px; margin-top:6px }
+  .slupek{ flex:1; display:flex; flex-direction:column; align-items:center; gap:4px }
+  .slupek i{ display:block; width:100%; background:#3AAFC9; border-radius:4px 4px 0 0; min-height:2px }
+  .slupek span{ font-size:9.5px; color:var(--muted) }
+
+  .czynniki td{ padding:5px 0; font-size:13.5px }
+  .czynniki td:last-child{ text-align:right; font-weight:700 }
+
+  .stopka{ color:var(--muted); font-size:12px; line-height:1.6; margin-top:18px }
+  .odswiez{ text-align:center; color:var(--muted); font-size:12px; margin-top:8px }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🍄 Barometr grzybiarza <span class="badge">TESTOWY</span></h1>
+  <div class="sub">Woźniki i lasy w promieniu ~20 km · liczony z pogody, nie z plotek</div>
+
+  <div class="zegar" id="zegar">
+    <div class="kolo"><div class="num" id="wynik">…</div><div class="max">/ 100</div></div>
+    <div class="status" id="status">ładuję…</div>
+    <div class="opis" id="opis"></div>
+  </div>
+
+  <div class="karta">
+    <h2>Lasy w okolicy</h2>
+    <div id="lokalizacje"></div>
+  </div>
+
+  <div class="karta">
+    <h2>Opady — ostatnie 10 dni (Woźniki)</h2>
+    <div class="slupki" id="slupki"></div>
+  </div>
+
+  <div class="karta">
+    <h2>Z czego liczony wynik</h2>
+    <table class="czynniki" id="czynniki" style="width:100%"></table>
+  </div>
+
+  <div class="odswiez" id="aktualizacja"></div>
+
+  <div class="stopka">
+    Wersja testowa. Wskaźnik liczy: opady z 10 dni (do 45 pkt), deszcz sprzed 4–10 dni —
+    grzybnia potrzebuje czasu (do 15 pkt), temperaturę z 5 dni (do 40 pkt) i karę za przymrozek (−20).
+    Dane: Open-Meteo. <b>Barometr nie zastępuje spaceru do lasu</b> — mówi tylko,
+    czy pogoda dała grzybom szansę.
+    <br><br>ROD im. Józefa Lompy, Woźniki
+  </div>
+</div>
+
+<script>
+(async function(){
+  const d = await (await fetch('/barometr.json')).json();
+  document.documentElement.style.setProperty('--kolor', d.kolor);
+  document.getElementById('wynik').textContent = d.wynik;
+  document.getElementById('status').textContent = d.status;
+  document.getElementById('opis').textContent = d.opis;
+  document.getElementById('aktualizacja').textContent =
+      'aktualizacja: ' + d.aktualizacja + ' · odświeża się co 3 h';
+
+  const lok = document.getElementById('lokalizacje');
+  d.lokalizacje.forEach(l => {
+    if (l.blad) return;
+    const kol = l.wynik >= 75 ? '#1F7A5C' : l.wynik >= 55 ? '#2E9E7A'
+              : l.wynik >= 30 ? '#C8922E' : '#A2533F';
+    lok.insertAdjacentHTML('beforeend',
+      `<div class="lok"><div class="n">${l.nazwa}</div>
+       <div class="pasek"><i style="width:${l.wynik}%;background:${kol}"></i></div>
+       <div class="w">${l.wynik}</div></div>`);
+  });
+
+  const w = d.lokalizacje.find(x => x.nazwa === 'Woźniki' && !x.blad);
+  if (w){
+    const max = Math.max(...w.opady_dzienne, 5);
+    const sl = document.getElementById('slupki');
+    w.opady_dzienne.forEach((mm, i) => {
+      const dzien = w.dni[i].slice(8) + '.' + w.dni[i].slice(5,7);
+      sl.insertAdjacentHTML('beforeend',
+        `<div class="slupek"><i style="height:${Math.round(mm/max*78)+2}px"
+          title="${mm} mm"></i><span>${dzien}</span></div>`);
+    });
+    const s = w.skladowe;
+    document.getElementById('czynniki').innerHTML =
+      `<tr><td>Opady 10 dni (${w.opady_10dni_mm} mm)</td><td>+${s.deszcz}</td></tr>
+       <tr><td>Deszcz sprzed 4–10 dni (${w.opady_4_10dni_mm} mm)</td><td>+${s.bonus_stary_deszcz}</td></tr>
+       <tr><td>Temperatura 5 dni (${w.temp_srednia_5dni}°C)</td><td>+${s.temperatura}</td></tr>
+       <tr><td>Przymrozek (min ${w.temp_min_5dni}°C)</td><td>${s.kara_przymrozek}</td></tr>`;
+  }
+})();
+</script>
+</body>
+</html>

@@ -155,3 +155,19 @@ def apk():
         return {"status": "brak"}
     return FileResponse(p, media_type="application/vnd.android.package-archive",
                         filename="FabrykaRolek.apk")
+
+
+# ---------------------------------------------------------------
+# TESTOWY BAROMETR GRZYBIARZA — Wozniki i okolice
+# ---------------------------------------------------------------
+@app.get("/barometr")
+def barometr_strona():
+    from fastapi.responses import HTMLResponse
+    with open("/app/src/barometr.html", encoding="utf-8") as f:
+        return HTMLResponse(f.read())
+
+
+@app.get("/barometr.json")
+def barometr_dane():
+    from src.barometr import dane
+    return dane()

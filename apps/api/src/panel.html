@@ -2281,5 +2281,53 @@
   new MutationObserver(podepnij).observe(document.body, {childList:true, subtree:true});
 })();
 </script>
+
+<script>
+/* ---- TRYB SOLO: kafel w apce otwiera TYLKO swoja sekcje ----
+   Apka (WebActivity) po zaladowaniu strony wola scrollIntoView na karcie
+   z wybranym numerem. Przechwytujemy to wywolanie: zamiast przewijac,
+   chowamy caly panel poza ta jedna karta + dolny pasek zakladek.
+   Zero zmian w APK — dziala z apka, ktora Tomasz juz ma. */
+(function(){
+  const kartyPanelu = () => document.querySelectorAll('.wrap > [data-tab], .wrap > .grid2, .wrap > .card');
+
+  function solo(karta){
+    // pokaz zakladke, w ktorej siedzi karta (inaczej jest display:none)
+    document.querySelectorAll('[data-tab]').forEach(el => el.classList.remove('on'));
+    const rodzicTab = karta.closest('[data-tab]');
+    if (rodzicTab) rodzicTab.classList.add('on');
+
+    // schowaj wszystko poza galezia prowadzaca do karty
+    kartyPanelu().forEach(el => {
+      if (el !== karta && !el.contains(karta)) el.style.display = 'none';
+    });
+    // w gridzie dwoch kart — schowaj sasiada
+    const grid = karta.closest('.grid2');
+    if (grid) [...grid.children].forEach(ch => {
+      if (ch !== karta && !ch.contains(karta)) ch.style.display = 'none';
+    });
+    // pasek zakladek precz, margines precz
+    const taby = document.querySelector('.taby');
+    if (taby) taby.style.display = 'none';
+    const wrap = document.querySelector('.wrap');
+    if (wrap) wrap.style.paddingBottom = '24px';
+
+    // naglowek "Na zywo" zostaje — jest nad zakladkami i zawsze przydatny
+    window.scrollTo(0, 0);
+  }
+
+  // przechwyc scrollIntoView wylacznie na kartach panelu
+  const orig = Element.prototype.scrollIntoView;
+  Element.prototype.scrollIntoView = function(...args){
+    const karta = this.closest ? (this.closest('.card') || this) : this;
+    if (karta.classList && karta.classList.contains('card') &&
+        karta.querySelector('.sec-head')) {
+      solo(karta);
+      return;
+    }
+    return orig.apply(this, args);
+  };
+})();
+</script>
 </body>
 </html>
