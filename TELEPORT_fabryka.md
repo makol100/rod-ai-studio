@@ -1142,3 +1142,8 @@ zamiast kroniki. Protokół: sesja startuje od INDEX, teleport czytany wybiórcz
 (ostatnia sesja + zaległości). Rolka 000093 (szare mydło na mszyce): GOTOWA po patchu
 (lektor "Szare mydło", obrazy 1-2 z kotwicą anty-cegła, $0.30). Czeka na ocenę
 Tomasza i publikację.
+
+## 000093 OPUBLIKOWANA (14.07 ~21:30) ✔
+Szare mydło na mszyce — pierwsza rolka w pełni z nowego świata: nowy prompt
+(haczyk/pętla), czysty_bielik, reguła "akcja na działce", patch anty-cegła.
+Temat 611 z nowej kategorii "Pogotowie: choroby i szkodniki".
