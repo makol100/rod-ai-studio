@@ -45,7 +45,7 @@ def _notify_telegram(folder: Path, result: dict):
     import requests
     try:
         reel_id = folder.name
-        video_url = f"http://157-90-155-155.sslip.io:8000/reels/{reel_id}/video"
+        video_url = f"https://panel.157-90-155-155.sslip.io/reels/{reel_id}/video"
         caption = f"\U0001F3AC Rolka {reel_id} gotowa!\n{video_url}"
         requests.post(
             "https://kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa/api/webhook/fabryka_rolka_gotowa",
@@ -100,7 +100,7 @@ def _notify_telegram_checkpoint(folder: Path, ostrzezenia: list = None):
     import requests
     try:
         reel_id = folder.name
-        link = "http://157-90-155-155.sslip.io:8000/panel"
+        link = "https://panel.157-90-155-155.sslip.io/panel"
         if ostrzezenia:
             ostrzezenie_txt = "\n⚠️ Automatyczny detektor zglosil uwage - sprawdz uwaznie przed zatwierdzeniem."
         else:
