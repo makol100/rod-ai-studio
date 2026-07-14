@@ -1103,3 +1103,13 @@ wątkiem Telegrama; tekst posta NIE powstał, publikacja NIE wykonana. Mechanizm
 jest w HA Dom: shell_command lb_fb_post / lb_fb_photo.py w /config/www/rod/).
 **ZALEGŁE 2:** dogenerowanie tematów Bielikiem do 6 nowych kategorii (po ~40 szt.) — Tomasz
 nie odpowiedział na "odpalać?", w międzyczasie zszedł na barometr.
+
+## 🍄 BAROMETR — POST NA FB OPUBLIKOWANY (14.07, ~19:30)
+Post ID: 1174205105781401_122109342237379813 (strona ROD Woźniki, photo post).
+Grafika: `data/rolka-prad/barometr_fb.jpg` (1200x630, styl jasny, generator: PIL na hoście,
+skrypt jednorazowy — dane z /barometr.json na żywo).
+Tekst: zapowiedź + jak działa + odczyt 100/100 + link https://barometr.157-90-155-155.sslip.io/barometr
++ zastrzeżenie TESTOWY. Hasztagi: #RODWoźniki #grzyby #Woźniki #naGrzyby.
+Mechanizm: dwustopniowy Graph API v25.0 (jak burzówki, token z lb_fb_post.py na HA Dom).
+⚠️ Skrypt publikujący był w /tmp kontenera (token!) — NIE trafił do repo, usunięty z hosta.
+ZALEGŁE nadal: kafelek barometru na ogrodnik-rod.pages.dev (deploy po stronie Tomasza).
