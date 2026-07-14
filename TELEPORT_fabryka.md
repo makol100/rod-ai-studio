@@ -1113,3 +1113,12 @@ Tekst: zapowiedź + jak działa + odczyt 100/100 + link https://barometr.157-90-
 Mechanizm: dwustopniowy Graph API v25.0 (jak burzówki, token z lb_fb_post.py na HA Dom).
 ⚠️ Skrypt publikujący był w /tmp kontenera (token!) — NIE trafił do repo, usunięty z hosta.
 ZALEGŁE nadal: kafelek barometru na ogrodnik-rod.pages.dev (deploy po stronie Tomasza).
+
+## KATEGORIE — DOKOŃCZONE (14.07, wieczór) ✔
+Bielik dogenerował 201 tematów do 6 nowych kategorii (skrypt tools/dogeneruj_tematy.py,
+podgrupy z własnymi miesiącami, few-shot z bazy, dedup po tytule).
+Sprzątanie po Bieliku: 113 tematów z resztkami markdown (**) naprawione; 1 bełkot usunięty;
+18 dezaktywowanych (tytuł = kadr zamiast nazwy, np. "Ujęcie góry:..."); 1 off-topic (orzechy
+w Trawniku). Dezaktywowane NIE skasowane — aktywny=0, do ew. przeglądu w panelu.
+STAN AKTYWNYCH: Owoce 37, Pogotowie 42, Woda 36, Zbiory 30, Zima 44, Trawnik 42.
+Backup bazy sprzed operacji: data/content.db.bak-20260714-1510.
