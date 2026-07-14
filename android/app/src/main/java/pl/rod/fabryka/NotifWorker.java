@@ -82,11 +82,58 @@ public class NotifWorker extends Worker {
 
             sp.edit().putInt(KEY_LAST, noweId).apply();
             powiadom(noweId, tytul);
+            sprawdzBarometr(sp);
             return Result.success();
 
         } catch (Exception e) {
+            try { sprawdzBarometr(getApplicationContext()
+                    .getSharedPreferences(PREFS, Context.MODE_PRIVATE)); } catch (Exception x) {}
             return Result.retry();
         }
+    }
+
+    /** Raz na dobę, tylko przy wyniku 75+: "idź do lasu". */
+    private void sprawdzBarometr(SharedPreferences sp) {
+        try {
+            HttpURLConnection con = (HttpURLConnection)
+                    new URL("https://panel.157-90-155-155.sslip.io/barometr/sygnal").openConnection();
+            con.setConnectTimeout(10000);
+            con.setReadTimeout(10000);
+            StringBuilder sb = new StringBuilder();
+            try (BufferedReader r = new BufferedReader(
+                    new InputStreamReader(con.getInputStream(), "UTF-8"))) {
+                String l;
+                while ((l = r.readLine()) != null) sb.append(l);
+            }
+            JSONObject j = new JSONObject(sb.toString());
+            if (!j.optBoolean("alarm", false)) return;
+
+            String dzis = j.optString("data", "");
+            if (dzis.equals(sp.getString("barometr_dzien", ""))) return;  // juz dzis bylo
+            sp.edit().putString("barometr_dzien", dzis).apply();
+
+            Context ctx = getApplicationContext();
+            NotificationManager nm =
+                    (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                nm.createNotificationChannel(new NotificationChannel(
+                        "barometr", "Barometr grzybiarza", NotificationManager.IMPORTANCE_DEFAULT));
+            }
+            Intent i = new Intent(Intent.ACTION_VIEW,
+                    android.net.Uri.parse("https://panel.157-90-155-155.sslip.io/barometr"));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent pi = PendingIntent.getActivity(ctx, 7500, i,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+            Notification n = new NotificationCompat.Builder(ctx, "barometr")
+                    .setSmallIcon(android.R.drawable.star_on)
+                    .setContentTitle("Barometr: " + j.optInt("wynik") + "/100 \uD83C\uDF44")
+                    .setContentText("IDŹ DO LASU — po tej pogodzie powinno się sypać")
+                    .setContentIntent(pi)
+                    .setAutoCancel(true)
+                    .build();
+            nm.notify(7500, n);
+        } catch (Exception ignored) {}
     }
 
     private void powiadom(int id, String tytul) {

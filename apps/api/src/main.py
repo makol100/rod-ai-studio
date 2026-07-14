@@ -171,3 +171,18 @@ def barometr_strona():
 def barometr_dane():
     from src.barometr import dane
     return dane()
+
+
+@app.get("/barometr/sygnal")
+def barometr_sygnal():
+    """Sygnał dla apki: czy dziś warto krzyknąć 'idź do lasu'.
+    Zwraca datę jako klucz — apka powiadamia raz na dobę, przy wyniku 75+."""
+    from src.barometr import dane
+    import datetime as dt
+    d = dane()
+    return {
+        "data": dt.date.today().isoformat(),
+        "wynik": d["wynik"],
+        "status": d["status"],
+        "alarm": d["wynik"] >= 75,
+    }
