@@ -1082,3 +1082,24 @@ Apka (NotifWorker, ten sam worker co rolki): przy alarmie powiadomienie
 "Barometr: N/100 🍄 IDŹ DO LASU" — **max RAZ NA DOBĘ** (klucz: barometr_dzien w SharedPreferences).
 Tap → strona /barometr. Kanał notyfikacji: "barometr". APK v1.3 na GitHub + panel (/apk).
 Rolka z barometru = opcja ręczna, nie automat.
+
+## 🍄 BAROMETR — KOMPLET KANAŁÓW + IZOLACJA (14.07, wieczór)
+**Publiczny adres (bezpieczny):** https://barometr.157-90-155-155.sslip.io/barometr
+Caddy: nowa subdomena przepuszcza TYLKO /barometr* — /panel, /upload, /apk zwracają 404.
+(Panel ma otwarty /upload bez hasła — dlatego NIE wystawiamy publicznie adresu panel.*)
+Caddyfile: /root/claude-vps-mcp/Caddyfile (backup: .bak-barometr).
+
+**Telegram przez HA Dom (jak burzówki):**
+- sensor REST `sensor.barometr_grzybiarza` w configuration.yaml (scan 3h, atrybuty: status/opis/aktualizacja)
+- automatyzacja `automation.barometr_grzybiarza_telegram`: codziennie 8:00, warunek >=75,
+  telegram_bot.send_message z templatek. Trigger CZASOWY = max 1 powiadomienie/dobę.
+- HA Dom zrestartowany 14.07 ~18:00 (restart zwrócił error, ale przeszedł — HA wstał).
+- Test end-to-end wysłany; Tomasz potwierdza działanie ("Aktualizacja wszędzie" = domknięcie).
+
+**Kanały powiadomień barometru:** (1) apka Android — NotifWorker, próg 75, 1×/dobę;
+(2) Telegram — HA Dom, 8:00, próg 75. Strona zawsze: /barometr.
+**ZALEGŁE:** zapowiedź barometru na FB (Tomasz prosił "przygotuj i wystawiaj" — przerwane
+wątkiem Telegrama; tekst posta NIE powstał, publikacja NIE wykonana. Mechanizm FB photo post
+jest w HA Dom: shell_command lb_fb_post / lb_fb_photo.py w /config/www/rod/).
+**ZALEGŁE 2:** dogenerowanie tematów Bielikiem do 6 nowych kategorii (po ~40 szt.) — Tomasz
+nie odpowiedział na "odpalać?", w międzyczasie zszedł na barometr.
