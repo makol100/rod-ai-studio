@@ -279,7 +279,7 @@ def _count(raw: str) -> int:
     return len(_COUNT_RE.findall(raw))
 
 
-def generate_scenes(text: str, scene_count=None, tryb: str = "organizm") -> str:
+def generate_scenes(text: str, scene_count=None, tryb: str = "organizm", postep_log=None) -> str:
     """
     Główna funkcja etapu 1. Zwraca surowy, znormalizowany scenariusz (string).
 
@@ -353,7 +353,7 @@ Text:
 """.strip()
 
 
-def generate_scenes_czysty_en(text: str, scene_count=None, model: str = None) -> str:
+def generate_scenes_czysty_en(text: str, scene_count=None, model: str = None, postep_log=None) -> str:
     """CZYSTA DROGA, wariant EN (Dyskusja 09.07.2026, poprawiona architektura na
     zadanie Tomasza): scenariusz po angielsku (jak w sciezce zapowiedzi), zeby
     obrazy FLUX szly z angielskiego promptu, a tlumaczenie lektora na polski
@@ -381,7 +381,7 @@ def generate_scenes_czysty_en(text: str, scene_count=None, model: str = None) ->
     return result
 
 
-def generate_scenes_czysty(text: str, scene_count=None, model: str = None) -> str:
+def generate_scenes_czysty(text: str, scene_count=None, model: str = None, postep_log=None) -> str:
     """Czysta sciezka (Dyskusja 09.07.2026, na zadanie Tomasza): ZERO nakladek
     tematycznych ROD/ogrodnictwo - neutralny szablon PROMPT_TEMPLATE_CZYSTY,
     domyslnie model Qwen3:14B (PROMPT_MODEL) zamiast Bielika, bo Bielik przy
@@ -411,7 +411,7 @@ def generate_scenes_czysty(text: str, scene_count=None, model: str = None) -> st
     return result
 
 
-def generate_scenes_en(text: str, scene_count=None, tryb: str = "organizm") -> str:
+def generate_scenes_en(text: str, scene_count=None, tryb: str = "organizm", postep_log=None) -> str:
     """Wariant generate_scenes() dla sciezki EN->PL v2 (Dyskusja 08.07.2026):
     Llama pisze scenariusz PO ANGIELSKU (etykiety SCENA/UJECIE/LEKTOR zostaja
     po polsku dla kompatybilnosci z parse_scenes/images/prompts/audio - tylko
