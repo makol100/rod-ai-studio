@@ -1,0 +1,19 @@
+{
+ "opis": "Bank tematów Rolki ROD HUMOR. Źródło: światowe trendy short-form adaptowane do rzeczywistości ROD. Status: nowy / uzyty / odrzucony.",
+ "tematy": [
+  {"temat": "Helena z taczką cukinii puka do Tomasza, Tomasz chowa się za firanką, Mieczysław: w zeszłym tygodniu udawał remont",
+   "format_zrodlowy": "hiperkonkret relatable (19% engagement)", "status": "gotowy checkpoint 10001 — czeka na zgodę"},
+  {"temat": "Tomasz reaguje jak na katastrofę (dramatyczna muzyka, zbliżenie na przerażoną twarz)... a na sałacie siedzi jeden ślimak. Mieczysław zdejmuje go dwoma palcami",
+   "format_zrodlowy": "kontrast: nervous system thinking X / in reality Y", "status": "nowy"},
+  {"temat": "Tomasz kupił 'inteligentny' opryskiwacz sterowany głosem; mówi 'podlej pomidory', urządzenie oblewa jego. Mieczysław podlewa konewką",
+   "format_zrodlowy": "AI misunderstanding scenarios (trend skeczy o AI)", "status": "nowy"},
+  {"temat": "Seria 'Co znowu zmalował Tomasz' — powracający format: każdy odcinek zaczyna się od Jacusia patrzącego przez płot i miny 'o nie'",
+   "format_zrodlowy": "country comedy / powracająca postać w tarapatach (Mr. Smith)", "status": "nowy — format serialowy"},
+  {"temat": "Kret jako niemy przeciwnik Mieczysława: kopczyk pojawia się zawsze dokładnie tam, gdzie Mieczysław właśnie skończył grabić. Pojedynek spojrzeń",
+   "format_zrodlowy": "zwierzę-gwiazda bez słów (dancing squirrel)", "status": "nowy — bohater cykliczny"},
+  {"temat": "Teatr społeczny działki: Tomasz i drugi sąsiad mierzą linijką, czyj żywopłot równiejszy; Mieczysław przechodzi z sekatorem i ścina obu po równo",
+   "format_zrodlowy": "GymTok 'social theater' (obserwacja miejsca, nie tutorial)", "status": "nowy"},
+  {"temat": "Jacuś próbuje nagrać 'estetyczną rolkę' z ogrodu, w kadr ciągle wchodzi Helena z blachą, Tomasz z wężem, kura sąsiada",
+   "format_zrodlowy": "failed filming attempt (8.9M views format)", "status": "nowy"}
+ ]
+}

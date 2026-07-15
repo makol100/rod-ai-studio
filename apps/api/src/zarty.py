@@ -43,8 +43,14 @@ KLIP 1: OBRAZ: [co widać - absurd/problem widoczny od pierwszej sekundy] MÓWI:
 KLIP 2: OBRAZ: [eskalacja - sytuacja się pogłębia] MÓWI: [imię] KWESTIA: [maks 10 słów]
 KLIP 3: OBRAZ: [Mieczysław reaguje spokojnie] MÓWI: MIECZYSŁAW KWESTIA: [puenta, maks 10 słów, sucha i celna]
 
+ZASADA NADRZĘDNA (ważniejsza od wszystkich):
+ŻART MUSI BYĆ ZROZUMIAŁY W TRZY SEKUNDY DLA KAŻDEGO — dziesięciolatka i babci.
+Zero wiedzy fachowej (taryfy, przepisy, technika). Mechanizm śmieszności musi być
+WIDOCZNY NA EKRANIE: śmieszy to, co widać, a kwestie tylko dobijają.
+Test: gdyby wyciszyć dźwięk, sytuacja nadal ma być zabawna.
+
 ZASADY HUMORU:
-1. SYTUACYJNY i ZROZUMIAŁY: śmieszy obraz plus jedna celna kwestia. Każdy działkowiec ma się rozpoznać (krety, ślimaki, podlewanie, sąsiedzi, pogoda, wynalazki).
+1. SYTUACYJNY i ZROZUMIAŁY: śmieszy obraz plus jedna celna kwestia. Każdy ma się rozpoznać (ślimaki, krety, sąsiedzi, nadmiar plonów, pogoda, pożyczanie narzędzi).
 2. ZERO gierek słownych, ZERO abstrakcji. Babcia i wnuk mają zrozumieć bez tłumaczenia.
 3. Jedna kwestia na klip. Krótko. Mieczysław mówi TYLKO w klipie 3.
 4. Puenta to spokojna mądrość albo sucha riposta. Po puencie NIC już nie ma.
@@ -315,6 +321,7 @@ def zart_audytuj(zid: str, data: dict = Body(None)):
         "2. Dokładnie JEDNA kwestia na klip; postać z MÓWI musi być widoczna w OBRAZIE; "
         "milczenie opisuje się w OBRAZIE; zero gwiazdek i didaskaliów w KWESTII.\n"
         "3. Liczby w KWESTII słownie z polską gramatyką.\n"
+        "0. GRZECH GŁÓWNY: żart wymaga wiedzy fachowej (taryfy, przepisy, technika) albo mechanizm śmieszności NIE jest widoczny w OBRAZIE — wtedy odrzuć całość i zaproponuj prostszy koncept.\n"
         "4. Suma mówienia w klipie ≤ 7 sekund (ok. 16-18 słów) — dłuższe skróć.\n"
         "5. Jedna ciągła akcja na klip (RUCH bez cięć i 'następnego dnia' w środku klipu).\n"
         "6. PUENTA: ostatni klip musi zaskakiwać; należy do MIECZYSŁAWA (krótko, celnie) "

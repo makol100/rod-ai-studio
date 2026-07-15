@@ -31,3 +31,12 @@
 - Styl jasny "ROD": tło #F7F3EA, tekst #2C2C2C, zieleń #2E9E7A/#1F7A5C, Poppins
 - Posty FB: photo post 1200×630; badge "TESTOWY" dla narzędzi w becie
 - Mapy/plansze: tylko JPG do pokazywania Tomaszowi (SVG zostaje do edycji)
+
+## Rolki ROD HUMOR — proces trendowy (dyrektywa Tomasza 15.07.2026)
+Przed każdą partią żartów: szybki scan światowych trendów short-form comedy
+(web_search) → adaptacja formatu do rzeczywistości ROD → wpis do data/zarty/tematy.json
+→ dopiero wtedy Bielik pisze scenariusz na zaadaptowany temat.
+Zasada nadrzędna: żart zrozumiały w 3 sekundy, mechanizm widoczny na ekranie,
+zero wiedzy fachowej. Format: 1 kwestia/klip, realizm, natywne audio Veo, puenta Mieczysława.
+Sprawdzone mapowania: kontrast dramat/przyziemność, powracająca postać w tarapatach,
+AI-nieporozumienia, niemy zwierzęcy przeciwnik, teatr społeczny miejsca, failed filming.
