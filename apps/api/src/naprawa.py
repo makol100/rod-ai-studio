@@ -191,11 +191,64 @@ PROBLEMY:
 PROPOZYCJA_SCENARIUSZA:
 (Jesli sa problemy: przepisz CALY scenariusz od SCENA 1 do ostatniej sceny, naprawiajac WYLACZNIE wskazane problemy tak, zeby scenariusz pasowal do artykulu, w DOKLADNIE takim samym formacie SCENA N: / UJECIE: / LEKTOR:, z ta sama liczba scen co oryginal. Jesli scenariusz jest juz dobry, przepisz go bez zmian, litera w litere.)'''
 
-    _unload_text_model()  # zwolnij Bielika z RAM przed qwen3:14b (7.6GB VPS)
-    # max_tokens podbity (4096) - odpowiedz musi pomiescic WADY + caly przepisany
-    # scenariusz (do 20 scen), domyslne 2048 potrafilo uciac scenariusz w polowie
-    # (Dyskusja 09.07.2026, zauwazone jako "0 zmian" mimo widocznych roznic tresci)
-    odpowiedz = generate(prompt, model=PROMPT_MODEL, temperature=0.2, max_tokens=4096)
+    # ZMIANA 14.07.2026 (decyzja Tomasza): audyt robi Claude Fable 5 przez
+    # Anthropic API zamiast lokalnego qwen3:14b. Powod: Qwen sprawdzal tylko
+    # "czy trzyma sie artykulu", a Bielik psuje rzeczy, ktorych Qwen nie widzi
+    # (dawki z kosmosu, doniczki zamiast dzialki, cyfry w lektorze, napisy
+    # w ujeciach...). Fable 5 dostaje pelna liste grzechow Bielika i NAPRAWIA
+    # kazdy z nich. Platne (klucz Tomasza, grosze/audyt); fallback: Qwen.
+    import os as _os
+    import requests as _req
+    _api_key = _os.environ.get("ANTHROPIC_API_KEY")
+    odpowiedz = None
+    if _api_key:
+        _system = (
+            "Jesteś redaktorem-audytorem scenariuszy krótkich rolek (9:16) dla polskiego "
+            "ogrodu działkowego ROD. Scenariusz napisał lokalny model Bielik — Twoim zadaniem "
+            "jest znaleźć i NAPRAWIĆ jego typowe błędy. Sprawdzasz scenariusz przeciwko "
+            "artykułowi źródłowemu ORAZ przeciwko tej liście znanych grzechów Bielika:\n"
+            "1. AKCJA POZA DZIAŁKĄ: kuchnia, parapet, doniczki, mieszkanie — akcja MUSI dziać "
+            "się na działce (grządki, altana, alejki), chyba że temat wprost mówi inaczej.\n"
+            "2. WYMYŚLONE DAWKI I PROPORCJE: Bielik zmyśla liczby (np. 'kostka mydła na litr' "
+            "zamiast dwóch łyżek wiórków). Każdą dawkę/proporcję weryfikuj z rzetelną wiedzą "
+            "ogrodniczą; niebezpieczne popraw.\n"
+            "3. FAŁSZYWA PRZYRODA: błędne objawy chorób (mączniak prawdziwy = BIAŁY nalot na "
+            "wierzchu liści), zmyślone zachowania zwierząt (turkuć NIE skacze), rośliny "
+            "zachowujące się wbrew biologii.\n"
+            "4. CYFRY W LEKTORZE: liczby w liniach LEKTOR muszą być SŁOWNIE z poprawną polską "
+            "gramatyką ('dziesięć minut', 'co trzy dni', 'jeden do dziewięciu') — NIGDY '10 "
+            "minut', '3 dni', '10x', '1:9'. Lektor TTS czyta cyfry bezsensownie.\n"
+            "5. URWANE ZDANIA LEKTORA: np. kończące się 'albo...' — dokończ sensownie.\n"
+            "6. ABSURDY SPRZĘTOWE: rzeczy, których nikt nie ma na działce (wentylator ogrodowy "
+            "dmuchający w grządki) — zamień na realne praktyki (rozstaw, przerzedzanie).\n"
+            "7. LEKTOR/NARRATOR W UJĘCIU: opisy typu 'lektor patrzy w kamerę' — generator "
+            "obrazów namaluje z tego przypadkowego człowieka. Usuwaj.\n"
+            "8. NAPISY W UJĘCIACH: żadnych 'z napisem X', etykiet, kalendarzy z datą — "
+            "generator obrazów psuje polskie napisy. Kadry bez tekstu do namalowania.\n"
+            "9. POWTÓRZENIA: to samo zdanie/fraza wielokrotnie.\n"
+            "10. HACZYK I PĘTLA: scena pierwsza ma zatrzymywać konkretem (nie 'czy wiesz, "
+            "że...'), ostatnia ma domykać pętlę do pierwszej + jedno CTA.\n"
+            "Zachowaj format SCENA N: / UJĘCIE: / LEKTOR: i liczbę scen. Zdania lektora "
+            "krótkie, na jeden wydech, naturalna polszczyzna. Zmieniaj TYLKO to, co jest "
+            "błędem z listy lub niezgodnością z artykułem — resztę przepisuj litera w literę."
+        )
+        try:
+            _r = _req.post(
+                "https://api.anthropic.com/v1/messages",
+                headers={"x-api-key": _api_key, "anthropic-version": "2023-06-01",
+                         "content-type": "application/json"},
+                json={"model": "claude-fable-5", "max_tokens": 8192,
+                      "system": _system,
+                      "messages": [{"role": "user", "content": prompt}]},
+                timeout=120)
+            _r.raise_for_status()
+            odpowiedz = "".join(b.get("text", "") for b in _r.json().get("content", []))
+        except Exception as _e:
+            odpowiedz = None  # fallback nizej
+
+    if not odpowiedz:
+        _unload_text_model()  # zwolnij Bielika z RAM przed qwen3:14b (7.6GB VPS)
+        odpowiedz = generate(prompt, model=PROMPT_MODEL, temperature=0.2, max_tokens=4096)
 
     marker = "PROPOZYCJA_SCENARIUSZA:"
     if marker in odpowiedz:

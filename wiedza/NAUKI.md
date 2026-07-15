@@ -47,3 +47,11 @@
   zastępczych (pogoda → barometr).
 - CC BY wymaga atrybucji przy KAŻDEJ publikacji (Tomasz akceptuje tylko YT — poinformowany).
 - Film "niepubliczny" ≠ "na kanale" — w CTA zawsze "link w opisie".
+
+## Audytor checkpointu (od 14.07 wieczór)
+- Przycisk "Sprawdź automatycznie" = Claude Fable 5 (API, grosze/audyt; fallback Qwen
+  przy braku klucza). System prompt = lista 10 grzechów Bielika (działka, dawki,
+  przyroda, cyfry słownie, urwane zdania, absurdy sprzętowe, lektor w ujęciu, napisy,
+  powtórzenia, haczyk+pętla) z rozkazem naprawy.
+- Pierwszy audyt złapał proporcję czosnku wpisaną przez Claude — audytor pilnuje
+  WSZYSTKICH autorów scenariusza, nie tylko Bielika.
