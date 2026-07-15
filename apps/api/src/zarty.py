@@ -29,44 +29,28 @@ CENA_SEK = 0.10          # USD / s bez audio (720p/1080p)
 CENA_KADR = 0.15         # USD / kadr referencyjny NB Pro
 KLIP_SEK = 8
 
-PROMPT_ZART = """Napisz scenariusz KRÓTKIEGO animowanego żartu wideo dla polskich działkowców (ROD).
+PROMPT_ZART = '''Jesteś scenarzystą krótkich filmów komediowych o polskiej działce (ROD).
+Napisz scenariusz 3-klipowego żartu wideo (każdy klip 8 sekund) na temat: {temat}
 
-TEMAT ŻARTU: {temat}
+OBSADA (używaj TYLKO tych postaci):
+MIECZYSŁAW - mądry ogrodnik ok. 70 lat, MAŁOMÓWNY, mówi tylko puentę.
+HELENA - jego żona, ciepła, konkretna.
+TOMASZ - sąsiad kombinator, wiecznie testuje "nowoczesne" pomysły.
+JACUŚ - dorosły wnuk, mówi na głos to, co wszyscy myślą.
+
+ŻELAZNY FORMAT (dokładnie tak, 3 klipy):
+KLIP 1: OBRAZ: [co widać - absurd/problem widoczny od pierwszej sekundy] MÓWI: [imię] KWESTIA: [maks 10 słów]
+KLIP 2: OBRAZ: [eskalacja - sytuacja się pogłębia] MÓWI: [imię] KWESTIA: [maks 10 słów]
+KLIP 3: OBRAZ: [Mieczysław reaguje spokojnie] MÓWI: MIECZYSŁAW KWESTIA: [puenta, maks 10 słów, sucha i celna]
 
 ZASADY HUMORU:
-- Struktura: sytuacja -> narastanie -> PUENTA w ostatnim klipie. Puenta ma zaskakiwać.
-- Humor życzliwy, działkowy: sąsiedzkie przekomarzanie, walka z przyrodą, duma z plonów.
-  Zero polityki, zero chamstwa, zero krzywdy.
-- Akcja dzieje się NA DZIAŁCE: grządki, altana, płot, kompostownik, szklarnia.
-- Czworo stałych bohaterów:
-  MIECZYSŁAW — ogrodnik, mądry i małomówny. Odzywa się rzadko; jak powie, to już powie.
-  HELENA — jego żona, ciepła, praktyczna, zarządza wszystkim z drugiego planu.
-  TOMASZ — sąsiad, nieogarnięty ale cwany: wielkie plany, kiepskie wykonanie, kombinuje.
-  JACUŚ — dorosły wnuk (rodzina dalej mówi mu "Jacuś"), zadaje pytania i mówi na głos to, co wszyscy myślą.
-- PUENTA należy do MIECZYSŁAWA (jedno krótkie, celne zdanie po długim milczeniu)
-  ALBO do JACUSIA (rozbrajająca szczerość — mówi wprost to, co wszyscy myślą). Nigdy nie tłumacz puenty.
-- W jednym klipie pokazuj maksymalnie dwie-trzy postacie (nie zawsze wszystkich).
+1. SYTUACYJNY i ZROZUMIAŁY: śmieszy obraz plus jedna celna kwestia. Każdy działkowiec ma się rozpoznać (krety, ślimaki, podlewanie, sąsiedzi, pogoda, wynalazki).
+2. ZERO gierek słownych, ZERO abstrakcji. Babcia i wnuk mają zrozumieć bez tłumaczenia.
+3. Jedna kwestia na klip. Krótko. Mieczysław mówi TYLKO w klipie 3.
+4. Puenta to spokojna mądrość albo sucha riposta. Po puencie NIC już nie ma.
+5. Postaci NIE tłumaczą żartu. Żart ma się sam bronić.
 
-FORMAT (dokładnie taki, {n} klipów):
-KLIP 1:
-RUCH: (opis akcji wideo jednym-dwoma zdaniami: kto co robi, ruch kamery, emocje na twarzach — to trafi do generatora wideo)
-DIALOG: MIECZYSŁAW: "..." / HELENA: "..." / TOMASZ: "..." / JACUŚ: "..."
-(WYŁĄCZNIE kwestie w cudzysłowach, didaskalia tylko krótko w nawiasie PRZED dwukropkiem,
-np. TOMASZ (drapiąc się w głowę): "No jak to?". Jeśli postać w klipie MILCZY — nie wypisuj
-jej w DIALOG w ogóle; milczenie i gesty opisuj w RUCH. Zero gwiazdek i formatowania.)
-
-ZASADY TECHNICZNE:
-- Każdy klip = jedna ciągła akcja do ośmiu sekund. Bez cięć wewnątrz klipu.
-- ZAKAZ w RUCH: palenie (fajka, papieros), alkohol, broń — generator wideo Google
-  odrzuca takie treści (content policy) i cała produkcja pada.
-- W RUCHU absolutny ZAKAZ napisów i tekstu do pokazania: żadnych 'pudełko z napisem X',
-  'transparent Y', 'tablica Z', etykiet, kalendarzy. Generator wideo psuje polskie litery.
-  ŹLE: 'pudełko z napisem Elektroniczny odstraszacz'. DOBRZE: 'plastikowe pudełko z antenką
-  i migającą diodą'. Przedmiot opisuj wyglądem, nigdy napisem.
-- Liczby w DIALOGU zawsze słownie ("dziesięć", nie "10").
-- Nie opisuj wyglądu bohaterów w RUCHU (wygląd trzyma kadr referencyjny) — tylko akcję i emocje.
-
-Odpowiedz WYŁĄCZNIE scenariuszem w podanym formacie, bez komentarzy."""
+Odpowiedz WYŁĄCZNIE scenariuszem w podanym formacie, bez komentarzy.'''
 
 STYL_BOHATEROW = (
     "Ciepła animacja 3D w stylu współczesnych filmów animowanych (nie fotorealizm). "
@@ -92,13 +76,13 @@ def _nowy_id() -> str:
 
 def _parsuj(scenariusz: str) -> list:
     klipy = []
-    for m in re.finditer(r"KLIP\s+(\d+):\s*\nRUCH:\s*(.+?)\nDIALOG:\s*(.+?)(?=\nKLIP\s+\d+:|\Z)",
-                         scenariusz, re.S):
-        klipy.append({"nr": int(m.group(1)), "ruch": m.group(2).strip(),
-                      "dialog": m.group(3).strip()})
-    return klipy
-
-
+    for m in re.finditer(r"KLIP\s*(\d)\s*:\s*OBRAZ:\s*(.+?)\s*M[OÓ]WI:\s*([A-Za-złśŁŚ]+)\s*KWESTIA:\s*(.+?)(?=KLIP\s*\d\s*:|$)",
+                         scenariusz, re.S | re.I):
+        klipy.append({"nr": int(m.group(1)),
+                      "ruch": " ".join(m.group(2).split()),
+                      "mowi": m.group(3).strip().upper(),
+                      "kwestia": " ".join(m.group(4).split()).strip('"')})
+    return sorted(klipy, key=lambda k: k["nr"])
 def _wycena(n_klipow: int) -> dict:
     from src.zarty_produkcja import KADR_GLOBALNY
     klipy_usd = n_klipow * KLIP_SEK * CENA_SEK

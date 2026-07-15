@@ -93,18 +93,20 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
         if out.is_file():
             _log(folder, f"klip {k['nr']} już jest — pomijam")
             continue
-        _log(folder, f"klip {k['nr']}/{len(klipy)} Veo t2v…")
+        _log(folder, f"klip {k['nr']}/{len(klipy)} Veo t2v+audio…")
         kto = _postacie_w_klipie(k)
         opisy = ("W kadrze: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
-        prompt = f"{opisy}{k['ruch']} {STYL_KLIPU}"
+        mowi = k.get("mowi", "")
+        kwestia = k.get("kwestia", "")
+        dialog = (f'{mowi} mówi po polsku naturalnym głosem: "{kwestia}" ') if kwestia else ""
+        prompt = f"{opisy}{k['ruch']} {dialog}{STYL_KLIPU}"
         args = {"prompt": prompt, "aspect_ratio": "9:16", "duration": "8s",
-                "resolution": "720p", "generate_audio": False, "auto_fix": True}
+                "resolution": "1080p", "generate_audio": True, "auto_fix": True}
         try:
             res = fal_client.run(VEO_MODEL, arguments=args)
         except Exception as e:
             if "content_policy" in str(e):
-                raise RuntimeError(f"klip {k['nr']}: Veo odrzucil tresc (content policy) — "
-                                   f"popraw RUCH klipu {k['nr']} i zatwierdz ponownie")
+                raise RuntimeError(f"klip {k['nr']}: Veo odrzucil tresc — popraw OBRAZ/KWESTIE klipu {k['nr']} i zatwierdz ponownie")
             raise
         url = res["video"]["url"]
         _run(["curl", "-sL", "-o", str(out), url])
@@ -112,8 +114,6 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
             raise RuntimeError(f"klip {k['nr']}: pobieranie nieudane")
         _log(folder, f"klip {k['nr']} OK ({out.stat().st_size//1024} KB)")
 
-
-# ---------------------------------------------------------------- DIALOGI
 def _kwestie(dialog: str) -> list:
     """'HENIEK (krzywiąc usta): "tekst" / HALINKA: "tekst"' -> [(kto, tekst), ...]"""
     out = []
@@ -169,73 +169,36 @@ def _ass_czas(t: float) -> str:
 
 
 def zrob_napisy(folder: Path, klipy: list):
-    naglowek = """[Script Info]
-ScriptType: v4.00+
-PlayResX: 720
-PlayResY: 1280
-
-[V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, Outline, Shadow, Alignment, MarginL, MarginR, MarginV
-Style: M,Arial,52,{m},&H000000&,&H80000000&,1,3,1,2,40,40,190
-Style: H,Arial,52,{h},&H000000&,&H80000000&,1,3,1,2,40,40,190
-Style: T,Arial,52,{t},&H000000&,&H80000000&,1,3,1,2,40,40,190
-Style: J,Arial,52,{j},&H000000&,&H80000000&,1,3,1,2,40,40,190
-
-[Events]
-Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-""".format(m=KOLORY_ASS["MIECZYSŁAW"], h=KOLORY_ASS["HELENA"],
-           t=KOLORY_ASS["TOMASZ"], j=KOLORY_ASS["JACUŚ"])
     for k in klipy:
-        linie = []
-        t = 0.35  # dialog startuje chwilę po początku klipu
-        for kw in k.get("kwestie", []):
-            styl = {"MIECZYSŁAW": "M", "HELENA": "H", "TOMASZ": "T", "JACUŚ": "J"}[kw["kto"]]
-            linie.append(f"Dialogue: 0,{_ass_czas(t)},{_ass_czas(t + kw['dl'])},{styl},,0,0,0,,"
-                         f"{kw['kto'].title()}: {kw['tekst']}")
-            t += kw["dl"] + 0.45
-        (folder / f"napisy_{k['nr']:02d}.ass").write_text(naglowek + "\n".join(linie),
-                                                          encoding="utf-8")
+        d = _dlugosc(folder / f"klip_{k['nr']:02d}.mp4")
+        kolor = KOLORY_ASS.get(k.get("mowi", ""), "&H00FFFFFF")
+        ass = folder / f"napisy_{k['nr']:02d}.ass"
+        tekst = k.get("kwestia", "")
+        ass.write_text(ASS_HEADER + (
+            f"Dialogue: 0,{_ass_czas(0.4)},{_ass_czas(max(d-0.2, 1))},Default,,0,0,0,,"
+            f"{{\\c{kolor}}}{k.get('mowi','')}: {tekst}\n"), encoding="utf-8")
+    _log(folder, "napisy: kwestie na caly klip (duze, bez Whisper)")
 
-
-# ---------------------------------------------------------------- RENDER
 def zloz(folder: Path, klipy: list) -> Path:
-    parts = []
+    party = []
     for k in klipy:
         klip = folder / f"klip_{k['nr']:02d}.mp4"
-        dialog = folder / f"dialog_{k['nr']:02d}.wav"
         ass = folder / f"napisy_{k['nr']:02d}.ass"
         part = folder / f"part_{k['nr']:02d}.mp4"
-        vf = f"scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2"
-        if ass.is_file():
-            vf += f",subtitles={ass}"
-        if dialog.is_file():
-            # dialog dluzszy niz klip -> stop-klatka zamiast uciecia puenty
-            dl_dialog = _dlugosc(dialog) + 0.35
-            dl_klip = _dlugosc(klip)
-            cel = max(dl_klip, dl_dialog + 0.35)
-            if cel > dl_klip + 0.05:
-                vf += f",tpad=stop_mode=clone:stop_duration={cel - dl_klip:.2f}"
-            _run(["ffmpeg", "-y", "-v", "error", "-i", str(klip),
-                  "-itsoffset", "0.35", "-i", str(dialog),
-                  "-vf", vf, "-map", "0:v", "-map", "1:a",
-                  "-c:v", "libx264", "-preset", "medium", "-crf", "21",
-                  "-c:a", "aac", "-t", f"{cel:.2f}", "-pix_fmt", "yuv420p", str(part)])
-        else:
-            _run(["ffmpeg", "-y", "-v", "error", "-i", str(klip), "-vf", vf,
-                  "-an", "-c:v", "libx264", "-crf", "21", "-pix_fmt", "yuv420p", str(part)])
-        parts.append(part)
+        vf = f"ass={ass}" if ass.is_file() else "null"
+        _run(["ffmpeg", "-y", "-v", "error", "-i", str(klip), "-vf", vf,
+              "-c:v", "libx264", "-preset", "medium", "-crf", "21",
+              "-c:a", "aac", "-pix_fmt", "yuv420p", str(part)])
+        party.append(part)
         _log(folder, f"part {k['nr']} zlozony")
-
     lista = folder / "concat.txt"
-    lista.write_text("".join(f"file '{p}'\n" for p in parts), encoding="utf-8")
+    lista.write_text("".join(f"file '{p}'\n" for p in party), encoding="utf-8")
     final = folder / "final.mp4"
     _run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(lista),
-          "-c:v", "libx264", "-crf", "21", "-c:a", "aac", "-pix_fmt", "yuv420p", str(final)])
+          "-c", "copy", str(final)])
     _log(folder, f"FINAL: {final} ({final.stat().st_size//1024} KB)")
     return final
 
-
-# ---------------------------------------------------------------- CAŁOŚĆ
 def produkuj(folder: Path, styl_bohaterow: str):
     """Pełna produkcja żartu — wołać W WĄTKU. Stany w meta.json."""
     from src.zarty import _parsuj
@@ -247,7 +210,6 @@ def produkuj(folder: Path, styl_bohaterow: str):
         _meta(folder, stan="klipy_veo")
         zrob_klipy(folder, klipy)
         _meta(folder, stan="dialogi")
-        zrob_dialogi(folder, klipy)
         zrob_napisy(folder, klipy)
         _meta(folder, stan="render")
         final = zloz(folder, klipy)
