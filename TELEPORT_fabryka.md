@@ -1200,3 +1200,26 @@ DIALOG, cyfry, ≤7 s mowy/klip, jedna akcja/klip, puenta, życzliwość).
 CASTING zatwierdzony przez Tomasza ("Zajebiście") — assets/zarty/postacie.jpg
 NA ZAWSZE. Żart 0002 (odstraszacz ślimaków) na checkpoincie, wycena $2.40 —
 CZEKA NA PIERWSZĄ PRODUKCJĘ (zgoda Tomasza przy przycisku PRODUKUJ).
+
+## FABRYKA OBRAZÓW — REBRANDING + PRZEŁOM AUDIO (15.07 rano) ✔
+Decyzja Tomasza: "Fabryka Rolek" → **FABRYKA OBRAZÓW** z działami: (1) Rolki ROD,
+(2) Rolki ROD HUMOR. Zmienione: panel (tytuł+karty 01/02/06), health, APK v1.5
+(nazwa, kafle). **STAŁY KEYSTORE** w repo (openssl p12, alias androiddebugkey) +
+workflow kopiuje zamiast generować → OD 1.5 AKTUALIZACJE PO WIERZCHU (1.4→1.5
+jeszcze wymaga odinstalowania!). Ryzyko: keystore w publicznym repo — świadomie
+zaakceptowane (apka prywatna).
+**ARCHITEKTURA HUMORU — PRZEŁOM:** Veo i2v blokuje obrazy z ludźmi (deepfake policy,
+potwierdzone testami: bez ludzi przechodzi, z ludźmi nigdy; forum Google potwierdza).
+Rozwiązanie z researchu viralowych twórców: **t2v z NATYWNYM AUDIO VEO** — kwestia
+po polsku w cudzysłowie = lip-sync + głos z modelu. Zasady: JEDNA kwestia/klip,
+<8 s, emocja+akcja+kwestia, opis postaci IDENTYCZNY w każdym prompcie, styl
+realistyczny (nie kreskówka!), "No subtitles, no text overlay". Test #9999 ($1.20):
+Mieczysław mówi "W przyrodzie nic się nie ukryje" — Whisper potwierdził idealną
+polszczyznę, klatki: realizm, timing, uśmiech. CZEKA NA OCENĘ UCHA TOMASZA w apce.
+Koszt żartu w nowej architekturze: 3 klipy × $1.20 = $3.60.
+**BIZNES:** research monetyzacji — AdSense Shorts PL grosze (0,06-0,2 zł/1k);
+pieniądze: brand deals (od 5k subów), afiliacja, reklamy szyte dla lokalnych firm
+(800-1500 zł/odc przy koszcie $3.60). Plan "Mieczysław z działki" 3-torowy zapisany
+w rozmowie. NASTĘPNE: po akceptacji #9999 → przebudowa zarty.py na format 1 kwestia/
+klip + natywne audio; pilot serialu; kanały YT/TT.
+KOSZTY dnia: diagnoza i2v ~$1.40 + żart 0002 $2.40 + test 9999 $1.20.
