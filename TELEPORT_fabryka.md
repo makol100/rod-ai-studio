@@ -1151,3 +1151,21 @@ Temat 611 z nowej kategorii "Pogotowie: choroby i szkodniki".
 ## N150 — ZAMROŻONE (decyzja Tomasza 14.07)
 Migracja i ściąganie backupów z Nuki: NIE ruszać, NIE proponować. Tomasz wraca
 do tematu sam, kiedy zechce. (Ryzyko backupów na starym serwerze — zakomunikowane.)
+
+## SESJA 14/15.07 NOC — 000095 + UX CHECKPOINTU + AUDYTOR FABLE ✔
+**000095 (mączniak na cukinii, temat 480):** scenariusz przepisany na 10 scen (haczyk
+"Ten biały nalot to nie kurz", scena 4 = inne ofiary: ogórki/dynie/róże/agrest, S6
+podlewanie pod korzeń, S7 rozstaw zamiast WENTYLATORA-absurdu Bielika, S8 mleko 1:9 +
+czosnek KILKA ZĄBKÓW na litr [poprawka audytora Fable — moja "główka" była zawyżona],
+S10 pętla). Prompty: audyt ręczny 7 poprawek (napis "CHORE" OUT, lektor/narrator OUT ×3,
+kolaż→jeden kadr, karton mleka bez etykiety, fizyka konewki, P3 odchudzony z bełkotu;
+backup prompts.txt.bak-audyt). Kontrola końcowa: CZYSTO (❌ czosnku w ostatnim teście
+= fałszywy alarm case-sensitive checkera, poprawka JEST). **STAN: czeka na OK Tomasza
+w panelu → obrazy Gemini → gotowa.**
+**Naprawy z sesji:** (1) reguła CYFRY SŁOWNIE w 3 szablonach Bielika + prompt Sonneta;
+(2) zapis checkpointu ASYNC (wątek + przeliczanie.lock; wcześniej telefon ubijał 10-min
+request = "Zapisz nie działa"); (3) dirty guard w panelu (polling nadpisywał edycję);
+(4) AUDYTOR = Claude Fable 5 z listą 10 grzechów Bielika, fallback Qwen — pierwszy audyt
+złapał błąd Claude'a, nie Bielika; (5) S2 lektor od Sonneta ("Grzyb potrafi opanować
+całą roślinę w kilka dni"). Commity: 7942981, 5606f6b + wiedza.
+**000093:** opublikowana; ma "10x"/"3 dni"/"10 minut" w lektorach — ŚWIADOMIE zostawione.

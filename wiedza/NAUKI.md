@@ -10,6 +10,12 @@
 - **"Lektor patrzy w kamerę" w UJĘCIU** = przypadkowy człowiek na obrazie. Wycinać.
 - Pętla powtórzeń Bielika (to samo zdanie ×20) zdarza się w promptach — wykrywać
   (zdanie >40 zn. powtórzone ≥3×) przed wysłaniem do fal.ai.
+- ŻADNYCH napisów do namalowania: "wiadro z napisem X", kartony Z ETYKIETĄ, kalendarze
+  z datą — Gemini psuje polskie napisy. Karton mleka = "gładki, bez etykiety".
+- "Kolaż/trzy rośliny" → Gemini robi panele z ramkami i podpisami. Pisać: "JEDEN spójny
+  kadr, bez podziału na panele, bez ramek, bez napisów".
+- Fizyka kadru musi się spinać: konewka "stojąca obok" nie może jednocześnie "lać wody
+  pod łodygi" — Gemini namaluje lewitujący strumień. Jedna akcja, jeden wykonawca.
 
 ## Merytoryka (botanical accuracy)
 - Bielik WYMYŚLA liczby, których nie ma w źródle: "1 kostka mydła na litr" = 5-10×
@@ -18,6 +24,15 @@
   Wątpliwy temat → dezaktywować, nie publikować.
 - Odbiorcy to doświadczeni działkowcy — rozpoznają fałsz natychmiast. Checkpoint
   istnieje właśnie po to; złapał kostkę-truciznę zanim poszła do 25 tys. ludzi.
+
+## Lektor (TTS)
+- Liczby w LEKTORZE ZAWSZE słownie z polską gramatyką: "dziesięć minut", "co trzy dni",
+  "dziesięć razy tańsze", "jeden do dziewięciu". Cyfry i skróty (10 minut, 3 dni, 10x,
+  1:9) Marek czyta bezsensownie. Reguła wpisana w 3 szablony Bielika + prompt pomocnika
+  Claude + audytora Fable (14.07). Opublikowana 000093 ma jeszcze "10x" — świadomie
+  zostawiona (koszt podmiany posta > zysk).
+- Edycja SAMEGO lektora nie wymaga przeliczania promptów obrazów — edytować scenes.txt
+  bezpośrednio na dysku, potem tylko audio+napisy+render (patch).
 
 ## Tryby i pipeline
 - **ZAWSZE tryb_jezykowy="czysty_bielik"** przy odpalaniu przez API (wpadka 000092:

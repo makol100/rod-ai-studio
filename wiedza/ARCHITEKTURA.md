@@ -16,6 +16,9 @@
 - **Nano Banana Pro = Gemini 3 Pro Image przez fal.ai** (`fal-ai/nano-banana-pro`, $0.15/obraz) — obrazy rolek; FLUX.2 max w odwodzie
 - **edge-tts pl-PL-MarekNeural** — lektor (11.6 znaków/s); działa TYLKO na VPS (proxy sandboxa Claude blokuje Microsoft)
 - **Whisper** — napisy; autoryzowany bez pytania (znany tekst podstawiany, gdy liczba słów się zgadza)
+- **Claude w panelu**: pomocnik poprawek = claude-sonnet-4-6; AUDYTOR checkpointu ("Sprawdź
+  automatycznie") = claude-fable-5 z listą 10 grzechów Bielika (fallback: Qwen). Opisy FB
+  na życzenie = claude-sonnet-4-6. Wszystko z klucza API Tomasza (env kontenera).
 
 ## Tryby językowe (POST /generate-reel, pole tryb_jezykowy)
 - `"pl"` — ZWYKŁA rolka (stary szablon tematyczny)
@@ -35,8 +38,7 @@ audio/01..NN.wav · images/01..NN.jpg · video/final_with_music.mp4 · status.js
 tryb_jezykowy.txt · opublikowano.txt
 
 ## Kluczowe endpointy
-/generate-reel · /aktywne-generowanie · /live-log · /reel-checkpoint/{id} (+/zapisz
-przelicza prompty, +/zatwierdz wznawia) · /reel-stop/{id} · /reels · /opis/{id}
+/generate-reel · /aktywne-generowanie · /live-log · /reel-checkpoint/{id} (+/zapisz: zapis + przeliczanie promptów W TLE, flaga przeliczanie.lock, front polluje; +/zatwierdz wznawia; +/audytuj = Fable 5; +/popraw-przez-claude = Sonnet) · /reel-stop/{id} · /reels · /opis/{id}
 (Bielik pisze opis FB) · /upload (filmy→filmy/, audio→assets/music/, reszta→budowa/)
 · /film /rolka /apk /kontaktowka /klatki · /barometr /barometr.json /barometr/sygnal
 
