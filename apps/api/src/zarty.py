@@ -49,6 +49,8 @@ ZASADY HUMORU:
 3. Jedna kwestia na klip. Krótko. Mieczysław mówi TYLKO w klipie 3.
 4. Puenta to spokojna mądrość albo sucha riposta. Po puencie NIC już nie ma.
 5. Postaci NIE tłumaczą żartu. Żart ma się sam bronić.
+6. SUCHY SARKAZM zamiast wygłupów: postaci traktują absurd śmiertelnie poważnie.
+7. KONTRAST: dramatyczna reakcja, przyziemna przyczyna (im zwyklejsza, tym śmieszniej).
 
 Odpowiedz WYŁĄCZNIE scenariuszem w podanym formacie, bez komentarzy.'''
 
@@ -305,14 +307,14 @@ def zart_audytuj(zid: str, data: dict = Body(None)):
         raise HTTPException(status_code=500, detail="Brak ANTHROPIC_API_KEY")
     system = (
         "Jesteś audytorem scenariuszy 24-sekundowych animowanych żartów (3 klipy po 8 s) "
-        "dla polskich działkowców. Format: KLIP N: / RUCH: / DIALOG:. Postacie: MIECZYSŁAW "
+        "dla polskich działkowców. Format: KLIP N: / OBRAZ: [scena] / MÓWI: [IMIĘ] / KWESTIA: [jedna kwestia bez cudzysłowów]. Postacie: MIECZYSŁAW "
         "(mądry, małomówny — jak powie, to już powie), HELENA (żona, ciepła, praktyczna), "
         "TOMASZ (sąsiad-kombinator), JACUŚ (wnuczek 8 lat, szczery). Sprawdź i NAPRAW:\n"
-        "1. NAPISY w RUCH ('z napisem X', tablice, etykiety) — generator wideo psuje polski "
+        "1. NAPISY w OBRAZ ('z napisem X', tablice, etykiety) — generator wideo psuje polski "
         "tekst; zamień na opis wyglądu przedmiotu.\n"
-        "2. Format DIALOG: wyłącznie kwestie IMIĘ: \"tekst\" (didaskalia krótko w nawiasie "
-        "przed dwukropkiem); milczenie opisuje się w RUCH, nie w DIALOG; zero gwiazdek.\n"
-        "3. Liczby w DIALOG słownie z polską gramatyką.\n"
+        "2. Dokładnie JEDNA kwestia na klip; postać z MÓWI musi być widoczna w OBRAZIE; "
+        "milczenie opisuje się w OBRAZIE; zero gwiazdek i didaskaliów w KWESTII.\n"
+        "3. Liczby w KWESTII słownie z polską gramatyką.\n"
         "4. Suma mówienia w klipie ≤ 7 sekund (ok. 16-18 słów) — dłuższe skróć.\n"
         "5. Jedna ciągła akcja na klip (RUCH bez cięć i 'następnego dnia' w środku klipu).\n"
         "6. PUENTA: ostatni klip musi zaskakiwać; należy do MIECZYSŁAWA (krótko, celnie) "

@@ -1,0 +1,14 @@
+{
+ "id": "10001",
+ "temat": "Tomasz podlewa trawnik o piątej rano, bo twierdzi, że wtedy woda z sieci jest tańsza",
+ "stan": "checkpoint",
+ "ts": 1784113288.1349788,
+ "klipy_sparsowane": 3,
+ "wycena": {
+  "klipy": 3,
+  "sekundy": 24,
+  "cena_za_sekunde": 0.15,
+  "koszt_razem_usd": 3.6,
+  "model": "fal-ai/veo3.1/fast (t2v + natywne audio PL)"
+ }
+}

@@ -95,11 +95,12 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
             continue
         _log(folder, f"klip {k['nr']}/{len(klipy)} Veo t2v+audio…")
         kto = _postacie_w_klipie(k)
-        opisy = ("W kadrze: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
+        opisy = ("In frame: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
         mowi = k.get("mowi", "")
         kwestia = k.get("kwestia", "")
-        dialog = (f'{mowi} mówi po polsku naturalnym głosem: "{kwestia}" ') if kwestia else ""
-        prompt = f"{opisy}{k['ruch']} {dialog}{STYL_KLIPU}"
+        glos = GLOSY.get(mowi, "in Polish with a natural voice")
+        dialog = (f'{mowi.capitalize()} says {glos}: "{kwestia}" ') if kwestia else ""
+        prompt = f"{opisy}Scene: {k['ruch']} {dialog}{STYL_KLIPU}"
         args = {"prompt": prompt, "aspect_ratio": "9:16", "duration": "8s",
                 "resolution": "1080p", "generate_audio": True, "auto_fix": True}
         try:
