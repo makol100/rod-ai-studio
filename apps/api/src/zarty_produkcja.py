@@ -57,11 +57,19 @@ STYL_KLIPU = ("Cinematic realistic footage, warm golden summer light. Vertical 9
 
 
 def _postacie_w_klipie(k):
-    tekst = (k.get("ruch", "") + " " + k.get("obraz", "") + " " + k.get("mowi", "")
-             + " " + k.get("kwestia", "")).upper()
+    """Znacznik (GŁOS) w polu MÓWI = postać mówi spoza kadru i NIE trafia do In frame."""
+    mowi = k.get("mowi", "")
+    offscreen = "(GŁOS)" in mowi.upper() or "(GLOS)" in mowi.upper()
+    mowi_czysty = mowi.upper().replace("(GŁOS)", "").replace("(GLOS)", "").strip()
+    tekst = (k.get("ruch", "") + " " + k.get("obraz", "") + " "
+             + ("" if offscreen else mowi) + " " + k.get("kwestia", "")).upper()
     t = tekst.replace("Ł", "L").replace("Ś", "S")
-    return [im for im in OPISY_POSTACI
-            if im.replace("Ł", "L").replace("Ś", "S") in t]
+    out = [im for im in OPISY_POSTACI
+           if im.replace("Ł", "L").replace("Ś", "S") in t]
+    if offscreen:
+        mc = mowi_czysty.replace("Ł", "L").replace("Ś", "S")
+        out = [im for im in out if im.replace("Ł", "L").replace("Ś", "S") != mc]
+    return out
 
 
 
@@ -131,9 +139,17 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
         kto = _postacie_w_klipie(k)
         opisy = ("In frame: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
         mowi = k.get("mowi", "")
+        offscreen = "(GŁOS)" in mowi.upper() or "(GLOS)" in mowi.upper()
+        mowi = mowi.upper().replace("(GŁOS)", "").replace("(GLOS)", "").strip()
+        k["mowi"] = mowi  # napisy ASS dostają czyste imię
         kwestia = k.get("kwestia", "")
         glos = GLOSY_VEO.get(mowi, "in Polish with a natural voice")
-        dialog = (f'{mowi.capitalize()} says {glos}: "{kwestia}" ') if kwestia else ""
+        if kwestia and offscreen:
+            dialog = f'An unseen hidden man shouts from off-screen {glos}: "{kwestia}" '
+        elif kwestia:
+            dialog = f'{mowi.capitalize()} says {glos}: "{kwestia}" '
+        else:
+            dialog = ""
         prompt = f"{opisy}Scene: {k['ruch']} {dialog}{STYL_KLIPU}"
         args = {"prompt": prompt, "aspect_ratio": "9:16", "duration": "8s",
                 "resolution": "1080p", "generate_audio": True, "auto_fix": True}

@@ -121,7 +121,7 @@ def _nowy_id() -> str:
 
 def _parsuj(scenariusz: str) -> list:
     klipy = []
-    for m in re.finditer(r"KLIP\s*(\d)\s*:\s*OBRAZ:\s*(.+?)\s*M[OÓ]WI:\s*([A-Za-zócęąśłżźńÓCĘĄŚŁŻŹŃ]+)\s*KWESTIA:\s*(.+?)(?=KLIP\s*\d\s*:|$)",
+    for m in re.finditer(r"KLIP\s*(\d)\s*:\s*OBRAZ:\s*(.+?)\s*M[OÓ]WI:\s*([A-Za-zócęąśłżźńÓCĘĄŚŁŻŹŃ]+(?:\s*\(G[ŁL]OS\))?)\s*KWESTIA:\s*(.+?)(?=KLIP\s*\d\s*:|$)",
                          scenariusz, re.S | re.I):
         klipy.append({"nr": int(m.group(1)),
                       "ruch": " ".join(m.group(2).split()),

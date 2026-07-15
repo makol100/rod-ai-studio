@@ -13,3 +13,4 @@
 20:58:50 part 4 zlozony
 20:58:50 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (47947 KB)
 20:58:50 telegram wyslany
+21:31:51 BLAD PRODUKCJI: cannot access local variable 'time' where it is not associated with a value
