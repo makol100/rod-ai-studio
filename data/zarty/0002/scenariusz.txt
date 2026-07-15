@@ -1,5 +1,5 @@
 KLIP 1:
-RUCH: TOMASZ z dumą montuje przy grządce sałaty plastikowe pudełko z antenką i migającą zieloną diodą; JACUŚ patrzy sceptycznie z boku. Za płotem MIECZYSŁAW unosi brwi i uśmiecha się lekko pod nosem, pykając fajkę.
+RUCH: TOMASZ z dumą montuje przy grządce sałaty plastikowe pudełko z antenką i migającą zieloną diodą; JACUŚ patrzy sceptycznie z boku. Za płotem MIECZYSŁAW unosi brwi i uśmiecha się lekko pod nosem, opierając się o płot.
 DIALOG: TOMASZ: "No, sąsiedzie! Teraz te ślimaki to się przestraszą!" / JACUŚ: "Dziadek mówi, że ślimak nie ma uszu."
 
 KLIP 2:
@@ -7,5 +7,5 @@ RUCH: Następny ranek — TOMASZ klęczy przy grządce z doszczętnie objedzonej
 DIALOG: TOMASZ (łapiąc się za głowę): "Przecież to miało być niezawodne!" / JACUŚ: "Dziadku, a nie mówiliśmy?"
 
 KLIP 3:
-RUCH: Wnętrze altany — wszyscy czworo przy stole, HELENA stawia miskę pełną dorodnej, całej sałaty ze swojego ogrodu. TOMASZ je z zakłopotaniem, unikając wzroku. MIECZYSŁAW długo milczy, odkłada fajkę i spogląda w niebo z lekkim uśmiechem.
+RUCH: Wnętrze altany — wszyscy czworo przy stole, HELENA stawia miskę pełną dorodnej, całej sałaty ze swojego ogrodu. TOMASZ je z zakłopotaniem, unikając wzroku. MIECZYSŁAW długo milczy, odkłada łyżkę i spogląda w niebo z lekkim uśmiechem.
 DIALOG: JACUŚ: "No i po co było kupować?" / MIECZYSŁAW: "W przyrodzie nic się nie ukryje." / HELENA (podsuwając miskę): "Jedz, sąsiad, jedz. Moja rosła bez prądu."

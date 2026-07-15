@@ -86,8 +86,12 @@ def zrob_klipy(folder: Path, klipy: list, kadr: Path):
         try:
             res = fal_client.run(VEO_MODEL, arguments=args)
         except Exception as e:
-            _log(folder, f"klip {k['nr']}: pelne argumenty odrzucone ({str(e)[:120]}), probuje minimalnych")
-            res = fal_client.run(VEO_MODEL, arguments={"prompt": prompt, "image_url": img_url})
+            if "content_policy" in str(e):
+                raise RuntimeError(f"klip {k['nr']}: Veo odrzucil tresc (content policy) — "
+                                   f"popraw RUCH klipu {k['nr']} (palenie/alkohol/marki?) i zatwierdz ponownie")
+            _log(folder, f"klip {k['nr']}: pelny schemat odrzucony ({str(e)[:100]}), probuje bez opcjonalnych")
+            res = fal_client.run(VEO_MODEL, arguments={"prompt": prompt, "image_url": img_url,
+                                                       "aspect_ratio": "9:16", "generate_audio": False})
         url = res["video"]["url"]
         _run(["curl", "-sL", "-o", str(out), url])
         if not out.is_file() or out.stat().st_size < 50000:

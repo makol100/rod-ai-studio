@@ -57,6 +57,8 @@ jej w DIALOG w ogóle; milczenie i gesty opisuj w RUCH. Zero gwiazdek i formatow
 
 ZASADY TECHNICZNE:
 - Każdy klip = jedna ciągła akcja do ośmiu sekund. Bez cięć wewnątrz klipu.
+- ZAKAZ w RUCH: palenie (fajka, papieros), alkohol, broń — generator wideo Google
+  odrzuca takie treści (content policy) i cała produkcja pada.
 - W RUCHU absolutny ZAKAZ napisów i tekstu do pokazania: żadnych 'pudełko z napisem X',
   'transparent Y', 'tablica Z', etykiet, kalendarzy. Generator wideo psuje polskie litery.
   ŹLE: 'pudełko z napisem Elektroniczny odstraszacz'. DOBRZE: 'plastikowe pudełko z antenką
@@ -70,7 +72,7 @@ STYL_BOHATEROW = (
     "Ciepła animacja 3D w stylu współczesnych filmów animowanych (nie fotorealizm). "
     "CZTERY postacie na polskiej działce przy altanie: "
     "MIECZYSŁAW — ogrodnik około siedemdziesiątki, wysoki, spokojny, siwy krótki zarost, "
-    "kaszkiet, kamizelka ogrodowa, fajka w kąciku ust, mądre zmrużone oczy, postawa człowieka, "
+    "kaszkiet, kamizelka ogrodowa, mądre zmrużone oczy, postawa człowieka, "
     "który wie. "
     "HELENA — jego żona, około sześćdziesięciu pięciu lat, ciepła twarz, siwy kok, kwiecista "
     "sukienka i fartuch kuchenny, w dłoniach często blacha z ciastem. "
