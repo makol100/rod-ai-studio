@@ -1188,3 +1188,15 @@ edge-tts dialog 2 głosy → ffmpeg concat+napisy; (2) pierwszy żart TYLKO za w
 zgodą Tomasza na $2.55; (3) karta Żarty w panelu; (4) rozważyć audyt Fable dla żartów.
 STAN 000095: sprawdzić czy Tomasz kliknął OK (ostatnio aktywna:null — możliwe że
 przeszła produkcję; zweryfikować /reels i ewentualnie przypomnieć o publikacji).
+
+## FABRYKA ŻARTÓW — KOMPLET W APCE (15.07 rano) ✔
+Panel: karta 06 "Fabryka żartów" (+ zakładka 🎭): nowy żart (Bielik), checkpoint
+z wyceną $, Zapisz/Sprawdź(Fable)/PRODUKUJ(confirm ceny), log produkcji na żywo
+(poll 5 s), lista z playerami /zarty/{id}/video, podgląd castingu.
+APK v1.4: kafel 🎭 (solo karta 06) + NotifWorker powiadamia o gotowym żarcie
+(kanał "zarty", klucz zart_ostatni). Backend: GET /zarty/{id}/log, POST
+/zart-checkpoint/{id}/audytuj (Fable 5, 7 grzechów żartowych: napisy, format
+DIALOG, cyfry, ≤7 s mowy/klip, jedna akcja/klip, puenta, życzliwość).
+CASTING zatwierdzony przez Tomasza ("Zajebiście") — assets/zarty/postacie.jpg
+NA ZAWSZE. Żart 0002 (odstraszacz ślimaków) na checkpoincie, wycena $2.40 —
+CZEKA NA PIERWSZĄ PRODUKCJĘ (zgoda Tomasza przy przycisku PRODUKUJ).
