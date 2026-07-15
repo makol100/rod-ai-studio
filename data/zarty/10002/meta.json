@@ -1,0 +1,17 @@
+{
+ "id": "10002",
+ "temat": "Tomasz kopie rządek dołków wzdłuż alejki pod sadzonki. Jacuś idzie krok za nim i każdy dołek natychmiast zasypuje z powrotem. Helena patrzy osłupiała. Puenta Mieczysława przy płocie: ten od sadzenia wziął dziś wolne.",
+ "stan": "checkpoint",
+ "ts": 1784147496.432952,
+ "klipy_sparsowane": 4,
+ "wycena": {
+  "klipy": 4,
+  "sekundy": 32,
+  "koszt_klipy_usd": 4.8,
+  "koszt_kadr_usd": 0.0,
+  "koszt_razem_usd": 4.8,
+  "model": "fal-ai/veo3.1/fast (t2v + audio)",
+  "cena_za_sekunde": 0.15,
+  "postacie": "gotowe (koszt zero)"
+ }
+}

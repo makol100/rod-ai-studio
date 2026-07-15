@@ -24,8 +24,8 @@ router = APIRouter()
 ZARTY_DIR = Path("/root/rod-ai-studio/data/zarty")
 ZARTY_DIR.mkdir(parents=True, exist_ok=True)
 
-VEO_MODEL = "fal-ai/veo3.1/fast/image-to-video"
-CENA_SEK = 0.10          # USD / s bez audio (720p/1080p)
+VEO_MODEL = "fal-ai/veo3.1/fast (t2v + audio)"
+CENA_SEK = 0.15          # USD / s, t2v z audio 1080p — jak w zarty_produkcja
 CENA_KADR = 0.15         # USD / kadr referencyjny NB Pro
 KLIP_SEK = 8
 
