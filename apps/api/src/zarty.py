@@ -42,9 +42,9 @@ ZASADY HUMORU:
   MIECZYSŁAW — ogrodnik, mądry i małomówny. Odzywa się rzadko; jak powie, to już powie.
   HELENA — jego żona, ciepła, praktyczna, zarządza wszystkim z drugiego planu.
   TOMASZ — sąsiad, nieogarnięty ale cwany: wielkie plany, kiepskie wykonanie, kombinuje.
-  JACUŚ — wnuczek (osiem lat), zadaje pytania i mówi na głos to, co wszyscy myślą.
+  JACUŚ — dorosły wnuk (rodzina dalej mówi mu "Jacuś"), zadaje pytania i mówi na głos to, co wszyscy myślą.
 - PUENTA należy do MIECZYSŁAWA (jedno krótkie, celne zdanie po długim milczeniu)
-  ALBO do JACUSIA (rozbrajająca dziecięca szczerość). Nigdy nie tłumacz puenty.
+  ALBO do JACUSIA (rozbrajająca szczerość — mówi wprost to, co wszyscy myślą). Nigdy nie tłumacz puenty.
 - W jednym klipie pokazuj maksymalnie dwie-trzy postacie (nie zawsze wszystkich).
 
 FORMAT (dokładnie taki, {n} klipów):
@@ -78,8 +78,8 @@ STYL_BOHATEROW = (
     "sukienka i fartuch kuchenny, w dłoniach często blacha z ciastem. "
     "TOMASZ — sąsiad około pięćdziesiątki, lekko zaokrąglony, przekrzywiona czapka z daszkiem, "
     "rozpięta koszula hawajska, szeroki niepewny uśmiech, w ręku zawsze jakiś gadżet. "
-    "JACUŚ — wnuczek, osiem lat, odstające uszy, piegi, za duża koszulka, kalosze, "
-    "ciekawskie wielkie oczy. "
+    "JACUŚ — dorosły wnuk około dwudziestu pięciu lat, szczupły, odstające uszy, piegi, "
+    "luźna koszulka, ciekawskie wielkie oczy, wiecznie z telefonem w kieszeni. "
     "Tło: zadbana działka ROD — grządki, altana z pnączem, płot, konewki, letnie światło. "
     "Pionowy kadr 9:16, wszyscy czworo widoczni."
 )
@@ -281,9 +281,6 @@ def zart_zatwierdz(zid: str):
     folder = ZARTY_DIR / zid
     if not folder.is_dir():
         raise HTTPException(status_code=404, detail="Żart nie znaleziony")
-    if not KADR_GLOBALNY.is_file():
-        raise HTTPException(status_code=400,
-                            detail="Najpierw postacie: POST /zarty-postacie/generuj i akceptacja wyglądu")
     meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
     if meta.get("stan") not in ("checkpoint", "blad"):
         raise HTTPException(status_code=400, detail=f"Zły stan: {meta.get('stan')}")

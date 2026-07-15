@@ -16,11 +16,19 @@ GLOSY = {
     "MIECZYSŁAW": {"voice": "pl-PL-MarekNeural", "rate": "-12%", "pitch": "-14Hz"},  # wolny, niski, wazki
     "TOMASZ":     {"voice": "pl-PL-MarekNeural", "rate": "+16%", "pitch": "+18Hz"},  # nerwowy cwaniak
     "HELENA":     {"voice": "pl-PL-ZofiaNeural", "rate": "+2%",  "pitch": "-2Hz"},   # cieplo, spokojnie
-    "JACUŚ":      {"voice": "pl-PL-ZofiaNeural", "rate": "+12%", "pitch": "+42Hz"},  # dziecko
+    "JACUŚ":      {"voice": "pl-PL-MarekNeural", "rate": "+8%",  "pitch": "+30Hz"},  # mlody dorosly
 }
 KOLORY_ASS = {"MIECZYSŁAW": "&H00D7FF&", "HELENA": "&HFFD7A0&",
               "TOMASZ": "&H7AD77A&", "JACUŚ": "&HF0A0F0&"}  # BGR
-VEO_MODEL = "fal-ai/veo3.1/fast/image-to-video"
+VEO_MODEL = "fal-ai/veo3.1/fast"  # text-to-video!
+# ZMIANA 15.07: i2v z ludzmi na obrazie = twarda blokada content policy Google
+# (potwierdzone testami + forum Google). Postacie opisujemy SLOWAMI w kazdym klipie.
+OPIS_POSTACI = {
+    "MIECZYSŁAW": "starszy pan w kaszkiecie i kamizelce ogrodowej, siwy krotki zarost, spokojne madre oczy",
+    "HELENA": "starsza pani z siwym kokiem, kwiecista sukienka i fartuch",
+    "TOMASZ": "mezczyzna okolo piecdziesiatki w hawajskiej koszuli i czapce z daszkiem, lekko zaokraglony",
+    "JACUŚ": "mlody dorosly mezczyzna z piegami i odstajacymi uszami, luzna koszulka",
+}
 
 
 def _log(folder: Path, msg: str):
@@ -69,29 +77,35 @@ def zrob_kadr_globalny(styl: str, wymus: bool = False) -> Path:
 
 
 # ---------------------------------------------------------------- KLIPY VEO
-def zrob_klipy(folder: Path, klipy: list, kadr: Path):
+def _opis_dla_klipu(tekst: str) -> str:
+    """Sklada opisy postaci wystepujacych w klipie (wykrywanie po imionach)."""
+    czesci = []
+    for imie, opis in OPIS_POSTACI.items():
+        if imie.replace("Ł", "L").replace("Ś", "S") in tekst.upper().replace("Ł", "L").replace("Ś", "S"):
+            czesci.append(f"{imie} to {opis}")
+    return ". ".join(czesci)
+
+
+def zrob_klipy(folder: Path, klipy: list, kadr=None):
     import fal_client
-    img_url = fal_client.upload_file(str(kadr))
-    _log(folder, f"kadr wgrany na fal: {img_url[:60]}…")
     for k in klipy:
         out = folder / f"klip_{k['nr']:02d}.mp4"
         if out.is_file():
             _log(folder, f"klip {k['nr']} już jest — pomijam")
             continue
-        _log(folder, f"klip {k['nr']}/{len(klipy)} Veo…")
-        prompt = (f"{k['ruch']} Postacie i miejsce dokładnie jak na obrazie referencyjnym. "
-                  f"Ciepła animacja 3D, letnie światło na polskiej działce.")
-        args = {"prompt": prompt, "image_url": img_url, "aspect_ratio": "9:16",
-                "duration": "8s", "resolution": "720p", "generate_audio": False}
+        _log(folder, f"klip {k['nr']}/{len(klipy)} Veo t2v…")
+        kto = _postacie_w_klipie(k)
+        opisy = ("W kadrze: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
+        prompt = f"{opisy}{k['ruch']} {STYL_KLIPU}"
+        args = {"prompt": prompt, "aspect_ratio": "9:16", "duration": "8s",
+                "resolution": "720p", "generate_audio": False, "auto_fix": True}
         try:
             res = fal_client.run(VEO_MODEL, arguments=args)
         except Exception as e:
             if "content_policy" in str(e):
                 raise RuntimeError(f"klip {k['nr']}: Veo odrzucil tresc (content policy) — "
-                                   f"popraw RUCH klipu {k['nr']} (palenie/alkohol/marki?) i zatwierdz ponownie")
-            _log(folder, f"klip {k['nr']}: pelny schemat odrzucony ({str(e)[:100]}), probuje bez opcjonalnych")
-            res = fal_client.run(VEO_MODEL, arguments={"prompt": prompt, "image_url": img_url,
-                                                       "aspect_ratio": "9:16", "generate_audio": False})
+                                   f"popraw RUCH klipu {k['nr']} i zatwierdz ponownie")
+            raise
         url = res["video"]["url"]
         _run(["curl", "-sL", "-o", str(out), url])
         if not out.is_file() or out.stat().st_size < 50000:
@@ -195,11 +209,17 @@ def zloz(folder: Path, klipy: list) -> Path:
         if ass.is_file():
             vf += f",subtitles={ass}"
         if dialog.is_file():
+            # dialog dluzszy niz klip -> stop-klatka zamiast uciecia puenty
+            dl_dialog = _dlugosc(dialog) + 0.35
+            dl_klip = _dlugosc(klip)
+            cel = max(dl_klip, dl_dialog + 0.35)
+            if cel > dl_klip + 0.05:
+                vf += f",tpad=stop_mode=clone:stop_duration={cel - dl_klip:.2f}"
             _run(["ffmpeg", "-y", "-v", "error", "-i", str(klip),
                   "-itsoffset", "0.35", "-i", str(dialog),
                   "-vf", vf, "-map", "0:v", "-map", "1:a",
                   "-c:v", "libx264", "-preset", "medium", "-crf", "21",
-                  "-c:a", "aac", "-shortest", "-pix_fmt", "yuv420p", str(part)])
+                  "-c:a", "aac", "-t", f"{cel:.2f}", "-pix_fmt", "yuv420p", str(part)])
         else:
             _run(["ffmpeg", "-y", "-v", "error", "-i", str(klip), "-vf", vf,
                   "-an", "-c:v", "libx264", "-crf", "21", "-pix_fmt", "yuv420p", str(part)])
@@ -224,11 +244,8 @@ def produkuj(folder: Path, styl_bohaterow: str):
         klipy = _parsuj((folder / "scenariusz.txt").read_text(encoding="utf-8"))
         if not klipy:
             raise RuntimeError("scenariusz nie parsuje się na klipy")
-        if not KADR_GLOBALNY.is_file():
-            raise RuntimeError("Brak kadru postaci — najpierw POST /zarty-postacie/generuj (Tomasz akceptuje wygląd)")
-        kadr = KADR_GLOBALNY
         _meta(folder, stan="klipy_veo")
-        zrob_klipy(folder, klipy, kadr)
+        zrob_klipy(folder, klipy)
         _meta(folder, stan="dialogi")
         zrob_dialogi(folder, klipy)
         zrob_napisy(folder, klipy)

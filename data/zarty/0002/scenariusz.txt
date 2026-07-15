@@ -1,9 +1,9 @@
 KLIP 1:
-RUCH: TOMASZ z dumą montuje przy grządce sałaty plastikowe pudełko z antenką i migającą zieloną diodą; JACUŚ patrzy sceptycznie z boku. Za płotem MIECZYSŁAW unosi brwi i uśmiecha się lekko pod nosem, opierając się o płot.
+RUCH: TOMASZ z dumą montuje przy grządce sałaty małe zielone pudełko ogrodowe na krótkim paliku; JACUŚ patrzy sceptycznie z boku. Za płotem MIECZYSŁAW unosi brwi i uśmiecha się lekko pod nosem, opierając się o płot.
 DIALOG: TOMASZ: "No, sąsiedzie! Teraz te ślimaki to się przestraszą!" / JACUŚ: "Dziadek mówi, że ślimak nie ma uszu."
 
 KLIP 2:
-RUCH: Następny ranek — TOMASZ klęczy przy grządce z doszczętnie objedzonej sałaty, pudełko z antenką miga jak gdyby nigdy nic, a po jego obudowie pełznie tłusty ślimak. MIECZYSŁAW spokojnie pije herbatę w oknie altany, HELENA przy szklarni kręci głową z politowaniem.
+RUCH: Następny ranek — TOMASZ klęczy przy grządce z doszczętnie objedzonej sałaty, zielone pudełko stoi jak gdyby nigdy nic, a po jego obudowie pełznie tłusty ślimak. MIECZYSŁAW spokojnie pije herbatę w oknie altany, HELENA przy szklarni kręci głową z politowaniem.
 DIALOG: TOMASZ (łapiąc się za głowę): "Przecież to miało być niezawodne!" / JACUŚ: "Dziadku, a nie mówiliśmy?"
 
 KLIP 3:
