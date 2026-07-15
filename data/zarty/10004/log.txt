@@ -1,0 +1,15 @@
+20:49:46 klip 1/4 Veo t2v+audio…
+20:52:15 klip 1 OK (14136 KB)
+20:52:15 klip 2/4 Veo t2v+audio…
+20:54:31 klip 2 OK (27705 KB)
+20:54:31 klip 3/4 Veo t2v+audio…
+20:56:42 klip 3 OK (19202 KB)
+20:56:42 klip 4/4 Veo t2v+audio…
+20:58:38 klip 4 OK (14869 KB)
+20:58:39 napisy: kwestie na caly klip (duze, bez Whisper)
+20:58:41 part 1 zlozony
+20:58:45 part 2 zlozony
+20:58:48 part 3 zlozony
+20:58:50 part 4 zlozony
+20:58:50 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (47947 KB)
+20:58:50 telegram wyslany
