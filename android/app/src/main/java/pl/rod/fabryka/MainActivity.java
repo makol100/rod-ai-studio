@@ -74,12 +74,13 @@ public class MainActivity extends Activity {
         addCard(list, "\uD83C\uDF9E", "#EAF0FB", "Ostatnie rolki", "Podgląd, poprawki, publikacja", "02");
         addCard(list, "\uD83C\uDF31", "#EAF6EC", "Tematy sezonowe", "Kategorie i baza tematów", "03");
         addCard(list, "\uD83E\uDD16", "#F3EDFB", "Asystent promptu", "Rozbuduj słaby temat (Claude)", "00");
+        addCard(list, "\uD83C\uDFAD", "#FBEAF0", "Fabryka żartów", "Animowane żarty: Mieczysław i spółka", "06");
         addCard(list, "\uD83D\uDCCA", "#FBF1E6", "Diagnostyka", "RAM, CPU, dysk, stan serwera", "04");
         addCard(list, "\uD83D\uDDC2", "#EEF1EF", "Cały panel", "Otwórz pełny widok", null);
 
         // Footer
         TextView footer = new TextView(this);
-        footer.setText("v1.1 · panel.157-90-155-155.sslip.io");
+        footer.setText("v1.4 · panel.157-90-155-155.sslip.io");
         footer.setTextColor(Color.parseColor("#9AA69E"));
         footer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
         footer.setGravity(Gravity.CENTER);

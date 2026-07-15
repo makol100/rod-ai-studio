@@ -297,3 +297,60 @@ def zart_video(zid: str):
     if not f.is_file():
         raise HTTPException(status_code=404, detail="Jeszcze nie ma finalu")
     return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}.mp4")
+
+
+@router.get("/zarty/{zid}/log")
+def zart_log(zid: str):
+    f = ZARTY_DIR / zid / "log.txt"
+    if not f.is_file():
+        return {"log": []}
+    return {"log": f.read_text(encoding="utf-8").splitlines()[-25:]}
+
+
+@router.post("/zart-checkpoint/{zid}/audytuj")
+def zart_audytuj(zid: str, data: dict = Body(None)):
+    """Audyt żartu przez Claude Fable 5 — grzechy: napisy w RUCH, zły format
+    DIALOG, cyfry, słaba puenta, za długie kwestie na 8s klipu."""
+    import os
+    import requests as req
+    folder = ZARTY_DIR / zid
+    if not folder.is_dir():
+        raise HTTPException(status_code=404, detail="Żart nie znaleziony")
+    sc = (data or {}).get("scenariusz") or (folder / "scenariusz.txt").read_text(encoding="utf-8")
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="Brak ANTHROPIC_API_KEY")
+    system = (
+        "Jesteś audytorem scenariuszy 24-sekundowych animowanych żartów (3 klipy po 8 s) "
+        "dla polskich działkowców. Format: KLIP N: / RUCH: / DIALOG:. Postacie: MIECZYSŁAW "
+        "(mądry, małomówny — jak powie, to już powie), HELENA (żona, ciepła, praktyczna), "
+        "TOMASZ (sąsiad-kombinator), JACUŚ (wnuczek 8 lat, szczery). Sprawdź i NAPRAW:\n"
+        "1. NAPISY w RUCH ('z napisem X', tablice, etykiety) — generator wideo psuje polski "
+        "tekst; zamień na opis wyglądu przedmiotu.\n"
+        "2. Format DIALOG: wyłącznie kwestie IMIĘ: \"tekst\" (didaskalia krótko w nawiasie "
+        "przed dwukropkiem); milczenie opisuje się w RUCH, nie w DIALOG; zero gwiazdek.\n"
+        "3. Liczby w DIALOG słownie z polską gramatyką.\n"
+        "4. Suma mówienia w klipie ≤ 7 sekund (ok. 16-18 słów) — dłuższe skróć.\n"
+        "5. Jedna ciągła akcja na klip (RUCH bez cięć i 'następnego dnia' w środku klipu).\n"
+        "6. PUENTA: ostatni klip musi zaskakiwać; należy do MIECZYSŁAWA (krótko, celnie) "
+        "albo JACUSIA (dziecięca szczerość). Nie tłumaczy się jej.\n"
+        "7. Humor życzliwy, działkowy — zero polityki i przykrości.\n"
+        "Odpowiedz DOKŁADNIE w formacie:\nPROBLEMY:\n- ...(albo 'Brak problemow.')\n"
+        "PROPOZYCJA_SCENARIUSZA:\n(cały scenariusz KLIP/RUCH/DIALOG — poprawiony, albo "
+        "przepisany bez zmian gdy brak problemów)"
+    )
+    r = req.post("https://api.anthropic.com/v1/messages",
+                 headers={"x-api-key": api_key, "anthropic-version": "2023-06-01",
+                          "content-type": "application/json"},
+                 json={"model": "claude-fable-5", "max_tokens": 4096, "system": system,
+                       "messages": [{"role": "user", "content": sc}]},
+                 timeout=120)
+    r.raise_for_status()
+    odp = "".join(b.get("text", "") for b in r.json().get("content", []))
+    problemy, propozycja = odp, ""
+    if "PROPOZYCJA_SCENARIUSZA:" in odp:
+        problemy, propozycja = odp.split("PROPOZYCJA_SCENARIUSZA:", 1)
+    problemy = [l.strip(" -") for l in problemy.replace("PROBLEMY:", "").splitlines()
+                if l.strip().startswith("-")]
+    return {"problemy": problemy, "propozycja": propozycja.strip(),
+            "brak_problemow": bool(problemy) and "brak problem" in problemy[0].lower()}
