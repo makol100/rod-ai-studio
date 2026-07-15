@@ -15,6 +15,8 @@ app.add_middleware(
 )
 
 app.include_router(topics_router)
+from src.zarty import router as zarty_router
+app.include_router(zarty_router)
 
 
 @app.get("/health")

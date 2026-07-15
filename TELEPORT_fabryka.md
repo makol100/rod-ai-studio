@@ -1174,3 +1174,17 @@ całą roślinę w kilka dni"). Commity: 7942981, 5606f6b + wiedza.
 Post tekstowy na stronę ROD (ID 122109501771379813): zachęta do wrzucania zdjęć sowy
 z młodymi w komentarzach. Bez gatunku (ludzie zweryfikują sami). Pomysł na później:
 post zbiorczy / rolka z najlepszych zdjęć mieszkańców. Skrypt z tokenem usunięty z /tmp.
+
+## FABRYKA ŻARTÓW — FUNDAMENT (15.07 noc)
+Decyzja Tomasza: Droga B, profesjonalnie — klipy wideo Veo 3.1 Fast (fal.ai), sklejka
+u nas. Ceny zweryfikowane 15.07: Veo3.1 Fast $0.10/s bez audio (8s klip = $0.80),
+NB Pro kadr $0.15 → żart 3 klipy ≈ $2.55. Moduł src/zarty.py DZIAŁA: Bielik pisze
+scenariusz (Heniek+Halinka), checkpoint z wyceną, zero kosztów bez zatwierdzenia.
+Żart #0001 na checkpoincie (ślimaki vs granulki Heńka) — dobra puenta, ALE Bielik
+wsadził NAPISY do RUCHU mimo zakazu ("Eko-Ślimak", transparent "Wielka Wyżerka 2023")
+— poprawić przed produkcją (transparent → ślimak z liściem jak trofeum).
+NASTĘPNA SESJA: (1) produkcyjna połowa żartów: kadr referencyjny → fal Veo i2v →
+edge-tts dialog 2 głosy → ffmpeg concat+napisy; (2) pierwszy żart TYLKO za wyraźną
+zgodą Tomasza na $2.55; (3) karta Żarty w panelu; (4) rozważyć audyt Fable dla żartów.
+STAN 000095: sprawdzić czy Tomasz kliknął OK (ostatnio aktywna:null — możliwe że
+przeszła produkcję; zweryfikować /reels i ewentualnie przypomnieć o publikacji).

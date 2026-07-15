@@ -1,0 +1,16 @@
+{
+ "id": "0001",
+ "temat": "Ślimaki zjadły Heńkowi całą sałatę, choć chwalił się najlepszą ochroną na ogrodzie",
+ "stan": "checkpoint",
+ "ts": 1784095033.096673,
+ "klipy_sparsowane": 3,
+ "wycena": {
+  "klipy": 3,
+  "sekundy": 24,
+  "koszt_klipy_usd": 2.4,
+  "koszt_kadr_usd": 0.15,
+  "koszt_razem_usd": 2.55,
+  "model": "fal-ai/veo3.1/fast/image-to-video",
+  "cena_za_sekunde": 0.1
+ }
+}

@@ -56,3 +56,13 @@ tryb_override). 20 kategorii, ~930 tematów. Losowanie: sezon (miesiace) + najrz
 apps/api/src/barometr.py — Open-Meteo (bez klucza), 4 lokalizacje (Woźniki, Lubliniec,
 Koszęcin, Boronów), cache 3 h. Algorytm 0-100: opady 10d (→45) + deszcz 4-10 dni temu
 (→15) + temp 5d (→40, optimum 12-19°C) − przymrozek (−20). Progi: 75/55/30.
+
+## Fabryka Żartów (Droga B — w budowie, 15.07)
+Moduł `src/zarty.py`, dane `data/zarty/NNNN/`. Pipeline docelowy: Bielik pisze żart
+(KLIP/RUCH/DIALOG, bohaterowie: HENIEK + HALINKA przy płocie) → CHECKPOINT z wyceną $
+→ kadr referencyjny NB Pro ($0.15) → klipy Veo 3.1 Fast image-to-video (fal.ai,
+$0.10/s bez audio, 8s/klip, 9:16) → dialogi edge-tts (Marek+Zofia) → ffmpeg concat.
+Żart 3×8s ≈ $2.55. Endpointy: POST /generate-zart, GET /zart-checkpoint/{id},
+POST .../zapisz, GET /zarty. ZBUDOWANE: scenariusz+checkpoint+wycena.
+DO ZBUDOWANIA: produkcja (kadr → Veo → audio → render) + karta w panelu.
+Styl bohaterów: stała STYL_BOHATEROW w zarty.py.
