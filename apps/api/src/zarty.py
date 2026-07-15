@@ -29,7 +29,12 @@ CENA_SEK = 0.10          # USD / s bez audio (720p/1080p)
 CENA_KADR = 0.15         # USD / kadr referencyjny NB Pro
 KLIP_SEK = 8
 
-PROMPT_ZART = '''Jesteś scenarzystą krótkich filmów komediowych o polskiej działce (ROD).
+# Rola: wersja profesjonalna. (Propozycja Tomasza: "Steven Spielberg pił wodę
+# z miski, w której moczyłem nogi" — kanon zespołu, ale IQ modelu nie podnosi.
+# Podnosi je rzemiosło + wzorzec poniżej.)
+PROMPT_ZART = '''Jesteś doświadczonym scenarzystą komediowym. Specjalność: 30-sekundowe
+skecze wizualne — gag dzieje się W OBRAZIE, kwestia tylko go dobija. Piszesz
+o polskiej działce (ROD).
 Napisz scenariusz 3-klipowego żartu wideo (każdy klip 8 sekund) na temat: {temat}
 
 OBSADA (używaj TYLKO tych postaci):
@@ -45,6 +50,15 @@ KLIP 3: OBRAZ: [Mieczysław reaguje spokojnie] MÓWI: MIECZYSŁAW KWESTIA: [puen
 
 ZASADA NADRZĘDNA (ważniejsza od wszystkich):
 ŻART MUSI BYĆ ZROZUMIAŁY W TRZY SEKUNDY DLA KAŻDEGO — dziesięciolatka i babci.
+
+WZORZEC RYTMU I STYLU (sprawdzony na publiczności — NIE kopiuj tematu, miejsc
+ani rekwizytów; kopiuj wyłącznie RYTM i typ humoru):
+KLIP 1: OBRAZ: OGRÓD: Helena wjeżdża przez furtkę z taczką pełną ogromnych cukinii, zatrzymuje taczkę przed drewnianą altaną i woła w stronę jej okna. MÓWI: HELENA KWESTIA: Tomku! Przyniosłam ci świeżutkie cukinie!
+KLIP 2: OBRAZ: WNĘTRZE ALTANY, kamera w środku pomieszczenia: Tomasz kuca na podłodze pod oknem, przyciśnięty do ściany, i zerka zza firanki; przez szybę widać rozmyty ogród. MÓWI: TOMASZ KWESTIA: Ciii... może pomyśli, że wyjechałem.
+KLIP 3: OBRAZ: PRZY PŁOCIE: Mieczysław opiera się o drewniany płot i spokojnie kiwa głową. MÓWI: MIECZYSŁAW KWESTIA: W zeszłym tygodniu to on udawał remont.
+Dlaczego działa: absurd widać w 1. sekundzie (taczka gigantycznych cukinii),
+eskalacja jest FIZYCZNA (dorosły facet ukrywa się we własnej altanie), a puenta
+ujawnia, że to stały wzorzec zachowania — zaskoczenie w ostatnich słowach.
 Zero wiedzy fachowej (taryfy, przepisy, technika). Mechanizm śmieszności musi być
 WIDOCZNY NA EKRANIE: śmieszy to, co widać, a kwestie tylko dobijają.
 Test: gdyby wyciszyć dźwięk, sytuacja nadal ma być zabawna.
