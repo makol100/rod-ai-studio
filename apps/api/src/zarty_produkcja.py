@@ -12,7 +12,7 @@ import time
 from pathlib import Path
 
 # 4 postacie z 2 polskich glosow edge-tts: modulacja pitch/rate robi charaktery.
-GLOSY = {
+GLOSY_TTS = {  # relikt edge-tts, dialogi robi Veo
     "MIECZYSŁAW": {"voice": "pl-PL-MarekNeural", "rate": "-12%", "pitch": "-14Hz"},  # wolny, niski, wazki
     "TOMASZ":     {"voice": "pl-PL-MarekNeural", "rate": "+16%", "pitch": "+18Hz"},  # nerwowy cwaniak
     "HELENA":     {"voice": "pl-PL-ZofiaNeural", "rate": "+2%",  "pitch": "-2Hz"},   # cieplo, spokojnie
@@ -29,6 +29,37 @@ OPIS_POSTACI = {
     "TOMASZ": "mezczyzna okolo piecdziesiatki w hawajskiej koszuli i czapce z daszkiem, lekko zaokraglony",
     "JACUŚ": "mlody dorosly mezczyzna z piegami i odstajacymi uszami, luzna koszulka",
 }
+
+
+# === NATYWNE AUDIO VEO (wzorzec z zatwierdzonego testu #9999) ===
+OPISY_POSTACI = {
+    "MIECZYSŁAW": "MIECZYSLAW, a calm Polish gardener around 70 years old, short grey "
+                  "stubble, grey flat cap, olive gardening vest, wise squinting eyes",
+    "HELENA": "HELENA, his wife around 65, warm face, grey hair in a bun, floral dress "
+              "with a kitchen apron",
+    "TOMASZ": "TOMASZ, the neighbour around 50, slightly round, crooked baseball cap, "
+              "open Hawaiian shirt, wide uncertain smile",
+    "JACUŚ": "JACUS, a young man around 25, slim, protruding ears, freckles, loose t-shirt",
+}
+GLOSY_VEO = {
+    "MIECZYSŁAW": "slowly in Polish with a wise quiet elderly voice",
+    "HELENA": "in Polish with a warm motherly voice",
+    "TOMASZ": "in Polish with an enthusiastic slightly nervous voice",
+    "JACUŚ": "in Polish with a young casual voice",
+}
+STYL_KLIPU = ("Cinematic realistic footage, warm golden summer light. Vertical 9:16. "
+              "Natural ambient sounds. No subtitles, no text overlay.")
+# Miejsce akcji MUSI byc opisane w scenie (OBRAZ), nie w stylu — inaczej
+# styl wymusza plener i sceny wnetrza laduja na podworku (lekcja: klip 2 pilota).
+
+
+def _postacie_w_klipie(k):
+    tekst = (k.get("ruch", "") + " " + k.get("obraz", "") + " " + k.get("mowi", "")
+             + " " + k.get("kwestia", "")).upper()
+    t = tekst.replace("Ł", "L").replace("Ś", "S")
+    return [im for im in OPISY_POSTACI
+            if im.replace("Ł", "L").replace("Ś", "S") in t]
+
 
 
 def _log(folder: Path, msg: str):
@@ -98,7 +129,7 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
         opisy = ("In frame: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
         mowi = k.get("mowi", "")
         kwestia = k.get("kwestia", "")
-        glos = GLOSY.get(mowi, "in Polish with a natural voice")
+        glos = GLOSY_VEO.get(mowi, "in Polish with a natural voice")
         dialog = (f'{mowi.capitalize()} says {glos}: "{kwestia}" ') if kwestia else ""
         prompt = f"{opisy}Scene: {k['ruch']} {dialog}{STYL_KLIPU}"
         args = {"prompt": prompt, "aspect_ratio": "9:16", "duration": "8s",
@@ -168,6 +199,22 @@ def _ass_czas(t: float) -> str:
     h = int(t // 3600); m = int(t % 3600 // 60); s = t % 60
     return f"{h}:{m:02d}:{s:05.2f}"
 
+
+
+# Naglowek ASS: duze czytelne napisy na 9:16 (1080x1920), u dolu, obrys dla czytelnosci
+ASS_HEADER = """[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,64,&H00FFFFFF,&H00FFFFFF,&H00101010,&H88000000,-1,0,0,0,100,100,0,0,1,4,2,2,60,60,220,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+"""
 
 def zrob_napisy(folder: Path, klipy: list):
     for k in klipy:

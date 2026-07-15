@@ -1,3 +1,4 @@
-KLIP 1: OBRAZ: Helena z taczką pełną ogromnych cukinii puka do drzwi altany Tomasza. MÓWI: HELENA KWESTIA: Tomku! Przyniosłam ci świeżutkie cukinie!
-KLIP 2: OBRAZ: Tomasz w środku altany kuca pod oknem i zasłania się firanką, żeby go nie było widać. MÓWI: TOMASZ KWESTIA: Ciii... może pomyśli, że wyjechałem.
-KLIP 3: OBRAZ: Mieczysław opiera się o płot obok altany i spokojnie kiwa głową. MÓWI: MIECZYSŁAW KWESTIA: W zeszłym tygodniu to on udawał remont.
+KLIP 1: OBRAZ: OGRÓD: Helena wjeżdża przez furtkę z taczką pełną ogromnych cukinii, zatrzymuje taczkę przed drewnianą altaną i woła w stronę jej okna. MÓWI: HELENA KWESTIA: Tomku! Przyniosłam ci świeżutkie cukinie!
+KLIP 2: OBRAZ: WNĘTRZE ALTANY, kamera w środku pomieszczenia: Tomasz kuca na podłodze pod oknem, przyciśnięty do ściany, i zerka zza firanki; przez szybę widać rozmyty ogród. MÓWI: TOMASZ KWESTIA: Ciii... może pomyśli, że wyjechałem.
+KLIP 3: OBRAZ: PRZY PŁOCIE: Mieczysław opiera się o drewniany płot i spokojnie kiwa głową. MÓWI: MIECZYSŁAW KWESTIA: W zeszłym tygodniu to on udawał remont.
+KLIP 4: OBRAZ: OGRÓD: Mieczysław patrzy prosto w kamerę z lekkim uśmiechem, za nim działka w letnim słońcu. MÓWI: MIECZYSŁAW KWESTIA: Podobno będą nas teraz pokazywać częściej. W przyrodzie nic się nie ukryje.

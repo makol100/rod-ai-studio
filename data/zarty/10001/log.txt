@@ -1,0 +1,47 @@
+11:18:51 klip 1/4 Veo t2v+audio…
+11:18:51 BLAD PRODUKCJI: name '_postacie_w_klipie' is not defined
+11:22:29 klip 1/4 Veo t2v+audio…
+11:25:14 klip 1 OK (34829 KB)
+11:25:14 klip 2/4 Veo t2v+audio…
+11:27:23 klip 2 OK (31605 KB)
+11:27:23 klip 3/4 Veo t2v+audio…
+11:30:20 klip 3 OK (10923 KB)
+11:30:20 klip 4/4 Veo t2v+audio…
+11:32:20 klip 4 OK (16795 KB)
+11:32:20 BLAD PRODUKCJI: name 'ASS_HEADER' is not defined
+12:03:36 klip 1 już jest — pomijam
+12:03:36 klip 2 już jest — pomijam
+12:03:36 klip 3 już jest — pomijam
+12:03:36 klip 4 już jest — pomijam
+12:03:37 napisy: kwestie na caly klip (duze, bez Whisper)
+12:03:40 part 1 zlozony
+12:03:43 part 2 zlozony
+12:03:45 part 3 zlozony
+12:03:48 part 4 zlozony
+12:03:48 FINAL: /root/rod-ai-studio/data/zarty/10001/final.mp4 (59061 KB)
+12:03:48 telegram wyslany
+16:06:56 klip 1/4 Veo t2v+audio…
+16:09:23 klip 1 OK (30476 KB)
+16:09:23 klip 2 już jest — pomijam
+16:09:23 klip 3 już jest — pomijam
+16:09:23 klip 4 już jest — pomijam
+16:09:23 napisy: kwestie na caly klip (duze, bez Whisper)
+16:09:26 part 1 zlozony
+16:09:30 part 2 zlozony
+16:09:32 part 3 zlozony
+16:09:35 part 4 zlozony
+16:09:35 FINAL: /root/rod-ai-studio/data/zarty/10001/final.mp4 (56082 KB)
+16:09:35 telegram wyslany
+16:51:25 klip 1/4 Veo t2v+audio…
+16:53:38 klip 1 OK (29031 KB)
+16:53:38 klip 2/4 Veo t2v+audio…
+16:55:49 klip 2 OK (12163 KB)
+16:55:49 klip 3 już jest — pomijam
+16:55:49 klip 4 już jest — pomijam
+16:55:49 napisy: kwestie na caly klip (duze, bez Whisper)
+16:55:53 part 1 zlozony
+16:55:55 part 2 zlozony
+16:55:57 part 3 zlozony
+16:56:00 part 4 zlozony
+16:56:00 FINAL: /root/rod-ai-studio/data/zarty/10001/final.mp4 (41763 KB)
+16:56:01 telegram wyslany

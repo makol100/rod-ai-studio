@@ -1,17 +1,20 @@
 {
  "id": "10001",
- "temat": "Tomasz podlewa trawnik o piątej rano, bo twierdzi, że wtedy woda z sieci jest tańsza",
- "stan": "checkpoint",
+ "temat": "PILOT SERII: Cukinie (Helena, Tomasz, Jacuś, Mieczysław) + zapowiedź \"Mieczysław z działki\"",
+ "stan": "gotowy",
  "ts": 1784113288.1349788,
- "klipy_sparsowane": 3,
+ "klipy_sparsowane": 4,
  "wycena": {
-  "klipy": 3,
-  "sekundy": 24,
-  "koszt_klipy_usd": 2.4,
+  "klipy": 4,
+  "sekundy": 32,
+  "koszt_klipy_usd": 3.2,
   "koszt_kadr_usd": 0.0,
-  "koszt_razem_usd": 2.4,
+  "koszt_razem_usd": 8.4,
   "model": "fal-ai/veo3.1/fast/image-to-video",
   "cena_za_sekunde": 0.1,
-  "postacie": "gotowe (koszt zero)"
- }
+  "postacie": "gotowe (koszt zero)",
+  "uwaga": "pilot: v1 4.80 + dogrywka K1 1.20 + dogrywka K1+K2 2.40"
+ },
+ "start_produkcji": 1784134285.7114449,
+ "final": "/root/rod-ai-studio/data/zarty/10001/final.mp4"
 }

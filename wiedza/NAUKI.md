@@ -70,3 +70,11 @@
   powtórzenia, haczyk+pętla) z rozkazem naprawy.
 - Pierwszy audyt złapał proporcję czosnku wpisaną przez Claude — audytor pilnuje
   WSZYSTKICH autorów scenariusza, nie tylko Bielika.
+
+## Sesja 15.07.2026 — pilot "Cukinie" (żarty Veo)
+- **Weryfikacja wideo = min. 8 klatek/klip** (ffmpeg select+tile 4x2) + transkrypcja Whisper. 1–3 klatki NIE wykrywają błędów przestrzeni i ruchu (2× wpadka). A i tak ruch może dać inną interpretację niż stopklatki — ostatecznym sędzią jest Tomasz.
+- **STYL_KLIPU bez opisu miejsca.** Stały opis pleneru w stylu wymuszał ogród w każdej scenie — wnętrza lądowały na podwórku. Miejsce dyktuje OBRAZ sceny: "WNĘTRZE ALTANY, kamera w środku:" / "OGRÓD:".
+- **Imię w OBRAZIE = postać w kadrze.** Parser dodaje każdą wymienioną postać do "In frame". Miejsca bez imion ("altana", nie "altana Tomasza"). Logika między klipami: kto się ukrywa, nie mógł być wcześniej widoczny.
+- **Zakazane akcje Veo:** pukanie, otwieranie drzwi, precyzyjne gesty dłoni — model je psuje. Zamiast: wołanie, niesienie, kucanie, patrzenie.
+- **Cięcie po puencie:** whisper chunks / silencedetect → `-t koniec_mowy+0.5s` per part. Bez cięć żart tonie w martwych sekundach (było 3.5 s gapienia po puencie). Pipeline NADPISUJE final → ręczny montaż (cuts+plansza) powtarzać po KAŻDEJ regeneracji.
+- **Dwuznaczny obraz ≠ zawsze dogrywka.** Gdy Veo odjedzie od zamysłu, ale wynik da się obronić lepszą interpretacją (Tomek "uciekł przez okno") — przyjąć ją i przypieczętować opisem posta ($0) zamiast palić $ na kolejne podejście.

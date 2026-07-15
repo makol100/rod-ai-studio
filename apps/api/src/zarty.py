@@ -57,6 +57,13 @@ ZASADY HUMORU:
 5. Postaci NIE tłumaczą żartu. Żart ma się sam bronić.
 6. SUCHY SARKAZM zamiast wygłupów: postaci traktują absurd śmiertelnie poważnie.
 7. KONTRAST: dramatyczna reakcja, przyziemna przyczyna (im zwyklejsza, tym śmieszniej).
+8. W OBRAZIE wymieniaj WYŁĄCZNIE postaci widoczne w kadrze. Miejsca opisuj bez imion
+   (pisz "altana", NIGDY "altana Tomasza") — każde imię w OBRAZIE trafia do kadru!
+9. LOGIKA MIĘDZY KLIPAMI: jeśli ktoś się ukrywa, wcześniej nie mógł być widoczny.
+10. KAŻDY OBRAZ zaczyna się od miejsca: "WNĘTRZE ALTANY:" albo "OGRÓD:" albo
+    "PRZY PŁOCIE:". Przy wnętrzu dopisz, że kamera jest w środku pomieszczenia.
+11. Unikaj akcji, które generator psuje: pukanie do drzwi, otwieranie drzwi,
+    precyzyjne gesty dłońmi. Lepiej: wołanie, niesienie, patrzenie, kucanie.
 
 Odpowiedz WYŁĄCZNIE scenariuszem w podanym formacie, bez komentarzy.'''
 
@@ -321,6 +328,7 @@ def zart_audytuj(zid: str, data: dict = Body(None)):
         "2. Dokładnie JEDNA kwestia na klip; postać z MÓWI musi być widoczna w OBRAZIE; "
         "milczenie opisuje się w OBRAZIE; zero gwiazdek i didaskaliów w KWESTII.\n"
         "3. Liczby w KWESTII słownie z polską gramatyką.\n"
+        "0a. Imię postaci w OBRAZIE = postać w kadrze; sprawdź, czy nie psuje to logiki (np. ukrywający się widoczny wcześniej). Miejsca bez imion.\n"
         "0. GRZECH GŁÓWNY: żart wymaga wiedzy fachowej (taryfy, przepisy, technika) albo mechanizm śmieszności NIE jest widoczny w OBRAZIE — wtedy odrzuć całość i zaproponuj prostszy koncept.\n"
         "4. Suma mówienia w klipie ≤ 7 sekund (ok. 16-18 słów) — dłuższe skróć.\n"
         "5. Jedna ciągła akcja na klip (RUCH bez cięć i 'następnego dnia' w środku klipu).\n"

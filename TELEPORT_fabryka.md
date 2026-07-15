@@ -1223,3 +1223,10 @@ pieniądze: brand deals (od 5k subów), afiliacja, reklamy szyte dla lokalnych f
 w rozmowie. NASTĘPNE: po akceptacji #9999 → przebudowa zarty.py na format 1 kwestia/
 klip + natywne audio; pilot serialu; kanały YT/TT.
 KOSZTY dnia: diagnoza i2v ~$1.40 + żart 0002 $2.40 + test 9999 $1.20.
+
+## Sesja 15.07.2026 (cd.) — PILOT #10001 "CUKINIE" ZAAKCEPTOWANY I OPUBLIKOWANY
+**Wynik:** final.mp4 29 s (4 klipy cięte po puentach + plansza "MIECZYSŁAW Z DZIAŁKI / NOWA SERIA"). Koszt łączny **$8.40** (v1 4.80 + dogrywka K1 1.20 + dogrywka K1+K2 2.40). Link: /zarty/10001/video. Publikacja: **strona ROD Woźniki** (humor = bez grup), wideo wgrywa Tomasz ręcznie, opis dostał w czacie.
+**Kanon serii:** Tomek w K2 wygląda jakby siedział na zewnątrz — przyjęta interpretacja: **uciekł przez okno przed cukiniami** (przypieczętowana w opisie posta). Nie regenerować.
+**Stan kodu po sesji:** `zarty.py` — zasady 8–11 w szablonie (imię=kadr, logika między klipami, OBRAZ zaczyna się od miejsca, zakaz pukania/drzwi/gestów) + audytor 0a; `zarty_produkcja.py` — STYL_KLIPU odchudzony (bez opisu ogrodu). Wszystkie fixy przez stringowy replace z assertami.
+**Iteracje (dla historii):** v1 — parser wsadził Tomka w drzwi (imię w OBRAZIE); v2 — pukanie halucynowane + K2 plener (wina STYL_KLIPU); v3/v4 — furtka, wołanie bez pukania, wnętrze żelazne. Szczegóły → wiedza/NAUKI.md.
+**Następne kroki:** (1) żart #0002 na starej architekturze — skasować lub przeprodukować; (2) kolejne odcinki z banku tematów `data/zarty/tematy.json`; (3) decyzja o osobnej marce "Mieczysław z działki" odroczona — na razie wszystko na stronie ROD; (4) po publikacji zebrać zasięgi odcinka 1 przed produkcją odcinka 2.
