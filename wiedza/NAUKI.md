@@ -79,3 +79,4 @@
 - **Cięcie po puencie:** whisper chunks / silencedetect → `-t koniec_mowy+0.5s` per part. Bez cięć żart tonie w martwych sekundach (było 3.5 s gapienia po puencie). Pipeline NADPISUJE final → ręczny montaż (cuts+plansza) powtarzać po KAŻDEJ regeneracji.
 - **Dwuznaczny obraz ≠ zawsze dogrywka.** Gdy Veo odjedzie od zamysłu, ale wynik da się obronić lepszą interpretacją (Tomek "uciekł przez okno") — przyjąć ją i przypieczętować opisem posta ($0) zamiast palić $ na kolejne podejście.
 - **Opis rolki NIE zdradza gagu.** Streszczenie fabuły w opisie = widz nie musi oglądać (wpadka: "Tomek uciekł przez okno" w 1. linijce). Opis = tease sytuacji wyjściowej; spoiler/interpretacja → przypięty komentarz PO publikacji.
+- **Telegram cache'uje wideo po URL.** Ponowna wysyłka z tego samego linku = stary plik z cache (wpadka 10004: gotowy montaż poszedł jako surówka). Każda wysyłka wideo przez webhook MUSI mieć cache-buster `?v={timestamp}` w URL.
