@@ -61,6 +61,11 @@
     <div class="opis" id="opis"></div>
   </div>
 
+  <div class="karta" id="terazKarta" style="display:none">
+    <h2>Teraz nad Woźnikami (model)</h2>
+    <div id="terazTresc" style="font-size:14.5px; line-height:1.7"></div>
+  </div>
+
   <div class="karta">
     <h2>Lasy w okolicy</h2>
     <div id="lokalizacje"></div>
@@ -97,6 +102,17 @@
   document.getElementById('aktualizacja').textContent =
       'aktualizacja: ' + d.aktualizacja + ' · odświeża się co 3 h';
 
+  if (d.teraz) {
+    const t = d.teraz;
+    const k = document.getElementById('terazKarta');
+    k.style.display = 'block';
+    const pr = (t.prognoza_6h || []).map(x => `${x[0]}: ${x[1]}%`).join(' · ');
+    document.getElementById('terazTresc').innerHTML =
+      (t.pada ? '🌧️ <b>Właśnie pada</b> (' + t.opad_mm_h + ' mm/h)'
+              : '☁️ Bez opadu') +
+      `, ${t.temp}°C<br><span style="color:var(--muted)">szansa deszczu: ${pr}</span>` +
+      `<br><span style="color:var(--muted);font-size:12px">To model pogodowy — lokalna ulewa może mu umknąć. Okno > model.</span>`;
+  }
   const lok = document.getElementById('lokalizacje');
   d.lokalizacje.forEach(l => {
     if (l.blad) return;

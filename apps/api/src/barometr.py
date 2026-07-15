@@ -92,6 +92,35 @@ def _status(w):
     return "Sucho", "#A2533F", "Szkoda benzyny. Czekamy na deszcz."
 
 
+
+def _teraz(lat=50.588, lon=18.989):
+    """Biezacy opad + prognoza kilku godzin (Wozniki). Model — nie okno."""
+    try:
+        r = requests.get(
+            "https://api.open-meteo.com/v1/forecast",
+            params={
+                "latitude": lat, "longitude": lon,
+                "current": "precipitation,temperature_2m",
+                "hourly": "precipitation_probability",
+                "forecast_days": 1,
+                "timezone": "Europe/Warsaw",
+            }, timeout=15)
+        r.raise_for_status()
+        d = r.json()
+        c = d["current"]
+        prob = d["hourly"]["precipitation_probability"]
+        czasy = d["hourly"]["time"]
+        naj = [(t[11:16], p) for t, p in zip(czasy, prob) if t[:13] >= c["time"][:13]][:6]
+        return {
+            "opad_mm_h": c["precipitation"],
+            "temp": c["temperature_2m"],
+            "pada": c["precipitation"] >= 0.3,
+            "prognoza_6h": naj,
+        }
+    except Exception:
+        return None
+
+
 def dane(wymus=False):
     if not wymus and os.path.exists(CACHE):
         try:
@@ -114,6 +143,11 @@ def dane(wymus=False):
     sredni = round(sum(x["wynik"] for x in ok) / len(ok)) if ok else 0
     status, kolor, opis = _status(sredni)
 
+    teraz = _teraz()
+    if teraz and teraz["pada"] and sredni >= 55:
+        opis = ("Warunki dobre, ale WEDŁUG MODELU właśnie pada. Po deszczu daj "
+                "grzybom 2-3 dni — wtedy ruszą na dobre.")
+
     wynik = {
         "ts": time.time(),
         "aktualizacja": time.strftime("%d.%m.%Y %H:%M"),
@@ -121,6 +155,7 @@ def dane(wymus=False):
         "status": status,
         "kolor": kolor,
         "opis": opis,
+        "teraz": teraz,
         "lokalizacje": lok,
     }
     try:

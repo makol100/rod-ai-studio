@@ -1854,7 +1854,12 @@
       };
       $('#cpReelLabel').textContent = 'rolka #'+cpReelId+(etykietyTrybu[d.tryb_jezykowy] || '');
       $('#cpArticle').textContent = d.article || '(brak artykułu)';
-      $('#cpScenariusz').value = d.scenariusz || '';
+      // DIRTY GUARD (14.07): nie nadpisuj pola, w ktorym Tomasz wlasnie pisze -
+      // polling potrafil wywolac openCheckpoint i skasowac edycje.
+      if(!(window.cpDirty && cpReelId === (d.reel_id || reelId))){
+        $('#cpScenariusz').value = d.scenariusz || '';
+        window.cpDirty = false;
+      }
       $('#cpAudit').classList.remove('show'); $('#cpAudit').innerHTML='';
       $('#cpTranslateBox').style.display = 'none'; $('#cpTranslateBox').textContent = '';
       if(d.prompty_obrazow){
@@ -2019,6 +2024,8 @@
     if(cpBackActive){ history.back(); } else { closeCheckpoint(); }
   });
 
+  $('#cpScenariusz').addEventListener('input', ()=>{ window.cpDirty = true; });
+
   $('#cpSave').addEventListener('click', async ()=>{
     if(!cpReelId) return;
     const tekst = $('#cpScenariusz').value.trim();
@@ -2026,14 +2033,22 @@
     busy($('#cpSave'), true);
     toast('Zapisuję i przeliczam prompty obrazów… to może potrwać kilka minut.', 'info');
     try{
-      const wynik = await api('/reel-checkpoint/'+cpReelId+'/zapisz', {method:'POST', body: JSON.stringify({scenariusz: tekst})});
-      if(wynik.prompty_obrazow){
-        $('#cpPromptsWrap').style.display = '';
-        renderujScenyPromptow(cpReelId, wynik.prompty_obrazow);
-        pokazZnacznikPromptow(wynik.prompty_ts);
-        $('#cpPromptsWrap').scrollIntoView({behavior:'smooth', block:'start'});
-      }
-      toast('Zapisano — '+(wynik.liczba_promptow||0)+' promptów obrazów przeliczonych na nowo. Sprawdź je poniżej i kliknij OK.', 'ok');
+      await api('/reel-checkpoint/'+cpReelId+'/zapisz', {method:'POST', body: JSON.stringify({scenariusz: tekst})});
+      window.cpDirty = false;
+      toast('Zapisano. Prompty obrazów przeliczają się w tle (~1 min na scenę) — pojawią się tu same.', 'ok');
+      // polling: czekaj az przeliczanie.lock zniknie, wtedy pokaz swieze prompty
+      const czekaj = setInterval(async ()=>{
+        try{
+          const d = await api('/reel-checkpoint/'+cpReelId);
+          if(!d.przeliczanie && d.prompty_obrazow){
+            clearInterval(czekaj);
+            $('#cpPromptsWrap').style.display = '';
+            renderujScenyPromptow(cpReelId, d.prompty_obrazow);
+            pokazZnacznikPromptow(d.prompty_ts);
+            toast('Prompty przeliczone — sprawdź i kliknij OK.', 'ok');
+          }
+        }catch(e){}
+      }, 20000);
     }catch(e){ toast('Nie udało się zapisać: '+e.message, 'err'); }
     finally{ busy($('#cpSave'), false); }
   });
@@ -2375,8 +2390,12 @@
     el.style.display = 'flex';
     const s = Math.max(0, Math.floor((Date.now() - ts.getTime()) / 1000));
     const m = Math.floor(s / 60), r = s % 60;
+    const kto = /obraz/i.test(etap) ? 'Gemini (Nano Banana Pro) maluje obrazy'
+              : /audio|napis|render/i.test(etap) ? 'serwer składa wideo'
+              : /checkpoint/i.test(etap) ? 'czeka na Twoje zatwierdzenie'
+              : 'Bielik mieli, to normalne';
     document.getElementById('etapTxt').textContent =
-      `etap „${etap}" trwa ${m ? m + ' min ' : ''}${r} s — Bielik/Qwen mieli, to normalne`;
+      `etap „${etap}" trwa ${m ? m + ' min ' : ''}${r} s — ${kto}`;
   }
   pobierz(); setInterval(pobierz, 15000); setInterval(tyknij, 1000);
 })();

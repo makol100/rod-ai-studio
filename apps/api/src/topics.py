@@ -574,7 +574,9 @@ def reel_checkpoint_get(reel_id: str):
 
     prompts_p = folder / "prompts.txt"
 
+    przeliczanie = (folder / "przeliczanie.lock").is_file()
     return {
+        "przeliczanie": przeliczanie,
         "reel_id": folder.name,
         "etap": etap,
         "tryb_jezykowy": tryb_jezykowy,
@@ -602,10 +604,24 @@ def reel_checkpoint_zapisz(reel_id: str, data: dict = Body(...)):
     target = (folder / "scenes_en.txt") if tryb_jezykowy in ("en_pl", "czysty") else (folder / "scenes.txt")
     target.write_text(scenariusz, encoding="utf-8")
 
-    # Scenariusz sie zmienil - stare prompty obrazow juz nie pasuja, przelicz
-    # je od nowa (Dyskusja 09.07.2026, darmowe, ale zajmuje ok. 1-3 min).
+    # Scenariusz sie zmienil - stare prompty obrazow juz nie pasuja.
+    # NAPRAWIONE 14.07.2026: przeliczanie w WATKU zamiast synchronicznie -
+    # przy 10 scenach Bielikiem trwalo ~10 min i telefon ubijal polaczenie,
+    # przez co "Zapisz poprawki" wygladal na zepsuty. Teraz endpoint odpowiada
+    # od razu, a flaga przeliczanie.lock mowi frontowi, ze robota trwa.
+    import threading
     from src.reels.pipeline import _przygotuj_prompty_na_checkpoint
-    nowe_prompty = _przygotuj_prompty_na_checkpoint(folder, scenariusz, tryb_jezykowy)
+    lock = folder / "przeliczanie.lock"
+    lock.write_text("1", encoding="utf-8")
+
+    def _w_tle():
+        try:
+            _przygotuj_prompty_na_checkpoint(folder, scenariusz, tryb_jezykowy)
+        finally:
+            lock.unlink(missing_ok=True)
+
+    threading.Thread(target=_w_tle, daemon=True).start()
+    nowe_prompty = None  # przelicza sie w tle; front pyta GET /reel-checkpoint
 
     # NAPRAWIONE 10.07.2026 (Dyskusja) - Tomasz chcial WYRAZNE potwierdzenie
     # ze prompty faktycznie sie przeliczyly, nie tylko cichy zapis w tle.
