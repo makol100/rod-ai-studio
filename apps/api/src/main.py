@@ -4,7 +4,7 @@ from src.topics import router as topics_router
 import os
 import shutil
 
-app = FastAPI(title="Fabryka Rolek")
+app = FastAPI(title="Fabryka Obrazów")
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,7 +23,7 @@ app.include_router(zarty_router)
 def health():
     return {
         "status": "ok",
-        "project": "Fabryka Rolek"
+        "project": "Fabryka Obrazów"
     }
 
 

@@ -57,3 +57,14 @@
 09:51:09 part 3 zlozony
 09:51:12 FINAL: /root/rod-ai-studio/data/zarty/0002/final.mp4 (10832 KB)
 09:51:13 telegram wyslany
+09:54:05 klip 1 już jest — pomijam
+09:54:05 klip 2 już jest — pomijam
+09:54:05 klip 3 już jest — pomijam
+09:54:07 dialog 1: 2 kwestii, 8.0s
+09:54:08 dialog 2: 2 kwestii, 5.3s
+09:54:09 dialog 3: 3 kwestii, 10.7s
+09:54:11 part 1 zlozony
+09:54:12 part 2 zlozony
+09:54:14 part 3 zlozony
+09:54:17 FINAL: /root/rod-ai-studio/data/zarty/0002/final.mp4 (10830 KB)
+09:54:18 telegram wyslany
