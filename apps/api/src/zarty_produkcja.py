@@ -11,8 +11,15 @@ import subprocess
 import time
 from pathlib import Path
 
-GLOSY = {"HENIEK": "pl-PL-MarekNeural", "HALINKA": "pl-PL-ZofiaNeural"}
-KOLORY_ASS = {"HENIEK": "&H00D7FF&", "HALINKA": "&HFFD7A0&"}  # BGR: zloty / blekit
+# 4 postacie z 2 polskich glosow edge-tts: modulacja pitch/rate robi charaktery.
+GLOSY = {
+    "MIECZYSŁAW": {"voice": "pl-PL-MarekNeural", "rate": "-12%", "pitch": "-14Hz"},  # wolny, niski, wazki
+    "TOMASZ":     {"voice": "pl-PL-MarekNeural", "rate": "+16%", "pitch": "+18Hz"},  # nerwowy cwaniak
+    "HELENA":     {"voice": "pl-PL-ZofiaNeural", "rate": "+2%",  "pitch": "-2Hz"},   # cieplo, spokojnie
+    "JACUŚ":      {"voice": "pl-PL-ZofiaNeural", "rate": "+12%", "pitch": "+42Hz"},  # dziecko
+}
+KOLORY_ASS = {"MIECZYSŁAW": "&H00D7FF&", "HELENA": "&HFFD7A0&",
+              "TOMASZ": "&H7AD77A&", "JACUŚ": "&HF0A0F0&"}  # BGR
 VEO_MODEL = "fal-ai/veo3.1/fast/image-to-video"
 
 
@@ -44,15 +51,21 @@ def _dlugosc(plik: Path) -> float:
         return 0.0
 
 
-# ---------------------------------------------------------------- KADR
-def zrob_kadr(folder: Path, styl: str) -> Path:
+# ---------------------------------------------------------------- KADR (GLOBALNY)
+# Decyzja Tomasza 15.07: "Postacie raz wygenerowane na zawsze" — jeden kadr
+# referencyjny dla CAŁEJ serii, w assets, generowany osobnym endpointem
+# po akceptacji Tomasza. Produkcja żartu NIGDY nie generuje kadru sama.
+KADR_GLOBALNY = Path("/root/rod-ai-studio/assets/zarty/postacie.jpg")
+
+
+def zrob_kadr_globalny(styl: str, wymus: bool = False) -> Path:
     from src.ai.image_backend import generate_image
-    kadr = folder / "kadr.jpg"
-    if not kadr.is_file():
-        _log(folder, "kadr referencyjny (Nano Banana Pro)…")
-        generate_image(styl, kadr, silnik="fal-ai/nano-banana-pro")
-        _log(folder, "kadr OK")
-    return kadr
+    KADR_GLOBALNY.parent.mkdir(parents=True, exist_ok=True)
+    if wymus and KADR_GLOBALNY.is_file():
+        KADR_GLOBALNY.rename(KADR_GLOBALNY.with_suffix(f".bak-{int(time.time())}.jpg"))
+    if not KADR_GLOBALNY.is_file():
+        generate_image(styl, KADR_GLOBALNY, silnik="fal-ai/nano-banana-pro")
+    return KADR_GLOBALNY
 
 
 # ---------------------------------------------------------------- KLIPY VEO
@@ -86,10 +99,11 @@ def zrob_klipy(folder: Path, klipy: list, kadr: Path):
 def _kwestie(dialog: str) -> list:
     """'HENIEK (krzywiąc usta): "tekst" / HALINKA: "tekst"' -> [(kto, tekst), ...]"""
     out = []
-    for m in re.finditer(r'(HENIEK|HALINKA)[^:"]*:\s*"([^"]+)"', dialog):
+    for m in re.finditer(r'(MIECZYS[ŁL]AW|HELENA|TOMASZ|JACU[ŚS])[^:\n"]{0,80}:\s*[*_\s]*"([^"]+)"', dialog):
+        kto = m.group(1).replace("MIECZYSLAW", "MIECZYSŁAW").replace("JACUS", "JACUŚ")
         tekst = re.sub(r"\([^)]*\)", "", m.group(2)).strip()  # didaskalia out
         if tekst:
-            out.append((m.group(1), tekst))
+            out.append((kto, tekst))
     return out
 
 
@@ -97,8 +111,9 @@ def zrob_dialogi(folder: Path, klipy: list):
     import asyncio
     import edge_tts
 
-    async def _tts(tekst, glos, out):
-        await edge_tts.Communicate(tekst, glos, rate="+5%").save(str(out))
+    async def _tts(tekst, cfg, out):
+        await edge_tts.Communicate(tekst, cfg["voice"], rate=cfg["rate"],
+                                   pitch=cfg["pitch"]).save(str(out))
 
     for k in klipy:
         kwestie = _kwestie(k["dialog"])
@@ -143,17 +158,20 @@ PlayResY: 1280
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, Outline, Shadow, Alignment, MarginL, MarginR, MarginV
+Style: M,Arial,52,{m},&H000000&,&H80000000&,1,3,1,2,40,40,190
 Style: H,Arial,52,{h},&H000000&,&H80000000&,1,3,1,2,40,40,190
-Style: A,Arial,52,{a},&H000000&,&H80000000&,1,3,1,2,40,40,190
+Style: T,Arial,52,{t},&H000000&,&H80000000&,1,3,1,2,40,40,190
+Style: J,Arial,52,{j},&H000000&,&H80000000&,1,3,1,2,40,40,190
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-""".format(h=KOLORY_ASS["HENIEK"], a=KOLORY_ASS["HALINKA"])
+""".format(m=KOLORY_ASS["MIECZYSŁAW"], h=KOLORY_ASS["HELENA"],
+           t=KOLORY_ASS["TOMASZ"], j=KOLORY_ASS["JACUŚ"])
     for k in klipy:
         linie = []
         t = 0.35  # dialog startuje chwilę po początku klipu
         for kw in k.get("kwestie", []):
-            styl = "H" if kw["kto"] == "HENIEK" else "A"
+            styl = {"MIECZYSŁAW": "M", "HELENA": "H", "TOMASZ": "T", "JACUŚ": "J"}[kw["kto"]]
             linie.append(f"Dialogue: 0,{_ass_czas(t)},{_ass_czas(t + kw['dl'])},{styl},,0,0,0,,"
                          f"{kw['kto'].title()}: {kw['tekst']}")
             t += kw["dl"] + 0.45
@@ -202,7 +220,9 @@ def produkuj(folder: Path, styl_bohaterow: str):
         klipy = _parsuj((folder / "scenariusz.txt").read_text(encoding="utf-8"))
         if not klipy:
             raise RuntimeError("scenariusz nie parsuje się na klipy")
-        kadr = zrob_kadr(folder, styl_bohaterow)
+        if not KADR_GLOBALNY.is_file():
+            raise RuntimeError("Brak kadru postaci — najpierw POST /zarty-postacie/generuj (Tomasz akceptuje wygląd)")
+        kadr = KADR_GLOBALNY
         _meta(folder, stan="klipy_veo")
         zrob_klipy(folder, klipy, kadr)
         _meta(folder, stan="dialogi")

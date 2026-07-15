@@ -38,30 +38,48 @@ ZASADY HUMORU:
 - Humor życzliwy, działkowy: sąsiedzkie przekomarzanie, walka z przyrodą, duma z plonów.
   Zero polityki, zero chamstwa, zero krzywdy.
 - Akcja dzieje się NA DZIAŁCE: grządki, altana, płot, kompostownik, szklarnia.
-- Dwoje stałych bohaterów: HENIEK (starszy działkowiec, pewny siebie, zawsze "wie lepiej")
-  i HALINKA (sąsiadka zza płotu, rzeczowa, celna riposta). Puenta zwykle należy do Halinki.
+- Czworo stałych bohaterów:
+  MIECZYSŁAW — ogrodnik, mądry i małomówny. Odzywa się rzadko; jak powie, to już powie.
+  HELENA — jego żona, ciepła, praktyczna, zarządza wszystkim z drugiego planu.
+  TOMASZ — sąsiad, nieogarnięty ale cwany: wielkie plany, kiepskie wykonanie, kombinuje.
+  JACUŚ — wnuczek (osiem lat), zadaje pytania i mówi na głos to, co wszyscy myślą.
+- PUENTA należy do MIECZYSŁAWA (jedno krótkie, celne zdanie po długim milczeniu)
+  ALBO do JACUSIA (rozbrajająca dziecięca szczerość). Nigdy nie tłumacz puenty.
+- W jednym klipie pokazuj maksymalnie dwie-trzy postacie (nie zawsze wszystkich).
 
 FORMAT (dokładnie taki, {n} klipów):
 KLIP 1:
 RUCH: (opis akcji wideo jednym-dwoma zdaniami: kto co robi, ruch kamery, emocje na twarzach — to trafi do generatora wideo)
-DIALOG: HENIEK: "..." / HALINKA: "..." (kto mówi w tym klipie; może mówić jedna osoba; zdania krótkie, mówione)
+DIALOG: MIECZYSŁAW: "..." / HELENA: "..." / TOMASZ: "..." / JACUŚ: "..."
+(WYŁĄCZNIE kwestie w cudzysłowach, didaskalia tylko krótko w nawiasie PRZED dwukropkiem,
+np. TOMASZ (drapiąc się w głowę): "No jak to?". Jeśli postać w klipie MILCZY — nie wypisuj
+jej w DIALOG w ogóle; milczenie i gesty opisuj w RUCH. Zero gwiazdek i formatowania.)
 
 ZASADY TECHNICZNE:
 - Każdy klip = jedna ciągła akcja do ośmiu sekund. Bez cięć wewnątrz klipu.
-- W RUCHU żadnych napisów, tablic z tekstem, kalendarzy — generator psuje polskie litery.
+- W RUCHU absolutny ZAKAZ napisów i tekstu do pokazania: żadnych 'pudełko z napisem X',
+  'transparent Y', 'tablica Z', etykiet, kalendarzy. Generator wideo psuje polskie litery.
+  ŹLE: 'pudełko z napisem Elektroniczny odstraszacz'. DOBRZE: 'plastikowe pudełko z antenką
+  i migającą diodą'. Przedmiot opisuj wyglądem, nigdy napisem.
 - Liczby w DIALOGU zawsze słownie ("dziesięć", nie "10").
 - Nie opisuj wyglądu bohaterów w RUCHU (wygląd trzyma kadr referencyjny) — tylko akcję i emocje.
 
 Odpowiedz WYŁĄCZNIE scenariuszem w podanym formacie, bez komentarzy."""
 
 STYL_BOHATEROW = (
-    "Ciepła animacja 3D w stylu współczesnych filmów animowanych (nie fotorealizm): "
-    "HENIEK — starszy pan około siedemdziesiątki, krępy, siwy wąs, słomkowy kapelusz, "
-    "koszula w kratę, szelki, ogorzała twarz, pogodne oczy. "
-    "HALINKA — sąsiadka około sześćdziesiątki, drobna, okulary na łańcuszku, chustka "
-    "na głowie w drobne kwiatki, fartuch ogrodowy, ironiczny półuśmiech. "
-    "Obydwoje stoją przy drewnianym płocie między dwiema zadbanymi działkami: grządki, "
-    "altana w tle, ciepłe letnie światło. Pionowy kadr 9:16."
+    "Ciepła animacja 3D w stylu współczesnych filmów animowanych (nie fotorealizm). "
+    "CZTERY postacie na polskiej działce przy altanie: "
+    "MIECZYSŁAW — ogrodnik około siedemdziesiątki, wysoki, spokojny, siwy krótki zarost, "
+    "kaszkiet, kamizelka ogrodowa, fajka w kąciku ust, mądre zmrużone oczy, postawa człowieka, "
+    "który wie. "
+    "HELENA — jego żona, około sześćdziesięciu pięciu lat, ciepła twarz, siwy kok, kwiecista "
+    "sukienka i fartuch kuchenny, w dłoniach często blacha z ciastem. "
+    "TOMASZ — sąsiad około pięćdziesiątki, lekko zaokrąglony, przekrzywiona czapka z daszkiem, "
+    "rozpięta koszula hawajska, szeroki niepewny uśmiech, w ręku zawsze jakiś gadżet. "
+    "JACUŚ — wnuczek, osiem lat, odstające uszy, piegi, za duża koszulka, kalosze, "
+    "ciekawskie wielkie oczy. "
+    "Tło: zadbana działka ROD — grządki, altana z pnączem, płot, konewki, letnie światło. "
+    "Pionowy kadr 9:16, wszyscy czworo widoczni."
 )
 
 
@@ -80,12 +98,15 @@ def _parsuj(scenariusz: str) -> list:
 
 
 def _wycena(n_klipow: int) -> dict:
+    from src.zarty_produkcja import KADR_GLOBALNY
     klipy_usd = n_klipow * KLIP_SEK * CENA_SEK
+    kadr_usd = 0.0 if KADR_GLOBALNY.is_file() else CENA_KADR
     return {"klipy": n_klipow, "sekundy": n_klipow * KLIP_SEK,
             "koszt_klipy_usd": round(klipy_usd, 2),
-            "koszt_kadr_usd": CENA_KADR,
-            "koszt_razem_usd": round(klipy_usd + CENA_KADR, 2),
-            "model": VEO_MODEL, "cena_za_sekunde": CENA_SEK}
+            "koszt_kadr_usd": kadr_usd,
+            "koszt_razem_usd": round(klipy_usd + kadr_usd, 2),
+            "model": VEO_MODEL, "cena_za_sekunde": CENA_SEK,
+            "postacie": "gotowe (koszt zero)" if KADR_GLOBALNY.is_file() else "do wygenerowania raz ($0.15)"}
 
 
 @router.post("/generate-zart")
@@ -190,3 +211,89 @@ def zart_log(zid: str):
     meta_p = ZARTY_DIR / zid / "meta.json"
     return {"meta": json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.is_file() else {},
             "log": f.read_text(encoding="utf-8").splitlines()[-20:] if f.is_file() else []}
+
+
+@router.post("/zart-checkpoint/{zid}/zatwierdz")
+def zart_zatwierdz(zid: str):
+    """URUCHAMIA PŁATNĄ produkcję (kadr NB Pro + klipy Veo) w wątku.
+    Wołać wyłącznie po akceptacji wyceny przez Tomasza."""
+    import threading
+    folder = ZARTY_DIR / zid
+    if not folder.is_dir():
+        raise HTTPException(status_code=404, detail="Żart nie znaleziony")
+    meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+    if meta.get("stan") in ("produkcja", "klipy_veo", "dialogi", "render"):
+        return {"status": "juz_trwa", "stan": meta["stan"]}
+    from src.zarty_produkcja import produkuj
+    threading.Thread(target=produkuj, args=(folder, STYL_BOHATEROW), daemon=True).start()
+    return {"status": "produkcja_ruszyla", "wycena": meta.get("wycena"),
+            "podglad": f"/zart-checkpoint/{zid}"}
+
+
+@router.get("/zarty/{zid}/video")
+def zart_video(zid: str):
+    from fastapi.responses import FileResponse
+    f = ZARTY_DIR / zid / "final.mp4"
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail="Brak final.mp4")
+    return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}.mp4")
+
+
+@router.get("/zarty/casting")
+def zart_casting():
+    from fastapi.responses import FileResponse
+    f = ZARTY_DIR / "casting.mp3"
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail="Brak castingu")
+    return FileResponse(f, media_type="audio/mpeg", filename="casting.mp3")
+
+
+# ---------------------------------------------------------------- POSTACIE (raz na zawsze)
+@router.post("/zarty-postacie/generuj")
+def postacie_generuj(data: dict = Body(None)):
+    """Jednorazowy casting: kadr referencyjny 4 postaci (NB Pro, $0.15).
+    wymus=true regeneruje (stary kadr -> .bak). Tomasz akceptuje wygląd."""
+    from src.zarty_produkcja import zrob_kadr_globalny, KADR_GLOBALNY
+    wymus = bool((data or {}).get("wymus"))
+    if KADR_GLOBALNY.is_file() and not wymus:
+        return {"status": "juz_istnieje", "podglad": "/zarty-postacie",
+                "info": "Kadr postaci już jest. wymus=true żeby przegenerować."}
+    zrob_kadr_globalny(STYL_BOHATEROW, wymus=wymus)
+    return {"status": "ok", "podglad": "/zarty-postacie", "koszt_usd": 0.15}
+
+
+@router.get("/zarty-postacie")
+def postacie_podglad():
+    from fastapi.responses import FileResponse
+    from src.zarty_produkcja import KADR_GLOBALNY
+    if not KADR_GLOBALNY.is_file():
+        raise HTTPException(status_code=404, detail="Kadru jeszcze nie ma — POST /zarty-postacie/generuj")
+    return FileResponse(KADR_GLOBALNY, media_type="image/jpeg")
+
+
+@router.post("/zart-checkpoint/{zid}/zatwierdz")
+def zart_zatwierdz(zid: str):
+    """START PRODUKCJI (PŁATNE: klipy Veo wg wyceny z checkpointu). W tle."""
+    import threading
+    from src.zarty_produkcja import produkuj, KADR_GLOBALNY
+    folder = ZARTY_DIR / zid
+    if not folder.is_dir():
+        raise HTTPException(status_code=404, detail="Żart nie znaleziony")
+    if not KADR_GLOBALNY.is_file():
+        raise HTTPException(status_code=400,
+                            detail="Najpierw postacie: POST /zarty-postacie/generuj i akceptacja wyglądu")
+    meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+    if meta.get("stan") not in ("checkpoint", "blad"):
+        raise HTTPException(status_code=400, detail=f"Zły stan: {meta.get('stan')}")
+    threading.Thread(target=produkuj, args=(folder, STYL_BOHATEROW), daemon=True).start()
+    return {"status": "produkcja_ruszyla", "wycena": meta.get("wycena"),
+            "podglad_stanu": f"/zart-checkpoint/{zid}"}
+
+
+@router.get("/zarty/{zid}/video")
+def zart_video(zid: str):
+    from fastapi.responses import FileResponse
+    f = ZARTY_DIR / zid / "final.mp4"
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail="Jeszcze nie ma finalu")
+    return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}.mp4")

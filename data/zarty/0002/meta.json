@@ -1,0 +1,17 @@
+{
+ "id": "0002",
+ "temat": "Sąsiad Tomasz kupił 'niezawodny elektroniczny odstraszacz ślimaków' z internetu, a ślimaki i tak zjadły mu sałatę. Mieczysław od początku wiedział, że to lipa.",
+ "stan": "checkpoint",
+ "ts": 1784096144.0398707,
+ "klipy_sparsowane": 3,
+ "wycena": {
+  "klipy": 3,
+  "sekundy": 24,
+  "koszt_klipy_usd": 2.4,
+  "koszt_kadr_usd": 0.0,
+  "koszt_razem_usd": 2.4,
+  "model": "fal-ai/veo3.1/fast/image-to-video",
+  "cena_za_sekunde": 0.1,
+  "postacie": "gotowe (koszt zero)"
+ }
+}
