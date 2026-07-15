@@ -156,3 +156,37 @@ def lista_zartow():
         m["final"] = (p / "final.mp4").is_file()
         out.append(m)
     return out
+
+
+@router.post("/zart-checkpoint/{zid}/zatwierdz")
+def zart_zatwierdz(zid: str):
+    """URUCHAMIA PŁATNĄ PRODUKCJĘ (kadr NB Pro + klipy Veo). Wołać tylko po
+    świadomej akceptacji wyceny z checkpointu."""
+    import threading
+    folder = ZARTY_DIR / zid
+    if not folder.is_dir():
+        raise HTTPException(status_code=404, detail="Żart nie znaleziony")
+    meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+    if meta.get("stan") in ("produkcja", "klipy_veo", "dialogi", "render"):
+        return {"status": "juz_trwa", "stan": meta["stan"]}
+    from src.zarty_produkcja import produkuj
+    threading.Thread(target=produkuj, args=(folder, STYL_BOHATEROW), daemon=True).start()
+    return {"status": "produkcja_ruszyla", "wycena": meta.get("wycena"),
+            "podglad_logu": f"/zarty/{zid}/log"}
+
+
+@router.get("/zarty/{zid}/video")
+def zart_video(zid: str):
+    from fastapi.responses import FileResponse
+    f = ZARTY_DIR / zid / "final.mp4"
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail="Final jeszcze nie istnieje")
+    return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}.mp4")
+
+
+@router.get("/zarty/{zid}/log")
+def zart_log(zid: str):
+    f = ZARTY_DIR / zid / "log.txt"
+    meta_p = ZARTY_DIR / zid / "meta.json"
+    return {"meta": json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.is_file() else {},
+            "log": f.read_text(encoding="utf-8").splitlines()[-20:] if f.is_file() else []}
