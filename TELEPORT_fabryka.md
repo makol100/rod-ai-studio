@@ -1169,3 +1169,8 @@ request = "Zapisz nie działa"); (3) dirty guard w panelu (polling nadpisywał e
 złapał błąd Claude'a, nie Bielika; (5) S2 lektor od Sonneta ("Grzyb potrafi opanować
 całą roślinę w kilka dni"). Commity: 7942981, 5606f6b + wiedza.
 **000093:** opublikowana; ma "10x"/"3 dni"/"10 minut" w lektorach — ŚWIADOMIE zostawione.
+
+## POST: SOWA Z MŁODYMI (15.07) ✔
+Post tekstowy na stronę ROD (ID 122109501771379813): zachęta do wrzucania zdjęć sowy
+z młodymi w komentarzach. Bez gatunku (ludzie zweryfikują sami). Pomysł na później:
+post zbiorczy / rolka z najlepszych zdjęć mieszkańców. Skrypt z tokenem usunięty z /tmp.
