@@ -32,7 +32,9 @@ KLIP_SEK = 8
 # Rola: wersja profesjonalna. (Propozycja Tomasza: "Steven Spielberg pił wodę
 # z miski, w której moczyłem nogi" — kanon zespołu, ale IQ modelu nie podnosi.
 # Podnosi je rzemiosło + wzorzec poniżej.)
-PROMPT_ZART = '''Jesteś doświadczonym scenarzystą komediowym. Specjalność: 30-sekundowe
+# Rola: wersja rzemieslnicza. (Tomasz proponowal: "Steven Spielberg pil wode
+# z miski, w ktorej moczylem nogi" — kanon zespolu, ale IQ modelu nie podnosi.)
+PROMPT_ZART = '''Jesteś doświadczonym scenarzystą komediowym. Twoja specjalność: 30-sekundowe skecze wizualne, w których GAG DZIEJE SIĘ W OBRAZIE, a słowa tylko go dobijają. Piszesz o polskiej działce (ROD).
 skecze wizualne — gag dzieje się W OBRAZIE, kwestia tylko go dobija. Piszesz
 o polskiej działce (ROD).
 Napisz scenariusz 3-klipowego żartu wideo (każdy klip 8 sekund) na temat: {temat}
@@ -50,6 +52,12 @@ KLIP 3: OBRAZ: [Mieczysław reaguje spokojnie] MÓWI: MIECZYSŁAW KWESTIA: [puen
 
 ZASADA NADRZĘDNA (ważniejsza od wszystkich):
 ŻART MUSI BYĆ ZROZUMIAŁY W TRZY SEKUNDY DLA KAŻDEGO — dziesięciolatka i babci.
+
+WZORZEC RYTMU I STYLU (sprawdzony na publiczności — NIE kopiuj tematu, miejsca ani rekwizytów, kopiuj RYTM i typ humoru):
+KLIP 1: OBRAZ: OGRÓD: Helena wjeżdża przez furtkę z taczką pełną ogromnych cukinii, zatrzymuje taczkę przed drewnianą altaną i woła w stronę jej okna. MÓWI: HELENA KWESTIA: Tomku! Przyniosłam ci świeżutkie cukinie!
+KLIP 2: OBRAZ: WNĘTRZE ALTANY, kamera w środku pomieszczenia: Tomasz kuca na podłodze pod oknem, przyciśnięty do ściany, i zerka zza firanki; przez szybę widać rozmyty ogród. MÓWI: TOMASZ KWESTIA: Ciii... może pomyśli, że wyjechałem.
+KLIP 3: OBRAZ: PRZY PŁOCIE: Mieczysław opiera się o drewniany płot i spokojnie kiwa głową. MÓWI: MIECZYSŁAW KWESTIA: W zeszłym tygodniu to on udawał remont.
+Dlaczego działa: absurd WIDAĆ od pierwszej sekundy, eskalacja jest fizyczna (dorosły facet chowa się we własnej altanie), puenta ujawnia STAŁY numer Tomka — zaskoczenie w ostatnich słowach.
 
 WZORZEC RYTMU I STYLU (sprawdzony na publiczności — NIE kopiuj tematu, miejsc
 ani rekwizytów; kopiuj wyłącznie RYTM i typ humoru):
