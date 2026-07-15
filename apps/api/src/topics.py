@@ -721,7 +721,7 @@ def reel_checkpoint_popraw_przez_claude(reel_id: str, data: dict = Body(...)):
         "od Tomasza co poprawić. Zastosuj TYLKO to, o co prosi - nie zmieniaj "
         "niczego innego bez powodu. Zachowaj DOKŁADNIE ten sam format i liczbę "
         "scen (chyba że instrukcja wprost mówi inaczej). LEKTOR ma brzmieć "
-        "naturalnie, mówione zdania 6-14 słów, zero żargonu jeśli nie jest "
+        "naturalnie, mówione zdania 6-14 słów, LICZBY ZAWSZE SŁOWNIE (dziesięć minut, nie 10 minut; dziesięć razy, nie 10x), zero żargonu jeśli nie jest "
         "konieczny. Odpowiedz WYŁĄCZNIE poprawionym scenariuszem w formacie "
         "'SCENA N:\nUJĘCIE: ...\nLEKTOR: ...', bez komentarza przed ani po."
     )

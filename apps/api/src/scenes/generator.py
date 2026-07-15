@@ -40,6 +40,7 @@ BUDOWA SCENARIUSZA:
 - SCENY POMIĘDZY: przejdź przez KONKRETNE punkty z tekstu (każde warzywo / każdą poradę) — po JEDNEJ scenie na punkt, w kolejności z tekstu. Nie pomijaj ważnych punktów i NIE dopychaj scenariusza powtórkami ani ogólnym "podlewajcie regularnie".
 
 LEKTOR (tekst mówiony):
+- Liczby i proporcje zapisuj SŁOWNIE: "dziesięć minut", "co trzy dni", "dziesięć razy tańsze", "jeden do dziewięciu". NIGDY cyframi ani skrótami (zakazane: "10 minut", "3 dni", "10x", "1:9") — lektor czyta cyfry bezsensownie.
 - Krótkie, naturalne zdania, 6-14 słów. Tak jak człowiek mówi do drugiego człowieka.
 - TYLKO prawdziwe, poprawne polskie słowa. Nie wymyślaj słów ani terminów. Nie zmyślaj liczb ani nazw odmian.
 - Jeśli tekst źródłowy zawiera skróty, kody lub łacińskie nazwy gatunkowe, przepisz je DOKŁADNIE litera w literę tak jak w tekście źródłowym.
@@ -83,6 +84,7 @@ BUDOWA SCENARIUSZA:
 - SCENY POMIĘDZY: tekst źródłowy zwykle opisuje JEDEN przedmiot, urządzenie, dokument lub sytuację — nie listę wielu punktów. Rozbij ten JEDEN temat na różne kadry: najpierw całość z dystansu, potem kolejne zbliżenia na osobne elementy/detale/mechanizmy wymienione w tekście, ewentualnie krok procesu (montaż, pomiar, użycie) albo efekt/skutek. Jeśli tekst faktycznie wymienia kilka odrębnych rzeczy — jedna scena na rzecz, w kolejności z tekstu.
 
 LEKTOR (tekst mówiony):
+- Liczby i proporcje zapisuj SŁOWNIE: "dziesięć minut", "co trzy dni", "dziesięć razy tańsze", "jeden do dziewięciu". NIGDY cyframi ani skrótami (zakazane: "10 minut", "3 dni", "10x", "1:9") — lektor czyta cyfry bezsensownie.
 - Krótkie, naturalne zdania, 6-14 słów. Tak jak człowiek mówi do drugiego człowieka.
 - TYLKO prawdziwe, poprawne polskie słowa. Nie wymyślaj słów ani terminów. Nie zmyślaj liczb ani nazw.
 - Jeśli tekst źródłowy zawiera skróty, kody lub oznaczenia techniczne (np. MPPT, RCD, IP44, BMS, TN-S, Zigbee), przepisz je DOKŁADNIE litera w literę tak jak w tekście źródłowym. Nigdy nie zmieniaj ani nie zgaduj liter w skrócie.
@@ -197,6 +199,7 @@ BUDOWA — DOKŁADNIE {scene_count} scen:
   Ostatnie zdanie ma płynnie wracać do pierwszego — żeby rolka zapętliła się naturalnie.
 
 LEKTOR (tekst mówiony):
+- Liczby i proporcje zapisuj SŁOWNIE: "dziesięć minut", "co trzy dni", "dziesięć razy tańsze", "jeden do dziewięciu". NIGDY cyframi ani skrótami (zakazane: "10 minut", "3 dni", "10x", "1:9") — lektor czyta cyfry bezsensownie.
 - 6-14 słów. Rytmicznie, do wypowiedzenia na jednym oddechu.
 - Wyłącznie prawdziwe polskie słowa. Nie wymyślaj terminów, liczb ani nazw.
 - Skróty, kody i nazwy techniczne przepisz z tekstu źródłowego DOKŁADNIE litera w literę.
