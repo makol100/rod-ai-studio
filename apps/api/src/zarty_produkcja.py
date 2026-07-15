@@ -17,9 +17,10 @@ GLOSY_TTS = {  # relikt edge-tts, dialogi robi Veo
     "TOMASZ":     {"voice": "pl-PL-MarekNeural", "rate": "+16%", "pitch": "+18Hz"},  # nerwowy cwaniak
     "HELENA":     {"voice": "pl-PL-ZofiaNeural", "rate": "+2%",  "pitch": "-2Hz"},   # cieplo, spokojnie
     "JACUŚ":      {"voice": "pl-PL-MarekNeural", "rate": "+8%",  "pitch": "+30Hz"},  # mlody dorosly
+    "JÓZEK":      {"voice": "pl-PL-MarekNeural", "rate": "+12%", "pitch": "+45Hz"},  # przestraszony niemowa
 }
 KOLORY_ASS = {"MIECZYSŁAW": "&H00D7FF&", "HELENA": "&HFFD7A0&",
-              "TOMASZ": "&H7AD77A&", "JACUŚ": "&HF0A0F0&"}  # BGR
+              "TOMASZ": "&H7AD77A&", "JACUŚ": "&HF0A0F0&", "JÓZEK": "&H55CCFF&"}  # BGR
 VEO_MODEL = "fal-ai/veo3.1/fast"  # text-to-video!
 # ZMIANA 15.07: i2v z ludzmi na obrazie = twarda blokada content policy Google
 # (potwierdzone testami + forum Google). Postacie opisujemy SLOWAMI w kazdym klipie.
@@ -40,12 +41,14 @@ OPISY_POSTACI = {
     "TOMASZ": "TOMASZ, the neighbour around 50, slightly round, crooked baseball cap, "
               "open Hawaiian shirt, wide uncertain smile",
     "JACUŚ": "JACUS, a young man around 25, slim, protruding ears, freckles, loose t-shirt",
+    "JÓZEK": "JOZEK, a skinny scared villager around 40, tousled hair, oversized old brown jacket, wide frightened eyes",
 }
 GLOSY_VEO = {
     "MIECZYSŁAW": "slowly in Polish with a wise quiet elderly voice",
     "HELENA": "in Polish with a warm motherly voice",
     "TOMASZ": "in Polish with an enthusiastic slightly nervous voice",
     "JACUŚ": "in Polish with a young casual voice",
+    "JÓZEK": "in Polish with a thin panicked stuttering voice",
 }
 STYL_KLIPU = ("Cinematic realistic footage, warm golden summer light. Vertical 9:16. "
               "Natural ambient sounds. No subtitles, no text overlay.")
@@ -149,8 +152,8 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
 def _kwestie(dialog: str) -> list:
     """'HENIEK (krzywiąc usta): "tekst" / HALINKA: "tekst"' -> [(kto, tekst), ...]"""
     out = []
-    for m in re.finditer(r'(MIECZYS[ŁL]AW|HELENA|TOMASZ|JACU[ŚS])[^:\n"]{0,80}:\s*[*_\s]*"([^"]+)"', dialog):
-        kto = m.group(1).replace("MIECZYSLAW", "MIECZYSŁAW").replace("JACUS", "JACUŚ")
+    for m in re.finditer(r'(MIECZYS[ŁL]AW|HELENA|TOMASZ|JACU[ŚS]|J[ÓO]ZEK)[^:\n"]{0,80}:\s*[*_\s]*"([^"]+)"', dialog):
+        kto = m.group(1).replace("MIECZYSLAW", "MIECZYSŁAW").replace("JACUS", "JACUŚ").replace("JOZEK", "JÓZEK")
         tekst = re.sub(r"\([^)]*\)", "", m.group(2)).strip()  # didaskalia out
         if tekst:
             out.append((kto, tekst))
