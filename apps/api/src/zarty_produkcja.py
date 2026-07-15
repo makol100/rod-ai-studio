@@ -284,7 +284,6 @@ def produkuj(folder: Path, styl_bohaterow: str):
         # telegram tym samym webhookiem co rolki
         try:
             import requests
-            import time
             url = f"https://panel.157-90-155-155.sslip.io/zarty/{folder.name}/video?v={int(time.time())}"
             requests.post("https://kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa/api/webhook/fabryka_rolka_gotowa",
                           json={"video_url": url, "caption": f"\U0001F3AD Żart {folder.name} — WERSJA ROBOCZA (bez montażu i planszy). Gotowa wersja przyjdzie po montażu.\n{url}"},

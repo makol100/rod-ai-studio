@@ -14,3 +14,5 @@
 20:58:50 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (47947 KB)
 20:58:50 telegram wyslany
 21:31:51 BLAD PRODUKCJI: cannot access local variable 'time' where it is not associated with a value
+21:34:48 klip 1 już jest — pomijam
+21:34:48 klip 2/4 Veo t2v+audio…

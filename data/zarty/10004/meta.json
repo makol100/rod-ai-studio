@@ -1,7 +1,7 @@
 {
  "id": "10004",
  "temat": "Zlodziej jabłek o zmierzchu: Tomasz łapie w gałęziach jabłoni intruza (za jaja — grane reakcją), cisza, ściska mocniej — a to Józek, niemowa ze wsi. Koda Mieczysława.",
- "stan": "blad",
+ "stan": "klipy_veo",
  "ts": 1784148270.2614946,
  "klipy_sparsowane": 4,
  "wycena": {
@@ -14,7 +14,7 @@
   "cena_za_sekunde": 0.15,
   "postacie": "gotowe (koszt zero)"
  },
- "start_produkcji": 1784148586.1585038,
+ "start_produkcji": 1784151288.224715,
  "final": "/root/rod-ai-studio/data/zarty/10004/final.mp4",
  "blad": "cannot access local variable 'time' where it is not associated with a value"
 }
