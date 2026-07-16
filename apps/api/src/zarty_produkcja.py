@@ -138,11 +138,16 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
             continue
         if "(BANK)" in (k.get("mowi", "").upper()):
             k["mowi"] = k["mowi"].upper().replace("(BANK)", "").strip()
-            baza = folder.parent / "bank" / "mieczyslaw_plot.mp4"
-            if not baza.is_file():
-                raise RuntimeError("brak klipu bazowego banku: data/zarty/bank/mieczyslaw_plot.mp4 — wygeneruj go raz (1 klip, $1.20)")
-            shutil.copy(baza, out)
-            _log(folder, f"klip {k['nr']} z BANKU — koszt $0")
+            koszt_banku = _klip_bank(k, out, folder)
+            if koszt_banku:
+                try:
+                    _m = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+                    _m["koszt_wydany"] = round(float(_m.get("koszt_wydany", 0) or 0) + koszt_banku, 2)
+                    (folder / "meta.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1),
+                                                      encoding="utf-8")
+                except Exception:
+                    pass
+            _log(folder, f"klip {k['nr']} z BANKU (LatentSync) — koszt ${koszt_banku:.2f}")
             continue
         kadr_s = folder / f"kadr_{k['nr']:02d}.jpg"
         if kadr_s.is_file():
