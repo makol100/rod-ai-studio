@@ -160,7 +160,7 @@ def straznik_tozsamosci(plik, wzorce, n=10, prog=0.35):
             emb_w[nazwa] = tw[0].normed_embedding
     except ImportError:
         return {"status": "POMINIĘTY", "detale": "ETAP 2: brak insightface"}
-    obcy, trafienia = [], {k: [] for k in emb_w}
+    obcy, male, trafienia = [], [], {k: [] for k in emb_w}
     with tempfile.TemporaryDirectory() as td:
         for p in _klatki(plik, n, td):
             for tw in _twarze(p):
@@ -168,6 +168,9 @@ def straznik_tozsamosci(plik, wzorce, n=10, prog=0.35):
                 naj = max(sims, key=sims.get)
                 if sims[naj] >= prog:
                     trafienia[naj].append(round(sims[naj], 2))
+                elif int(tw.bbox[3] - tw.bbox[1]) < 150:
+                    male.append({"klatka": p.name, "h_px": int(tw.bbox[3] - tw.bbox[1]),
+                                 "sim": round(sims[naj], 2)})
                 else:
                     obcy.append({"klatka": p.name, "najbliżej": naj,
                                  "sim": round(sims[naj], 2)})
@@ -175,7 +178,8 @@ def straznik_tozsamosci(plik, wzorce, n=10, prog=0.35):
                "śr_sim": round(sum(v) / len(v), 2) if v else 0.0}
            for k, v in trafienia.items()}
     det["obce_twarze"] = obcy
-    st = "PASS" if not obcy else "FAIL"
+    det["małe_twarze_WARN"] = male
+    st = "FAIL" if obcy else ("WARN" if male else "PASS")
     return {"status": st, "detale": det}
 
 # ---------- 2. STRAŻNIK UST (SyncNet) ----------
