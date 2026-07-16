@@ -358,8 +358,25 @@ def _klip_flf(k: dict, kadr_start, kadr_koniec, out, lite: bool = False):
             "resolution": "720p" if lite else "1080p"}
     if not lite:
         args["generate_audio"] = True
+    import json as _json
+    import time as _time
+    folder = out.parent
     try:
-        res = fal_client.run(model, arguments=args)
+        h = fal_client.submit(model, arguments=args)
+        rid = h.request_id
+        (folder / f"flf_state_{k['nr']:02d}.json").write_text(
+            _json.dumps({"rid": rid, "model": model}), encoding="utf-8")
+        t0 = _time.time()
+        res = None
+        while _time.time() - t0 < 420:
+            st = type(fal_client.status(model, rid)).__name__
+            if st == "Completed":
+                res = fal_client.result(model, rid)
+                break
+            _log(folder, f"klip {k['nr']} FLF: {st} ({int(_time.time()-t0)}s)")
+            _time.sleep(15)
+        if res is None:
+            raise RuntimeError(f"klip {k['nr']}: FLF timeout 7 min (rid {rid} zapisany)")
     except Exception as e:
         if "content_policy" in str(e):
             raise RuntimeError(f"klip {k['nr']}: Veo FLF odrzucil tresc — popraw kadr/kwestie")

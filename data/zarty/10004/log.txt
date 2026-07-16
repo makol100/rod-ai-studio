@@ -65,3 +65,11 @@
 06:44:01 telegram nieudany: HTTPSConnectionPool(host='kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa', port=443): Max retries exceeded with url: /api/webhook/fabryka_rolka_gotowa (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
 12:42:28 klip 1 już jest — pomijam
 12:42:28 klip 2/4 Veo FLF (kadry, DROGA HUMOR)…
+12:52:39 klip 1 już jest — pomijam
+12:52:39 klip 2/4 Veo FLF (kadry, DROGA HUMOR)…
+12:52:41 klip 2 FLF: Queued (0s)
+12:52:56 klip 2 FLF: InProgress (15s)
+12:53:12 klip 2 FLF: InProgress (30s)
+12:53:27 klip 2 FLF: InProgress (46s)
+12:53:43 klip 2 FLF: InProgress (61s)
+12:53:58 klip 2 FLF: InProgress (76s)
