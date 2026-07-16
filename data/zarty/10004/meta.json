@@ -17,6 +17,9 @@
  "start_produkcji": 1784206359.6189356,
  "final": "/root/rod-ai-studio/data/zarty/10004/final.mp4",
  "blad": "klip 2: FLF timeout 7 min (rid 019f6afc-836f-7ef3-b618-6affba9b8594 zapisany)",
- "koszt_wydany": 12.56,
- "audyt": []
+ "koszt_wydany": 12.71,
+ "audyt": [],
+ "log_kosztow": [
+  "16.07 19:39 nano-edit sweter K2 v2 (watek uciety kompakcja): 0.15"
+ ]
 }
