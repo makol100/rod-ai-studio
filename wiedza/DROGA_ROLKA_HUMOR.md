@@ -33,3 +33,7 @@ Decyzja zapada na NAJTAŃSZYM możliwym etapie. Parę centów na kadr eliminuje 
 - fal-ai/veo3.1/lite/first-last-frame-to-video — $0.05/s 720p = $0.40/8s (zwiad)
 - fal-ai/nano-banana-pro — kadry (grosze/obraz)
 - safety_tolerance 1-6 (domyślnie 4) — poluzować przy fałszywych blokadach scen
+
+## Glos banku (decyzja 16.07.2026)
+Mieczyslaw z banku mowi glosem **Brian** (fal-ai/elevenlabs/tts/eleven-v3, ~$0.01/kwestie) + LatentSync $0.20.
+edge-tts (Marek/Zofia) odrzucone: brzmia za mlodo; pitch-shift = efekt "zbira z wiadomosci".

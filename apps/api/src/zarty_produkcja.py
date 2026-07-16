@@ -331,16 +331,19 @@ def _klip_bank(k: dict, out, folder):
     if not kwestia:
         _sp.run(["cp", str(baza), str(out)], check=True)
         return 0.0
+    # Glos banku: ElevenLabs 'Brian' (wybor Tomasza 16.07.2026), ~$0.01/kwestie
     mp3 = folder / f"bank_tts_{k['nr']:02d}.mp3"
-    _sp.run(["/app/venv/bin/edge-tts", "--voice", "pl-PL-MarekNeural", "--rate=-10%",
-             "--text", kwestia, "--write-media", str(mp3)], check=True)
+    r_tts = fal_client.run("fal-ai/elevenlabs/tts/eleven-v3",
+                           arguments={"text": kwestia, "voice": "Brian"})
+    tts_url = r_tts["audio"]["url"] if "audio" in r_tts else r_tts.get("audio_url") or r_tts["url"]
+    _run(["curl", "-sL", "-o", str(mp3), tts_url])
     v_url = fal_client.upload_file(str(baza))
     a_url = fal_client.upload_file(str(mp3))
     res = fal_client.run("fal-ai/latentsync", arguments={"video_url": v_url, "audio_url": a_url})
     _run(["curl", "-sL", "-o", str(out), res["video"]["url"]])
     if not out.is_file() or out.stat().st_size < 50000:
         raise RuntimeError(f"klip {k['nr']}: LatentSync pobieranie nieudane")
-    return 0.20
+    return 0.21
 
 
 def _zbuduj_dialog(k: dict) -> str:
