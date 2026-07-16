@@ -315,6 +315,29 @@ def zloz(folder: Path, klipy: list) -> Path:
     _log(folder, f"FINAL: {final} ({final.stat().st_size//1024} KB)")
     return final
 
+def _klip_bank(k: dict, out, folder):
+    """BANK + kwestia: edge-tts (Marek) -> fal LatentSync ($0.20) -> klip z ustami pod kwestie."""
+    import subprocess as _sp
+    import fal_client
+    baza = ZARTY_DIR / "bank" / "mieczyslaw_plot.mp4"
+    if not baza.is_file():
+        raise RuntimeError("brak bazy banku: data/zarty/bank/mieczyslaw_plot.mp4")
+    kwestia = k.get("kwestia", "").strip()
+    if not kwestia:
+        _sp.run(["cp", str(baza), str(out)], check=True)
+        return 0.0
+    mp3 = folder / f"bank_tts_{k['nr']:02d}.mp3"
+    _sp.run(["/app/venv/bin/edge-tts", "--voice", "pl-PL-MarekNeural", "--rate=-10%",
+             "--text", kwestia, "--write-media", str(mp3)], check=True)
+    v_url = fal_client.upload_file(str(baza))
+    a_url = fal_client.upload_file(str(mp3))
+    res = fal_client.run("fal-ai/latentsync", arguments={"video_url": v_url, "audio_url": a_url})
+    _run(["curl", "-sL", "-o", str(out), res["video"]["url"]])
+    if not out.is_file() or out.stat().st_size < 50000:
+        raise RuntimeError(f"klip {k['nr']}: LatentSync pobieranie nieudane")
+    return 0.20
+
+
 def _zbuduj_dialog(k: dict) -> str:
     """Dialog do prompta (wspolny dla t2v i FLF)."""
     mowi = k.get("mowi", "")

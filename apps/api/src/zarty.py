@@ -272,6 +272,18 @@ def lista_zartow():
     return out
 
 
+@router.get("/zarty-bank/{nazwa}")
+def zart_bank_plik(nazwa: str):
+    """Odsluch/podglad plikow banku (probki TTS, bazy postaci)."""
+    if "/" in nazwa or ".." in nazwa:
+        raise HTTPException(status_code=400, detail="zla nazwa")
+    f = ZARTY_DIR / "bank" / nazwa
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail="brak pliku w banku")
+    mt = "audio/mpeg" if nazwa.endswith(".mp3") else "video/mp4"
+    return FileResponse(f, media_type=mt, filename=nazwa)
+
+
 @router.get("/zarty/{zid}/kadr/{nr}")
 def zart_kadr(zid: str, nr: int):
     """DROGA ROLKA HUMOR: podglad kadru kluczowego klipu."""
