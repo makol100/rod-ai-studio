@@ -272,6 +272,34 @@ def lista_zartow():
     return out
 
 
+@router.post("/zart-checkpoint/{zid}/publikuj")
+def zart_publikuj(zid: str, data: dict = Body(...)):
+    """Publikacja na FB przez n8n (workflow Publikacja HUMOR): reels + komentarz.
+    Wymaga stanu 'gotowy'. body: {"opis": "...", "komentarz": "..."}."""
+    import requests as _rq
+    folder = ZARTY_DIR / zid
+    meta_f = folder / "meta.json"
+    if not meta_f.is_file():
+        raise HTTPException(status_code=404, detail="brak zartu")
+    m = json.loads(meta_f.read_text(encoding="utf-8"))
+    if m.get("stan") != "gotowy":
+        raise HTTPException(status_code=409, detail=f"stan '{m.get('stan')}' — publikacja tylko z 'gotowy'")
+    opis = (data or {}).get("opis", "").strip()
+    if not opis:
+        raise HTTPException(status_code=400, detail="brak opisu")
+    try:
+        r = _rq.post("http://n8n:5678/webhook/humor-publikuj", json={
+            "zid": zid, "opis": opis, "komentarz": (data or {}).get("komentarz", "").strip()
+        }, timeout=15)
+        r.raise_for_status()
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"n8n nie przyjal: {e}")
+    m["stan"] = "opublikowany"
+    meta_f.write_text(json.dumps(m, ensure_ascii=False, indent=1), encoding="utf-8")
+    _log(folder, f"PUBLIKACJA wyslana do n8n (opis {len(opis)} zn., komentarz {len((data or {}).get('komentarz',''))} zn.)")
+    return {"status": "wyslano_do_n8n", "uwaga": "przypnij komentarz recznie na FB"}
+
+
 @router.get("/zarty-bank/{nazwa}")
 def zart_bank_plik(nazwa: str):
     """Odsluch/podglad plikow banku (probki TTS, bazy postaci)."""

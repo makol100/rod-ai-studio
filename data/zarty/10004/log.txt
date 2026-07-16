@@ -96,3 +96,4 @@
 12:59:20 klip 2 FLF: InProgress (399s)
 12:59:36 klip 2 FLF: InProgress (414s)
 12:59:51 BLAD PRODUKCJI: klip 2: FLF timeout 7 min (rid 019f6afc-836f-7ef3-b618-6affba9b8594 zapisany)
+14:27:50 K2 v5 watchdog: 25 min minelo, job wciaz w fal — rid zostaje

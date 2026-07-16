@@ -806,6 +806,7 @@
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button id="ztKadry">🖼️ Generuj kadry scen</button>
           <button id="ztKadryPokaz">↻ Pokaż kadry</button>
+          <button id="ztPublikuj" class="primary">📣 Publikuj na FB</button>
         </div>
         <div id="ztKadryGaleria" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px"></div>
       </div>
@@ -2526,6 +2527,16 @@
       finally{ b.disabled = false; b.textContent = '🔍 Zwiad ~$0.40'; }
     }; });
   }
+  $z('ztPublikuj').onclick = async () => {
+    if (!cpId) return alert('Najpierw otwórz żart.');
+    const opis = prompt('Opis posta na FB (bez spoilera!):'); if (opis === null || !opis.trim()) return;
+    const komentarz = prompt('Komentarz do przypięcia (interpretacja/link), pusty = brak:') || '';
+    if (!confirm('Publikuję rolkę #' + cpId + ' na stronie ROD Woźniki. NA PEWNO?')) return;
+    try{
+      await apiz('/zart-checkpoint/' + cpId + '/publikuj', {method:'POST', body: JSON.stringify({opis, komentarz})});
+      alert('Poszło do n8n → FB. Komentarz przypnij ręcznie na stronie.');
+    }catch(e){ alert('Publikacja: ' + e.message); }
+  };
   $z('ztKadryPokaz').onclick = () => ztRenderKadry();
   $z('ztKadry').onclick = async () => {
     if (!cpId) return alert('Najpierw otwórz żart.');
