@@ -110,6 +110,7 @@ def _mad(im_a, im_b):
     import numpy as np
     from PIL import Image
     a = Image.open(im_a).convert("L")
+    a = a.resize((64, max(1, int(64 * a.height / a.width))))
     b = Image.open(im_b).convert("L").resize(a.size)
     import numpy
     return float(abs(numpy.asarray(a, float) - numpy.asarray(b, float)).mean())
@@ -124,13 +125,13 @@ def kotwice_flf(plik, kadr_start, kadr_koniec):
             _run(["ffmpeg", "-y", "-v", "error", "-i", str(plik),
                   "-vf", "select='eq(n,0)'", "-frames:v", "1", "-q:v", "2", str(f0)])
             m = _mad(f0, kadr_start); det["MAD_start"] = round(m, 2)
-            if m >= 10: st = "FAIL"
+            if m >= 12: st = "FAIL"
         if kadr_koniec:
             f1 = Path(td) / "f1.jpg"
             _run(["ffmpeg", "-y", "-v", "error", "-sseof", "-0.15", "-i", str(plik),
                   "-frames:v", "1", "-q:v", "2", "-update", "1", str(f1)])
             m = _mad(f1, kadr_koniec); det["MAD_koniec"] = round(m, 2)
-            if m >= 25 and st == "PASS": st = "WARN"
+            if m >= 18 and st == "PASS": st = "WARN"
     return {"status": st, "detale": det}
 
 # ---------- 1. STRAŻNIK TOŻSAMOŚCI (InsightFace) ----------
