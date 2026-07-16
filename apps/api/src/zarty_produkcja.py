@@ -144,6 +144,20 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
             shutil.copy(baza, out)
             _log(folder, f"klip {k['nr']} z BANKU — koszt $0")
             continue
+        kadr_s = folder / f"kadr_{k['nr']:02d}.jpg"
+        if kadr_s.is_file():
+            kadr_k = folder / f"kadr_{k['nr']:02d}_koniec.jpg"
+            _log(folder, f"klip {k['nr']}/{len(klipy)} Veo FLF (kadry, DROGA HUMOR)…")
+            _klip_flf(k, kadr_s, kadr_k if kadr_k.is_file() else kadr_s, out, lite=False)
+            _log(folder, f"klip {k['nr']} OK ({out.stat().st_size//1024} KB)")
+            try:
+                _m = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+                _m["koszt_wydany"] = round(float(_m.get("koszt_wydany", 0) or 0) + 1.20, 2)
+                (folder / "meta.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1),
+                                                  encoding="utf-8")
+            except Exception:
+                pass
+            continue
         _log(folder, f"klip {k['nr']}/{len(klipy)} Veo t2v+audio…")
         kto = _postacie_w_klipie(k)
         opisy = ("In frame: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
@@ -300,6 +314,61 @@ def zloz(folder: Path, klipy: list) -> Path:
           "-c", "copy", str(final)])
     _log(folder, f"FINAL: {final} ({final.stat().st_size//1024} KB)")
     return final
+
+def _zbuduj_dialog(k: dict) -> str:
+    """Dialog do prompta (wspolny dla t2v i FLF)."""
+    mowi = k.get("mowi", "")
+    offscreen = "(GŁOS)" in mowi.upper() or "(GLOS)" in mowi.upper()
+    mowi = mowi.upper().replace("(GŁOS)", "").replace("(GLOS)", "").strip()
+    glos = GLOSY_VEO.get(mowi, "in Polish with a natural voice")
+    kwestia = k.get("kwestia", "")
+    if kwestia and offscreen:
+        dialog = f'An unseen hidden man shouts from off-screen {glos}: "{kwestia}" '
+    elif kwestia:
+        dialog = f'{mowi.capitalize()} says {glos}: "{kwestia}" '
+    else:
+        dialog = ""
+    mowi2 = k.get("mowi2", "")
+    if mowi2:
+        off2 = "(GŁOS)" in mowi2.upper() or "(GLOS)" in mowi2.upper()
+        mowi2 = mowi2.upper().replace("(GŁOS)", "").replace("(GLOS)", "").strip()
+        glos2 = GLOSY_VEO.get(mowi2, "in Polish with a natural voice")
+        kw2 = k.get("kwestia2", "")
+        rola2 = "an unseen hidden man answers from off-screen" if off2 else f"{mowi2.capitalize()} answers"
+        dialog += "Then " + rola2 + " " + glos2 + ': "' + kw2 + '" '
+    return dialog
+
+
+def _klip_flf(k: dict, kadr_start, kadr_koniec, out, lite: bool = False):
+    """DROGA ROLKA HUMOR: klip z klatka startowa i koncowa (poza wymuszona mechanicznie).
+    lite=True -> Veo 3.1 Lite 720p (zwiad ~$0.40); lite=False -> fast 1080p+audio ($1.20)."""
+    import fal_client
+    first_url = fal_client.upload_file(str(kadr_start))
+    last_url = first_url if str(kadr_koniec) == str(kadr_start) else fal_client.upload_file(str(kadr_koniec))
+    dialog = _zbuduj_dialog(k)
+    prompt = dialog
+    if last_url == first_url:
+        prompt += ("He holds the exact pose and grip from the frame for the entire clip, "
+                   "speaking through clenched teeth, without gesturing. ")
+    prompt += "Continuous single take, natural handheld camera."
+    model = ("fal-ai/veo3.1/lite/first-last-frame-to-video" if lite
+             else "fal-ai/veo3.1/fast/first-last-frame-to-video")
+    args = {"prompt": prompt, "first_frame_url": first_url, "last_frame_url": last_url,
+            "duration": "8s", "aspect_ratio": "auto",
+            "resolution": "720p" if lite else "1080p"}
+    if not lite:
+        args["generate_audio"] = True
+    try:
+        res = fal_client.run(model, arguments=args)
+    except Exception as e:
+        if "content_policy" in str(e):
+            raise RuntimeError(f"klip {k['nr']}: Veo FLF odrzucil tresc — popraw kadr/kwestie")
+        raise
+    url = res["video"]["url"]
+    _run(["curl", "-sL", "-o", str(out), url])
+    if not out.is_file() or out.stat().st_size < 50000:
+        raise RuntimeError(f"klip {k['nr']}: pobieranie FLF nieudane")
+
 
 def produkuj(folder: Path, styl_bohaterow: str):
     """Pełna produkcja żartu — wołać W WĄTKU. Stany w meta.json."""

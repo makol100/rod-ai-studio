@@ -270,6 +270,89 @@ def lista_zartow():
     return out
 
 
+@router.get("/zarty/{zid}/kadr/{nr}")
+def zart_kadr(zid: str, nr: int):
+    """DROGA ROLKA HUMOR: podglad kadru kluczowego klipu."""
+    f = ZARTY_DIR / zid / f"kadr_{nr:02d}.jpg"
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail="brak kadru")
+    return FileResponse(f, media_type="image/jpeg")
+
+
+@router.post("/zart-checkpoint/{zid}/kadry")
+def zart_kadry(zid: str, data: dict = Body(None)):
+    """DROGA ROLKA HUMOR etap 3: kadry kluczowe scen (nano-banana-pro).
+    Tomasz akceptuje OBRAZY zanim ruszy wideo. body: {"klipy":[2,3]} albo puste=wszystkie."""
+    folder = ZARTY_DIR / zid
+    if not (folder / "scenariusz.txt").is_file():
+        raise HTTPException(status_code=404, detail="brak scenariusza")
+    sc = (folder / "scenariusz.txt").read_text(encoding="utf-8")
+    klipy = _parsuj(sc)
+    chciane = set((data or {}).get("klipy") or [k["nr"] for k in klipy])
+    from src.ai.image_backend import generate_image
+    from src.zarty_produkcja import STYL_BOHATEROW, OPISY_POSTACI
+    zrobione, bledy = [], []
+    for k in klipy:
+        if k["nr"] not in chciane or "(BANK)" in k.get("mowi", "").upper():
+            continue
+        out = folder / f"kadr_{k['nr']:02d}.jpg"
+        w_kadrze = [im for im in OPISY_POSTACI
+                    if im.lower() in k["ruch"].lower() or im.title() in k["ruch"]]
+        opisy = " ".join(OPISY_POSTACI[im] for im in w_kadrze)
+        prompt = (f"{STYL_BOHATEROW} {opisy} First frame of a scene, vertical 9:16, "
+                  f"photorealistic golden-hour Polish allotment garden. Scene: {k['ruch']}")
+        try:
+            generate_image(prompt, out, silnik="fal-ai/nano-banana-pro")
+            zrobione.append(k["nr"])
+        except Exception as e:
+            bledy.append({"klip": k["nr"], "blad": str(e)[:120]})
+    _log(folder, f"kadry wygenerowane: {zrobione}" + (f", bledy: {bledy}" if bledy else ""))
+    return {"status": "ok", "kadry": zrobione, "bledy": bledy,
+            "podglad": [f"/zarty/{zid}/kadr/{n}" for n in zrobione]}
+
+
+@router.post("/zart-checkpoint/{zid}/zwiad")
+def zart_zwiad(zid: str, data: dict = Body(...)):
+    """DROGA ROLKA HUMOR etap 4: zwiad ruchu jednego klipu na Veo LITE FLF 720p (~$0.40).
+    Wymaga kadru. body: {"klip": 2}. Wynik: zwiad_NN.mp4 (nie rusza klipow)."""
+    nr = int((data or {}).get("klip", 0))
+    folder = ZARTY_DIR / zid
+    kadr = folder / f"kadr_{nr:02d}.jpg"
+    if not kadr.is_file():
+        raise HTTPException(status_code=400, detail=f"brak kadru kadr_{nr:02d}.jpg — najpierw /kadry")
+    sc = (folder / "scenariusz.txt").read_text(encoding="utf-8")
+    k = next((x for x in _parsuj(sc) if x["nr"] == nr), None)
+    if not k:
+        raise HTTPException(status_code=404, detail="brak klipu w scenariuszu")
+
+    def _tlo():
+        try:
+            from src.zarty_produkcja import _klip_flf
+            out = folder / f"zwiad_{nr:02d}.mp4"
+            _klip_flf(k, kadr, kadr, out, lite=True)
+            _log(folder, f"ZWIAD klipu {nr} gotowy ({out.stat().st_size // 1024} KB) — obejrzyj ruch")
+            try:
+                m = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+                m["koszt_wydany"] = round(float(m.get("koszt_wydany", 0) or 0) + 0.40, 2)
+                (folder / "meta.json").write_text(json.dumps(m, ensure_ascii=False, indent=1),
+                                                  encoding="utf-8")
+            except Exception:
+                pass
+        except Exception as e:
+            _log(folder, f"BLAD ZWIADU {nr}: {e}")
+
+    threading.Thread(target=_tlo, daemon=True).start()
+    return {"status": "zwiad_ruszyl", "klip": nr, "koszt_ok_usd": 0.40}
+
+
+@router.get("/zarty/{zid}/zwiad/{nr}")
+def zart_zwiad_video(zid: str, nr: int):
+    f = ZARTY_DIR / zid / f"zwiad_{nr:02d}.mp4"
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail="brak zwiadu")
+    return FileResponse(f, media_type="video/mp4", filename=f"zwiad_{zid}_{nr}.mp4")
+
+
 @router.get("/zarty/{zid}/log")
 def zart_log(zid: str):
     f = ZARTY_DIR / zid / "log.txt"
