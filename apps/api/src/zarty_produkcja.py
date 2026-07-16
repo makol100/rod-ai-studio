@@ -7,6 +7,7 @@ Wszystko per żart w data/zarty/NNNN/. Wołane W TLE z /zart-checkpoint/{id}/zat
 """
 import json
 import re
+import shutil
 import subprocess
 import time
 from pathlib import Path
@@ -135,6 +136,14 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
         if out.is_file():
             _log(folder, f"klip {k['nr']} już jest — pomijam")
             continue
+        if "(BANK)" in (k.get("mowi", "").upper()):
+            k["mowi"] = k["mowi"].upper().replace("(BANK)", "").strip()
+            baza = folder.parent / "bank" / "mieczyslaw_plot.mp4"
+            if not baza.is_file():
+                raise RuntimeError("brak klipu bazowego banku: data/zarty/bank/mieczyslaw_plot.mp4 — wygeneruj go raz (1 klip, $1.20)")
+            shutil.copy(baza, out)
+            _log(folder, f"klip {k['nr']} z BANKU — koszt $0")
+            continue
         _log(folder, f"klip {k['nr']}/{len(klipy)} Veo t2v+audio…")
         kto = _postacie_w_klipie(k)
         opisy = ("In frame: " + "; ".join(OPISY_POSTACI[i] for i in kto) + ". ") if kto else ""
@@ -164,6 +173,13 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
         if not out.is_file() or out.stat().st_size < 50000:
             raise RuntimeError(f"klip {k['nr']}: pobieranie nieudane")
         _log(folder, f"klip {k['nr']} OK ({out.stat().st_size//1024} KB)")
+        try:
+            _m = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+            _m["koszt_wydany"] = round(float(_m.get("koszt_wydany", 0) or 0) + 1.20, 2)
+            (folder / "meta.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1),
+                                              encoding="utf-8")
+        except Exception:
+            pass
 
 def _kwestie(dialog: str) -> list:
     """'HENIEK (krzywiąc usta): "tekst" / HALINKA: "tekst"' -> [(kto, tekst), ...]"""

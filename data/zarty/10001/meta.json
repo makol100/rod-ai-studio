@@ -16,5 +16,6 @@
   "uwaga": "pilot: v1 4.80 + dogrywka K1 1.20 + dogrywka K1+K2 2.40"
  },
  "start_produkcji": 1784134285.7114449,
- "final": "/root/rod-ai-studio/data/zarty/10001/final.mp4"
+ "final": "/root/rod-ai-studio/data/zarty/10001/final.mp4",
+ "koszt_wydany": 8.4
 }

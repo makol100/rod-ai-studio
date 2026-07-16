@@ -121,13 +121,59 @@ def _nowy_id() -> str:
 
 def _parsuj(scenariusz: str) -> list:
     klipy = []
-    for m in re.finditer(r"KLIP\s*(\d)\s*:\s*OBRAZ:\s*(.+?)\s*M[OÓ]WI:\s*([A-Za-zócęąśłżźńÓCĘĄŚŁŻŹŃ]+(?:\s*\(G[ŁL]OS\))?)\s*KWESTIA:\s*(.+?)(?=KLIP\s*\d\s*:|$)",
+    for m in re.finditer(r"KLIP\s*(\d)\s*:\s*OBRAZ:\s*(.+?)\s*M[OÓ]WI:\s*([A-Za-zócęąśłżźńÓCĘĄŚŁŻŹŃ]+(?:\s*\((?:G[ŁL]OS|BANK)\))?)\s*KWESTIA:\s*(.+?)(?=KLIP\s*\d\s*:|$)",
                          scenariusz, re.S | re.I):
         klipy.append({"nr": int(m.group(1)),
                       "ruch": " ".join(m.group(2).split()),
                       "mowi": m.group(3).strip().upper(),
                       "kwestia": " ".join(m.group(4).split()).strip('"')})
     return sorted(klipy, key=lambda k: k["nr"])
+
+REGULY_AUDYTU = [
+    ("puka", "pukanie/stukanie — Veo to psuje; zamien na wolanie"),
+    ("stuka", "pukanie/stukanie — Veo to psuje; zamien na wolanie"),
+    ("kolacze", "pukanie — Veo to psuje"),
+    ("drzwi", "drzwi jako akcja — Veo psuje otwieranie/zamykanie; przenies akcje"),
+    ("lapie za", "chwyt precyzyjny — grac reakcja/sugestia, nie kontaktem"),
+    ("chwyta", "chwyt precyzyjny — grac reakcja/sugestia"),
+    ("sciska", "sciskanie — grac reakcja drugiej strony"),
+    ("obejmuje", "kontakt dwoch cial — ryzyko choreografii"),
+    ("ciagnie", "kontakt/szarpanie — ryzyko choreografii"),
+    ("szarpie", "kontakt/szarpanie — ryzyko choreografii"),
+    ("podaje", "przekazywanie z rak do rak — Veo gubi przedmiot"),
+    ("wrecza", "przekazywanie z rak do rak — Veo gubi przedmiot"),
+    ("na drzewie", "postac na drzewie — lewitacja; grac dol drzewa/glos"),
+    ("w koronie", "postac w koronie — lewitacja; grac trzesaca korone/glos"),
+    ("na galezi", "postac na galezi — lewitacja"),
+    ("wspina", "wspinaczka — Veo psuje fizyke"),
+]
+
+def _norm_pl(t: str) -> str:
+    for a, b in [("ą","a"),("ć","c"),("ę","e"),("ł","l"),("ń","n"),("ó","o"),("ś","s"),("ż","z"),("ź","z")]:
+        t = t.replace(a, b)
+    return t
+
+def _audyt_scen(klipy: list) -> list:
+    problemy = []
+    try:
+        from src.zarty_produkcja import OPISY_POSTACI
+        imiona = list(OPISY_POSTACI.keys())
+    except Exception:
+        imiona = []
+    for k in klipy:
+        obraz_raw = k.get("ruch", "") or k.get("obraz", "")
+        obraz = _norm_pl(obraz_raw.lower())
+        for fraza, opis in REGULY_AUDYTU:
+            if fraza in obraz:
+                problemy.append({"klip": k["nr"], "fraza": fraza, "problem": opis})
+        w_kadrze = [im for im in imiona
+                    if _norm_pl(im.lower()) in _norm_pl(obraz_raw.upper().lower())]
+        w_kadrze = [im for im in imiona if _norm_pl(im.title().lower()) in obraz or _norm_pl(im.lower()) in obraz]
+        if len(set(w_kadrze)) >= 2:
+            problemy.append({"klip": k["nr"], "fraza": "+".join(sorted(set(w_kadrze))),
+                             "problem": "dwie postacie w jednym kadrze — ryzyko choreografii; rozdziel na osobne klipy"})
+    return problemy
+
 def _wycena(n_klipow: int) -> dict:
     from src.zarty_produkcja import KADR_GLOBALNY
     klipy_usd = n_klipow * KLIP_SEK * CENA_SEK
@@ -192,10 +238,13 @@ def zart_zapisz(zid: str, data: dict = Body(...)):
     klipy = _parsuj(sc)
     meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
     meta["klipy_sparsowane"] = len(klipy)
-    meta["wycena"] = _wycena(len(klipy))
+    platne = [k for k in klipy if "(BANK)" not in (k.get("mowi", "").upper())]
+    meta["wycena"] = _wycena(len(platne))
+    meta["audyt"] = _audyt_scen(klipy)
     (folder / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1),
                                       encoding="utf-8")
-    return {"status": "ok", "klipy": len(klipy), "wycena": meta["wycena"]}
+    return {"status": "ok", "klipy": len(klipy), "wycena": meta["wycena"],
+            "audyt": meta["audyt"]}
 
 
 @router.get("/zarty")
@@ -210,64 +259,12 @@ def lista_zartow():
     return out
 
 
-@router.post("/zart-checkpoint/{zid}/zatwierdz")
-def zart_zatwierdz(zid: str):
-    """URUCHAMIA PŁATNĄ PRODUKCJĘ (kadr NB Pro + klipy Veo). Wołać tylko po
-    świadomej akceptacji wyceny z checkpointu."""
-    import threading
-    folder = ZARTY_DIR / zid
-    if not folder.is_dir():
-        raise HTTPException(status_code=404, detail="Żart nie znaleziony")
-    meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
-    if meta.get("stan") in ("produkcja", "klipy_veo", "dialogi", "render"):
-        return {"status": "juz_trwa", "stan": meta["stan"]}
-    from src.zarty_produkcja import produkuj
-    threading.Thread(target=produkuj, args=(folder, STYL_BOHATEROW), daemon=True).start()
-    return {"status": "produkcja_ruszyla", "wycena": meta.get("wycena"),
-            "podglad_logu": f"/zarty/{zid}/log"}
-
-
-@router.get("/zarty/{zid}/video")
-def zart_video(zid: str):
-    from fastapi.responses import FileResponse
-    f = ZARTY_DIR / zid / "final.mp4"
-    if not f.is_file():
-        raise HTTPException(status_code=404, detail="Final jeszcze nie istnieje")
-    return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}.mp4")
-
-
 @router.get("/zarty/{zid}/log")
 def zart_log(zid: str):
     f = ZARTY_DIR / zid / "log.txt"
     meta_p = ZARTY_DIR / zid / "meta.json"
     return {"meta": json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.is_file() else {},
             "log": f.read_text(encoding="utf-8").splitlines()[-20:] if f.is_file() else []}
-
-
-@router.post("/zart-checkpoint/{zid}/zatwierdz")
-def zart_zatwierdz(zid: str):
-    """URUCHAMIA PŁATNĄ produkcję (kadr NB Pro + klipy Veo) w wątku.
-    Wołać wyłącznie po akceptacji wyceny przez Tomasza."""
-    import threading
-    folder = ZARTY_DIR / zid
-    if not folder.is_dir():
-        raise HTTPException(status_code=404, detail="Żart nie znaleziony")
-    meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
-    if meta.get("stan") in ("produkcja", "klipy_veo", "dialogi", "render"):
-        return {"status": "juz_trwa", "stan": meta["stan"]}
-    from src.zarty_produkcja import produkuj
-    threading.Thread(target=produkuj, args=(folder, STYL_BOHATEROW), daemon=True).start()
-    return {"status": "produkcja_ruszyla", "wycena": meta.get("wycena"),
-            "podglad": f"/zart-checkpoint/{zid}"}
-
-
-@router.get("/zarty/{zid}/video")
-def zart_video(zid: str):
-    from fastapi.responses import FileResponse
-    f = ZARTY_DIR / zid / "final.mp4"
-    if not f.is_file():
-        raise HTTPException(status_code=404, detail="Brak final.mp4")
-    return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}.mp4")
 
 
 @router.get("/zarty/casting")
@@ -303,7 +300,7 @@ def postacie_podglad():
 
 
 @router.post("/zart-checkpoint/{zid}/zatwierdz")
-def zart_zatwierdz(zid: str):
+def zart_zatwierdz(zid: str, data: dict = Body(None)):
     """START PRODUKCJI (PŁATNE: klipy Veo wg wyceny z checkpointu). W tle."""
     import threading
     from src.zarty_produkcja import produkuj, KADR_GLOBALNY
@@ -311,8 +308,34 @@ def zart_zatwierdz(zid: str):
     if not folder.is_dir():
         raise HTTPException(status_code=404, detail="Żart nie znaleziony")
     meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
-    if meta.get("stan") not in ("checkpoint", "blad"):
+    if meta.get("stan") not in ("checkpoint", "blad", "zamrozony"):
         raise HTTPException(status_code=400, detail=f"Zły stan: {meta.get('stan')}")
+    force = bool((data or {}).get("force"))
+    if meta.get("stan") == "zamrozony" and not force:
+        raise HTTPException(status_code=409, detail={
+            "blokada": "ODCINEK ZAMROZONY",
+            "rada": "odmroz swiadomie: zatwierdz z {'force': true}"})
+    # BEZPIECZNIK 1: audyt scen (zakazane akcje Veo)
+    audyt = meta.get("audyt") or []
+    if audyt and not force:
+        raise HTTPException(status_code=409, detail={
+            "blokada": "AUDYT SCENARIUSZA", "problemy": audyt,
+            "rada": "popraw sceny (darmowe) albo force:true po swiadomej decyzji"})
+    # BEZPIECZNIK 2: limit 6 USD na odcinek
+    _sc = (folder / "scenariusz.txt").read_text(encoding="utf-8")
+    _do_gen = [k for k in _parsuj(_sc)
+               if not (folder / f"klip_{k['nr']:02d}.mp4").is_file()
+               and "(BANK)" not in (k.get("mowi", "").upper())]
+    plan = round(len(_do_gen) * 8 * CENA_SEK, 2)
+    wydane = round(float(meta.get("koszt_wydany", 0) or 0), 2)
+    if wydane + plan > 6.00 and not force:
+        meta["stan"] = "zamrozony"
+        (folder / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1),
+                                          encoding="utf-8")
+        raise HTTPException(status_code=409, detail={
+            "blokada": "LIMIT 6 USD NA ODCINEK",
+            "wydane_usd": wydane, "plan_usd": plan, "razem_usd": round(wydane + plan, 2),
+            "rada": "odcinek zamrozony; force:true tylko po swiadomej decyzji"})
     threading.Thread(target=produkuj, args=(folder, STYL_BOHATEROW), daemon=True).start()
     return {"status": "produkcja_ruszyla", "wycena": meta.get("wycena"),
             "podglad_stanu": f"/zart-checkpoint/{zid}"}
