@@ -198,9 +198,9 @@ def straznik_ust(plik):
     if not m_c:
         return {"status": "WARN", "detale": "syncnet nie zwrócił wyniku (brak twarzy?)"}
     conf, off = float(m_c.group(1)), int(m_o.group(1)) if m_o else None
-    st = "PASS" if conf >= 3.0 and abs(off or 0) <= 3 else "FAIL"
+    st = "FAIL" if (conf < 3.0 or abs(off or 0) > 3) else ("WARN" if conf < 5.0 else "PASS")
     return {"status": st, "detale": {"confidence": conf, "av_offset": off,
-                                     "próg": "conf≥3.0, |offset|≤3 (LatentSync)"}}
+                                     "próg": "FAIL<3.0, WARN 3-5, PASS≥5; |offset|≤3"}}
 
 # ---------- 6. SĘDZIA VLM (Ollama) ----------
 def sedzia_vlm(plik, pytania):
