@@ -12,11 +12,12 @@
   "koszt_razem_usd": 6.0,
   "model": "fal-ai/veo3.1/fast (t2v + audio)",
   "cena_za_sekunde": 0.15,
-  "postacie": "gotowe (koszt zero)"
+  "postacie": "gotowe (koszt zero)",
+  "uwaga": "v4: 5 klipow + wymiana zdan; koszt calkowity 9.60 z nauka"
  },
- "start_produkcji": 1784182981.089201,
+ "start_produkcji": 1784184093.1609454,
  "final": "/root/rod-ai-studio/data/zarty/10004/final.mp4",
  "blad": "User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.",
- "koszt_wydany": 8.4,
+ "koszt_wydany": 9.6,
  "audyt": []
 }

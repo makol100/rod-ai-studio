@@ -503,11 +503,6 @@
         </div>
         <textarea id="cpScenariusz" spellcheck="false"></textarea>
         <div id="cpTranslateBox" style="display:none; margin-top:8px; background:var(--surface-2); border-radius:10px; padding:12px; font-size:12.5px; line-height:1.5; max-height:280px; overflow-y:auto; white-space:pre-wrap"></div>
-        <div style="margin-top:10px; background:var(--surface-2); border-radius:10px; padding:10px">
-          <label class="field" style="margin-bottom:6px">🤖 Popraw przez Claude (bezpośrednio tutaj)</label>
-          <textarea id="cpClaudeInstrukcja" placeholder='np. "usuń wymyślony fakt w scenie 3" albo "scena 5 brzmi zbyt fachowo, uprość"' style="min-height:44px; margin-bottom:6px"></textarea>
-          <button id="cpClaudeBtn" type="button" class="btn ghost sm" style="width:100%">✨ Popraw scenariusz</button>
-        </div>
       </div>
       <div id="cpPromptsWrap" style="display:none">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:4px">
@@ -622,23 +617,6 @@
   </div>
 
   <!-- ASYSTENT PROMPTU (Dyskusja 10.07.2026) -->
-  <div class="card">
-    <div class="sec-head"><span class="idx">00</span><h2>Asystent promptu (Claude)</h2></div>
-    <p style="font-size:11.5px; color:var(--muted); line-height:1.5; margin:0 0 10px">
-      Masz słaby/ogólnikowy temat, który Bielik by tylko pogmatwał? Wklej go tutaj razem z instrukcją co chcesz osiągnąć — Claude (przez Twój własny klucz API, osobny koszt od Claude.ai) rozbuduje to na gotowy, precyzyjny prompt do skopiowania w pole "Temat rolki" poniżej.
-    </p>
-    <label class="field" for="apTemat">Słaby temat</label>
-    <textarea id="apTemat" placeholder="np. skoszona trawa" style="min-height:50px; margin-bottom:10px"></textarea>
-    <label class="field" for="apInstrukcja">Instrukcja / czego oczekujesz (opcjonalnie)</label>
-    <textarea id="apInstrukcja" placeholder='np. "popraw mi to, chcę z tego rolkę na Facebooka o kompostowaniu skoszonej trawy"' style="min-height:50px; margin-bottom:10px"></textarea>
-    <button class="btn primary" id="apBtn" style="width:100%; margin-bottom:10px">✨ Ulepsz prompt</button>
-    <div id="apWynikWrap" style="display:none">
-      <label class="field">Gotowy prompt (skopiuj i wklej niżej w "Temat rolki")</label>
-      <textarea id="apWynik" style="min-height:160px; margin-bottom:8px" readonly></textarea>
-      <button class="btn ghost sm" id="apUzyjBtn" style="width:100%">⬇️ Użyj jako temat rolki (wklej niżej)</button>
-    </div>
-  </div>
-
   <!-- GENERATOR -->
   <div class="card">
     <div class="sec-head"><span class="idx">01</span><h2>Rolki ROD — nowa</h2></div>
@@ -1259,30 +1237,6 @@
     $('#picked').innerHTML = e.target.value === 'czysty' ? '<span class="chip">CZYSTA DROGA</span>' : '';
   });
 
-  /* ---------- asystent promptu (Dyskusja 10.07.2026, Claude przez API) ---------- */
-  $('#apBtn').addEventListener('click', async ()=>{
-    const temat = $('#apTemat').value.trim();
-    if(!temat){ toast('Wpisz temat do ulepszenia.', 'info'); $('#apTemat').focus(); return; }
-    const instrukcja = $('#apInstrukcja').value.trim();
-    busy($('#apBtn'), true);
-    try{
-      const wynik = await api('/asystent-promptu', {method:'POST', body: JSON.stringify({temat, instrukcja})});
-      $('#apWynik').value = wynik.prompt_ulepszony || '';
-      $('#apWynikWrap').style.display = '';
-      $('#apWynik').scrollIntoView({behavior:'smooth', block:'center'});
-    }catch(e){
-      toast('Nie udało się wygenerować: '+e.message, 'err');
-    }finally{ busy($('#apBtn'), false); }
-  });
-  $('#apUzyjBtn').addEventListener('click', ()=>{
-    const wartosc = $('#apWynik').value;
-    if(!wartosc) return;
-    currentTopicId = null;
-    $('#prompt').value = wartosc;
-    $('#picked').innerHTML = '<span class="chip">Z asystenta promptu (Claude)</span>';
-    $('#prompt').scrollIntoView({behavior:'smooth', block:'center'});
-    toast('Wklejono do pola tematu poniżej.', 'ok');
-  });
 
   /* ---------- random topic ---------- */
   $('#btnRandom').addEventListener('click', async ()=>{
@@ -1998,22 +1952,6 @@
     }finally{ busy($('#cpTranslateBtn'), false); }
   });
 
-  $('#cpClaudeBtn').addEventListener('click', async ()=>{
-    if(!cpReelId) return;
-    const scenariusz = $('#cpScenariusz').value.trim();
-    const instrukcja = $('#cpClaudeInstrukcja').value.trim();
-    if(!scenariusz){ toast('Scenariusz nie może być pusty.', 'info'); return; }
-    if(!instrukcja){ toast('Napisz co poprawić.', 'info'); $('#cpClaudeInstrukcja').focus(); return; }
-    busy($('#cpClaudeBtn'), true);
-    try{
-      const wynik = await api('/reel-checkpoint/'+cpReelId+'/popraw-przez-claude', {method:'POST', body: JSON.stringify({scenariusz, instrukcja})});
-      $('#cpScenariusz').value = wynik.scenariusz_poprawiony || scenariusz;
-      $('#cpClaudeInstrukcja').value = '';
-      toast('Scenariusz poprawiony przez Claude — sprawdź i kliknij "Zapisz poprawki".', 'ok');
-    }catch(e){
-      toast('Nie udało się poprawić: '+e.message, 'err');
-    }finally{ busy($('#cpClaudeBtn'), false); }
-  });
 
   $('#cpAuditBtn').addEventListener('click', async ()=>{
     if(!cpReelId) return;

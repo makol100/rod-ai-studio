@@ -49,3 +49,17 @@
 06:30:34 part 5 zlozony
 06:30:34 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (58225 KB)
 06:30:35 telegram nieudany: HTTPSConnectionPool(host='kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa', port=443): Max retries exceeded with url: /api/webhook/fabryka_rolka_gotowa (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
+06:41:33 klip 1 już jest — pomijam
+06:41:33 klip 2/5 Veo t2v+audio…
+06:43:47 klip 2 OK (18333 KB)
+06:43:47 klip 3 już jest — pomijam
+06:43:47 klip 4 już jest — pomijam
+06:43:47 klip 5 już jest — pomijam
+06:43:47 napisy: kwestie na caly klip (duze, bez Whisper)
+06:43:50 part 1 zlozony
+06:43:53 part 2 zlozony
+06:43:56 part 3 zlozony
+06:43:59 part 4 zlozony
+06:44:01 part 5 zlozony
+06:44:01 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (54211 KB)
+06:44:01 telegram nieudany: HTTPSConnectionPool(host='kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa', port=443): Max retries exceeded with url: /api/webhook/fabryka_rolka_gotowa (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
