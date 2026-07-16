@@ -483,7 +483,8 @@ def zart_video(zid: str):
     f = ZARTY_DIR / zid / "final.mp4"
     if not f.is_file():
         raise HTTPException(status_code=404, detail="Jeszcze nie ma finalu")
-    return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}.mp4")
+    w = int(f.stat().st_mtime)
+    return FileResponse(f, media_type="video/mp4", filename=f"zart_{zid}_w{w}.mp4")
 
 
 @router.get("/zarty/{zid}/log")

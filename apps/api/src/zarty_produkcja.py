@@ -41,6 +41,8 @@ OPISY_POSTACI = {
               "with a kitchen apron",
     "TOMASZ": "TOMASZ, the neighbour around 50, slightly round, crooked baseball cap, "
               "open Hawaiian shirt, wide uncertain smile",
+    "JÓZEK": "JOZEK, a skinny frightened village man around 40, protruding ears, "
+             "oversized stretched grey sweater, huge terrified bulging eyes, messy hair",
     "JACUŚ": "JACUS, a young man around 25, slim, protruding ears, freckles, loose t-shirt",
     "JÓZEK": "JOZEK, a skinny scared villager around 40, tousled hair, oversized old brown jacket, wide frightened eyes",
 }
