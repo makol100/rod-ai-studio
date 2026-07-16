@@ -33,3 +33,19 @@
 05:31:07 klip 1 już jest — pomijam
 05:31:07 klip 2/4 Veo t2v+audio…
 05:31:07 BLAD PRODUKCJI: User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.
+06:23:01 klip 1 już jest — pomijam
+06:23:01 klip 2/5 Veo t2v+audio…
+06:25:23 klip 2 OK (23942 KB)
+06:25:23 klip 3/5 Veo t2v+audio…
+06:27:42 klip 3 OK (15917 KB)
+06:27:42 klip 4/5 Veo t2v+audio…
+06:30:19 klip 4 OK (25762 KB)
+06:30:19 klip 5 już jest — pomijam
+06:30:20 napisy: kwestie na caly klip (duze, bez Whisper)
+06:30:23 part 1 zlozony
+06:30:26 part 2 zlozony
+06:30:29 part 3 zlozony
+06:30:32 part 4 zlozony
+06:30:34 part 5 zlozony
+06:30:34 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (58225 KB)
+06:30:35 telegram nieudany: HTTPSConnectionPool(host='kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa', port=443): Max retries exceeded with url: /api/webhook/fabryka_rolka_gotowa (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))

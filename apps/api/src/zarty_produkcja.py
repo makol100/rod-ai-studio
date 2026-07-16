@@ -49,7 +49,7 @@ GLOSY_VEO = {
     "HELENA": "in Polish with a warm motherly voice",
     "TOMASZ": "in Polish with an enthusiastic slightly nervous voice",
     "JACUŚ": "in Polish with a young casual voice",
-    "JÓZEK": "in Polish with a thin panicked stuttering voice",
+    "JÓZEK": "in Polish with a tiny, quiet, high-pitched squeaky frightened voice",
 }
 STYL_KLIPU = ("Cinematic realistic footage, warm golden summer light. Vertical 9:16. "
               "Natural ambient sounds. No subtitles, no text overlay.")
@@ -59,7 +59,7 @@ STYL_KLIPU = ("Cinematic realistic footage, warm golden summer light. Vertical 9
 
 def _postacie_w_klipie(k):
     """Znacznik (GŁOS) w polu MÓWI = postać mówi spoza kadru i NIE trafia do In frame."""
-    mowi = k.get("mowi", "")
+    mowi = k.get("mowi", "") + " " + k.get("mowi2", "")
     offscreen = "(GŁOS)" in mowi.upper() or "(GLOS)" in mowi.upper()
     mowi_czysty = mowi.upper().replace("(GŁOS)", "").replace("(GLOS)", "").strip()
     tekst = (k.get("ruch", "") + " " + k.get("obraz", "") + " "
@@ -159,6 +159,15 @@ def zrob_klipy(folder: Path, klipy: list, kadr=None):
             dialog = f'{mowi.capitalize()} says {glos}: "{kwestia}" '
         else:
             dialog = ""
+        mowi2 = k.get("mowi2", "")
+        if mowi2:
+            off2 = "(GŁOS)" in mowi2.upper() or "(GLOS)" in mowi2.upper()
+            mowi2 = mowi2.upper().replace("(GŁOS)", "").replace("(GLOS)", "").strip()
+            k["mowi2"] = mowi2
+            glos2 = GLOSY_VEO.get(mowi2, "in Polish with a natural voice")
+            kw2 = k.get("kwestia2", "")
+            rola2 = "an unseen hidden man answers from off-screen" if off2 else f"{mowi2.capitalize()} answers"
+            dialog += 'Then ' + rola2 + ' ' + glos2 + ': "' + kw2 + '" '
         prompt = f"{opisy}Scene: {k['ruch']} {dialog}{STYL_KLIPU}"
         args = {"prompt": prompt, "aspect_ratio": "9:16", "duration": "8s",
                 "resolution": "1080p", "generate_audio": True, "auto_fix": True}
@@ -257,9 +266,19 @@ def zrob_napisy(folder: Path, klipy: list):
         kolor = KOLORY_ASS.get(k.get("mowi", ""), "&H00FFFFFF")
         ass = folder / f"napisy_{k['nr']:02d}.ass"
         tekst = k.get("kwestia", "")
-        ass.write_text(ASS_HEADER + (
-            f"Dialogue: 0,{_ass_czas(0.4)},{_ass_czas(max(d-0.2, 1))},Default,,0,0,0,,"
-            f"{{\\c{kolor}}}{k.get('mowi','')}: {tekst}\n"), encoding="utf-8")
+        if k.get("mowi2"):
+            kolor2 = KOLORY_ASS.get(k.get("mowi2", ""), "&H00FFFFFF")
+            pol = max(d * 0.55, 1.2)
+            tresc = (
+                f"Dialogue: 0,{_ass_czas(0.4)},{_ass_czas(pol)},Default,,0,0,0,,"
+                f"{{\\c{kolor}}}{k.get('mowi','')}: {tekst}\n"
+                f"Dialogue: 0,{_ass_czas(pol)},{_ass_czas(max(d-0.2, pol+0.5))},Default,,0,0,0,,"
+                f"{{\\c{kolor2}}}{k.get('mowi2','')}: {k.get('kwestia2','')}\n")
+        else:
+            tresc = (
+                f"Dialogue: 0,{_ass_czas(0.4)},{_ass_czas(max(d-0.2, 1))},Default,,0,0,0,,"
+                f"{{\\c{kolor}}}{k.get('mowi','')}: {tekst}\n")
+        ass.write_text(ASS_HEADER + tresc, encoding="utf-8")
     _log(folder, "napisy: kwestie na caly klip (duze, bez Whisper)")
 
 def zloz(folder: Path, klipy: list) -> Path:

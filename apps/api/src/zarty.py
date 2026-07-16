@@ -121,12 +121,19 @@ def _nowy_id() -> str:
 
 def _parsuj(scenariusz: str) -> list:
     klipy = []
-    for m in re.finditer(r"KLIP\s*(\d)\s*:\s*OBRAZ:\s*(.+?)\s*M[OÓ]WI:\s*([A-Za-zócęąśłżźńÓCĘĄŚŁŻŹŃ]+(?:\s*\((?:G[ŁL]OS|BANK)\))?)\s*KWESTIA:\s*(.+?)(?=KLIP\s*\d\s*:|$)",
-                         scenariusz, re.S | re.I):
-        klipy.append({"nr": int(m.group(1)),
-                      "ruch": " ".join(m.group(2).split()),
-                      "mowi": m.group(3).strip().upper(),
-                      "kwestia": " ".join(m.group(4).split()).strip('"')})
+    RX = (r"KLIP\s*(\d)\s*:\s*OBRAZ:\s*(.+?)"
+          r"\s*M[OÓ]WI:\s*([A-Za-zócęąśłżźńÓCĘĄŚŁŻŹŃ]+(?:\s*\((?:G[ŁL]OS|BANK)\))?)\s*KWESTIA:\s*(.+?)"
+          r"(?:\s*M[OÓ]WI2:\s*([A-Za-zócęąśłżźńÓCĘĄŚŁŻŹŃ]+(?:\s*\((?:G[ŁL]OS|BANK)\))?)\s*KWESTIA2:\s*(.+?))?"
+          r"(?=KLIP\s*\d\s*:|$)")
+    for m in re.finditer(RX, scenariusz, re.S | re.I):
+        k = {"nr": int(m.group(1)),
+             "ruch": " ".join(m.group(2).split()),
+             "mowi": m.group(3).strip().upper(),
+             "kwestia": " ".join(m.group(4).split()).strip('"')}
+        if m.group(5):
+            k["mowi2"] = m.group(5).strip().upper()
+            k["kwestia2"] = " ".join((m.group(6) or "").split()).strip('"')
+        klipy.append(k)
     return sorted(klipy, key=lambda k: k["nr"])
 
 REGULY_AUDYTU = [
@@ -146,6 +153,10 @@ REGULY_AUDYTU = [
     ("w koronie", "postac w koronie — lewitacja; grac trzesaca korone/glos"),
     ("na galezi", "postac na galezi — lewitacja"),
     ("wspina", "wspinaczka — Veo psuje fizyke"),
+    ("nikogo", "NEGACJA w opisie — modele obrazu robia odwrotnie (przywoluja postac); opisz pozytywnie co MA byc"),
+    ("nie widac", "NEGACJA w opisie — modele obrazu robia odwrotnie; opisz pozytywnie"),
+    ("nikt nie", "NEGACJA w opisie — modele obrazu robia odwrotnie; opisz pozytywnie"),
+    ("bez nikogo", "NEGACJA w opisie — opisz pozytywnie"),
 ]
 
 def _norm_pl(t: str) -> str:

@@ -1,21 +1,22 @@
 {
  "id": "10004",
  "temat": "Zlodziej jabłek o zmierzchu: Tomasz łapie w gałęziach jabłoni intruza (za jaja — grane reakcją), cisza, ściska mocniej — a to Józek, niemowa ze wsi. Koda Mieczysława.",
- "stan": "blad",
+ "stan": "gotowy",
  "ts": 1784148270.2614946,
- "klipy_sparsowane": 4,
+ "klipy_sparsowane": 5,
  "wycena": {
-  "klipy": 4,
-  "sekundy": 32,
-  "koszt_klipy_usd": 4.8,
+  "klipy": 5,
+  "sekundy": 40,
+  "koszt_klipy_usd": 6.0,
   "koszt_kadr_usd": 0.0,
-  "koszt_razem_usd": 4.8,
+  "koszt_razem_usd": 6.0,
   "model": "fal-ai/veo3.1/fast (t2v + audio)",
   "cena_za_sekunde": 0.15,
   "postacie": "gotowe (koszt zero)"
  },
- "start_produkcji": 1784179867.5226212,
+ "start_produkcji": 1784182981.089201,
  "final": "/root/rod-ai-studio/data/zarty/10004/final.mp4",
  "blad": "User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.",
- "koszt_wydany": 4.8
+ "koszt_wydany": 8.4,
+ "audyt": []
 }
