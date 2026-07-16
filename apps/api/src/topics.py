@@ -959,28 +959,13 @@ def reel_image(reel_id: str, n: int):
 
 
 @router.post("/napraw-sprawdz")
-def napraw_sprawdz_endpoint(data: dict = Body(...)):
-    from fastapi import HTTPException
-    from src.naprawa import znajdz_folder, sprawdz_zmiany
-    folder = znajdz_folder("/root/rod-ai-studio/data/reels", str(data["reel_id"]))
-    if folder is None:
-        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
-    if not (folder / "scenes.txt").is_file():
-        raise HTTPException(status_code=404, detail="Brak scenes.txt dla tej rolki")
-    return sprawdz_zmiany(folder, data["skarga"])
+def napraw_sprawdz_wycofane(data: dict = Body(None)):
+    raise HTTPException(status_code=410, detail="Funkcja wycofana (qwen usuniety) — poprawki scenariuszy robimy w czacie z Claude.")
 
 
 @router.post("/napraw-zastosuj")
-def napraw_zastosuj_endpoint(data: dict = Body(...)):
-    from fastapi import HTTPException
-    from src.naprawa import znajdz_folder, zastosuj_zmiany
-    folder = znajdz_folder("/root/rod-ai-studio/data/reels", str(data["reel_id"]))
-    if folder is None:
-        raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
-    stary_tekst = (folder / "scenes.txt").read_text(encoding="utf-8")
-    nowy_tekst = data["nowy_scenariusz"]
-    zaakceptowane = set(int(x) for x in data.get("zaakceptowane_sceny", []))
-    return zastosuj_zmiany(folder, stary_tekst, nowy_tekst, zaakceptowane)
+def napraw_zastosuj_wycofane(data: dict = Body(None)):
+    raise HTTPException(status_code=410, detail="Funkcja wycofana (qwen usuniety) — poprawki scenariuszy robimy w czacie z Claude.")
 
 
 @router.get('/zapowiedzi')

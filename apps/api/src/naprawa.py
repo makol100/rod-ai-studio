@@ -247,8 +247,9 @@ PROPOZYCJA_SCENARIUSZA:
             odpowiedz = None  # fallback nizej
 
     if not odpowiedz:
-        _unload_text_model()  # zwolnij Bielika z RAM przed qwen3:14b (7.6GB VPS)
-        odpowiedz = generate(prompt, model=PROMPT_MODEL, temperature=0.2, max_tokens=4096)
+        # qwen3:14b usuniety (decyzja Tomasza 16.07.2026) — bez Fable audyt pomijamy uczciwie
+        odpowiedz = ("PROBLEMY:\n- Brak problemow - audyt pominiety (brak dostepu do Fable API).\n"
+                     "PROPOZYCJA_SCENARIUSZA:\n" + scenariusz)
 
     marker = "PROPOZYCJA_SCENARIUSZA:"
     if marker in odpowiedz:

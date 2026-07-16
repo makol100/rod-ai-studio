@@ -17,6 +17,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, Body, HTTPException
 from fastapi.responses import FileResponse
+import threading
 
 from src.ai.ollama import generate
 
