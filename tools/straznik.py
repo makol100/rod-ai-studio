@@ -43,7 +43,7 @@ def _ffprobe(plik):
         return {"blad": str(e)}
 
 # ---------- 5. STRAŻNIK TECHNICZNY ----------
-def straznik_techniczny(plik, exp_w, exp_h):
+def straznik_techniczny(plik, exp_w, exp_h, freeze_ok=False):
     info = _ffprobe(plik)
     if "blad" in info:
         return {"status": "FAIL", "detale": info}
@@ -55,7 +55,7 @@ def straznik_techniczny(plik, exp_w, exp_h):
               "blackdetect=d=0.3:pix_th=0.10,freezedetect=n=-60dB:d=1.5",
               "-an", "-f", "null", "-"])
     if "black_start" in r.stderr: problemy.append("czarne klatki (blackdetect)")
-    if "freeze_start" in r.stderr: problemy.append("zamrożony obraz (freezedetect)")
+    if "freeze_start" in r.stderr and not freeze_ok: problemy.append("zamrożony obraz (freezedetect)")
     # niechciane cięcia wewnątrz klipu (klip z jednej generacji = 0 cięć)
     r = _run(["ffmpeg", "-v", "info", "-i", str(plik), "-vf",
               "select='gt(scene,0.4)',metadata=print", "-an", "-f", "null", "-"])
@@ -243,6 +243,7 @@ def main():
     ap.add_argument("--exp-w", type=int, default=1080)
     ap.add_argument("--exp-h", type=int, default=1920)
     ap.add_argument("--tekst-dozwolony", action="store_true")
+    ap.add_argument("--freeze-ok", action="store_true")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
     wz = {}
@@ -251,7 +252,7 @@ def main():
         wz[nazwa] = sc
     plik = Path(a.plik)
     R = {
-        "techniczny":  straznik_techniczny(plik, a.exp_w, a.exp_h),
+        "techniczny":  straznik_techniczny(plik, a.exp_w, a.exp_h, a.freeze_ok),
         "napisy_OCR":  straznik_napisow(plik, tekst_dozwolony=a.tekst_dozwolony),
         "scenariusz":  straznik_scenariusza(plik, a.kwestia),
         "kotwice_FLF": kotwice_flf(plik, a.kadr_start, a.kadr_koniec),
