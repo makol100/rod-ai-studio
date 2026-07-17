@@ -1,0 +1,15 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,64,&H00FFFFFF,&H00FFFFFF,&H00101010,&H88000000,-1,0,0,0,100,100,0,0,1,4,2,2,60,60,220,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.40,0:00:04.80,Default,,0,0,0,,{\c&H7AD77A&}TOMASZ: Znowu mi ktoś jabłka podżera! Idę i złapię go za jajca!
+Dialogue: 0,0:00:07.80,0:00:13.60,Default,,0,0,0,,{\c&H7AD77A&}TOMASZ: Mam cię! Gadaj, ktoś ty?! No gadaj, pókim dobry!
+Dialogue: 0,0:00:16.60,0:00:20.20,Default,,0,0,0,,{\c&H55CCFF&}JÓZEK: To ja, Józek! Niemowa ze wsi!
