@@ -6,3 +6,5 @@
 - 23.07 | "Ok. Zaczynamy robić rolkę" | START produkcji 10008. Etap 3: kadry
   Tomek (leżak/relaks) + Janusz (płot/kapelusz/notes/mina inspektora), dzień,
   referencje z biblioteki dziennej. Ton komediowy (nuta serii). | W REALIZACJI
+
+- 23.07 | "Idealnie! Dalej!" | Kanarek k02 ZALICZONY uchem Tomasza (ton komediowy OK). Otwieram batch: 8 klipow (k01 niemy hook, k03/k06/k09 Tomek, k04-k05/k07-k08 Janusz). | W REALIZACJI
