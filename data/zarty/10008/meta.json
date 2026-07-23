@@ -1,10 +1,11 @@
 {
- "koszt_wydany": 6.06,
+ "koszt_wydany": 6.7,
  "stan": "planowanie",
  "limit": 12.0,
  "log_kosztow": [
   "23.07 2x kadr dzienne nano-edit 2K: 0.30",
   "23.07 KANAREK k02 Janusz lite FLF: 0.64",
-  "23.07 batch 8 klipow lite FLF: 5.12"
+  "23.07 batch 8 klipow lite FLF: 5.12",
+  "23.07 k09 regen bez kufla: 0.64"
  ]
 }
