@@ -1,6 +1,8 @@
 {
- "koszt_wydany": 0.0,
+ "koszt_wydany": 0.3,
  "stan": "planowanie",
  "limit": 12.0,
- "log_kosztow": []
+ "log_kosztow": [
+  "23.07 2x kadr dzienne nano-edit 2K: 0.30"
+ ]
 }
