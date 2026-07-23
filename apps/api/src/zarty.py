@@ -321,6 +321,20 @@ def zart_kadr(zid: str, nr: int):
     return FileResponse(f, media_type="image/jpeg")
 
 
+@router.get("/zarty/{zid}/kadrf/{nazwa}")
+def zart_kadr_nazwa(zid: str, nazwa: str):
+    """Podglad kadru po PELNEJ nazwie pliku (kadry opisowe: kadr_tomek_lezak.jpg).
+    Serwuje prosto z dysku VPS — niezalezne od GitHub cache."""
+    if "/" in nazwa or ".." in nazwa:
+        raise HTTPException(status_code=400, detail="zla nazwa")
+    if not nazwa.endswith(".jpg"):
+        nazwa = nazwa + ".jpg"
+    f = ZARTY_DIR / zid / nazwa
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail=f"brak {nazwa}")
+    return FileResponse(f, media_type="image/jpeg", filename=nazwa)
+
+
 @router.post("/zart-checkpoint/{zid}/kadry")
 def zart_kadry(zid: str, data: dict = Body(None)):
     """DROGA ROLKA HUMOR etap 3: kadry kluczowe scen (nano-banana-pro).
