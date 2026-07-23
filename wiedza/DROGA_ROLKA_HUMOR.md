@@ -1,4 +1,4 @@
-# DROGA ROLKA HUMOR 3.4
+# DROGA ROLKA HUMOR 3.5
 Obowiązuje od 17.07.2026. Numeracja: każda merytoryczna zmiana = +0.1
 
 ## ROUTING SERII — KOMENDA = AUTOMAT (23.07, "z automatu wiesz co i jak")
@@ -33,6 +33,7 @@ Dział rolek foto (Bielik) — nietykalny, osobne pliki.
 - 3.2 | 18.07 | (ten commit) | TRANSPARENTNOŚĆ AI OBOWIĄZKOWA (TikTok C2PA auto-detekcja; UE AI Act art. 50 od 02.08.2026): (a) każda publikacja z platformowym oznaczeniem AI (TikTok toggle, YT checkbox, FB w opisie), (b) stała linijka w opisie "Wideo tworzone z pomocą AI", (c) nieinwazyjna plansza/ikonka AI w outro brandu (~5s, wzorzec draft Code of Practice — dzieło ewidentnie satyryczne = reżim lżejszy, zwolnienia brak), (d) postacie NIGDY z dosłowną twarzą realnej osoby prywatnej (TikTok: ban całkowity nawet z labelem), (e) dokumentacja wkładu ludzkiego = git/DECYZJE/KANON (polisa na YT "genuine creative value").
 - 3.3 | 18.07 | (ten commit) | ZAKAZ AUTOCENZURY ESENCJI ŻARTU ("cenzory i poprawność polityczna... wyjebana cała esencja żartu dlatego poszło na dysk" — lekcja #10005): zaakceptowany scenariusz idzie w produkcję W CAŁOŚCI, bez ugrzeczniania z własnej inicjatywy; pochodzenie z dużego modelu (Gemini) = wystarczający dowód dopuszczalności treści. Gdy safety generatora blokuje słowo/scenę: safety_tolerance=6 najpierw, a zmiana słowa WYŁĄCZNIE decyzją Tomasza (eskalacja z opcjami, nigdy cicha podmiana).
 - 3.4 | 18.07 | (ten commit) | LOCK ODCINKA (mechanizm do 3.0, po duplikacji werdyktu B w obu oknach — $4.48 obronila dopiero bramka budzetowa preflight): przed produkcja/montazem odcinka sprawdz data/zarty/NNNN/LOCK; istnieje i <2h -> NIE dotykaj produkcji (odczyty OK); brak -> zaloz (kto|co|kiedy), po bloku usun. Watki czatu moga sie mieszac przy wylocie z aplikacji — stan produkcji weryfikowac ZAWSZE z dysku (git/meta/logi/LOCK), nigdy z pamieci rozmowy.
+- 3.5 | 23.07 | (ten commit) | KANAREK Z PĘTLĄ KOREKCJI + BANK PROMPTÓW (decyzja "1 i 3 wdrożenie", max trafność zamiast przypuszczeń): tools/kanarek.py owija strażnika w warstwę diagnostyczną — przy FAIL mapuje werdykt na KONKRETNE zalecenie (język/twarz za mała/kadr/technika) zamiast samego PASS/FAIL; NIE wydaje kolejnych $ sam (decyzja Tomasza). Przy PASS+akceptacji zapisuje prompt do wiedza/PROMPTY_WZORCE.md (bank zwycięzców tagowany [postać][ujęcie][domena]); następny klip startuje z najbliższego wzorca nie z czystej kartki. Veo niedeterministyczny — 1000% gwarancji nie ma, ale tani test przed drogim batchem zbliża maksymalnie. Zweryfikowane na klip_02/10006: PASS czysty + ścieżka FAIL z zaleceniem.
 
 ## Zasady nadrzędne (przetrwały z v1 — to nie one zawiodły)
 - Decyzja zapada na NAJTAŃSZYM możliwym etapie.
