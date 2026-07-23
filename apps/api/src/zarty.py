@@ -409,6 +409,20 @@ def zart_zwiad_video(zid: str, nr: int):
     return FileResponse(f, media_type="video/mp4", filename=f"zwiad_{zid}_{nr}.mp4")
 
 
+@router.get("/zarty/{zid}/klip/{nazwa}")
+def zart_klip_video(zid: str, nazwa: str):
+    """Podglad pojedynczego klipu po nazwie (klip_02, klip_07a...) z dysku VPS."""
+    if "/" in nazwa or ".." in nazwa:
+        raise HTTPException(status_code=400, detail="zla nazwa")
+    if not nazwa.endswith(".mp4"):
+        nazwa = nazwa + ".mp4"
+    f = ZARTY_DIR / zid / nazwa
+    if not f.is_file():
+        raise HTTPException(status_code=404, detail=f"brak {nazwa}")
+    w = int(f.stat().st_mtime)
+    return FileResponse(f, media_type="video/mp4", filename=f"{zid}_{nazwa[:-4]}_w{w}.mp4")
+
+
 @router.get("/zarty/{zid}/log")
 def zart_log(zid: str):
     f = ZARTY_DIR / zid / "log.txt"
