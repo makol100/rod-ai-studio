@@ -1,0 +1,102 @@
+20:49:46 klip 1/4 Veo t2v+audio…
+20:52:15 klip 1 OK (14136 KB)
+20:52:15 klip 2/4 Veo t2v+audio…
+20:54:31 klip 2 OK (27705 KB)
+20:54:31 klip 3/4 Veo t2v+audio…
+20:56:42 klip 3 OK (19202 KB)
+20:56:42 klip 4/4 Veo t2v+audio…
+20:58:38 klip 4 OK (14869 KB)
+20:58:39 napisy: kwestie na caly klip (duze, bez Whisper)
+20:58:41 part 1 zlozony
+20:58:45 part 2 zlozony
+20:58:48 part 3 zlozony
+20:58:50 part 4 zlozony
+20:58:50 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (47947 KB)
+20:58:50 telegram wyslany
+21:31:51 BLAD PRODUKCJI: cannot access local variable 'time' where it is not associated with a value
+21:34:48 klip 1 już jest — pomijam
+21:34:48 klip 2/4 Veo t2v+audio…
+21:37:05 klip 2 OK (27655 KB)
+21:37:05 klip 3/4 Veo t2v+audio…
+21:39:40 klip 3 OK (29630 KB)
+21:39:40 klip 4 już jest — pomijam
+21:39:41 napisy: kwestie na caly klip (duze, bez Whisper)
+21:39:43 part 1 zlozony
+21:39:47 part 2 zlozony
+21:39:50 part 3 zlozony
+21:39:53 part 4 zlozony
+21:39:53 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (54349 KB)
+21:39:53 telegram wyslany
+05:28:42 klip 1 już jest — pomijam
+05:28:42 klip 2/4 Veo t2v+audio…
+05:28:42 BLAD PRODUKCJI: User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.
+05:31:07 klip 1 już jest — pomijam
+05:31:07 klip 2/4 Veo t2v+audio…
+05:31:07 BLAD PRODUKCJI: User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.
+06:23:01 klip 1 już jest — pomijam
+06:23:01 klip 2/5 Veo t2v+audio…
+06:25:23 klip 2 OK (23942 KB)
+06:25:23 klip 3/5 Veo t2v+audio…
+06:27:42 klip 3 OK (15917 KB)
+06:27:42 klip 4/5 Veo t2v+audio…
+06:30:19 klip 4 OK (25762 KB)
+06:30:19 klip 5 już jest — pomijam
+06:30:20 napisy: kwestie na caly klip (duze, bez Whisper)
+06:30:23 part 1 zlozony
+06:30:26 part 2 zlozony
+06:30:29 part 3 zlozony
+06:30:32 part 4 zlozony
+06:30:34 part 5 zlozony
+06:30:34 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (58225 KB)
+06:30:35 telegram nieudany: HTTPSConnectionPool(host='kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa', port=443): Max retries exceeded with url: /api/webhook/fabryka_rolka_gotowa (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
+06:41:33 klip 1 już jest — pomijam
+06:41:33 klip 2/5 Veo t2v+audio…
+06:43:47 klip 2 OK (18333 KB)
+06:43:47 klip 3 już jest — pomijam
+06:43:47 klip 4 już jest — pomijam
+06:43:47 klip 5 już jest — pomijam
+06:43:47 napisy: kwestie na caly klip (duze, bez Whisper)
+06:43:50 part 1 zlozony
+06:43:53 part 2 zlozony
+06:43:56 part 3 zlozony
+06:43:59 part 4 zlozony
+06:44:01 part 5 zlozony
+06:44:01 FINAL: /root/rod-ai-studio/data/zarty/10004/final.mp4 (54211 KB)
+06:44:01 telegram nieudany: HTTPSConnectionPool(host='kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa', port=443): Max retries exceeded with url: /api/webhook/fabryka_rolka_gotowa (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
+12:42:28 klip 1 już jest — pomijam
+12:42:28 klip 2/4 Veo FLF (kadry, DROGA HUMOR)…
+12:52:39 klip 1 już jest — pomijam
+12:52:39 klip 2/4 Veo FLF (kadry, DROGA HUMOR)…
+12:52:41 klip 2 FLF: Queued (0s)
+12:52:56 klip 2 FLF: InProgress (15s)
+12:53:12 klip 2 FLF: InProgress (30s)
+12:53:27 klip 2 FLF: InProgress (46s)
+12:53:43 klip 2 FLF: InProgress (61s)
+12:53:58 klip 2 FLF: InProgress (76s)
+12:54:13 klip 2 FLF: InProgress (92s)
+12:54:29 klip 2 FLF: InProgress (107s)
+12:54:44 klip 2 FLF: InProgress (122s)
+12:54:59 klip 2 FLF: InProgress (138s)
+12:55:15 klip 2 FLF: InProgress (153s)
+12:55:30 klip 2 FLF: InProgress (168s)
+12:55:45 klip 2 FLF: InProgress (184s)
+12:56:01 klip 2 FLF: InProgress (199s)
+12:56:16 klip 2 FLF: InProgress (215s)
+12:56:31 klip 2 FLF: InProgress (230s)
+12:56:47 klip 2 FLF: InProgress (245s)
+12:57:02 klip 2 FLF: InProgress (261s)
+12:57:17 klip 2 FLF: InProgress (276s)
+12:57:33 klip 2 FLF: InProgress (291s)
+12:57:48 klip 2 FLF: InProgress (307s)
+12:58:03 klip 2 FLF: InProgress (322s)
+12:58:19 klip 2 FLF: InProgress (337s)
+12:58:34 klip 2 FLF: InProgress (353s)
+12:58:50 klip 2 FLF: InProgress (368s)
+12:59:05 klip 2 FLF: InProgress (383s)
+12:59:20 klip 2 FLF: InProgress (399s)
+12:59:36 klip 2 FLF: InProgress (414s)
+12:59:51 BLAD PRODUKCJI: klip 2: FLF timeout 7 min (rid 019f6afc-836f-7ef3-b618-6affba9b8594 zapisany)
+14:27:50 K2 v5 watchdog: 25 min minelo, job wciaz w fal — rid zostaje
+14:34:08 K2 v5 POBRANY przez watchdog (2s czekania)
+15:49:07 napisy: kwestie na caly klip (duze, bez Whisper)
+07:49:xx FINAL zmontowany (K2 v5 lite FLF)

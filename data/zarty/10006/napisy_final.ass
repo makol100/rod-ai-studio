@@ -1,0 +1,24 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,64,&H00FFFFFF,&H00FFFFFF,&H00101010,&H88000000,-1,0,0,0,100,100,0,0,1,4,2,2,60,60,220,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.40,0:00:04.70,Default,,0,0,0,,{\c&HFFFFFF&}Kiedy rachunek za prąd na działce wzrósł o 4 złote...
+Dialogue: 0,0:00:05.05,0:00:12.30,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Nooo, sąsiedzie... Widzę, że tu dzisiaj pełna elektryfikacja. Radio gra, telefon się ładuje... Ameryka!
+Dialogue: 0,0:00:12.50,0:00:19.75,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: A u prezesa w biurze to aż wskazówki na głównym liczniku czerwone z gorąca.
+Dialogue: 0,0:00:19.95,0:00:27.32,Default,,0,0,0,,{\c&H5AC8FA&}BOHATER: Panie Januszu, radio ma 5 watów, a telefon ładuję raz na dwa dni. Chyba ogrodu przez to nie zbankrutuję?
+Dialogue: 0,0:00:27.52,0:00:34.77,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Od telefonu się zaczyna! A potem co? Lodóweczka? Klimatyzacja w altanie?
+Dialogue: 0,0:00:34.97,0:00:42.22,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Ja tam widziałem, że wczoraj wieczorem u pana kabel szedł pod trawą... prosto w stronę wspólnej skrzynki przy alejce!
+Dialogue: 0,0:00:42.42,0:00:50.03,Default,,0,0,0,,{\c&H5AC8FA&}BOHATER: Panie Januszu, ten kabel pod trawą to był wąż ogrodowy! Podlewałem tuje!
+Dialogue: 0,0:00:50.23,0:00:56.64,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Taa, wąż... zielony taki, akurat w kolorze izolacji! Ja tam swoje wiem.
+Dialogue: 0,0:00:56.84,0:01:04.09,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Trzy lata temu zginęły z kasy ogrodowej dwa metry kabla siłowego i do dzisiaj sprawca na wolności chodzi...
+Dialogue: 0,0:01:04.29,0:01:11.54,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: A panu tak dziwnie szybko te pomidory w szklarni rosną. Pewnie podgrzewanie gruntowe zrobione!
+Dialogue: 0,0:01:11.74,0:01:17.99,Default,,0,0,0,,{\c&H5AC8FA&}BOHATER: Dobrze, odłączam wszystko. Przejdę na solary.
+Dialogue: 0,0:01:18.19,0:01:25.04,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Ooo! Solary? A podatek od słońca do zarządu odprowadzony?!

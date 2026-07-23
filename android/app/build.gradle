@@ -1,0 +1,33 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'pl.rod.fabryka'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "pl.rod.fabryka"
+        minSdk 26
+        targetSdk 34
+        versionCode 3
+        versionName "1.2"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        encoding = "UTF-8"
+    }
+}
+
+dependencies {
+    implementation "androidx.work:work-runtime:2.9.0"
+    implementation "androidx.core:core:1.12.0"
+}

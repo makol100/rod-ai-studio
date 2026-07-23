@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: ./apps/api
+    container_name: fabryka-api
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      - FAL_KEY=TU_WKLEJ_SWOJ_KLUCZ_FAL
+      - ANTHROPIC_API_KEY=TU_WKLEJ_SWOJ_KLUCZ_ANTHROPIC
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    volumes:
+      - ./apps/api:/app
+      - ./data:/root/rod-ai-studio/data
+      - ./assets:/root/rod-ai-studio/assets
+      - ./tools:/root/rod-ai-studio/tools
+
+    command: >
+      sh -c "python -m venv venv &&
+      ./venv/bin/pip install -r /app/requirements.txt &&
+      ./venv/bin/uvicorn src.main:app --host 0.0.0.0 --port 8000"
+
+    ports:
+      - "8000:8000"

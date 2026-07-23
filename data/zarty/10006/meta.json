@@ -1,0 +1,20 @@
+{
+ "koszt_wydany": 7.98,
+ "stan": "gotowy",
+ "log_kosztow": [
+  "17.07 2x kadr dzienne nano-edit 2K: 0.30",
+  "17.07 KANAREK k02 Janusz lite FLF: 0.64",
+  "17.07 k01 lite FLF: 0.64",
+  "17.07 k03 lite FLF: 0.64",
+  "17.07 k04 lite FLF: 0.64",
+  "17.07 k05 lite FLF: 0.64",
+  "17.07 k06 lite FLF: 0.64",
+  "17.07 k07 lite FLF: 0.64",
+  "17.07 k10 lite FLF: 0.64",
+  "17.07 k11 lite FLF: 0.64",
+  "17.07 k12 lite FLF: 0.64",
+  "17.07 k09 lite FLF: 0.64",
+  "17.07 k08 lite FLF: 0.64"
+ ],
+ "limit_force": 7.98
+}

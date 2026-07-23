@@ -1,0 +1,33 @@
+{
+ "koszt_wydany": 15.73,
+ "stan": "OPUBLIKOWANY 18.07 (reel post_id 122110466727379813, Graph API samodzielnie)",
+ "log_kosztow": [
+  "17.07 2x kadr dzienny nano-edit 2K (Tomek jablon, Janusz plot): 0.30",
+  "17.07 KANAREK k02 Janusz lite FLF 1080p+audio: 0.64",
+  "17.07 k01 lite FLF 1080p+audio: 0.64",
+  "17.07 k03 lite FLF 1080p+audio: 0.64",
+  "17.07 k04 lite FLF 1080p+audio: 0.64",
+  "17.07 k05 lite FLF 1080p+audio: 0.64",
+  "17.07 k06 lite FLF 1080p+audio: 0.64",
+  "17.07 k07 lite FLF 1080p+audio: 0.64",
+  "17.07 k08 lite FLF 1080p+audio: 0.64",
+  "17.07 k09 lite FLF 1080p+audio: 0.64",
+  "17.07 k10 lite FLF 1080p+audio: 0.64",
+  "17.07 k11 lite FLF 1080p+audio: 0.64",
+  "17.07 k12 lite FLF 1080p+audio: 0.64",
+  "17.07 k13 lite FLF 1080p+audio: 0.64",
+  "17.07 3x kadr esencji nano-edit 2K (A reka, B jablko w dloni, C wgryz): 0.45",
+  "17.07 3x kadr esencji k14 nano-edit lancuch (siega/w dloni/nadgryzione): 0.45",
+  "17.07 3x kadr esencji E1-E3 nano-edit lancuch (siega/w dloni/nadgryzione): 0.45",
+  "17.07 k14a esencja lite FLF 1080p+audio: 0.64",
+  "17.07 k14b esencja lite FLF 1080p+audio: 0.64",
+  "18.07 k12 v2 swiezy-kadr lite FLF 1080p+audio: 0.64",
+  "18.07 k07 v2 swiezy-kadr lite FLF 1080p+audio: 0.64",
+  "18.07 k09 v2 swiezy-kadr lite FLF 1080p+audio: 0.64",
+  "18.07 k10 v2 swiezy-kadr lite FLF 1080p+audio: 0.64",
+  "18.07 k11 v2 swiezy-kadr lite FLF 1080p+audio: 0.64",
+  "18.07 k13 v2 swiezy-kadr lite FLF 1080p+audio: 0.64",
+  "18.07 k08 v2 swiezy-kadr lite FLF 1080p+audio: 0.64"
+ ],
+ "limit_force": 16.0
+}

@@ -1,0 +1,14 @@
+[Unit]
+Description=Claude MCP server (full shell access to this VPS)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/claude-vps-mcp
+EnvironmentFile=/root/claude-vps-mcp/mcp.env
+ExecStart=/root/claude-vps-mcp/venv/bin/python /root/claude-vps-mcp/mcp_server.py
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

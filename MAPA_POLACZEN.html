@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa połączeń — galaktyka v2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:radial-gradient(ellipse 90% 60% at 50% 20%, #141743 0%, #0a0c26 40%, #05060f 72%, #020309 100%);
+    color:#e8ecff; font-family:'JetBrains Mono',monospace; padding:24px 12px 50px;
+    min-height:100vh;
+  }
+  .wrap{max-width:460px;margin:0 auto}
+  header{text-align:center;margin-bottom:6px}
+  .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9fb0e8;
+    border:1px solid rgba(159,176,232,0.3);border-radius:20px;display:inline-block;padding:4px 14px;margin-bottom:12px}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:25px;margin:0 0 5px;
+    letter-spacing:-.01em;background:linear-gradient(90deg,#ffd66b,#8fb0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:12px;color:#9fb0e8;margin:0}
+
+  svg{width:100%;max-width:460px;height:auto;display:block;margin:2px auto 0}
+  @keyframes tw{0%,100%{opacity:.18}50%{opacity:1}}
+  @keyframes coreP{0%,100%{opacity:.5}50%{opacity:.9}}
+  #coreGlow{animation:coreP 5s ease-in-out infinite}
+
+  .legend{margin:10px auto 24px;display:flex;flex-wrap:wrap;gap:7px 14px;justify-content:center;font-size:10.5px;color:#9fb0e8}
+  .legend .k{display:flex;align-items:center;gap:6px}
+  .legend .ln{width:22px;height:0;border-top:2px solid #6fa8c9;flex:none}
+  .legend .ln.gold{border-color:#ffd66b} .legend .ln.green{border-color:#57e08a}
+  .legend .ln.dash{border-top-style:dashed;border-color:#5bd6f5} .legend .ln.viol{border-color:#b58cff}
+
+  .details{display:flex;flex-direction:column;gap:10px}
+  .row2{display:flex;gap:10px}.row2>.card{flex:1;margin:0}
+  .card{border:1px solid rgba(255,255,255,0.12);border-radius:10px;overflow:hidden;
+    background:rgba(255,255,255,0.035);backdrop-filter:blur(2px)}
+  .card .ch{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;padding:9px 12px;
+    display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .card .ch .dot{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor}
+  .card .cb{padding:9px 12px;font-size:11.5px;line-height:1.55;color:#b8c2e0}
+  .card .cb b{color:#eef2ff;font-weight:600}
+  .card.vps{border-color:rgba(67,224,216,0.5)}.card.vps .ch,.card.vps .dot{color:#43e0d8}
+  .card.tel{border-color:rgba(255,143,107,0.55)}.card.tel .ch,.card.tel .dot{color:#ff8f6b}
+  .card.apka{border-color:rgba(87,224,138,0.5)}.card.apka .ch,.card.apka .dot{color:#57e08a}
+  .card.dom{border-color:rgba(143,176,255,0.5)}.card.dom .ch,.card.dom .dot{color:#8fb0ff}
+  .card.dz{border-color:rgba(255,177,92,0.5)}.card.dz .ch,.card.dz .dot{color:#ffb15c}
+  .card.ext .ch{color:#eef2ff}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:10.5px;padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,0.14);color:#b8c2e0}
+  .chip b{color:#eef2ff;font-weight:600}
+  footer{text-align:center;margin-top:22px;font-size:10px;color:#8a97c8;opacity:.85;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Mapa połączeń · 18.07.2026</span>
+    <h1>Kto z kim rozmawia</h1>
+    <p class="sub">galaktyka v2 · Claude w jądrze · 4 wiązki MCP</p>
+  </header>
+
+  <svg viewBox="0 0 460 470" role="img" aria-label="Galaktyka połączeń v2">
+    <defs>
+      <radialGradient id="gBg" cx="50%" cy="48%" r="62%">
+        <stop offset="0" stop-color="#2a2560" stop-opacity="0.55"/>
+        <stop offset="45%" stop-color="#0d0e2c" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#04050e" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="gCore"><stop offset="0" stop-color="#fffbe8"/><stop offset="22%" stop-color="#ffe08a"/><stop offset="55%" stop-color="#ffb03a" stop-opacity="0.6"/><stop offset="100%" stop-color="#ff9a2a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gVps"><stop offset="0" stop-color="#c9fffb"/><stop offset="35%" stop-color="#43e0d8"/><stop offset="72%" stop-color="#2ba7a0" stop-opacity="0.35"/><stop offset="100%" stop-color="#2ba7a0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gApka"><stop offset="0" stop-color="#d6ffe4"/><stop offset="40%" stop-color="#57e08a"/><stop offset="100%" stop-color="#2f9e5a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gDom"><stop offset="0" stop-color="#eaf0ff"/><stop offset="38%" stop-color="#8fb0ff"/><stop offset="100%" stop-color="#4a5fd0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gDz"><stop offset="0" stop-color="#fff0dd"/><stop offset="38%" stop-color="#ffb15c"/><stop offset="100%" stop-color="#d07a2a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gGh"><stop offset="0" stop-color="#f2f6fb"/><stop offset="45%" stop-color="#cdd6e0"/><stop offset="100%" stop-color="#8792a0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gFal"><stop offset="0" stop-color="#ffe0f0"/><stop offset="45%" stop-color="#ff8fc4"/><stop offset="100%" stop-color="#b0417a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gApi"><stop offset="0" stop-color="#fff6d8"/><stop offset="45%" stop-color="#ffd66b"/><stop offset="100%" stop-color="#c9971f" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gFb"><stop offset="0" stop-color="#dfeaff"/><stop offset="45%" stop-color="#5b9dff"/><stop offset="100%" stop-color="#2e5fbf" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gTg"><stop offset="0" stop-color="#e0f9ff"/><stop offset="45%" stop-color="#5bd6f5"/><stop offset="100%" stop-color="#2789a8" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gTel"><stop offset="0" stop-color="#ffe4da"/><stop offset="42%" stop-color="#ff8f6b"/><stop offset="100%" stop-color="#c9542e" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gNebP" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#6a4bd0" stop-opacity="0.28"/><stop offset="100%" stop-color="#6a4bd0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gNebT" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2b8fb0" stop-opacity="0.22"/><stop offset="100%" stop-color="#2b8fb0" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gNebM" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b0417a" stop-opacity="0.20"/><stop offset="100%" stop-color="#b0417a" stop-opacity="0"/></radialGradient>
+    </defs>
+
+    <!-- deep space -->
+    <rect x="0" y="0" width="460" height="470" fill="#04050e"/>
+    <rect x="0" y="0" width="460" height="470" fill="url(#gBg)"/>
+    <ellipse cx="150" cy="150" rx="180" ry="120" fill="url(#gNebP)" transform="rotate(-25 150 150)"/>
+    <ellipse cx="330" cy="300" rx="160" ry="110" fill="url(#gNebT)" transform="rotate(20 330 300)"/>
+    <ellipse cx="250" cy="360" rx="150" ry="100" fill="url(#gNebM)"/>
+
+    <g stroke-linecap="round" fill="none">
+      <circle cx="230" cy="225" r="150" stroke="rgba(159,176,232,0.10)" stroke-width="1" stroke-dasharray="2 7"/>
+      <circle cx="230" cy="225" r="96" stroke="rgba(159,176,232,0.08)" stroke-width="1" stroke-dasharray="2 8"/>
+      <circle cx="230" cy="225" r="205" stroke="rgba(159,176,232,0.05)" stroke-width="1"/>
+      <path d="M230,225 C300,150 360,180 330,300" stroke="rgba(138,120,220,0.10)" stroke-width="14"/>
+      <path d="M230,225 C150,300 110,260 150,120" stroke="rgba(80,150,200,0.09)" stroke-width="14"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 230 225" to="360 230 225" dur="220s" repeatCount="indefinite"/>
+    </g>
+
+    <g id="stars"></g>
+
+    <!-- ===== CONNECTION BEAMS ===== -->
+    <g fill="none">
+      <!-- MCP gold beams from core: VPS, Dom, Dzialka, Telefon -->
+      <line x1="230" y1="196" x2="230" y2="108" stroke="#ffd66b" stroke-width="2" opacity="0.85"/>
+      <path d="M207,244 Q150,300 121,313" stroke="#ffd66b" stroke-width="2" opacity="0.8"/>
+      <path d="M253,244 Q310,300 339,313" stroke="#ffd66b" stroke-width="2" opacity="0.8"/>
+      <line x1="255" y1="223" x2="383" y2="227" stroke="#ffd66b" stroke-width="2" opacity="0.8"/>
+      <!-- HTTPS green apka->vps -->
+      <line x1="166" y1="124" x2="211" y2="92" stroke="#57e08a" stroke-width="1.8" opacity="0.85"/>
+      <!-- VPS -> service moons -->
+      <line x1="210" y1="64" x2="150" y2="58" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <line x1="252" y1="64" x2="307" y2="58" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <line x1="256" y1="82" x2="338" y2="112" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <!-- NOWE 18.07: VPS -> Facebook (Graph API, publikacja SAM) -->
+      <path d="M206,92 C54,150 22,300 44,384" stroke="#b58cff" stroke-width="1.6" opacity="0.8"/>
+      <!-- NOWE 18.07: VPS -> HA Dom (webhook -> Telegram) -->
+      <path d="M214,102 C150,170 108,240 102,300" stroke="#b58cff" stroke-width="1.4" opacity="0.7" stroke-dasharray="1 0"/>
+      <!-- Dom -> FB / TG -->
+      <line x1="80" y1="352" x2="60" y2="388" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <line x1="120" y1="354" x2="150" y2="396" stroke="#7f8bb0" stroke-width="1.2" opacity="0.6"/>
+      <!-- Tailscale: Dom <-> Dzialka, Telefon <-> VPS -->
+      <path d="M127,340 Q230,405 333,340" stroke="#5bd6f5" stroke-width="1.6" stroke-dasharray="6 5" opacity="0.75"/>
+      <path d="M400,210 Q426,124 260,84" stroke="#5bd6f5" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.7"/>
+    </g>
+
+    <!-- ===== MOONS (services) ===== -->
+    <circle cx="135" cy="55" r="15" fill="url(#gGh)"/><circle cx="135" cy="55" r="4" fill="#eef2ff"/>
+    <text x="135" y="80" text-anchor="middle" font-size="9.5" fill="#cdd6e0" stroke="#05060f" stroke-width="2.6" paint-order="stroke" font-family="'JetBrains Mono',monospace">GitHub</text>
+    <circle cx="322" cy="55" r="15" fill="url(#gFal)"/><circle cx="322" cy="55" r="4" fill="#ffe0f0"/>
+    <text x="322" y="80" text-anchor="middle" font-size="9.5" fill="#ff8fc4" stroke="#05060f" stroke-width="2.6" paint-order="stroke">fal.ai</text>
+    <circle cx="352" cy="118" r="16" fill="url(#gApi)"/><circle cx="352" cy="118" r="4" fill="#fff6d8"/>
+    <text x="352" y="145" text-anchor="middle" font-size="9.5" fill="#ffd66b" stroke="#05060f" stroke-width="2.6" paint-order="stroke">Claude API</text>
+    <circle cx="150" cy="132" r="19" fill="url(#gApka)"/><circle cx="150" cy="132" r="5" fill="#d6ffe4"/>
+    <text x="150" y="162" text-anchor="middle" font-size="10.5" fill="#57e08a" stroke="#05060f" stroke-width="2.8" paint-order="stroke" font-weight="700">Apka</text>
+    <circle cx="48" cy="400" r="16" fill="url(#gFb)"/><circle cx="48" cy="400" r="4" fill="#dfeaff"/>
+    <text x="48" y="427" text-anchor="middle" font-size="9.5" fill="#5b9dff" stroke="#05060f" stroke-width="2.6" paint-order="stroke">Facebook</text>
+    <circle cx="150" cy="410" r="16" fill="url(#gTg)"/><circle cx="150" cy="410" r="4" fill="#e0f9ff"/>
+    <text x="150" y="437" text-anchor="middle" font-size="9.5" fill="#5bd6f5" stroke="#05060f" stroke-width="2.6" paint-order="stroke">Telegram</text>
+
+    <!-- NOWE: Telefon Fold7 (MCP przez Tailscale) -->
+    <circle cx="400" cy="227" r="17" fill="url(#gTel)"/><circle cx="400" cy="227" r="4.5" fill="#ffe4da"/>
+    <text x="400" y="256" text-anchor="middle" font-size="9.5" fill="#ff8f6b" stroke="#05060f" stroke-width="2.6" paint-order="stroke" font-weight="700">Fold7</text>
+
+    <!-- ===== DOMAIN SYSTEMS ===== -->
+    <circle cx="230" cy="78" r="34" fill="url(#gVps)"/><circle cx="230" cy="78" r="9" fill="#c9fffb"/>
+    <text x="230" y="82" text-anchor="middle" font-size="12.5" font-weight="700" fill="#04262b" font-family="'Space Grotesk',sans-serif">VPS</text>
+    <text x="230" y="128" text-anchor="middle" font-size="9.5" fill="#43e0d8" stroke="#05060f" stroke-width="2.8" paint-order="stroke" font-family="'JetBrains Mono',monospace">Hetzner · Fabryka</text>
+    <circle cx="100" cy="330" r="30" fill="url(#gDom)"/><circle cx="100" cy="330" r="8" fill="#eaf0ff"/>
+    <text x="100" y="334" text-anchor="middle" font-size="11" font-weight="700" fill="#0a1440" font-family="'Space Grotesk',sans-serif">Dom</text>
+    <text x="100" y="374" text-anchor="middle" font-size="9.5" fill="#8fb0ff" stroke="#05060f" stroke-width="2.8" paint-order="stroke">HA Dom (AT)</text>
+    <circle cx="360" cy="330" r="30" fill="url(#gDz)"/><circle cx="360" cy="330" r="8" fill="#fff0dd"/>
+    <text x="360" y="334" text-anchor="middle" font-size="11" font-weight="700" fill="#3a1e04" font-family="'Space Grotesk',sans-serif">Działka</text>
+    <text x="360" y="374" text-anchor="middle" font-size="9.5" fill="#ffb15c" stroke="#05060f" stroke-width="2.8" paint-order="stroke">HA Działka (PL)</text>
+
+    <!-- ===== CORE: CLAUDE ===== -->
+    <circle id="coreGlow" cx="230" cy="225" r="72" fill="url(#gCore)"/>
+    <circle cx="230" cy="225" r="34" fill="url(#gCore)"/>
+    <circle cx="230" cy="225" r="24" fill="#fff6da"/>
+    <text x="230" y="223" text-anchor="middle" font-size="14.5" font-weight="700" fill="#3a2a05" font-family="'Space Grotesk',sans-serif">CLAUDE</text>
+    <text x="230" y="237" text-anchor="middle" font-size="8" fill="#6b5010" font-family="'JetBrains Mono',monospace">jądro · 4× MCP</text>
+
+    <g font-family="'JetBrains Mono',monospace">
+      <text x="230" y="392" text-anchor="middle" font-size="9" fill="#5bd6f5" stroke="#05060f" stroke-width="2.6" paint-order="stroke">⇄ Tailscale</text>
+    </g>
+  </svg>
+
+  <div class="legend">
+    <div class="k"><span class="ln gold"></span> MCP (Claude ↔)</div>
+    <div class="k"><span class="ln green"></span> HTTPS (apka)</div>
+    <div class="k"><span class="ln dash"></span> Tailscale</div>
+    <div class="k"><span class="ln viol"></span> webhook / Graph API</div>
+  </div>
+
+  <div class="details">
+    <div class="card vps">
+      <div class="ch"><span class="dot"></span>VPS · Hetzner 22GB / 12 vCPU</div>
+      <div class="cb"><b>Caddy</b> — 4 hosty HTTPS (sslip.io): MCP :8765 · panel :8000 · barometr (publiczny, izolowany) · <b>telefon → Tailscale Fold7</b> · <b>fabryka-api</b> :8000 — panel + rolki foto (Bielik) + <b>SERIA HUMOR Tomek&nbsp;&amp;&nbsp;Janusz</b> (Veo 3.1, DROGA 3.4) + barometr grzybiarza · <b>Ollama</b> — Bielik-11B + Qwen3-14B · <b>n8n</b> :5678 (emerytura — publikację przejął Graph API) · git → <b>GitHub</b> (publiczne, Actions buduje APK) · <b>→ Facebook Graph API: Reels publikuje SAM</b> (od 18.07) · <b>→ HA Dom webhook → Telegram</b> (tg_powiadom, od 18.07)</div>
+    </div>
+    <div class="card tel">
+      <div class="ch"><span class="dot"></span>Telefon Fold7 · 4. wiązka MCP</div>
+      <div class="cb">Apka <b>Android Remote Control MCP</b> (58 narzędzi) · droga: Claude → caddy <b>telefon.sslip.io</b> → Tailscale <b>100.101.116.106:8080</b> · Claude widzi ekran, klika, pisze, czyta powiadomienia</div>
+    </div>
+    <div class="card apka">
+      <div class="ch"><span class="dot"></span>Apka Android · Fabryka Rolek</div>
+      <div class="cb">WebView + natywne kafle · HTTPS do panelu · <b>NotifWorker co 15 min</b> (gotowa rolka, barometr ≥75) · APK: GitHub Release <b>apk-latest</b> + GET /apk</div>
+    </div>
+    <div class="row2">
+      <div class="card dom">
+        <div class="ch"><span class="dot"></span>HA Dom (AT)</div>
+        <div class="cb"><b>Telegram bot</b> — token TYLKO tu · webhooki <b>fabryka_rolka_gotowa / _checkpoint</b> · barometr 8:00 · <b>Łowcy Burz</b> (FB) · Node-RED Ogrodnik · Nuki · Nabu Casa</div>
+      </div>
+      <div class="card dz">
+        <div class="ch"><span class="dot"></span>HA Działka (PL)</div>
+        <div class="cb"><b>PV</b>/JK-BMS×2/InfiniSolar · Reolink + Nuki · jacuzzi + zraszacze · <b>Migracja N150</b> · Tailscale <b>ts.net</b></div>
+      </div>
+    </div>
+    <div class="card ext">
+      <div class="ch">Świat zewnętrzny</div>
+      <div class="cb"><div class="chips">
+        <span class="chip"><b>Facebook</b> — rolki foto + 2 reele humoru (Afera · Jabłko)</span>
+        <span class="chip"><b>Telegram</b> — checkpoint · publikacja · barometr</span>
+        <span class="chip"><b>fal.ai</b> — NB Pro $0.15 · Veo 3.1 $0.64/klip</span>
+        <span class="chip"><b>Claude API</b> — Sonnet + Fable w panelu</span>
+        <span class="chip"><b>Open-Meteo</b> — barometr</span>
+        <span class="chip"><b>Nabu Casa</b> — tunel Domu</span>
+      </div></div>
+    </div>
+  </div>
+
+  <footer>Nowe od 10.07: czwarta złota wiązka MCP (telefon Fold7 przez Tailscale) · VPS publikuje Reels <b>sam</b> przez Graph API · Telegram wrócił przez webhook Domu (token bota nie opuszcza HA).<br>n8n na emeryturze. Fiolet = przepływ danych. Dwa reele humoru na stronie ROD. 🍎</footer>
+</div>
+
+<script>
+(function(){
+  var layer=document.getElementById('stars');
+  if(!layer) return;
+  var W=460,H=470,cx=230,cy=225,out='';
+  for(var i=0;i<150;i++){
+    var ang=Math.random()*Math.PI*2, rr=Math.pow(Math.random(),1.7)*250;
+    var x=cx+Math.cos(ang)*rr, y=cy+Math.sin(ang)*rr;
+    if(i%3===0){x=Math.random()*W;y=Math.random()*H;}
+    if(x<2||x>W-2||y<2||y>H-2){x=Math.random()*W;y=Math.random()*H;}
+    var r=(Math.random()*1.1+0.3).toFixed(2);
+    var o=(Math.random()*0.7+0.25).toFixed(2);
+    var d=(Math.random()*4+2.5).toFixed(1);
+    var dl=(Math.random()*5).toFixed(1);
+    out+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r+'" fill="#eaf2ff" opacity="'+o+'" style="animation:tw '+d+'s ease-in-out '+dl+'s infinite"/>';
+  }
+  var hero=[[70,90],[390,110],[410,250],[60,220],[300,420],[200,60]];
+  for(var j=0;j<hero.length;j++){
+    out+='<circle cx="'+hero[j][0]+'" cy="'+hero[j][1]+'" r="1.6" fill="#ffffff" opacity="0.95" style="animation:tw '+(3+j*0.4).toFixed(1)+'s ease-in-out '+(j*0.6).toFixed(1)+'s infinite"/>';
+  }
+  layer.innerHTML=out;
+})();
+</script>
+</body>
+</html>

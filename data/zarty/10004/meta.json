@@ -1,0 +1,31 @@
+{
+ "id": "10004",
+ "temat": "Zlodziej jabłek o zmierzchu: Tomasz łapie w gałęziach jabłoni intruza (za jaja — grane reakcją), cisza, ściska mocniej — a to Józek, niemowa ze wsi. Koda Mieczysława.",
+ "stan": "ZAMROŻONY",
+ "ts": 1784148270.2614946,
+ "klipy_sparsowane": 4,
+ "wycena": {
+  "klipy": 4,
+  "sekundy": 32,
+  "koszt_klipy_usd": 4.8,
+  "koszt_kadr_usd": 0.0,
+  "koszt_razem_usd": 4.8,
+  "model": "fal-ai/veo3.1/fast (t2v + audio)",
+  "cena_za_sekunde": 0.15,
+  "postacie": "gotowe (koszt zero)"
+ },
+ "start_produkcji": 1784206359.6189356,
+ "final": "/root/rod-ai-studio/data/zarty/10004/final.mp4",
+ "blad": "klip 2: FLF timeout 7 min (rid 019f6afc-836f-7ef3-b618-6affba9b8594 zapisany)",
+ "koszt_wydany": 15.9,
+ "audyt": [],
+ "log_kosztow": [
+  "16.07 19:39 nano-edit sweter K2 v2 (watek uciety kompakcja): 0.15",
+  "16.07 latentsync NIEMOWA na f3: 0.21",
+  "16.07 latentsync v2 (czyste audio): 0.21",
+  "16.07 latentsync v3 (audio zweryfikowane whisperem przed platnoscia): 0.21",
+  "17.07 06:2x veo f3 v6 KANON safety6: 0.64",
+  "17.07 korekta: v6 zaksiegowany 2x (submit nocny + pull) -> -0.64; dopisany brakujacy v5 homofon +0.64; netto 15.90",
+  "17.07 09:1x ZAMROŻENIE CAŁEGO ODCINKA na komendę Tomasza — żadnych operacji bez jego jawnej dyspozycji"
+ ]
+}

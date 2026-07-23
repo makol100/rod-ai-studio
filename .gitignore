@@ -1,0 +1,20 @@
+output/
+.env
+.env.*
+*.log
+__pycache__/
+node_modules/
+data/reels/
+data/.secrets/
+docker-compose.yml
+*.bak*
+data/rolka-prad/
+data/barometr_cache.json
+tools/syncnet_python/
+data/n150files/
+
+# Duże pliki wideo i modele — trzymane na dysku VPS, NIE w gicie (limit GitHub 100MB)
+data/zarty/**/*.mp4
+data/reels/**/*.mp4
+*.onnx
+*.wav

@@ -1,0 +1,16 @@
+# PODZIAŁ TECHNICZNY #10007 (14 klipów; kwestie VERBATIM, tylko cięcia; tempo 11.6 zn/s)
+k01 | TOMEK  | (bez dialogu) akcja: zrywa jabłka do koszyka pod jabłonią, zauważa Janusza przy płocie, patrzy podejrzliwie | hook w postpro
+k02 | JANUSZ | Nooo, sąsiedzie... Piękna ta pańska jabłoń. Taka... ekspansywna. | 5.3s
+k03 | JANUSZ | Ta gałąź to już narusza moją przestrzeń powietrzną. | 4.4s
+k04 | JANUSZ | Według kodeksu cywilnego to ja bym mógł ją panu ściąć! | 4.7s
+k05 | TOMEK  | Panie Januszu, ciąć pan nie musi, w październiku sam ją przytnę. | 5.4s
+k06 | TOMEK  | Ale jabłuszka proszę zostawić, bo to rzadka odmiana. | 4.5s
+k07 | JANUSZ | Ja tam nic nie ruszam! Ja tylko czekam na sprawiedliwość dziejową. | 5.7s
+k08 | JANUSZ | Bo wie pan... dopóki wisi na gałęzi, to jest pańskie. | 4.5s
+k09 | JANUSZ | Ale jak grawitacja zadziała i spadnie na moją trawę... to jest to dar od natury dla mnie! | 7.7s GRANICZNY
+k10 | TOMEK  | Panie Januszu... czy pan właśnie próbuje zdmuchnąć moje jabłko na swoją stronę? | 6.8s
+k11 | JANUSZ | Skądże znowu! Ćwiczenia oddechowe robię, płuca trenuję. | 4.7s
+k12 | JANUSZ | Ale tak czysto teoretycznie mówię... Jakby wiatr mocniej zawiał i ono spadnie... | 6.8s
+k13 | JANUSZ | ...to kompot z niego robię ja. Prawo RODOS, paragraf o owocach przechodnich! | 6.5s
+k14 | TOMEK  | No, to problem grawitacji mamy z głowy. Miłego dnia, sąsiedzie! | 5.4s | akcja FLF: first=ręka sięga przez płot ku jabłku, last=jabłko w dłoni przy ustach po wgryzie (ESENCJA)
+# akcje bez słów w tle: k07-k09 Janusz wpatrzony/dmucha/potrząsa płotem; k11 poprawia kapelusz

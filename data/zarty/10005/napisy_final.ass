@@ -1,0 +1,20 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,64,&H00FFFFFF,&H00FFFFFF,&H00101010,&H88000000,-1,0,0,0,100,100,0,0,1,4,2,2,60,60,220,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.40,0:00:04.70,Default,,0,0,0,,{\c&HFFFFFF&}Godzina 21:00. Nocna zmiana na RODOS...
+Dialogue: 0,0:00:05.00,0:00:11.30,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Pssst! Zgaś pan ten reflektor, bo ich spłoszysz! Idą od kompostownika. Cała dywizja!
+Dialogue: 0,0:00:11.40,0:00:17.20,Default,,0,0,0,,{\c&H5AC8FA&}BOHATER: Panie Januszu, u mnie już na funkie weszły! Ile ich tam jest?
+Dialogue: 0,0:00:17.30,0:00:24.60,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Miliony! Te hiszpańskie. Po niebieskich granulkach chodzą jak po deptaku w Sopocie!
+Dialogue: 0,0:00:24.70,0:00:31.50,Default,,0,0,0,,{\c&H5AC8FA&}BOHATER: Ja zbieram ręcznie — pół kilo w wiadrze! A od pańskiego płotu ciągle idą nowe!
+Dialogue: 0,0:00:31.60,0:00:38.26,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Od mojej?! Wkopałem im piwo w słoikach: markowe spijają, a marketowego nie ruszą!
+Dialogue: 0,0:00:38.36,0:00:44.66,Default,,0,0,0,,{\c&H5AC8FA&}BOHATER: Panie Januszu — rozejm. Pan bierze lewą stronę, ja prawą.
+Dialogue: 0,0:00:44.76,0:00:52.06,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Zgoda. Ale jak znajdziemy tego wielkiego króla ślimaków — ten jest mój!
