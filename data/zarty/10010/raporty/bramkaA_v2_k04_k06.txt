@@ -1,0 +1,7 @@
+=== BRAMKA A v2: k04 (bez zmian) + k06 v6 | 2026-07-26T09:49:22+00:00 ===
+k06 v6 | OPIS OTWARTY:
+  Na zdjęciu jest mężczyzna z brodą i kapeluszem na głowie stojący w lesie. Jest ubrany w ciemną kurtkę i spodnie oraz buty do pracy. W jego ręce trzyma się za gałąź drzewa, które jest częściowo zakrywane liśćmi. Mężczyzna podnosi rękę w powietrze, jakby chciał dotknąć palcem czegoś znajdującego się na wysokości jego głowy.  Na drugim końcu gałęzi siedzi człowiek w czarnej koszulce i ciemnych spodniach. Jego nogi są rozłożone szeroko, a ciało jest pochylone ku przódowi. Mężczyzna ten ma na sobie buty do pracy i wygląda jakby był zawieszony na gałęzi drzewa.  Scena jest oświetlona słabej promieniowaniem światła, co stwarza wrażenie, że znajduje się w lesie. Pod nogami mężczyzny widoczne są liście i ziemia, co sugeruje, że jest to zbiornik do
+k06 v6 | DETALE:
+  A) Spodnie na drzewie są puste jak pranie. Nogawki nie są wypełnione, a buty nie są widoczne.  B) Biodra i tułów tej osoby są widoczne na gałęziach drzewa.  C) Głowa/twarz tej osoby jest ukryta w liściach.  D) Pięść mężczyzny z dołu jest wysoko między udami, a nie przy kolanie/łydce/bucie.  E) Nogi zwisają w dół.
+insightface k06v6: twarze=1 sim_vs_noc=[0.56]
+insightface k04 (bez zmian): twarze=1 sim=0.37

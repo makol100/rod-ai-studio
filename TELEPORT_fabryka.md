@@ -1,3 +1,4 @@
+# >>> PRZEKAZANIE 26.07.2026: stan 10010 + nowe reguły dnia -> wiedza/PRZEKAZANIE_2026-07-26_10010.md (CZYTAĆ NAJPIERW) <<<
 # === ROUTING DRÓG PRODUKCJI (23.07 — żelazna zasada, czytać pierwsze) ===
 DWIE OSOBNE DROGI, nazwa w komendzie Tomasza = automatyczny wybór:
 

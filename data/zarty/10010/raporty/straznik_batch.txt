@@ -1,0 +1,34 @@
+=== RAPORT BRAMKI: 10010/straznik_batch | 2026-07-26T10:16:26+00:00 ===
+===== k01 (BOHATER, niemy) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[POMINIĘTY] język
+[WARN     ] tożsamość
+WERDYKT KANARKA: PASS Z UWAGAMI — batch dozwolony, ale zwróć uwagę:
+  * TWARZ ZA MAŁA: [{'klatka': 'kl_01.jpg', 'h_px': 112, 'sim': 0.31}, {'klatka': 'kl_02.jpg', 'h_px': 108, 'sim': 0.22}] (plan za szeroki, tożsamość niepewna). ZALECENIE: kadr startowy z WIĘKSZYM planem twarzy (plan średni/zbliżenie), nie szeroki.
+===== k02 (BOHATER, niemy) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[POMINIĘTY] język
+[PASS     ] tożsamość
+WERDYKT KANARKA: PASS CZYSTY — prompt udowodniony, batch dozwolony.
+===== k03 (BOHATER) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[PASS     ] tożsamość
+WERDYKT KANARKA: PASS CZYSTY — prompt udowodniony, batch dozwolony.
+===== k05 (BOHATER) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[PASS     ] tożsamość
+WERDYKT KANARKA: PASS CZYSTY — prompt udowodniony, batch dozwolony.
+===== k06 (JOZEK) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[FAIL     ] tożsamość
+WERDYKT KANARKA: FAIL — batch ZABLOKOWANY. Konkretne zalecenia:
+  * TOŻSAMOŚĆ: obca twarz w kadrze [{'klatka': 'kl_00.jpg', 'najbliżej': 'BOHATER', 'sim': 0.27}, {'klatka': 'kl_01.jpg', 'najbliżej': 'BOHATER', 'sim': 0.3}]. ZALECENIE: zła referencja lub przeciek drugiej postaci — użyj kadru z JEDNĄ osobą, referencja z właściwej domeny światła.
+KONIEC STRAZNIKA 5 KLIPOW

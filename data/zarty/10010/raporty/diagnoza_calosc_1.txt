@@ -1,0 +1,21 @@
+=== DIAGNOSTYKA CAŁOŚCI 10010 | 2026-07-26T11:19:56+00:00 ===
+--- 1. CO SŁYCHAĆ vs KANON (whisper medium) ---
+k01: SŁYCHAĆ: (cisza)
+     KANON:   (niemy)
+k02: SŁYCHAĆ: (cisza)
+     KANON:   (niemy)
+k03: SŁYCHAĆ: Gadaj ktoś ty!
+     KANON:   Gadaj, ktoś ty?!
+k04_v2: SŁYCHAĆ: Gada daj, póki im dobry! Ktoś ty! Józek!
+     KANON:   Gadaj, pókim dobry, ktoś ty?! [+pisk Józek]
+k05: SŁYCHAĆ: No gadaj, draniu! Ktoś ty?!
+     KANON:   No gadaj draniu, ktoś ty?!
+k06: SŁYCHAĆ: To ja, Józek, niemowa ze wsi.
+     KANON:   To ja... Józek... niemowa ze wsi!
+--- 2. OTWARTE OPISY VLM (środek każdego klipu) ---
+k01 (4s): Na zdjęciu widoczny jest mężczyzna siedzący pod dużym drzewem w lesie. Mężczyzna ma długą brodę i włosy, nosi kapelusz oraz ciemne ubrania. Jego ręce są na kolanach, a nogi są zgięte w kolanach. Drzewo jest wysokie i ma wiele gałęzi, które rozszerzają się szeroko. Na tle widoczna jest mgła lub dym, co dodaje atmosferycznego efektu do zdjęcia. Mężczyzna wygląda spokojnie i zamyślony, jakby patrzył w dal. Całość wydaje się naturalna i nie ma żadnych absurdalnych elementów.
+k02 (4s): Na zdjęciu widoczna jest osoba w czarnej odzieży, która znajduje się na drzewie. Osoba ma długie włosy i nosi czapkę. Jej nogi są zwisające z gałęzi drzewa, a ręce trzymają jakieś przedmioty lub elementy, które spadają wokół niej. W powietrzu unoszą się liście i inne drobne elementy, co sugeruje, że osoba może być w procesie zbierania owoców czy innych produktów z drzewa.  Wszystko wydaje się naturalnie przedstawione bez żadnych absurdalnych lub nienaturalnych elementów.
+k03 (4s): Na zdjęciu widoczny jest mężczyzna w czarnej koszulce i czapce. Ma długą brodę i włosy, które przypominają muśnięte. Mężczyzna stoi przed drzewem owocowym z zielonymi jabłkami. Jego ręka jest podniesiona w górę, trzymając gałązkę z liśćmi. Wygląda na to, że próbuje zdobyć jabłko lub coś innego z gałęzi drzewa.  Mężczyzna ma otwarte usta i wydaje się być w stanie emocjonalnym, może śpiewać albo krzyczeć. Jego nogi są zgięte w kolanach, co sugeruje, że stoi na ziemi, a nie zwisają z drzewa.  Obraz wydaje się naturalny i realistyczny bez żadnych absurdalnych elementów lub nienaturalnych zachowań.
+k04_v2 (4s): W obrazku widzimy starszego mężczyznę z brodą i kapeluszem na głowie, który jest zawieszony w pniu drzewa. Mężczyzna trzyma się za gałęzie drzewa swoimi nogami, które są rozłożone szeroko. Jego ręce również trzymają się za gałąź, aby utrzymać równowagę. Wygląda na to, że jest w pozycji, jakby chciał zjeść jabłko z drzewa lub być w pozycji, która wymaga dużych wysiłków i równowagi.  Mężczyzna ma na sobie ciemne spodnie i czarną koszulkę. Jego twarz wydaje się spokojną i koncentrowaną, co sugeruje, że jest skupiony na swojej akcji. Słońce przeszywa liście drzewa, tworząc cienie i oświetlając scenę w sposób natural
+k05 (4s): Na zdjęciu widoczny jest mężczyzna w średnim wieku, ubrany w czarną koszulę i ciemną kurtkę. Na głowie ma kapelusz. Mężczyzna wygląda zirytowany lub zdenerwowany, ponieważ jego usta są otwarte i wydaje się, że krzyczy. Jego ręce są widoczne tylko częściowo, ale nie widać, co robi.  Na tle znajduje się drzewo z gałęziami, które rozszerzają się w różnych kierunkach. Na jednej z gałęzi wiszą buty, prawdopodobnie gumowe, zawieszone na sznurku lub linie. Wygląda to nieco absurdalnie i nienaturalnie, ponieważ buty są zawieszone tak wysoko i nie ma widocznych śladów, że ktoś mógłby je tam umieścić.  Wśród gałęzi drzewa można zobaczyć światło, które może być reflektorem lub
+k06 (4s): Na zdjęciu widoczny jest mężczyzna w kapeluszu i ciemnym płaszczu stojący przed drzewem. Jego nogi są zwisające z gałęzi, jakby się zeskoczył z niej. Mężczyzna trzyma rękę na wysokości biodra, podnosząc spodnie, co sugeruje, że może próbować wyciągnąć się z drzewa lub znaleźć sposób, aby opuścić gałęzie. Jego twarz wydaje się zdumiona lub przestraszona, co dodaje absurdalnego charakteru do sytuacji. Całość wygląda nienaturalnie i jakby była wynikiem fotografii artystycznej lub sceny z filmu.

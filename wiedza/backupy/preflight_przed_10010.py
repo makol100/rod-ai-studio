@@ -81,22 +81,13 @@ def main():
         print('FLAG |', flagi[-1])
 
     # 5. Kadry: istnienie, proporcja, twarz mówcy
-    # Twarz mówcy pomijana zasadnie gdy: klip niemy (--bez-dialogu, nikt nie mówi
-    # = brak celu lip-sync) albo mówca zza kadru bez karty w BIBLIO (np. głos
-    # JOZKA z korony w 10010) — luka wykryta w boju 26.07, batch 10010.
-    if a.bez_dialogu or a.mowca not in BIBLIO:
-        powod = 'klip niemy' if a.bez_dialogu else f'mówca {a.mowca} zza kadru (brak karty)'
-        print(f'POMINIĘTY | kadry: twarz mówcy | {powod}')
     try:
         import cv2, numpy as np
         from insightface.app import FaceAnalysis
         app = FaceAnalysis(name='buffalo_l', providers=['CPUExecutionProvider'])
         app.prepare(ctx_id=-1, det_size=(640, 640))
-        wz = None
-        if not a.bez_dialogu and a.mowca in BIBLIO:
-            wz = app.get(cv2.imread(BIBLIO[a.mowca]))
-        if wz is not None:
-            wz = [t for t in wz if t.det_score >= 0.6][0].normed_embedding
+        wz = app.get(cv2.imread(BIBLIO[a.mowca]))
+        wz = [t for t in wz if t.det_score >= 0.6][0].normed_embedding
         for rola, sciezka in [('start', a.kadr_start), ('koniec', a.kadr_koniec)]:
             p = Path(sciezka)
             test(f'kadr {rola}: istnieje', p.exists(), p.name)
@@ -104,11 +95,10 @@ def main():
                 continue
             im = cv2.imread(str(p)); h, w = im.shape[:2]
             test(f'kadr {rola}: proporcja ~9:16', abs(w / h - 9 / 16) < 0.02, f'{w}x{h}')
-            if wz is not None:
-                tw = [t for t in app.get(im) if t.det_score >= 0.6]
-                sims = [float(np.dot(t.normed_embedding, wz)) for t in tw]
-                test(f'kadr {rola}: twarz mówcy obecna (sim≥0.35)', any(s >= 0.35 for s in sims),
-                     [round(s, 2) for s in sims] or 'brak twarzy')
+            tw = [t for t in app.get(im) if t.det_score >= 0.6]
+            sims = [float(np.dot(t.normed_embedding, wz)) for t in tw]
+            test(f'kadr {rola}: twarz mówcy obecna (sim≥0.35)', any(s >= 0.35 for s in sims),
+                 [round(s, 2) for s in sims] or 'brak twarzy')
     except Exception as e:
         test('kadry: analiza twarzy działa', False, repr(e)[:90])
 

@@ -29,6 +29,7 @@ OPISY_POSTACI = {
 GLOSY_VEO = {
     "BOHATER": "a low, gruff, determined middle-aged Polish male voice",
     "JANUSZ": "a dry, officious elderly Polish male voice",
+    "JOZEK": "an extremely high-pitched, unnaturally squeaky, strangled, breaking young male voice, as if squeezed out with the last of his strength",
 }
 STYL_KLIPU = ("Cinematic realistic footage, warm golden summer light. Vertical 9:16. "
               "Natural ambient sounds. No subtitles, no text overlay.")

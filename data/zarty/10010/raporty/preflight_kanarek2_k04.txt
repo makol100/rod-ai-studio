@@ -1,0 +1,20 @@
+=== RAPORT BRAMKI: 10010/preflight_kanarek2_k04 | 2026-07-26T09:56:07+00:00 ===
+  tform.estimate(lmk, dst)
+PASS | kanon: plik DECYZJI odcinka istnieje | KANON.md
+PASS | kanon: kwestia VERBATIM w kanonie | 
+PASS | głos: mówca ma zdefiniowany głos w GLOSY_VEO | BOHATER
+PASS | prompt: kwestia obecna w prompcie | 
+PASS | prompt: blok głosu mówcy obecny | 
+PASS | prompt: native Polish accent | 
+PASS | prompt: no captions | 
+PASS | dialog: dokładnie jedna kwestia w cudzysłowie | znaleziono 1
+PASS | kadr start: istnieje | k04.jpg
+PASS | kadr start: proporcja ~9:16 | 1536x2752
+PASS | kadr start: twarz mówcy obecna (sim≥0.35) | [0.41]
+PASS | kadr koniec: istnieje | k04.jpg
+PASS | kadr koniec: proporcja ~9:16 | 1536x2752
+PASS | kadr koniec: twarz mówcy obecna (sim≥0.35) | [0.41]
+PASS | saldo: konto fal aktywne | 
+PASS | budżet: koszt klipu mieści się w limicie | 0.0 + 0.64 <= 12.0
+=== PREFLIGHT: 16 kontroli, FAIL: 0, FLAG: 0 ===
+WERDYKT: ZIELONY — submit dozwolony

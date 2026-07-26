@@ -1,0 +1,13 @@
+=== RAPORT BRAMKI: 10010/kanarek_k04 | 2026-07-26T09:38:45+00:00 ===
+  tform.estimate(lmk, dst)
+  tform.estimate(lmk, dst)
+=== KANAREK: 10010//root/rod-ai-studio/data/zarty/10010/klip_k04.mp4 (BOHATER) ===
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[FAIL     ] tożsamość
+---
+WERDYKT KANARKA: FAIL — batch ZABLOKOWANY. Konkretne zalecenia:
+  * TOŻSAMOŚĆ: obca twarz w kadrze [{'klatka': 'kl_00.jpg', 'najbliżej': 'BOHATER', 'sim': 0.22}, {'klatka': 'kl_01.jpg', 'najbliżej': 'BOHATER', 'sim': 0.19}]. ZALECENIE: zła referencja lub przeciek drugiej postaci — użyj kadru z JEDNĄ osobą, referencja z właściwej domeny światła.
+
+DECYZJA TOMASZA: popraw wg zaleceń i puść drugiego kanarka ($0.64), albo zaakceptuj mimo (force). Automat nie wydaje kolejnych $ sam.
