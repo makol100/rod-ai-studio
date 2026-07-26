@@ -1,3 +1,4 @@
+⚠ KAŻDA SESJA ZACZYNA OD: wiedza/LISTA_PRACOWNIKOW.md (załoga stała + zasady współpracy — dekret Tomasza 26.07). Pracownicy PRZYPOMINAJĄ prowadzącemu.
 # >>> PRZEKAZANIE 26.07.2026: stan 10010 + nowe reguły dnia -> wiedza/PRZEKAZANIE_2026-07-26_10010.md (CZYTAĆ NAJPIERW) <<<
 # === ROUTING DRÓG PRODUKCJI (23.07 — żelazna zasada, czytać pierwsze) ===
 DWIE OSOBNE DROGI, nazwa w komendzie Tomasza = automatyczny wybór:
@@ -1267,3 +1268,10 @@ KOSZTY dnia: diagnoza i2v ~$1.40 + żart 0002 $2.40 + test 9999 $1.20.
 **ŻELAZNE ZASADY STANOWISKA:** (1) review gate NIGDY nie włączać — /codex:setup --enable-review-gate ZAKAZANE (pętla żre limity Claude+Codex naraz; UWAGA: Claude Code sam podpowiada "enable the review gate" — ignorować!). (2) Dłuższe zadania Codexa zawsze --background, status przez /codex:status. (3) Limit Codexa na Plusie skromny — po wyczerpaniu zejście na mniejszy model (--model) TYLKO za zgodą Tomasza. (4) Słowo Tomasza > każdy plan.
 **Logowanie bez Termiusa (Tomasz stracił dostęp):** tmux na VPS + linki w przeglądarce telefonu; device-auth Codexa zablokowany (suwak na chatgpt.com/security-settings martwy na mobile) → obejście: zwykły `codex login` w tmux (-x 500), Tomasz wkleja do czatu pełny callback URL localhost:1455 z paska po błędzie strony, curl tego URL-a na VPS domyka OAuth.
 **Ślady:** wiedza/DECYZJE_CLAUDE_CODE.md (pełna historia decyzji), pamięć Claude: /areas/claude-code-fabryka.md.
+
+**IMIONA ZAŁOGI (decyzja Tomasza 26.07, obowiązują wszystkie okna):** Claude/szef = **KLAUDEK**, Codex/GPT-5.6 Sol/pracownik = **ZENEK**, bramki deterministyczne (preflight, kanarek, strażnik, bramka środka) = **STRAŻNICY DROGI**.
+
+**WSPÓŁPRACA KLAUDEK↔ZENEK (decyzja Tomasza 26.07):** werdykty strażników drogi trafiają do Zenka; Zenek analizuje i poprawia błędy (wydatki nadal wyłącznie za zgodą Tomasza, FAIL=STOP bez zmian). OPCJA: drugi pracownik Gemini — na słowo Tomasza.
+
+**PROTOKÓŁ TRÓJKI (decyzja Tomasza 26.07):** Klaudek = szef. Przy błędach trójka (Klaudek + Zenek + strażnicy drogi) iteruje analizę aż do pełnej zgody; dopiero konsensus idzie do Tomasza jako propozycja naprawy.
+**GENEK ZATRUDNIONY (26.07):** Gemini = Genek, drugi pracownik, trzecia rodzina modeli = prawdziwie niezależny sędzia. Auth: klucz AI Studio (darmowy login Google wyłączony 18.06.26), model Gemini 3 Flash.
