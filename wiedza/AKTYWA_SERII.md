@@ -13,3 +13,4 @@ a zapisać gdzieś gdzie są koszta takie jak postacie itp").
 Pozycja historyczna: bank głosu Mieczysława (ElevenLabs Brian + LatentSync)
 zaksięgowany w odcinku 10004 (zamrożony) — ewentualne przeniesienie do tej
 księgi po odmrożeniu, na słowo Tomasza.
+2026-07-25 | domena światła ZMIERZCH/złota godzina: bohater_zmierzch.jpg (sim 0.785 vs baza) + janusz_zmierzch.jpg (sim 0.854) | 2×$0.15=$0.30 | cross 0.228 (bramka ≤0.21 przekroczona o 0.018 — wspólne ciepłe światło; operacyjny próg strażnika 0.35, margines czysty; odnotowane)

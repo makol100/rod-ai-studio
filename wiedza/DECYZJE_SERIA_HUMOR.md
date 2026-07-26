@@ -164,3 +164,5 @@ Format: data | DOSŁOWNY cytat | interpretacja (1 zdanie) | status
   GLOSY_VEO=[BOHATER,JANUSZ], KOLORY_ASS=[BOHATER,JANUSZ], parser _kwestie zna
   tylko tych dwóch. Wygląd duetu z biblioteki kart (bohater_baza/janusz_baza),
   nie z OPISY_POSTACI. Backup: /tmp/zp_pre_czystka.py. | ZAMKNIĘTE
+2026-07-25 | Tomasz wkleił "Scenariusz 6: Infiltracja, czyli kontrola u prezesa" (duet, biuro zarządu, donos za młotek 09:55), po czym: "Nie to. Czekaj" | WSTRZYMANE — niczego nie produkować, nie numerować, czekać na następne słowo Tomasza (uwaga dla równoległych okien) | STOP
+2026-07-25 | "Żebyś sam nie wystawił na Facebooka" (przy 10009) | zasada serii: żadna publikacja bez osobnej wyraźnej komendy Tomasza; akceptacja materiału ≠ zgoda na publikację | STAŁE
