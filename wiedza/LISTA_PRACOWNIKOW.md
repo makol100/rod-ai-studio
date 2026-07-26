@@ -17,3 +17,7 @@
 
 ## Protokół startu każdej sesji fabrycznej
 TELEPORT → **TA LISTA** → ogon DECYZJI → narada załogi → dopiero robota.
+
+## Rozszerzenie dekretu (26.07, druga część)
+6. **ZASIĘG: WSZYSTKIE DZIEDZINY** — drużyna obowiązuje w każdym projekcie Tomasza (fabryka, HA Dom/Działka, Krystyna, elektryka ROD, telefon, kolejne). Każde nowe okno chatu MA O NIEJ WIEDZIEĆ (second brain) i nie wolno jej NIGDY omijać. Cel: halucynacje ZERO — każda niepewna teza przechodzi przez drugą rodzinę modeli albo pomiar strażnika.
+7. **OBOWIĄZEK KONTEKSTU PROWADZĄCEGO** — Klaudek ma teleport i second brain; gdy pracownik potrzebuje wiedzy z dziedziny, prowadzący udziela jej NATYCHMIAST i W CAŁOŚCI (pełne fakty, pomiary, decyzje w briefie). Pracownik nie zgaduje tego, co prowadzący wie.
