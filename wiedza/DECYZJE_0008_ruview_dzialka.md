@@ -20,3 +20,9 @@ Decyzja ma sens użytkowy, którego załoga nie doceniła, patrząc tylko na ryz
 - Instalacja i pierwsza kalibracja MUSZĄ odbyć się podczas pobytu Tomasza na miejscu.
 - Zawieszony ESP32 = brak obecności do następnej wizyty → OBOWIĄZKOWO gniazdko sterowane (Zigbee) do zdalnego power-cycle + automatyzacja watchdog.
 - Agregator Rust musi działać lokalnie na serwerze Działki (N150), nie na VPS.
+
+## STATUS 28.07 (późny wieczór) — ODPUSZCZONE
+SŁOWA TOMASZA (dosłownie): "Narazie odpuszczam punkt 2"
+- Pilotaż RuView/WiFi CSI **WSTRZYMANY**. Nic nie kupujemy, nic nie budujemy, nie wracamy do tematu z własnej inicjatywy.
+- Dokumentacja (ten plik + PILOTAZ_RUVIEW.md) zostaje jako gotowy materiał na wypadek powrotu — cała robota rozpoznawcza jest zrobiona, przy wznowieniu startujemy od planu, nie od zera.
+- Wznowienie WYŁĄCZNIE na wyraźne słowo Tomasza.

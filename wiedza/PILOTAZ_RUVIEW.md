@@ -1,4 +1,5 @@
 # PILOTAŻ RuView (WiFi CSI) — decyzja i plan (28.07.2026)
+> STATUS: WSTRZYMANE 28.07 decyzją Tomasza ("Narazie odpuszczam punkt 2") — patrz DECYZJE_0008. Nie wracać bez jego słowa.
 DECYZJA TOMASZA: "2. Ogarniam esp32" — sprzęt bierze na siebie, temat #2 z analizy 10 repo wchodzi do realizacji jako pilotaż.
 
 ## WERDYKT ZAŁOGI (jednogłośny)
