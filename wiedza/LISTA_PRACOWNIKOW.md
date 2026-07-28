@@ -6,6 +6,7 @@
 - **KLAUDEK** (Claude, Anthropic) — **PROWADZĄCY GRUPĘ PRACOWNIKÓW**: plan, synteza, recenzja, arbitraż sporów; odpowiada przed Tomaszem.
 - **ZENEK** (Codex / GPT-5.6 Sol, OpenAI) — pracownik: buduje, naprawia, analizuje, pisze narzędzia i skrypty.
 - **GENEK** (Gemini 3 Flash, Google) — pracownik: audytor świeżym okiem, sędzia trzeciej rodziny, analizuje.
+- **HERMES** (Hermes Agent v0.19 / DeepSeek V4 Flash, Nous Research) — dyżurny-stażysta (pilotaż 14 dni od 28.07.2026, READ-ONLY): słuchawka Telegram @HermesDyzurny_Bot (allowlista: tylko Tomasz), meldunki stanu VPS/fabryki, diagnoza logów; twarde zakazy w SOUL.md (bez modyfikacji, restartów, publikacji, wydatków, HA); klatka cgroup 2G RAM / 3 rdzenie; poza uprawnieniami odsyła do Klaudka. Po zdanym pilotażu — decyzja Tomasza o etacie.
 - **STRAŻNICY DROGI** — bramki deterministyczne: preflight, kanarek, strażnik, MAD środka, pomiar ust, (w budowie: KTO MÓWI). FAIL = STOP.
 
 ## Zasady stałe (obowiązują KAŻDE okno i KAŻDĄ sesję)
