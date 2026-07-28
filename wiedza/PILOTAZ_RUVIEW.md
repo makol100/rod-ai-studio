@@ -31,3 +31,21 @@ DECYZJA TOMASZA: "2. Ogarniam esp32" — sprzęt bierze na siebie, temat #2 z an
 3. Flash binariów, prowizjonowanie NVS (WiFi, IP agregatora), start w pustym pomieszczeniu.
 4. 7 dni zbierania danych; sędzia = LD2410C + obserwacja Tomasza.
 5. Werdykt wg warunku stopu.
+
+## AKTUALIZACJA 28.07 — MIEJSCE ZMIENIONE NA DZIAŁKĘ (decyzja Tomasza, DECYZJE_0008)
+Sekcja "MIEJSCE: DOM" powyżej jest NIEAKTUALNA. Obowiązuje: HA Działka.
+
+### STAN INFRASTRUKTURY DZIAŁKA (zweryfikowane 28.07 przez most VPS)
+- HA Działka: HAOS/Supervised 2026.7.4, RUNNING, Europe/Warsaw. 14/14 add-onów działa (zero błędów).
+- Mosquitto broker: DZIAŁA (core_mosquitto) — wymóg RuView spełniony.
+- Zigbee2MQTT: DZIAŁA (ConBee III) — dostępne gniazdka sterowane do power-cycle.
+- ESPHome Device Builder: DZIAŁA — droga do czujnika referencyjnego mmWave.
+- Terminal & SSH + Samba + Studio Code Server: DZIAŁAJĄ — można wgrać lokalny add-on z agregatorem Rust (na Działce brak precedensu lokalnego add-onu, ale narzędzia są).
+- UWAGA SIECIOWA: natywny konektor "HA DZIAŁKA" (URL tailscale homeassistant-1.tail0109d4.ts.net) NIE ODPOWIADA z aplikacji, choć usługa jest zdrowa (z VPS: HTTP 200, tools/list = 96 narzędzi w 0.3 s). Obejście: /tmp/hadz.sh na VPS (JSON-RPC przez curl). PROPOZYCJA TRWAŁEJ NAPRAWY: przełączyć konektor na add-on "Nabu Casa - Webhook Proxy for HA MCP" (zainstalowany i uruchomiony na Działce), tak jak działa to w Domu.
+
+### WYMAGANIA SPECYFICZNE DLA DZIAŁKI (bo Tomasza tam nie ma)
+1. GNIAZDKO ZIGBEE DO RESETU — ESP32-S3 obowiązkowo na gniazdku sterowanym + automatyzacja watchdog (brak danych z węzła > X min => power-cycle). Precedens: gniazdko "Zasilanie Esp32 Garaż" zasila węzły JK-BMS.
+2. TYLKO ŻYWA STREFA ZIGBEE. Wzór awarii z 26.07: żyje dom/garaż (10/27 urządzeń), martwa strefa ogród/basen/podest (17/27). Gniazdko resetujące MUSI być w strefie dom/garaż.
+3. WIFI — LEKCJA Z 20.07: przy flashowaniu wpisać HASŁO routera w pole password (nie SSID!). SSID: ROD_TOMASZ2_2,4 (z przecinkiem), WPA2-PSK[AES].
+4. AGREGATOR LOKALNIE na serwerze Działki (HAOS) jako lokalny add-on — nie na VPS (strumień UDP 20 Hz nie ma iść przez WAN).
+5. INSTALACJA I PIERWSZA KALIBRACJA WYMAGAJĄ OBECNOŚCI TOMASZA NA MIEJSCU (60 s startu w pustym pomieszczeniu).
