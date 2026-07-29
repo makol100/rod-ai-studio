@@ -32,3 +32,18 @@ Zlecenie do załogi jest domyślnie KONTROLNE: surowy materiał + jedno pytanie 
 Autor nie sprawdza sam siebie — dotyczy też meldunków Klaudka.
 
 Procedura: skill `/kontrola`. Kontrola krzyżowa: `tools/kontrola_krzyzowa.py`.
+
+## Zanim odpowiesz na temat, którego nie znasz na pamięć
+
+Uruchom wyszukiwarkę wiedzy — jedno słowo Tomasza, jedno polecenie:
+
+    python3 tools/szukaj.py <slowo> [slowo2]
+
+Przeszukuje wiedza/ (w tym eksport pamięci Klaudka: PAMIEC_INFRASTRUKTURA.md), docs/,
+AGENTS.md, podręcznik dyżurnego i skille. Ignoruje wielkość liter i polskie znaki.
+Zwraca plik + numer linii + treść — czyli ŚLAD, nie streszczenie.
+
+Brak trafień znaczy: fabryka NIE MA o tym zapisu. Wtedy odpowiedź brzmi NIE WIEM,
+a nie domysł.
+
+Henik czyta tę samą wiedzę w swoim oknie: /home/hermes/fabryka/data/wiedza_kopia/
