@@ -28,4 +28,7 @@ API, zawartość pliku rozstrzyga grep, stan usługi rozstrzyga jej odpowiedź.
 
 **NIE WIEM** jest odpowiedzią prawidłową i oczekiwaną.
 
+Zlecenie do załogi jest domyślnie KONTROLNE: surowy materiał + jedno pytanie rozstrzygalne.
+Autor nie sprawdza sam siebie — dotyczy też meldunków Klaudka.
+
 Procedura: skill `/kontrola`. Kontrola krzyżowa: `tools/kontrola_krzyzowa.py`.
