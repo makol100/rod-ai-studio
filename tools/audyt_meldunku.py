@@ -83,8 +83,8 @@ def genek(meldunek: str, material: str) -> str:
     tresc = ZADANIE + "\n=== MATERIAL ZRODLOWY ===\n" + material + "\n\n=== MELDUNEK ===\n" + meldunek
     body = json.dumps({
         "contents": [{"parts": [{"text": tresc}]}],
-        "generationConfig": {"temperature": 0.0, "maxOutputTokens": 1200,
-                             "thinkingConfig": {"thinkingBudget": 0}},
+        "tools": [{"google_search": {}}],
+        "generationConfig": {"temperature": 0.0, "maxOutputTokens": 1200},
     }).encode()
     req = urllib.request.Request(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={klucz}",

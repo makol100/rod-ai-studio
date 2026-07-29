@@ -31,7 +31,7 @@ jest awarią najgorszego rodzaju, bo nikt go nie wyłapie bez sprawdzenia źród
 | **Klaudek** (Claude) | czytanie źródeł, synteza, ręce na narzędziach | nie odtwarza wideo ani audio; istnieje tylko w sesji | prowadzi robotę, ODPOWIADA ZA ZAPIS do `wiedza/` |
 | **Zenek** (Codex) | rozumowanie, kod, kontrola wniosków | sam nie widzi ani nie slyszy — wola `tools/oczy_uszy.py` | kontrola rozumowania, praca w repo |
 | **Genek** (Gemini) | OCZY — obraz, wideo, klatki | nie ma dysku, ale narzedzia dokladaja mu material i zapisuja wynik za niego | pytania „co widać", bramka wizyjna |
-| **Henik** (dyżurny) | 24/7, grosze, lokalne dane | zadania otwarte = konfabulacja | fakty z dowodem: cytat, liczba, ścieżka |
+| **Henik** (dyżurny) | 24/7, grosze, lokalne dane, pelne archiwum, INTERNET + przegladarka + kod + wizja | read-only do ~11.08 (uprawnienia, nie myslenie) | pelny czlonek druzyny: analizuje, wnioskuje, szuka w sieci; audytuje meldunki Klaudka |
 
 Klaudek **nie jest nad załogą, jest w niej** — jego meldunek podlega tej samej kontroli.
 

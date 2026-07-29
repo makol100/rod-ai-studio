@@ -40,8 +40,8 @@ def genek(tresc: str) -> str:
         return "GENEK: brak klucza API"
     body = json.dumps({
         "contents": [{"parts": [{"text": tresc}]}],
-        "generationConfig": {"temperature": 0.0, "maxOutputTokens": 600,
-                             "thinkingConfig": {"thinkingBudget": 0}},
+        "tools": [{"google_search": {}}],
+        "generationConfig": {"temperature": 0.0, "maxOutputTokens": 600},
     }).encode()
     req = urllib.request.Request(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={klucz}",
