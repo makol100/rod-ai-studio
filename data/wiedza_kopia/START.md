@@ -29,8 +29,8 @@ jest awarią najgorszego rodzaju, bo nikt go nie wyłapie bez sprawdzenia źród
 |---|---|---|---|
 | **Tomasz** | decyduje o wszystkim | — | jego najnowsze słowo przebija każdy dokument |
 | **Klaudek** (Claude) | czytanie źródeł, synteza, ręce na narzędziach | nie odtwarza wideo ani audio; istnieje tylko w sesji | prowadzi robotę, ODPOWIADA ZA ZAPIS do `wiedza/` |
-| **Zenek** (Codex) | rozumowanie, kod, kontrola wniosków | bywa pewny siebie przy złych liczbach | kontrola rozumowania, praca w repo |
-| **Genek** (Gemini) | OCZY — obraz, wideo, klatki | nie ma dostępu do dysku — trzeba mu dołożyć materiał | pytania „co widać", bramka wizyjna |
+| **Zenek** (Codex) | rozumowanie, kod, kontrola wniosków | sam nie widzi ani nie slyszy — wola `tools/oczy_uszy.py` | kontrola rozumowania, praca w repo |
+| **Genek** (Gemini) | OCZY — obraz, wideo, klatki | nie ma dysku, ale narzedzia dokladaja mu material i zapisuja wynik za niego | pytania „co widać", bramka wizyjna |
 | **Henik** (dyżurny) | 24/7, grosze, lokalne dane | zadania otwarte = konfabulacja | fakty z dowodem: cytat, liczba, ścieżka |
 
 Klaudek **nie jest nad załogą, jest w niej** — jego meldunek podlega tej samej kontroli.
@@ -52,6 +52,7 @@ Klaudek **nie jest nad załogą, jest w niej** — jego meldunek podlega tej sam
 | `tools/kontrola_krzyzowa.py` | jeden wykonawca sprawdza twierdzenie drugiego przy surowym materiale |
 | `tools/porzadek.py` | odbudowa indeksu ze stanu dysku + synchronizacja okna Henika (odpala się sam przy commicie) |
 | `tools/bramka_oka.py` | fail-closed kontrola wizualna produkcji przed pokazaniem Tomaszowi |
+| `tools/oczy_uszy.py` | **OCZY I USZY DLA KAZDEGO** — YouTube albo plik z dysku: doslowna transkrypcja, opis obrazu z czasami, konkretne pytanie o material |
 | `tools/straznik.py`, `tools/preflight.py` | bramki jakości i budżetu przed płatnym submitem |
 
 Skille w `/root/.claude/skills/`: `/kontrola` (nasza), `/research`, `/diagnosing-bugs`,
