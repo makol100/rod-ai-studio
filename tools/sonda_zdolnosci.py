@@ -43,6 +43,12 @@ def sonda() -> dict:
     ok, opis = polecenie("command -v codex >/dev/null && echo JEST")
     wynik["zenek.cli"] = {"dziala": ok and "JEST" in opis, "slad": opis}
 
+    # ZENEK — czy ma siec w piaskownicy (29.07: DNS byl odciety, milczaco)
+    ok, opis = polecenie(
+        f"cd {REPO} && timeout 100 codex exec \"Uruchom: python3 -c \\\"import urllib.request;print(urllib.request.urlopen('https://api.github.com',timeout=8).status)\\\"\" 2>&1 | tail -3",
+        limit=140)
+    wynik["zenek.siec"] = {"dziala": "200" in opis, "slad": opis[-90:]}
+
     # GENEK — czy CLI czyta dysk i czy potrafi ZAPISAC (to bylo cicho stracone)
     ok, opis = polecenie(
         f"cd {REPO} && GEMINI_CLI_TRUST_WORKSPACE=true timeout 120 gemini --yolo -p "
