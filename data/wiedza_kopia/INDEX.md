@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 08:54.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 09:11.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,8 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `FILM_OPUS5_WNIOSEK.md` | 29.07 | 3K | FILM „Ten film w 100% wykonał Claude Opus 5" — wniosek załogi (29.07.2026) |
 | `START.md` | 29.07 | 5K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
+| `FILM_OPUS5_WNIOSEK.md` | 29.07 | 3K | FILM „Ten film w 100% wykonał Claude Opus 5" — wniosek załogi (29.07.2026) |
 | `TEST_ZALOGI_29_07.md` | 29.07 | 2K | TEST ZAŁOGI — 29.07.2026 (polecenie Tomasza: „Zrobić test. Wszyscy!!!") |
 | `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
 | `STANISLAW_CANON_1.0.md` | 29.07 | 5K | STANISLAW_CANON_1.0 — BIBLIA PANA STANISŁAWA |
@@ -38,7 +38,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `/root/TELEPORT_HA.md` | 42K | 19.07 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 4K | 29.07 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 1K | 26.07 | konfiguracja Claude Code na VPS |
-| `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 10K | 29.07 | podrecznik Henika (dyzurny) |
+| `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 12K | 29.07 | podrecznik Henika (dyzurny) |
 
 ## Zasada
 

@@ -64,6 +64,8 @@ Klaudek **nie jest nad załogą, jest w niej** — jego meldunek podlega tej sam
 | `tools/kontrola_krzyzowa.py` | jeden wykonawca sprawdza twierdzenie drugiego przy surowym materiale |
 | `tools/porzadek.py` | odbudowa indeksu ze stanu dysku + synchronizacja okna Henika (odpala się sam przy commicie) |
 | `tools/bramka_oka.py` | fail-closed kontrola wizualna produkcji przed pokazaniem Tomaszowi |
+| `tools/szukaj_net.py` | wyszukiwarka internetowa Z ADRESAMI ZRODEL — dla kazdego, takze dla Henia (on nie ma web_search) |
+| `tools/bramka_henia.py` | mechaniczna bramka dowodowa: czy cytaty, nazwy i liczby przypisane zrodlu faktycznie w nim sa |
 | `tools/oczy_uszy.py` | **OCZY I USZY DLA KAZDEGO** — YouTube albo plik z dysku: doslowna transkrypcja, opis obrazu z czasami, konkretne pytanie o material |
 | `tools/straznik.py`, `tools/preflight.py` | bramki jakości i budżetu przed płatnym submitem |
 
