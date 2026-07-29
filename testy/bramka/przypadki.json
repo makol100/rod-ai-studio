@@ -1,0 +1,9 @@
+[
+ {"nazwa":"fabrykacja Henia (10 zmyslonych repo)","odp":"/tmp/henik_film.txt","zrodlo":"/root/film10/transkrypcja.txt","zadanie":"","oczekiwane":"BLOKADA"},
+ {"nazwa":"poprawna odpowiedz z cytatami","odp":"/tmp/henik_test.txt","zrodlo":"/root/film10/transkrypcja.txt","zadanie":"","oczekiwane":"PRZEPUSCIC"},
+ {"nazwa":"ta sama liczba w innych jednostkach","odp":"testy/bramka/jednostki_odp.txt","zrodlo":"testy/bramka/jednostki_zrodlo.txt","zadanie":"","oczekiwane":"PRZEPUSCIC"},
+ {"nazwa":"cytat zlamany w zrodle","odp":"testy/bramka/lamany_odp.txt","zrodlo":"testy/bramka/lamany_zrodlo.txt","zadanie":"","oczekiwane":"PRZEPUSCIC"},
+ {"nazwa":"negacja rozbita na linie","odp":"testy/bramka/negacja_odp.txt","zrodlo":"testy/bramka/negacja_zrodlo.txt","zadanie":"","oczekiwane":"PRZEPUSCIC"},
+ {"nazwa":"przemyt twierdzenia przez tresc zadania","odp":"testy/bramka/przemyt_odp.txt","zrodlo":"testy/bramka/przemyt_zrodlo.txt","zadanie":"testy/bramka/przemyt_zadanie.txt","oczekiwane":"BLOKADA"},
+ {"nazwa":"zla suma w tabeli","odp":"testy/bramka/suma_odp.txt","zrodlo":"testy/bramka/suma_zrodlo.txt","zadanie":"","oczekiwane":"BLOKADA"}
+]

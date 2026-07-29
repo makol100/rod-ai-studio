@@ -1,0 +1,3 @@
+Nie znalazlem w zrodle nastepujacych elementow:
+- OpenHands
+- WeatherLink

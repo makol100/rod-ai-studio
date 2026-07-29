@@ -87,3 +87,11 @@ Nikt nie ma osobistego regulaminu — wspólne prawo jest jedno, w tym pliku i w
 - Nie oceniać zdolności członka załogi na podstawie jednej sesji; ocena idzie z dowodem
   i wyłącznie w zakresie tego dowodu.
 - Nie pisać do `wiedza/` rzeczy, która jeszcze nie zadziałała.
+
+## Bramka dowodowa ma własną pętlę testową
+
+`python3 tools/test_bramki.py` — 7 przypadków z REALNYCH wpadek: fabrykacja, poprawna odpowiedź,
+te same liczby w innych jednostkach, cytat złamany w źródle, negacja rozbita na linie,
+przemyt twierdzenia przez treść zadania, zła suma w tabeli.
+Zielone = bramki można używać. Czerwone = nie dotykać wiedzy, najpierw naprawić.
+Każda nowa wpadka bramki dopisuje przypadek do `testy/bramka/przypadki.json`.

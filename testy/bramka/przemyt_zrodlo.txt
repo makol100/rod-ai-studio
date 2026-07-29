@@ -1,0 +1,1 @@
+Dokument opisuje wylacznie modul logowania i nic wiecej.

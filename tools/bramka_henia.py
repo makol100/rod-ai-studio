@@ -39,9 +39,13 @@ POMIJANE = {
 
 
 def plaski(s: str) -> str:
+    """Bez ogonkow, malymi literami, z ZWINIETYMI bialymi znakami.
+    Zwijanie bialych znakow naprawia falszywy alarm na cytacie zlamanym w zrodle
+    (zrodlo: "Ala ma\nkota", odpowiedz: "Ala ma kota" — to ten sam cytat)."""
     s = s.replace("ł", "l").replace("Ł", "L")
-    return "".join(c for c in unicodedata.normalize("NFD", s)
-                   if unicodedata.category(c) != "Mn").lower()
+    bez = "".join(c for c in unicodedata.normalize("NFD", s)
+                  if unicodedata.category(c) != "Mn").lower()
+    return " ".join(bez.split())
 
 
 def wczytaj_zrodla(lista: str) -> tuple:
@@ -56,13 +60,20 @@ def wczytaj_zrodla(lista: str) -> tuple:
 
 
 NEGACJE = ("0 razy", "0 wystapien", "0 wystąpień", "zero razy", "nie ma w", "nie wystepuje",
-           "nie występuje", "brak w zrodle", "brak w źródle", "nie znalaz", "0 trafien", "0 trafień")
+           "nie występuje", "brak w zrodle", "brak w źródle", "nie znalaz", "0 trafien", "0 trafień",
+           "nie znalazlem", "nie znalazłem", "brakuje", "nie zawiera", "nie wystepuja", "nie występują")
 
 
 def zgloszona_jako_nieobecna(token: str, odpowiedz: str) -> bool:
     """Token, o ktorym odpowiedz WPROST mowi ze go nie ma, nie jest twierdzeniem o zrodle."""
-    for linia in odpowiedz.split("\n"):
-        if token in linia and any(n in plaski(linia) for n in [plaski(x) for x in NEGACJE]):
+    linie = odpowiedz.split("\n")
+    negacje_plaskie = [plaski(x) for x in NEGACJE]
+    for i, linia in enumerate(linie):
+        if token not in linia:
+            continue
+        # negacja moze stac w tej samej linii ALBO w naglowku listy nad nia (do 2 linii wyzej)
+        okno = linie[max(0, i - 2):i + 1]
+        if any(n in plaski(l) for l in okno for n in negacje_plaskie):
             return True
     return False
 
@@ -70,6 +81,20 @@ def zgloszona_jako_nieobecna(token: str, odpowiedz: str) -> bool:
 SCIEZKA_LUB_POLECENIE = re.compile(
     r"^-|/|\.(md|py|txt|json|yaml|yml|sh|jpg|png|mp4|log)$|^(grep|ls|cat|wc|sed|awk|python3?|curl|git|tail|head|find|chmod|sudo|docker)$",
     re.IGNORECASE)
+
+
+PRZYPISANIE = ("zrodlo potwierdza", "źródło potwierdza", "w zrodle", "w źródle", "wedlug zrodla",
+               "według źródła", "zrodlo mowi", "źródło mówi", "plik potwierdza", "potwierdza, ze",
+               "potwierdza, że", "stoi w", "zapisano w", "wynika ze zrodla", "wynika ze źródła")
+
+
+def przypisane_zrodlu(element: str, odpowiedz: str) -> bool:
+    """Czy odpowiedz twierdzi, ze ten element JEST w zrodle? Wtedy trzeba to sprawdzic,
+    nawet gdy slowo pochodzi z tresci zadania — inaczej da sie przemycic zmyslenie."""
+    for zdanie in re.split(r"[.!?\n]", odpowiedz):
+        if element in zdanie and any(w in plaski(zdanie) for w in [plaski(x) for x in PRZYPISANIE]):
+            return True
+    return False
 
 
 def z_zadania(element: str, zadanie_plaskie: str) -> bool:
@@ -180,7 +205,7 @@ def main() -> int:
         for e in el[rodzaj]:
             if techniczny(e):
                 pominiete["techniczne"].append(e)
-            elif z_zadania(e, zadanie_plaskie):
+            elif z_zadania(e, zadanie_plaskie) and not przypisane_zrodlu(e, odpowiedz):
                 pominiete["z zadania"].append(e)
             else:
                 zostaje.append(e)

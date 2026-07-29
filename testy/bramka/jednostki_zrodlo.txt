@@ -1,0 +1,1 @@
+Plik TELEPORT_fabryka.md zajmuje 127K na dysku.
