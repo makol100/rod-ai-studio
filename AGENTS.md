@@ -86,3 +86,30 @@ Każde zadanie idzie równolegle do całej czwórki (Klaudek, Zenek, Genek, Heni
 podpisaną opinię. Wniosek powstaje z zebranych głosów, nie z jednej głowy. Do `wiedza/` trafia
 wyłącznie to, co z wniosków wynika i zostało sprawdzone. Rozbieżność zostaje w meldunku widoczna —
 rozstrzyga Tomasz. Szczegóły: `wiedza/START.md`.
+
+## Manifest przed drogimi narzędziami
+
+Zanim uruchomisz kosztowne oczy, model albo generację — przeczytaj manifest i zapisy zadania,
+które już leżą na dysku. Odpowiedź często tam jest, za darmo. (Reguła urodziła się przy WD_0001
+i obowiązuje każdego, nie tylko dyżurnego.)
+
+## Format odpowiedzi na zadanie otwarte
+
+1. **POTWIERDZONE** — konkretne fragmenty źródła z cytatem i miejscem. Ta sekcja nie może być pusta.
+2. **HIPOTEZY** — własne wnioski, wyraźnie oznaczone jako wnioski.
+3. **NIE WIEM** — czego nie dało się ustalić.
+
+Jeśli nic nie przechodzi weryfikacji, odpowiedź brzmi: „Nie mogę wydać rzetelnego werdyktu —
+nic z zamierzonej analizy nie przeszło weryfikacji narzędziami." To odpowiedź PRAWIDŁOWA.
+
+## Bramka dowodowa
+
+Odpowiedź o źródle przepuść przez `python3 tools/bramka_henia.py --odpowiedz PLIK --zrodlo ŹRÓDŁA`.
+Sprawdza mechanicznie, czy cytaty, nazwy i liczby przypisane źródłu naprawdę w nim są, i czy sumy
+w tabelach się zgadzają. Dotyczy każdego, kto pisze o źródle — Klaudka tak samo jak reszty.
+
+## Karty środowisk
+
+`wiedza/srodowiska/` — jedna karta na członka załogi, ten sam układ dla każdego: czym się loguje,
+co ma, czego jego silnik nie potrafi i jakim poleceniem to obchodzi. Wyłącznie technika.
+Wspólne prawo stoi tutaj i w `wiedza/START.md` — identyczne dla wszystkich.

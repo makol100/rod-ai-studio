@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 10:27.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 10:39.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -38,9 +38,9 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 |---|---|---|---|
 | `/root/rod-ai-studio/TELEPORT_fabryka.md` | 127K | 26.07 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 42K | 19.07 | teleport HA — ARCHIWUM, jw. |
-| `/root/rod-ai-studio/AGENTS.md` | 4K | 29.07 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
+| `/root/rod-ai-studio/AGENTS.md` | 5K | 29.07 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 1K | 26.07 | konfiguracja Claude Code na VPS |
-| `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 13K | 29.07 | podrecznik Henika (dyzurny) |
+| `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 4K | 29.07 | podrecznik Henika (dyzurny) |
 
 ## Zasada
 

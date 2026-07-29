@@ -74,6 +74,12 @@ Skille w `/root/.claude/skills/`: `/kontrola` (nasza), `/research`, `/diagnosing
 UWAGA: skille rządzą Claude Code i załogą NA SERWERZE. Rozmowę Klaudka z Tomaszem rządzi
 jego pamięć — dlatego te same reguły muszą stać w obu miejscach.
 
+## Karty środowisk — każdy ma taką samą
+
+`wiedza/srodowiska/klaudek.md`, `zenek.md`, `genek.md`, `henio.md` — ten sam układ dla wszystkich:
+dostęp, ograniczenia silnika, polecenia zastępcze, ścieżki. Tylko technika, zero pouczeń.
+Nikt nie ma osobistego regulaminu — wspólne prawo jest jedno, w tym pliku i w `AGENTS.md`.
+
 ## Czego nie robić
 
 - Nie proponować Tomaszowi oglądania materiałów — ma dostawać wynik i decyzję.
