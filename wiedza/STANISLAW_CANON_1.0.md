@@ -37,7 +37,11 @@
 - Belki bloków pełnią też rolę przebitek (łamanie dead stare co 5–8 s, $0).
 
 ## 7. GŁOS I WYMOWA (TTS)
-- Eleven v3 (fal.ai), voice=Daniel (nazwa wyłącznie techniczna), czysty polski, zero akcentów; parametry kanoniczne w DECYZJE_AWATAR.md.
+- Eleven v3 (fal.ai), voice=Daniel (nazwa wyłącznie techniczna), czysty polski, zero akcentów.
+- PARAMETRY KANONICZNE (wpisane tu 29.07 — esencja ma być samowystarczalna, wcześniej były tylko w archiwum):
+  endpoint `fal-ai/elevenlabs/tts/eleven-v3`, `language_code=pl`, `stability=0.4`,
+  `similarity_boost=0.75`, `speed=1.0`, `output_format=mp3_44100_128`.
+  Cena 0.10 USD / 1000 znaków (~0.09 USD/min).
 - W tekstach dla lektora: "ROD" → pełnymi słowami "Rodzinny Ogród Działkowy"; "im." → "imienia".
 - Nowe trudne słowo = najpierw test TTS na krótkiej próbce, potem pełne nagranie.
 
@@ -52,7 +56,7 @@
 - Prompt reżyserski (stały): "Calm natural presentation, head mostly still, maintaining continuous direct eye contact with the camera lens, natural blinking, subtle facial movement."
 - Kling nie ma seeda → identycznego RUCHU nie da się wymusić; dlatego BRAMKA JAKOŚCI przed publikacją: kontrola twarzy (VLM/oko) + odsłuch; odchył = ponowny render.
 - MANIFEST każdego odcinka (plik _manifest_<nazwa>.json): tekst, parametry TTS, request-id, użyta karta+SHA, wariant Kling, sumy kontrolne wyników.
-- Eleven v3: seed + stałe stability/similarity/speed (wartości w DECYZJE_AWATAR.md).
+- Eleven v3: seed + stałe stability=0.4 / similarity_boost=0.75 / speed=1.0 (jak wyżej).
 - Bramka specyfikacji przed KAŻDYM płatnym submitem (dekret 27.07): checklist załogi + tmux ls + mtimes.
 
 ## MATERIAŁY KANONICZNE

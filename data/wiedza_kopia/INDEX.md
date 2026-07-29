@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 07:06.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 07:07.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -9,13 +9,13 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `STANISLAW_CANON_1.0.md` | 29.07 | 5K | STANISLAW_CANON_1.0 — BIBLIA PANA STANISŁAWA |
 | `NAUKI.md` | 29.07 | 12K | NAUKI — lekcje z produkcji (destylat) |
 | `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
 | `DECYZJE_0007_bramka_oka.md` | 28.07 | 1K | DECYZJA 0007 — BRAMKA OKA fail-closed (28.07.2026, dekret Tomasza "Naprawiać") |
 | `NAUKI_SERII.md` | 28.07 | 20K | 2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE oper |
 | `LISTA_PRACOWNIKOW.md` | 28.07 | 2K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
 | `DECYZJE_CLAUDE_CODE.md` | 28.07 | 5K | 2026-07-26 | "Leć" (po planie: Claude Code + Codex CLI + plugin codex@openai-codex na fabryce, review gate OFF |
-| `STANISLAW_CANON_1.0.md` | 27.07 | 4K | STANISLAW_CANON_1.0 — BIBLIA PANA STANISŁAWA |
 | `ZALOGA_LIMITY.md` | 27.07 | 1K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
 | `AKTYWA_SERII.md` | 26.07 | 1K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `DECYZJE_SERIA_HUMOR.md` | 25.07 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
