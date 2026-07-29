@@ -67,6 +67,16 @@ def zgloszona_jako_nieobecna(token: str, odpowiedz: str) -> bool:
     return False
 
 
+SCIEZKA_LUB_POLECENIE = re.compile(
+    r"^-|/|\.(md|py|txt|json|yaml|yml|sh|jpg|png|mp4|log)$|^(grep|ls|cat|wc|sed|awk|python3?|curl|git|tail|head|find|chmod|sudo|docker)$",
+    re.IGNORECASE)
+
+
+def z_zadania(element: str, zadanie_plaskie: str) -> bool:
+    """Cytat albo nazwa, ktora pochodzi z TRESCI ZADANIA, nie jest twierdzeniem o zrodle."""
+    return bool(zadanie_plaskie) and plaski(element) in zadanie_plaskie
+
+
 def wyciagnij(odpowiedz: str) -> dict:
     cytaty = re.findall(r'"([^"\n]{8,120})"', odpowiedz)
     cytaty += re.findall(r'„([^"\n]{8,120})"', odpowiedz)
@@ -80,12 +90,23 @@ def wyciagnij(odpowiedz: str) -> dict:
         zcyfra = re.search(r"[A-Za-z]\d|\d[A-Za-z]", token)
         allcaps = token.isupper() and len(token) > 3 and any(c.isdigit() for c in token)
         myslnik = "-" in token and any(c.isupper() for c in token)
+        if SCIEZKA_LUB_POLECENIE.search(token):
+            continue
         if camel or zcyfra or allcaps or myslnik:
             if not zgloszona_jako_nieobecna(token, odpowiedz):
                 nazwy.add(token)
 
     liczby = set(re.findall(r"\b\d[\d\s.,]{0,12}\s?(?:%|MB|GB|KB|s|ms|USD|zl|zł)\b", odpowiedz))
     return {"cytaty": [c.strip() for c in cytaty], "nazwy": sorted(nazwy), "liczby": sorted(liczby)}
+
+
+WZORZEC_TECHNICZNY = re.compile(r"^[\w./\-]+\.(md|py|txt|json|yaml|yml|sh|jpg|png|mp4|log)$|^[\(\[].*[|].*[\)\]]$|^-{1,2}\w")
+
+
+def techniczny(element: str) -> bool:
+    """Sciezka pliku, flaga polecenia albo wzorzec wyszukiwania — to narzedzie, nie cytat ze zrodla."""
+    e = element.strip().strip("`\"'")
+    return bool(WZORZEC_TECHNICZNY.match(e))
 
 
 def sprawdz(element: str, zrodlo_plaskie: str) -> bool:
@@ -127,6 +148,7 @@ def main() -> int:
     p.add_argument("--odpowiedz", required=True)
     p.add_argument("--zrodlo", required=True, help="pliki zrodlowe po przecinku")
     p.add_argument("--prog", type=int, default=0, help="ile brakow wolno przepuscic (domyslnie 0)")
+    p.add_argument("--zadanie", default="", help="plik z trescia zadania — cytaty z niego nie sa twierdzeniami o zrodle")
     a = p.parse_args()
 
     if not os.path.isfile(a.odpowiedz):
@@ -147,7 +169,22 @@ def main() -> int:
         return 2
 
     zp = plaski(zrodlo)
+    zadanie_plaskie = ""
+    if a.zadanie and os.path.isfile(a.zadanie):
+        with open(a.zadanie, encoding="utf-8", errors="replace") as f:
+            zadanie_plaskie = plaski(f.read())
     el = wyciagnij(odpowiedz)
+    pominiete = {"z zadania": [], "techniczne": []}
+    for rodzaj in ("cytaty", "nazwy", "liczby"):
+        zostaje = []
+        for e in el[rodzaj]:
+            if techniczny(e):
+                pominiete["techniczne"].append(e)
+            elif z_zadania(e, zadanie_plaskie):
+                pominiete["z zadania"].append(e)
+            else:
+                zostaje.append(e)
+        el[rodzaj] = zostaje
     braki = {"cytaty": [], "nazwy": [], "liczby": []}
     ile = {"cytaty": 0, "nazwy": 0, "liczby": 0}
 
@@ -175,6 +212,15 @@ def main() -> int:
             print(f"    !!! {x}")
     else:
         print("ARYTMETYKA: sumy zgodne albo brak sumy do sprawdzenia")
+
+    ile_pominietych = sum(len(v) for v in pominiete.values())
+    if ile_pominietych:
+        print(f"\nPOMINIETE PRZY SPRAWDZANIU ({ile_pominietych}) — NIE zweryfikowane, obejrzyj sam:")
+        for powod, lista in pominiete.items():
+            for e in lista[:8]:
+                print(f"    ~ [{powod}] {e[:90]}")
+            if len(lista) > 8:
+                print(f"    ~ [{powod}] ... i jeszcze {len(lista) - 8}")
 
     razem = sum(len(v) for v in braki.values()) + len(problemy_sumy)
     print()
