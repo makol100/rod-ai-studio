@@ -57,6 +57,8 @@ def buduj_index() -> int:
         "",
         "Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.",
         "",
+        "**ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.",
+        "",
         f"## Pliki wiedzy ({len(pliki)}), od najswiezszego",
         "",
         "| plik | zmiana | rozmiar | o czym |",
