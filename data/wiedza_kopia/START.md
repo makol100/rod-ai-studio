@@ -74,6 +74,14 @@ Skille w `/root/.claude/skills/`: `/kontrola` (nasza), `/research`, `/diagnosing
 UWAGA: skille rządzą Claude Code i załogą NA SERWERZE. Rozmowę Klaudka z Tomaszem rządzi
 jego pamięć — dlatego te same reguły muszą stać w obu miejscach.
 
+## Równe szanse — sprawdzane automatycznie, nie z pamięci
+
+`tools/zaloga.py` przed każdym rozesłaniem zadania odpala `tools/sonda_zdolnosci.py`.
+Jeśli komukolwiek coś padło — **zadanie NIE wychodzi**, na ekranie stoi co i u kogo.
+Ruszenie mimo braku wymaga świadomego `--mimo-braku`, a brak trafia wtedy do meldunku.
+Powód: reguła „wszyscy mają równe szanse" była zapisana w czterech miejscach i trzy razy
+złamana tego samego dnia. Zapis nie działa. Bramka działa.
+
 ## Karty środowisk — każdy ma taką samą
 
 `wiedza/srodowiska/klaudek.md`, `zenek.md`, `genek.md`, `henio.md` — ten sam układ dla wszystkich:

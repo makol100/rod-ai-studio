@@ -33,6 +33,24 @@ STOPKA = ("\n\nPodpisz sie swoim imieniem. Jesli czegos nie da sie ustalic z mat
           "Nie uzgadniaj odpowiedzi z nikim, to ma byc TWOJ glos.")
 
 
+def sprawdz_rowne_szanse() -> tuple:
+    """Przed KAZDYM zadaniem: czy cala zaloga ma komplet zdolnosci.
+    Powod (Tomasz, 29.07): "Dlaczego ja musze bez przerwy powtarzac, ze wy wszyscy macie miec rowne
+    szanse. Jezeli komus cos padlo, to moze naprawiac, jak zaczynacie cokolwiek robic."
+    Regula w dokumencie tego nie zalatwila — Klaudek trzy razy ruszyl z zadaniem, majac Zenka bez sieci
+    i Genka bez dysku. Teraz sprawdzenie odpala sie SAMO, przed rozeslaniem zadania."""
+    sonda = os.path.join(REPO, "tools", "sonda_zdolnosci.py")
+    if not os.path.isfile(sonda):
+        return True, "brak sondy — nie sprawdzono"
+    try:
+        w = subprocess.run([sys.executable, sonda], cwd=REPO, capture_output=True, text=True, timeout=600)
+    except Exception as e:
+        return True, f"sonda nie dokonczyla ({e})"
+    if w.returncode == 0:
+        return True, "wszyscy maja komplet zdolnosci"
+    return False, w.stdout.strip()
+
+
 def czytaj_material(lista: str) -> str:
     if not lista:
         return ""
@@ -98,6 +116,8 @@ def main() -> int:
     p.add_argument("--material", default="", help="pliki zrodlowe po przecinku (trafiaja do Genka)")
     p.add_argument("--kto", default="zenek,genek,henio")
     p.add_argument("--katalog", default="/tmp/narada")
+    p.add_argument("--mimo-braku", action="store_true",
+                   help="rusz mimo nierownych szans (swiadoma decyzja, wypisana w meldunku)")
     a = p.parse_args()
 
     if not os.path.isfile(a.zadanie):
@@ -108,6 +128,21 @@ def main() -> int:
     if not zadanie.strip():
         print("BLAD: zadanie jest puste")
         return 2
+
+    rowno, opis_sondy = sprawdz_rowne_szanse()
+    if not rowno:
+        print("=" * 70)
+        print("STOP — ZALOGA NIE MA ROWNYCH SZANS. Zadanie NIE zostalo rozeslane.")
+        print("=" * 70)
+        print(opis_sondy)
+        print()
+        print("Napraw brak i uruchom ponownie, albo swiadomie dodaj --mimo-braku")
+        print("(wtedy brak zostanie wypisany w meldunku, nie zniknie po cichu).")
+        if not a.mimo_braku:
+            return 2
+        print(">>> RUSZAM MIMO BRAKU na wyrazne polecenie. Powyzszy brak obowiazuje w meldunku. <<<")
+    else:
+        print(f"[rowne szanse] {opis_sondy}\n")
 
     material = czytaj_material(a.material)
     os.makedirs(a.katalog, exist_ok=True)
