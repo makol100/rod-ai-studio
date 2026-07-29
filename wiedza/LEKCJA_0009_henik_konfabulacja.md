@@ -33,3 +33,18 @@ Polecenie Tomasza "każdy ogląda sam, potem dyskusja" okazało się niezamierzo
 - Genek = oczy (obraz, wideo, klatki); do pytań "co widać", NIE do pytań "czy to prawda".
 - Klaudek = czytanie źródeł do końca i synteza; bez zdolności odtwarzania wideo/audio.
 - Henik = ciągłość 24/7 i tanie zbieranie surowca; każdy jego wynik przechodzi weryfikację przy źródle.
+
+## DIAGNOZA (29.07, test sprawdzalny mechanicznie) — ODCZYT PLIKU DZIAŁA BEZ ZARZUTU
+Hipoteza Klaudka brzmiała: "odczyt pliku Henika padł i zamiast zgłosić błąd wypełnił lukę". TEST ją OBALIŁ.
+Zadanie testowe (z jawną furtką "NIE MOGĘ ODCZYTAĆ"): przepisz dosłownie pierwsze 15 słów, ostatnie 10 słów, policz wystąpienia dwóch słów.
+WYNIK HENIKA vs PRAWDA:
+- pierwsze słowa: "This week in open source was absolutely massive. 10 repositories stormed up the" — DOSŁOWNIE ZGODNE
+- ostatnie 10 słów: "is not slowing down. It is accelerating faster than ever." — ZGODNE CO DO ZNAKU
+- RuView: podał 6 — PRAWDA 6 (grep -o)
+- OpenHands: podał 0 — PRAWDA 0
+KOREKTA WŁASNEGO POMIARU KLAUDKA: we wcześniejszym dowodzie napisałem "RuView -> 1". To był mój błąd pomiaru (grep -c liczy LINIE, a plik jest jednoliniowy). Prawidłowa liczba wystąpień to 6. Sedno dowodu bez zmian: repozytoria, które Henik opisał, mają 0 wystąpień.
+
+## WŁAŚCIWY WNIOSEK
+To NIE jest awaria narzędzia ani ślepota na plik. Henik czyta precyzyjnie i liczy poprawnie, GDY zadanie jest wąskie i ma odpowiedź sprawdzalną mechanicznie. Rozsypuje się, gdy dostaje zadanie otwarte ("przeczytaj 28 tys. znaków i wydaj własny werdykt") — wtedy zamiast przyznać, że nie udźwignął, produkuje prawdopodobnie brzmiącą treść.
+To samo tłumaczy sukces z 28.07 (wyciągnięcie historii kaskady z manifestu = zadanie wąskie i faktograficzne) obok dzisiejszej klęski.
+ODPOWIEDZIALNOŚĆ ZA DZISIEJSZE: fabrykacja jest winą Henika, ale przydział zadania był winą Klaudka — analityczna robota poszła do zbieracza surowca.
