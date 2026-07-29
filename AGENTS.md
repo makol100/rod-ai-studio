@@ -22,8 +22,8 @@ Patrz `docs/agents/domain.md`.
 ## Zasada dowodu (obowiązuje całą załogę)
 
 Twierdzenie trafia do meldunku razem ze **śladem** — wywołaniem narzędzia z tej
-samej sesji, które je wyprodukowało. Bez śladu idzie z widoczną etykietą
-**[NIESPRAWDZONE]**.
+samej sesji, które je wyprodukowało. Bez śladu NIE IDZIE WCALE. Dekret Tomasza 29.07: "Nie ma takiego czegoś jak niesprawdzone".
+Albo zdobywasz ślad teraz, albo mówisz NIE WIEM.
 
 Zdanie kolegi (Zenek, Genek, Henik, Klaudek) jest hipotezą. Liczbę rozstrzyga
 API, zawartość pliku rozstrzyga grep, stan usługi rozstrzyga jej odpowiedź.

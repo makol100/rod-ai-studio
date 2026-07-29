@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 07:59.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 08:06.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `START.md` | 29.07 | 3K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
+| `START.md` | 29.07 | 4K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `TEST_ZALOGI_29_07.md` | 29.07 | 2K | TEST ZAŁOGI — 29.07.2026 (polecenie Tomasza: „Zrobić test. Wszyscy!!!") |
 | `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
 | `STANISLAW_CANON_1.0.md` | 29.07 | 5K | STANISLAW_CANON_1.0 — BIBLIA PANA STANISŁAWA |

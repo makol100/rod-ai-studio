@@ -6,8 +6,8 @@ Generowany częściowo automatycznie (`tools/porzadek.py`) — stan na dole nie 
 ## Zasada nadrzędna
 
 **WERYFIKACJA, NIE HALUCYNACJA.** Każde twierdzenie idzie do Tomasza ze **śladem** —
-wywołaniem narzędzia z tej samej sesji, które je wyprodukowało. Bez śladu: etykieta
-`[NIESPRAWDZONE]` albo nie pada wcale.
+wywołaniem narzędzia z tej samej sesji, które je wyprodukowało. Bez śladu **NIE PADA WCALE** — dekret Tomasza 29.07: "Nie ma takiego czegoś jak niesprawdzone".
+Albo zdobywasz ślad w tej turze, albo mówisz NIE WIEM.
 
 **NIE WIEM jest odpowiedzią prawidłową i oczekiwaną.** Zmyślone zdanie, które brzmi mądrze,
 jest awarią najgorszego rodzaju, bo nikt go nie wyłapie bez sprawdzenia źródła.
