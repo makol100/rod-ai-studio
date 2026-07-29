@@ -79,3 +79,10 @@ Nikt nie zaczyna od zera. Przed analizą i przed dyskusją każdy czyta:
 - Genek nie ma dostępu do dysku — kto go pyta, ten dokłada mu surowy materiał do zlecenia
 
 Kolejność jest zawsze ta sama: **odczytać → ustawić się → przeanalizować → dopiero dyskusja.**
+
+## Drużyna zawsze (dekret Tomasza 29.07.2026)
+
+Każde zadanie idzie równolegle do całej czwórki (Klaudek, Zenek, Genek, Henio). Każdy daje własną,
+podpisaną opinię. Wniosek powstaje z zebranych głosów, nie z jednej głowy. Do `wiedza/` trafia
+wyłącznie to, co z wniosków wynika i zostało sprawdzone. Rozbieżność zostaje w meldunku widoczna —
+rozstrzyga Tomasz. Szczegóły: `wiedza/START.md`.

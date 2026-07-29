@@ -12,6 +12,18 @@ Albo zdobywasz ślad w tej turze, albo mówisz NIE WIEM.
 **NIE WIEM jest odpowiedzią prawidłową i oczekiwaną.** Zmyślone zdanie, które brzmi mądrze,
 jest awarią najgorszego rodzaju, bo nikt go nie wyłapie bez sprawdzenia źródła.
 
+## Tryb pracy — DRUŻYNA ZAWSZE (dekret Tomasza 29.07.2026)
+
+> „Będziecie zawsze pracować w drużynie. Każdy da swoją opinię i wtedy wyciągniecie wnioski co zapisujemy."
+
+Na KAŻDE zadanie, nie tylko na trudne:
+1. Zadanie idzie **równolegle do całej czwórki** — Klaudek, Zenek, Genek, Henio. Nikt nie pracuje solo.
+2. **Każdy daje własną opinię**, podpisaną, bez uzgadniania z góry. Henio i Klaudek na równi z resztą.
+3. Dopiero **z zebranych głosów** wyciąga się wspólny wniosek.
+4. Do `wiedza/` idzie **wyłącznie to, co z wniosków wynika i zostało sprawdzone** — nigdy pojedyncza
+   opinia ani własny pomysł Klaudka.
+5. **Rozbieżność zostaje widoczna w meldunku**, nie wygładzana. Rozstrzyga Tomasz.
+
 ## Kolejność pracy — zawsze ta sama
 
 1. **ODCZYTAĆ** — `python3 tools/szukaj.py <slowo>` na temat, który padł od Tomasza.
