@@ -8,7 +8,12 @@ limitach (503, quota), Klaudek przerzucil Genka na gole wywolania API z recznie 
 — i nikt nigdy nie wrocil. To byla nasza proteza, nie ograniczenie Genka.
 
 To narzedzie przywraca mu dysk:
-  DROGA 1 (domyslna): Gemini CLI w katalogu repo — Genek SAM czyta pliki, greppuje, sprawdza.
+  DROGA 1 (domyslna): Gemini CLI w katalogu repo z --yolo — Genek SAM czyta pliki, ZAPISUJE,
+                      greppuje i URUCHAMIA POLECENIA. Bez --yolo CLI w trybie -p daje mu tylko odczyt
+                      (zmierzone 29.07: "NIE MAM NARZEDZIA" przy probie zapisu).
+                      UWAGA: write_file dziala w obrebie /root/rod-ai-studio i katalogu tymczasowego
+                      projektu; zapis poza workspace odbija sie bledem "Path not in workspace",
+                      ale polecenia powloki juz nie maja tego ograniczenia.
   DROGA 2 (awaryjna): gole API z doklejonym materialem — gdy CLI padnie. Oznaczona w wyniku jako
                       TRYB AWARYJNY, zeby nikt nie wzial odpowiedzi bez dostepu do zrodel za pelnowartosciowa.
 
@@ -44,7 +49,7 @@ def droga_cli(zadanie: str, limit_s: int) -> tuple:
     """Genek z wlasnymi rekami: czyta pliki, greppuje, sprawdza — sam."""
     srodowisko = dict(os.environ, GEMINI_CLI_TRUST_WORKSPACE="true")
     try:
-        w = subprocess.run(["gemini", "-p", zadanie], cwd=REPO, env=srodowisko,
+        w = subprocess.run(["gemini", "--yolo", "-p", zadanie], cwd=REPO, env=srodowisko,
                            capture_output=True, text=True, timeout=limit_s)
     except subprocess.TimeoutExpired:
         return "", f"CLI: przekroczony czas {limit_s}s"
