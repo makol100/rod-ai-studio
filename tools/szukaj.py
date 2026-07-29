@@ -22,6 +22,9 @@ KATALOGI = [
 ]
 PLIKI = [
     "/root/rod-ai-studio/AGENTS.md",
+    "/root/rod-ai-studio/TELEPORT_fabryka.md",
+    "/root/TELEPORT_HA.md",
+    "/root/.claude/CLAUDE.md",
     "/root/rod-ai-studio/README.md",
     "/home/hermes/PODRECZNIK_DYZURNEGO.md",
 ]
