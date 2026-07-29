@@ -62,10 +62,13 @@ POLECENIA = {
 
 
 def klucz() -> str:
-    for linia in open("/root/.gemini/.env", encoding="utf-8"):
-        if linia.startswith("GEMINI_API_KEY="):
-            return linia.split("=", 1)[1].strip()
-    raise SystemExit("BLAD: brak GEMINI_API_KEY w /root/.gemini/.env")
+    """Klucz szukany najpierw u biezacego uzytkownika, potem u roota — narzedzie dziala dla CALEJ zalogi."""
+    for sciezka in (os.path.expanduser("~/.gemini/.env"), "/root/.gemini/.env"):
+        if os.path.isfile(sciezka):
+            for linia in open(sciezka, encoding="utf-8"):
+                if linia.startswith("GEMINI_API_KEY="):
+                    return linia.split("=", 1)[1].strip()
+    raise SystemExit("BLAD: nie znalazlem GEMINI_API_KEY ani w ~/.gemini/.env ani w /root/.gemini/.env")
 
 
 def wyslij_plik(sciezka: str, k: str) -> str:
