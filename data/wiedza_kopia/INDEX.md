@@ -1,16 +1,17 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 15:54.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 19:20.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (23), od najswiezszego
+## Pliki wiedzy (24), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `IZABELA_KANON_0.1.md` | 29.07 | 3K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `START.md` | 29.07 | 6K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `KONEKTOR_DZIALKA.md` | 29.07 | 2K | KONEKTOR HA DZIAŁKA — NAPRAWIONY 29.07.2026 |
 | `START_SESJI_CLAUDE_CODE.md` | 29.07 | 2K | START SESJI CLAUDE CODE — co ładuje się automatycznie (29.07.2026) |
