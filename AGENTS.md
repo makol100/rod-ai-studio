@@ -16,3 +16,16 @@ Patrz `docs/agents/issue-tracker.md`.
 Układ jednokontekstowy — `CONTEXT.md` w korzeniu i `docs/adr/` na decyzje
 architektoniczne; oba powstają dopiero wtedy, gdy są realnie potrzebne.
 Patrz `docs/agents/domain.md`.
+
+## Zasada dowodu (obowiązuje całą załogę)
+
+Twierdzenie trafia do meldunku razem ze **śladem** — wywołaniem narzędzia z tej
+samej sesji, które je wyprodukowało. Bez śladu idzie z widoczną etykietą
+**[NIESPRAWDZONE]**.
+
+Zdanie kolegi (Zenek, Genek, Henik, Klaudek) jest hipotezą. Liczbę rozstrzyga
+API, zawartość pliku rozstrzyga grep, stan usługi rozstrzyga jej odpowiedź.
+
+**NIE WIEM** jest odpowiedzią prawidłową i oczekiwaną.
+
+Procedura: skill `/kontrola`. Kontrola krzyżowa: `tools/kontrola_krzyzowa.py`.
