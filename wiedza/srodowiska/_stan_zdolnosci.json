@@ -1,0 +1,10 @@
+{
+ "zenek.cli": true,
+ "genek.dysk_zapis": true,
+ "genek.klucz": true,
+ "henio.gateway": true,
+ "henio.zapis_repo": true,
+ "henio.oczy": true,
+ "henio.internet": true,
+ "bramka.petla": true
+}
