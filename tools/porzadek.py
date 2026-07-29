@@ -110,12 +110,22 @@ def sync_archiwum() -> int:
 
 
 def sync_kopia() -> tuple:
+    """Kopia CALEJ wiedzy dla dyzurnego, razem z podkatalogami (archiwum/)."""
     os.makedirs(KOPIA, exist_ok=True)
-    zrodlo = {p for p in os.listdir(WIEDZA) if p.endswith(".md")}
-    cel = {p for p in os.listdir(KOPIA) if p.endswith(".md")}
+    zrodlo = set()
+    for root, _, nazwy in os.walk(WIEDZA):
+        for n in nazwy:
+            if n.endswith(".md"):
+                zrodlo.add(os.path.relpath(os.path.join(root, n), WIEDZA))
+    cel = set()
+    for root, _, nazwy in os.walk(KOPIA):
+        for n in nazwy:
+            if n.endswith(".md") and "archiwum/TELEPORT" not in os.path.relpath(os.path.join(root, n), KOPIA):
+                cel.add(os.path.relpath(os.path.join(root, n), KOPIA))
     skopiowane = 0
     for p in zrodlo:
         a, b = os.path.join(WIEDZA, p), os.path.join(KOPIA, p)
+        os.makedirs(os.path.dirname(b), exist_ok=True)
         if not os.path.exists(b) or suma(a) != suma(b):
             shutil.copy2(a, b)
             skopiowane += 1
