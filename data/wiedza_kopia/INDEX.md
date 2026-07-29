@@ -1,16 +1,17 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 10:39.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 11:44.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (20), od najswiezszego
+## Pliki wiedzy (21), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `SETUP_CLAUDE_CODE.md` | 29.07 | 2K | SETUP CLAUDE CODE — poprawki z 29.07.2026 (film Eric Tech + pomiar) |
 | `START.md` | 29.07 | 5K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `CENA_BLEDOW.md` | 29.07 | 3K | CENA NASZYCH BŁĘDÓW — pomiar (29.07.2026) |
 | `PATROLE_HENIA.md` | 29.07 | 2K | PATROLE HENIA — działają od 29.07.2026 (przetestowane, dlatego zapisane) |
@@ -39,7 +40,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `/root/rod-ai-studio/TELEPORT_fabryka.md` | 127K | 26.07 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 42K | 19.07 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 5K | 29.07 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
-| `/root/.claude/CLAUDE.md` | 1K | 26.07 | konfiguracja Claude Code na VPS |
+| `/root/.claude/CLAUDE.md` | 1K | 29.07 | konfiguracja Claude Code na VPS |
 | `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 4K | 29.07 | podrecznik Henika (dyzurny) |
 
 ## Zasada
