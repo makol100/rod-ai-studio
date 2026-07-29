@@ -1,3 +1,5 @@
+> **NOWE OKNO? ZACZNIJ OD `wiedza/START.md`** — zasada nadrzędna, kolejność pracy, kto jest kim, jakie narzędzia.
+
 # AGENTS.md — rod-ai-studio
 
 Repozytorium fabryki rolek AI dla ROD im. Józefa Lompy w Woźnikach.
