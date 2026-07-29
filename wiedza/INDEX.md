@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 09:56.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 10:05.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `CENA_BLEDOW.md` | 29.07 | 2K | CENA NASZYCH BŁĘDÓW — pomiar (29.07.2026) |
+| `CENA_BLEDOW.md` | 29.07 | 3K | CENA NASZYCH BŁĘDÓW — pomiar (29.07.2026) |
 | `PATROLE_HENIA.md` | 29.07 | 2K | PATROLE HENIA — działają od 29.07.2026 (przetestowane, dlatego zapisane) |
 | `START.md` | 29.07 | 5K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `FILM_OPUS5_WNIOSEK.md` | 29.07 | 3K | FILM „Ten film w 100% wykonał Claude Opus 5" — wniosek załogi (29.07.2026) |

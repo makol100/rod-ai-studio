@@ -17,7 +17,14 @@ z cytatem i nazwą pliku. Klaudek przepuścił jego raport przez `tools/bramka_h
 | Awatar | 4.64 | duplikat Avatar PRO — brak sprawdzenia `tmux ls` + mtimes przed płatnym submitem |
 | Awatar | 4.64 | Avatar PRO odrzucony — prompt karty bez wymogu kontaktu wzrokowego |
 | Awatar | 0.20 | LatentSync zamiast modelu avatarowego — wybór po cenie zamiast po zamówieniu |
-| **RAZEM** | **21.26** | |
+| #10010 | 0.30 | k02 v2 i v3 odrzucone — model uciekał od chwytu, poprawiany prompt zamiast metody „change only" (znalazł GENEK) |
+| #10010 | 0.30 | k04_b i k06_b odrzucone — **VLM OSTRZEGAŁ i ostrzeżenie zignorowano**, koszt 3.49 → 3.79 (znalazł ZENEK) |
+| **RAZEM** | **21.86** | |
+
+AKTUALIZACJA po naradzie całej czwórki (29.07): pierwsza wersja tego zapisu miała 7 pozycji i sumę 21.26.
+Zenek i Genek — każdy niezależnie — znaleźli po jednej BRAKUJĄCEJ pozycji po 0.30 USD (różne zdarzenia,
+oba potwierdzone cytatem w DECYZJE_10010.md). Suma po korekcie: **21.86 USD**.
+To jest dowód, po co jest cała czwórka: Henio + Klaudek dali 21.26, dopiero pełny skład domknął rachunek.
 
 Dla skali: odcinek #10009 kosztował realnie ~13.17 USD, z czego **~10.88 to podatek od naszych błędów**.
 Bez nich mieściłby się w limicie 12 USD z zapasem.
@@ -37,3 +44,8 @@ to nie powtarzanie własnych pomyłek.
    Dopisana kontrola arytmetyki tabel. Pierwsza wersja liczyła wszystkie kwoty w dokumencie (także
    te wewnątrz cytatów) i dawała bzdurę 124.75 — zawężona do wierszy tabeli i przetestowana trzy razy:
    łapie błąd Henia, przepuszcza poprawną odpowiedź, nie robi fałszywego alarmu na poprawnej tabeli.
+
+## NAJDROŻSZA LEKCJA Z TEGO RACHUNKU
+Przy k04_b/k06_b bramka wizyjna **OSTRZEGAŁA** („nogi nie zwisają w dół") i ostrzeżenie zostało
+zignorowane, bo pytania do niej były naprowadzające zamiast otwartych. Strażnik zadziałał — zawiódł
+człowiek przy nim. To najdroższy wzorzec w całym zestawieniu: nie brak kontroli, tylko jej lekceważenie.
