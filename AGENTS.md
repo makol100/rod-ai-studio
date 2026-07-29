@@ -47,3 +47,33 @@ Brak trafień znaczy: fabryka NIE MA o tym zapisu. Wtedy odpowiedź brzmi NIE WI
 a nie domysł.
 
 Henik czyta tę samą wiedzę w swoim oknie: /home/hermes/fabryka/data/wiedza_kopia/
+
+## Próg wejścia do wiedzy (dekret Tomasza, 29.07.2026)
+
+> „Jeżeli coś nie zadziała i będziemy to dalej poprawiać — NIE wpisujemy tego, pilnujemy się.
+> Jeżeli coś naprawdę zadziała i będzie dobre — wtedy to zapisujemy i mamy podstawę do czytania."
+
+Dwa miejsca, dwa różne progi:
+
+- **`.scratch/<temat>/`** — robota w toku: próby, hipotezy, plany, wersje, wszystko co jeszcze
+  nie udowodniło, że działa. Tu wolno wszystko. Tego nikt nie czyta jak prawdy.
+- **`wiedza/`** — PODSTAWA DO CZYTANIA. Wchodzi wyłącznie to, co zostało URUCHOMIONE
+  i ZADZIAŁAŁO. Każdy wpis niesie: co zrobiono, czym to sprawdzono, jaki był wynik.
+
+Odrzucone, wycofane i niedokończone pomysły nie zostają w `wiedza/` jako fundament —
+idą do `.scratch/` albo dostają nagłówek `STATUS: WYCOFANE` z datą i powodem.
+
+**Odpowiedzialny za zapis: Klaudek.** On decyduje, kiedy coś przekroczyło próg i wpisuje to
+z dowodem. Zenek, Genek i Henik zgłaszają mu ustalenia — nie piszą do `wiedza/` sami.
+
+## Dostęp do historii — bez ograniczeń dla całej załogi
+
+Nikt nie zaczyna od zera. Przed analizą i przed dyskusją każdy czyta:
+
+- `wiedza/INDEX.md` — spis całości, generowany z dysku
+- `python3 tools/szukaj.py <slowo>` — przeszukuje wiedzę, dokumentację, skille ORAZ oba teleporty
+- Henik ma to samo w swoim oknie: `/home/hermes/fabryka/data/wiedza_kopia/`
+  (wiedza + `archiwum/` z teleportami)
+- Genek nie ma dostępu do dysku — kto go pyta, ten dokłada mu surowy materiał do zlecenia
+
+Kolejność jest zawsze ta sama: **odczytać → ustawić się → przeanalizować → dopiero dyskusja.**

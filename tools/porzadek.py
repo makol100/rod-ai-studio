@@ -94,6 +94,21 @@ def suma(sciezka: str) -> str:
     return h.hexdigest()
 
 
+def sync_archiwum() -> int:
+    """Teleporty (archiwum historyczne) do okna dyzurnego — ma widziec CALA historie."""
+    cel = os.path.join(KOPIA, "archiwum")
+    os.makedirs(cel, exist_ok=True)
+    ile = 0
+    for zrodlo in (os.path.join(REPO, "TELEPORT_fabryka.md"), "/root/TELEPORT_HA.md"):
+        if not os.path.isfile(zrodlo):
+            continue
+        b = os.path.join(cel, os.path.basename(zrodlo))
+        if not os.path.exists(b) or suma(zrodlo) != suma(b):
+            shutil.copy2(zrodlo, b)
+            ile += 1
+    return ile
+
+
 def sync_kopia() -> tuple:
     os.makedirs(KOPIA, exist_ok=True)
     zrodlo = {p for p in os.listdir(WIEDZA) if p.endswith(".md")}
@@ -114,9 +129,11 @@ def main() -> int:
     cicho = "--cicho" in sys.argv
     ile = buduj_index()
     nowe, usuniete = sync_kopia()
+    arch = sync_archiwum()
     if not cicho:
         print(f"INDEX.md przebudowany: {ile} plikow wiedzy")
         print(f"kopia dyzurnego: {nowe} zaktualizowanych, {usuniete} osieroconych usunietych")
+        print(f"archiwum (teleporty) dla dyzurnego: {arch} zaktualizowanych")
         print("\nMAGAZYNY:")
         for sciezka, rola in MAGAZYNY:
             if os.path.isfile(sciezka):
