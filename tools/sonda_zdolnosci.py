@@ -76,6 +76,12 @@ def sonda() -> dict:
     wynik["henio.internet"] = {"dziala": os.path.isfile(os.path.join(REPO, "tools/szukaj_net.py")),
                                "slad": "tools/szukaj_net.py"}
 
+    # TELEFON — apka Android Remote Control bywa ubijana przez Androida (29.07: martwa, gdy byla potrzebna)
+    ok, opis = polecenie(
+        "curl -s -o /dev/null -w '%{http_code}' -m 10 http://100.101.116.106:8080/ || true", limit=25)
+    wynik["telefon.apka"] = {"dziala": opis.strip() not in ("000", "", "502"),
+                             "slad": f"http://100.101.116.106:8080 -> {opis.strip() or 'brak odpowiedzi'}"}
+
     # WSPOLNE — bramka i jej petla testowa
     ok, opis = polecenie(f"cd {REPO} && python3 tools/test_bramki.py 2>&1 | tail -1", limit=180)
     wynik["bramka.petla"] = {"dziala": ok and "0 czerwonych" in opis, "slad": opis[:100]}
