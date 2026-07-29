@@ -1,16 +1,17 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 08:41.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 08:54.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (17), od najswiezszego
+## Pliki wiedzy (18), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `FILM_OPUS5_WNIOSEK.md` | 29.07 | 3K | FILM „Ten film w 100% wykonał Claude Opus 5" — wniosek załogi (29.07.2026) |
 | `START.md` | 29.07 | 5K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `TEST_ZALOGI_29_07.md` | 29.07 | 2K | TEST ZAŁOGI — 29.07.2026 (polecenie Tomasza: „Zrobić test. Wszyscy!!!") |
 | `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
