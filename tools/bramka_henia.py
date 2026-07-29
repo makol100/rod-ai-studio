@@ -92,6 +92,36 @@ def sprawdz(element: str, zrodlo_plaskie: str) -> bool:
     return plaski(element) in zrodlo_plaskie
 
 
+def sprawdz_sume(odpowiedz: str) -> list:
+    """Sprawdza arytmetyke TYLKO w tabeli markdown: wiersze skladnikow vs wiersz SUMA.
+    Powod (29.07): Henio poprawnie wyciagnal 7 pozycji strat, ale zsumowal je zle
+    (zadeklarowal 18.76 przy skladnikach dajacych 21.26). Pierwsza wersja tego sprawdzenia
+    liczyla wszystkie kwoty w dokumencie (takze te w cytatach) i dawala bzdury — zawezona do tabeli."""
+    problemy = []
+    skladniki, sumy = [], []
+    for linia in odpowiedz.split("\n"):
+        if not linia.strip().startswith("|"):
+            continue
+        kwoty = [float(x.replace(",", ".")) for x in re.findall(r"\$\s?(\d+[.,]\d{2})\b", linia)]
+        if not kwoty:
+            continue
+        czy_suma = re.search(r"\b(SUMA|RAZEM|LACZNIE|ŁĄCZNIE)\b", linia, re.IGNORECASE)
+        czy_pominac = "*" in linia and not czy_suma
+        if czy_suma:
+            sumy.extend(kwoty)
+        elif not czy_pominac:
+            skladniki.extend(kwoty)
+    if not sumy or len(skladniki) < 2:
+        return problemy
+    razem = round(sum(skladniki), 2)
+    for deklarowana in sorted(set(sumy)):
+        if abs(deklarowana - razem) > 0.02:
+            problemy.append(
+                f"SUMA W TABELI SIE NIE ZGADZA: zadeklarowano {deklarowana:.2f}, "
+                f"{len(skladniki)} skladnikow daje {razem:.2f} (roznica {abs(deklarowana - razem):.2f})")
+    return problemy
+
+
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--odpowiedz", required=True)
@@ -138,7 +168,15 @@ def main() -> int:
         if len(zle) > 15:
             print(f"    ... i jeszcze {len(zle) - 15}")
 
-    razem = sum(len(v) for v in braki.values())
+    problemy_sumy = sprawdz_sume(odpowiedz)
+    if problemy_sumy:
+        print("ARYTMETYKA:")
+        for x in problemy_sumy:
+            print(f"    !!! {x}")
+    else:
+        print("ARYTMETYKA: sumy zgodne albo brak sumy do sprawdzenia")
+
+    razem = sum(len(v) for v in braki.values()) + len(problemy_sumy)
     print()
     if razem > a.prog:
         print(f"WERDYKT: BLOKADA — {razem} rzeczy przypisanych zrodlu, ktorych w nim NIE MA.")
