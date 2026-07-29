@@ -42,7 +42,7 @@ Na KAŻDE zadanie, nie tylko na trudne:
 | **Tomasz** | decyduje o wszystkim | — | jego najnowsze słowo przebija każdy dokument |
 | **Klaudek** (Claude) | czytanie źródeł, synteza, ręce na narzędziach | nie odtwarza wideo ani audio; istnieje tylko w sesji | prowadzi robotę, ODPOWIADA ZA ZAPIS do `wiedza/` |
 | **Zenek** (Codex) | rozumowanie, kod, kontrola wniosków | sam nie widzi ani nie slyszy — wola `tools/oczy_uszy.py` | kontrola rozumowania, praca w repo |
-| **Genek** (Gemini) | OCZY — obraz, wideo, klatki | nie ma dysku, ale narzedzia dokladaja mu material i zapisuja wynik za niego | pytania „co widać", bramka wizyjna |
+| **Genek** (Gemini) | OCZY I USZY + od 29.07 WLASNY DOSTEP DO DYSKU przez `tools/genek.py` | limity Google (503/quota) — wtedy tryb awaryjny z doklejonym materialem, jawnie oznaczony | pytania „co widać/słychać", weryfikacja plikow, bramka wizyjna |
 | **Henik** | 24/7, grosze, INTERNET + przegladarka + kod + wizja + sudo + docker; pelny zapis w repo | zadanie otwarte bez wymogu sladu bywa ryzykowne — jak u kazdego | PELNY CZLONEK DRUZYNY: analizuje, wnioskuje, szuka w sieci, audytuje meldunki Klaudka |
 
 Klaudek **nie jest nad załogą, jest w niej** — jego meldunek podlega tej samej kontroli.

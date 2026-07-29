@@ -58,28 +58,19 @@ def zenek(zadanie: str, _material: str, wynik: dict) -> None:
 
 
 def genek(zadanie: str, material: str, wynik: dict) -> None:
+    """Genek przez tools/genek.py — ma WLASNY dostep do dysku (CLI), material tylko na wypadek awarii."""
+    sciezka = "/tmp/_zaloga_zadanie_genek.txt"
     try:
-        klucz = next(l.split("=", 1)[1].strip() for l in open("/root/.gemini/.env")
-                     if l.startswith("GEMINI_API_KEY="))
-    except Exception as e:
-        wynik["genek"] = f"GLOS NIEODEBRANY (brak klucza: {e})"
-        return
-    tresc = zadanie + STOPKA
-    if material:
-        tresc += "\n\n=== MATERIAL ZRODLOWY (dolaczony, bo nie masz dostepu do dysku) ===\n" + material
-    body = json.dumps({
-        "contents": [{"parts": [{"text": tresc}]}],
-        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 2000,
-                             "thinkingConfig": {"thinkingBudget": 0}},
-    }).encode()
-    req = urllib.request.Request(
-        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={klucz}",
-        data=body, headers={"Content-Type": "application/json"})
-    try:
-        r = json.loads(urllib.request.urlopen(req, timeout=400).read())
-        c = r["candidates"][0]
-        tekst = "".join(p.get("text", "") for p in c.get("content", {}).get("parts", []))
-        wynik["genek"] = tekst.strip() or "GLOS NIEODEBRANY (pusta odpowiedz)"
+        with open(sciezka, "w", encoding="utf-8") as f:
+            f.write(zadanie + STOPKA)
+        polecenie = [sys.executable, os.path.join(REPO, "tools", "genek.py"), "--plik", sciezka, "--limit", "260"]
+        if material:
+            mat = "/tmp/_zaloga_material_genek.txt"
+            with open(mat, "w", encoding="utf-8") as f:
+                f.write(material)
+            polecenie += ["--material", mat]
+        w = subprocess.run(polecenie, cwd=REPO, capture_output=True, text=True, timeout=600)
+        wynik["genek"] = (w.stdout or w.stderr).strip() or "GLOS NIEODEBRANY (pusta odpowiedz)"
     except Exception as e:
         wynik["genek"] = f"GLOS NIEODEBRANY ({e})"
 
