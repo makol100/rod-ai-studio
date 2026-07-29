@@ -48,3 +48,11 @@ KOREKTA WŁASNEGO POMIARU KLAUDKA: we wcześniejszym dowodzie napisałem "RuView
 To NIE jest awaria narzędzia ani ślepota na plik. Henik czyta precyzyjnie i liczy poprawnie, GDY zadanie jest wąskie i ma odpowiedź sprawdzalną mechanicznie. Rozsypuje się, gdy dostaje zadanie otwarte ("przeczytaj 28 tys. znaków i wydaj własny werdykt") — wtedy zamiast przyznać, że nie udźwignął, produkuje prawdopodobnie brzmiącą treść.
 To samo tłumaczy sukces z 28.07 (wyciągnięcie historii kaskady z manifestu = zadanie wąskie i faktograficzne) obok dzisiejszej klęski.
 ODPOWIEDZIALNOŚĆ ZA DZISIEJSZE: fabrykacja jest winą Henika, ale przydział zadania był winą Klaudka — analityczna robota poszła do zbieracza surowca.
+
+## WYKONANE 29.07 (decyzja Tomasza: "Działać jak ustaliliście")
+1. **Rola Henika zawężona** — do PODRECZNIK_DYZURNEGO.md dopisany §9 "ZBIERACZ SUROWCA, NIE ANALITYK": wyciąga fakty (cytat + liczba + ścieżka), nie wydaje werdyktów na długich tekstach, a przy jakiejkolwiek niepewności odpowiada dokładnie "NIE MOGĘ ODCZYTAĆ" lub "NIE WIEM" — to odpowiedź prawidłowa i oczekiwana. Zapisana zasada: deklaracja "przeczytałem całość" nie jest dowodem, dowodem jest cytat i liczba.
+2. **Pilotaż read-only zostaje** (do ~11.08) — dziś potwierdził swoją wartość jako zabezpieczenie.
+3. **Zainstalowane skille** w /root/.claude/skills/ (kopie edytowalne, bez automatycznych aktualizacji z sieci — świadomie odrzucono wariant "claude plugins install", żeby dokumenty sterujące stanowiskiem nie zmieniały się bez słowa Tomasza):
+   research, diagnosing-bugs, code-review, setup-matt-pocock-skills, handoff, writing-great-skills, i-have-adhd (+ istniejący route) = 8 katalogów.
+   Zależności sprawdzone przed instalacją: code-review WYMAGA setup-matt-pocock-skills (szuka docs/agents/issue-tracker.md) — dlatego dołożony; odwołanie diagnosing-bugs do improve-codebase-architecture jest tylko opcjonalną podpowiedzią po naprawie, nie zależnością.
+   Weryfikacja: wszystkie mają poprawne frontmattery (name:), a `claude --help` potwierdza, że skille są dostępne przez /nazwa-skilla.
