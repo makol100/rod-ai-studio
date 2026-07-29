@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 06:52.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 06:55.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -9,6 +9,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `NAUKI.md` | 29.07 | 12K | NAUKI — lekcje z produkcji (destylat) |
 | `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
 | `POMIAR_WD0001_KASKADA.md` | 29.07 | 1K | POMIAR KASKADY WD_0001 v1→v6 (29.07.2026) — przyrząd, nie opowieść |
 | `LEKCJA_0009_henik_konfabulacja.md` | 29.07 | 10K | LEKCJA 0009 — HENIK SFABRYKOWAŁ CAŁĄ ANALIZĘ (29.07.2026) |
@@ -32,7 +33,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `DECYZJE_SERIA_HUMOR.md` | 25.07 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
 | `KANON_10009.md` | 25.07 | 2K | KANON odcinka #10009 — "Działkowy czarny rynek (Wymiana nawozu)" |
 | `DECYZJE_000098.md` | 25.07 | 2K | DECYZJE — rolka foto #000098 (stacja pogodowa) |
-| `NAUKI.md` | 23.07 | 12K | NAUKI — lekcje z produkcji (destylat) |
 | `PROMPTY_WZORCE.md` | 23.07 | 3K | BANK PROMPTÓW-ZWYCIĘZCÓW — seria Tomek i Janusz (DROGA HUMOR) |
 | `DECYZJE_10008_kontrola.md` | 23.07 | 2K | DECYZJE — #10008 "Kontrola zza płotu" |
 | `DROGA_ROLKA_HUMOR.md` | 23.07 | 14K | DROGA ROLKA HUMOR 3.5 |

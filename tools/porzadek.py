@@ -9,6 +9,7 @@ Co robi (idempotentnie, mozna puszczac po kazdej zmianie):
 
 Uzycie: python3 tools/porzadek.py [--cicho]
 """
+import hashlib
 import os
 import shutil
 import subprocess
@@ -85,6 +86,14 @@ def buduj_index() -> int:
     return len(pliki)
 
 
+def suma(sciezka: str) -> str:
+    h = hashlib.sha256()
+    with open(sciezka, "rb") as f:
+        for kawalek in iter(lambda: f.read(65536), b""):
+            h.update(kawalek)
+    return h.hexdigest()
+
+
 def sync_kopia() -> tuple:
     os.makedirs(KOPIA, exist_ok=True)
     zrodlo = {p for p in os.listdir(WIEDZA) if p.endswith(".md")}
@@ -92,7 +101,7 @@ def sync_kopia() -> tuple:
     skopiowane = 0
     for p in zrodlo:
         a, b = os.path.join(WIEDZA, p), os.path.join(KOPIA, p)
-        if not os.path.exists(b) or os.path.getmtime(a) > os.path.getmtime(b):
+        if not os.path.exists(b) or suma(a) != suma(b):
             shutil.copy2(a, b)
             skopiowane += 1
     osierocone = cel - zrodlo

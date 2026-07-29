@@ -157,3 +157,4 @@ sieciowym NIE zakladac dzialajacej klawiatury — automat embedded pewniejszy.
 ## 23.07 audyt startu vs Google Veo blog: 5 punktow rozwazonych, WSZYSTKIE odrzucone. "Nic nie wchodzi. Nic nie poprawia w 100% a moze pogorszyc. Mamy wiedze co mozna poprawic jakby cos sie wydarzylo." Szczegoly w pamieci trwalej /areas/fabryka-rolek.md. Droga bez zmian, w dwoch miejscach (domenowe swiatlo, jeden mowca) madrzejsza od poradnika bo oparta na pomiarach. Nie ruszac bez zmierzonego problemu.
 
 - 23.07 USTERKA kanarka do naprawy: --zapis-bank pada w kontenerze (FileNotFoundError /root/rod-ai-studio/wiedza/PROMPTY_WZORCE.md), bo kontener fabryka-api NIE widzi katalogu wiedza/ (repo montowane jako /app, wiedza tylko na hoscie). Obejscie: zwyciezce dopisywac do banku Z HOSTA. Do naprawy: kanarek powinien zapisywac przez sciezke widoczna w kontenerze albo publikacja/zapis-bank ma isc z hosta.
+- test hooka 06:55:24
