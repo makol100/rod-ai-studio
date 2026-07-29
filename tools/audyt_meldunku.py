@@ -31,7 +31,7 @@ Twoje zadanie: znalezc w nim twierdzenia, ktore NIE MAJA POKRYCIA.
 
 Dla kazdej liczby, nazwy wlasnej, sciezki pliku i twierdzenia o stanie ("dziala", "zainstalowane",
 "zweryfikowane") wypisz linijke:
-  <twierdzenie> -> POTWIERDZONE (skad) | OBALONE (czym) | BRAK SLADU
+  <twierdzenie> -> POTWIERDZONE (skad) | OBALONE (czym) | BRAK SLADU (= usunac z meldunku)
 
 Na koncu jedno slowo: PRZEPUSCIC albo POPRAWIC.
 
