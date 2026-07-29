@@ -56,3 +56,30 @@ ODPOWIEDZIALNOŚĆ ZA DZISIEJSZE: fabrykacja jest winą Henika, ale przydział z
    research, diagnosing-bugs, code-review, setup-matt-pocock-skills, handoff, writing-great-skills, i-have-adhd (+ istniejący route) = 8 katalogów.
    Zależności sprawdzone przed instalacją: code-review WYMAGA setup-matt-pocock-skills (szuka docs/agents/issue-tracker.md) — dlatego dołożony; odwołanie diagnosing-bugs do improve-codebase-architecture jest tylko opcjonalną podpowiedzią po naprawie, nie zależnością.
    Weryfikacja: wszystkie mają poprawne frontmattery (name:), a `claude --help` potwierdza, że skille są dostępne przez /nazwa-skilla.
+
+## SPROSTOWANIE 29.07 — TO NIE FILM ZAWYŻAŁ LICZBY, TYLKO MY JE ZMYŚLALIŚMY
+Po deklaracji Tomasza "Dążymy do jak najmniejszej ilości pomyłek" Klaudek sprawdził gwiazdki przez GitHub API (jedyne wiarygodne źródło). Wynik obala wcześniejszy zarzut wobec filmu:
+
+| repo | film | Zenek/Klaudek (wcześniej) | GitHub API 29.07 | kto miał rację |
+|---|---|---|---|---|
+| stablyai/orca | ~30 000 | Zenek: ~3 800 | **32 041** | FILM |
+| earendil-works/pi | ~79 000 | Zenek: ~62 600 | **79 903** | FILM |
+| ruvnet/RuView | 86 000 | Klaudek: 74 900 | **87 354** | FILM |
+| oblien/openship | 8 800 | Klaudek: ~3 000 | **9 517** | FILM |
+| tirth8205/code-review-graph | 26 000 | — | **27 422** | FILM |
+| ayghri/i-have-adhd | 11 000 | — | **12 991** | FILM |
+| koala73/worldmonitor | 75 000 | Klaudek: 65 000 | **76 085** | FILM |
+| diegosouzapw/OmniRoute | ~31 000 | — | **33 415** | FILM |
+
+WNIOSKI:
+1. **Zenek — "sędzia faktów" — podał liczby fałszywe** (Orca 3,8 tys. zamiast 32 tys.; Pi 62,6 tys. zamiast 79,9 tys.) i zbudował na nich zarzut "film zawyża o rząd wielkości". Pewny ton nie jest dowodem. Awans na sędziego faktów po jednej sesji był przedwczesny.
+2. **Klaudek powtórzył jego liczby Tomaszowi jako dowód, sam ich nie sprawdziwszy.** To błąd cięższy niż pomyłka Zenka, bo to Klaudek meldował.
+3. **Wszystkie liczby Klaudka z web_search też były błędne** (RuView, openship, worldmonitor). Poprawne były wyłącznie te dwie, które wcześniej pobrał przez API (mattpocock/skills 193 322, ai-agent-book 25 055).
+4. CO POZOSTAJE PRAWDĄ o filmie (zweryfikowane z KODU, nie z opisów): i-have-adhd to markdown, nie "skill w Pythonie", i ma 10 reguł, nie 4. Reszta zarzutów wymaga ponownej weryfikacji u źródła, zanim ktokolwiek ją powtórzy.
+
+## ZASADY ANTYBŁĘDOWE (na polecenie Tomasza "Dążymy do jak najmniejszej ilości pomyłek")
+1. **Każda liczba w meldunku pochodzi z wywołania narzędzia w TEJ SAMEJ turze** (API, grep, wc, log). Liczba z pamięci, z opisu w sieci albo sprzed tygodnia — nie pada wcale.
+2. **Głos członka załogi to hipoteza, nie dowód.** Dotyczy Zenka, Genka i Henika tak samo. Cytuję dopiero po sprawdzeniu u źródła albo oznaczam wprost: "niesprawdzone".
+3. **Sprawdzać narzędzie pomiaru, nie tylko wynik.** Dziś dwa razy zawiodło samo narzędzie: `grep -c` liczy linie (plik jednoliniowy → "1" zamiast 6), `pgrep -f` łapie własne polecenie (dwa fałszywe "jeszcze pracuje").
+4. **"NIE WIEM" jest odpowiedzią prawidłową dla całej załogi**, nie tylko dla Henika w §9.
+5. **Zadanie dopasowane do wykonawcy**: Henik = surowiec z dowodem, Genek = obraz, Zenek = rozumowanie i kod (NIE ostateczny sędzia liczb — liczby rozstrzyga API), Klaudek = czytanie źródeł i synteza.
