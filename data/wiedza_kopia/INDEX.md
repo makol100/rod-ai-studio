@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 07:07.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 29.07.2026 07:15.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -9,9 +9,9 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
 | `STANISLAW_CANON_1.0.md` | 29.07 | 5K | STANISLAW_CANON_1.0 — BIBLIA PANA STANISŁAWA |
 | `NAUKI.md` | 29.07 | 12K | NAUKI — lekcje z produkcji (destylat) |
-| `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
 | `DECYZJE_0007_bramka_oka.md` | 28.07 | 1K | DECYZJA 0007 — BRAMKA OKA fail-closed (28.07.2026, dekret Tomasza "Naprawiać") |
 | `NAUKI_SERII.md` | 28.07 | 20K | 2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE oper |
 | `LISTA_PRACOWNIKOW.md` | 28.07 | 2K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |

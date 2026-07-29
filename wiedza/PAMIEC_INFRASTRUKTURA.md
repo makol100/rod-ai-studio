@@ -90,7 +90,7 @@ Ten plik jest kopią pamięci Klaudka na dysk, żeby CAŁA załoga (Zenek, Genek
 - Modernizacja sieci: Etap 3 = indywidualne przyłącza Tauron przez ZK 1/2/3
 - Mapa fundamentowa `MAPA_FUNDAMENT.py` z operatu geodezyjnego = źródło prawdy, przebija satelitę i domysły. Generator w tools/mapa_rod/
 - Układ: 51 działek + Działka 0 (dom działkowca), 3 alejki, numeracja wężem 1→51
-- ZK 1 = alejka południowa (działki 1-18, 18 m). ZK 2 = środkowa (19-33, 15 m; zachodni koniec zaczyna blok 2-kolumnowy domu działkowca + parking 1). ZK 3 = północna (34-51, oznaczona PLAN — kable jeszcze nie zakopane)
+- ZK 1 = alejka południowa (działki 1-18, 18 liczników). ZK 2 = środkowa (19-33, 15 liczników; zachodni koniec zaczyna blok 2-kolumnowy domu działkowca + parking 1). ZK 3 = północna (34-51, oznaczona PLAN — kable jeszcze nie zakopane)
 - Etap 2: 7 odciętych działek (1, 2, 3, 4, 16, 17, 18)
 - Tomaszowi pokazywać TYLKO pliki JPG map; SVG zostaje do edycji
 - Ramy prawne: ROD jest odbiorcą końcowym dzielącym koszty (refaktury), nie dystrybutorem (Prawo energetyczne art. 32); zero marży ROD, opłata energetyczna pokrywa straty przesyłowe
