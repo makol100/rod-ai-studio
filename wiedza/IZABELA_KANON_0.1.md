@@ -145,6 +145,41 @@ bez potrzeby narzędzi technicznych. Wdrażający nie może polegać tylko na oz
 Treść napisu: **IZABELA — PREZENTERKA WYGENEROWANA PRZEZ AI**
 Napis nakłada MONTAŻ, nie generator obrazu (generatory psują tekst).
 
+## OŻYWIENIE — KANON: OmniHuman 1.5 (decyzja Tomasza 30.07)
+
+Model: **`fal-ai/bytedance/omnihuman/v1.5`** przez fal.ai.
+Cena zmierzona: **~0,17 USD za sekundę** (2 filmy po 5 s = 1,73 USD; saldo 9,70 → 7,97).
+UWAGA na rozliczenie opóźnione: pierwszy test pokazywał 0,0087 USD, prawdziwy koszt doszedł później.
+Nie ogłaszać ceny, dopóki saldo się nie ustabilizuje.
+
+**Parametry, które mają znaczenie** (schemat z fal):
+- `prompt` — OPIS RUCHU. Bez niego model robi minimum: rusza się sama twarz, ramiona stoją.
+  Z opisem ruchu dostajemy oddech, ruch tułowia i ramion. To była różnica między pierwszą a drugą próbą.
+- `resolution` — domyślnie 1080p. **Audio musi być krótsze niż 30 s dla 1080p.**
+- `turbo_mode` — szybciej kosztem jakości; NIE używać.
+
+**Zmierzone na drugiej próbie (bramka oka):** mruga, głowa się porusza, ruch brwi i policzków,
+ramiona i tułów się poruszają, wygląda żywo, tło/logo/napis nietknięte.
+
+### ZNANE OGRANICZENIE: polska artykulacja
+Tomasz: „Izabela mówi pięknie wyraźnie. Te usta nie pasują."
+Zbieżna diagnoza Zenka i Henia, każdy inną drogą, ze źródłami:
+- polskie kontrasty rozgrywają się GŁÓWNIE WEWNĄTRZ jamy ustnej (język, podniebienie) — model może
+  otwierać usta estetycznie, a mimo to pokazywać błędną artykulację; pojedyncza klatka tego nie wykryje
+- polski ma trzy serie szumiące (`s/z/c`, `ś/ź/ć`, `sz/ż/cz`) — tabela Amazon Polly rozdziela je na trzy
+  wizemy, model uczony na angielskim ma dla nich jeden
+- nosowe `ą`/`ę` nie mają fonemicznego odpowiednika w angielskim
+- Henio z obejrzenia filmu: „wargi zaokrąglone" = pozycja domyślna angielska; polski wymaga częściej
+  układu PŁASKIEGO (nosowe, miękkie) i WYSUNIĘCIA warg (szumiące)
+- polski zestaw wizemów istnieje TYLKO w pracach naukowych (Janicki i in. 2010, Lorenc 2015);
+  narzędzia komercyjne mapują na 14-15 wizemów MPEG-4 opartych na fonetyce angielskiej
+- HeyGen jako JEDYNY wymienia polski wprost w synchronizacji ust; Kling deklaruje chiński, angielski,
+  japoński, koreański, hiszpański — bez polskiego; OmniHuman nie podaje listy języków
+
+**Decyzja Tomasza mimo tego ograniczenia: zostajemy przy OmniHuman.**
+Nie próbować naprawiać tego promptem — Zenek sprawdził, nie ma udokumentowanego parametru artykulacji.
+Niesprawdzona przesłanka warta jednej próby: audio wolniejsze o 5-10%.
+
 ## CO ZOSTAŁO DO ZROBIENIA (stan 30.07 wieczorem)
 
 Postać, głos i studio są ZAMKNIĘTE. Otwarte jest to, co dzieje się DALEJ:
