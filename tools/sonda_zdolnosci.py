@@ -23,12 +23,30 @@ import subprocess
 import sys
 import time
 
+_MODEL_GENKA = None
 REPO = "/root/rod-ai-studio"
 STAN = os.path.join(REPO, "wiedza/srodowiska/_stan_zdolnosci.json")
 
 
 PRZEJSCIOWE = ("503", "429", "overloaded", "rate limit", "quota", "unavailable",
                "timed out", "przekroczony czas", "temporarily")
+
+
+def model_genka() -> str:
+    """Zwraca pierwszy model z kolejki Genka, ktory FAKTYCZNIE odpowiada.
+    Dekret Tomasza 30.07: "Genek ma zostac na najwyzszym WOLNYM dla nas modelu zawsze"."""
+    global _MODEL_GENKA
+    if _MODEL_GENKA is not None:
+        return _MODEL_GENKA
+    for m in ("gemini-3.1-pro-preview", "gemini-3.6-flash"):  # 3.5-flash usuniety: brak w wiedzy (Zenek)
+        _, o = polecenie(
+            f"timeout 80 env GEMINI_CLI_TRUST_WORKSPACE=true gemini --yolo -m {m} "
+            f"-p 'Napisz OK' 2>&1 | grep -oE 'OK|503|429' | head -1", limit=110)
+        if "OK" in o:
+            _MODEL_GENKA = m
+            return m
+    _MODEL_GENKA = ""
+    return ""
 
 
 def czy_przejsciowy(opis: str) -> bool:
@@ -75,9 +93,12 @@ def sonda() -> dict:
 
     # GENEK — czy CLI czyta dysk i czy potrafi ZAPISAC (to bylo cicho stracone).
     # Trzy podejscia: 503/429 od Google to czkawka, nie utrata zdolnosci.
+    _stary = os.path.join(REPO, ".scratch/_sonda.txt")
+    if os.path.exists(_stary):       # Zenek: pozostalosc po przerwanym przebiegu dawala FALSZYWE TAK
+        os.remove(_stary)
     for _ in range(3):
         ok, opis = polecenie(
-        f"cd {REPO} && GEMINI_CLI_TRUST_WORKSPACE=true timeout 120 gemini --yolo -m gemini-3.1-pro-preview -p "
+        f"cd {REPO} && GEMINI_CLI_TRUST_WORKSPACE=true timeout 120 gemini --yolo -m {model_genka() or 'gemini-3.6-flash'} -p "
             "'Utworz plik .scratch/_sonda.txt z trescia OK, potem odczytaj go i napisz TYLKO jego zawartosc.' "
             "2>&1 | tail -3", limit=150)
         if os.path.isfile(os.path.join(REPO, ".scratch/_sonda.txt")):
@@ -94,13 +115,19 @@ def sonda() -> dict:
     if zapisal:
         os.remove(plik)
 
-    # GENEK — czy jego USTALONY model (3.1-pro) odpowiada. Nawrot 503 ma wyjsc rano, nie w robocie.
-    ok, opis = polecenie(
-        f"cd {REPO} && timeout 120 env GEMINI_CLI_TRUST_WORKSPACE=true gemini --yolo "
-        "-m gemini-3.1-pro-preview -p 'Napisz jedno slowo: OK' 2>&1 | grep -oE 'OK|503' | head -1",
-        limit=150)
-    wynik["genek.model_pro"] = {"dziala": "OK" in opis and "503" not in opis,
-                                "slad": f"gemini-3.1-pro-preview -> {opis.strip() or 'brak odpowiedzi'}"}
+    # GENEK — czy KTORYKOLWIEK model z kolejki odpowiada (dekret Tomasza 30.07: "najwyzszy WOLNY").
+    # Sztywne pytanie o 3.1-pro blokowalo cala zaloge, gdy wyczerpal sie jego dobowy limit 250 zapytan,
+    # mimo ze 3.6-flash byl wolny i czytal dysk.
+    m_dostepny = model_genka()
+    # Zenek: wzorzec zapisywal tylko "dziala", wiec zejscie pro->flash NIE bylo zmiana stanu.
+    # Teraz nazwa modelu jest czescia stanu — zejscie zobaczysz w porannym meldunku.
+    # Dekret Tomasza: "najwyzszy WOLNY dla nas model". Praca na flashu, gdy pro ma wyczerpany limit
+    # dobowy, JEST zgodna z dekretem — wiec nie blokuje. Ale MUSI byc widoczna, stad druga linia.
+    wynik["genek.model"] = {"dziala": bool(m_dostepny),
+                            "slad": f"pracuje na: {m_dostepny or 'ZADEN model z kolejki nie odpowiada'}"}
+    if m_dostepny and m_dostepny != "gemini-3.1-pro-preview":
+        print(f"  (i) GENEK NIE JEST NA MODELU DOCELOWYM: pracuje na {m_dostepny}, "
+              f"bo gemini-3.1-pro-preview nie odpowiada (dobowy limit Tier 1 = 250 zapytan)")
 
     # GENEK — klucz do API (droga awaryjna)
     wynik["genek.klucz"] = {"dziala": os.path.isfile("/root/.gemini/.env"), "slad": "/root/.gemini/.env"}

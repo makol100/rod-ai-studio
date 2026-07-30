@@ -45,7 +45,12 @@ MODEL_API = "gemini-2.5-flash"
 # Zmierzone po wlaczeniu platnosci: 3.1-pro-preview przechodzi, 3.6-flash tez, 2.5-flash dalej 503.
 # Zenek: gdy pro niedostepny — ZATRZYMAC z komunikatem, nie schodzic po cichu na slabszy model.
 MODEL_CLI = "gemini-3.1-pro-preview"
-MODELE_CLI = [MODEL_CLI, MODEL_CLI, MODEL_CLI]   # trzy proby TEGO SAMEGO modelu, bez degradacji
+# 30.07 wieczorem — poprawka po audycie zalogi. Bylo: trzy proby TEGO SAMEGO modelu, wiec przy
+# wyczerpanym dobowym limicie pro (429) Genek szedl w tryb awaryjny BEZ DYSKU i nie oddawal glosu.
+# Henio: "lepszy glos na flashu z dyskiem niz brak glosu". Zenek: przejsciowe 503 uzasadnia powtorke.
+# Dekret Tomasza: "najwyzszy WOLNY dla nas model". Stad: dwie proby pro, potem zejscie na flash —
+# ale ZAWSZE z wypisaniem w odpowiedzi, na czym Genek pracowal (zasada Zenka: nie schodzic PO CICHU).
+MODELE_CLI = ["gemini-3.1-pro-preview", "gemini-3.1-pro-preview", "gemini-3.6-flash"]
 
 
 def klucz() -> str:
@@ -62,13 +67,16 @@ def droga_cli(zadanie: str, limit_s: int, model: str = "") -> tuple:
     Probuje kolejnych modeli, bo pojedynczy potrafi byc przeciazony (503) mimo dzialajacego klucza."""
     srodowisko = dict(os.environ, GEMINI_CLI_TRUST_WORKSPACE="true")
     do_proby = [model] if model else MODELE_CLI
+    # 30.07: limit byl MNOZONY przez liczbe modeli — pierwszy model zjadal caly czas procesu
+    # i kolejka nigdy nie dochodzila do modeli zapasowych. Teraz czas jest DZIELONY.
+    na_model = max(60, limit_s // max(1, len(do_proby)))
     powody = []
     for m in do_proby:
         try:
             w = subprocess.run(["gemini", "--yolo", "-m", m, "-p", zadanie], cwd=REPO, env=srodowisko,
-                               capture_output=True, text=True, timeout=limit_s)
+                               capture_output=True, text=True, timeout=na_model)
         except subprocess.TimeoutExpired:
-            powody.append(f"{m}: przekroczony czas {limit_s}s")
+            powody.append(f"{m}: przekroczony czas {na_model}s")
             continue
         except FileNotFoundError:
             return "", "CLI: brak polecenia gemini"
@@ -76,7 +84,10 @@ def droga_cli(zadanie: str, limit_s: int, model: str = "") -> tuple:
                           if "256-color" not in l and "Warning:" not in l
                           and "YOLO mode" not in l and not l.startswith("Attempt ")
                           and not l.strip().startswith("at ") and l.strip() not in ("}", "status: 503")).strip()
-        if tekst and "503" not in tekst[:80]:
+        if tekst and "503" not in tekst[:80] and "429" not in tekst[:80]:
+            if m != MODELE_CLI[0] and m not in MODELE_CLI[:1]:
+                tekst = (f"[GENEK pracowal na modelu {m}, bo {MODELE_CLI[0]} byl niedostepny: "
+                         f"{'; '.join(powody)}]\n\n" + tekst)
             return tekst, ""
         powody.append(f"{m}: {(w.stderr or 'przeciazenie 503').strip()[:70]}")
     return "", ("CLI: model " + MODEL_CLI + " niedostepny po " + str(len(do_proby)) +
@@ -85,10 +96,19 @@ def droga_cli(zadanie: str, limit_s: int, model: str = "") -> tuple:
 
 
 def droga_api(zadanie: str, material: str) -> tuple:
+    """Droga bez dysku. Doklejane jest ostrzezenie, zeby Genek nie zmyslal tresci plikow."""
     k = klucz()
     if not k:
         return "", "API: brak GEMINI_API_KEY"
-    tresc = zadanie
+    # 30.07: w trybie awaryjnym Genek ZMYSLIL slowo akceptacji ("OK" zamiast "Super"), numer linii,
+    # sume kontrolna ("0.1") i zameldowal zapis pliku, ktory nie powstal. Stad to ostrzezenie.
+    tresc = zadanie + (
+        "\n\nUWAGA KRYTYCZNA — NIE MASZ TERAZ DOSTEPU DO DYSKU. Widzisz WYLACZNIE tekst dolaczony "
+        "do tej wiadomosci. Jesli zadanie kaze otworzyc plik, podac cytat, numer linii albo sume "
+        "kontrolna, a tego NIE MA w dolaczonym materiale — odpowiedz doslownie: "
+        "'NIE MAM DOSTEPU DO DYSKU, NIE MOGE TEGO SPRAWDZIC'. "
+        "ZABRONIONE: zgadywanie tresci pliku, wymyslanie cytatow, numerow linii i sum kontrolnych. "
+        "ZABRONIONE: pisanie, ze zapisales albo utworzyles plik — bez dysku NIE MOZESZ tego zrobic.")
     if material:
         tresc += "\n\n=== MATERIAL (doklejony, bo dzialasz bez dostepu do dysku) ===\n" + material
     body = json.dumps({

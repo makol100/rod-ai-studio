@@ -75,7 +75,16 @@ def zenek(zadanie: str, _material: str, wynik: dict) -> None:
         w = subprocess.run(["codex", "exec", zadanie + STOPKA], cwd=REPO,
                            capture_output=True, text=True, timeout=600)
         out = w.stdout
-        wynik["zenek"] = out.split("\ncodex\n")[-1].strip() if "\ncodex\n" in out else out[-3000:]
+        # 30.07: obcinanie do 3000 znakow ucielo Zenkowi punkty 1-5 w debacie o wygladzie Izabeli —
+        # zostala sama koncowka, zaczynajaca sie w polowie zdania. Limit podniesiony i liczony od KONCA
+        # ostatniej wypowiedzi, a nie od konca calego logu.
+        czesci = out.split("\ncodex\n")
+        tresc = czesci[-1].strip() if len(czesci) > 1 else out
+        # odetnij stopke licznika tokenow, jesli jest
+        for znacznik in ("\ntokens used", "\nTokens used"):
+            if znacznik in tresc:
+                tresc = tresc.split(znacznik)[0].strip()
+        wynik["zenek"] = tresc[-24000:] if len(tresc) > 24000 else tresc
     except Exception as e:
         wynik["zenek"] = f"GLOS NIEODEBRANY ({e})"
 
@@ -131,6 +140,18 @@ def henio(zadanie: str, _material: str, wynik: dict) -> None:
 WYKONAWCY = {"zenek": zenek, "genek": genek, "henio": henio}
 
 
+def zapisz_glos(katalog: str, imie: str, tresc: str) -> None:
+    """Zapisz glos NATYCHMIAST po odebraniu, nie na koncu narady.
+    Powod (Tomasz, 30.07): 'Zawsze na biezaco podawaj, kto co wymysli'.
+    Tego samego dnia narada o wygladzie Izabeli zostala UCIETA przez limit czasu po 28 minutach —
+    Zenek i Henio dawno odpowiedzieli, ale ich glosy siedzialy w pamieci procesu i przepadly razem
+    z nim. Zero na dysku po polgodzinie pracy. Od teraz kazdy glos ladu je na dysku od razu."""
+    os.makedirs(katalog, exist_ok=True)
+    with open(os.path.join(katalog, f"{imie}.txt"), "w", encoding="utf-8") as f:
+        f.write(tresc)
+    print(f"[glos zapisany] {imie}.txt ({len(tresc)} znakow) -> {katalog}/", flush=True)
+
+
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--zadanie", required=True, help="plik z trescia zadania")
@@ -179,7 +200,15 @@ def main() -> int:
     print(f"NARADA: {', '.join(kto)} — kazdy dostaje to samo, nikt nie widzi cudzej odpowiedzi.")
     print("[straznik zrodel] odcisk plikow wziety — badanie nie moze wytworzyc wlasnego dowodu\n")
     wynik: dict = {}
-    watki = [threading.Thread(target=WYKONAWCY[k], args=(zadanie, material, wynik)) for k in kto]
+
+    def _uruchom(imie: str) -> None:
+        """Wykonaj i ZAPISZ NATYCHMIAST — nie czekaj na pozostalych."""
+        try:
+            WYKONAWCY[imie](zadanie, material, wynik)
+        finally:
+            zapisz_glos(a.katalog, imie, wynik.get(imie, "GLOS NIEODEBRANY (brak wyniku)"))
+
+    watki = [threading.Thread(target=_uruchom, args=(k,)) for k in kto]
     for w in watki:
         w.start()
     for w in watki:
@@ -188,9 +217,6 @@ def main() -> int:
     nieodebrane = 0
     for k in kto:
         tresc = wynik.get(k, "GLOS NIEODEBRANY (brak wyniku)")
-        sciezka = os.path.join(a.katalog, f"{k}.txt")
-        with open(sciezka, "w", encoding="utf-8") as f:
-            f.write(tresc)
         if tresc.startswith("GLOS NIEODEBRANY"):
             nieodebrane += 1
         print("=" * 25, k.upper(), "=" * 25)
