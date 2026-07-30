@@ -1,0 +1,265 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa367-29e9-7f02-98fe-bb748f553015
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_kling.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam cały plik z instrukcją, a potem wykonam wskazane w nim kroki dokładnie w podanej kolejności.
+exec
+/bin/bash -lc "sed -n '1,240p' _zadanie_zenka_kling.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+# ZADANIE: twarde limity Kling lipsync na fal. Zenek.
+Zgoda Tomasza: ożywiamy kartę Pana Stanisława (statyczne wideo 1080x1920 ~30-45s + audio mowy) lipsynciem Kling audio-to-video (~0.014 USD/s wg Twojego wcześniejszego researchu).
+ZADANIE — tylko fakty z kart modeli fal.ai:
+1. DOKŁADNY endpoint Kling lipsync audio-to-video + pełna lista parametrów (video_url, audio_url, co jeszcze).
+2. LIMITY: max/min długość WIDEO wejściowego i AUDIO; wymogi formatu (rozdzielczość? fps? codec?); co się dzieje gdy audio dłuższe od wideo.
+3. CENA dokładna (za sekundę czego: wejścia czy wyjścia?) + koszt dla klipu ~40s.
+4. Jeśli limit długości <40s: jaka strategia (cięcie na segmenty i sklejka? inny model na fal z dłuższym limitem — sprawdź np. sync/lipsync v2, veed/lipsync, kling v2)? Porównaj ceny alternatyw dla 40s.
+Format: ## KLING (endpoint/parametry/limity/cena) / ## ALTERNATYWY / ## REKOMENDACJA dla klipu 40s. Ceny z kart, nie z pamięci.
+
+codex
+To zadanie wymaga aktualnych danych z kart modeli fal.ai, więc sprawdzę bezpośrednio dokumentację i strony cenowe fal, a wnioski wyraźnie oddzielę od faktów podanych na kartach.
+web search: 
+web search: site:fal.ai/models Kling lip sync audio video fal endpoint ...
+web search: 
+web search: site:fal.ai/models/fal-ai/veed lipsync price duration ...
+web search: 
+web search: 
+codex
+## KLING
+
+### Endpoint i parametry
+
+Dokładny endpoint:
+
+```text
+POST https://fal.run/fal-ai/kling-video/lipsync/audio-to-video
+```
+
+ID modelu:
+
+```text
+fal-ai/kling-video/lipsync/audio-to-video
+```
+
+Pełny udokumentowany schemat wejścia zawiera tylko dwa parametry:
+
+```json
+{
+  "video_url": "https://.../input.mp4",
+  "audio_url": "https://.../speech.mp3"
+}
+```
+
+- `video_url` — wymagany URL filmu wejściowego.
+- `audio_url` — wymagany URL audio.
+- Brak parametrów typu `fps`, `codec`, `resolution`, `sync_mode`, `duration` czy jakości wyjścia.
+- Wynik zawiera `video`, przede wszystkim `video.url`.
+
+Źródło: [karta API Kling LipSync Audio-to-Video](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api).
+
+### Limity
+
+**Wideo wejściowe:**
+
+- długość: minimum **2 s**, maksimum **10 s**;
+- format według schematu API: **`.mp4` lub `.mov`**;
+- maksymalny rozmiar: **100 MB**;
+- rozdzielczość: tylko **720p albo 1080p**;
+- szerokość i wysokość muszą mieścić się w zakresie **720–1920 px**;
+- pionowe **1080×1920 spełnia podany zakres**;
+- karta nie podaje wymaganego FPS ani kodeka.
+
+**Audio:**
+
+- długość: minimum **2 s**, maksimum **60 s**;
+- maksymalny rozmiar: **5 MB**;
+- karta modelu wymienia: **MP3, WAV, OGG, M4A, AAC**.
+
+**Audio dłuższe od wideo:** fal dopuszcza audio do 60 s przy filmie do 10 s, ale schemat nie zawiera `sync_mode`, a karta nie definiuje jednoznacznie, czy materiał jest zapętlany, wydłużany, zamrażany czy przeliczany w inny sposób. Opis marketingowy sugeruje możliwość użycia dłuższego audio z krótkim filmem, lecz nie opisuje gwarantowanego zachowania. Nie należy więc zakładać konkretnego mechanizmu bez testu.
+
+Źródła: [schemat API](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api), [karta modelu i specyfikacja](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video).
+
+### Cena
+
+Banner cenowy fal podaje:
+
+> **$0.014 za sekundę wejściowego wideo**, z czasem rozliczeniowym zaokrąglanym w górę do najbliższych 5 sekund.
+
+Przykłady:
+
+- 3 s wejścia → rozliczenie jak 5 s → **$0.07**;
+- 7 s wejścia → rozliczenie jak 10 s → **$0.14**;
+- 10 s wejścia → **$0.14**;
+- cztery osobne segmenty po 10 s → **$0.56 za 40 s**.
+
+Pełnego filmu 40 s nie można przesłać w jednym żądaniu. Teoretyczne żądanie z 10-sekundowym wideo i 40-sekundowym audio byłoby według bannera liczone od 10 s wejściowego wideo, czyli **$0.14**, ale karta nie dokumentuje dostatecznie sposobu tworzenia 40-sekundowego wyniku. Nie traktowałbym tego wariantu jako pewnego produkcyjnie.
+
+Uwaga: opis tekstowy karty w jednym miejscu upraszcza cenę do „$0.014 per 5-second increment”, ale banner podaje precyzyjnie **$0.014 per input video seconds, rolling up to closest 5 second increment**. Z tego wynikają obliczenia powyżej.
+
+## ALTERNATYWY
+
+| Model fal | Obsługa 40 s | Cena z karty | Koszt 40 s |
+|---|---:|---:|---:|
+| **LatentSync** `fal-ai/latentsync` | karta wycenia filmy „up to 40 seconds” | $0.20 za film do 40 s | **$0.20** |
+| **Sync Lipsync 1.9** `fal-ai/sync-lipsync` | karta nie podaje limitu krótszego niż 40 s; ma tryby różnic długości | $0.70/min wideo | **ok. $0.47** |
+| **Kling LipSync**, 4 × 10 s | tak, po segmentacji | $0.014/s wejściowego wideo | **$0.56** |
+| **Sync Lipsync 2.0** `fal-ai/sync-lipsync/v2` | karta nie podaje limitu krótszego niż 40 s | $3/min wideo | **$2.00** |
+| **Kling AI Avatar v2 Standard** | generuje wideo ze statycznego obrazu; długość odpowiada audio | $0.0562/s | **$2.248** |
+| **VEED Lipsync v2** | istniejące wideo + nowe audio | $0.07/s wyjścia | **$2.80** |
+| **VEED Fabric 1.0** | statyczny obraz + audio | $0.08/s 480p; $0.15/s 720p | **$3.20 / $6.00** |
+| **Kling AI Avatar v2 Pro** | statyczny obraz + audio; długość odpowiada audio | $0.115/s | **$4.60** |
+| **Sync Lipsync 2 Pro** | wariant jakościowy | $5/min | **ok. $3.33** |
+| **Sync 3 image-to-video** | statyczny obraz + audio | $0.1333/s wyjścia | **$5.332** |
+
+Istotne właściwości:
+
+- **Sync Lipsync 1.9/2.0** mają `sync_mode`: `cut_off`, `loop`, `bounce`, `silence`, `remap`, więc jawnie kontrolują różnice długości audio i wideo. [Sync 2 API](https://fal.ai/models/fal-ai/sync-lipsync/v2/api), [Sync 1.9](https://fal.ai/models/fal-ai/sync-lipsync).
+- **LatentSync** kosztuje dokładnie $0.20 dla materiału do 40 s; powyżej tego karta podaje $0.005 za sekundę wyjścia. [Karta LatentSync](https://fal.ai/models/fal-ai/latentsync).
+- **Kling AI Avatar v2 Standard** jest lepiej dopasowany do pierwotnej statycznej karty niż klasyczny lipsync: przyjmuje obraz i audio, a wynik automatycznie odpowiada długości audio. [Karta Kling Avatar v2 Standard](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard).
+- **VEED Lipsync v2** kosztuje $0.07 za sekundę wyjścia; do statycznego obrazu fal kieruje do Fabric 1.0. [VEED Lipsync v2](https://fal.ai/veed-lipsync-v2), [VEED Fabric 1.0](https://fal.ai/models/veed/fabric-1.0).
+- **Sync 3 image-to-video** kosztuje $0.1333 za sekundę wyjścia. [Karta Sync 3 image-to-video](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video).
+
+## REKOMENDACJA dla klipu 40 s
+
+Jeśli warunkiem jest użycie dokładnie **Kling LipSync Audio-to-Video**, należy:
+
+1. Podzielić film i audio na **4 dopasowane odcinki po maksymalnie 10 s** — najlepiej na granicach zdań.
+2. Każdy fragment przygotować jako MP4/MOV 1080×1920, z audio o dokładnie tej samej długości.
+3. Wysłać cztery osobne zadania.
+4. Skleić wyniki bez ponownego kodowania, jeśli wszystkie mają identyczne parametry strumienia; w przeciwnym razie wykonać jedno końcowe kodowanie.
+5. Budżetować **$0.56** plus ewentualne ponowienia.
+
+Nie rekomenduję opierania produkcji na jednym 10-sekundowym filmie i 40-sekundowym audio, ponieważ karta fal nie określa dokładnie sposobu przedłużenia obrazu.
+
+Jeżeli model można zmienić:
+
+- **najtańszy test:** LatentSync — **$0.20/40 s**;
+- **najlepsze dopasowanie do statycznej karty:** Kling AI Avatar v2 Standard — **$2.248/40 s**, bez wcześniejszego tworzenia sztucznego statycznego filmu;
+- **rozsądna kontrola istniejącego 40-sekundowego filmu:** Sync Lipsync 1.9 — około **$0.47**, z jawnymi trybami obsługi różnic długości.
+
+Dla uzgodnionego workflow Kling wybrałbym cztery zsynchronizowane segmenty 10-sekundowe i sklejenie. Jest to jedyny wariant, który pozostaje w jednoznacznie udokumentowanych limitach obu wejść.
+tokens used
+37,175
+## KLING
+
+### Endpoint i parametry
+
+Dokładny endpoint:
+
+```text
+POST https://fal.run/fal-ai/kling-video/lipsync/audio-to-video
+```
+
+ID modelu:
+
+```text
+fal-ai/kling-video/lipsync/audio-to-video
+```
+
+Pełny udokumentowany schemat wejścia zawiera tylko dwa parametry:
+
+```json
+{
+  "video_url": "https://.../input.mp4",
+  "audio_url": "https://.../speech.mp3"
+}
+```
+
+- `video_url` — wymagany URL filmu wejściowego.
+- `audio_url` — wymagany URL audio.
+- Brak parametrów typu `fps`, `codec`, `resolution`, `sync_mode`, `duration` czy jakości wyjścia.
+- Wynik zawiera `video`, przede wszystkim `video.url`.
+
+Źródło: [karta API Kling LipSync Audio-to-Video](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api).
+
+### Limity
+
+**Wideo wejściowe:**
+
+- długość: minimum **2 s**, maksimum **10 s**;
+- format według schematu API: **`.mp4` lub `.mov`**;
+- maksymalny rozmiar: **100 MB**;
+- rozdzielczość: tylko **720p albo 1080p**;
+- szerokość i wysokość muszą mieścić się w zakresie **720–1920 px**;
+- pionowe **1080×1920 spełnia podany zakres**;
+- karta nie podaje wymaganego FPS ani kodeka.
+
+**Audio:**
+
+- długość: minimum **2 s**, maksimum **60 s**;
+- maksymalny rozmiar: **5 MB**;
+- karta modelu wymienia: **MP3, WAV, OGG, M4A, AAC**.
+
+**Audio dłuższe od wideo:** fal dopuszcza audio do 60 s przy filmie do 10 s, ale schemat nie zawiera `sync_mode`, a karta nie definiuje jednoznacznie, czy materiał jest zapętlany, wydłużany, zamrażany czy przeliczany w inny sposób. Opis marketingowy sugeruje możliwość użycia dłuższego audio z krótkim filmem, lecz nie opisuje gwarantowanego zachowania. Nie należy więc zakładać konkretnego mechanizmu bez testu.
+
+Źródła: [schemat API](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api), [karta modelu i specyfikacja](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video).
+
+### Cena
+
+Banner cenowy fal podaje:
+
+> **$0.014 za sekundę wejściowego wideo**, z czasem rozliczeniowym zaokrąglanym w górę do najbliższych 5 sekund.
+
+Przykłady:
+
+- 3 s wejścia → rozliczenie jak 5 s → **$0.07**;
+- 7 s wejścia → rozliczenie jak 10 s → **$0.14**;
+- 10 s wejścia → **$0.14**;
+- cztery osobne segmenty po 10 s → **$0.56 za 40 s**.
+
+Pełnego filmu 40 s nie można przesłać w jednym żądaniu. Teoretyczne żądanie z 10-sekundowym wideo i 40-sekundowym audio byłoby według bannera liczone od 10 s wejściowego wideo, czyli **$0.14**, ale karta nie dokumentuje dostatecznie sposobu tworzenia 40-sekundowego wyniku. Nie traktowałbym tego wariantu jako pewnego produkcyjnie.
+
+Uwaga: opis tekstowy karty w jednym miejscu upraszcza cenę do „$0.014 per 5-second increment”, ale banner podaje precyzyjnie **$0.014 per input video seconds, rolling up to closest 5 second increment**. Z tego wynikają obliczenia powyżej.
+
+## ALTERNATYWY
+
+| Model fal | Obsługa 40 s | Cena z karty | Koszt 40 s |
+|---|---:|---:|---:|
+| **LatentSync** `fal-ai/latentsync` | karta wycenia filmy „up to 40 seconds” | $0.20 za film do 40 s | **$0.20** |
+| **Sync Lipsync 1.9** `fal-ai/sync-lipsync` | karta nie podaje limitu krótszego niż 40 s; ma tryby różnic długości | $0.70/min wideo | **ok. $0.47** |
+| **Kling LipSync**, 4 × 10 s | tak, po segmentacji | $0.014/s wejściowego wideo | **$0.56** |
+| **Sync Lipsync 2.0** `fal-ai/sync-lipsync/v2` | karta nie podaje limitu krótszego niż 40 s | $3/min wideo | **$2.00** |
+| **Kling AI Avatar v2 Standard** | generuje wideo ze statycznego obrazu; długość odpowiada audio | $0.0562/s | **$2.248** |
+| **VEED Lipsync v2** | istniejące wideo + nowe audio | $0.07/s wyjścia | **$2.80** |
+| **VEED Fabric 1.0** | statyczny obraz + audio | $0.08/s 480p; $0.15/s 720p | **$3.20 / $6.00** |
+| **Kling AI Avatar v2 Pro** | statyczny obraz + audio; długość odpowiada audio | $0.115/s | **$4.60** |
+| **Sync Lipsync 2 Pro** | wariant jakościowy | $5/min | **ok. $3.33** |
+| **Sync 3 image-to-video** | statyczny obraz + audio | $0.1333/s wyjścia | **$5.332** |
+
+Istotne właściwości:
+
+- **Sync Lipsync 1.9/2.0** mają `sync_mode`: `cut_off`, `loop`, `bounce`, `silence`, `remap`, więc jawnie kontrolują różnice długości audio i wideo. [Sync 2 API](https://fal.ai/models/fal-ai/sync-lipsync/v2/api), [Sync 1.9](https://fal.ai/models/fal-ai/sync-lipsync).
+- **LatentSync** kosztuje dokładnie $0.20 dla materiału do 40 s; powyżej tego karta podaje $0.005 za sekundę wyjścia. [Karta LatentSync](https://fal.ai/models/fal-ai/latentsync).
+- **Kling AI Avatar v2 Standard** jest lepiej dopasowany do pierwotnej statycznej karty niż klasyczny lipsync: przyjmuje obraz i audio, a wynik automatycznie odpowiada długości audio. [Karta Kling Avatar v2 Standard](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard).
+- **VEED Lipsync v2** kosztuje $0.07 za sekundę wyjścia; do statycznego obrazu fal kieruje do Fabric 1.0. [VEED Lipsync v2](https://fal.ai/veed-lipsync-v2), [VEED Fabric 1.0](https://fal.ai/models/veed/fabric-1.0).
+- **Sync 3 image-to-video** kosztuje $0.1333 za sekundę wyjścia. [Karta Sync 3 image-to-video](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video).
+
+## REKOMENDACJA dla klipu 40 s
+
+Jeśli warunkiem jest użycie dokładnie **Kling LipSync Audio-to-Video**, należy:
+
+1. Podzielić film i audio na **4 dopasowane odcinki po maksymalnie 10 s** — najlepiej na granicach zdań.
+2. Każdy fragment przygotować jako MP4/MOV 1080×1920, z audio o dokładnie tej samej długości.
+3. Wysłać cztery osobne zadania.
+4. Skleić wyniki bez ponownego kodowania, jeśli wszystkie mają identyczne parametry strumienia; w przeciwnym razie wykonać jedno końcowe kodowanie.
+5. Budżetować **$0.56** plus ewentualne ponowienia.
+
+Nie rekomenduję opierania produkcji na jednym 10-sekundowym filmie i 40-sekundowym audio, ponieważ karta fal nie określa dokładnie sposobu przedłużenia obrazu.
+
+Jeżeli model można zmienić:
+
+- **najtańszy test:** LatentSync — **$0.20/40 s**;
+- **najlepsze dopasowanie do statycznej karty:** Kling AI Avatar v2 Standard — **$2.248/40 s**, bez wcześniejszego tworzenia sztucznego statycznego filmu;
+- **rozsądna kontrola istniejącego 40-sekundowego filmu:** Sync Lipsync 1.9 — około **$0.47**, z jawnymi trybami obsługi różnic długości.
+
+Dla uzgodnionego workflow Kling wybrałbym cztery zsynchronizowane segmenty 10-sekundowe i sklejenie. Jest to jedyny wariant, który pozostaje w jednoznacznie udokumentowanych limitach obu wejść.

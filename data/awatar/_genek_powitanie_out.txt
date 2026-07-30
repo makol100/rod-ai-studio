@@ -1,0 +1,3 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+Dzień dobry państwu, kłaniam się nisko. Nazywam się Stanisław i od dziś będę państwa Działkowym Dziennikarzem. Zapraszam na Wiadomości Działkowe. Przyniosę państwu najświeższe wieści z ogrodu, ważne komunikaty zarządu oraz pogodę, która nas nie zaskoczy. To będzie nasza wspólna kronika wydarzeń z Rodzinnego Ogrodu Działkowego imienia Józefa Lompy w Woźnikach. Obiecuję rzetelność i szczyptę humoru, bo na działce nawet chwasty mają czasem swoje dobre strony. Zatem zapraszam serdecznie przed ekrany. Do usłyszenia przy płocie, z gorącą herbatą w ręku!

@@ -1,0 +1,20 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## REŻYSERIA
+Pan Stanisław ma być ostoją spokoju, tzw. "kotwicą" (anchor) serwisu informacyjnego. Ruch musi być **podporządkowany pauzom w mowie** i oddechowi.
+
+*   **Głowa:** Powolne, niemal dostojne potakiwanie przy przywitaniu i "zapraszaniu przed ekrany". Subtelne przechylenia głowy (3-5 stopni) przy przejściach między tematami (np. od "wiadomości" do "pogody"), symulujące zamyślenie i bezpośredni kontakt z widzem.
+*   **Oczy i Brwi:** Mruganie naturalne, rzadkie. Brwi lekko uniesione przy "najświeższych wieściach" (uprzejma ciekawość), lekko zmarszczone przy "ważnych komunikatach" (powaga urzędowa).
+*   **Dłonie:** Startują nieruchomo na blacie obok notesu. Przy słowach o "herbacie w ręku" — dopuszczalny powolny gest dłoni w stronę szklanki (bez jej podnoszenia, by uniknąć glitchy). Przy "rzetelności" — dłoń może spocząć pewniej na notesie.
+*   **Tułów:** Minimalny ruch wynikający z oddechu. Postawa wyprostowana, ale nie sztywna — lekki przechył w stronę "kamery/widza", jak przy rozmowie przez płot.
+*   **ZAKAZY:** Kategoryczny zakaz gwałtownego gestykulowania (tzw. "talking hands"), nadmiernego kiwania się na boki oraz mrużenia oczu (ma patrzeć jasno i otwarcie). Żadnego drapania się czy poprawiania okularów.
+
+## PROMPT ENG
+"A dignified 70-year-old Polish news presenter with a warm, steady gaze. He performs slow, deliberate head tilts and subtle nodding to emphasize key words. Minimal, organic facial expressions with natural blinking. His hands remain mostly stationary on the table near a tea glass and a notebook, making only very rare, tiny, controlled gestures. The movement is calm, professional, and avoids any broad or fast motions, maintaining a 'talking head' news anchor composure."
+
+## PLAN B
+Gdyby model generował zbyt chaotyczny ruch, stosujemy następujące priorytety (od najważniejszych):
+
+1.  **Tożsamość twarzy (Kanon):** Jeśli ruch deformuje rysy twarzy Pana Stanisława — rezygnujemy z ruchu głowy na rzecz statycznego kadru z samym lipsynkiem. Stanisław musi być rozpoznawalny jako "ten sam człowiek" z karty.
+2.  **Spokój (Dostojność):** Jeśli model "macha rękami" mimo promptu — poświęcamy widoczność dłoni. Kadrujemy ciaśniej (popiersie), by wyeliminować ruch ramion i gestykulację, zostawiając tylko mimikę i usta.
+3.  **Sync ust:** Jeśli przy dużym ruchu głowy "rozjeżdżają się" usta — priorytetyzujemy stabilność głowy kosztem "żywotności". Lepiej mniej ruchu, ale idealna synchronizacja mowy.

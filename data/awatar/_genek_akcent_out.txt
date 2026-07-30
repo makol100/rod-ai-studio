@@ -1,0 +1,7 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## CZYSTY
+Dzień dobry, witamy w najnowszym serwisie informacyjnym ROD Woźniki. Z tej strony wasz Działkowy Dziennikarz, czyli sąsiad Genek. Przypominam wszystkim działkowcom, że w najbliższą sobotę odbędzie się obowiązkowy odczyt liczników energii elektrycznej. Pogoda na jutro zapowiada się wspaniale, więc proszę wyciągać leżaki i obficie podlewać pomidory. Do usłyszenia przy płocie!
+
+## AKCENT
+Dzień dobryj, witajcie w najnowszem serwisie informacyjnym ROD Woźniki. Z tej storony wasz Dzialkowy Dziennikarz, znacy si horoszy sąsiad Genek. Przypominaju wszystkim, że w najbliższu sobotu budiet odczyt liczników prądu, szczo bardzo ważne dla każdoho. Po-hoda na jutro zapowiada si harana, wyciąhajte leżaki i podlewajcie pomidory. Tak toczno, do usłyszenia pry płocie!

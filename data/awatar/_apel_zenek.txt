@@ -1,0 +1,19 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa4d6-edd2-74d2-a1ac-1f0c985ee706
+--------
+user
+Odpowiedz dokladnie jednym slowem: OBECNY
+codex
+OBECNY
+tokens used
+2,571
+OBECNY

@@ -1,0 +1,1 @@
+GENEK — Ty odpowiadasz za DUSZĘ postaci: biografia, osobowość, język, zwroty, zasady treści (pkt 1-5 + 7 z kontekstu). Przeczytaj _zadanie_biblia_kontekst.md i powitanie_stanislaw.txt. Propozycje mają brzmieć jak PRAWDZIWY starszy pan ze śląskiej prowincji, ciepły ale konkretny — zero teatralnej sztampy.

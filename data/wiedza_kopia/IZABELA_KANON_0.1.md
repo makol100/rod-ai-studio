@@ -45,8 +45,39 @@ sztucznej inteligencji i zatrudnionym jako reporter do zarządu."*
   nie była i z nikim nie rozmawiała
 - Otoczenie: **żadnego studia telewizyjnego** — wszyscy trzej odrzucili jako parodię przy 51 działkach
 
+## KANON GŁOSU — CHARLOTTE (wybór Tomasza, 29.07.2026)
+
+Casting płatny, 6 żeńskich głosów, ten sam tekst docelowego intro. Koszt **0,23 USD**
+(saldo fal.ai 10,28 → 10,05). Tomasz wskazał **Charlotte**.
+
+    endpoint:        fal-ai/elevenlabs/tts/eleven-v3
+    voice:           Charlotte
+    language_code:   pl
+    stability:       0.4
+    similarity_boost:0.75
+    speed:           1.0
+    output_format:   mp3_44100_128
+
+Referencja zamrożona: `data/awatar/IZABELA_GLOS_CANON_Charlotte.mp3` (444, SHA-256 21e4eb4eb8a8...).
+Charlotte była NAJSPOKOJNIEJSZA z szóstki: 460 znaków w 31 s = 14,8 znaku na sekundę
+(Alice i Laura 28 s). Przy planowaniu długości: **~15 znaków tekstu na sekundę nagrania**.
+Skasowane próbki pozostałych pięciu głosów zostają w `data/awatar/iza_casting_*.mp3` jako materiał
+porównawczy — nie kasować, gdyby trzeba było wrócić.
+
+## TEKST INTRO UŻYTY W CASTINGU (do zatwierdzenia lub skrócenia po odsłuchu)
+
+„Dzień dobry, z tej strony Izabela. Jestem prezenterką wygenerowaną przez sztuczną inteligencję,
+pracuję jako reporter dla zarządu Rodzinnego Ogrodu Działkowego imienia Józefa Lompy w Woźnikach.
+Dziś krótko i konkretnie: co się zmienia w naszym ogrodzie i co trzeba zrobić."
+
+Uwaga: w tekście świadomie użyta PEŁNA nazwa zamiast skrótu „ROD" — przy Stanisławie skrót był
+pułapką wymowy. Outro w castingu: „Do zobaczenia w ogrodzie".
+
 ## DO ROZSTRZYGNIĘCIA (nie wymyślać — pytać Tomasza)
-- dokładne brzmienie intro z deklaracją
-- wygląd i otoczenie (propozycje: weranda/oranżeria — Genek; kącik redakcyjny — Zenek; kuchnia — Henio)
-- głos (obecny kanon Daniel dotyczył Stanisława; dla Izabeli potrzebny nowy casting)
-- co z Panem Stanisławem: archiwum czy inna rola
+- wygląd i otoczenie — **debata na koniec** (decyzja Tomasza 29.07); propozycje na stole:
+  weranda/oranżeria (Genek), kącik redakcyjny w świetlicy (Zenek), kuchnia w altanie (Henio)
+- czy zostawić intro w obecnym brzmieniu, czy skrócić deklarację
+
+## PAN STANISŁAW — NA PÓŁKĘ
+Decyzja Tomasza 29.07: *„Pan Stanisław jest gotową postacią. Odstawiamy na półkę i wiemy, że go mamy."*
+Nie kasować: karta kanoniczna, głos Daniel, sześć wersji WD_0001. Gotowy do użycia, jeśli wróci potrzeba.

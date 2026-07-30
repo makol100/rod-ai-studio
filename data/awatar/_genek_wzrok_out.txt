@@ -1,0 +1,13 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+Oto przygotowane prompty, które skorygują spojrzenie Pana Stanisława, zachowując jego charakter i otoczenie:
+
+## EDYCJA KARTY
+**Prompt:** `Modify only the subject's head orientation and gaze: adjust the head tilt to face forward and establish direct, warm eye contact with the camera lens. Maintain a 1:1 identity match by preserving all other elements exactly: facial features, wrinkles, thick gray hair, green cable-knit sweater vest, cream checked shirt, horn-rimmed glasses on a black cord, hands, tea in a vintage holder, notebook, and the entire summerhouse background with wood paneling and jars.`
+
+**Uzasadnienie:** Precyzyjne wskazanie zmiany kierunku spojrzenia przy jednoczesnym rygorystycznym wyliczeniu elementów do zachowania gwarantuje ciągłość wizualną postaci Pana Stanisława przy zmianie pozy z "słuchającej" na "prezenterską".
+
+## AVATAR
+**Prompt:** `Establish and maintain constant, unwavering eye contact with the camera lens throughout the entire video; even during head tilts and nodding, the eyes must stay locked on the viewer. A dignified 70-year-old Polish news presenter with a warm, steady gaze. He performs slow, deliberate head tilts and subtle nodding to emphasize key words. Minimal, organic facial expressions with natural blinking. The movement is calm, professional, and focused, maintaining a 'talking head' news anchor composure.`
+
+**Uzasadnienie:** Umieszczenie kategorycznego nakazu kontaktu wzrokowego na samym początku promptu wymusza na modelu priorytetyzację spojrzenia w obiektyw jako nadrzędnej zasady animacji, niezależnej od ruchów głowy.

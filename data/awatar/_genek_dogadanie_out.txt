@@ -1,0 +1,13 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## STANOWISKO KOŃCOWE
+
+1.  **Powitanie Kanoniczne (40.3s):** Wybieramy **OPCJĘ A (Karta v2 - wzrok w obiektyw)** w trybie **Kling Pro ($4.64)**. Ponieważ jest to nagranie jednorazowe i stałe, inwestujemy w najwyższą jakość. Aby uniknąć efektu "dead stare" oraz nienaturalności AI przy długim ujęciu, stosujemy **montażowe przebitki (B-roll)**. Co 5-8 sekund audio przykrywamy widokami z ROD, planami zagospodarowania lub planszami tekstowymi (FFmpeg, koszt $0). To rozwiązanie jest technicznie najbezpieczniejsze (100% pewności) i eliminuje ryzyko deformacji twarzy przy próbach wymuszania ruchu głowy w AI.
+2.  **Serwisy Cotygodniowe:** Przechodzimy na model budżetowy — **Kling Standard ($2.27)**, korzystając z tej samej bazy (Karta v2). Zapewnia to spójność wizualną i minimalizuje koszty operacyjne zgodnie z wytyczną Tomasza.
+3.  **Dynamika obrazu:** Przebitki montażowe nie tylko maskują statyczność awatara, ale też czynią 40-sekundowy monolog znacznie ciekawszym dla widza. "Hook" realizujemy dynamicznym wejściem (np. 2s logotypu/bramy ROD -> cięcie na mówiącego Genka).
+
+## USTĘPSTWA
+
+*   **Genek rezygnuje z "hooka z notesem" (Opcja B) na powitanie:** Akceptuje argument o ryzyku deformacji przy podnoszeniu głowy i braku konieczności płacenia za nową kartę poza ($0.15). Przyjmuje, że "przerwanie ważnych spraw" można zasugerować rekwizytem w ręku na statycznej klatce v2 lub samym montażem.
+*   **Zenek i Klaudek akceptują koszt Kling Pro ($4.64):** Zgadzają się, że dla materiału "kanonicznego", który będzie oglądany wielokrotnie przez każdego nowego widza, dopłata rzędu 9 PLN za wyższą jakość (Pro vs Standard) mieści się w granicach "bezpiecznej inwestycji".
+*   **Wszyscy zgadzają się na prymat B-rollu:** Uznaliśmy wspólnie, że walka z "dead stare" za pomocą skomplikowanych promptów ruchu oczu jest nieefektywna kosztowo i technicznie, podczas gdy montaż robi to samo lepiej i za darmo.

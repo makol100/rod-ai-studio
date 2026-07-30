@@ -1,0 +1,102 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa3b5-3bee-7a72-86f3-f8c067ee8473
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_wzrok.md i wykonaj zadanie dokładnie według niego. Możesz używać wyszukiwania w sieci.
+codex
+Najpierw odczytam całą instrukcję z pliku, a potem wykonam wskazane w niej kroki; jeśli wymaga aktualnych danych, zweryfikuję je w sieci.
+exec
+/bin/bash -lc "sed -n '1,240p' _zadanie_zenka_wzrok.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+# NAPRAWA: kontakt wzrokowy w Kling Avatar. Zenek — praktycy.
+POMIAR: karta wejściowa patrzy w bok -> avatar v2 pro patrzy w dół przez całe wideo, mimo promptu "steady gaze, directly to camera". Hipoteza: model DZIEDZICZY kierunek wzroku z obrazu wejściowego silniej niż z promptu.
+ZADANIE (research praktyków + dokumentacja, bez wydawania centa):
+1. Czy Kling AI Avatar v2 (standard/pro) potrafi ZMIENIĆ kierunek spojrzenia względem obrazu wejściowego promptem? Co mówią praktycy/przykłady/dokument Kling o eye contact?
+2. Najpewniejsza droga do prezentera patrzącego w obiektyw: (a) poprawiona karta z eye contact + zwykły prompt, (b) sam mocniejszy prompt na starej karcie, (c) coś jeszcze (parametr?)?
+3. Ryzyko przy edycji karty (nano-banana-pro/edit zmiana wzroku): znane problemy z tożsamością przy edycji oczu/twarzy? Jak minimalizować (siła promptu, co wymienić jako "keep")?
+Format: ## FAKTY (ze źródłami) / ## REKOMENDACJA (a/b/c + dlaczego). Zwięźle.
+
+codex
+Instrukcja wymaga researchu dokumentacji i doświadczeń praktyków. Sprawdzam teraz materiały Kling oraz wiarygodne przykłady dotyczące dziedziczenia pozy, kontaktu wzrokowego i edycji oczu bez utraty tożsamości.
+web search: 
+web search: site:klingai.com AI Avatar v2 eye contact prompt gaze camera ...
+web search: 
+web search: 
+web search: 
+web search: "Kling AI Avatar 2.0 User Guide" "Start Frame" prompt optional ...
+web search: 
+web search: site:blog.google Nano Banana Pro preserve identity edit image face ...
+codex
+## FAKTY
+
+- Kling Avatar 2.0 przyjmuje obraz jako **Start Frame**, więc początkowy kierunek głowy i oczu jest silnym warunkiem generacji. Prompt awatara jest tylko opcjonalnym opisem emocji i ruchów. [Oficjalny poradnik Kling Avatar 2.0](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Prompt potrafi sterować spojrzeniem w pewnym zakresie: dokumentacja pokazuje przykłady typu „occasionally looking … at the camera” oraz „speaks directly to the camera”. Nie ma jednak deklaracji, że prompt niezawodnie przestawi oczy względem Start Frame albo utrzyma skorygowany kontakt wzrokowy przez całe nagranie. To raczej sterowanie występem niż korekcja źródłowej geometrii twarzy. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- W udokumentowanym interfejsie Avatar 2.0 nie ma osobnego parametru **eye contact/gaze lock**, suwaka siły obrazu ani negative promptu dla spojrzenia. Standard i Professional mają te same opisane wejścia; poradnik różnicuje je ceną 4 vs 8 kredytów/s, nie dodatkową kontrolą wzroku. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Praktycy Kling zalecają przygotowywanie obrazu startowego możliwie blisko oczekiwanego pierwszego kadru i używanie promptu przede wszystkim do ruchu. Zwracają też uwagę, że referencja obrazu ma większe znaczenie niż precyzja promptu. [Przykład praktyka: start frame najpierw, ruch w prompcie](https://www.reddit.com/r/KlingAI_Videos/comments/1kvzv7a), [doświadczenia z wagą obrazu referencyjnego](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/)
+
+- Nano Banana Pro oficjalnie obsługuje lokalne edycje, zmianę kąta kamery i zachowanie postaci, ale Google nie gwarantuje pikselowo identycznej twarzy. Samo podkreślanie „subtle flaws matter” potwierdza, że niewielki identity drift pozostaje istotnym ryzykiem. [Google: Nano Banana Pro](https://blog.google/innovation-and-ai/products/nano-banana-pro/), [Google: utrzymywanie podobieństwa](https://blog.google/products-and-platforms/products/gemini/updated-image-editing-model/)
+
+- Oczy, ich kształt, odstęp, powieki i brwi są cechami tożsamości. Zmiana całej pozy, kąta głowy lub wyrazu twarzy naraz zwiększa ryzyko dryfu bardziej niż mała, lokalna korekta samych źrenic/osi spojrzenia.
+
+## REKOMENDACJA
+
+**(a) Poprawiona karta z kontaktem wzrokowym + zwykły prompt** — zdecydowanie najpewniejsza droga. Obecny test jest zgodny z tym, że Kling respektuje Start Frame mocniej niż ogólną frazę „steady gaze”.
+
+1. W Nano Banana Pro wykonać **jedną lokalną zmianę**: skierować źrenice prosto w obiektyw. Nie zmieniać kąta głowy, mimiki, powiek ani kadru, jeśli nie jest to konieczne.
+2. Prompt edycji:
+
+> Change only the direction of both pupils so the subject makes natural, symmetrical eye contact directly with the camera lens. Keep exactly the same identity, facial geometry, eye shape and size, eyelids, eyebrows, iris color, catchlights, expression, head angle, skin texture, hair, lighting, clothing, background, framing and resolution. Do not beautify, retouch, reshape or regenerate the face.
+
+3. Porównać wynik z oryginałem szczególnie pod kątem kształtu oczu, rozstawu, powiek, brwi, nosa i linii szczęki. Przy dryfie wrócić do oryginału i ponowić **mniejszą korektę**, zamiast edytować już zmienioną wersję.
+4. W Kling użyć krótkiego promptu:
+
+> Calm natural presentation, head mostly still, maintaining continuous direct eye contact with the camera lens, natural blinking, subtle facial movement.
+
+**(b) Mocniejszy prompt na starej karcie** ma niskie prawdopodobieństwo naprawy: może wywołać chwilowy ruch oczu lub głowy, ale nie daje udokumentowanej blokady spojrzenia i konfliktuje ze Start Frame.
+
+**(c) Osobnego parametru nie znaleziono.** Pro nie rozwiązuje tego mechanicznie — może poprawić jakość, lecz nie ma udokumentowanego „gaze lock”. Bez wydawania kredytów najlepszą decyzją jest najpierw dopracować kartę wejściową.
+tokens used
+35,060
+## FAKTY
+
+- Kling Avatar 2.0 przyjmuje obraz jako **Start Frame**, więc początkowy kierunek głowy i oczu jest silnym warunkiem generacji. Prompt awatara jest tylko opcjonalnym opisem emocji i ruchów. [Oficjalny poradnik Kling Avatar 2.0](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Prompt potrafi sterować spojrzeniem w pewnym zakresie: dokumentacja pokazuje przykłady typu „occasionally looking … at the camera” oraz „speaks directly to the camera”. Nie ma jednak deklaracji, że prompt niezawodnie przestawi oczy względem Start Frame albo utrzyma skorygowany kontakt wzrokowy przez całe nagranie. To raczej sterowanie występem niż korekcja źródłowej geometrii twarzy. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- W udokumentowanym interfejsie Avatar 2.0 nie ma osobnego parametru **eye contact/gaze lock**, suwaka siły obrazu ani negative promptu dla spojrzenia. Standard i Professional mają te same opisane wejścia; poradnik różnicuje je ceną 4 vs 8 kredytów/s, nie dodatkową kontrolą wzroku. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Praktycy Kling zalecają przygotowywanie obrazu startowego możliwie blisko oczekiwanego pierwszego kadru i używanie promptu przede wszystkim do ruchu. Zwracają też uwagę, że referencja obrazu ma większe znaczenie niż precyzja promptu. [Przykład praktyka: start frame najpierw, ruch w prompcie](https://www.reddit.com/r/KlingAI_Videos/comments/1kvzv7a), [doświadczenia z wagą obrazu referencyjnego](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/)
+
+- Nano Banana Pro oficjalnie obsługuje lokalne edycje, zmianę kąta kamery i zachowanie postaci, ale Google nie gwarantuje pikselowo identycznej twarzy. Samo podkreślanie „subtle flaws matter” potwierdza, że niewielki identity drift pozostaje istotnym ryzykiem. [Google: Nano Banana Pro](https://blog.google/innovation-and-ai/products/nano-banana-pro/), [Google: utrzymywanie podobieństwa](https://blog.google/products-and-platforms/products/gemini/updated-image-editing-model/)
+
+- Oczy, ich kształt, odstęp, powieki i brwi są cechami tożsamości. Zmiana całej pozy, kąta głowy lub wyrazu twarzy naraz zwiększa ryzyko dryfu bardziej niż mała, lokalna korekta samych źrenic/osi spojrzenia.
+
+## REKOMENDACJA
+
+**(a) Poprawiona karta z kontaktem wzrokowym + zwykły prompt** — zdecydowanie najpewniejsza droga. Obecny test jest zgodny z tym, że Kling respektuje Start Frame mocniej niż ogólną frazę „steady gaze”.
+
+1. W Nano Banana Pro wykonać **jedną lokalną zmianę**: skierować źrenice prosto w obiektyw. Nie zmieniać kąta głowy, mimiki, powiek ani kadru, jeśli nie jest to konieczne.
+2. Prompt edycji:
+
+> Change only the direction of both pupils so the subject makes natural, symmetrical eye contact directly with the camera lens. Keep exactly the same identity, facial geometry, eye shape and size, eyelids, eyebrows, iris color, catchlights, expression, head angle, skin texture, hair, lighting, clothing, background, framing and resolution. Do not beautify, retouch, reshape or regenerate the face.
+
+3. Porównać wynik z oryginałem szczególnie pod kątem kształtu oczu, rozstawu, powiek, brwi, nosa i linii szczęki. Przy dryfie wrócić do oryginału i ponowić **mniejszą korektę**, zamiast edytować już zmienioną wersję.
+4. W Kling użyć krótkiego promptu:
+
+> Calm natural presentation, head mostly still, maintaining continuous direct eye contact with the camera lens, natural blinking, subtle facial movement.
+
+**(b) Mocniejszy prompt na starej karcie** ma niskie prawdopodobieństwo naprawy: może wywołać chwilowy ruch oczu lub głowy, ale nie daje udokumentowanej blokady spojrzenia i konfliktuje ze Start Frame.
+
+**(c) Osobnego parametru nie znaleziono.** Pro nie rozwiązuje tego mechanicznie — może poprawić jakość, lecz nie ma udokumentowanego „gaze lock”. Bez wydawania kredytów najlepszą decyzją jest najpierw dopracować kartę wejściową.

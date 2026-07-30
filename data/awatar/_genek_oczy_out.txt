@@ -1,0 +1,14 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## OGLĘDZINY
+
+1. **V1 (Oryginał):** Pan Stanisław patrzy wyraźnie **w bok (w prawo z perspektywy widza)** i lekko w dół. Widzę to po asymetrycznym położeniu tęczówek względem kącików oczu — po lewej stronie (naszej) widać znacznie więcej białka. Brak kontaktu wzrokowego z obiektywem.
+2. **V2 (Po edycji):** Wzrok jest skierowany **prosto w obiektyw**. Kontakt z widzem jest nawiązany. Co do symetrii: prawe oko (widza) wydaje się być idealnie wyśrodkowane, lewe oko ma minimalnie przesunięty blik światła, co przy bardzo dużym zbliżeniu (`_oczy_v2.jpg`) daje wrażenie lekkiego "uciekania" na zewnątrz, ale na całościowej karcie (`_karta2_mala.jpg`) jest to niezauważalne i wygląda naturalnie.
+3. **Zmiany poza wzrokiem:** Porównując `_karta_mala.jpg` z `_karta2_mala.jpg`, **nie stwierdzam żadnych zmian** w tle, ubiorze, oświetleniu ani w innych elementach twarzy. Edycja była bardzo precyzyjna (surgical).
+4. **Naturalność:** Wyraz twarzy pozostał niezmieniony, a wyśrodkowanie źrenic nie spowodowało efektu "martwego wzroku".
+
+## WERDYKT GENKA
+
+**TAK** — karta v2 nadaje się idealnie jako start frame. Kontakt wzrokowy jest bezpośredni, co jest kluczowe dla wiarygodności awatara Kling.
+
+*Rekomendacja:* Jeśli przy generowaniu ruchu w Klingu oczy zaczną "pływać", można spróbować jeszcze minimalnie wyrównać bliki światła (catchlights) w obu oczach, by były w tym samym punkcie, ale na ten moment v2 jest gotowa do testów produkcyjnych.

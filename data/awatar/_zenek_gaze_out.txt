@@ -1,0 +1,474 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa3c8-e98d-7ae1-87f3-639f4f35cf2f
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_gaze.md i wykonaj zadanie dokładnie według niego. Możesz używać wyszukiwania w sieci.
+codex
+Najpierw odczytam cały plik z instrukcją, a potem wykonam zadanie zgodnie z jego wymaganiami. Jeśli treść będzie wymagała aktualnych źródeł, zweryfikuję je w sieci.
+exec
+/bin/bash -lc "pwd && sed -n '1,240p' _zadanie_zenka_gaze.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+/root/rod-ai-studio/data/awatar
+# JAK OBIEKTYWNIE ZMIERZYĆ KIERUNEK WZROKU NA OBRAZIE? Zenek — praktycy + rekomendacja.
+KONTEKST: karta prezentera (start frame do Kling Avatar) musi patrzeć w obiektyw. Mały VLM (qwen2.5vl:7b) dał 3 SPRZECZNE pomiary kierunku źrenic na v1/v2. Potrzebujemy rozstrzygnięcia lepszego niż zgadywanie, zanim wydamy 4.64 USD na generację.
+ZADANIE (bez wydawania centa, research + ocena wykonalności na VPS bez GPU):
+1. PRAKTYCY: jakie sprawdzone metody oceny gaze na pojedynczym zdjęciu? (mediapipe iris? L2CS-Net? geometria: pozycja źrenicy względem kącików oczu? inne?) Co realnie działa i jest proste?
+2. WYKONALNOŚĆ U NAS: co da się odpalić szybko na CPU (Python 3.14 w kontenerze lub host python3): instalacja, 10-linijkowy sposób użycia. Jeśli nic sensownego na CPU — powiedz wprost.
+3. ALTERNATYWA PROCESOWA: jeśli automatyczny pomiar niepewny — jaki proces decyzyjny rekomendujesz? (np. ludzkie oko Tomasza jako sędzia + duży model multimodalny jako drugi głos)
+4. RYZYKO: jeśli start frame patrzy minimalnie obok — jak bardzo to psuje wynik Kling Avatar wg praktyków?
+Format: ## METODY / ## U NAS / ## PROCES / ## WERDYKT ZENKA. Zwięźle, ze źródłami.
+
+codex
+Instrukcja wymaga krótkiego werdyktu praktycznego, nie samego przeglądu modeli. Sprawdzam więc równolegle: dokładność i ograniczenia metod ze zdjęcia, realną instalację CPU/Python 3.14 oraz zalecenia dotyczące kontaktu wzrokowego w materiałach dla avatarów Kling.
+web search: 
+web search: MediaPipe Iris gaze estimation not infer where people are looking official ...
+web search: 
+web search: PyPI mediapipe requires Python versions 2026 Python 3.14 ...
+exec
+/bin/bash -lc "rg --files -g '"'!_zadanie_zenka_gaze.md'"' | sed -n '1,160p'; python3 --version; command -v python3.12 || true; command -v python3.13 || true; command -v python3.14 || true" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+casting_Daniel.mp3
+_casting_Daniel_resp.json
+_zadanie_genka_wzrok.md
+_pilot_klatka.jpg
+_zadanie_genka_stanislaw.md
+_karta_wzrok_edit.py
+_lip_klatka1.jpg
+stanislaw_avatar_pro_raw.mp4
+casting_George.mp3
+_xtts_venv.sh
+_zenek_kling_out.txt
+karta_stanislaw_v2.jpg
+_zadanie_genka_oczy.md
+_zadanie_genka_avatar_narada.md
+_oczy_v2.jpg
+_zenek_awatar_out.txt
+pilot_czolowka_v1.mp4
+_karta_mala.jpg
+_zenek_avatar_narada_out.txt
+_karta_stanislaw.py
+baza_stanislaw_40s.mp4
+_genek_stanislaw_out.txt
+_oczy_v1.jpg
+_casting_George_resp.json
+_lip_klatka2.jpg
+_zycie_k15.jpg
+_zadanie_zenka_avatar_narada.md
+_genek_wzrok_out.txt
+_genek_akcent_out.txt
+_xtts_klon.py
+_lipsync_resp.json
+_zadanie_genka_powitanie.md
+_zenek_wzrok_out.txt
+_zadanie_zenka_wzrok.md
+_zenek_gaze_out.txt
+_karta_v2_resp.json
+_zenek_stanislaw_out.txt
+powitanie_stanislaw.txt
+stanislaw_powitanie_v1.mp4
+_xtts_run.sh
+_pro_k36.jpg
+_zadanie_zenka_awatar.md
+stanislaw_powitanie_v2_pro.mp4
+_zadanie_genka_awatar.md
+_avatar_pro_submit.py
+_genek_avatar_narada_out.txt
+_pro_k20.jpg
+stanislaw_lipsync_raw.mp4
+karta_stanislaw_v1.jpg
+stanislaw_avatar_pro_rawB.mp4
+_lipsync_stanislaw.py
+powitanie_daniel.mp3
+_karta2_mala.jpg
+_zadanie_zenka_stanislaw.md
+casting_Eric.mp3
+_casting_Eric_resp.json
+_genek_powitanie_out.txt
+_avatar_pro_state.json
+_tts_powitanie.py
+_zenek_akcent2_out.txt
+_zadanie_genka_akcent.md
+_zadanie_zenka_kling.md
+_zycie_k3.jpg
+_pro_k5.jpg
+_casting_eleven.py
+_genek_awatar_out.txt
+_zadanie_zenka_akcent2.md
+_zycie_k33.jpg
+_karta_stanislaw_resp.json
+_avatar_pro_pull.py
+_genek_oczy_out.txt
+_avatar_pro_resp.json
+modele/uk_UA-ukrainian_tts-medium.onnx.json
+modele/pl_PL-gosia-medium.onnx.json
+modele/uk_UA-mykyta-high.onnx.json
+modele/uk_UA-oleksa-high.onnx.json
+modele/pl_PL-darkman-medium.onnx.json
+Python 3.14.4
+/usr/bin/python3.14
+
+exec
+/bin/bash -lc "sed -n '1,220p' _zadanie_genka_wzrok.md; sed -n '1,240p' _genek_wzrok_out.txt; sed -n '1,240p' _zenek_wzrok_out.txt; sed -n '1,240p' _zenek_gaze_out.txt" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+# NAPRAWA: Pan Stanisław ma patrzeć W KAMERĘ. Genek.
+POMIAR: karta bazowa patrzy w bok (moja wina — prompt kazał "słuchać rozmówcy"), avatar dziedziczy i patrzy w dół. Tomasz: prezenter MUSI patrzeć w obiektyw.
+ZADANIE — dwa prompty ENG:
+1. PROMPT EDYCJI KARTY (nano-banana-pro/edit, wejście: obecna karta): zmień WYŁĄCZNIE kierunek spojrzenia i minimalny układ głowy tak, by patrzył prosto w obiektyw (bezpośredni kontakt wzrokowy z widzem, ciepłe spojrzenie prezentera). WSZYSTKO INNE 1:1 bez zmian: twarz, rysy, ubiór, okulary na sznurku, dłonie, stół, rekwizyty, tło, światło. Napisz ten prompt precyzyjnie (co zmienić, co ZACHOWAĆ — wymień).
+2. PROMPT AVATARA (poprawka Twojej reżyserii): dołóż na początku i wzmocnij: stały kontakt wzrokowy z obiektywem przez CAŁE nagranie, nawet przy przechyłach głowy oczy wracają do widza; reszta reżyserii bez zmian.
+Format: ## EDYCJA KARTY / ## AVATAR. Tylko prompty ENG + 1 zdanie uzasadnienia każdy.
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+Oto przygotowane prompty, które skorygują spojrzenie Pana Stanisława, zachowując jego charakter i otoczenie:
+
+## EDYCJA KARTY
+**Prompt:** `Modify only the subject's head orientation and gaze: adjust the head tilt to face forward and establish direct, warm eye contact with the camera lens. Maintain a 1:1 identity match by preserving all other elements exactly: facial features, wrinkles, thick gray hair, green cable-knit sweater vest, cream checked shirt, horn-rimmed glasses on a black cord, hands, tea in a vintage holder, notebook, and the entire summerhouse background with wood paneling and jars.`
+
+**Uzasadnienie:** Precyzyjne wskazanie zmiany kierunku spojrzenia przy jednoczesnym rygorystycznym wyliczeniu elementów do zachowania gwarantuje ciągłość wizualną postaci Pana Stanisława przy zmianie pozy z "słuchającej" na "prezenterską".
+
+## AVATAR
+**Prompt:** `Establish and maintain constant, unwavering eye contact with the camera lens throughout the entire video; even during head tilts and nodding, the eyes must stay locked on the viewer. A dignified 70-year-old Polish news presenter with a warm, steady gaze. He performs slow, deliberate head tilts and subtle nodding to emphasize key words. Minimal, organic facial expressions with natural blinking. The movement is calm, professional, and focused, maintaining a 'talking head' news anchor composure.`
+
+**Uzasadnienie:** Umieszczenie kategorycznego nakazu kontaktu wzrokowego na samym początku promptu wymusza na modelu priorytetyzację spojrzenia w obiektyw jako nadrzędnej zasady animacji, niezależnej od ruchów głowy.
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa3b5-3bee-7a72-86f3-f8c067ee8473
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_wzrok.md i wykonaj zadanie dokładnie według niego. Możesz używać wyszukiwania w sieci.
+codex
+Najpierw odczytam całą instrukcję z pliku, a potem wykonam wskazane w niej kroki; jeśli wymaga aktualnych danych, zweryfikuję je w sieci.
+exec
+/bin/bash -lc "sed -n '1,240p' _zadanie_zenka_wzrok.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+# NAPRAWA: kontakt wzrokowy w Kling Avatar. Zenek — praktycy.
+POMIAR: karta wejściowa patrzy w bok -> avatar v2 pro patrzy w dół przez całe wideo, mimo promptu "steady gaze, directly to camera". Hipoteza: model DZIEDZICZY kierunek wzroku z obrazu wejściowego silniej niż z promptu.
+ZADANIE (research praktyków + dokumentacja, bez wydawania centa):
+1. Czy Kling AI Avatar v2 (standard/pro) potrafi ZMIENIĆ kierunek spojrzenia względem obrazu wejściowego promptem? Co mówią praktycy/przykłady/dokument Kling o eye contact?
+2. Najpewniejsza droga do prezentera patrzącego w obiektyw: (a) poprawiona karta z eye contact + zwykły prompt, (b) sam mocniejszy prompt na starej karcie, (c) coś jeszcze (parametr?)?
+3. Ryzyko przy edycji karty (nano-banana-pro/edit zmiana wzroku): znane problemy z tożsamością przy edycji oczu/twarzy? Jak minimalizować (siła promptu, co wymienić jako "keep")?
+Format: ## FAKTY (ze źródłami) / ## REKOMENDACJA (a/b/c + dlaczego). Zwięźle.
+
+codex
+Instrukcja wymaga researchu dokumentacji i doświadczeń praktyków. Sprawdzam teraz materiały Kling oraz wiarygodne przykłady dotyczące dziedziczenia pozy, kontaktu wzrokowego i edycji oczu bez utraty tożsamości.
+web search: 
+web search: site:klingai.com AI Avatar v2 eye contact prompt gaze camera ...
+web search: 
+web search: 
+web search: 
+web search: "Kling AI Avatar 2.0 User Guide" "Start Frame" prompt optional ...
+web search: 
+web search: site:blog.google Nano Banana Pro preserve identity edit image face ...
+codex
+## FAKTY
+
+- Kling Avatar 2.0 przyjmuje obraz jako **Start Frame**, więc początkowy kierunek głowy i oczu jest silnym warunkiem generacji. Prompt awatara jest tylko opcjonalnym opisem emocji i ruchów. [Oficjalny poradnik Kling Avatar 2.0](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Prompt potrafi sterować spojrzeniem w pewnym zakresie: dokumentacja pokazuje przykłady typu „occasionally looking … at the camera” oraz „speaks directly to the camera”. Nie ma jednak deklaracji, że prompt niezawodnie przestawi oczy względem Start Frame albo utrzyma skorygowany kontakt wzrokowy przez całe nagranie. To raczej sterowanie występem niż korekcja źródłowej geometrii twarzy. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- W udokumentowanym interfejsie Avatar 2.0 nie ma osobnego parametru **eye contact/gaze lock**, suwaka siły obrazu ani negative promptu dla spojrzenia. Standard i Professional mają te same opisane wejścia; poradnik różnicuje je ceną 4 vs 8 kredytów/s, nie dodatkową kontrolą wzroku. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Praktycy Kling zalecają przygotowywanie obrazu startowego możliwie blisko oczekiwanego pierwszego kadru i używanie promptu przede wszystkim do ruchu. Zwracają też uwagę, że referencja obrazu ma większe znaczenie niż precyzja promptu. [Przykład praktyka: start frame najpierw, ruch w prompcie](https://www.reddit.com/r/KlingAI_Videos/comments/1kvzv7a), [doświadczenia z wagą obrazu referencyjnego](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/)
+
+- Nano Banana Pro oficjalnie obsługuje lokalne edycje, zmianę kąta kamery i zachowanie postaci, ale Google nie gwarantuje pikselowo identycznej twarzy. Samo podkreślanie „subtle flaws matter” potwierdza, że niewielki identity drift pozostaje istotnym ryzykiem. [Google: Nano Banana Pro](https://blog.google/innovation-and-ai/products/nano-banana-pro/), [Google: utrzymywanie podobieństwa](https://blog.google/products-and-platforms/products/gemini/updated-image-editing-model/)
+
+- Oczy, ich kształt, odstęp, powieki i brwi są cechami tożsamości. Zmiana całej pozy, kąta głowy lub wyrazu twarzy naraz zwiększa ryzyko dryfu bardziej niż mała, lokalna korekta samych źrenic/osi spojrzenia.
+
+## REKOMENDACJA
+
+**(a) Poprawiona karta z kontaktem wzrokowym + zwykły prompt** — zdecydowanie najpewniejsza droga. Obecny test jest zgodny z tym, że Kling respektuje Start Frame mocniej niż ogólną frazę „steady gaze”.
+
+1. W Nano Banana Pro wykonać **jedną lokalną zmianę**: skierować źrenice prosto w obiektyw. Nie zmieniać kąta głowy, mimiki, powiek ani kadru, jeśli nie jest to konieczne.
+2. Prompt edycji:
+
+> Change only the direction of both pupils so the subject makes natural, symmetrical eye contact directly with the camera lens. Keep exactly the same identity, facial geometry, eye shape and size, eyelids, eyebrows, iris color, catchlights, expression, head angle, skin texture, hair, lighting, clothing, background, framing and resolution. Do not beautify, retouch, reshape or regenerate the face.
+
+3. Porównać wynik z oryginałem szczególnie pod kątem kształtu oczu, rozstawu, powiek, brwi, nosa i linii szczęki. Przy dryfie wrócić do oryginału i ponowić **mniejszą korektę**, zamiast edytować już zmienioną wersję.
+4. W Kling użyć krótkiego promptu:
+
+> Calm natural presentation, head mostly still, maintaining continuous direct eye contact with the camera lens, natural blinking, subtle facial movement.
+
+**(b) Mocniejszy prompt na starej karcie** ma niskie prawdopodobieństwo naprawy: może wywołać chwilowy ruch oczu lub głowy, ale nie daje udokumentowanej blokady spojrzenia i konfliktuje ze Start Frame.
+
+**(c) Osobnego parametru nie znaleziono.** Pro nie rozwiązuje tego mechanicznie — może poprawić jakość, lecz nie ma udokumentowanego „gaze lock”. Bez wydawania kredytów najlepszą decyzją jest najpierw dopracować kartę wejściową.
+tokens used
+35,060
+## FAKTY
+
+- Kling Avatar 2.0 przyjmuje obraz jako **Start Frame**, więc początkowy kierunek głowy i oczu jest silnym warunkiem generacji. Prompt awatara jest tylko opcjonalnym opisem emocji i ruchów. [Oficjalny poradnik Kling Avatar 2.0](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Prompt potrafi sterować spojrzeniem w pewnym zakresie: dokumentacja pokazuje przykłady typu „occasionally looking … at the camera” oraz „speaks directly to the camera”. Nie ma jednak deklaracji, że prompt niezawodnie przestawi oczy względem Start Frame albo utrzyma skorygowany kontakt wzrokowy przez całe nagranie. To raczej sterowanie występem niż korekcja źródłowej geometrii twarzy. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- W udokumentowanym interfejsie Avatar 2.0 nie ma osobnego parametru **eye contact/gaze lock**, suwaka siły obrazu ani negative promptu dla spojrzenia. Standard i Professional mają te same opisane wejścia; poradnik różnicuje je ceną 4 vs 8 kredytów/s, nie dodatkową kontrolą wzroku. [Poradnik Kling](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+- Praktycy Kling zalecają przygotowywanie obrazu startowego możliwie blisko oczekiwanego pierwszego kadru i używanie promptu przede wszystkim do ruchu. Zwracają też uwagę, że referencja obrazu ma większe znaczenie niż precyzja promptu. [Przykład praktyka: start frame najpierw, ruch w prompcie](https://www.reddit.com/r/KlingAI_Videos/comments/1kvzv7a), [doświadczenia z wagą obrazu referencyjnego](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/)
+
+- Nano Banana Pro oficjalnie obsługuje lokalne edycje, zmianę kąta kamery i zachowanie postaci, ale Google nie gwarantuje pikselowo identycznej twarzy. Samo podkreślanie „subtle flaws matter” potwierdza, że niewielki identity drift pozostaje istotnym ryzykiem. [Google: Nano Banana Pro](https://blog.google/innovation-and-ai/products/nano-banana-pro/), [Google: utrzymywanie podobieństwa](https://blog.google/products-and-platforms/products/gemini/updated-image-editing-model/)
+
+- Oczy, ich kształt, odstęp, powieki i brwi są cechami tożsamości. Zmiana całej pozy, kąta głowy lub wyrazu twarzy naraz zwiększa ryzyko dryfu bardziej niż mała, lokalna korekta samych źrenic/osi spojrzenia.
+
+## REKOMENDACJA
+
+**(a) Poprawiona karta z kontaktem wzrokowym + zwykły prompt** — zdecydowanie najpewniejsza droga. Obecny test jest zgodny z tym, że Kling respektuje Start Frame mocniej niż ogólną frazę „steady gaze”.
+
+1. W Nano Banana Pro wykonać **jedną lokalną zmianę**: skierować źrenice prosto w obiektyw. Nie zmieniać kąta głowy, mimiki, powiek ani kadru, jeśli nie jest to konieczne.
+2. Prompt edycji:
+
+> Change only the direction of both pupils so the subject makes natural, symmetrical eye contact directly with the camera lens. Keep exactly the same identity, facial geometry, eye shape and size, eyelids, eyebrows, iris color, catchlights, expression, head angle, skin texture, hair, lighting, clothing, background, framing and resolution. Do not beautify, retouch, reshape or regenerate the face.
+
+3. Porównać wynik z oryginałem szczególnie pod kątem kształtu oczu, rozstawu, powiek, brwi, nosa i linii szczęki. Przy dryfie wrócić do oryginału i ponowić **mniejszą korektę**, zamiast edytować już zmienioną wersję.
+4. W Kling użyć krótkiego promptu:
+
+> Calm natural presentation, head mostly still, maintaining continuous direct eye contact with the camera lens, natural blinking, subtle facial movement.
+
+**(b) Mocniejszy prompt na starej karcie** ma niskie prawdopodobieństwo naprawy: może wywołać chwilowy ruch oczu lub głowy, ale nie daje udokumentowanej blokady spojrzenia i konfliktuje ze Start Frame.
+
+**(c) Osobnego parametru nie znaleziono.** Pro nie rozwiązuje tego mechanicznie — może poprawić jakość, lecz nie ma udokumentowanego „gaze lock”. Bez wydawania kredytów najlepszą decyzją jest najpierw dopracować kartę wejściową.
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa3c8-e98d-7ae1-87f3-639f4f35cf2f
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_gaze.md i wykonaj zadanie dokładnie według niego. Możesz używać wyszukiwania w sieci.
+codex
+Najpierw odczytam cały plik z instrukcją, a potem wykonam zadanie zgodnie z jego wymaganiami. Jeśli treść będzie wymagała aktualnych źródeł, zweryfikuję je w sieci.
+exec
+/bin/bash -lc "pwd && sed -n '1,240p' _zadanie_zenka_gaze.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+/root/rod-ai-studio/data/awatar
+# JAK OBIEKTYWNIE ZMIERZYĆ KIERUNEK WZROKU NA OBRAZIE? Zenek — praktycy + rekomendacja.
+KONTEKST: karta prezentera (start frame do Kling Avatar) musi patrzeć w obiektyw. Mały VLM (qwen2.5vl:7b) dał 3 SPRZECZNE pomiary kierunku źrenic na v1/v2. Potrzebujemy rozstrzygnięcia lepszego niż zgadywanie, zanim wydamy 4.64 USD na generację.
+ZADANIE (bez wydawania centa, research + ocena wykonalności na VPS bez GPU):
+1. PRAKTYCY: jakie sprawdzone metody oceny gaze na pojedynczym zdjęciu? (mediapipe iris? L2CS-Net? geometria: pozycja źrenicy względem kącików oczu? inne?) Co realnie działa i jest proste?
+2. WYKONALNOŚĆ U NAS: co da się odpalić szybko na CPU (Python 3.14 w kontenerze lub host python3): instalacja, 10-linijkowy sposób użycia. Jeśli nic sensownego na CPU — powiedz wprost.
+3. ALTERNATYWA PROCESOWA: jeśli automatyczny pomiar niepewny — jaki proces decyzyjny rekomendujesz? (np. ludzkie oko Tomasza jako sędzia + duży model multimodalny jako drugi głos)
+4. RYZYKO: jeśli start frame patrzy minimalnie obok — jak bardzo to psuje wynik Kling Avatar wg praktyków?
+Format: ## METODY / ## U NAS / ## PROCES / ## WERDYKT ZENKA. Zwięźle, ze źródłami.
+
+codex
+Instrukcja wymaga krótkiego werdyktu praktycznego, nie samego przeglądu modeli. Sprawdzam więc równolegle: dokładność i ograniczenia metod ze zdjęcia, realną instalację CPU/Python 3.14 oraz zalecenia dotyczące kontaktu wzrokowego w materiałach dla avatarów Kling.
+web search: 
+web search: MediaPipe Iris gaze estimation not infer where people are looking official ...
+web search: 
+web search: PyPI mediapipe requires Python versions 2026 Python 3.14 ...
+exec
+/bin/bash -lc "rg --files -g '"'!_zadanie_zenka_gaze.md'"' | sed -n '1,160p'; python3 --version; command -v python3.12 || true; command -v python3.13 || true; command -v python3.14 || true" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+casting_Daniel.mp3
+_casting_Daniel_resp.json
+_zadanie_genka_wzrok.md
+_pilot_klatka.jpg
+_zadanie_genka_stanislaw.md
+_karta_wzrok_edit.py
+_lip_klatka1.jpg
+stanislaw_avatar_pro_raw.mp4
+casting_George.mp3
+_xtts_venv.sh
+_zenek_kling_out.txt
+karta_stanislaw_v2.jpg
+_zadanie_genka_oczy.md
+_zadanie_genka_avatar_narada.md
+_oczy_v2.jpg
+_zenek_awatar_out.txt
+pilot_czolowka_v1.mp4
+_karta_mala.jpg
+_zenek_avatar_narada_out.txt
+_karta_stanislaw.py
+baza_stanislaw_40s.mp4
+_genek_stanislaw_out.txt
+_oczy_v1.jpg
+_casting_George_resp.json
+_lip_klatka2.jpg
+_zycie_k15.jpg
+_zadanie_zenka_avatar_narada.md
+_genek_wzrok_out.txt
+_genek_akcent_out.txt
+_xtts_klon.py
+_lipsync_resp.json
+_zadanie_genka_powitanie.md
+_zenek_wzrok_out.txt
+_zadanie_zenka_wzrok.md
+_zenek_gaze_out.txt
+_karta_v2_resp.json
+_zenek_stanislaw_out.txt
+powitanie_stanislaw.txt
+stanislaw_powitanie_v1.mp4
+_xtts_run.sh
+_pro_k36.jpg
+_zadanie_zenka_awatar.md
+stanislaw_powitanie_v2_pro.mp4
+_zadanie_genka_awatar.md
+_avatar_pro_submit.py
+_genek_avatar_narada_out.txt
+_pro_k20.jpg
+stanislaw_lipsync_raw.mp4
+karta_stanislaw_v1.jpg
+stanislaw_avatar_pro_rawB.mp4
+_lipsync_stanislaw.py
+powitanie_daniel.mp3
+_karta2_mala.jpg
+_zadanie_zenka_stanislaw.md
+casting_Eric.mp3
+_casting_Eric_resp.json
+_genek_powitanie_out.txt
+_avatar_pro_state.json
+_tts_powitanie.py
+_zenek_akcent2_out.txt
+_zadanie_genka_akcent.md
+_zadanie_zenka_kling.md
+_zycie_k3.jpg
+_pro_k5.jpg
+_casting_eleven.py
+_genek_awatar_out.txt
+_zadanie_zenka_akcent2.md
+_zycie_k33.jpg
+_karta_stanislaw_resp.json
+_avatar_pro_pull.py
+_genek_oczy_out.txt
+_avatar_pro_resp.json
+modele/uk_UA-ukrainian_tts-medium.onnx.json
+modele/pl_PL-gosia-medium.onnx.json
+modele/uk_UA-mykyta-high.onnx.json
+modele/uk_UA-oleksa-high.onnx.json
+modele/pl_PL-darkman-medium.onnx.json
+Python 3.14.4
+/usr/bin/python3.14
+
+
+codex
+W katalogu są też oba warianty karty. Obejrzę je bez modyfikowania plików, bo końcowy proces decyzyjny powinien rozstrzygać właśnie v1 kontra v2, a nie kończyć się na abstrakcyjnej rekomendacji narzędzia.
+codex
+## METODY
+
+- **MediaPipe Iris / Face Mesh** — najprostszy obiektywny test. Lokalizuje kąciki oczu i środki tęczówek, ale Google wyraźnie zaznacza, że **sam nie wyznacza punktu patrzenia**. Można policzyć położenie tęczówki w szparze oka i porównać oba oczy. Dobre do wykrycia „wyraźnie w bok”, niewystarczające do udowodnienia idealnego kontaktu z obiektywem. [Dokumentacja MediaPipe Iris](https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/iris.md)
+
+- **Geometria pupil/iris–eye corners** — praktyczny wskaźnik:
+  `r = (x_iris − x_left_corner) / (x_right_corner − x_left_corner)`.
+  Około środka i podobnie dla obu oczu oznacza prawdopodobne spojrzenie na wprost. Wynik zaburzają obrót głowy, perspektywa, przysłonięta tęczówka i asymetria twarzy, dlatego nie należy stosować sztywnego progu `r=0.5`. Metody geometryczne zwykle wymagają uwzględnienia pozy głowy lub kalibracji. [Przegląd metod gaze](https://pmc.ncbi.nlm.nih.gov/articles/PMC7374327/)
+
+- **L2CS-Net** — lepszy wybór, gdy potrzebujemy estymacji yaw/pitch spojrzenia, ponieważ analizuje całą twarz i pozycję głowy. Deklarowane błędy to ok. `3.9°` na MPIIGaze i `10.4°` na trudniejszym Gaze360; nie jest więc miernikiem „co do piksela”. [Publikacja L2CS-Net](https://arxiv.org/abs/2203.03339), [repozytorium](https://github.com/Ahmednull/L2CS-Net)
+
+- **Duży VLM** — dobry jako ocena percepcyjna, lecz nie jako przyrząd pomiarowy. Sprzeczne odpowiedzi qwen2.5vl:7b są normalnym sygnałem, że różnica leży blisko granicy jego pewności.
+
+## U NAS
+
+Najłatwiejszy CPU-check to MediaPipe plus współczynnik położenia tęczówki. Aktualny MediaPipe ma wheel linuksowy, ale przy problemach z API na Pythonie 3.14 lepiej użyć osobnego kontenera/venv z Pythonem 3.12–3.13. [MediaPipe na PyPI](https://pypi.org/project/mediapipe/)
+
+```bash
+python3 -m venv /tmp/gaze-env
+/tmp/gaze-env/bin/pip install mediapipe opencv-python-headless numpy
+```
+
+Minimalny pomiar:
+
+```python
+import cv2, mediapipe as mp, numpy as np
+im = cv2.imread("karta_stanislaw_v2.jpg")
+fm = mp.solutions.face_mesh.FaceMesh(
+    static_image_mode=True, max_num_faces=1, refine_landmarks=True)
+lm = fm.process(cv2.cvtColor(im, cv2.COLOR_BGR2RGB)).multi_face_landmarks[0].landmark
+for corners, iris in [((33, 133), range(468, 473)),
+                      ((362, 263), range(473, 478))]:
+    cx = np.mean([lm[i].x for i in iris])
+    a, b = sorted([lm[corners[0]].x, lm[corners[1]].x])
+    print(round((cx-a)/(b-a), 3))
+```
+
+Interpretacja: oba wyniki powinny być zbliżone; duże odchylenie w tę samą stronę oznacza gaze w bok. To **wskaźnik porównawczy v1/v2**, nie absolutny dowód eye contact.
+
+L2CS-Net działa na CPU (`device=torch.device("cpu")`), ale wymaga PyTorch, ResNet50 i osobnych wag. Na tym VPS jest technicznie możliwy, lecz instalacyjnie cięższy, wolniejszy i nadal nie daje pewnego rozstrzygnięcia kilkustopniowej różnicy. Nie instalowałbym go tylko dla dwóch zdjęć. [Instrukcja CPU L2CS-Net](https://github.com/Ahmednull/L2CS-Net)
+
+## PROCES
+
+1. Pokazać Tomaszowi anonimowo, obok siebie, **same powiększenia oczu i całe twarze v1/v2**. Pytanie binarne: „Który prezenter patrzy na ciebie?” Bez pytania o lewo/prawo.
+2. Policzyć MediaPipe ratio dla obu oczu jako kontrolę, czy werdykt człowieka zgadza się z geometrią.
+3. Poprosić jeden duży model multimodalny o wybór A/B i ocenę: `direct / slightly off / clearly off`, bez żądania stopni.
+4. Wydać pieniądze tylko wtedy, gdy Tomasz wybiera wariant bez wahania, a geometria nie pokazuje wyraźnego odchylenia. Przy remisie poprawić kartę, zamiast liczyć, że prompt Kling naprawi oczy.
+
+## WERDYKT ZENKA
+
+**Do generacji wybrałbym v2.** Na pełnym obrazie v1 jednoznacznie patrzy poza kamerę, w stronę prawej strony kadru. V2 daje przekonujący kontakt z widzem; ewentualne odchylenie jest małe i częściowo wynika z lekko obróconej głowy. To znacznie lepszy kandydat niż v1, choć ostateczne „tak” powinien dać Tomasz.
+
+Minimalne spojrzenie obok nie musi zniszczyć animacji technicznie, ale może zepsuć ją **prezentersko**: widz bardzo szybko zauważa brak kontaktu, a Kling może utrwalić kierunek ze Start Frame przez cały klip. Oficjalny poradnik pokazuje sterowanie typu „speaks directly to the camera”, lecz nie dokumentuje gaze-lock ani niezawodnej korekcji oczu. [Kling Avatar 2.0 User Guide](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+Nie znalazłem wiarygodnych danych liczbowych typu „odchylenie X° powoduje Y% gorszy wynik”. Relacje praktyków wskazują natomiast, że obraz referencyjny jest silniejszym warunkiem niż precyzja promptu. [Doświadczenia użytkowników Kling](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/)
+tokens used
+45,692
+## METODY
+
+- **MediaPipe Iris / Face Mesh** — najprostszy obiektywny test. Lokalizuje kąciki oczu i środki tęczówek, ale Google wyraźnie zaznacza, że **sam nie wyznacza punktu patrzenia**. Można policzyć położenie tęczówki w szparze oka i porównać oba oczy. Dobre do wykrycia „wyraźnie w bok”, niewystarczające do udowodnienia idealnego kontaktu z obiektywem. [Dokumentacja MediaPipe Iris](https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/iris.md)
+
+- **Geometria pupil/iris–eye corners** — praktyczny wskaźnik:
+  `r = (x_iris − x_left_corner) / (x_right_corner − x_left_corner)`.
+  Około środka i podobnie dla obu oczu oznacza prawdopodobne spojrzenie na wprost. Wynik zaburzają obrót głowy, perspektywa, przysłonięta tęczówka i asymetria twarzy, dlatego nie należy stosować sztywnego progu `r=0.5`. Metody geometryczne zwykle wymagają uwzględnienia pozy głowy lub kalibracji. [Przegląd metod gaze](https://pmc.ncbi.nlm.nih.gov/articles/PMC7374327/)
+
+- **L2CS-Net** — lepszy wybór, gdy potrzebujemy estymacji yaw/pitch spojrzenia, ponieważ analizuje całą twarz i pozycję głowy. Deklarowane błędy to ok. `3.9°` na MPIIGaze i `10.4°` na trudniejszym Gaze360; nie jest więc miernikiem „co do piksela”. [Publikacja L2CS-Net](https://arxiv.org/abs/2203.03339), [repozytorium](https://github.com/Ahmednull/L2CS-Net)
+
+- **Duży VLM** — dobry jako ocena percepcyjna, lecz nie jako przyrząd pomiarowy. Sprzeczne odpowiedzi qwen2.5vl:7b są normalnym sygnałem, że różnica leży blisko granicy jego pewności.
+
+## U NAS
+
+Najłatwiejszy CPU-check to MediaPipe plus współczynnik położenia tęczówki. Aktualny MediaPipe ma wheel linuksowy, ale przy problemach z API na Pythonie 3.14 lepiej użyć osobnego kontenera/venv z Pythonem 3.12–3.13. [MediaPipe na PyPI](https://pypi.org/project/mediapipe/)
+
+```bash
+python3 -m venv /tmp/gaze-env
+/tmp/gaze-env/bin/pip install mediapipe opencv-python-headless numpy
+```
+
+Minimalny pomiar:
+
+```python
+import cv2, mediapipe as mp, numpy as np
+im = cv2.imread("karta_stanislaw_v2.jpg")
+fm = mp.solutions.face_mesh.FaceMesh(
+    static_image_mode=True, max_num_faces=1, refine_landmarks=True)
+lm = fm.process(cv2.cvtColor(im, cv2.COLOR_BGR2RGB)).multi_face_landmarks[0].landmark
+for corners, iris in [((33, 133), range(468, 473)),
+                      ((362, 263), range(473, 478))]:
+    cx = np.mean([lm[i].x for i in iris])
+    a, b = sorted([lm[corners[0]].x, lm[corners[1]].x])
+    print(round((cx-a)/(b-a), 3))
+```
+
+Interpretacja: oba wyniki powinny być zbliżone; duże odchylenie w tę samą stronę oznacza gaze w bok. To **wskaźnik porównawczy v1/v2**, nie absolutny dowód eye contact.
+
+L2CS-Net działa na CPU (`device=torch.device("cpu")`), ale wymaga PyTorch, ResNet50 i osobnych wag. Na tym VPS jest technicznie możliwy, lecz instalacyjnie cięższy, wolniejszy i nadal nie daje pewnego rozstrzygnięcia kilkustopniowej różnicy. Nie instalowałbym go tylko dla dwóch zdjęć. [Instrukcja CPU L2CS-Net](https://github.com/Ahmednull/L2CS-Net)
+
+## PROCES
+
+1. Pokazać Tomaszowi anonimowo, obok siebie, **same powiększenia oczu i całe twarze v1/v2**. Pytanie binarne: „Który prezenter patrzy na ciebie?” Bez pytania o lewo/prawo.
+2. Policzyć MediaPipe ratio dla obu oczu jako kontrolę, czy werdykt człowieka zgadza się z geometrią.
+3. Poprosić jeden duży model multimodalny o wybór A/B i ocenę: `direct / slightly off / clearly off`, bez żądania stopni.
+4. Wydać pieniądze tylko wtedy, gdy Tomasz wybiera wariant bez wahania, a geometria nie pokazuje wyraźnego odchylenia. Przy remisie poprawić kartę, zamiast liczyć, że prompt Kling naprawi oczy.
+
+## WERDYKT ZENKA
+
+**Do generacji wybrałbym v2.** Na pełnym obrazie v1 jednoznacznie patrzy poza kamerę, w stronę prawej strony kadru. V2 daje przekonujący kontakt z widzem; ewentualne odchylenie jest małe i częściowo wynika z lekko obróconej głowy. To znacznie lepszy kandydat niż v1, choć ostateczne „tak” powinien dać Tomasz.
+
+Minimalne spojrzenie obok nie musi zniszczyć animacji technicznie, ale może zepsuć ją **prezentersko**: widz bardzo szybko zauważa brak kontaktu, a Kling może utrwalić kierunek ze Start Frame przez cały klip. Oficjalny poradnik pokazuje sterowanie typu „speaks directly to the camera”, lecz nie dokumentuje gaze-lock ani niezawodnej korekcji oczu. [Kling Avatar 2.0 User Guide](https://kling.ai/quickstart/kling-ai-avatar-2-user-guide)
+
+Nie znalazłem wiarygodnych danych liczbowych typu „odchylenie X° powoduje Y% gorszy wynik”. Relacje praktyków wskazują natomiast, że obraz referencyjny jest silniejszym warunkiem niż precyzja promptu. [Doświadczenia użytkowników Kling](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/)

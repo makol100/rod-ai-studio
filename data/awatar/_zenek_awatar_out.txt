@@ -1,0 +1,478 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa314-053f-7ac0-b93b-4421703d036d
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_awatar.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam całą instrukcję z pliku, a potem wykonam wskazane w niej kroki w dostępnych granicach środowiska.
+exec
+/bin/bash -lc "sed -n '1,240p' _zadanie_zenka_awatar.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+# NOWY PROJEKT: AWATAR "DZIAŁKOWY DZIENNIKARZ". Zenek: macierz techniczna.
+DEKRET TOMASZA (verbatim): "Tworzymy razem Awatara Postać która będzie narratorem w rolkach. Będzie też odczytywał wiadomości i wszystkie informacje. Taki nasz Działkowy Dziennikarz reporter prezenter".
+KONTEKST INFRASTRUKTURY (pełny, obowiązek kontekstu): VPS Hetzner CPU-ONLY (bez GPU!), kontener fabryka-api (python venv /app/venv, PYTHONPATH=/app), ffmpeg, praat, faster-whisper, insightface buffalo_l (CPU), Ollama na hoście: qwen2.5vl:7b (VLM), bielik-11b-v3 Q8 (polski LLM — może pisać teksty $0!). Płatne narzędzia w użyciu: fal.ai nano-banana-pro/edit kadry $0.15/szt, veo3.1 lite FLF $0.64/8s (za drogie do długich odczytów!). Publikacja: FB Reels przez Graph API (działa). Kanon serii: Tomek+Janusz, ROD Woźniki, 9:16 1080x1920. Zero nowych abonamentów; każdy wydatek za zgodą Tomasza.
+POTRZEBY AWATARA: (a) stała tożsamość wizualna (karta postaci jak bohater.jpg), (b) STAŁY polski głos lektorski do czytania dowolnie długich tekstów, (c) animacja mówiącej głowy zsynchronizowana z audio (lip-sync), (d) pipeline tekst->TTS->wideo->montaż.
+ZADANIE — macierz wykonalności z cenami:
+1. TTS POLSKI: porównaj darmowe/lokalne (piper — jakość polskich głosów? edge-tts — legalność/stabilność? XTTS v2 CPU — czas syntezy?) vs płatne (ElevenLabs itp. — NIE mamy abonamentu). Rekomendacja głosu "dziennikarskiego" PL + czas syntezy 1 min tekstu na CPU.
+2. LIP-SYNC/TALKING HEAD na CPU-only: Wav2Lip, SadTalker, LivePortrait, EchoMimic — co REALNIE ruszy na CPU i ile minut liczenia na 1 min wideo? Jakość vs prostota.
+3. ALTERNATYWA fal.ai: modele talking-head/lipsync w katalogu fal — nazwy i CENY za minutę (sadtalker? veed/lipsync? kling-lipsync?). Kiedy opłacalne vs lokalnie.
+4. ALTERNATYWA PROSTA ($0): awatar półstatyczny — kadr postaci + subtelny ruch (pętla oddechu z ffmpeg/zoompan) + usta animowane nakładką dwuklatkową sterowaną RMS audio (jak stare dubbingi) — wykonalność skryptem, śmieszność zamierzona?
+5. REKOMENDACJA STOSU: ścieżka START $0 (do testu formatu) i ścieżka DOCELOWA (koszt/odcinek 60-90s). 
+Format: ## TTS / ## LIPSYNC_CPU / ## FAL / ## PROSTA / ## STOS. Konkrety, liczby, komendy instalacji gdzie znasz. Na końcu przypomnij prowadzącemu o naradzie i zapisach.
+
+codex
+Instrukcja wymaga aktualnych cen i oceny realnej wykonalności, więc weryfikuję je w dokumentacji dostawców oraz repozytoriach modeli. Szczególnie oddzielę dane oficjalne od szacunków wydajności CPU, bo te silnie zależą od procesora.
+web search: 
+web search: site:fal.ai/models lipsync pricing talking head Kling lip sync VEED SadTalker ...
+web search: 
+web search: site:fal.ai/models/veed/lipsync pricing "$" per second ...
+web search: 
+web search: 
+web search: 
+web search: "veed/lipsync" "priced" fal ...
+codex
+## TTS
+
+Stan cen i usług: 27 lipca 2026 r.
+
+| Rozwiązanie | Polski głos | 1 min audio na CPU | Koszt | Ocena |
+|---|---:|---:|---:|---|
+| Piper | Tak, m.in. `pl_PL-darkman-medium` | ok. 5–20 s | $0 | Najlepsza baza produkcyjna $0 |
+| edge-tts | Bardzo dobre głosy `pl-PL-MarekNeural`, `pl-PL-ZofiaNeural` | zwykle 2–10 s plus sieć | $0 technicznie | Świetne do testów, ryzykowne produkcyjnie |
+| XTTS v2 | Tak, klonowanie głosu | ok. 2–6 min | $0 obliczeniowo | Lepsza tożsamość głosu, ale cięższe i prawnie bardziej złożone |
+| ElevenLabs Flash/Turbo | Bardzo dobry | kilka sekund | ok. $0.05/min | Płatne, obecnie zbędne |
+| ElevenLabs Multilingual v2/v3 | Bardzo dobry | kilka sekund | ok. $0.10/min | Płatne, obecnie zbędne |
+
+Czasy CPU to konserwatywne szacunki dla współczesnego VPS z 8–16 vCPU, po załadowaniu modelu. Trzeba je potwierdzić benchmarkiem na konkretnym Hetznerze.
+
+Rekomendowany głos startowy: **Piper `pl_PL-darkman-medium`**. Jest męski, niski i najlepiej pasuje do działkowego reportera. Jakość jest wyraźnie niższa od Edge/ElevenLabs, szczególnie przy nazwach własnych i intonacji, ale głos jest stały, szybki, lokalny i niezależny od usługi zewnętrznej. Tekst należy pisać pod syntezator: krótkie zdania, przecinki jako pauzy, rozwinięte skróty i liczby zapisane słownie.
+
+Instalacja:
+
+```bash
+/app/venv/bin/pip install piper-tts
+```
+
+Synteza:
+
+```bash
+echo "Tu Zenek, działkowy dziennikarz. Sprawdzamy, co dziś wydarzyło się w Rodzinnym Ogrodzie Działkowym Woźniki." \
+  | /app/venv/bin/piper \
+      --model pl_PL-darkman-medium.onnx \
+      --output_file zenek.wav
+```
+
+Każdy model Pipera ma osobną kartę licencji — trzeba sprawdzić ją przed publikacją komercyjną; sam Piper nie nadaje automatycznie praw do każdego głosu. [Dokumentacja Piper](https://github.com/rhasspy/piper)
+
+`edge-tts` brzmi lepiej:
+
+```bash
+/app/venv/bin/pip install edge-tts
+/app/venv/bin/edge-tts \
+  --voice pl-PL-MarekNeural \
+  --rate=-5% \
+  --text "Tu Zenek, działkowy dziennikarz." \
+  --write-media zenek.mp3
+```
+
+Nie rekomenduję go jako stałego elementu automatycznej publikacji. Jest to nieoficjalny klient usługi internetowej Edge, bez klucza API i SLA; Microsoft może zmienić protokół, limity lub dostępność, co już wcześniej powodowało awarie klientów. Nie ma też wystarczająco jasnej podstawy, by traktować bezpłatny interfejs przeglądarkowy jak komercyjne API. Do testu formatu — tak. Do niezawodnej fabryki rolek — nie. Oficjalnym odpowiednikiem jest płatny Azure Speech.
+
+XTTS v2 potrafi sklonować głos z próbki i obsługuje polski:
+
+```bash
+/app/venv/bin/pip install TTS
+/app/venv/bin/tts \
+  --model_name tts_models/multilingual/multi-dataset/xtts_v2 \
+  --speaker_wav glos_zenka.wav \
+  --language_idx pl \
+  --text "Tu Zenek, działkowy dziennikarz." \
+  --out_path zenek.wav
+```
+
+Na CPU raportowano współczynnik około 2,3× czasu rzeczywistego nawet dla krótkiego przykładu; wraz z dzieleniem tekstu i narzutem bezpiecznie zakładałbym **2–6 minut obliczeń na minutę audio**. Model powinien pozostawać załadowany między zleceniami. Potrzebna jest też zgoda właściciela klonowanego głosu oraz kontrola warunków licencji modelu. [Coqui TTS i przykład XTTS](https://github.com/coqui-ai/TTS)
+
+ElevenLabs od 2026 oferuje również PAYG: Flash/Turbo kosztuje około **$0.05/min**, a Multilingual v2/v3 około **$0.10/min** przy założeniu około 1000 znaków na minutę. Nie wymaga więc koniecznie abonamentu, ale każdy wydatek nadal wymaga zgody Tomasza. [Aktualny cennik ElevenLabs API](https://elevenlabs.io/pricing/api)
+
+## LIPSYNC_CPU
+
+| Model | Co faktycznie robi | Szacunek na 1 min materiału CPU | Wniosek |
+|---|---|---:|---|
+| Wav2Lip | Podmienia ruch ust w istniejącym filmie | 10–30 min | Jedyny rozsądny technicznie, ale problem licencyjny |
+| SadTalker | Zdjęcie + audio → głowa, mimika, ruch | 20–60 min, czasem więcej | Najlepszy pełny talking head do próby CPU |
+| LivePortrait | Zdjęcie + film sterujący → animowana twarz | 15–50 min, bez czasu tworzenia drivera | Nie jest samodzielnym audio-lipsynkiem |
+| EchoMimic | Dyfuzyjna animacja portretu z audio | ok. 2–8 h lub brak przez RAM | Niepraktyczny na VPS CPU-only |
+
+### Wav2Lip
+
+Najprostszy i zwykle najlepiej synchronizuje usta, ale wymaga bazowego filmu z Zenkiem. Najważniejszy haczyk: oficjalne wagi Wav2Lip są przeznaczone do zastosowań badawczych i niekomercyjnych. Dlatego nie należy bez osobnej zgody licencyjnej budować na nich regularnej serii publikowanej przez organizację.
+
+```bash
+python inference.py \
+  --checkpoint_path wav2lip_gan.pth \
+  --face zenek_loop.mp4 \
+  --audio zenek.wav \
+  --pads 0 20 0 0
+```
+
+[Repozytorium i komenda Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
+
+### SadTalker
+
+Generuje ruch głowy i mimikę ze zdjęcia, więc daje pełniejszy efekt prezentera. Na CPU ruszy, lecz jest ciężki, kapryśny zależnościowo i może generować „gumową” twarz. Dla 60–90 sekund lepiej renderować segmenty po 10–20 sekund, a potem łączyć je montażem.
+
+```bash
+python inference.py \
+  --driven_audio zenek.wav \
+  --source_image zenek.png \
+  --result_dir results \
+  --still \
+  --preprocess full
+```
+
+Na pierwszej próbie wyłączyłbym `GFPGAN`: enhancer dodatkowo wielokrotnie zwiększa czas CPU. [Instrukcja SadTalker](https://github.com/OpenTalker/SadTalker)
+
+### LivePortrait
+
+Posiada opcję wymuszenia CPU, lecz potrzebuje filmu sterującego ruchem twarzy. Nie zamienia samego audio w ruch ust. Można raz nagrać neutralny, zapętlany występ aktora i przenosić ruch na Zenka, ale potem nadal potrzebny jest lipsync. To więcej elementów i punktów awarii niż SadTalker.
+
+### EchoMimic
+
+To model dyfuzyjny, z checkpointami liczonymi głównie pod GPU. Formalnie można próbować PyTorch CPU, lecz dla minutowej rolki byłoby to liczenie godzinami, z dużym zużyciem RAM i ryzykiem zakończenia procesu. Na tym VPS-ie odrzucam go jako rozwiązanie produkcyjne. [Repozytorium EchoMimic](https://github.com/antgroup/echomimic)
+
+## FAL
+
+| Endpoint fal.ai | Wejście | Cena katalogowa | 60 s | 90 s |
+|---|---|---:|---:|---:|
+| `fal-ai/kling-video/lipsync/audio-to-video` | film + audio | $0.014/s, naliczanie blokami po 5 s | ok. $0.84 | ok. $1.26 |
+| `veed/lipsync` / Lipsync 2.0 | film + audio | $0.07/s | $4.20 | $6.30 |
+| `fal-ai/sync-lipsync/v3/image-to-video` | zdjęcie + audio | $0.1333/s | ok. $8.00 | ok. $12.00 |
+| `fal-ai/sadtalker` | zdjęcie + audio/pose | strona pokazuje $0/compute second | Nieustalone | Nieustalone |
+
+Kling jest jedyną cenowo sensowną opcją do okazjonalnych odcinków. Dokumentacja nakłada jednak ograniczenia na film wejściowy, m.in. 2–10 sekund i 720p/1080p, więc przed przyjęciem kalkulacji trzeba wykonać płatny test całego 60-sekundowego audio. Katalog podaje około 12 minut oczekiwania. [Kling LipSync w fal.ai](https://fal.ai/models/fal-ai/kling-video/lipsync/text-to-video)
+
+VEED kosztuje już więcej niż obecne Veo Lite dla dłuższych wypowiedzi i nie ma ekonomicznego sensu dla codziennego dziennikarza. [VEED Lipsync 2.0 — cena](https://www.veed.io/newsroom/veed-and-magnific-launch)
+
+Sync v3 przy 60 sekundach kosztowałby około $8, więc odpada dla stałej serii. [Sync-3 image-to-video](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video)
+
+Katalogowy SadTalker pokazuje obecnie zerową stawkę, co wygląda na stary, promocyjny albo nieaktywny wpis, a nie wiarygodną ofertę produkcyjną. Nie wpisywałbym kosztu $0 do budżetu bez udanego wywołania i sprawdzenia rachunku.
+
+fal opłaca się wtedy, gdy ważniejsze są czas operatora i szybki test niż minimalny koszt. Lokalnie wygrywa przy regularnych publikacjach i nocnym renderowaniu; fal — przy pojedynczej ważnej rolce albo gdy VPS nie zdąży przed publikacją.
+
+## PROSTA
+
+To rozwiązanie jest w pełni wykonalne za **$0** i stylistycznie bardzo pasuje do „Działkowego Dziennikarza”. Zamierzona lekka śmieszność może stać się znakiem rozpoznawczym, jeśli całość będzie konsekwentna: poważny pasek wiadomości, reporterski głos i absurdalnie proste usta.
+
+Pipeline:
+
+1. Jedna zatwierdzona karta Zenka 1080×1920.
+2. Dwie lub trzy przezroczyste nakładki ust: zamknięte, półotwarte, otwarte.
+3. Analiza RMS audio co 40–80 ms.
+4. Przełączanie klatek ust według progów głośności.
+5. Powolny zoom 100–103%, przesunięcie o kilka pikseli i lekki „oddech”.
+6. Napisy, belka „DZIAŁKOWY DZIENNIKARZ”, przebitki z ROD i końcowy montaż.
+
+Sam oddech:
+
+```bash
+ffmpeg -loop 1 -i zenek.png -i zenek.wav \
+  -filter_complex \
+  "[0:v]scale=1120:1992,zoompan=z='1+0.012*sin(on/35)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=25[v]" \
+  -map "[v]" -map 1:a -shortest \
+  -c:v libx264 -pix_fmt yuv420p -c:a aac zenek_oddech.mp4
+```
+
+Usta najlepiej sterować skryptem Pythona wykorzystującym `ffmpeg` lub generującym plik komend `sendcmd`. Progi startowe:
+
+```text
+RMS < -38 dB      usta zamknięte
+-38 do -24 dB     usta półotwarte
+RMS > -24 dB      usta otwarte
+```
+
+Żeby efekt nie wyglądał jak przypadkowe miganie, należy:
+
+- wygładzać RMS średnią z 3–5 okien;
+- nie zmieniać stanu częściej niż co 80 ms;
+- przy spółgłoskach i krótkich pauzach szybko domykać usta;
+- raz na kilka sekund dodać mrugnięcie;
+- większość materiału przykrywać przebitkami, zdjęciami, mapami i dużymi napisami.
+
+To nie będzie realistyczny lipsync, ale może być czytelniejsze i zabawniejsze niż przeciętny SadTalker. W tej serii ograniczenie może stać się świadomym stylem.
+
+## STOS
+
+### START $0 — rekomendacja
+
+```text
+Bielik → redakcja tekstu
+Piper darkman → WAV
+Python RMS → stany ust
+ffmpeg → oddech, usta, napisy, przebitki
+faster-whisper/Praat → kontrola napisów i audio
+ffmpeg → 1080×1920
+Graph API → FB Reels
+```
+
+Koszt odcinka: **$0**, poza istniejącym VPS-em.
+
+Czas przygotowania po zautomatyzowaniu:
+
+- TTS: poniżej 30 sekund;
+- animacja i montaż CPU: około 2–8 minut;
+- całość: zwykle poniżej 10 minut plus redakcja.
+
+Najpierw zrobiłbym trzy odcinki tym sposobem. Pozwoli to sprawdzić, czy widzowie akceptują Zenka, zanim wydamy pieniądze lub dni pracy na realistyczną twarz.
+
+### DOCELOWA
+
+Najrozsądniejszy wariant:
+
+```text
+Bielik → tekst
+Piper → głos stały
+10–15 s bazowej pętli Zenka
+Kling fal lipsync → segmenty
+ffmpeg → łączenie, przebitki, napisy, muzyka
+Graph API → publikacja
+```
+
+Szacowany koszt lipsyncu:
+
+- 60 sekund: około **$0.84**;
+- 90 sekund: około **$1.26**;
+- TTS Piper: **$0**;
+- materiały wizualne: **$0**, jeżeli używamy zatwierdzonej karty postaci i lokalnych zasobów.
+
+Jeśli próba Klinga nie przyjmie pełnego audio albo koszt rozliczy się inaczej, wariant docelowy powinien pozostać półstatyczny $0, wzbogacony przebitkami. VEED i Sync v3 są za drogie dla regularnych odczytów. XTTS warto rozważyć dopiero wtedy, gdy głos Pipera okaże się głównym powodem słabego odbioru.
+
+Przed uruchomieniem jakiegokolwiek płatnego testu fal.ai trzeba uzyskać zgodę Tomasza.
+
+Na koniec: prowadzący powinien zwołać krótką naradę z Tomaszem w sprawie wyglądu, głosu i dopuszczalnego kosztu Zenka oraz zapisać decyzje, testy, czasy renderowania, ustawienia głosu i faktyczne koszty każdego odcinka.
+tokens used
+55,107
+## TTS
+
+Stan cen i usług: 27 lipca 2026 r.
+
+| Rozwiązanie | Polski głos | 1 min audio na CPU | Koszt | Ocena |
+|---|---:|---:|---:|---|
+| Piper | Tak, m.in. `pl_PL-darkman-medium` | ok. 5–20 s | $0 | Najlepsza baza produkcyjna $0 |
+| edge-tts | Bardzo dobre głosy `pl-PL-MarekNeural`, `pl-PL-ZofiaNeural` | zwykle 2–10 s plus sieć | $0 technicznie | Świetne do testów, ryzykowne produkcyjnie |
+| XTTS v2 | Tak, klonowanie głosu | ok. 2–6 min | $0 obliczeniowo | Lepsza tożsamość głosu, ale cięższe i prawnie bardziej złożone |
+| ElevenLabs Flash/Turbo | Bardzo dobry | kilka sekund | ok. $0.05/min | Płatne, obecnie zbędne |
+| ElevenLabs Multilingual v2/v3 | Bardzo dobry | kilka sekund | ok. $0.10/min | Płatne, obecnie zbędne |
+
+Czasy CPU to konserwatywne szacunki dla współczesnego VPS z 8–16 vCPU, po załadowaniu modelu. Trzeba je potwierdzić benchmarkiem na konkretnym Hetznerze.
+
+Rekomendowany głos startowy: **Piper `pl_PL-darkman-medium`**. Jest męski, niski i najlepiej pasuje do działkowego reportera. Jakość jest wyraźnie niższa od Edge/ElevenLabs, szczególnie przy nazwach własnych i intonacji, ale głos jest stały, szybki, lokalny i niezależny od usługi zewnętrznej. Tekst należy pisać pod syntezator: krótkie zdania, przecinki jako pauzy, rozwinięte skróty i liczby zapisane słownie.
+
+Instalacja:
+
+```bash
+/app/venv/bin/pip install piper-tts
+```
+
+Synteza:
+
+```bash
+echo "Tu Zenek, działkowy dziennikarz. Sprawdzamy, co dziś wydarzyło się w Rodzinnym Ogrodzie Działkowym Woźniki." \
+  | /app/venv/bin/piper \
+      --model pl_PL-darkman-medium.onnx \
+      --output_file zenek.wav
+```
+
+Każdy model Pipera ma osobną kartę licencji — trzeba sprawdzić ją przed publikacją komercyjną; sam Piper nie nadaje automatycznie praw do każdego głosu. [Dokumentacja Piper](https://github.com/rhasspy/piper)
+
+`edge-tts` brzmi lepiej:
+
+```bash
+/app/venv/bin/pip install edge-tts
+/app/venv/bin/edge-tts \
+  --voice pl-PL-MarekNeural \
+  --rate=-5% \
+  --text "Tu Zenek, działkowy dziennikarz." \
+  --write-media zenek.mp3
+```
+
+Nie rekomenduję go jako stałego elementu automatycznej publikacji. Jest to nieoficjalny klient usługi internetowej Edge, bez klucza API i SLA; Microsoft może zmienić protokół, limity lub dostępność, co już wcześniej powodowało awarie klientów. Nie ma też wystarczająco jasnej podstawy, by traktować bezpłatny interfejs przeglądarkowy jak komercyjne API. Do testu formatu — tak. Do niezawodnej fabryki rolek — nie. Oficjalnym odpowiednikiem jest płatny Azure Speech.
+
+XTTS v2 potrafi sklonować głos z próbki i obsługuje polski:
+
+```bash
+/app/venv/bin/pip install TTS
+/app/venv/bin/tts \
+  --model_name tts_models/multilingual/multi-dataset/xtts_v2 \
+  --speaker_wav glos_zenka.wav \
+  --language_idx pl \
+  --text "Tu Zenek, działkowy dziennikarz." \
+  --out_path zenek.wav
+```
+
+Na CPU raportowano współczynnik około 2,3× czasu rzeczywistego nawet dla krótkiego przykładu; wraz z dzieleniem tekstu i narzutem bezpiecznie zakładałbym **2–6 minut obliczeń na minutę audio**. Model powinien pozostawać załadowany między zleceniami. Potrzebna jest też zgoda właściciela klonowanego głosu oraz kontrola warunków licencji modelu. [Coqui TTS i przykład XTTS](https://github.com/coqui-ai/TTS)
+
+ElevenLabs od 2026 oferuje również PAYG: Flash/Turbo kosztuje około **$0.05/min**, a Multilingual v2/v3 około **$0.10/min** przy założeniu około 1000 znaków na minutę. Nie wymaga więc koniecznie abonamentu, ale każdy wydatek nadal wymaga zgody Tomasza. [Aktualny cennik ElevenLabs API](https://elevenlabs.io/pricing/api)
+
+## LIPSYNC_CPU
+
+| Model | Co faktycznie robi | Szacunek na 1 min materiału CPU | Wniosek |
+|---|---|---:|---|
+| Wav2Lip | Podmienia ruch ust w istniejącym filmie | 10–30 min | Jedyny rozsądny technicznie, ale problem licencyjny |
+| SadTalker | Zdjęcie + audio → głowa, mimika, ruch | 20–60 min, czasem więcej | Najlepszy pełny talking head do próby CPU |
+| LivePortrait | Zdjęcie + film sterujący → animowana twarz | 15–50 min, bez czasu tworzenia drivera | Nie jest samodzielnym audio-lipsynkiem |
+| EchoMimic | Dyfuzyjna animacja portretu z audio | ok. 2–8 h lub brak przez RAM | Niepraktyczny na VPS CPU-only |
+
+### Wav2Lip
+
+Najprostszy i zwykle najlepiej synchronizuje usta, ale wymaga bazowego filmu z Zenkiem. Najważniejszy haczyk: oficjalne wagi Wav2Lip są przeznaczone do zastosowań badawczych i niekomercyjnych. Dlatego nie należy bez osobnej zgody licencyjnej budować na nich regularnej serii publikowanej przez organizację.
+
+```bash
+python inference.py \
+  --checkpoint_path wav2lip_gan.pth \
+  --face zenek_loop.mp4 \
+  --audio zenek.wav \
+  --pads 0 20 0 0
+```
+
+[Repozytorium i komenda Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
+
+### SadTalker
+
+Generuje ruch głowy i mimikę ze zdjęcia, więc daje pełniejszy efekt prezentera. Na CPU ruszy, lecz jest ciężki, kapryśny zależnościowo i może generować „gumową” twarz. Dla 60–90 sekund lepiej renderować segmenty po 10–20 sekund, a potem łączyć je montażem.
+
+```bash
+python inference.py \
+  --driven_audio zenek.wav \
+  --source_image zenek.png \
+  --result_dir results \
+  --still \
+  --preprocess full
+```
+
+Na pierwszej próbie wyłączyłbym `GFPGAN`: enhancer dodatkowo wielokrotnie zwiększa czas CPU. [Instrukcja SadTalker](https://github.com/OpenTalker/SadTalker)
+
+### LivePortrait
+
+Posiada opcję wymuszenia CPU, lecz potrzebuje filmu sterującego ruchem twarzy. Nie zamienia samego audio w ruch ust. Można raz nagrać neutralny, zapętlany występ aktora i przenosić ruch na Zenka, ale potem nadal potrzebny jest lipsync. To więcej elementów i punktów awarii niż SadTalker.
+
+### EchoMimic
+
+To model dyfuzyjny, z checkpointami liczonymi głównie pod GPU. Formalnie można próbować PyTorch CPU, lecz dla minutowej rolki byłoby to liczenie godzinami, z dużym zużyciem RAM i ryzykiem zakończenia procesu. Na tym VPS-ie odrzucam go jako rozwiązanie produkcyjne. [Repozytorium EchoMimic](https://github.com/antgroup/echomimic)
+
+## FAL
+
+| Endpoint fal.ai | Wejście | Cena katalogowa | 60 s | 90 s |
+|---|---|---:|---:|---:|
+| `fal-ai/kling-video/lipsync/audio-to-video` | film + audio | $0.014/s, naliczanie blokami po 5 s | ok. $0.84 | ok. $1.26 |
+| `veed/lipsync` / Lipsync 2.0 | film + audio | $0.07/s | $4.20 | $6.30 |
+| `fal-ai/sync-lipsync/v3/image-to-video` | zdjęcie + audio | $0.1333/s | ok. $8.00 | ok. $12.00 |
+| `fal-ai/sadtalker` | zdjęcie + audio/pose | strona pokazuje $0/compute second | Nieustalone | Nieustalone |
+
+Kling jest jedyną cenowo sensowną opcją do okazjonalnych odcinków. Dokumentacja nakłada jednak ograniczenia na film wejściowy, m.in. 2–10 sekund i 720p/1080p, więc przed przyjęciem kalkulacji trzeba wykonać płatny test całego 60-sekundowego audio. Katalog podaje około 12 minut oczekiwania. [Kling LipSync w fal.ai](https://fal.ai/models/fal-ai/kling-video/lipsync/text-to-video)
+
+VEED kosztuje już więcej niż obecne Veo Lite dla dłuższych wypowiedzi i nie ma ekonomicznego sensu dla codziennego dziennikarza. [VEED Lipsync 2.0 — cena](https://www.veed.io/newsroom/veed-and-magnific-launch)
+
+Sync v3 przy 60 sekundach kosztowałby około $8, więc odpada dla stałej serii. [Sync-3 image-to-video](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video)
+
+Katalogowy SadTalker pokazuje obecnie zerową stawkę, co wygląda na stary, promocyjny albo nieaktywny wpis, a nie wiarygodną ofertę produkcyjną. Nie wpisywałbym kosztu $0 do budżetu bez udanego wywołania i sprawdzenia rachunku.
+
+fal opłaca się wtedy, gdy ważniejsze są czas operatora i szybki test niż minimalny koszt. Lokalnie wygrywa przy regularnych publikacjach i nocnym renderowaniu; fal — przy pojedynczej ważnej rolce albo gdy VPS nie zdąży przed publikacją.
+
+## PROSTA
+
+To rozwiązanie jest w pełni wykonalne za **$0** i stylistycznie bardzo pasuje do „Działkowego Dziennikarza”. Zamierzona lekka śmieszność może stać się znakiem rozpoznawczym, jeśli całość będzie konsekwentna: poważny pasek wiadomości, reporterski głos i absurdalnie proste usta.
+
+Pipeline:
+
+1. Jedna zatwierdzona karta Zenka 1080×1920.
+2. Dwie lub trzy przezroczyste nakładki ust: zamknięte, półotwarte, otwarte.
+3. Analiza RMS audio co 40–80 ms.
+4. Przełączanie klatek ust według progów głośności.
+5. Powolny zoom 100–103%, przesunięcie o kilka pikseli i lekki „oddech”.
+6. Napisy, belka „DZIAŁKOWY DZIENNIKARZ”, przebitki z ROD i końcowy montaż.
+
+Sam oddech:
+
+```bash
+ffmpeg -loop 1 -i zenek.png -i zenek.wav \
+  -filter_complex \
+  "[0:v]scale=1120:1992,zoompan=z='1+0.012*sin(on/35)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=25[v]" \
+  -map "[v]" -map 1:a -shortest \
+  -c:v libx264 -pix_fmt yuv420p -c:a aac zenek_oddech.mp4
+```
+
+Usta najlepiej sterować skryptem Pythona wykorzystującym `ffmpeg` lub generującym plik komend `sendcmd`. Progi startowe:
+
+```text
+RMS < -38 dB      usta zamknięte
+-38 do -24 dB     usta półotwarte
+RMS > -24 dB      usta otwarte
+```
+
+Żeby efekt nie wyglądał jak przypadkowe miganie, należy:
+
+- wygładzać RMS średnią z 3–5 okien;
+- nie zmieniać stanu częściej niż co 80 ms;
+- przy spółgłoskach i krótkich pauzach szybko domykać usta;
+- raz na kilka sekund dodać mrugnięcie;
+- większość materiału przykrywać przebitkami, zdjęciami, mapami i dużymi napisami.
+
+To nie będzie realistyczny lipsync, ale może być czytelniejsze i zabawniejsze niż przeciętny SadTalker. W tej serii ograniczenie może stać się świadomym stylem.
+
+## STOS
+
+### START $0 — rekomendacja
+
+```text
+Bielik → redakcja tekstu
+Piper darkman → WAV
+Python RMS → stany ust
+ffmpeg → oddech, usta, napisy, przebitki
+faster-whisper/Praat → kontrola napisów i audio
+ffmpeg → 1080×1920
+Graph API → FB Reels
+```
+
+Koszt odcinka: **$0**, poza istniejącym VPS-em.
+
+Czas przygotowania po zautomatyzowaniu:
+
+- TTS: poniżej 30 sekund;
+- animacja i montaż CPU: około 2–8 minut;
+- całość: zwykle poniżej 10 minut plus redakcja.
+
+Najpierw zrobiłbym trzy odcinki tym sposobem. Pozwoli to sprawdzić, czy widzowie akceptują Zenka, zanim wydamy pieniądze lub dni pracy na realistyczną twarz.
+
+### DOCELOWA
+
+Najrozsądniejszy wariant:
+
+```text
+Bielik → tekst
+Piper → głos stały
+10–15 s bazowej pętli Zenka
+Kling fal lipsync → segmenty
+ffmpeg → łączenie, przebitki, napisy, muzyka
+Graph API → publikacja
+```
+
+Szacowany koszt lipsyncu:
+
+- 60 sekund: około **$0.84**;
+- 90 sekund: około **$1.26**;
+- TTS Piper: **$0**;
+- materiały wizualne: **$0**, jeżeli używamy zatwierdzonej karty postaci i lokalnych zasobów.
+
+Jeśli próba Klinga nie przyjmie pełnego audio albo koszt rozliczy się inaczej, wariant docelowy powinien pozostać półstatyczny $0, wzbogacony przebitkami. VEED i Sync v3 są za drogie dla regularnych odczytów. XTTS warto rozważyć dopiero wtedy, gdy głos Pipera okaże się głównym powodem słabego odbioru.
+
+Przed uruchomieniem jakiegokolwiek płatnego testu fal.ai trzeba uzyskać zgodę Tomasza.
+
+Na koniec: prowadzący powinien zwołać krótką naradę z Tomaszem w sprawie wyglądu, głosu i dopuszczalnego kosztu Zenka oraz zapisać decyzje, testy, czasy renderowania, ustawienia głosu i faktyczne koszty każdego odcinka.

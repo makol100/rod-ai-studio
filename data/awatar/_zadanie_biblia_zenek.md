@@ -1,0 +1,1 @@
+ZENEK — Ty odpowiadasz za RZEMIOSŁO: pkt 4, 6, 8 + techniczna powtarzalność (jak GWARANTOWAĆ tę samą twarz/głos w 50 odcinkach: praktyki twórców AI-awatarów, ryzyka driftu przy edycjach kart, wersjonowanie kanonu). Przeczytaj _zadanie_biblia_kontekst.md. Fakty ze źródłami (linki), bez teorii.
