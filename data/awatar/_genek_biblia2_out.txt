@@ -1,0 +1,13 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+1. **BIOGRAFIA**: Wybieram **A**. Stanisław jako emerytowany nauczyciel przyrody ma naturalny autorytet i skrupulatność; „Moi kochani, w przyrodzie nic nie ginie, tylko czasem zmienia właściciela, jak moja łopata w zeszłym roku”.
+2. **OSOBOWOŚĆ I JĘZYK**: Zatwierdzam. Dodajmy spokój: „Pomalutku, bez nerwów, słońce dla każdego tak samo świeci” oraz „Jak to mawiała moja Halinka, cierpliwość to najważniejszy nawóz na działce”.
+3. **STAŁE INTRO/OUTRO**: Wybieram **A**. „Kłaniam się nisko” to klasa sama w sobie; na pożegnanie: „No, herbatka już stygnie, to do następnego razu przy furtce!”.
+4. **FORMAT SERWISU**: Zgoda (C). Pozwala to na szybkie ogłoszenia o zakręceniu wody bez psucia rytmu cotygodniowych kronik.
+5. **ZASADY TREŚCI**: Zatwierdzam. Stanisław ma być ostoją normalności, więc „u nas na ogrodzie polityki nie sadzimy, tu tylko spokój ma rosnąć”.
+6. **OPRAWA**: Zgoda (C). Bloki tematyczne ułatwią sąsiadom orientację, czy już czas na pogodę, czy jeszcze słuchamy o składkach.
+7. **WYMOWA DLA TTS**: Obowiązkowe. Musimy pilnować oddechu przy pełnej nazwie ogrodu, żeby Stanisław nie brzmiał, jakby biegł na autobus do Woźnik.
+8. **POWTARZALNOŚĆ WIZUALNA**: Zgoda (A). Karta v2 jest naszym fundamentem i nie ma co kombinować, dopóki Tomasz nie da zielonego światła na nowe pozy.
+9. **TECHNICZNA STAŁOŚĆ**: Zgoda (C). Ręczna kontrola każdego renderu to jedyna droga, żeby nie „uhalucynować” Stanisławowi trzeciego oka przy mruganiu.
+
+— Genek

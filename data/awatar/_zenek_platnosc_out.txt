@@ -1,0 +1,94 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa4de-dcc4-7872-9d6a-7bcf18cf6b06
+--------
+user
+ZENEK — pytanie Tomasza (verbatim): "Dlaczego ma przymusową przerwę? Może nie jest zapłacony?"
+FAKTY zmierzone: Gemini CLI na kluczu GEMINI_API_KEY (AI Studio) dostał 429: "Quota exceeded... free_tier_requests, limit: 20, model: gemini-3-flash" = konto na DARMOWYM poziomie, 20 zapytań/dzień na gemini-3-flash; zapasowy 2.5-flash dziś 503 (przeciążenie po stronie Google).
+ZBADAJ ze źródłami (linki, aktualne):
+1. Ile kosztuje przejście na płatny poziom Gemini API (pay-as-you-go): cena za 1M tokenów wej/wyj dla gemini-3-flash i co się zmienia w limitach (RPM/RPD) po włączeniu billingu.
+2. Oszacuj koszt JEDNEJ typowej narady Genka u nas (wejście ~2-4k tokenów, wyjście ~1-2k) i koszt miesiąca przy ~10 naradach dziennie.
+3. Alternatywy $0: kiedy resetuje się dzienna darmowa pula (godzina, strefa)? Czy Google dopuszcza w ToS drugi darmowy klucz na osobne konto? Krótko: tak/nie + źródło.
+4. Twoja rekomendacja jako strażnika kosztów (zasada Tomasza: najniższy koszt, chyba że pewna droga za niewielką dopłatą).
+FORMA: zwięźle po polsku, liczby + linki, podpis.
+codex
+Sprawdzę aktualne, oficjalne źródła Google: cennik, limity po włączeniu billingu, reset kwot i zasady dotyczące obchodzenia limitów. Potem przeliczę koszt narady i miesiąca.
+web search: 
+web search: site:ai.google.dev/gemini-api/docs/pricing Gemini 3 Flash pricing 1M tokens ...
+web search: 
+web search: site:ai.google.dev/gemini-api/docs/pricing "Gemini 3 Flash Preview" "$0.50" "$3.00" ...
+web search: 
+web search: Google APIs Terms of Service multiple developer accounts circumvent limitations ...
+codex
+ZENEK — przymusowa przerwa wynika z wyczerpania darmowej kwoty, nie z „niezapłaconej faktury”. Projekt działa na Free Tier; zapasowy błąd 503 oznacza przeciążenie Google.
+
+1. Płatny Gemini 3 Flash
+
+- Samo przejście na Pay‑as‑you‑go nie ma abonamentu: płaci się za użycie.
+- `gemini-3-flash-preview`: **$0,50 / 1 mln tokenów wejścia** oraz **$3,00 / 1 mln tokenów wyjścia**, wliczając tokeny rozumowania. [Oficjalny cennik Google](https://ai.google.dev/gemini-api/docs/pricing)
+- Włączenie aktywnego billingu daje od razu Tier 1. [Zasady poziomów i billingu](https://ai.google.dev/gemini-api/docs/rate-limits)
+- Obecnie obserwowane dla Tier 1 Gemini 3 Flash: około **1 000 RPM i 10 000 RPD**, wobec naszych **20 RPD** na Free. Google nie gwarantuje jednak jednej publicznej tabeli dla każdego projektu — wiążące wartości pokazuje AI Studio → Dashboard → Rate Limits. Limity są per projekt, nie per klucz. [Dokumentacja](https://ai.google.dev/gemini-api/docs/rate-limits), [przykład limitów widocznych w AI Studio](https://discuss.ai.google.dev/t/quota-exceeded-error-on-tier-1-paid-project-despite-minimal-usage/128460)
+
+2. Koszt narady Genka
+
+Przy 2–4 tys. tokenów wejścia i 1–2 tys. wyjścia:
+
+- wejście: **$0,001–0,002**
+- wyjście: **$0,003–0,006**
+- razem: **$0,004–0,008 za naradę**, czyli 0,4–0,8 centa
+- 10 narad dziennie × 30 dni: **$1,20–2,40 miesięcznie**
+
+To szacunek bez płatnego Google Search/Maps i dodatkowych, nieujętych w założeniu tokenów rozumowania. Bezpieczny praktyczny budżet: **$3–5/mies.**
+
+3. Alternatywy za $0
+
+- Dzienna pula resetuje się o **00:00 czasu Pacific**: obecnie latem **07:00 UTC / 09:00 w Polsce**, zimą **08:00 UTC / 09:00 w Polsce**. [Google: reset RPD](https://ai.google.dev/gemini-api/docs/rate-limits)
+- Drugi klucz w tym samym projekcie nic nie daje — limit jest **per projekt**, nie per klucz.
+- Drugie konto/projekt utworzone specjalnie po to, by kontynuować po wyczerpaniu darmowej puli: **nie**. Google zabrania obchodzenia udokumentowanych ograniczeń API oraz maskowania tożsamości konta. [Google APIs Terms of Service](https://developers.google.com/terms)
+
+4. Rekomendacja strażnika kosztów
+
+**Włączyć płatny Tier 1 z twardym alarmem/budżetem $5 miesięcznie.** To najpewniejsza droga za dopłatą rzędu kilku dolarów, usuwa limit 20 narad dziennie i nie wymaga ryzykownego żonglowania kontami. Nadal warto zachować `2.5-flash` jako awaryjny fallback na 429/503, ale nie traktować go jako gwarancji dostępności.
+
+— Zenek, strażnik kosztów
+tokens used
+28,242
+ZENEK — przymusowa przerwa wynika z wyczerpania darmowej kwoty, nie z „niezapłaconej faktury”. Projekt działa na Free Tier; zapasowy błąd 503 oznacza przeciążenie Google.
+
+1. Płatny Gemini 3 Flash
+
+- Samo przejście na Pay‑as‑you‑go nie ma abonamentu: płaci się za użycie.
+- `gemini-3-flash-preview`: **$0,50 / 1 mln tokenów wejścia** oraz **$3,00 / 1 mln tokenów wyjścia**, wliczając tokeny rozumowania. [Oficjalny cennik Google](https://ai.google.dev/gemini-api/docs/pricing)
+- Włączenie aktywnego billingu daje od razu Tier 1. [Zasady poziomów i billingu](https://ai.google.dev/gemini-api/docs/rate-limits)
+- Obecnie obserwowane dla Tier 1 Gemini 3 Flash: około **1 000 RPM i 10 000 RPD**, wobec naszych **20 RPD** na Free. Google nie gwarantuje jednak jednej publicznej tabeli dla każdego projektu — wiążące wartości pokazuje AI Studio → Dashboard → Rate Limits. Limity są per projekt, nie per klucz. [Dokumentacja](https://ai.google.dev/gemini-api/docs/rate-limits), [przykład limitów widocznych w AI Studio](https://discuss.ai.google.dev/t/quota-exceeded-error-on-tier-1-paid-project-despite-minimal-usage/128460)
+
+2. Koszt narady Genka
+
+Przy 2–4 tys. tokenów wejścia i 1–2 tys. wyjścia:
+
+- wejście: **$0,001–0,002**
+- wyjście: **$0,003–0,006**
+- razem: **$0,004–0,008 za naradę**, czyli 0,4–0,8 centa
+- 10 narad dziennie × 30 dni: **$1,20–2,40 miesięcznie**
+
+To szacunek bez płatnego Google Search/Maps i dodatkowych, nieujętych w założeniu tokenów rozumowania. Bezpieczny praktyczny budżet: **$3–5/mies.**
+
+3. Alternatywy za $0
+
+- Dzienna pula resetuje się o **00:00 czasu Pacific**: obecnie latem **07:00 UTC / 09:00 w Polsce**, zimą **08:00 UTC / 09:00 w Polsce**. [Google: reset RPD](https://ai.google.dev/gemini-api/docs/rate-limits)
+- Drugi klucz w tym samym projekcie nic nie daje — limit jest **per projekt**, nie per klucz.
+- Drugie konto/projekt utworzone specjalnie po to, by kontynuować po wyczerpaniu darmowej puli: **nie**. Google zabrania obchodzenia udokumentowanych ograniczeń API oraz maskowania tożsamości konta. [Google APIs Terms of Service](https://developers.google.com/terms)
+
+4. Rekomendacja strażnika kosztów
+
+**Włączyć płatny Tier 1 z twardym alarmem/budżetem $5 miesięcznie.** To najpewniejsza droga za dopłatą rzędu kilku dolarów, usuwa limit 20 narad dziennie i nie wymaga ryzykownego żonglowania kontami. Nadal warto zachować `2.5-flash` jako awaryjny fallback na 429/503, ale nie traktować go jako gwarancji dostępności.
+
+— Zenek, strażnik kosztów

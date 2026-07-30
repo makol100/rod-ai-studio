@@ -1,0 +1,48 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## OPCJE SPOJRZENIA PANA STANISŁAWA
+
+Oto analiza wariantów reżyserskich pod kątem wiralowości (pierwsze 3 sekundy!) i możliwości silnika Kling AI v2.
+
+### A) Stały kontakt z obiektywem (Obecna V2)
+*   **Opis:** Pan Stanisław patrzy prosto w oczy widza od pierwszej do ostatniej sekundy.
+*   **Efekt na widza:** Buduje autorytet, poczucie bycia słuchanym/prowadzonym. Styl "poważnego serwisu".
+*   **Wykonalność:** 100% (mamy gotową kartę v2).
+*   **Konieczność nowej karty:** Nie. Wystarczy obecny "Prompt Avatara".
+
+### B) Klasyka Dziennikarska: Notes -> Widz (Hook Dynamiczny)
+*   **Opis:** Startujemy od Pana Stanisława piszącego w notesie. Na słowo "Dzień dobry" lub "Uwaga" podnosi wzrok i nawiązuje kontakt wzrokowy.
+*   **Efekt na widza:** Najmocniejszy "hook" w mediach społecznościowych. Sugeruje, że Pan Stanisław jest zajęty ważnymi sprawami ROD, ale przerywa je *specjalnie dla Ciebie*.
+*   **Wykonalność:** Średnia na samej karcie v2 (Kling może "płynąć" przy dużym ruchu głowy z góry do góry). 
+*   **Konieczność nowej karty:** **TAK.** Potrzebna karta "v2-notes" (głowa lekko pochylona, wzrok w dół). Kling najlepiej animuje przejście między dwoma stanami, jeśli start frame jest "bazą" ruchu.
+
+### C) Spojrzenie znad okularów (Wariant "Belfer")
+*   **Opis:** Pan Stanisław ma okulary na czubku nosa, patrzy znad szkieł z lekkim przymrużeniem oka.
+*   **Efekt na widza:** Bardzo wiralowy, "memiczny" archetyp mądrego dziadka, który widzi więcej. Idealne do obalania mitów lub "trudnych prawd" o ślimakach/sąsiadach.
+*   **Wykonalność:** Wysoka, ale wymaga precyzyjnej grafiki.
+*   **Konieczność nowej karty:** **TAK.** Wymaga edycji karty v2 (przeniesienie okularów ze sznurka na nos).
+
+### D) Pomysł Genka: "Zaskoczenie Herbatą" (Wzrok za ruchem)
+*   **Opis:** Pan Stanisław odstawia szklankę w koszyczku na stół, wodząc za nią wzrokiem, i dopiero gdy szklanka dotknie blatu, przenosi wzrok na kamerę z uśmiechem.
+*   **Efekt na widza:** Naturalność 10/10. Rozbija sztywność "gadającej głowy". Widz czuje się, jakby dosiadł się do stolika w altanie.
+*   **Wykonalność:** Wysoka w Kling v2 (ruch podążający za przedmiotem jest bardzo stabilny).
+*   **Konieczność nowej karty:** Można próbować z v2, ale lepiej mieć kartę "v2-tea-focus".
+
+---
+
+## WERDYKT GENKA
+
+1.  **Powitanie kanoniczne (40s): OPCJA B (Notes -> Widz).** 
+    To musi być "wejście z buta". Pan Stanisław coś notuje (buduje to postać eksperta), podnosi głowę i mówi: "O, dobrze że jesteście. Właśnie zapisywałem...". To tworzy natychmiastową relację.
+    *   **Ryzyko:** Kling może zniekształcić twarz przy podnoszeniu głowy. Wymaga to wygenerowania karty "v2-notes".
+
+2.  **Cotygodniowe serwisy: OPCJA A (Stały kontakt) + okazjonalnie C (Okulary).**
+    W newsach ważna jest czytelność. Stały wzrok pozwala skupić się na treści (np. o prawie działkowym). Opcję C (znad okularów) rezerwujemy na specjalne odcinki typu "Interwencje" lub "Pogromcy Mitów".
+
+---
+**REKOMENDACJA DLA TOMASZA:**
+Tomaszu, mamy głosy obu pracowników (Daniel i Eric) gotowe do testów. Sugeruję:
+1. Zapisanie powyższych opcji do `DECYZJE_AWATAR.md`.
+2. Zlecenie mi przygotowania karty "v2-notes" przez nano-banana-edit, abyśmy mogli przetestować "dynamiczny hook" (Opcja B), bo to on wykręci zasięgi na Facebooku.
+
+**Czy mam przygotować prompty do edycji karty dla opcji B i C?**

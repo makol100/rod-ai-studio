@@ -1,0 +1,11 @@
+# NOWY PROJEKT: AWATAR "DZIAŁKOWY DZIENNIKARZ". Zenek: macierz techniczna.
+DEKRET TOMASZA (verbatim): "Tworzymy razem Awatara Postać która będzie narratorem w rolkach. Będzie też odczytywał wiadomości i wszystkie informacje. Taki nasz Działkowy Dziennikarz reporter prezenter".
+KONTEKST INFRASTRUKTURY (pełny, obowiązek kontekstu): VPS Hetzner CPU-ONLY (bez GPU!), kontener fabryka-api (python venv /app/venv, PYTHONPATH=/app), ffmpeg, praat, faster-whisper, insightface buffalo_l (CPU), Ollama na hoście: qwen2.5vl:7b (VLM), bielik-11b-v3 Q8 (polski LLM — może pisać teksty $0!). Płatne narzędzia w użyciu: fal.ai nano-banana-pro/edit kadry $0.15/szt, veo3.1 lite FLF $0.64/8s (za drogie do długich odczytów!). Publikacja: FB Reels przez Graph API (działa). Kanon serii: Tomek+Janusz, ROD Woźniki, 9:16 1080x1920. Zero nowych abonamentów; każdy wydatek za zgodą Tomasza.
+POTRZEBY AWATARA: (a) stała tożsamość wizualna (karta postaci jak bohater.jpg), (b) STAŁY polski głos lektorski do czytania dowolnie długich tekstów, (c) animacja mówiącej głowy zsynchronizowana z audio (lip-sync), (d) pipeline tekst->TTS->wideo->montaż.
+ZADANIE — macierz wykonalności z cenami:
+1. TTS POLSKI: porównaj darmowe/lokalne (piper — jakość polskich głosów? edge-tts — legalność/stabilność? XTTS v2 CPU — czas syntezy?) vs płatne (ElevenLabs itp. — NIE mamy abonamentu). Rekomendacja głosu "dziennikarskiego" PL + czas syntezy 1 min tekstu na CPU.
+2. LIP-SYNC/TALKING HEAD na CPU-only: Wav2Lip, SadTalker, LivePortrait, EchoMimic — co REALNIE ruszy na CPU i ile minut liczenia na 1 min wideo? Jakość vs prostota.
+3. ALTERNATYWA fal.ai: modele talking-head/lipsync w katalogu fal — nazwy i CENY za minutę (sadtalker? veed/lipsync? kling-lipsync?). Kiedy opłacalne vs lokalnie.
+4. ALTERNATYWA PROSTA ($0): awatar półstatyczny — kadr postaci + subtelny ruch (pętla oddechu z ffmpeg/zoompan) + usta animowane nakładką dwuklatkową sterowaną RMS audio (jak stare dubbingi) — wykonalność skryptem, śmieszność zamierzona?
+5. REKOMENDACJA STOSU: ścieżka START $0 (do testu formatu) i ścieżka DOCELOWA (koszt/odcinek 60-90s). 
+Format: ## TTS / ## LIPSYNC_CPU / ## FAL / ## PROSTA / ## STOS. Konkrety, liczby, komendy instalacji gdzie znasz. Na końcu przypomnij prowadzącemu o naradzie i zapisach.

@@ -1,0 +1,35 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+Oto koncepcja "Działkowego Dziennikarza" skrojona pod klimat ROD Woźniki:
+
+## POSTAC
+1. **Redaktor Gienio (Formalista w kaloszach):** Od pasa w górę: garnitur, biała koszula i krawat w koniczynki. Od pasa w dół (widoczne, gdy wstaje): krótkie spodenki i gumowce. Studio to "Biuro Zarządu" — stół z ceratą, stara paprotka i segregator z napisem "PRĄD 1994". **Dlaczego:** Śmieszy kontrastem między sztywnym stylem "Wiadomości" a ewidentnym siedzeniem na działce.
+2. **Mietek "Reporter Terenowy":** Kamizelka wędkarska z dziesięcioma kieszeniami, na głowie kaszkiet, w ręku mikrofon z gąbką zrobioną ze zmywaka do naczyń. Studio to "szklarnia" (rozmyte tło z pomidorami). **Dlaczego:** Jest wiarygodny jako "jeden z nas", który zawsze jest tam, gdzie dzieje się akcja (np. przy pękniętej rurze).
+3. **Pan Stanisław (Głos Tradycji):** Starszy pan w eleganckim bezrękawniku, okulary na sznurku, zawsze z kubkiem parującej herbaty w koszyczku. Studio to warsztat w altanie (w tle narzędzia, idealnie ułożone). **Dlaczego:** Budzi autorytet, mówi powoli i z lekkim przekąsem, jakby widział już dziesięć pokoleń działkowców.
+
+## IMIONA
+- **Redaktor Gienio** (klasyka, pasuje do Genek)
+- **Zdzichu "News"** (swojskie, z nutką nowoczesności)
+- **Marian Komunikat** (brzmi urzędowo, ale poczciwie)
+- **Staszek Przekaźnik**
+
+## MANIERA
+- **Styl:** Absolutna powaga prezentera TVP Info lub CNN, ale tematyka to "inwazja mszyc na działce nr 12" lub "wyniki konkursu na najdłuższą cukinię". Komizm buduje przepaść między formą a treścią.
+- **Slogan otwarcia:** „Dobry wieczór, przy mikrofonie [Imię], zapraszam na Wiadomości ROD Woźniki. Najświeższe fakty prosto z grządki”.
+- **Slogan zamknięcia:** „I pamiętajcie: u sąsiada trawa zawsze wydaje się bardziej zielona, dopóki nie sprawdzicie rachunku za wodę. Do usłyszenia!”.
+
+## FORMAT
+- **Struktura (60-90s):**
+  1. **Czołówka:** Dynamiczna grafika z logiem ROD i wirującą kapustą.
+  2. **News Dnia:** Najważniejszy komunikat zarządu (np. termin odczytu liczników).
+  3. **Kronika Kryminalna:** Humorystyczne doniesienia (np. "Janusz znów nie domknął furtki").
+  4. **Pogoda i Alerty:** Czy będzie lało? (Ważne dla planujących grillowanie).
+  5. **Złota Myśl:** Krótka porada ogrodnicza na koniec.
+- **W rolkach:** Awatar pojawia się jako "gadająca głowa" w rogu ekranu (overlay) komentując poczynania Tomka i Janusza, lub jako pełnoekranowy przerywnik "Mamy breaking news!".
+
+## KANON
+Dziennikarz pełni rolę obserwatora i "głosu rozsądku", który relacjonuje wybryki Tomka i Janusza jako "wydarzenia z frontu". Może zapowiadać ich przygody: „Nasz reporter terenowy Tomek sprawdził dziś wytrzymałość płotu sąsiada... wyniki są niepokojące”. Dzięki temu postać łączy ogłoszenia parafialne ROD z serią humorystyczną.
+
+***
+
+**Tomaszu, czekam na decyzję, który wariant wybierasz do "ożywienia". Po wyborze zapiszemy postać w AKTYWACH i przejdziemy do kreacji wizualnej.**

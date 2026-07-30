@@ -1,0 +1,913 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa382-9798-7762-935e-a3f1a41dabe6
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_avatar_narada.md i wykonaj zadanie dokładnie według niego. Możesz używać wyszukiwania w sieci.
+codex
+Najpierw odczytam pełną treść zadania i sprawdzę, jakie materiały znajdują się obok niego. Następnie wykonam wskazany proces dokładnie według instrukcji z pliku.
+exec
+/bin/bash -lc "pwd && sed -n '1,240p' _zadanie_zenka_avatar_narada.md && rg --files -g '"'!*node_modules*'"' | sed -n '1,160p'" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+/root/rod-ai-studio/data/awatar
+# NARADA: Kling AI Avatar v2 — Standard czy Pro? Zenek: fakty + praktycy.
+Tomasz pyta wprost: "A ten drugi [Pro] poradzi sobie lepiej?". Ożywiamy kartę Pana Stanisława (2K pion, dostojny starszy prezenter przy stole) audio 40.3s.
+ZADANIE:
+1. Karty fal: fal-ai/kling-video/ai-avatar/v2/standard vs /pro — DOKŁADNE różnice wg kart (rozdzielczość? jakość ruchu? co piszą?), LIMITY audio/obrazu (max długość audio! min/max rozdzielczość wejścia), parametry wejścia (image_url, audio_url, prompt? — czy można sterować zachowaniem tekstem?).
+2. PRAKTYCY (research w sieci: reddit, fora, YT, blogi): Kling AI Avatar v2 standard vs pro — realne różnice jakości? Znane wady (drift tożsamości? przesadne gesty? artefakty rąk? problemy z okularami/przedmiotami w tle)? Jak wypada na starszych twarzach?
+3. ALTERNATYWY klasy avatar NA FAL (obraz+audio -> żywy człowiek): co jeszcze jest (np. OmniHuman? Hedra? inne)? Ceny za 40s, limity, opinie praktyków. Czy któraś bije Klinga jakościowo w tej cenie?
+4. WERDYKT ZENKA: Standard ($2.27) czy Pro ($4.64) czy alternatywa — dla JEDNORAZOWEGO powitania kanonicznego + przyszłych cotygodniowych serwisów (koszt się powtarza!).
+Format: ## KARTY / ## PRAKTYCY (ze źródłami) / ## ALTERNATYWY / ## WERDYKT. Fakty, nie przypuszczenia.
+_genek_stanislaw_out.txt
+_casting_George_resp.json
+_lip_klatka2.jpg
+_zadanie_zenka_avatar_narada.md
+_genek_akcent_out.txt
+_xtts_klon.py
+_lipsync_resp.json
+casting_Daniel.mp3
+_casting_Daniel_resp.json
+_pilot_klatka.jpg
+_zadanie_genka_stanislaw.md
+_lip_klatka1.jpg
+casting_George.mp3
+_xtts_venv.sh
+_zenek_kling_out.txt
+powitanie_daniel.mp3
+_zadanie_genka_powitanie.md
+_zenek_stanislaw_out.txt
+powitanie_stanislaw.txt
+stanislaw_powitanie_v1.mp4
+_xtts_run.sh
+_zadanie_zenka_awatar.md
+_zadanie_genka_awatar.md
+_zadanie_genka_avatar_narada.md
+_zenek_awatar_out.txt
+pilot_czolowka_v1.mp4
+_zenek_avatar_narada_out.txt
+_karta_stanislaw.py
+baza_stanislaw_40s.mp4
+_zadanie_genka_akcent.md
+_zadanie_zenka_stanislaw.md
+casting_Eric.mp3
+_casting_Eric_resp.json
+_genek_powitanie_out.txt
+_genek_avatar_narada_out.txt
+stanislaw_lipsync_raw.mp4
+karta_stanislaw_v1.jpg
+_lipsync_stanislaw.py
+_karta_stanislaw_resp.json
+_zadanie_zenka_kling.md
+_tts_powitanie.py
+_zenek_akcent2_out.txt
+_zadanie_zenka_akcent2.md
+_genek_awatar_out.txt
+_casting_eleven.py
+modele/uk_UA-ukrainian_tts-medium.onnx.json
+modele/pl_PL-gosia-medium.onnx.json
+modele/uk_UA-oleksa-high.onnx.json
+modele/uk_UA-mykyta-high.onnx.json
+modele/pl_PL-darkman-medium.onnx.json
+
+codex
+Instrukcja wymaga aktualnych, dokładnych parametrów kart fal oraz opinii praktyków, więc zweryfikuję je w źródłach pierwotnych i materiałach użytkowników. Sprawdzę też lokalne wyniki poprzednich analiz, żeby zachować spójność cen i konkretnego materiału 40,3 s.
+exec
+/bin/bash -lc "sed -n '1,260p' _genek_avatar_narada_out.txt; sed -n '1,260p' _zenek_kling_out.txt; sed -n '1,260p' _zenek_awatar_out.txt; sed -n '1,220p' _zadanie_zenka_kling.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa367-29e9-7f02-98fe-bb748f553015
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_kling.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam cały plik z instrukcją, a potem wykonam wskazane w nim kroki dokładnie w podanej kolejności.
+exec
+/bin/bash -lc "sed -n '1,240p' _zadanie_zenka_kling.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+# ZADANIE: twarde limity Kling lipsync na fal. Zenek.
+Zgoda Tomasza: ożywiamy kartę Pana Stanisława (statyczne wideo 1080x1920 ~30-45s + audio mowy) lipsynciem Kling audio-to-video (~0.014 USD/s wg Twojego wcześniejszego researchu).
+ZADANIE — tylko fakty z kart modeli fal.ai:
+1. DOKŁADNY endpoint Kling lipsync audio-to-video + pełna lista parametrów (video_url, audio_url, co jeszcze).
+2. LIMITY: max/min długość WIDEO wejściowego i AUDIO; wymogi formatu (rozdzielczość? fps? codec?); co się dzieje gdy audio dłuższe od wideo.
+3. CENA dokładna (za sekundę czego: wejścia czy wyjścia?) + koszt dla klipu ~40s.
+4. Jeśli limit długości <40s: jaka strategia (cięcie na segmenty i sklejka? inny model na fal z dłuższym limitem — sprawdź np. sync/lipsync v2, veed/lipsync, kling v2)? Porównaj ceny alternatyw dla 40s.
+Format: ## KLING (endpoint/parametry/limity/cena) / ## ALTERNATYWY / ## REKOMENDACJA dla klipu 40s. Ceny z kart, nie z pamięci.
+
+codex
+To zadanie wymaga aktualnych danych z kart modeli fal.ai, więc sprawdzę bezpośrednio dokumentację i strony cenowe fal, a wnioski wyraźnie oddzielę od faktów podanych na kartach.
+web search: 
+web search: site:fal.ai/models Kling lip sync audio video fal endpoint ...
+web search: 
+web search: site:fal.ai/models/fal-ai/veed lipsync price duration ...
+web search: 
+web search: 
+codex
+## KLING
+
+### Endpoint i parametry
+
+Dokładny endpoint:
+
+```text
+POST https://fal.run/fal-ai/kling-video/lipsync/audio-to-video
+```
+
+ID modelu:
+
+```text
+fal-ai/kling-video/lipsync/audio-to-video
+```
+
+Pełny udokumentowany schemat wejścia zawiera tylko dwa parametry:
+
+```json
+{
+  "video_url": "https://.../input.mp4",
+  "audio_url": "https://.../speech.mp3"
+}
+```
+
+- `video_url` — wymagany URL filmu wejściowego.
+- `audio_url` — wymagany URL audio.
+- Brak parametrów typu `fps`, `codec`, `resolution`, `sync_mode`, `duration` czy jakości wyjścia.
+- Wynik zawiera `video`, przede wszystkim `video.url`.
+
+Źródło: [karta API Kling LipSync Audio-to-Video](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api).
+
+### Limity
+
+**Wideo wejściowe:**
+
+- długość: minimum **2 s**, maksimum **10 s**;
+- format według schematu API: **`.mp4` lub `.mov`**;
+- maksymalny rozmiar: **100 MB**;
+- rozdzielczość: tylko **720p albo 1080p**;
+- szerokość i wysokość muszą mieścić się w zakresie **720–1920 px**;
+- pionowe **1080×1920 spełnia podany zakres**;
+- karta nie podaje wymaganego FPS ani kodeka.
+
+**Audio:**
+
+- długość: minimum **2 s**, maksimum **60 s**;
+- maksymalny rozmiar: **5 MB**;
+- karta modelu wymienia: **MP3, WAV, OGG, M4A, AAC**.
+
+**Audio dłuższe od wideo:** fal dopuszcza audio do 60 s przy filmie do 10 s, ale schemat nie zawiera `sync_mode`, a karta nie definiuje jednoznacznie, czy materiał jest zapętlany, wydłużany, zamrażany czy przeliczany w inny sposób. Opis marketingowy sugeruje możliwość użycia dłuższego audio z krótkim filmem, lecz nie opisuje gwarantowanego zachowania. Nie należy więc zakładać konkretnego mechanizmu bez testu.
+
+Źródła: [schemat API](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api), [karta modelu i specyfikacja](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video).
+
+### Cena
+
+Banner cenowy fal podaje:
+
+> **$0.014 za sekundę wejściowego wideo**, z czasem rozliczeniowym zaokrąglanym w górę do najbliższych 5 sekund.
+
+Przykłady:
+
+- 3 s wejścia → rozliczenie jak 5 s → **$0.07**;
+- 7 s wejścia → rozliczenie jak 10 s → **$0.14**;
+- 10 s wejścia → **$0.14**;
+- cztery osobne segmenty po 10 s → **$0.56 za 40 s**.
+
+Pełnego filmu 40 s nie można przesłać w jednym żądaniu. Teoretyczne żądanie z 10-sekundowym wideo i 40-sekundowym audio byłoby według bannera liczone od 10 s wejściowego wideo, czyli **$0.14**, ale karta nie dokumentuje dostatecznie sposobu tworzenia 40-sekundowego wyniku. Nie traktowałbym tego wariantu jako pewnego produkcyjnie.
+
+Uwaga: opis tekstowy karty w jednym miejscu upraszcza cenę do „$0.014 per 5-second increment”, ale banner podaje precyzyjnie **$0.014 per input video seconds, rolling up to closest 5 second increment**. Z tego wynikają obliczenia powyżej.
+
+## ALTERNATYWY
+
+| Model fal | Obsługa 40 s | Cena z karty | Koszt 40 s |
+|---|---:|---:|---:|
+| **LatentSync** `fal-ai/latentsync` | karta wycenia filmy „up to 40 seconds” | $0.20 za film do 40 s | **$0.20** |
+| **Sync Lipsync 1.9** `fal-ai/sync-lipsync` | karta nie podaje limitu krótszego niż 40 s; ma tryby różnic długości | $0.70/min wideo | **ok. $0.47** |
+| **Kling LipSync**, 4 × 10 s | tak, po segmentacji | $0.014/s wejściowego wideo | **$0.56** |
+| **Sync Lipsync 2.0** `fal-ai/sync-lipsync/v2` | karta nie podaje limitu krótszego niż 40 s | $3/min wideo | **$2.00** |
+| **Kling AI Avatar v2 Standard** | generuje wideo ze statycznego obrazu; długość odpowiada audio | $0.0562/s | **$2.248** |
+| **VEED Lipsync v2** | istniejące wideo + nowe audio | $0.07/s wyjścia | **$2.80** |
+| **VEED Fabric 1.0** | statyczny obraz + audio | $0.08/s 480p; $0.15/s 720p | **$3.20 / $6.00** |
+| **Kling AI Avatar v2 Pro** | statyczny obraz + audio; długość odpowiada audio | $0.115/s | **$4.60** |
+| **Sync Lipsync 2 Pro** | wariant jakościowy | $5/min | **ok. $3.33** |
+| **Sync 3 image-to-video** | statyczny obraz + audio | $0.1333/s wyjścia | **$5.332** |
+
+Istotne właściwości:
+
+- **Sync Lipsync 1.9/2.0** mają `sync_mode`: `cut_off`, `loop`, `bounce`, `silence`, `remap`, więc jawnie kontrolują różnice długości audio i wideo. [Sync 2 API](https://fal.ai/models/fal-ai/sync-lipsync/v2/api), [Sync 1.9](https://fal.ai/models/fal-ai/sync-lipsync).
+- **LatentSync** kosztuje dokładnie $0.20 dla materiału do 40 s; powyżej tego karta podaje $0.005 za sekundę wyjścia. [Karta LatentSync](https://fal.ai/models/fal-ai/latentsync).
+- **Kling AI Avatar v2 Standard** jest lepiej dopasowany do pierwotnej statycznej karty niż klasyczny lipsync: przyjmuje obraz i audio, a wynik automatycznie odpowiada długości audio. [Karta Kling Avatar v2 Standard](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard).
+- **VEED Lipsync v2** kosztuje $0.07 za sekundę wyjścia; do statycznego obrazu fal kieruje do Fabric 1.0. [VEED Lipsync v2](https://fal.ai/veed-lipsync-v2), [VEED Fabric 1.0](https://fal.ai/models/veed/fabric-1.0).
+- **Sync 3 image-to-video** kosztuje $0.1333 za sekundę wyjścia. [Karta Sync 3 image-to-video](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video).
+
+## REKOMENDACJA dla klipu 40 s
+
+Jeśli warunkiem jest użycie dokładnie **Kling LipSync Audio-to-Video**, należy:
+
+1. Podzielić film i audio na **4 dopasowane odcinki po maksymalnie 10 s** — najlepiej na granicach zdań.
+2. Każdy fragment przygotować jako MP4/MOV 1080×1920, z audio o dokładnie tej samej długości.
+3. Wysłać cztery osobne zadania.
+4. Skleić wyniki bez ponownego kodowania, jeśli wszystkie mają identyczne parametry strumienia; w przeciwnym razie wykonać jedno końcowe kodowanie.
+5. Budżetować **$0.56** plus ewentualne ponowienia.
+
+Nie rekomenduję opierania produkcji na jednym 10-sekundowym filmie i 40-sekundowym audio, ponieważ karta fal nie określa dokładnie sposobu przedłużenia obrazu.
+
+Jeżeli model można zmienić:
+
+- **najtańszy test:** LatentSync — **$0.20/40 s**;
+- **najlepsze dopasowanie do statycznej karty:** Kling AI Avatar v2 Standard — **$2.248/40 s**, bez wcześniejszego tworzenia sztucznego statycznego filmu;
+- **rozsądna kontrola istniejącego 40-sekundowego filmu:** Sync Lipsync 1.9 — około **$0.47**, z jawnymi trybami obsługi różnic długości.
+
+Dla uzgodnionego workflow Kling wybrałbym cztery zsynchronizowane segmenty 10-sekundowe i sklejenie. Jest to jedyny wariant, który pozostaje w jednoznacznie udokumentowanych limitach obu wejść.
+tokens used
+37,175
+## KLING
+
+### Endpoint i parametry
+
+Dokładny endpoint:
+
+```text
+POST https://fal.run/fal-ai/kling-video/lipsync/audio-to-video
+```
+
+ID modelu:
+
+```text
+fal-ai/kling-video/lipsync/audio-to-video
+```
+
+Pełny udokumentowany schemat wejścia zawiera tylko dwa parametry:
+
+```json
+{
+  "video_url": "https://.../input.mp4",
+  "audio_url": "https://.../speech.mp3"
+}
+```
+
+- `video_url` — wymagany URL filmu wejściowego.
+- `audio_url` — wymagany URL audio.
+- Brak parametrów typu `fps`, `codec`, `resolution`, `sync_mode`, `duration` czy jakości wyjścia.
+- Wynik zawiera `video`, przede wszystkim `video.url`.
+
+Źródło: [karta API Kling LipSync Audio-to-Video](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api).
+
+### Limity
+
+**Wideo wejściowe:**
+
+- długość: minimum **2 s**, maksimum **10 s**;
+- format według schematu API: **`.mp4` lub `.mov`**;
+- maksymalny rozmiar: **100 MB**;
+- rozdzielczość: tylko **720p albo 1080p**;
+- szerokość i wysokość muszą mieścić się w zakresie **720–1920 px**;
+- pionowe **1080×1920 spełnia podany zakres**;
+- karta nie podaje wymaganego FPS ani kodeka.
+
+**Audio:**
+
+- długość: minimum **2 s**, maksimum **60 s**;
+- maksymalny rozmiar: **5 MB**;
+- karta modelu wymienia: **MP3, WAV, OGG, M4A, AAC**.
+
+**Audio dłuższe od wideo:** fal dopuszcza audio do 60 s przy filmie do 10 s, ale schemat nie zawiera `sync_mode`, a karta nie definiuje jednoznacznie, czy materiał jest zapętlany, wydłużany, zamrażany czy przeliczany w inny sposób. Opis marketingowy sugeruje możliwość użycia dłuższego audio z krótkim filmem, lecz nie opisuje gwarantowanego zachowania. Nie należy więc zakładać konkretnego mechanizmu bez testu.
+
+Źródła: [schemat API](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video/api), [karta modelu i specyfikacja](https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video).
+
+### Cena
+
+Banner cenowy fal podaje:
+
+> **$0.014 za sekundę wejściowego wideo**, z czasem rozliczeniowym zaokrąglanym w górę do najbliższych 5 sekund.
+
+Przykłady:
+
+- 3 s wejścia → rozliczenie jak 5 s → **$0.07**;
+- 7 s wejścia → rozliczenie jak 10 s → **$0.14**;
+- 10 s wejścia → **$0.14**;
+- cztery osobne segmenty po 10 s → **$0.56 za 40 s**.
+
+Pełnego filmu 40 s nie można przesłać w jednym żądaniu. Teoretyczne żądanie z 10-sekundowym wideo i 40-sekundowym audio byłoby według bannera liczone od 10 s wejściowego wideo, czyli **$0.14**, ale karta nie dokumentuje dostatecznie sposobu tworzenia 40-sekundowego wyniku. Nie traktowałbym tego wariantu jako pewnego produkcyjnie.
+
+Uwaga: opis tekstowy karty w jednym miejscu upraszcza cenę do „$0.014 per 5-second increment”, ale banner podaje precyzyjnie **$0.014 per input video seconds, rolling up to closest 5 second increment**. Z tego wynikają obliczenia powyżej.
+
+## ALTERNATYWY
+
+| Model fal | Obsługa 40 s | Cena z karty | Koszt 40 s |
+|---|---:|---:|---:|
+| **LatentSync** `fal-ai/latentsync` | karta wycenia filmy „up to 40 seconds” | $0.20 za film do 40 s | **$0.20** |
+| **Sync Lipsync 1.9** `fal-ai/sync-lipsync` | karta nie podaje limitu krótszego niż 40 s; ma tryby różnic długości | $0.70/min wideo | **ok. $0.47** |
+| **Kling LipSync**, 4 × 10 s | tak, po segmentacji | $0.014/s wejściowego wideo | **$0.56** |
+| **Sync Lipsync 2.0** `fal-ai/sync-lipsync/v2` | karta nie podaje limitu krótszego niż 40 s | $3/min wideo | **$2.00** |
+| **Kling AI Avatar v2 Standard** | generuje wideo ze statycznego obrazu; długość odpowiada audio | $0.0562/s | **$2.248** |
+| **VEED Lipsync v2** | istniejące wideo + nowe audio | $0.07/s wyjścia | **$2.80** |
+| **VEED Fabric 1.0** | statyczny obraz + audio | $0.08/s 480p; $0.15/s 720p | **$3.20 / $6.00** |
+| **Kling AI Avatar v2 Pro** | statyczny obraz + audio; długość odpowiada audio | $0.115/s | **$4.60** |
+| **Sync Lipsync 2 Pro** | wariant jakościowy | $5/min | **ok. $3.33** |
+| **Sync 3 image-to-video** | statyczny obraz + audio | $0.1333/s wyjścia | **$5.332** |
+
+Istotne właściwości:
+
+- **Sync Lipsync 1.9/2.0** mają `sync_mode`: `cut_off`, `loop`, `bounce`, `silence`, `remap`, więc jawnie kontrolują różnice długości audio i wideo. [Sync 2 API](https://fal.ai/models/fal-ai/sync-lipsync/v2/api), [Sync 1.9](https://fal.ai/models/fal-ai/sync-lipsync).
+- **LatentSync** kosztuje dokładnie $0.20 dla materiału do 40 s; powyżej tego karta podaje $0.005 za sekundę wyjścia. [Karta LatentSync](https://fal.ai/models/fal-ai/latentsync).
+- **Kling AI Avatar v2 Standard** jest lepiej dopasowany do pierwotnej statycznej karty niż klasyczny lipsync: przyjmuje obraz i audio, a wynik automatycznie odpowiada długości audio. [Karta Kling Avatar v2 Standard](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard).
+- **VEED Lipsync v2** kosztuje $0.07 za sekundę wyjścia; do statycznego obrazu fal kieruje do Fabric 1.0. [VEED Lipsync v2](https://fal.ai/veed-lipsync-v2), [VEED Fabric 1.0](https://fal.ai/models/veed/fabric-1.0).
+- **Sync 3 image-to-video** kosztuje $0.1333 za sekundę wyjścia. [Karta Sync 3 image-to-video](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video).
+
+## REKOMENDACJA dla klipu 40 s
+
+Jeśli warunkiem jest użycie dokładnie **Kling LipSync Audio-to-Video**, należy:
+
+1. Podzielić film i audio na **4 dopasowane odcinki po maksymalnie 10 s** — najlepiej na granicach zdań.
+2. Każdy fragment przygotować jako MP4/MOV 1080×1920, z audio o dokładnie tej samej długości.
+3. Wysłać cztery osobne zadania.
+4. Skleić wyniki bez ponownego kodowania, jeśli wszystkie mają identyczne parametry strumienia; w przeciwnym razie wykonać jedno końcowe kodowanie.
+5. Budżetować **$0.56** plus ewentualne ponowienia.
+
+Nie rekomenduję opierania produkcji na jednym 10-sekundowym filmie i 40-sekundowym audio, ponieważ karta fal nie określa dokładnie sposobu przedłużenia obrazu.
+
+Jeżeli model można zmienić:
+
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa314-053f-7ac0-b93b-4421703d036d
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_awatar.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam całą instrukcję z pliku, a potem wykonam wskazane w niej kroki w dostępnych granicach środowiska.
+exec
+/bin/bash -lc "sed -n '1,240p' _zadanie_zenka_awatar.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+# NOWY PROJEKT: AWATAR "DZIAŁKOWY DZIENNIKARZ". Zenek: macierz techniczna.
+DEKRET TOMASZA (verbatim): "Tworzymy razem Awatara Postać która będzie narratorem w rolkach. Będzie też odczytywał wiadomości i wszystkie informacje. Taki nasz Działkowy Dziennikarz reporter prezenter".
+KONTEKST INFRASTRUKTURY (pełny, obowiązek kontekstu): VPS Hetzner CPU-ONLY (bez GPU!), kontener fabryka-api (python venv /app/venv, PYTHONPATH=/app), ffmpeg, praat, faster-whisper, insightface buffalo_l (CPU), Ollama na hoście: qwen2.5vl:7b (VLM), bielik-11b-v3 Q8 (polski LLM — może pisać teksty $0!). Płatne narzędzia w użyciu: fal.ai nano-banana-pro/edit kadry $0.15/szt, veo3.1 lite FLF $0.64/8s (za drogie do długich odczytów!). Publikacja: FB Reels przez Graph API (działa). Kanon serii: Tomek+Janusz, ROD Woźniki, 9:16 1080x1920. Zero nowych abonamentów; każdy wydatek za zgodą Tomasza.
+POTRZEBY AWATARA: (a) stała tożsamość wizualna (karta postaci jak bohater.jpg), (b) STAŁY polski głos lektorski do czytania dowolnie długich tekstów, (c) animacja mówiącej głowy zsynchronizowana z audio (lip-sync), (d) pipeline tekst->TTS->wideo->montaż.
+ZADANIE — macierz wykonalności z cenami:
+1. TTS POLSKI: porównaj darmowe/lokalne (piper — jakość polskich głosów? edge-tts — legalność/stabilność? XTTS v2 CPU — czas syntezy?) vs płatne (ElevenLabs itp. — NIE mamy abonamentu). Rekomendacja głosu "dziennikarskiego" PL + czas syntezy 1 min tekstu na CPU.
+2. LIP-SYNC/TALKING HEAD na CPU-only: Wav2Lip, SadTalker, LivePortrait, EchoMimic — co REALNIE ruszy na CPU i ile minut liczenia na 1 min wideo? Jakość vs prostota.
+3. ALTERNATYWA fal.ai: modele talking-head/lipsync w katalogu fal — nazwy i CENY za minutę (sadtalker? veed/lipsync? kling-lipsync?). Kiedy opłacalne vs lokalnie.
+4. ALTERNATYWA PROSTA ($0): awatar półstatyczny — kadr postaci + subtelny ruch (pętla oddechu z ffmpeg/zoompan) + usta animowane nakładką dwuklatkową sterowaną RMS audio (jak stare dubbingi) — wykonalność skryptem, śmieszność zamierzona?
+5. REKOMENDACJA STOSU: ścieżka START $0 (do testu formatu) i ścieżka DOCELOWA (koszt/odcinek 60-90s). 
+Format: ## TTS / ## LIPSYNC_CPU / ## FAL / ## PROSTA / ## STOS. Konkrety, liczby, komendy instalacji gdzie znasz. Na końcu przypomnij prowadzącemu o naradzie i zapisach.
+
+codex
+Instrukcja wymaga aktualnych cen i oceny realnej wykonalności, więc weryfikuję je w dokumentacji dostawców oraz repozytoriach modeli. Szczególnie oddzielę dane oficjalne od szacunków wydajności CPU, bo te silnie zależą od procesora.
+web search: 
+web search: site:fal.ai/models lipsync pricing talking head Kling lip sync VEED SadTalker ...
+web search: 
+web search: site:fal.ai/models/veed/lipsync pricing "$" per second ...
+web search: 
+web search: 
+web search: 
+web search: "veed/lipsync" "priced" fal ...
+codex
+## TTS
+
+Stan cen i usług: 27 lipca 2026 r.
+
+| Rozwiązanie | Polski głos | 1 min audio na CPU | Koszt | Ocena |
+|---|---:|---:|---:|---|
+| Piper | Tak, m.in. `pl_PL-darkman-medium` | ok. 5–20 s | $0 | Najlepsza baza produkcyjna $0 |
+| edge-tts | Bardzo dobre głosy `pl-PL-MarekNeural`, `pl-PL-ZofiaNeural` | zwykle 2–10 s plus sieć | $0 technicznie | Świetne do testów, ryzykowne produkcyjnie |
+| XTTS v2 | Tak, klonowanie głosu | ok. 2–6 min | $0 obliczeniowo | Lepsza tożsamość głosu, ale cięższe i prawnie bardziej złożone |
+| ElevenLabs Flash/Turbo | Bardzo dobry | kilka sekund | ok. $0.05/min | Płatne, obecnie zbędne |
+| ElevenLabs Multilingual v2/v3 | Bardzo dobry | kilka sekund | ok. $0.10/min | Płatne, obecnie zbędne |
+
+Czasy CPU to konserwatywne szacunki dla współczesnego VPS z 8–16 vCPU, po załadowaniu modelu. Trzeba je potwierdzić benchmarkiem na konkretnym Hetznerze.
+
+Rekomendowany głos startowy: **Piper `pl_PL-darkman-medium`**. Jest męski, niski i najlepiej pasuje do działkowego reportera. Jakość jest wyraźnie niższa od Edge/ElevenLabs, szczególnie przy nazwach własnych i intonacji, ale głos jest stały, szybki, lokalny i niezależny od usługi zewnętrznej. Tekst należy pisać pod syntezator: krótkie zdania, przecinki jako pauzy, rozwinięte skróty i liczby zapisane słownie.
+
+Instalacja:
+
+```bash
+/app/venv/bin/pip install piper-tts
+```
+
+Synteza:
+
+```bash
+echo "Tu Zenek, działkowy dziennikarz. Sprawdzamy, co dziś wydarzyło się w Rodzinnym Ogrodzie Działkowym Woźniki." \
+  | /app/venv/bin/piper \
+      --model pl_PL-darkman-medium.onnx \
+      --output_file zenek.wav
+```
+
+Każdy model Pipera ma osobną kartę licencji — trzeba sprawdzić ją przed publikacją komercyjną; sam Piper nie nadaje automatycznie praw do każdego głosu. [Dokumentacja Piper](https://github.com/rhasspy/piper)
+
+`edge-tts` brzmi lepiej:
+
+```bash
+/app/venv/bin/pip install edge-tts
+/app/venv/bin/edge-tts \
+  --voice pl-PL-MarekNeural \
+  --rate=-5% \
+  --text "Tu Zenek, działkowy dziennikarz." \
+  --write-media zenek.mp3
+```
+
+Nie rekomenduję go jako stałego elementu automatycznej publikacji. Jest to nieoficjalny klient usługi internetowej Edge, bez klucza API i SLA; Microsoft może zmienić protokół, limity lub dostępność, co już wcześniej powodowało awarie klientów. Nie ma też wystarczająco jasnej podstawy, by traktować bezpłatny interfejs przeglądarkowy jak komercyjne API. Do testu formatu — tak. Do niezawodnej fabryki rolek — nie. Oficjalnym odpowiednikiem jest płatny Azure Speech.
+
+XTTS v2 potrafi sklonować głos z próbki i obsługuje polski:
+
+```bash
+/app/venv/bin/pip install TTS
+/app/venv/bin/tts \
+  --model_name tts_models/multilingual/multi-dataset/xtts_v2 \
+  --speaker_wav glos_zenka.wav \
+  --language_idx pl \
+  --text "Tu Zenek, działkowy dziennikarz." \
+  --out_path zenek.wav
+```
+
+Na CPU raportowano współczynnik około 2,3× czasu rzeczywistego nawet dla krótkiego przykładu; wraz z dzieleniem tekstu i narzutem bezpiecznie zakładałbym **2–6 minut obliczeń na minutę audio**. Model powinien pozostawać załadowany między zleceniami. Potrzebna jest też zgoda właściciela klonowanego głosu oraz kontrola warunków licencji modelu. [Coqui TTS i przykład XTTS](https://github.com/coqui-ai/TTS)
+
+ElevenLabs od 2026 oferuje również PAYG: Flash/Turbo kosztuje około **$0.05/min**, a Multilingual v2/v3 około **$0.10/min** przy założeniu około 1000 znaków na minutę. Nie wymaga więc koniecznie abonamentu, ale każdy wydatek nadal wymaga zgody Tomasza. [Aktualny cennik ElevenLabs API](https://elevenlabs.io/pricing/api)
+
+## LIPSYNC_CPU
+
+| Model | Co faktycznie robi | Szacunek na 1 min materiału CPU | Wniosek |
+|---|---|---:|---|
+| Wav2Lip | Podmienia ruch ust w istniejącym filmie | 10–30 min | Jedyny rozsądny technicznie, ale problem licencyjny |
+| SadTalker | Zdjęcie + audio → głowa, mimika, ruch | 20–60 min, czasem więcej | Najlepszy pełny talking head do próby CPU |
+| LivePortrait | Zdjęcie + film sterujący → animowana twarz | 15–50 min, bez czasu tworzenia drivera | Nie jest samodzielnym audio-lipsynkiem |
+| EchoMimic | Dyfuzyjna animacja portretu z audio | ok. 2–8 h lub brak przez RAM | Niepraktyczny na VPS CPU-only |
+
+### Wav2Lip
+
+Najprostszy i zwykle najlepiej synchronizuje usta, ale wymaga bazowego filmu z Zenkiem. Najważniejszy haczyk: oficjalne wagi Wav2Lip są przeznaczone do zastosowań badawczych i niekomercyjnych. Dlatego nie należy bez osobnej zgody licencyjnej budować na nich regularnej serii publikowanej przez organizację.
+
+```bash
+python inference.py \
+  --checkpoint_path wav2lip_gan.pth \
+  --face zenek_loop.mp4 \
+  --audio zenek.wav \
+  --pads 0 20 0 0
+```
+
+[Repozytorium i komenda Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
+
+### SadTalker
+
+Generuje ruch głowy i mimikę ze zdjęcia, więc daje pełniejszy efekt prezentera. Na CPU ruszy, lecz jest ciężki, kapryśny zależnościowo i może generować „gumową” twarz. Dla 60–90 sekund lepiej renderować segmenty po 10–20 sekund, a potem łączyć je montażem.
+
+```bash
+python inference.py \
+  --driven_audio zenek.wav \
+  --source_image zenek.png \
+  --result_dir results \
+  --still \
+  --preprocess full
+```
+
+Na pierwszej próbie wyłączyłbym `GFPGAN`: enhancer dodatkowo wielokrotnie zwiększa czas CPU. [Instrukcja SadTalker](https://github.com/OpenTalker/SadTalker)
+
+### LivePortrait
+
+Posiada opcję wymuszenia CPU, lecz potrzebuje filmu sterującego ruchem twarzy. Nie zamienia samego audio w ruch ust. Można raz nagrać neutralny, zapętlany występ aktora i przenosić ruch na Zenka, ale potem nadal potrzebny jest lipsync. To więcej elementów i punktów awarii niż SadTalker.
+
+### EchoMimic
+
+To model dyfuzyjny, z checkpointami liczonymi głównie pod GPU. Formalnie można próbować PyTorch CPU, lecz dla minutowej rolki byłoby to liczenie godzinami, z dużym zużyciem RAM i ryzykiem zakończenia procesu. Na tym VPS-ie odrzucam go jako rozwiązanie produkcyjne. [Repozytorium EchoMimic](https://github.com/antgroup/echomimic)
+
+## FAL
+
+| Endpoint fal.ai | Wejście | Cena katalogowa | 60 s | 90 s |
+|---|---|---:|---:|---:|
+| `fal-ai/kling-video/lipsync/audio-to-video` | film + audio | $0.014/s, naliczanie blokami po 5 s | ok. $0.84 | ok. $1.26 |
+| `veed/lipsync` / Lipsync 2.0 | film + audio | $0.07/s | $4.20 | $6.30 |
+| `fal-ai/sync-lipsync/v3/image-to-video` | zdjęcie + audio | $0.1333/s | ok. $8.00 | ok. $12.00 |
+| `fal-ai/sadtalker` | zdjęcie + audio/pose | strona pokazuje $0/compute second | Nieustalone | Nieustalone |
+
+Kling jest jedyną cenowo sensowną opcją do okazjonalnych odcinków. Dokumentacja nakłada jednak ograniczenia na film wejściowy, m.in. 2–10 sekund i 720p/1080p, więc przed przyjęciem kalkulacji trzeba wykonać płatny test całego 60-sekundowego audio. Katalog podaje około 12 minut oczekiwania. [Kling LipSync w fal.ai](https://fal.ai/models/fal-ai/kling-video/lipsync/text-to-video)
+
+VEED kosztuje już więcej niż obecne Veo Lite dla dłuższych wypowiedzi i nie ma ekonomicznego sensu dla codziennego dziennikarza. [VEED Lipsync 2.0 — cena](https://www.veed.io/newsroom/veed-and-magnific-launch)
+
+Sync v3 przy 60 sekundach kosztowałby około $8, więc odpada dla stałej serii. [Sync-3 image-to-video](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video)
+
+Katalogowy SadTalker pokazuje obecnie zerową stawkę, co wygląda na stary, promocyjny albo nieaktywny wpis, a nie wiarygodną ofertę produkcyjną. Nie wpisywałbym kosztu $0 do budżetu bez udanego wywołania i sprawdzenia rachunku.
+
+fal opłaca się wtedy, gdy ważniejsze są czas operatora i szybki test niż minimalny koszt. Lokalnie wygrywa przy regularnych publikacjach i nocnym renderowaniu; fal — przy pojedynczej ważnej rolce albo gdy VPS nie zdąży przed publikacją.
+
+## PROSTA
+
+To rozwiązanie jest w pełni wykonalne za **$0** i stylistycznie bardzo pasuje do „Działkowego Dziennikarza”. Zamierzona lekka śmieszność może stać się znakiem rozpoznawczym, jeśli całość będzie konsekwentna: poważny pasek wiadomości, reporterski głos i absurdalnie proste usta.
+
+Pipeline:
+
+1. Jedna zatwierdzona karta Zenka 1080×1920.
+2. Dwie lub trzy przezroczyste nakładki ust: zamknięte, półotwarte, otwarte.
+3. Analiza RMS audio co 40–80 ms.
+4. Przełączanie klatek ust według progów głośności.
+5. Powolny zoom 100–103%, przesunięcie o kilka pikseli i lekki „oddech”.
+6. Napisy, belka „DZIAŁKOWY DZIENNIKARZ”, przebitki z ROD i końcowy montaż.
+
+Sam oddech:
+
+```bash
+ffmpeg -loop 1 -i zenek.png -i zenek.wav \
+  -filter_complex \
+  "[0:v]scale=1120:1992,zoompan=z='1+0.012*sin(on/35)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=25[v]" \
+  -map "[v]" -map 1:a -shortest \
+  -c:v libx264 -pix_fmt yuv420p -c:a aac zenek_oddech.mp4
+```
+
+Usta najlepiej sterować skryptem Pythona wykorzystującym `ffmpeg` lub generującym plik komend `sendcmd`. Progi startowe:
+
+```text
+RMS < -38 dB      usta zamknięte
+-38 do -24 dB     usta półotwarte
+RMS > -24 dB      usta otwarte
+```
+
+Żeby efekt nie wyglądał jak przypadkowe miganie, należy:
+
+- wygładzać RMS średnią z 3–5 okien;
+- nie zmieniać stanu częściej niż co 80 ms;
+- przy spółgłoskach i krótkich pauzach szybko domykać usta;
+- raz na kilka sekund dodać mrugnięcie;
+- większość materiału przykrywać przebitkami, zdjęciami, mapami i dużymi napisami.
+
+To nie będzie realistyczny lipsync, ale może być czytelniejsze i zabawniejsze niż przeciętny SadTalker. W tej serii ograniczenie może stać się świadomym stylem.
+
+## STOS
+
+### START $0 — rekomendacja
+
+```text
+Bielik → redakcja tekstu
+Piper darkman → WAV
+Python RMS → stany ust
+ffmpeg → oddech, usta, napisy, przebitki
+faster-whisper/Praat → kontrola napisów i audio
+ffmpeg → 1080×1920
+Graph API → FB Reels
+```
+
+Koszt odcinka: **$0**, poza istniejącym VPS-em.
+
+Czas przygotowania po zautomatyzowaniu:
+
+- TTS: poniżej 30 sekund;
+- animacja i montaż CPU: około 2–8 minut;
+- całość: zwykle poniżej 10 minut plus redakcja.
+
+Najpierw zrobiłbym trzy odcinki tym sposobem. Pozwoli to sprawdzić, czy widzowie akceptują Zenka, zanim wydamy pieniądze lub dni pracy na realistyczną twarz.
+
+### DOCELOWA
+
+Najrozsądniejszy wariant:
+
+```text
+Bielik → tekst
+Piper → głos stały
+10–15 s bazowej pętli Zenka
+Kling fal lipsync → segmenty
+ffmpeg → łączenie, przebitki, napisy, muzyka
+Graph API → publikacja
+```
+
+Szacowany koszt lipsyncu:
+
+- 60 sekund: około **$0.84**;
+- 90 sekund: około **$1.26**;
+- TTS Piper: **$0**;
+- materiały wizualne: **$0**, jeżeli używamy zatwierdzonej karty postaci i lokalnych zasobów.
+
+Jeśli próba Klinga nie przyjmie pełnego audio albo koszt rozliczy się inaczej, wariant docelowy powinien pozostać półstatyczny $0, wzbogacony przebitkami. VEED i Sync v3 są za drogie dla regularnych odczytów. XTTS warto rozważyć dopiero wtedy, gdy głos Pipera okaże się głównym powodem słabego odbioru.
+
+Przed uruchomieniem jakiegokolwiek płatnego testu fal.ai trzeba uzyskać zgodę Tomasza.
+
+Na koniec: prowadzący powinien zwołać krótką naradę z Tomaszem w sprawie wyglądu, głosu i dopuszczalnego kosztu Zenka oraz zapisać decyzje, testy, czasy renderowania, ustawienia głosu i faktyczne koszty każdego odcinka.
+tokens used
+# ZADANIE: twarde limity Kling lipsync na fal. Zenek.
+Zgoda Tomasza: ożywiamy kartę Pana Stanisława (statyczne wideo 1080x1920 ~30-45s + audio mowy) lipsynciem Kling audio-to-video (~0.014 USD/s wg Twojego wcześniejszego researchu).
+ZADANIE — tylko fakty z kart modeli fal.ai:
+1. DOKŁADNY endpoint Kling lipsync audio-to-video + pełna lista parametrów (video_url, audio_url, co jeszcze).
+2. LIMITY: max/min długość WIDEO wejściowego i AUDIO; wymogi formatu (rozdzielczość? fps? codec?); co się dzieje gdy audio dłuższe od wideo.
+3. CENA dokładna (za sekundę czego: wejścia czy wyjścia?) + koszt dla klipu ~40s.
+4. Jeśli limit długości <40s: jaka strategia (cięcie na segmenty i sklejka? inny model na fal z dłuższym limitem — sprawdź np. sync/lipsync v2, veed/lipsync, kling v2)? Porównaj ceny alternatyw dla 40s.
+Format: ## KLING (endpoint/parametry/limity/cena) / ## ALTERNATYWY / ## REKOMENDACJA dla klipu 40s. Ceny z kart, nie z pamięci.
+
+web search: 
+web search: site:fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard ...
+web search: 
+web search: 
+web search: 
+web search: "Kling AI Avatar v2" "120 seconds" ...
+web search: 
+web search: https://api.fal.ai/v1/models/pricing?endpoint_id=fal-ai%2Fkling-video%2Fai-avatar%2Fv2%2Fstandard
+web search: 
+web search: Kling AI Avatar API v2 input image resolution minimum maximum audio duration official ...
+web search: 
+web search: 
+web search: 
+web search: site:fal.ai/models/fal-ai/hedra "audio_url" ...
+web search: 
+web search: fal.ai Hedra Character 3 API pricing audio image ...
+web search: 
+web search: "Hedra Character 3" "fal.ai" "$" per second ...
+exec
+/bin/bash -lc 'file karta_stanislaw_v1.jpg powitanie_daniel.mp3 && ffprobe -v error -show_entries stream=width,height:format=duration -of default=noprint_wrappers=1 karta_stanislaw_v1.jpg powitanie_daniel.mp3 2>/dev/null || true; identify karta_stanislaw_v1.jpg 2>/dev/null || true' in /root/rod-ai-studio/data/awatar
+ succeeded in 102ms:
+web search: 
+web search: Reddit OmniHuman vs Kling Avatar quality hands identity ...
+web search: 
+web search: 
+codex
+## KARTY
+
+Stan kart fal.ai: 27 lipca 2026 r.
+
+| Cecha | Standard | Pro |
+|---|---|---|
+| Endpoint | `fal-ai/kling-video/ai-avatar/v2/standard` | `fal-ai/kling-video/ai-avatar/v2/pro` |
+| Cena | **$0.0562/s wyjścia** | **$0.115/s wyjścia** |
+| Koszt 40,3 s | **$2.2649 ≈ $2.27** | **$4.6345 ≈ $4.64** |
+| Wejście | obraz + audio, wymagane; prompt opcjonalny | identycznie |
+| Deklarowana różnica | wariant ekonomiczny | „enhanced facial detail”, „smoother lip-sync precision”, wyższa jakość ruchu, „broadcast quality” |
+| Czas wyjścia | zgodny z długością audio | zgodny z długością audio |
+| Format wyniku | MP4 | MP4 |
+
+Źródła: [fal — Standard](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard), [fal — Pro](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/pro), [wspólna dokumentacja API](https://fal.ai/docs/model-api-reference/video-generation-api/kling-video-ai-avatar-v2).
+
+### Parametry obu endpointów
+
+```json
+{
+  "image_url": "https://.../stanislaw.png",
+  "audio_url": "https://.../powitanie.mp3",
+  "prompt": "."
+}
+```
+
+- `image_url` — wymagany.
+- `audio_url` — wymagany.
+- `prompt` — opcjonalny string, domyślnie `"."`.
+- Wynik: `video` oraz według schematu `duration`.
+
+Prompt rzeczywiście może sterować zachowaniem: karta mówi o kierowaniu subtelnymi aspektami animacji, a oficjalny przewodnik Kling wymienia emocje, czynności i gesty. Nie jest to jednak twarda kontrola choreograficzna klatka po klatce.
+
+Przykładowy bezpieczny prompt dla Stanisława:
+
+```text
+A dignified elderly Polish news presenter sits calmly at the table,
+speaking directly to camera. Restrained natural gestures, subtle head
+movement, occasional blinking, hands remain resting on the table,
+static camera, professional and composed delivery.
+```
+
+### Limity i rozdzielczość
+
+Karty fal podają:
+
+- obraz: JPG, JPEG, PNG, WebP, GIF lub AVIF;
+- audio: MP3, OGG, WAV, M4A lub AAC;
+- wynik: MP4;
+- czas wyniku dopasowany do audio.
+
+Natomiast karty i schemat API **nie podają**:
+
+- maksymalnej ani minimalnej długości audio;
+- minimalnej/maksymalnej rozdzielczości obrazu wejściowego;
+- rozdzielczości wyjściowej Standard i Pro;
+- limitu wielkości plików;
+- FPS lub kodeka.
+
+Nie wolno więc przenosić tutaj limitów Kling Lipsync, np. 60 s audio czy 720–1920 px — dotyczą innego endpointu. Materiał 40,3 s mieści się w demonstrowanym przez Kling Avatar 2.0 zastosowaniu długich wypowiedzi, lecz fal nie publikuje dla tych dwóch endpointów twardego maksimum.
+
+Lokalna karta Stanisława ma **1536×2752 px**, mimo rozszerzenia `.jpg` jest faktycznie plikiem PNG. Format jest akceptowany, a proporcja 0,558 jest praktycznie zgodna z 9:16. „2K pion” dotyczy jednak wejścia; fal nie obiecuje, że film wyjdzie w 2K.
+
+## PRAKTYCY
+
+### Co można uczciwie powiedzieć o Standard kontra Pro
+
+Nie znalazłem niezależnego, powtarzalnego testu A/B **Kling AI Avatar v2 Standard kontra v2 Pro** wykonanego na tym samym obrazie, audio, promptcie i seedzie. Większość wyników z Reddita i YouTube dotyczy:
+
+- planu abonamentowego Standard/Pro;
+- Kling Video 1.x–3.x;
+- zwykłego image-to-video;
+- starszego Avatar v1.
+
+Nie są to dowody dotyczące omawianych endpointów Avatar v2. Jedyną precyzyjną deklaracją różnicy pozostaje karta fal: Pro ma lepszy detal twarzy i płynniejszy lipsync/ruch. Nie ma opublikowanej liczby, benchmarku ani gwarancji wyższej rozdzielczości.
+
+### Znane klasy problemów
+
+- **Dryf tożsamości:** praktycy Klinga wskazują, że stały, identyczny obraz referencyjny jest ważniejszy niż rozbudowany prompt; różny kadr, kąt lub oświetlenie zwiększa dryf między generacjami. [Dyskusja praktyków o spójności Kling](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/).
+- **Przesadna ekspresja:** generatory avatarów potrafią dodawać zbyt wiele gestów. Dlatego warto jawnie żądać ruchu powściągliwego i dłoni pozostających na stole. Przewodniki praktyczne zalecają jedną emocję i kilka prostych gestów, nie wieloczłonową choreografię.
+- **Ręce:** Avatar v2 ma poprawiać stabilność i gesty, lecz dłonie nadal są elementem generowanym, a nie zachowanym pikselowo. Jeżeli karta pokazuje ręce na stole, są one realnym obszarem ryzyka. Pro może je animować lepiej, ale karta fal nie obiecuje poprawnych palców.
+- **Okulary, mikrofony i przedmioty przy twarzy:** zasłonięte oczy lub usta utrudniają referencję. Zalecenia modeli avatarowych konsekwentnie wskazują na wyraźną, niezasłoniętą twarz. Nie znalazłem wiarygodnego pomiaru, że Pro usuwa ten problem.
+- **Tło:** w konkurencyjnym Fabric praktyk zauważył „background mouthing”, czyli animowanie twarzopodobnego elementu w tle. Pokazuje to ogólny problem tej klasy modeli, ale nie jest dowodem konkretnej wady Kling v2. [Test praktyka Fabric](https://www.linkedin.com/posts/jeffhinz_veed-flux-lora-activity-7374235406009155584-yBHh).
+- **Długie ujęcie:** praca techniczna KlingAvatar 2.0 wprost identyfikuje dryf czasowy i degradację jakości jako problemy wcześniejszych modeli, które nowa architektura ma ograniczać. Jest to wynik autorów modelu, nie niezależny test produkcyjny. [KlingAvatar 2.0 Technical Report](https://arxiv.org/abs/2512.13313).
+
+### Starsza twarz
+
+Nie znalazłem wiarygodnego benchmarku grup wiekowych ani testu Standard/Pro wyłącznie na seniorach. Nie ma podstaw do twierdzenia, że któryś wariant systematycznie lepiej obsługuje starsze twarze.
+
+Dla Stanisława różnica może być najbardziej widoczna w zmarszczkach, oczach i konturze ust, ponieważ właśnie „facial detail” jest deklarowaną przewagą Pro. To uzasadnia jednorazowy test Pro, ale nie stanowi dowodu, że wynik będzie lepszy.
+
+## ALTERNATYWY
+
+Koszty dla dokładnie 40,3 s:
+
+| Model na fal | Cena | Koszt 40,3 s | Limit/rozdzielczość | Ocena |
+|---|---:|---:|---|---|
+| **Kling Avatar v2 Standard** | $0.0562/s | **$2.27** | fal nie publikuje twardego maksimum ani rozdzielczości | Najtańszy rozsądny wariant pełnej animacji |
+| **Kling Avatar v2 Pro** | $0.115/s | **$4.64** | jak wyżej | Deklarowany lepszy detal i płynność |
+| **VEED Fabric 1.0 480p** | $0.08/s | **$3.22** | API do 60 s | Tańszy od Pro, lecz tylko 480p |
+| **VEED Fabric 1.0 720p** | $0.15/s | **$6.05** | API do 60 s | Droższy od Pro i tylko 720p |
+| **OmniHuman 1.5 720p** | $0.16/s | **$6.45** | audio do 60 s | Mocna ekspresja semantyczna, 2,84× koszt Standard |
+| **OmniHuman 1.5 1080p** | $0.16/s | 2 segmenty, razem **$6.45** | poniżej 30 s/segment | Cięcia mogą złamać ciągłość |
+| **Sync-3 image-to-video** | $0.1333/s | **$5.37** | czas odpowiada audio; karta nie podaje maksimum | Droższy, bardzo prosty schemat bez promptu |
+| **OmniHuman v1** | $0.14/s | **$5.64** | audio poniżej 30 s, więc 2 segmenty | Tańszy od v1.5, lecz problem cięcia |
+| **Hunyuan Avatar** | — | — | endpoint wycofany | Nie brać do nowej produkcji |
+
+Źródła: [OmniHuman 1.5 na fal](https://fal.ai/models/fal-ai/bytedance/omnihuman/v1.5/api), [OmniHuman v1](https://fal.ai/models/fal-ai/bytedance/omnihuman/api), [VEED Fabric na fal](https://fal.ai/veed-fabric-1.0), [Sync-3](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video/api), [wycofany Hunyuan Avatar](https://fal.ai/models/fal-ai/hunyuan-avatar).
+
+### Opinie i pozycja alternatyw
+
+- OmniHuman 1.5 reaguje semantycznie na treść, emocję i rytm audio; jego prompt potrafi kierować mimiką, gestami i kamerą. To jego przewaga przy aktorskiej wypowiedzi, lecz spokojny serwis informacyjny nie wymaga aż takiej ekspresji. [Przewodnik fal OmniHuman 1.5](https://fal.ai/learn/devs/omnihuman-1-5-prompt-guide).
+- Autorzy KlingAvatar 2.0 raportują przewagę ich modelu nad OmniHuman 1.5 i HeyGen w badaniu preferencji. To materiał producenta, ale nie wspiera tezy, że droższy OmniHuman bije Klinga. [Raport KlingAvatar 2.0](https://arxiv.org/abs/2512.13313).
+- Fabric ma pozytywne relacje z pojedynczych prób, ale także zgłoszenie animowania elementów tła. Jeden praktyk budujący własny pipeline określa Fabric jako swój bieżący wybór, co jest opinią, nie benchmarkiem. [Dyskusja praktyków](https://www.reddit.com/r/generativeAI/comments/1uenwkr/built_an_ai_avatarvideo_editing_app_using/).
+- Hedra Character-3 jest modelem avatarowym obraz+audio, lecz nie znalazłem obecnie udokumentowanego, publicznego endpointu tego modelu w katalogu fal. Nie należy wpisywać go do pipeline’u fal na podstawie samego partnerstwa firm.
+- Żadna dostępna alternatywa na fal nie ma udokumentowanej przewagi jakościowej nad Kling Avatar v2 przy koszcie około $2.27 za 40,3 s.
+
+## WERDYKT
+
+**Pro prawdopodobnie jest lepszym rendererem, ale nie ma twardych danych, że dla tej konkretnej karty będzie wart dodatkowych $2.37 za każdą wypowiedź. Wybór produkcyjny: Standard.**
+
+Plan:
+
+1. **Kanoniczne powitanie:** wyrenderować najpierw Standard za około **$2.27**.
+2. Oceniać w powiększeniu: kontur ust, zmarszczki, oczy, dłonie na stole, krawędzie ubrania oraz nieruchome elementy tła.
+3. Tylko jeśli Standard ma widoczne wady w tych miejscach, wykonać ten sam materiał w Pro za **$4.64** i wybrać lepszy wynik.
+4. **Cotygodniowe serwisy:** Standard jako domyślny; Pro wyłącznie dla materiałów reprezentacyjnych albo po udowodnionej przewadze w kontrolowanym teście Stanisława.
+
+Koszt 52 cotygodniowych klipów po 40,3 s:
+
+- Standard: około **$117.77 rocznie**;
+- Pro: około **$241.00 rocznie**;
+- dopłata do Pro: około **$123.23 rocznie**, jeszcze przed ponowieniami.
+
+Najważniejsze: nie kupowałbym Pro „na wiarę” na całą serię. Jednorazowy test A/B kosztuje dodatkowe $4.64 i daje własny, rozstrzygający dowód na właściwej twarzy, właściwym stole, polskim audio i docelowym czasie 40,3 s. Do czasu takiego testu **Standard wygrywa stosunkiem jakości do powtarzalnego kosztu**.
+tokens used
+115,709
+## KARTY
+
+Stan kart fal.ai: 27 lipca 2026 r.
+
+| Cecha | Standard | Pro |
+|---|---|---|
+| Endpoint | `fal-ai/kling-video/ai-avatar/v2/standard` | `fal-ai/kling-video/ai-avatar/v2/pro` |
+| Cena | **$0.0562/s wyjścia** | **$0.115/s wyjścia** |
+| Koszt 40,3 s | **$2.2649 ≈ $2.27** | **$4.6345 ≈ $4.64** |
+| Wejście | obraz + audio, wymagane; prompt opcjonalny | identycznie |
+| Deklarowana różnica | wariant ekonomiczny | „enhanced facial detail”, „smoother lip-sync precision”, wyższa jakość ruchu, „broadcast quality” |
+| Czas wyjścia | zgodny z długością audio | zgodny z długością audio |
+| Format wyniku | MP4 | MP4 |
+
+Źródła: [fal — Standard](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard), [fal — Pro](https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/pro), [wspólna dokumentacja API](https://fal.ai/docs/model-api-reference/video-generation-api/kling-video-ai-avatar-v2).
+
+### Parametry obu endpointów
+
+```json
+{
+  "image_url": "https://.../stanislaw.png",
+  "audio_url": "https://.../powitanie.mp3",
+  "prompt": "."
+}
+```
+
+- `image_url` — wymagany.
+- `audio_url` — wymagany.
+- `prompt` — opcjonalny string, domyślnie `"."`.
+- Wynik: `video` oraz według schematu `duration`.
+
+Prompt rzeczywiście może sterować zachowaniem: karta mówi o kierowaniu subtelnymi aspektami animacji, a oficjalny przewodnik Kling wymienia emocje, czynności i gesty. Nie jest to jednak twarda kontrola choreograficzna klatka po klatce.
+
+Przykładowy bezpieczny prompt dla Stanisława:
+
+```text
+A dignified elderly Polish news presenter sits calmly at the table,
+speaking directly to camera. Restrained natural gestures, subtle head
+movement, occasional blinking, hands remain resting on the table,
+static camera, professional and composed delivery.
+```
+
+### Limity i rozdzielczość
+
+Karty fal podają:
+
+- obraz: JPG, JPEG, PNG, WebP, GIF lub AVIF;
+- audio: MP3, OGG, WAV, M4A lub AAC;
+- wynik: MP4;
+- czas wyniku dopasowany do audio.
+
+Natomiast karty i schemat API **nie podają**:
+
+- maksymalnej ani minimalnej długości audio;
+- minimalnej/maksymalnej rozdzielczości obrazu wejściowego;
+- rozdzielczości wyjściowej Standard i Pro;
+- limitu wielkości plików;
+- FPS lub kodeka.
+
+Nie wolno więc przenosić tutaj limitów Kling Lipsync, np. 60 s audio czy 720–1920 px — dotyczą innego endpointu. Materiał 40,3 s mieści się w demonstrowanym przez Kling Avatar 2.0 zastosowaniu długich wypowiedzi, lecz fal nie publikuje dla tych dwóch endpointów twardego maksimum.
+
+Lokalna karta Stanisława ma **1536×2752 px**, mimo rozszerzenia `.jpg` jest faktycznie plikiem PNG. Format jest akceptowany, a proporcja 0,558 jest praktycznie zgodna z 9:16. „2K pion” dotyczy jednak wejścia; fal nie obiecuje, że film wyjdzie w 2K.
+
+## PRAKTYCY
+
+### Co można uczciwie powiedzieć o Standard kontra Pro
+
+Nie znalazłem niezależnego, powtarzalnego testu A/B **Kling AI Avatar v2 Standard kontra v2 Pro** wykonanego na tym samym obrazie, audio, promptcie i seedzie. Większość wyników z Reddita i YouTube dotyczy:
+
+- planu abonamentowego Standard/Pro;
+- Kling Video 1.x–3.x;
+- zwykłego image-to-video;
+- starszego Avatar v1.
+
+Nie są to dowody dotyczące omawianych endpointów Avatar v2. Jedyną precyzyjną deklaracją różnicy pozostaje karta fal: Pro ma lepszy detal twarzy i płynniejszy lipsync/ruch. Nie ma opublikowanej liczby, benchmarku ani gwarancji wyższej rozdzielczości.
+
+### Znane klasy problemów
+
+- **Dryf tożsamości:** praktycy Klinga wskazują, że stały, identyczny obraz referencyjny jest ważniejszy niż rozbudowany prompt; różny kadr, kąt lub oświetlenie zwiększa dryf między generacjami. [Dyskusja praktyków o spójności Kling](https://www.reddit.com/r/KlingAI_Videos/comments/1seneno/getting_consistent_character_identity_across/).
+- **Przesadna ekspresja:** generatory avatarów potrafią dodawać zbyt wiele gestów. Dlatego warto jawnie żądać ruchu powściągliwego i dłoni pozostających na stole. Przewodniki praktyczne zalecają jedną emocję i kilka prostych gestów, nie wieloczłonową choreografię.
+- **Ręce:** Avatar v2 ma poprawiać stabilność i gesty, lecz dłonie nadal są elementem generowanym, a nie zachowanym pikselowo. Jeżeli karta pokazuje ręce na stole, są one realnym obszarem ryzyka. Pro może je animować lepiej, ale karta fal nie obiecuje poprawnych palców.
+- **Okulary, mikrofony i przedmioty przy twarzy:** zasłonięte oczy lub usta utrudniają referencję. Zalecenia modeli avatarowych konsekwentnie wskazują na wyraźną, niezasłoniętą twarz. Nie znalazłem wiarygodnego pomiaru, że Pro usuwa ten problem.
+- **Tło:** w konkurencyjnym Fabric praktyk zauważył „background mouthing”, czyli animowanie twarzopodobnego elementu w tle. Pokazuje to ogólny problem tej klasy modeli, ale nie jest dowodem konkretnej wady Kling v2. [Test praktyka Fabric](https://www.linkedin.com/posts/jeffhinz_veed-flux-lora-activity-7374235406009155584-yBHh).
+- **Długie ujęcie:** praca techniczna KlingAvatar 2.0 wprost identyfikuje dryf czasowy i degradację jakości jako problemy wcześniejszych modeli, które nowa architektura ma ograniczać. Jest to wynik autorów modelu, nie niezależny test produkcyjny. [KlingAvatar 2.0 Technical Report](https://arxiv.org/abs/2512.13313).
+
+### Starsza twarz
+
+Nie znalazłem wiarygodnego benchmarku grup wiekowych ani testu Standard/Pro wyłącznie na seniorach. Nie ma podstaw do twierdzenia, że któryś wariant systematycznie lepiej obsługuje starsze twarze.
+
+Dla Stanisława różnica może być najbardziej widoczna w zmarszczkach, oczach i konturze ust, ponieważ właśnie „facial detail” jest deklarowaną przewagą Pro. To uzasadnia jednorazowy test Pro, ale nie stanowi dowodu, że wynik będzie lepszy.
+
+## ALTERNATYWY
+
+Koszty dla dokładnie 40,3 s:
+
+| Model na fal | Cena | Koszt 40,3 s | Limit/rozdzielczość | Ocena |
+|---|---:|---:|---|---|
+| **Kling Avatar v2 Standard** | $0.0562/s | **$2.27** | fal nie publikuje twardego maksimum ani rozdzielczości | Najtańszy rozsądny wariant pełnej animacji |
+| **Kling Avatar v2 Pro** | $0.115/s | **$4.64** | jak wyżej | Deklarowany lepszy detal i płynność |
+| **VEED Fabric 1.0 480p** | $0.08/s | **$3.22** | API do 60 s | Tańszy od Pro, lecz tylko 480p |
+| **VEED Fabric 1.0 720p** | $0.15/s | **$6.05** | API do 60 s | Droższy od Pro i tylko 720p |
+| **OmniHuman 1.5 720p** | $0.16/s | **$6.45** | audio do 60 s | Mocna ekspresja semantyczna, 2,84× koszt Standard |
+| **OmniHuman 1.5 1080p** | $0.16/s | 2 segmenty, razem **$6.45** | poniżej 30 s/segment | Cięcia mogą złamać ciągłość |
+| **Sync-3 image-to-video** | $0.1333/s | **$5.37** | czas odpowiada audio; karta nie podaje maksimum | Droższy, bardzo prosty schemat bez promptu |
+| **OmniHuman v1** | $0.14/s | **$5.64** | audio poniżej 30 s, więc 2 segmenty | Tańszy od v1.5, lecz problem cięcia |
+| **Hunyuan Avatar** | — | — | endpoint wycofany | Nie brać do nowej produkcji |
+
+Źródła: [OmniHuman 1.5 na fal](https://fal.ai/models/fal-ai/bytedance/omnihuman/v1.5/api), [OmniHuman v1](https://fal.ai/models/fal-ai/bytedance/omnihuman/api), [VEED Fabric na fal](https://fal.ai/veed-fabric-1.0), [Sync-3](https://fal.ai/models/fal-ai/sync-lipsync/v3/image-to-video/api), [wycofany Hunyuan Avatar](https://fal.ai/models/fal-ai/hunyuan-avatar).
+
+### Opinie i pozycja alternatyw
+
+- OmniHuman 1.5 reaguje semantycznie na treść, emocję i rytm audio; jego prompt potrafi kierować mimiką, gestami i kamerą. To jego przewaga przy aktorskiej wypowiedzi, lecz spokojny serwis informacyjny nie wymaga aż takiej ekspresji. [Przewodnik fal OmniHuman 1.5](https://fal.ai/learn/devs/omnihuman-1-5-prompt-guide).
+- Autorzy KlingAvatar 2.0 raportują przewagę ich modelu nad OmniHuman 1.5 i HeyGen w badaniu preferencji. To materiał producenta, ale nie wspiera tezy, że droższy OmniHuman bije Klinga. [Raport KlingAvatar 2.0](https://arxiv.org/abs/2512.13313).
+- Fabric ma pozytywne relacje z pojedynczych prób, ale także zgłoszenie animowania elementów tła. Jeden praktyk budujący własny pipeline określa Fabric jako swój bieżący wybór, co jest opinią, nie benchmarkiem. [Dyskusja praktyków](https://www.reddit.com/r/generativeAI/comments/1uenwkr/built_an_ai_avatarvideo_editing_app_using/).
+- Hedra Character-3 jest modelem avatarowym obraz+audio, lecz nie znalazłem obecnie udokumentowanego, publicznego endpointu tego modelu w katalogu fal. Nie należy wpisywać go do pipeline’u fal na podstawie samego partnerstwa firm.
+- Żadna dostępna alternatywa na fal nie ma udokumentowanej przewagi jakościowej nad Kling Avatar v2 przy koszcie około $2.27 za 40,3 s.
+
+## WERDYKT
+
+**Pro prawdopodobnie jest lepszym rendererem, ale nie ma twardych danych, że dla tej konkretnej karty będzie wart dodatkowych $2.37 za każdą wypowiedź. Wybór produkcyjny: Standard.**
+
+Plan:
+
+1. **Kanoniczne powitanie:** wyrenderować najpierw Standard za około **$2.27**.
+2. Oceniać w powiększeniu: kontur ust, zmarszczki, oczy, dłonie na stole, krawędzie ubrania oraz nieruchome elementy tła.
+3. Tylko jeśli Standard ma widoczne wady w tych miejscach, wykonać ten sam materiał w Pro za **$4.64** i wybrać lepszy wynik.
+4. **Cotygodniowe serwisy:** Standard jako domyślny; Pro wyłącznie dla materiałów reprezentacyjnych albo po udowodnionej przewadze w kontrolowanym teście Stanisława.
+
+Koszt 52 cotygodniowych klipów po 40,3 s:
+
+- Standard: około **$117.77 rocznie**;
+- Pro: około **$241.00 rocznie**;
+- dopłata do Pro: około **$123.23 rocznie**, jeszcze przed ponowieniami.
+
+Najważniejsze: nie kupowałbym Pro „na wiarę” na całą serię. Jednorazowy test A/B kosztuje dodatkowe $4.64 i daje własny, rozstrzygający dowód na właściwej twarzy, właściwym stole, polskim audio i docelowym czasie 40,3 s. Do czasu takiego testu **Standard wygrywa stosunkiem jakości do powtarzalnego kosztu**.

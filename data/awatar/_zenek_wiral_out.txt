@@ -1,0 +1,114 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/awatar
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa3d0-fce2-73d1-99eb-2c43088177fb
+--------
+user
+Przeczytaj plik data/awatar/_zadanie_zenka_wiral.md i wykonaj zadanie dokładnie według niego. Możesz używać wyszukiwania w sieci.
+codex
+Najpierw odczytam instrukcję z pliku i sprawdzę, jakie dokładnie działania oraz materiały są wymagane. Potem wykonam zadanie zgodnie z jej kolejnością.
+exec
+/bin/bash -lc "pwd && sed -n '1,240p' _zadanie_zenka_wiral.md" in /root/rod-ai-studio/data/awatar
+ succeeded in 0ms:
+/root/rod-ai-studio/data/awatar
+# JAK WIRALOWE ROLKI ROBIĄ SPOJRZENIE PREZENTERA? Zenek — research u ludzi.
+ŻĄDANIE TOMASZA (dosłownie): "Przedyskutować opcje innego spojrzenia w kamere" + "Szukać u ludzi jak to się robi. Brać przykłady z wiralowych rolek".
+PEŁNY KONTEKST: Pan Stanisław = AI-awatar starszego dziennikarza działkowego (ROD Woźniki), prezenter cotygodniowych serwisów w rolkach FB (short-form, pion 9:16). Mamy kartę v2 (patrzy prosto w obiektyw) i Kling AI Avatar v2 (dziedziczy kierunek wzroku ze start frame, prompt steruje tylko występem). Powitanie 40s nagrane. Pytanie brzmi: jakie SPOJRZENIE wybrać, żeby rolki działały wiralowo.
+ZADANIE (research w sieci — fora twórców, poradniki short-form, analizy wiralowych rolek, TikTok/Reels news-anchor format):
+1. EYE CONTACT W WIRALACH: co praktycy mówią o patrzeniu w obiektyw w pierwszych 1-3 s (hook)? Czy stały kontakt przez cały klip, czy przerywany? Konkretne przykłady/reguły od twórców.
+2. TRIKI PREZENTERSKIE: jak realni twórcy i TikTok-owi "news anchors" ogrywają wzrok — czytanie z promptera bez uciekania oczu, zerknięcia w notatki, spojrzenie znad okularów, zmiana ujęcia. Co buduje zaufanie, co je psuje (dead stare?).
+3. AWATARY AI W ROLKACH: co ludzie mówią o spojrzeniu awatarów AI (HeyGen/Kling/inne) — czego widzowie nie kupują, jak twórcy maskują sztuczność wzroku.
+4. WNIOSKI DLA STANISŁAWA: 3-5 konkretnych zaleceń spojrzenia dla naszego formatu (powitanie + cotygodniowy serwis).
+Format: ## WIRALE / ## TRIKI / ## AWATARY AI / ## ZALECENIA ZENKA. Ze źródłami (linki). Zwięźle.
+NA KONIEC przypomnij prowadzącemu o zapisie wniosków do ksiąg i naradzie z Genkiem.
+
+codex
+Instrukcja wymaga aktualnego researchu praktyków, więc sprawdzam równolegle materiały o hooku i kontakcie wzrokowym, technice telepromptera oraz odbiorze awatarów AI. Wnioski ograniczę do tego, co da się przełożyć na start frame i montaż Klinga.
+web search: 
+web search: creators eye contact camera first 3 seconds hook TikTok Reels direct eye contact advice ...
+web search: 
+web search: site:ads.tiktok.com business creative center first 3 seconds face camera eye contact hook ...
+web search: 
+web search: TikTok news creator UnderTheDeskNews format direct to camera interview teleprompter ...
+codex
+## WIRALE
+
+- W pierwszych 1–3 sekundach warto patrzeć niemal w obiektyw i natychmiast wypowiedzieć konkretny hook. Twarz, bezpośredni zwrot i kontakt wzrokowy szybciej komunikują: „mówię właśnie do ciebie”. Poradniki twórców zalecają, by pierwsza linia była jednym krótkim, pewnie podanym zdaniem — bez rozbiegu i szukania wzrokiem tekstu ([Teleprompter.com – TikTok](https://www.teleprompter.com/blog/guide-to-using-a-teleprompter-for-tiktok-success)).
+- Nie ma dowodu na prostą regułę „kontakt wzrokowy = wiral”. Pomaga on zatrzymać uwagę i budować relację, ale wynik zależy również od tematu, pierwszego zdania, tempa i retencji. Badania wykazały natomiast, że spojrzenie w kamerę może poprawić zapamiętywanie przekazu, a bezpośredni wzrok zwiększać wiarygodność niejednoznacznych stwierdzeń ([Applied Ergonomics](https://www.sciencedirect.com/science/article/pii/S000368700500089X), [Kreysa i in.](https://pmc.ncbi.nlm.nih.gov/articles/PMC5028022/)).
+- Przez cały klip utrzymujemy dominujący, ale nie idealnie nieruchomy kontakt. Naturalne mrugnięcia, minimalne przesunięcia ostrości i krótkie spojrzenie w bok są bardziej ludzkie niż 40 sekund nieprzerwanego wpatrywania się.
+- Dobry wzorzec formatu newsowego to bezpośredni zwrot do jednego widza, ekspresyjna twarz i swobodny ton. Tak opisywany jest styl Dylana Page’a („News Daddy”); z kolei UnderTheDeskNews pokazuje, że charakterystyczne, mniej telewizyjne ustawienie może stać się elementem rozpoznawalności ([Dylan Page](https://screenshot-media.com/gen-z-news/dylan-page-news-tiktok-creator/), [Nieman Lab – UnderTheDeskNews](https://www.niemanlab.org/2026/04/how-v-spehar-built-a-news-business-from-under-a-desk/)).
+
+## TRIKI
+
+- Prompter powinien znajdować się przy obiektywie, telefon na wysokości oczu, a tekst w wąskim polu. Czytanie peryferyjne ogranicza charakterystyczne „skanowanie” linijek źrenicami.
+- Tekst należy podzielić na krótkie, mówione frazy. Śledzenie pojedynczych słów powoduje bieganie oczu; jednostajne tempo i brak pauz ujawniają prompter równie mocno jak zły kierunek wzroku ([naturalne czytanie z promptera](https://www.teleprompter.com/blog/how-to-read-a-teleprompter-naturally-and-engage-your-audience)).
+- Zerknięcie w notatkę może działać, jeżeli ma sens dramaturgiczny: spojrzenie w dół przed kolejnym tematem, następnie powrót do obiektywu i ważne zdanie. Przypadkowa ucieczka oczu w połowie zdania wygląda jak błąd.
+- Spojrzenie znad okularów warto stosować jako rzadki znak osobowości: przy ostrzeżeniu, żarcie albo „ważnej radzie działkowca”. Powtarzane często zacznie wyglądać protekcjonalnie.
+- Zmianę tematu można zamaskować B-rollem, planszą albo wyraźnym punch-inem. Twórcy używają takich cięć do skracania pauz, a zmiana skali wygląda bardziej celowo niż drobny skok głowy ([praktyka twórców](https://www.reddit.com/r/NewTubers/comments/1n35ycy/), [Backstage](https://www.backstage.com/magazine/article/how-to-make-a-talking-head-video-78858/)).
+- „Dead stare” tworzą przede wszystkim: brak mrugania, identycznie szeroko otwarte oczy, nieruchoma głowa oraz wzrok przyklejony do widza również podczas pauz.
+
+## AWATARY AI
+
+- Użytkownicy jako oznaki AI wymieniają nieprzerwany kontakt wzrokowy, płaską mowę, zbyt równe odstępy między słowami i słabą synchronizację ruchów twarzy. Częsta rada to użycie naturalniejszego nagrania głosu oraz ograniczenie długich zbliżeń ([dyskusja twórców](https://www.reddit.com/r/AmazonExternalTraff/comments/1spcisu/red_flags_that_scream_this_is_ai_and_how_i_avoid/)).
+- Przy avatarach informacyjnych największą korzyścią jest regularność, lecz odbiorców rozprasza „uncanny valley”; sami twórcy wskazują, że materiały wymagają dodatkowego montażu i B-rollu ([Content Marketing](https://www.reddit.com/r/content_marketing/comments/1ohx6by/has_anyone_tried_generating_ai_avatar_talkinghead/), [AI UGC Marketing](https://www.reddit.com/r/AI_UGC_Marketing/comments/1tv1zbr/can_you_share_heygen_agent_tips_or_is_it_just_not_good_enough_to_generate/)).
+- Ponieważ Kling dziedziczy wzrok ze start frame, nie należy próbować „naprawiać” go samym promptem. Najbezpieczniejsze są kadry, w których źrenice celują w obiektyw albo minimalnie poniżej niego. Badanie percepcji kontaktu wzrokowego wykazało nawet przewagę punktu nieco poniżej obiektywu nad patrzeniem dokładnie w jego środek ([Gao i in.](https://pmc.ncbi.nlm.nih.gov/articles/PMC12439499/)).
+- Sztuczność najlepiej maskują krótsze odcinki prezentera, przebitki działki, zdjęcia omawianych roślin, napisy oraz cięcia w naturalnych granicach zdań — nie generowanie jednego nieruchomego ujęcia przez 40 sekund.
+
+## ZALECENIA ZENKA
+
+1. **Hook:** przez pierwsze 2–3 sekundy Stanisław patrzy prawie prosto w obiektyw; głowa może być ustawiona minimalnie pod kątem, ale źrenice powinny trafiać w widza. Pierwsze zdanie od razu zapowiada korzyść albo problem.
+
+2. **Karta główna:** zachować wersję v2 jako podstawę, lecz wybrać start frame z lekko miękkim spojrzeniem, naturalnie przymkniętymi powiekami i śladem uśmiechu. Nie robić wersji stale patrzącej wyraźnie obok kamery.
+
+3. **Rytm serwisu:** po 5–8 sekundach wejść w przebitkę lub planszę. Co 1–2 informacje wracać do frontalnego Stanisława. Dzięki temu nie trzeba wymuszać sztucznych ruchów oczu w Klingu.
+
+4. **Wariant charakterystyczny:** przygotować tylko jeden dodatkowy start frame — subtelne spojrzenie znad okularów — przeznaczony na ostrzeżenie, pointę lub żart. Nie używać go do zwykłego czytania wiadomości.
+
+5. **Test praktyczny:** opublikować porównywalne odcinki w dwóch wariantach: A — kontakt frontalny przez segmenty prezentera; B — frontalny hook, potem lekko miększy wzrok i więcej B-rollu. Porównać utrzymanie po 3 sekundach, średni czas oglądania i ukończenia, zamiast oceniać wyłącznie „realizm”.
+
+Na koniec: trzeba zapisać wnioski do ksiąg i zrobić naradę z Genkiem.
+tokens used
+32,360
+## WIRALE
+
+- W pierwszych 1–3 sekundach warto patrzeć niemal w obiektyw i natychmiast wypowiedzieć konkretny hook. Twarz, bezpośredni zwrot i kontakt wzrokowy szybciej komunikują: „mówię właśnie do ciebie”. Poradniki twórców zalecają, by pierwsza linia była jednym krótkim, pewnie podanym zdaniem — bez rozbiegu i szukania wzrokiem tekstu ([Teleprompter.com – TikTok](https://www.teleprompter.com/blog/guide-to-using-a-teleprompter-for-tiktok-success)).
+- Nie ma dowodu na prostą regułę „kontakt wzrokowy = wiral”. Pomaga on zatrzymać uwagę i budować relację, ale wynik zależy również od tematu, pierwszego zdania, tempa i retencji. Badania wykazały natomiast, że spojrzenie w kamerę może poprawić zapamiętywanie przekazu, a bezpośredni wzrok zwiększać wiarygodność niejednoznacznych stwierdzeń ([Applied Ergonomics](https://www.sciencedirect.com/science/article/pii/S000368700500089X), [Kreysa i in.](https://pmc.ncbi.nlm.nih.gov/articles/PMC5028022/)).
+- Przez cały klip utrzymujemy dominujący, ale nie idealnie nieruchomy kontakt. Naturalne mrugnięcia, minimalne przesunięcia ostrości i krótkie spojrzenie w bok są bardziej ludzkie niż 40 sekund nieprzerwanego wpatrywania się.
+- Dobry wzorzec formatu newsowego to bezpośredni zwrot do jednego widza, ekspresyjna twarz i swobodny ton. Tak opisywany jest styl Dylana Page’a („News Daddy”); z kolei UnderTheDeskNews pokazuje, że charakterystyczne, mniej telewizyjne ustawienie może stać się elementem rozpoznawalności ([Dylan Page](https://screenshot-media.com/gen-z-news/dylan-page-news-tiktok-creator/), [Nieman Lab – UnderTheDeskNews](https://www.niemanlab.org/2026/04/how-v-spehar-built-a-news-business-from-under-a-desk/)).
+
+## TRIKI
+
+- Prompter powinien znajdować się przy obiektywie, telefon na wysokości oczu, a tekst w wąskim polu. Czytanie peryferyjne ogranicza charakterystyczne „skanowanie” linijek źrenicami.
+- Tekst należy podzielić na krótkie, mówione frazy. Śledzenie pojedynczych słów powoduje bieganie oczu; jednostajne tempo i brak pauz ujawniają prompter równie mocno jak zły kierunek wzroku ([naturalne czytanie z promptera](https://www.teleprompter.com/blog/how-to-read-a-teleprompter-naturally-and-engage-your-audience)).
+- Zerknięcie w notatkę może działać, jeżeli ma sens dramaturgiczny: spojrzenie w dół przed kolejnym tematem, następnie powrót do obiektywu i ważne zdanie. Przypadkowa ucieczka oczu w połowie zdania wygląda jak błąd.
+- Spojrzenie znad okularów warto stosować jako rzadki znak osobowości: przy ostrzeżeniu, żarcie albo „ważnej radzie działkowca”. Powtarzane często zacznie wyglądać protekcjonalnie.
+- Zmianę tematu można zamaskować B-rollem, planszą albo wyraźnym punch-inem. Twórcy używają takich cięć do skracania pauz, a zmiana skali wygląda bardziej celowo niż drobny skok głowy ([praktyka twórców](https://www.reddit.com/r/NewTubers/comments/1n35ycy/), [Backstage](https://www.backstage.com/magazine/article/how-to-make-a-talking-head-video-78858/)).
+- „Dead stare” tworzą przede wszystkim: brak mrugania, identycznie szeroko otwarte oczy, nieruchoma głowa oraz wzrok przyklejony do widza również podczas pauz.
+
+## AWATARY AI
+
+- Użytkownicy jako oznaki AI wymieniają nieprzerwany kontakt wzrokowy, płaską mowę, zbyt równe odstępy między słowami i słabą synchronizację ruchów twarzy. Częsta rada to użycie naturalniejszego nagrania głosu oraz ograniczenie długich zbliżeń ([dyskusja twórców](https://www.reddit.com/r/AmazonExternalTraff/comments/1spcisu/red_flags_that_scream_this_is_ai_and_how_i_avoid/)).
+- Przy avatarach informacyjnych największą korzyścią jest regularność, lecz odbiorców rozprasza „uncanny valley”; sami twórcy wskazują, że materiały wymagają dodatkowego montażu i B-rollu ([Content Marketing](https://www.reddit.com/r/content_marketing/comments/1ohx6by/has_anyone_tried_generating_ai_avatar_talkinghead/), [AI UGC Marketing](https://www.reddit.com/r/AI_UGC_Marketing/comments/1tv1zbr/can_you_share_heygen_agent_tips_or_is_it_just_not_good_enough_to_generate/)).
+- Ponieważ Kling dziedziczy wzrok ze start frame, nie należy próbować „naprawiać” go samym promptem. Najbezpieczniejsze są kadry, w których źrenice celują w obiektyw albo minimalnie poniżej niego. Badanie percepcji kontaktu wzrokowego wykazało nawet przewagę punktu nieco poniżej obiektywu nad patrzeniem dokładnie w jego środek ([Gao i in.](https://pmc.ncbi.nlm.nih.gov/articles/PMC12439499/)).
+- Sztuczność najlepiej maskują krótsze odcinki prezentera, przebitki działki, zdjęcia omawianych roślin, napisy oraz cięcia w naturalnych granicach zdań — nie generowanie jednego nieruchomego ujęcia przez 40 sekund.
+
+## ZALECENIA ZENKA
+
+1. **Hook:** przez pierwsze 2–3 sekundy Stanisław patrzy prawie prosto w obiektyw; głowa może być ustawiona minimalnie pod kątem, ale źrenice powinny trafiać w widza. Pierwsze zdanie od razu zapowiada korzyść albo problem.
+
+2. **Karta główna:** zachować wersję v2 jako podstawę, lecz wybrać start frame z lekko miękkim spojrzeniem, naturalnie przymkniętymi powiekami i śladem uśmiechu. Nie robić wersji stale patrzącej wyraźnie obok kamery.
+
+3. **Rytm serwisu:** po 5–8 sekundach wejść w przebitkę lub planszę. Co 1–2 informacje wracać do frontalnego Stanisława. Dzięki temu nie trzeba wymuszać sztucznych ruchów oczu w Klingu.
+
+4. **Wariant charakterystyczny:** przygotować tylko jeden dodatkowy start frame — subtelne spojrzenie znad okularów — przeznaczony na ostrzeżenie, pointę lub żart. Nie używać go do zwykłego czytania wiadomości.
+
+5. **Test praktyczny:** opublikować porównywalne odcinki w dwóch wariantach: A — kontakt frontalny przez segmenty prezentera; B — frontalny hook, potem lekko miększy wzrok i więcej B-rollu. Porównać utrzymanie po 3 sekundach, średni czas oglądania i ukończenia, zamiast oceniać wyłącznie „realizm”.
+
+Na koniec: trzeba zapisać wnioski do ksiąg i zrobić naradę z Genkiem.
