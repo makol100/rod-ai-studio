@@ -1,6 +1,8 @@
 # ŚRODOWISKO: GENEK
 
-Silnik: Gemini (Tier 1 płatny, klucz w `/root/.gemini/.env`). Zdalne API + Gemini CLI 0.52.0 na VPS.
+Silnik: Gemini, **płatny Tier 1 włączony 30.07.2026**. Klucz w `/root/.gemini/.env`. Zdalne API + Gemini CLI 0.52.0 na VPS.
+**Model do pracy z dyskiem: `gemini-3.1-pro-preview`** (konkretny, nie alias — decyzja załogi 30.07).
+**Oczy i uszy zostają na `gemini-2.5-flash`** — wideo zjada ogromne tokeny, pro bez zysku.
 
 ## Dostęp (zmierzony 29.07 — sprawdzał sam)
 Odczyt ✅ zapis ✅ internet ✅ obraz ✅ polecenia ✅

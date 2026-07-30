@@ -72,18 +72,29 @@ Nie oceniaj, czy pomysl jest dobry. Oceniaj TYLKO, czy dowod pokrywa twierdzenie
     sciezka = "/tmp/_zrobione_kontrola.md"
     with open(sciezka, "w", encoding="utf-8") as f:
         f.write(zadanie)
+    # 30.07 — WADA ZNALEZIONA W BOJU: katalog byl staly, wiec gdy narada nie doszla do skutku,
+    # bramka czytala odpowiedzi z POPRZEDNIEGO uruchomienia i brala je za swiezy werdykt.
+    # Henio "ocenil" plik, ktorego w zgloszeniu nie bylo. Od teraz katalog jest unikalny per zgloszenie.
+    katalog = f"/tmp/zrobione_kontrola_{int(time.time())}"
     try:
         w = subprocess.run(
             [sys.executable, os.path.join(REPO, "tools", "zaloga.py"),
-             "--zadanie", sciezka, "--katalog", "/tmp/zrobione_kontrola"],
+             "--zadanie", sciezka, "--katalog", katalog],
             cwd=REPO, capture_output=True, text=True, timeout=900)
     except Exception as e:
         return False, [f"kontrola nie dokonczyla: {e}"]
     glosy, sprzeciw = [], False
+    print(f"   (katalog kontroli: {katalog})")
     for imie in ("zenek", "genek", "henio"):
-        p = f"/tmp/zrobione_kontrola/{imie}.txt"
+        p = os.path.join(katalog, f"{imie}.txt")
         if not os.path.isfile(p):
             glosy.append(f"{imie}: GLOS NIEODEBRANY")
+            sprzeciw = True          # brak glosu NIE jest zgoda
+            continue
+        wiek = time.time() - os.path.getmtime(p)
+        if wiek > 1800:
+            glosy.append(f"{imie}: GLOS PRZETERMINOWANY ({int(wiek)}s) — odrzucony")
+            sprzeciw = True
             continue
         tresc = open(p, encoding="utf-8", errors="replace").read()
         gorne = tresc.upper()
