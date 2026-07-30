@@ -177,6 +177,10 @@ Zbieżna diagnoza Zenka i Henia, każdy inną drogą, ze źródłami:
   japoński, koreański, hiszpański — bez polskiego; OmniHuman nie podaje listy języków
 
 **Decyzja Tomasza mimo tego ograniczenia: zostajemy przy OmniHuman.**
+**30.07: „Izabela niech zostanie tak jak ją widziałem. Nie spowalniały."** — czyli kanonem ruchu jest
+wersja B (żywsza) z NORMALNYM tempem mowy. Test ze spowolnieniem o 11% NIE został uruchomiony,
+mimo że nagranie było gotowe (`data/upload/podglad/iza_audio_wolne10.mp3`) — Tomasz odrzucił.
+Powód odrzucenia parametru `speed=0.9` u ElevenLabs: zmierzone, wydłuża nagranie o 1%, nie o 10%.
 Nie próbować naprawiać tego promptem — Zenek sprawdził, nie ma udokumentowanego parametru artykulacji.
 Niesprawdzona przesłanka warta jednej próby: audio wolniejsze o 5-10%.
 
