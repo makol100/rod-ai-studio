@@ -84,41 +84,59 @@ wygenerowana, to budowanie jej hiperrealistycznego, ale fikcyjnego pokoju przecz
 Argument przeciwny, odrzucony ale wart pamięci (Henio): „Izabela jest reporterką ogrodu, powinna być
 na tle ogrodu; postać gadająca o prawdziwym ogrodzie, stojąc w narysowanej kuchni, to właśnie udawanie."
 
-## STUDIO — KANON ZAMKNIĘTY 30.07.2026
+## KARTA IZABELI — ZAAKCEPTOWANA PRZEZ TOMASZA 30.07.2026
 
-Plik: `assets/izabela/STUDIO_IZABELI_CANON.png` (444, tylko odczyt)
-Generator: `tools/tlo_izabeli.sh` — **kod, nie model AI**
-SHA-256 (24 znaki): fb0ca805b8c2ad52be27f97e — dwa niezależne przebiegi dają identyczny plik
+Plik: `assets/izabela/IZABELA_CANON.png` (444), SHA-256 b7776412a79d88db2e320cd7, 1536x2752.
+Model: `fal-ai/nano-banana-pro`, 9:16, 2K. Koszt pary prób: **0,15 USD** (saldo 10,01 → 9,86).
 
-| element | wartość | decyzja |
+**Akceptacja Tomasza:** po obejrzeniu wersji drugiej napisał dosłownie **„Super"**.
+Wersja pierwsza została przez niego ODRZUCONA słowami **„Zwykła baba"** — powód po stronie Klaudka:
+w prompcie stało „naturally attractive in an ordinary, believable way", czyli dosłowne polecenie
+zrobienia przeciętnej, plus płaskie frontalne światło i zakaz jakiegokolwiek uśmiechu.
+
+**Co zmieniono w wersji drugiej (i tylko to):** uroda przez strukturę (wyraźniejsze kości policzkowe,
+większe i lepiej osadzone oczy, harmonijne proporcje), światło pętlowe z lewej pod 40 stopni zamiast
+płaskiego frontalnego, cień uśmiechu w oczach zamiast twarzy całkowicie neutralnej.
+Nietknięte: wiek, siwizna, brak makijażu, faktura skóry, tło do wycięcia, pusty pas u góry.
+
+**Zmierzone na v2:** wiek odczytany 50–55, uroda 8/10, zmarszczki wokół oczu TAK, fałdy nosowo-wargowe
+TAK, linie na szyi TAK, siwe pasma TAK, światło modeluje twarz, tło jednolite, górne 16% puste.
+
+## STUDIO — KANON ZAMKNIĘTY 30.07.2026 (wersja po wygenerowaniu Izabeli)
+
+Generator: `tools/tlo_izabeli.sh` — **kod, nie model AI**. Dwa przebiegi = plik identyczny co do piksela.
+Plik kanoniczny: `assets/izabela/STUDIO_IZABELI_CANON.png` (444), SHA-256 7acfd27acbfa056a47260b2e
+
+| element | wartość | decyzja Tomasza |
 |---|---|---|
-| baza tła | `#403A35` | Tomasz: „Ziemisty brąz"; po researchu wrócił do tego wariantu |
-| rozjaśnienie w centrum | `#61564B` | gradient radialny, sigma 330×430, środek (540,700) |
-| elementy w tle | **żadne** | cała załoga: każdy element może się przesunąć między odcinkami |
-| logo | prawy górny róg, **koło 110 px**, odsunięte 45 px | Tomasz: „logo najmniejsze w kółku" |
-| napis o AI | „PREZENTERKA AI", x=60 y=78, biel 92% na czarnym pasku 30% | skrócony na polecenie Tomasza |
+| baza tła | `#A89464` „zboże jasne" | „Poproszę jaśniejsze tło" → wariant 2 z czterech |
+| rozjaśnienie góry | +38/+36/+30, sigma 520×640, środek (540,560) | — |
+| cień za postacią | −30, sigma 300×520, środek (540,1150) | wariant B „cień delikatny" z trzech |
+| logo | prawy górny róg, koło 110 px, odsunięte 45 px | „logo najmniejsze w kółku" |
+| napis | „PREZENTERKA AI", biel 95% na czarnym pasku 26% | skrócony na jego polecenie |
+| elementy w tle | **żadne** | cała załoga: każdy element może się przesunąć |
 
-**Zmierzone punkty kadru:** krawędzie `#403A35`, środek `#61564B`, wysokość twarzy `#5D5348`,
-pas napisu `#4E463E`. Pierwsza wersja miała krawędzie za jasne (`#50473F`) — gradient zacieśniony.
+### Dlaczego ten kolor — dobrany do NIEJ, nie na oko
+Tomasz: „Ma być dopasowany do tej pięknej Izabeli". Kolory wyciągnięte z jej karty:
+bluzka `#466270` zajmuje 12% kadru (największa powierzchnia po tle), włosy i skóra `#624638`.
+Ciepłe zboże kontrastuje z turkusem bluzki.
 
-### Dlaczego kodem, nie generatorem (jednogłośnie Zenek + Genek + Henio)
-Genek: „100% gwarancji matematycznej identyczności — układ pikseli, który nigdy się nie zmieni".
-Henio: „dwa odcinki zrobione w odstępie tygodnia mogą mieć inne tło, widz to wyłapie".
-Zenek: „bez losowości, kosztu oraz zależności od modelu".
+### Separacja postaci — CIENIEM, nie samym kolorem
+Propozycja Zenka z narady 30.07. Bramka oka na wersji bez cienia: „kontrast jest, ale nie ma
+wyraźnego odcięcia, obraz wydaje się nieco płaski". Cień za postacią na wysokości tułowia
+naśladuje realne studio i przywraca głębię bez zmiany koloru tła.
 
-### Research praktyków (30.07, przed wyborem koloru)
-- **unikać** beżu, tanu i brzoskwini — imitują odcień skóry, twarz się w nich rozpływa
-- **unikać** klinicznej bieli — kamera niedoświetla twarz
-- **unikać** zimnej szarości bez ciepła — oliwkowa skóra wychodzi zielonawo
-- **dobre**: głębokie zgaszone — węgiel, granat, ciemna śliwka, leśna zieleń, ciemne taupe
-- `#403A35` to dokładnie „dark taupe with brown undertones" z poradnika portretowego
-- **zieleń tła odrzucona** mimo zielonego logo: spłaszcza logo do jednej plamy, a za postacią
-  czyta się jako green screen (ostrzegała cała trójka)
+### Postać — jak została odklejona (robota Zenka)
+Plik: `assets/izabela/IZABELA_ODKLEJONA.png` (444), kod: `tools/wytnij_izabele.py`
+Model **`birefnet-portrait`** przez rembg w `/opt/rembg-venv`, plus krok kluczowy:
+**usunięcie domieszki starego tła wyłącznie z pikseli częściowej alfy**.
+Zmierzone: miękka krawędź 1,41%, przezroczyste 46,1%, pełne 52,5%,
+twarz/szyja/bluzka — zero przezroczystych pikseli, zero zmodyfikowanych pikseli kryjących,
+krawędź o 29% ciemniejsza od wnętrza (brak jasnej obwódki).
 
-### KONSEKWENCJA DLA GENEROWANIA POSTACI
-Tło jest osobną warstwą, więc **Izabela musi być wygenerowana tak, żeby dała się odkleić** —
-na jednolitym tle do wycięcia albo z kanałem alfa. Portret z tłem wbudowanym w obraz
-niszczy całą gwarancję identyczności.
+**Czego NIE robić:** `colorkey` w ffmpeg — wyżera fragmenty czoła, policzków, nosa i szyi,
+bo odcień skóry bywa zbliżony do tła. Wykrył to Zenek, mierząc kanał alfa.
+`u2net_human_seg` z erozją 3 px daje maskę praktycznie binarną — włosy „jak wycięte nożyczkami".
 
 ## UJAWNIENIE AI — NAPIS OBOWIĄZKOWY W PIERWSZYM KADRZE
 Zenek i Henio niezależnie ustalili, że ujawnienie **wyłącznie głosowe nie wystarcza**: film może
@@ -127,10 +145,18 @@ bez potrzeby narzędzi technicznych. Wdrażający nie może polegać tylko na oz
 Treść napisu: **IZABELA — PREZENTERKA WYGENEROWANA PRZEZ AI**
 Napis nakłada MONTAŻ, nie generator obrazu (generatory psują tekst).
 
-## DO ROZSTRZYGNIĘCIA (nie wymyślać — pytać Tomasza)
-- wygląd i otoczenie — **debata na koniec** (decyzja Tomasza 29.07); propozycje na stole:
-  weranda/oranżeria (Genek), kącik redakcyjny w świetlicy (Zenek), kuchnia w altanie (Henio)
-- czy zostawić intro w obecnym brzmieniu, czy skrócić deklarację
+## CO ZOSTAŁO DO ZROBIENIA (stan 30.07 wieczorem)
+
+Postać, głos i studio są ZAMKNIĘTE. Otwarte jest to, co dzieje się DALEJ:
+
+1. **Ożywienie Izabeli** — obecnie mamy nieruchomy kadr. Do gadającej głowy potrzebny Kling
+   (kanon ze Stanisława: `fal-ai/kling-video/ai-avatar/v2`, Standard $0.0562/s, PRO $0.115/s,
+   limit audio 60 s = tekst do ~900 znaków przy tempie Charlotte 15 znaków/s). WYMAGA ZGODY NA KOSZT.
+2. **Tekst pierwszego wejścia** — intro z deklaracją AI jest napisane i nagrane w castingu.
+   Do decyzji: czy zostaje w obecnym brzmieniu, czy skrócić.
+3. **Montaż WD_0001** — materiał zweryfikowany klatka po klatce (koparka WA0007 17-27 s,
+   człowiek WA0005 19-29 s, teren 093926 0-52 s, gałęzie 62-70 s). Czeka na decyzję.
+4. **Zdjęcia „przed i po"** — Tomasz miał je zrobić (korzenie i cały teren), nie ma ich na dysku.
 
 ## PAN STANISŁAW — NA PÓŁKĘ
 Decyzja Tomasza 29.07: *„Pan Stanisław jest gotową postacią. Odstawiamy na półkę i wiemy, że go mamy."*
