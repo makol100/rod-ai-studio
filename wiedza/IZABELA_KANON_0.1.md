@@ -73,6 +73,60 @@ Dziś krótko i konkretnie: co się zmienia w naszym ogrodzie i co trzeba zrobi�
 Uwaga: w tekście świadomie użyta PEŁNA nazwa zamiast skrótu „ROD" — przy Stanisławie skrót był
 pułapką wymowy. Outro w castingu: „Do zobaczenia w ogrodzie".
 
+## TŁO I OTOCZENIE — DECYZJA TOMASZA 30.07: DROGA B, TŁO NEUTRALNE
+
+Dosłownie: **„Dopracować do perfekcji studio neutralne."**
+Odrzucone: fotorealistyczne wnętrze (weranda/kuchnia/kącik) oraz Izabela na tle prawdziwego ogrodu.
+Głosy w naradzie pełnego składu: Genek — B, Henio — C, Klaudek — B. Rozstrzygnął Tomasz.
+
+Argument, który przeważył (Genek, z kanonu): skoro Izabela w pierwszym zdaniu deklaruje, że jest
+wygenerowana, to budowanie jej hiperrealistycznego, ale fikcyjnego pokoju przeczy tej szczerości.
+Argument przeciwny, odrzucony ale wart pamięci (Henio): „Izabela jest reporterką ogrodu, powinna być
+na tle ogrodu; postać gadająca o prawdziwym ogrodzie, stojąc w narysowanej kuchni, to właśnie udawanie."
+
+## STUDIO — KANON ZAMKNIĘTY 30.07.2026
+
+Plik: `assets/izabela/STUDIO_IZABELI_CANON.png` (444, tylko odczyt)
+Generator: `tools/tlo_izabeli.sh` — **kod, nie model AI**
+SHA-256 (24 znaki): fb0ca805b8c2ad52be27f97e — dwa niezależne przebiegi dają identyczny plik
+
+| element | wartość | decyzja |
+|---|---|---|
+| baza tła | `#403A35` | Tomasz: „Ziemisty brąz"; po researchu wrócił do tego wariantu |
+| rozjaśnienie w centrum | `#61564B` | gradient radialny, sigma 330×430, środek (540,700) |
+| elementy w tle | **żadne** | cała załoga: każdy element może się przesunąć między odcinkami |
+| logo | prawy górny róg, **koło 110 px**, odsunięte 45 px | Tomasz: „logo najmniejsze w kółku" |
+| napis o AI | „PREZENTERKA AI", x=60 y=78, biel 92% na czarnym pasku 30% | skrócony na polecenie Tomasza |
+
+**Zmierzone punkty kadru:** krawędzie `#403A35`, środek `#61564B`, wysokość twarzy `#5D5348`,
+pas napisu `#4E463E`. Pierwsza wersja miała krawędzie za jasne (`#50473F`) — gradient zacieśniony.
+
+### Dlaczego kodem, nie generatorem (jednogłośnie Zenek + Genek + Henio)
+Genek: „100% gwarancji matematycznej identyczności — układ pikseli, który nigdy się nie zmieni".
+Henio: „dwa odcinki zrobione w odstępie tygodnia mogą mieć inne tło, widz to wyłapie".
+Zenek: „bez losowości, kosztu oraz zależności od modelu".
+
+### Research praktyków (30.07, przed wyborem koloru)
+- **unikać** beżu, tanu i brzoskwini — imitują odcień skóry, twarz się w nich rozpływa
+- **unikać** klinicznej bieli — kamera niedoświetla twarz
+- **unikać** zimnej szarości bez ciepła — oliwkowa skóra wychodzi zielonawo
+- **dobre**: głębokie zgaszone — węgiel, granat, ciemna śliwka, leśna zieleń, ciemne taupe
+- `#403A35` to dokładnie „dark taupe with brown undertones" z poradnika portretowego
+- **zieleń tła odrzucona** mimo zielonego logo: spłaszcza logo do jednej plamy, a za postacią
+  czyta się jako green screen (ostrzegała cała trójka)
+
+### KONSEKWENCJA DLA GENEROWANIA POSTACI
+Tło jest osobną warstwą, więc **Izabela musi być wygenerowana tak, żeby dała się odkleić** —
+na jednolitym tle do wycięcia albo z kanałem alfa. Portret z tłem wbudowanym w obraz
+niszczy całą gwarancję identyczności.
+
+## UJAWNIENIE AI — NAPIS OBOWIĄZKOWY W PIERWSZYM KADRZE
+Zenek i Henio niezależnie ustalili, że ujawnienie **wyłącznie głosowe nie wystarcza**: film może
+wystartować bez dźwięku, a wymóg mówi o formie jasnej i postrzegalnej przy pierwszym kontakcie,
+bez potrzeby narzędzi technicznych. Wdrażający nie może polegać tylko na oznaczeniu maszynowym.
+Treść napisu: **IZABELA — PREZENTERKA WYGENEROWANA PRZEZ AI**
+Napis nakłada MONTAŻ, nie generator obrazu (generatory psują tekst).
+
 ## DO ROZSTRZYGNIĘCIA (nie wymyślać — pytać Tomasza)
 - wygląd i otoczenie — **debata na koniec** (decyzja Tomasza 29.07); propozycje na stole:
   weranda/oranżeria (Genek), kącik redakcyjny w świetlicy (Zenek), kuchnia w altanie (Henio)
