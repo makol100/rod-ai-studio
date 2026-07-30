@@ -21,8 +21,10 @@ Wynik ZAWSZE konczy sie lista adresow — bez zrodel odpowiedz nie jest dowodem.
 import argparse
 import json
 import os
+import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
 SCIEZKI_KLUCZA = [
@@ -89,14 +91,84 @@ def szukaj(pytanie: str) -> tuple:
     return tekst.strip(), zrodla, zapytania
 
 
+def szukaj_zapasowo(pytanie: str) -> tuple:
+    """DROGA ZAPASOWA — Marginalia (niezalezny indeks) + Wikipedia. BEZ Gemini, bez klucza.
+
+    Powod (30.07.2026, Tomasz: "cala debata jest nierowna, jezeli reszta nie miala dostepu do internetu"):
+    wyszukiwarka chodzila WYLACZNIE przez Gemini, wiec awaria Google (status 503) odebrala internet
+    Genkowi, Heniowi i Klaudkowi naraz. Jeden dostawca = jeden punkt awarii dla calej zalogi.
+
+    Zmierzone 30.07 z tego VPS: DuckDuckGo (lite i html, GET i POST) — 0 wynikow, blokuje serwer.
+    Mojeek — 0 wynikow. Marginalia API — dziala. Wikipedia API — dziala.
+    Ta droga NIE streszcza — zwraca surowe trafienia z adresami, zeby czytajacy ocenil sam.
+    """
+    wyniki, linie = [], []
+
+    adres = "https://api.marginalia.nu/public/search/" + urllib.parse.quote(pytanie)
+    try:
+        r = json.loads(urllib.request.urlopen(
+            urllib.request.Request(adres, headers={"Accept": "application/json"}), timeout=45).read())
+        for w in (r.get("results") or [])[:6]:
+            tytul = (w.get("title") or "?").strip()[:110]
+            uri = w.get("url") or ""
+            opis = (w.get("description") or "").strip()[:240]
+            if uri:
+                wyniki.append((tytul, uri))
+                linie.append(f"{len(wyniki)}. {tytul}")
+                if opis:
+                    linie.append(f"   {opis}")
+    except Exception as e:
+        linie.append(f"(Marginalia niedostepna: {e})")
+
+    try:
+        wadres = ("https://pl.wikipedia.org/w/api.php?action=query&list=search&srlimit=2&format=json&srsearch="
+                  + urllib.parse.quote(pytanie))
+        rw = json.loads(urllib.request.urlopen(
+            urllib.request.Request(wadres, headers={"User-Agent": "rod-ai-studio/1.0"}), timeout=30).read())
+        for w in rw.get("query", {}).get("search", [])[:2]:
+            tytul = w.get("title", "")
+            uri = "https://pl.wikipedia.org/wiki/" + urllib.parse.quote(tytul.replace(" ", "_"))
+            opis = re.sub(r"<[^>]+>", "", w.get("snippet", ""))
+            wyniki.append((f"Wikipedia: {tytul}", uri))
+            linie.append(f"{len(wyniki)}. Wikipedia: {tytul}")
+            if opis:
+                linie.append(f"   {opis}")
+    except Exception:
+        pass
+
+    if not wyniki:
+        return "", [], "obie drogi zapasowe bez wynikow (Marginalia i Wikipedia)"
+    return "\n".join(linie), wyniki, ""
+
+
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("pytanie", nargs="+")
     p.add_argument("--zapis", default="")
+    p.add_argument("--tylko-zapasowo", action="store_true", help="pomin Gemini, idz od razu droga zapasowa (Marginalia + Wikipedia)")
     a = p.parse_args()
     pytanie = " ".join(a.pytanie)
 
-    tekst, zrodla, zapytania = szukaj(pytanie)
+    # DROGA 1: Gemini z google_search (streszcza i podaje zrodla)
+    # DROGA 2 (gdy Gemini padnie): DuckDuckGo — surowe wyniki, bez modelu, bez klucza
+    if a.tylko_zapasowo:
+        tekst, wyniki, blad = szukaj_zapasowo(pytanie)
+        if blad:
+            print(f"BLAD: {blad}")
+            return 2
+        zrodla, zapytania = wyniki, [pytanie]
+        tekst = "[DROGA ZAPASOWA — Marginalia + Wikipedia, surowe wyniki bez streszczenia]\n\n" + tekst
+    else:
+        try:
+            tekst, zrodla, zapytania = szukaj(pytanie)
+        except SystemExit:
+            print("[szukaj_net] Gemini niedostepny — przechodze na DuckDuckGo", file=sys.stderr)
+            tekst, wyniki, blad = szukaj_zapasowo(pytanie)
+            if blad:
+                print(f"BLAD: obie drogi padly | {blad}")
+                return 2
+            zrodla, zapytania = wyniki, [pytanie]
+            tekst = "[DROGA ZAPASOWA — Marginalia + Wikipedia, surowe wyniki bez streszczenia]\n\n" + tekst
     linie = [f"PYTANIE: {pytanie}", "", tekst, ""]
     if zapytania:
         linie.append(f"ZAPYTANIA WYSZUKIWARKI: {'; '.join(zapytania)}")

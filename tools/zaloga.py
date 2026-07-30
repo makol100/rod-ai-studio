@@ -30,7 +30,12 @@ import urllib.request
 
 REPO = "/root/rod-ai-studio"
 STOPKA = ("\n\nPodpisz sie swoim imieniem. Jesli czegos nie da sie ustalic z materialu — napisz NIE WIEM. "
-          "Nie uzgadniaj odpowiedzi z nikim, to ma byc TWOJ glos.")
+          "Nie uzgadniaj odpowiedzi z nikim, to ma byc TWOJ glos."
+          "\n\nTO JEST BADANIE, NIE ZAPIS (dekret Tomasza 30.07: 'Zadanie to zadanie, badanie to badanie. "
+          "Decyzje zawsze podejmuje JA'). NIE zmieniaj, nie dopisuj i nie tworz ZADNEGO pliku w repo. "
+          "Jesli czegos w pliku NIE MA — napisz 'NIE MA TEGO W PLIKU'. Nie wolno dopisac brakujacej tresci, "
+          "a potem zacytowac jej jako dowodu; to sie stalo 30.07 i jest wykrywane automatycznie. "
+          "Decyzji nie zapisuje nikt z zalogi — zapisuje je Tomasz przez Klaudka, po swojej decyzji.")
 
 
 def sprawdz_rowne_szanse() -> tuple:
@@ -87,8 +92,24 @@ def genek(zadanie: str, material: str, wynik: dict) -> None:
             with open(mat, "w", encoding="utf-8") as f:
                 f.write(material)
             polecenie += ["--material", mat]
-        w = subprocess.run(polecenie, cwd=REPO, capture_output=True, text=True, timeout=600)
-        wynik["genek"] = (w.stdout or w.stderr).strip() or "GLOS NIEODEBRANY (pusta odpowiedz)"
+        w = subprocess.run(polecenie, cwd=REPO, capture_output=True, text=True, timeout=900)
+        tresc = (w.stdout or w.stderr).strip()
+        # 29.07: bramka sprawdza zdolnosci PRZED startem, ale CLI Genka moze paść w TRAKCIE (limit czasu).
+        # Wtedy leci tryb awaryjny — bez dysku, czyli NIEROWNE SZANSE. Tomasz to wylapal.
+        # Jedna proba ponowna z dluzszym limitem; jesli dalej awaryjnie — to NIE jest rownowazny glos.
+        if "TRYB AWARYJNY" in tresc.upper():
+            polecenie_dl = [x if x != "260" else "600" for x in polecenie]
+            try:
+                w2 = subprocess.run(polecenie_dl, cwd=REPO, capture_output=True, text=True, timeout=1200)
+                tresc2 = (w2.stdout or w2.stderr).strip()
+                if tresc2 and "TRYB AWARYJNY" not in tresc2.upper():
+                    tresc = tresc2
+                else:
+                    tresc = ("GLOS NIEODEBRANY (dwukrotnie tryb awaryjny — Genek nie mial dostepu do dysku, "
+                             "czyli NIE mial rownych szans; ponizej jego odpowiedz bez dostepu, do wgladu)\n\n" + tresc2 or tresc)
+            except Exception as e:
+                tresc = f"GLOS NIEODEBRANY (ponowna proba padla: {e})\n\n{tresc}"
+        wynik["genek"] = tresc or "GLOS NIEODEBRANY (pusta odpowiedz)"
     except Exception as e:
         wynik["genek"] = f"GLOS NIEODEBRANY ({e})"
 
@@ -151,7 +172,12 @@ def main() -> int:
         print("BLAD: nikt do wywolania")
         return 2
 
-    print(f"NARADA: {', '.join(kto)} — kazdy dostaje to samo, nikt nie widzi cudzej odpowiedzi.\n")
+    odcisk = "/tmp/_zaloga_odcisk.json"
+    subprocess.run([sys.executable, os.path.join(REPO, "tools", "straznik_zrodel.py"),
+                    "--zapisz", odcisk, "wiedza", "tools", "AGENTS.md", "CLAUDE.md"],
+                   cwd=REPO, capture_output=True, text=True, timeout=180)
+    print(f"NARADA: {', '.join(kto)} — kazdy dostaje to samo, nikt nie widzi cudzej odpowiedzi.")
+    print("[straznik zrodel] odcisk plikow wziety — badanie nie moze wytworzyc wlasnego dowodu\n")
     wynik: dict = {}
     watki = [threading.Thread(target=WYKONAWCY[k], args=(zadanie, material, wynik)) for k in kto]
     for w in watki:
@@ -170,10 +196,21 @@ def main() -> int:
         print("=" * 25, k.upper(), "=" * 25)
         print(tresc, "\n")
 
+    w = subprocess.run([sys.executable, os.path.join(REPO, "tools", "straznik_zrodel.py"),
+                        "--porownaj", odcisk], cwd=REPO, capture_output=True, text=True, timeout=180)
+    if w.returncode != 0:
+        print(w.stdout)
+        print("!!! UWAGA: ktos z zalogi RUSZYL PLIKI w trakcie badania. Cytaty z tych plikow sa podejrzane.")
+    else:
+        print("[straznik zrodel] zrodla nietkniete — cytaty pochodza ze stanu sprzed zadania")
+
     print(f"GLOSY: {len(kto) - nieodebrane}/{len(kto)} odebrane. Zapisane w {a.katalog}/")
     if nieodebrane:
         print("UWAGA: brak glosu NIE jest zgoda. Wniosek bez pelnego skladu jest niepelny.")
     print("Klaudek dokłada swoj wlasny glos osobno — jest w druzynie, nie nad nia.")
+    print("UWAGA: straznik zrodel obejmuje TAKZE prace Klaudka — odcisk brany przed narada i porownany")
+    print("po niej obejmuje KAZDA zmiane w wiedza/, tools/, AGENTS.md i CLAUDE.md, niezaleznie od tego,")
+    print("kto ja zrobil (luke wskazal Zenek 30.07: 'straznikiem objeci tylko wywolani wykonawcy').")
     return 0
 
 

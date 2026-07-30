@@ -1,12 +1,14 @@
 {
  "zenek.cli": true,
+ "zenek.siec": true,
  "genek.dysk_zapis": true,
+ "genek.model_pro": true,
  "genek.klucz": true,
  "henio.gateway": true,
  "henio.zapis_repo": true,
  "henio.oczy": true,
  "henio.internet": true,
  "telefon.apka": true,
- "bramka.petla": true,
- "zenek.siec": true
+ "siec.zapasowa": true,
+ "bramka.petla": true
 }

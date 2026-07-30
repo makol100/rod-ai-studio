@@ -21,9 +21,21 @@ import json
 import os
 import subprocess
 import sys
+import time
 
 REPO = "/root/rod-ai-studio"
 STAN = os.path.join(REPO, "wiedza/srodowiska/_stan_zdolnosci.json")
+
+
+PRZEJSCIOWE = ("503", "429", "overloaded", "rate limit", "quota", "unavailable",
+               "timed out", "przekroczony czas", "temporarily")
+
+
+def czy_przejsciowy(opis: str) -> bool:
+    """Awaria u dostawcy to NIE utrata zdolnosci. Bez tego rozroznienia czkawka Google
+    blokowala cala prace przez bramke rownych szans (znalezione testem 29.07)."""
+    n = opis.lower()
+    return any(t in n for t in PRZEJSCIOWE)
 
 
 def polecenie(cmd: str, limit: int = 60, jako: str = "") -> tuple:
@@ -43,22 +55,52 @@ def sonda() -> dict:
     ok, opis = polecenie("command -v codex >/dev/null && echo JEST")
     wynik["zenek.cli"] = {"dziala": ok and "JEST" in opis, "slad": opis}
 
-    # ZENEK — czy ma siec w piaskownicy (29.07: DNS byl odciety, milczaco)
-    ok, opis = polecenie(
-        f"cd {REPO} && timeout 100 codex exec \"Uruchom: python3 -c \\\"import urllib.request;print(urllib.request.urlopen('https://api.github.com',timeout=8).status)\\\"\" 2>&1 | tail -3",
-        limit=140)
-    wynik["zenek.siec"] = {"dziala": "200" in opis, "slad": opis[-90:]}
+    # ZENEK — czy ma siec w piaskownicy (29.07: DNS byl odciety, milczaco).
+    # Sonda pisze ZNACZNIK DO PLIKU zamiast szukac liczby w gadatliwym wyjsciu codeksa —
+    # pierwsza wersja dawala falszywy alarm i przez bramke rownych szans blokowala CALA prace.
+    znacznik = os.path.join(REPO, ".scratch", "_sonda_zenek_siec.txt")
+    if os.path.isfile(znacznik):
+        os.remove(znacznik)
+    polecenie(
+        f"cd {REPO} && timeout 120 codex exec \"Uruchom dokladnie to polecenie i nic wiecej: "
+        f"python3 -c \\\"import urllib.request,pathlib;"
+        f"k=urllib.request.urlopen('https://api.github.com',timeout=10).status;"
+        f"pathlib.Path('.scratch/_sonda_zenek_siec.txt').write_text(str(k))\\\"\" >/dev/null 2>&1",
+        limit=160)
+    tresc = ""
+    if os.path.isfile(znacznik):
+        tresc = open(znacznik, encoding="utf-8", errors="replace").read().strip()
+    wynik["zenek.siec"] = {"dziala": tresc == "200",
+                           "slad": f"znacznik: {tresc or 'BRAK PLIKU'}"}
 
-    # GENEK — czy CLI czyta dysk i czy potrafi ZAPISAC (to bylo cicho stracone)
-    ok, opis = polecenie(
-        f"cd {REPO} && GEMINI_CLI_TRUST_WORKSPACE=true timeout 120 gemini --yolo -p "
-        "'Utworz plik .scratch/_sonda.txt z trescia OK, potem odczytaj go i napisz TYLKO jego zawartosc.' "
-        "2>&1 | tail -3", limit=150)
+    # GENEK — czy CLI czyta dysk i czy potrafi ZAPISAC (to bylo cicho stracone).
+    # Trzy podejscia: 503/429 od Google to czkawka, nie utrata zdolnosci.
+    for _ in range(3):
+        ok, opis = polecenie(
+        f"cd {REPO} && GEMINI_CLI_TRUST_WORKSPACE=true timeout 120 gemini --yolo -m gemini-3.1-pro-preview -p "
+            "'Utworz plik .scratch/_sonda.txt z trescia OK, potem odczytaj go i napisz TYLKO jego zawartosc.' "
+            "2>&1 | tail -3", limit=150)
+        if os.path.isfile(os.path.join(REPO, ".scratch/_sonda.txt")):
+            break
+        if not czy_przejsciowy(opis):
+            break
+        time.sleep(6)
     plik = os.path.join(REPO, ".scratch/_sonda.txt")
     zapisal = os.path.isfile(plik)
-    wynik["genek.dysk_zapis"] = {"dziala": zapisal, "slad": opis if not zapisal else "plik powstal"}
+    wynik["genek.dysk_zapis"] = {"dziala": zapisal,
+                                 "slad": ("plik powstal" if zapisal else
+                                          ("CHWILOWA AWARIA U DOSTAWCY: " + opis[:80]
+                                           if czy_przejsciowy(opis) else opis[:120]))}
     if zapisal:
         os.remove(plik)
+
+    # GENEK — czy jego USTALONY model (3.1-pro) odpowiada. Nawrot 503 ma wyjsc rano, nie w robocie.
+    ok, opis = polecenie(
+        f"cd {REPO} && timeout 120 env GEMINI_CLI_TRUST_WORKSPACE=true gemini --yolo "
+        "-m gemini-3.1-pro-preview -p 'Napisz jedno slowo: OK' 2>&1 | grep -oE 'OK|503' | head -1",
+        limit=150)
+    wynik["genek.model_pro"] = {"dziala": "OK" in opis and "503" not in opis,
+                                "slad": f"gemini-3.1-pro-preview -> {opis.strip() or 'brak odpowiedzi'}"}
 
     # GENEK — klucz do API (droga awaryjna)
     wynik["genek.klucz"] = {"dziala": os.path.isfile("/root/.gemini/.env"), "slad": "/root/.gemini/.env"}
@@ -88,6 +130,11 @@ def sonda() -> dict:
     wynik["telefon.apka"] = {"dziala": opis.strip() not in ("000", "", "502"),
                              "slad": f"http://100.101.116.106:8080 -> {opis.strip() or 'brak odpowiedzi'}"}
 
+    # WSPOLNA DROGA ZAPASOWA DO SIECI — zeby awaria jednego dostawcy nie odcinala calej zalogi
+    ok, opis = polecenie(
+        f"cd {REPO} && timeout 120 python3 tools/szukaj_net.py --tylko-zapasowo 'test' 2>&1 | head -4", limit=160)
+    wynik["siec.zapasowa"] = {"dziala": "ZAPASOWA" in opis and "BLAD" not in opis, "slad": opis[:90]}
+
     # WSPOLNE — bramka i jej petla testowa
     ok, opis = polecenie(f"cd {REPO} && python3 tools/test_bramki.py 2>&1 | tail -1", limit=180)
     wynik["bramka.petla"] = {"dziala": ok and "0 czerwonych" in opis, "slad": opis[:100]}
@@ -111,19 +158,25 @@ def main() -> int:
     with open(STAN, encoding="utf-8") as f:
         wzorzec = json.load(f)
 
-    roznice = []
+    roznice, nowosci = [], []
     for k, v in teraz.items():
         oczekiwane = wzorzec.get(k)
         if oczekiwane is None:
-            roznice.append(f"NOWA ZDOLNOSC {k}: {'TAK' if v['dziala'] else 'NIE'}")
+            # 30.07: NOWA zdolnosc to ULEPSZENIE, nie awaria — nie moze blokowac pracy zalogi.
+            # (Zablokowala narade o modelu Genka, bo dopisalem druga droge do sieci.)
+            nowosci.append(f"NOWA ZDOLNOSC {k}: {'TAK' if v['dziala'] else 'NIE'} — dopisz wzorzec: --zapisz")
         elif oczekiwane != v["dziala"]:
             kierunek = "STRACONE" if oczekiwane else "ODZYSKANE"
-            roznice.append(f"{kierunek}: {k} (bylo {'TAK' if oczekiwane else 'NIE'}, "
-                           f"jest {'TAK' if v['dziala'] else 'NIE'}) | {v['slad']}")
+            wpis = (f"{kierunek}: {k} (bylo {'TAK' if oczekiwane else 'NIE'}, "
+                    f"jest {'TAK' if v['dziala'] else 'NIE'}) | {v['slad']}")
+            # ODZYSKANIE tez nie jest awaria — informujemy, nie blokujemy
+            (roznice if kierunek == "STRACONE" else nowosci).append(wpis)
     for k in wzorzec:
         if k not in teraz:
             roznice.append(f"ZNIKNELA SONDA: {k}")
 
+    for n in nowosci:
+        print(f"  (i) {n}")
     if not roznice:
         return 0
     print("SONDA ZDOLNOSCI — ZMIANA STANU ZALOGI")

@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 30.07.2026 06:37.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 30.07.2026 10:41.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,6 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `ZALOGA_LIMITY.md` | 30.07 | 4K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
 | `IZABELA_KANON_0.1.md` | 30.07 | 5K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `START.md` | 29.07 | 6K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `KONEKTOR_DZIALKA.md` | 29.07 | 2K | KONEKTOR HA DZIAŁKA — NAPRAWIONY 29.07.2026 |
@@ -27,7 +28,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `NAUKI_SERII.md` | 28.07 | 20K | 2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE oper |
 | `LISTA_PRACOWNIKOW.md` | 28.07 | 2K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
 | `DECYZJE_CLAUDE_CODE.md` | 28.07 | 5K | 2026-07-26 | "Leć" (po planie: Claude Code + Codex CLI + plugin codex@openai-codex na fabryce, review gate OFF |
-| `ZALOGA_LIMITY.md` | 27.07 | 1K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
 | `AKTYWA_SERII.md` | 26.07 | 1K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `DECYZJE_SERIA_HUMOR.md` | 25.07 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
 | `PROMPTY_WZORCE.md` | 23.07 | 3K | BANK PROMPTÓW-ZWYCIĘZCÓW — seria Tomek i Janusz (DROGA HUMOR) |
@@ -44,7 +44,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `/root/TELEPORT_HA.md` | 42K | 19.07 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 5K | 29.07 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 1K | 29.07 | konfiguracja Claude Code na VPS |
-| `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 4K | 29.07 | podrecznik Henika (dyzurny) |
+| `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 5K | 30.07 | podrecznik Henika (dyzurny) |
 
 ## Zasada
 

@@ -34,6 +34,18 @@ import urllib.request
 
 REPO = "/root/rod-ai-studio"
 MODEL_API = "gemini-2.5-flash"
+# 30.07.2026 — Tomasz: "Genek jest zajety na tym darmowym kanale, a my placimy, czyli musimy przejsc
+# wyzej — nie na 2.5, tylko cos wyzej, co nie jest tak pozajmowane".
+# Zmierzone tego dnia: CLI na modelach flash (2.5 i 3.6) odbijalo 503 "This model is currently
+# experiencing high demand" nawet po 7 ponowieniach. Na gemini-3.1-pro-preview przeszlo za pierwszym
+# razem. Kolejnosc prob od najpewniejszego do zapasowych.
+# 30.07 po wlaczeniu platnosci przez Tomasza — decyzja calej zalogi (Zenek, Genek, Henio zbieznie):
+# KONKRETNY model, NIE alias. Alias "gemini-pro-latest" odrzucony: Google potrafi podmienic model
+# w tle (gemini-pro wskazywalo rok na 1.5 Pro, potem przeskoczylo na 2.0), co zmienia koszt i zachowanie.
+# Zmierzone po wlaczeniu platnosci: 3.1-pro-preview przechodzi, 3.6-flash tez, 2.5-flash dalej 503.
+# Zenek: gdy pro niedostepny — ZATRZYMAC z komunikatem, nie schodzic po cichu na slabszy model.
+MODEL_CLI = "gemini-3.1-pro-preview"
+MODELE_CLI = [MODEL_CLI, MODEL_CLI, MODEL_CLI]   # trzy proby TEGO SAMEGO modelu, bez degradacji
 
 
 def klucz() -> str:
@@ -45,22 +57,31 @@ def klucz() -> str:
     return ""
 
 
-def droga_cli(zadanie: str, limit_s: int) -> tuple:
-    """Genek z wlasnymi rekami: czyta pliki, greppuje, sprawdza — sam."""
+def droga_cli(zadanie: str, limit_s: int, model: str = "") -> tuple:
+    """Genek z wlasnymi rekami: czyta pliki, ZAPISUJE, greppuje, uruchamia polecenia — sam.
+    Probuje kolejnych modeli, bo pojedynczy potrafi byc przeciazony (503) mimo dzialajacego klucza."""
     srodowisko = dict(os.environ, GEMINI_CLI_TRUST_WORKSPACE="true")
-    try:
-        w = subprocess.run(["gemini", "--yolo", "-p", zadanie], cwd=REPO, env=srodowisko,
-                           capture_output=True, text=True, timeout=limit_s)
-    except subprocess.TimeoutExpired:
-        return "", f"CLI: przekroczony czas {limit_s}s"
-    except FileNotFoundError:
-        return "", "CLI: brak polecenia gemini"
-    tekst = "\n".join(l for l in w.stdout.split("\n")
-                      if "256-color" not in l and "Warning:" not in l).strip()
-    if w.returncode != 0 or not tekst:
-        blad = (w.stderr or "").strip()[:300] or f"kod wyjscia {w.returncode}"
-        return "", f"CLI: {blad}"
-    return tekst, ""
+    do_proby = [model] if model else MODELE_CLI
+    powody = []
+    for m in do_proby:
+        try:
+            w = subprocess.run(["gemini", "--yolo", "-m", m, "-p", zadanie], cwd=REPO, env=srodowisko,
+                               capture_output=True, text=True, timeout=limit_s)
+        except subprocess.TimeoutExpired:
+            powody.append(f"{m}: przekroczony czas {limit_s}s")
+            continue
+        except FileNotFoundError:
+            return "", "CLI: brak polecenia gemini"
+        tekst = "\n".join(l for l in w.stdout.split("\n")
+                          if "256-color" not in l and "Warning:" not in l
+                          and "YOLO mode" not in l and not l.startswith("Attempt ")
+                          and not l.strip().startswith("at ") and l.strip() not in ("}", "status: 503")).strip()
+        if tekst and "503" not in tekst[:80]:
+            return tekst, ""
+        powody.append(f"{m}: {(w.stderr or 'przeciazenie 503').strip()[:70]}")
+    return "", ("CLI: model " + MODEL_CLI + " niedostepny po " + str(len(do_proby)) +
+                " probach — ZATRZYMUJE, nie schodze na slabszy model (decyzja Zenka 30.07) | "
+                + " | ".join(powody[:2]))
 
 
 def droga_api(zadanie: str, material: str) -> tuple:
@@ -110,6 +131,7 @@ def main() -> int:
     p.add_argument("--material", default="", help="pliki dla drogi awaryjnej")
     p.add_argument("--tylko-api", action="store_true")
     p.add_argument("--limit", type=int, default=280, help="sekundy na droge CLI")
+    p.add_argument("--model", default="", help="wymus konkretny model CLI (domyslnie proba po kolei)")
     p.add_argument("--zapis", default="")
     a = p.parse_args()
 
@@ -125,11 +147,14 @@ def main() -> int:
         return 2
 
     zadanie += ("\n\nPracujesz w katalogu /root/rod-ai-studio — MASZ DOSTEP DO PLIKOW, czytaj je sam. "
-                "Kazde twierdzenie ze sladem: plik i linia. Czego nie da sie ustalic — NIE WIEM. Podpisz sie: GENEK.")
+                "Kazde twierdzenie ze sladem: plik i linia. Czego nie da sie ustalic — NIE WIEM. Podpisz sie: GENEK."
+                "\n\nBADANIE TO BADANIE: przy pytaniu 'sprawdz w pliku' NIE WOLNO dopisywac brakujacej tresci "
+                "i cytowac jej jako dowodu. Nie ma czegos w pliku — pisz 'NIE MA TEGO W PLIKU'. "
+                "Zapis do repo tylko wtedy, gdy zadanie WPROST kaze cos zapisac.")
 
     powody = []
     if not a.tylko_api:
-        tekst, blad = droga_cli(zadanie, a.limit)
+        tekst, blad = droga_cli(zadanie, a.limit, a.model)
         if tekst:
             wynik = f"[GENEK — DROGA 1: wlasny dostep do dysku przez CLI]\n\n{tekst}"
             if a.zapis:
