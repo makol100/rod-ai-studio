@@ -148,7 +148,7 @@ ani razu nie mówi, że jest AI. U nas lukę zamyka napis na ekranie.
 |---|---|
 | tytuł | „WIADOMOŚCI DZIAŁKOWE" na pierwszym ujęciu, **2,5 s**, miękkie wejście i zniknięcie |
 | dźwięk czołówki | **brak** — pierwsze sekundy należą do obrazu |
-| daty na zdjęciach | „23 LIPCA" na zarośniętym terenie, „30 LIPCA" na wykarczowanym |
+| daty na zdjęciach | **„20 LIPCA"** na zarośniętym terenie (data podana przez Tomasza — plik FB_IMG nie ma daty w nazwie), „30 LIPCA" na wykarczowanym |
 | outro | ostatni kadr zatrzymany ~1 s z napisem o zgłaszaniu pomocy; **bez planszy z logo** |
 | podtytuł z tematem | **odrzucony** — za dużo warstw tekstu naraz na jednym ujęciu |
 
@@ -170,7 +170,12 @@ w trzy sekundy, samym porównaniem dwóch kadrów — a tak ogląda większość
 
 ## TEKST WYJŚCIA — KANON (decyzja Tomasza 30.07, wariant 1)
 
-**„Zostały doły po korzeniach i stosy gałęzi. Chęć pomocy można zgłosić do zarządu."**
+**„Zostały doły po ciężkiej pracy. Chęć pomocy można zgłosić do zarządu."**
+
+POPRAWKA Tomasza 30.07 po kontroli Zenka: pierwotne „stosy gałęzi" NIE MIAŁY POKRYCIA —
+Zenek sprawdził wszystkie pięć zdjęć z 30.07, gałęzi nie ma na żadnym (widać stosy korzeni i pni),
+a w OPIS.md ich nie ma. Gałęzie widać wyłącznie na zdjęciu „przed". Tomasz zmienił na
+„doły po ciężkiej pracy" — nie opisuje przedmiotu, którego nie widać.
 
 80 znaków = ok. 5,3 s. Najpierw FAKT, który widz właśnie zobaczył na zdjęciach, potem PROŚBA.
 Tomasz: „Tu trzeba napisać, że potrzebujemy pomocy działkowiczów" + „Że można zgłosić chęć pomocy".
@@ -222,7 +227,9 @@ bo odcień skóry bywa zbliżony do tła. Wykrył to Zenek, mierząc kanał alfa
 Zenek i Henio niezależnie ustalili, że ujawnienie **wyłącznie głosowe nie wystarcza**: film może
 wystartować bez dźwięku, a wymóg mówi o formie jasnej i postrzegalnej przy pierwszym kontakcie,
 bez potrzeby narzędzi technicznych. Wdrażający nie może polegać tylko na oznaczeniu maszynowym.
-Treść napisu: **IZABELA — PREZENTERKA WYGENEROWANA PRZEZ AI**
+Treść napisu: **PREZENTERKA AI** (rozstrzygnięcie Tomasza 30.07: „Napis o AI krótki").
+Wcześniej kanon miał w dwóch miejscach różne wersje — dłuższą „IZABELA — PREZENTERKA WYGENEROWANA
+PRZEZ AI" i krótszą. Obowiązuje KRÓTKA, ta sama, którą wpisuje generator studia.
 Napis nakłada MONTAŻ, nie generator obrazu (generatory psują tekst).
 
 ## OŻYWIENIE — KANON: OmniHuman 1.5 (decyzja Tomasza 30.07)
