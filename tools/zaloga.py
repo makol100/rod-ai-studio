@@ -53,6 +53,13 @@ def sprawdz_rowne_szanse() -> tuple:
         return True, f"sonda nie dokonczyla ({e})"
     if w.returncode == 0:
         return True, "wszyscy maja komplet zdolnosci"
+    # 30.07: telefon Tomasza NIE jest zdolnoscia zalogi — to jego urzadzenie, ktore bywa uspione.
+    # Bramka blokowala narade nad TEKSTEM, bo Fold byl poza siecia. Peryferium informuje, nie blokuje.
+    braki = [l for l in w.stdout.split("\n") if "STRACONE" in l]
+    tylko_telefon = braki and all("telefon." in l for l in braki)
+    if tylko_telefon:
+        return True, ("wszyscy z zalogi maja komplet zdolnosci; niedostepne peryferium: "
+                      + "; ".join(l.split("|")[0].strip() for l in braki))
     return False, w.stdout.strip()
 
 

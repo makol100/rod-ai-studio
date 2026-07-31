@@ -11,7 +11,23 @@ Powód odrzucenia (Tomasz): *„Wieje starocią z tego Stanisława i z jego do z
 Może tchnąć trochę rozwoju w ten ROD. Wszyscy dzisiaj pracujemy na komputerach, wszystko jest
 zcyfryzowane. To są relikty dziadostwa."*
 
-## KIM JEST IZABELA — formuła Tomasza
+## KIM JEST IZABELA — **AWATAR ZARZĄDU** (decyzja Tomasza 30.07 wieczorem)
+
+Dosłownie: **„Jest Awatarem Zarządu"**.
+
+To rozstrzyga problem, który wcześniej wisiał. Załoga odrzuciła propozycje, w których Izabela miała
+być członkinią zarządu (Helena-sekretarz, Danuta-skarbniczka) — bo awatar udający realną funkcję
+ośmiesza. Ale nie była też niczyim awatarem, więc nie mogła powiedzieć „jestem awatarem X".
+
+Teraz może: **jest awatarem ZARZĄDU jako organu**, nie konkretnej osoby. Mówi w imieniu zarządu,
+nie podszywa się pod żadnego człowieka, a deklaracja mieści się w jednym zdaniu.
+
+Wzorzec z filmu wskazanego przez Tomasza (youtu.be/N91bU7nzo-Q): awatar otwiera wypowiedź zdaniem
+„Jestem wirtualnym awatarem [imię]" — deklaracja jest PIERWSZYM zdaniem, krótka, ton rzeczowy,
+bez przepraszania i bez chwalenia się. Żadnego „dzień dobry" przed nią.
+Różnica: tamten jest awatarem konkretnego człowieka, Izabela jest awatarem ORGANU.
+
+## Poprzednia formuła (nadal obowiązuje w części o zakazach)
 Dekret Tomasza, 29.07: *„Zawsze na początku może powiedzieć, że jestem wygenerowanym prezenterem
 sztucznej inteligencji i zatrudnionym jako reporter do zarządu."*
 
@@ -101,6 +117,31 @@ Nietknięte: wiek, siwizna, brak makijażu, faktura skóry, tło do wycięcia, p
 
 **Zmierzone na v2:** wiek odczytany 50–55, uroda 8/10, zmarszczki wokół oczu TAK, fałdy nosowo-wargowe
 TAK, linie na szyi TAK, siwe pasma TAK, światło modeluje twarz, tło jednolite, górne 16% puste.
+
+## TEKST WEJŚCIA — KANON (decyzja Tomasza 30.07, wariant 2)
+
+**„Jestem Izabela, wirtualny awatar zarządu. Dwa popołudnia koparka karczowała zarośnięty teren
+przy domu działkowca."**
+
+114 znaków = ok. 7,6 s przy tempie Charlotte (15 znaków/s).
+
+**Formuła przedstawiania się — Tomasz, dosłownie: „Jestem wirtualnym awatarem zarządu."**
+Wzorzec z filmu youtu.be/N91bU7nzo-Q wskazanego przez Tomasza: awatar otwiera zdaniem
+„Jestem wirtualnym awatarem [imię]" — BEZ powitania, bez wstępu. Deklaracja jest pierwszym słowem.
+Zenek i Henio obejrzeli niezależnie i podali identyczne brzmienie. Ton rzeczowy, neutralny,
+bez przepraszania i bez chwalenia się. Tempo ok. 140 słów/minutę.
+
+**Dlaczego bez „dzień dobry":** kosztuje ok. 0,7 s i osłabia wejście (Henio: „Izabela to nie
+recepcjonistka — pierwsze słowo to jej imię"). Wzorzec z filmu też go nie ma.
+
+**Ujawnienie AI — DWA KANAŁY, każdy osobno wystarczalny:**
+- OBRAZ: stały napis „PREZENTERKA AI" w studiu, widoczny od pierwszej klatki, także bez dźwięku
+- GŁOS: „wirtualny awatar zarządu" — mówi, że jest bytem cyfrowym i czyim jest awatarem
+Uwaga Henia z analizy filmu: „wirtualny awatar" NIE jest tożsame z „jestem AI" — tamten awatar
+ani razu nie mówi, że jest AI. U nas lukę zamyka napis na ekranie.
+
+**Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
+„awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
 ## STUDIO — KANON ZAMKNIĘTY 30.07.2026 (wersja po wygenerowaniu Izabeli)
 
