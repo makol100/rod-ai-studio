@@ -140,6 +140,34 @@ recepcjonistka — pierwsze słowo to jej imię"). Wzorzec z filmu też go nie m
 Uwaga Henia z analizy filmu: „wirtualny awatar" NIE jest tożsame z „jestem AI" — tamten awatar
 ani razu nie mówi, że jest AI. U nas lukę zamyka napis na ekranie.
 
+## CZOŁÓWKA I NAPISY — KANON (decyzja Tomasza 30.07)
+
+**BEZ osobnej planszy czołówkowej.** Napis nakładany NA pierwsze ujęcie.
+
+| element | wartość |
+|---|---|
+| tytuł | „WIADOMOŚCI DZIAŁKOWE" na pierwszym ujęciu, **2,5 s**, miękkie wejście i zniknięcie |
+| dźwięk czołówki | **brak** — pierwsze sekundy należą do obrazu |
+| daty na zdjęciach | „23 LIPCA" na zarośniętym terenie, „30 LIPCA" na wykarczowanym |
+| outro | ostatni kadr zatrzymany ~1 s z napisem o zgłaszaniu pomocy; **bez planszy z logo** |
+| podtytuł z tematem | **odrzucony** — za dużo warstw tekstu naraz na jednym ujęciu |
+
+**Dlaczego bez osobnej planszy** (zbieżnie Zenek + Henio, ze źródłami):
+- Meta: pierwsze sekundy na szybkie rozpoczęcie historii; filmy startują bez dźwięku
+- BBC: zaczynać od obrazu przyciągającego także bez dźwięku
+- Reuters: branding WEWNĄTRZ materiału (napis, watermark), nie przed nim
+- osobna plansza = dodatkowy plik o innych parametrach = ryzyko narastającego rozjazdu A/V
+  (zmierzone 2,25 s na 70 s przy odcinku #10009)
+- logo ROD jest już na stałe w prawym górnym rogu studia — czołówka byłaby zdublowaniem
+- Henio sprawdził całe repo: decyzja „intro i outro obowiązkowe" z 17.07 dotyczy WYŁĄCZNIE
+  serii humorystycznej; dla Wiadomości nie było żadnej
+
+**Dlaczego 2,5 s a nie 1,5 s:** widownia to często starsi działkowcy, „WIADOMOŚCI DZIAŁKOWE"
+to dwa długie słowa. Nieprzeczytany tytuł szkodzi bardziej niż sekunda różnicy.
+
+**Dlaczego daty:** rolka jest „przed i po". Z datami cała historia czyta się BEZ DŹWIĘKU
+w trzy sekundy, samym porównaniem dwóch kadrów — a tak ogląda większość widzów na Facebooku.
+
 ## TEKST WYJŚCIA — KANON (decyzja Tomasza 30.07, wariant 1)
 
 **„Zostały doły po korzeniach i stosy gałęzi. Chęć pomocy można zgłosić do zarządu."**
