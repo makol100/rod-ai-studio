@@ -140,6 +140,17 @@ recepcjonistka — pierwsze słowo to jej imię"). Wzorzec z filmu też go nie m
 Uwaga Henia z analizy filmu: „wirtualny awatar" NIE jest tożsame z „jestem AI" — tamten awatar
 ani razu nie mówi, że jest AI. U nas lukę zamyka napis na ekranie.
 
+## TEKST WYJŚCIA — KANON (decyzja Tomasza 30.07, wariant 1)
+
+**„Zostały doły po korzeniach i stosy gałęzi. Chęć pomocy można zgłosić do zarządu."**
+
+80 znaków = ok. 5,3 s. Najpierw FAKT, który widz właśnie zobaczył na zdjęciach, potem PROŚBA.
+Tomasz: „Tu trzeba napisać, że potrzebujemy pomocy działkowiczów" + „Że można zgłosić chęć pomocy".
+
+Nie podajemy terminu, zakresu prac ani sposobu kontaktu — **tych szczegółów jeszcze nie ma**
+i nie wolno ich zmyślać. Gdy będą, wchodzą do następnych wiadomości.
+Odrzucone: „do usłyszenia przy płocie" (zostało po Stanisławie, uznane za staroć).
+
 **Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
 „awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
