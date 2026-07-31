@@ -28,7 +28,8 @@ REPO = "/root/rod-ai-studio"
 STAN = os.path.join(REPO, "wiedza/srodowiska/_stan_zdolnosci.json")
 
 
-PRZEJSCIOWE = ("503", "429", "overloaded", "rate limit", "quota", "unavailable",
+PRZEJSCIOWE = (
+    "reason: undefined", "[object Object]", "critical error occurred","503", "429", "overloaded", "rate limit", "quota", "unavailable",
                "timed out", "przekroczony czas", "temporarily")
 
 
@@ -50,6 +51,8 @@ def model_genka() -> str:
 
 
 def czy_przejsciowy(opis: str) -> bool:
+    # 30.07: Gemini CLI potrafi zwrocic "reason: undefined" / "[object Object]" i zaraz potem
+    # dzialac normalnie. To czkawka dostawcy, nie utrata zdolnosci — nie moze blokowac zalogi.
     """Awaria u dostawcy to NIE utrata zdolnosci. Bez tego rozroznienia czkawka Google
     blokowala cala prace przez bramke rownych szans (znalezione testem 29.07)."""
     n = opis.lower()
