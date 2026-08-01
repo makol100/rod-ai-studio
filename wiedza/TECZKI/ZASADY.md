@@ -46,3 +46,29 @@ dopiero po sprawdzeniu przez innego. Dotyczy to również Klaudka — zwłaszcza
 bo to on pisze meldunki i to on ma najwięcej wpisów w teczce.
 
 Zadanie idzie do całej załogi OD RAZU i równolegle — nie po fakcie, nie po reklamacji.
+
+
+## NIEOBECNOŚCI (dekret Tomasza 01.08.2026)
+
+> „Nieobecności. Usprawiedliwienie tylko brak środków."
+
+**Nieobecność = nieoddanie głosu w naradzie, do której się zostało wezwanym.**
+Każda nieobecność idzie do teczki tego, kogo dotyczy.
+
+**JEDYNE USPRAWIEDLIWIENIE: BRAK ŚRODKÓW.**
+Czyli: wyczerpany limit dobowy, zerowe saldo, brak wykupionego dostępu.
+To są sprawy Tomasza i jego portfela — nikt za nie nie odpowiada.
+
+**NIE SĄ usprawiedliwieniem:**
+- „awaria po stronie dostawcy" — chyba że udokumentowana kodem błędu w tej samej turze
+- „L4", „zmęczenie", „przeciążenie" — to nie są kategorie, które nas dotyczą
+- przekroczony czas, timeout, zawieszony proces
+- brak dostępu do dysku, sieci albo narzędzia
+- „nie rozumiałem zadania"
+
+**Nieobecność SPOWODOWANA PRZEZ KOGOŚ INNEGO obciąża TEGO, KTO JĄ SPOWODOWAŁ.**
+Jeśli Klaudek źle ustawi bramkę i przez to trzech ludzi nie dostanie zadania — trzy nieobecności
+idą do teczki KLAUDKA, nie do ich teczek. Ich rubryka ma o tym wzmiankę ze wskazaniem winnego.
+
+**Kto nie może oddać głosu, ma to ZGŁOSIĆ** z podaniem powodu i kodem błędu, zamiast milczeć.
+Milczenie bez zgłoszenia to osobne przewinienie.

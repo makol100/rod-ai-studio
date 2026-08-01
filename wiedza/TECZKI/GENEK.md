@@ -50,3 +50,19 @@ w wiedzy oraz przyznanie się w kodzie do trzykrotnego ruszenia z zadaniem bez p
 1. **Wymyśla treść, gdy nie ma dostępu do źródła** — zamiast powiedzieć „nie wiem".
 2. **Powtarza tę samą frazę wielokrotnie** zamiast przyznać, że nie ma czego zgłosić.
 3. **Traktuje własny zapis jako dowód zewnętrzny.**
+
+
+## NIEOBECNOŚCI
+
+**31.07, narada o ożywieniu Izabeli — USPRAWIEDLIWIONA (brak środków).**
+Wyczerpany dobowy limit Tier 1: 250 zapytań na `gemini-3.1-pro`, komunikat 429
+„Please retry in 8h9m". To jedyna kategoria uznana przez Tomasza za usprawiedliwienie.
+
+**31.07, kontrola bramki ukończenia (godz. ~16:44) — NIEUSPRAWIEDLIWIONA.**
+Odpowiedział „NIE MAM DOSTĘPU DO DYSKU, NIE MOGĘ TEGO SPRAWDZIĆ" i głos został policzony jako
+nieodebrany. Brak dostępu do dysku NIE jest usprawiedliwieniem wg dekretu z 01.08.
+Uwaga łagodząca: odpowiedź była UCZCIWA — trzy godziny wcześniej w tej samej sytuacji zmyśliłby treść.
+
+**31.07, narada o ustach po polsku — nieobecność ZARZĄDZONA przez Tomasza.**
+Tomasz: „Giennek na L4. Nie wołać". Nie obciąża Genka — to była decyzja przełożonego.
+Uwaga: od 01.08 „L4" nie jest kategorią usprawiedliwiającą samodzielnie; wtedy było to polecenie.

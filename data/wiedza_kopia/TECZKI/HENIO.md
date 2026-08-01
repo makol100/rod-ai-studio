@@ -57,3 +57,10 @@ w zestawieniu Klaudka, z numerami commitów.
 
 - **Działa:** mówi „NIE WIEM" zamiast zgadywać; oddziela hipotezy od źródeł; liczy konkretnie.
 - **Nie działa:** przy pytaniu łatwym do potwierdzenia — potwierdza zamiast szukać wady.
+
+
+## NIEOBECNOŚCI
+
+**31.07, trzy kontrole bramki ukończenia — NIE JEGO WINA.**
+Ta sama przyczyna co u Zenka: zadanie nie zostało rozesłane przez źle ustawioną bramkę Klaudka.
+Obciąża teczkę KLAUDKA. Henio w tym czasie odpowiadał normalnie — sprawdzone bezpośrednio.
