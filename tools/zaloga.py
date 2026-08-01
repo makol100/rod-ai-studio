@@ -159,6 +159,67 @@ def zapisz_glos(katalog: str, imie: str, tresc: str) -> None:
     print(f"[glos zapisany] {imie}.txt ({len(tresc)} znakow) -> {katalog}/", flush=True)
 
 
+def wspolna_wiedza() -> str:
+    """RÓWNE SZANSE W WIEDZY (dekret Tomasza 01.08.2026).
+
+    Bramka rownych szans pilnowala ZDOLNOSCI (dysk, siec, oczy), ale NIKT nie pilnowal WIEDZY.
+    Skutek: 01.08 okazalo sie, ze zaloga nie wiedziala o generowaniu obrazu przez Genka, mimo ze
+    kanon lezal na dysku od godziny. Tomasz: "To jest najwazniejsze, zeby grupa dzialala
+    na rownych szansach".
+    Od teraz KAZDY brief dostaje ten sam zestaw: spis wiedzy + najswiezsze decyzje.
+    Nikt nie zaczyna zadania slepy.
+    """
+    czesci = ["=== CO KAZDY Z ZALOGI MA WIEDZIEC (dolaczane automatycznie) ==="]
+
+    # 1) spis plikow wiedzy z pierwsza linia opisu — zeby wiedzieli, CO istnieje i gdzie zajrzec
+    kat = os.path.join(REPO, "wiedza")
+    if os.path.isdir(kat):
+        czesci.append("\nDOSTEPNA WIEDZA (otworz plik, jesli zadanie tego dotyczy):")
+        for nazwa in sorted(os.listdir(kat)):
+            if not nazwa.endswith(".md"):
+                continue
+            try:
+                with open(os.path.join(kat, nazwa), encoding="utf-8") as f:
+                    naglowek = ""
+                    for linia in f:
+                        linia = linia.strip()
+                        if linia and not linia.startswith("#"):
+                            naglowek = linia[:110]
+                            break
+                czesci.append(f"  wiedza/{nazwa} — {naglowek}")
+            except OSError:
+                czesci.append(f"  wiedza/{nazwa}")
+
+    # 2) najswiezsze decyzje Tomasza — jego slowo przebija kazdy dokument
+    czesci.append("\nNAJSWIEZSZE DECYZJE TOMASZA (jego slowo przebija KAZDY dokument):")
+    for plik in ("wiedza/DECYZJE_SERIA_HUMOR.md", "wiedza/GENEROWANIE_OBRAZU.md"):
+        sc = os.path.join(REPO, plik)
+        if os.path.isfile(sc):
+            try:
+                with open(sc, encoding="utf-8") as f:
+                    ogon = [l.rstrip() for l in f.readlines() if l.strip()][-6:]
+                czesci.append(f"  --- {plik} (ogon) ---")
+                czesci.extend("    " + l[:150] for l in ogon)
+            except OSError:
+                pass
+
+    # TECZKI — dekret Tomasza 01.08: "Kazdy z grupy ma wglad do teczek innych i tym samym
+    # nie walczyc, a pomagac innym." Teczki ida do KAZDEGO briefu, zeby kazdy znal slabe strony
+    # kolegow ZANIM zaczna wspolna prace — i mogl je wylapac, zamiast czekac na wpadke.
+    kat_t = os.path.join(REPO, "wiedza", "TECZKI")
+    if os.path.isdir(kat_t):
+        czesci.append("\nTECZKI ZALOGI — czytaj PRZED wspolna praca (sa po to, zeby POMAGAC, nie walczyc):")
+        for nazwa in sorted(os.listdir(kat_t)):
+            if nazwa.endswith(".md"):
+                czesci.append(f"  wiedza/TECZKI/{nazwa}")
+        czesci.append("  Wykryty blad dopisujesz NATYCHMIAST — takze wlasny. Kto ukrywa, dostaje drugi wpis.")
+        czesci.append("  Nad grupa jest TOMASZ. On ma byc PIERWSZY, ktory wie, co sie dzieje.")
+
+    czesci.append("\nJesli czegos nie ma w tym zestawie, a jest potrzebne — OTWORZ PLIK SAM.")
+    czesci.append("=== koniec wspolnej wiedzy ===\n")
+    return "\n".join(czesci)
+
+
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--zadanie", required=True, help="plik z trescia zadania")
@@ -177,6 +238,10 @@ def main() -> int:
     if not zadanie.strip():
         print("BLAD: zadanie jest puste")
         return 2
+
+    # RÓWNE SZANSE W WIEDZY — dekret Tomasza 01.08.2026.
+    # Każdy dostaje ten sam zestaw wiedzy razem z zadaniem. Nikt nie zaczyna ślepy.
+    zadanie = zadanie + "\n\n" + wspolna_wiedza()
 
     rowno, opis_sondy = sprawdz_rowne_szanse()
     if not rowno:

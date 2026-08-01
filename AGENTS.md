@@ -113,3 +113,39 @@ w tabelach się zgadzają. Dotyczy każdego, kto pisze o źródle — Klaudka ta
 `wiedza/srodowiska/` — jedna karta na członka załogi, ten sam układ dla każdego: czym się loguje,
 co ma, czego jego silnik nie potrafi i jakim poleceniem to obchodzi. Wyłącznie technika.
 Wspólne prawo stoi tutaj i w `wiedza/START.md` — identyczne dla wszystkich.
+
+## GENEROWANIE OBRAZU — CO POTRAFI GENEK (od 01.08.2026)
+
+**Genek generuje obrazy sam, swoim kluczem — i to jest DROGA GŁÓWNA.**
+Decyzja Tomasza: „Gienek nano banana 2" + „Fal.ai jako alternatywa w przypadku awarii Gienka".
+Powód: „Na Was wydaje pieniądze, więc nie interesują mnie generowania na próby" — Genek generuje
+ponad dwa razy taniej niż fal.ai, więc próba przestaje być luksusem.
+
+Model kanoniczny: **`gemini-3.1-flash-image`** (Nano Banana 2), ~0,067 USD za obraz 1K.
+Najtańszy: `imagen-4.0-fast-generate-001` — 0,02 USD. Najlepszy: `gemini-3-pro-image` — 0,134 USD (2K).
+Wywołanie: `generateContent` dla `gemini-*-image`, `predict` dla `imagen-*`.
+`batchGenerateContent` = 50% taniej na serie niepilne.
+
+**FAL.AI (`fal-ai/nano-banana-pro`, ~0,15 USD) tylko przy AWARII Genka** — 429/503, wyczerpany
+limit dobowy, L4. Nie domyślnie.
+
+Pełna tabela, zastrzeżenia i to, czego NIE zmierzyliśmy: **`wiedza/GENEROWANIE_OBRAZU.md`**.
+
+**Skoro Genek to potrafi — przy zadaniach wymagających obrazu proponujcie jego drogę, nie fal.ai.**
+
+
+## GENEROWANIE OBRAZU — KAŻDY MUSI TO WIEDZIEĆ
+
+Decyzja Tomasza 01.08.2026: **droga główna to GENEK, model `gemini-3.1-flash-image`**
+(Nano Banana 2), ~0,067 USD za obraz. **fal.ai (`fal-ai/nano-banana-pro`, ~0,15 USD) TYLKO
+przy awarii Genka** — 429/503, wyczerpany limit dobowy, L4.
+
+Inne modele na kluczu Gemini: `imagen-4.0-fast-generate-001` (0,02 USD, najtańszy),
+`gemini-3-pro-image` / `nano-banana-pro-preview` (0,134 USD 2K, 0,24 USD 4K — wersje ostateczne),
+`gemini-3.1-flash-lite-image`, `imagen-4.0-generate-001`.
+Wywołanie: `generateContent` dla rodziny `gemini-*-image`, `predict` dla `imagen-*`.
+`batchGenerateContent` = 50% taniej na serie niepilne.
+
+Pełna tabela i zastrzeżenia: `wiedza/GENEROWANIE_OBRAZU.md`.
+Powód decyzji, słowami Tomasza: „Na Was wydaje pieniądze, więc nie interesują mnie
+generowania na próby" — tańsze próby = wolno próbować.
