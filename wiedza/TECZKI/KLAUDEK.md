@@ -87,6 +87,17 @@ Tomasz: *„Ukrywasz, przekręcasz, zapominasz."*
 5. **Robię sam to, co należy do załogi**, i wracam do tego dopiero po reklamacji.
 
 
+## 01.08.2026 — NAGANA OD TOMASZA
+
+**Zostawiłem niedokończony ślad: Genek meldował Tomaszowi ZASTĄPIONĄ zasadę.**
+W `tools/genek.py` poprawiłem kolejkę modeli zgodnie z dekretem Tomasza („najwyższy WOLNY model"),
+ale komunikat błędu zostawiłem po staremu: „ZATRZYMUJE, nie schodze na slabszy model
+(decyzja Zenka 30.07)". Skutek: przy nieobecności 01.08 Genek zameldował Tomaszowi regułę,
+która NIE JEST JUŻ W MOCY — czyli mój niedokończony ślad dotarł do niego jako fałszywa informacja.
+Tomasz: **„Tu masz naganę!!!"**
+LEKCJA: poprawka kodu bez poprawki KOMUNIKATÓW jest poprawką połowiczną. Zmieniając zasadę,
+przeszukać WSZYSTKIE miejsca, gdzie stara zasada jest cytowana — nie tylko to, które ją wykonuje.
+
 ## NIEOBECNOŚCI SPOWODOWANE PRZEZ KLAUDKA
 
 Dekret Tomasza 01.08: nieobecność spowodowana przez kogoś innego obciąża tego, kto ją spowodował.

@@ -54,6 +54,13 @@ w wiedzy oraz przyznanie się w kodzie do trzykrotnego ruszenia z zadaniem bez p
 
 ## NIEOBECNOŚCI
 
+**01.08, projekt Hansa — USPRAWIEDLIWIONA (brak środków).**
+Zgłosił powód z kodem błędu: „obie drogi padły — model niedostępny po 3 próbach, przekroczony czas
+86 s, API: HTTP 429 Too Many Requests. NIE zmyślam zastępczej treści."
+Kod 429 = wyczerpany limit dobowy, jedyna kategoria uznana przez Tomasza.
+Zachowanie WZORCOWE: zgłosił powód zamiast milczeć i nie wymyślił treści zastępczej.
+
+
 **31.07, narada o ożywieniu Izabeli — USPRAWIEDLIWIONA (brak środków).**
 Wyczerpany dobowy limit Tier 1: 250 zapytań na `gemini-3.1-pro`, komunikat 429
 „Please retry in 8h9m". To jedyna kategoria uznana przez Tomasza za usprawiedliwienie.
