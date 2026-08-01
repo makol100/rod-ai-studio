@@ -90,9 +90,14 @@ def droga_cli(zadanie: str, limit_s: int, model: str = "") -> tuple:
                          f"{'; '.join(powody)}]\n\n" + tekst)
             return tekst, ""
         powody.append(f"{m}: {(w.stderr or 'przeciazenie 503').strip()[:70]}")
-    return "", ("CLI: model " + MODEL_CLI + " niedostepny po " + str(len(do_proby)) +
-                " probach — ZATRZYMUJE, nie schodze na slabszy model (decyzja Zenka 30.07) | "
-                + " | ".join(powody[:2]))
+    # 01.08 NAGANA OD TOMASZA: komunikat mowil "nie schodze na slabszy model (decyzja Zenka 30.07)",
+    # czyli powtarzal ZASTAPIONA zasade. Obowiazuje DEKRET TOMASZA: "Genek ma zostac na NAJWYZSZYM
+    # WOLNYM dla nas modelu zawsze". Kolejka byla poprawiona w kodzie, a komunikat zostal po staremu —
+    # Genek meldowal Tomaszowi niebylaca juz w mocy regule. Klaudek zostawil niedokonczony slad.
+    return "", ("CLI: zaden model z kolejki nie odpowiedzial (" + ", ".join(MODELE_CLI) + ") "
+                "po " + str(len(do_proby)) + " probach. Dekret Tomasza: najwyzszy WOLNY model — "
+                "schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, "
+                "ale tu nie odpowiedzial ZADEN. | " + " | ".join(powody[:2]))
 
 
 def droga_api(zadanie: str, material: str) -> tuple:
