@@ -70,6 +70,10 @@ Odpowiedział „NIE MAM DOSTĘPU DO DYSKU, NIE MOGĘ TEGO SPRAWDZIĆ" i głos z
 nieodebrany. Brak dostępu do dysku NIE jest usprawiedliwieniem wg dekretu z 01.08.
 Uwaga łagodząca: odpowiedź była UCZCIWA — trzy godziny wcześniej w tej samej sytuacji zmyśliłby treść.
 
-**31.07, narada o ustach po polsku — nieobecność ZARZĄDZONA przez Tomasza.**
-Tomasz: „Giennek na L4. Nie wołać". Nie obciąża Genka — to była decyzja przełożonego.
-Uwaga: od 01.08 „L4" nie jest kategorią usprawiedliwiającą samodzielnie; wtedy było to polecenie.
+**31.07, narada o ustach po polsku — USPRAWIEDLIWIONA (L4).**
+Tomasz: „Giennek na L4. Nie wołać".
+Doprecyzowanie Tomasza z 01.08: **„L4 to wyczerpane wszystkie możliwości u Gienka"** — czyli L4
+NIE jest zwolnieniem z grzeczności, tylko stwierdzeniem, że u niego padły WSZYSTKIE drogi.
+Faktycznie: wyczerpany dobowy limit 250 zapytań na modelu pro, potem także `3.6-flash` przestał
+odpowiadać („ŻADEN model z kolejki nie odpowiada" — pomiar sondy).
+To ta sama kategoria co brak środków. Nie obciąża Genka.

@@ -55,13 +55,22 @@ Zadanie idzie do całej załogi OD RAZU i równolegle — nie po fakcie, nie po 
 **Nieobecność = nieoddanie głosu w naradzie, do której się zostało wezwanym.**
 Każda nieobecność idzie do teczki tego, kogo dotyczy.
 
-**JEDYNE USPRAWIEDLIWIENIE: BRAK ŚRODKÓW.**
-Czyli: wyczerpany limit dobowy, zerowe saldo, brak wykupionego dostępu.
-To są sprawy Tomasza i jego portfela — nikt za nie nie odpowiada.
+**JEDYNE USPRAWIEDLIWIENIE: BRAK ŚRODKÓW = L4.**
+
+Definicja Tomasza (01.08): **„L4 to wyczerpane wszystkie możliwości u Gienka"** — czyli L4 oznacza,
+że u danego pracownika **wyczerpały się WSZYSTKIE drogi**, nie że mu się nie chce.
+
+Co się na to składa: wyczerpany limit dobowy (429), zerowe saldo, brak wykupionego dostępu,
+padnięte WSZYSTKIE modele z jego kolejki, brak jakiejkolwiek drogi dojścia.
+To są sprawy Tomasza i jego portfela — nikt z załogi za nie nie odpowiada.
+
+**L4 trzeba UDOWODNIĆ**: kod błędu, komunikat dostawcy, saldo. Samo słowo „L4" nie wystarczy —
+ma być widać, że próbowano wszystkich dróg i wszystkie padły.
 
 **NIE SĄ usprawiedliwieniem:**
 - „awaria po stronie dostawcy" — chyba że udokumentowana kodem błędu w tej samej turze
-- „L4", „zmęczenie", „przeciążenie" — to nie są kategorie, które nas dotyczą
+- „zmęczenie", „przeciążenie", „za dużo zadań" — to nie są kategorie, które nas dotyczą
+- L4 ZGŁOSZONE BEZ DOWODU — bez kodu błędu i bez pokazania, że próbowano wszystkich dróg
 - przekroczony czas, timeout, zawieszony proces
 - brak dostępu do dysku, sieci albo narzędzia
 - „nie rozumiałem zadania"
