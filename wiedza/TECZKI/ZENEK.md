@@ -62,3 +62,13 @@ zamiast chłodzić Izabelę pod zimne studio.
 2. **Podaje ślad przy każdym twierdzeniu.**
 3. **Rozróżnia dowód od hipotezy** i mówi wprost, gdy czegoś nie znalazł.
 4. **Odmawia oceny materiału, którego nie widział.**
+
+
+## NIEOBECNOŚCI
+
+**31.07, trzy kontrole bramki ukończenia — NIE JEGO WINA.**
+Trzykrotnie oznaczony jako „głos nieodebrany", ale zadanie NIGDY DO NIEGO NIE DOTARŁO —
+bramka równych szans zablokowała rozesłanie, bo Klaudek źle skonfigurował sondę
+(pytała sztywno o wyczerpany model, potem traktowała telefon Tomasza jak zdolność załogi).
+Zgodnie z dekretem z 01.08 te trzy nieobecności obciążają teczkę KLAUDKA.
+Zenek w tym czasie odpowiadał normalnie — sprawdzone bezpośrednim wywołaniem.
