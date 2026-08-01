@@ -215,6 +215,24 @@ def wspolna_wiedza() -> str:
         czesci.append("  Wykryty blad dopisujesz NATYCHMIAST — takze wlasny. Kto ukrywa, dostaje drugi wpis.")
         czesci.append("  Nad grupa jest TOMASZ. On ma byc PIERWSZY, ktory wie, co sie dzieje.")
 
+    # SLOWA TOMASZA — dekret 01.08: "Jezeli cos pisze, mowie, to mowie do WSZYSTKICH!!!"
+    # Klaudek NIE jest posrednikiem ani filtrem — jest jednym z odbiorcow, tak samo jak reszta.
+    sc = os.path.join(REPO, "wiedza", "SLOWA_TOMASZA.md")
+    if os.path.isfile(sc):
+        try:
+            with open(sc, encoding="utf-8") as f:
+                tresc = f.read()
+            czesci.append("\n=== SLOWA TOMASZA (dosłownie, do WSZYSTKICH) ===")
+            czesci.append(tresc[:4000])
+        except OSError:
+            pass
+
+    # HANS — agent specjalny pilnujacy wspolnego dobra pracy w grupie, WSZYSTKICH na rowno.
+    h = os.path.join(REPO, "wiedza", "HANS_AGENT.md")
+    if os.path.isfile(h):
+        czesci.append("\nHANS — agent specjalny (powolany 01.08, NIEZBUDOWANY): wiedza/HANS_AGENT.md")
+        czesci.append("  Pilnuje WSZYSTKICH na rowno, Klaudka takze. Budowa: wspolna, cala czworka.")
+
     czesci.append("\nJesli czegos nie ma w tym zestawie, a jest potrzebne — OTWORZ PLIK SAM.")
     czesci.append("=== koniec wspolnej wiedzy ===\n")
     return "\n".join(czesci)

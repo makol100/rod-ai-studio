@@ -1,16 +1,18 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 01.08.2026 22:27.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 01.08.2026 22:44.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (25), od najswiezszego
+## Pliki wiedzy (27), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `HANS_AGENT.md` | 01.08 | 2K | HANS — AGENT SPECJALNY |
+| `SLOWA_TOMASZA.md` | 01.08 | 2K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `GENEROWANIE_OBRAZU.md` | 01.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `IZABELA_KANON_0.1.md` | 31.07 | 18K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `ZALOGA_LIMITY.md` | 30.07 | 4K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
