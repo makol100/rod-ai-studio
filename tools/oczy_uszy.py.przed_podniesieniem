@@ -38,12 +38,7 @@ import time
 import urllib.error
 import urllib.request
 
-# 4.08: oczy chodzily na gemini-2.5-flash, choc Genek pracuje na rodzinie 3.x — tym samym kluczem.
-# Dekret Tomasza: "Heniek ma dostep do modelu Gienka, ktory jest wlasnie wykorzystywany".
-# Zmierzone 4.08 01:34: gemini-3.1-pro-preview = przekroczony przydzial, gemini-3.6-flash = DZIALA.
-# Kolejka: nowszy najpierw, stary jako zapas — zeby brak przydzialu nie oslepial Henia.
-MODELE = ["gemini-3.6-flash", "gemini-2.5-flash"]
-MODEL = MODELE[0]
+MODEL = "gemini-2.5-flash"
 BAZA = "https://generativelanguage.googleapis.com"
 
 POLECENIA = {
@@ -129,13 +124,8 @@ def patrz(zrodlo: str, polecenie: str, k: str, limit: int) -> str:
         czesc = {"file_data": {"file_uri": wyslij_plik(zrodlo, k), "mime_type": typ}}
     body = json.dumps({
         "contents": [{"parts": [czesc, {"text": polecenie}]}],
-        # 4.08: "thinkingConfig: thinkingBudget 0" to ustawienie rodziny 2.5 (wylacza rozumowanie
-        # dla oszczednosci). Modele 3.x ODRZUCAJA je bledem INVALID_ARGUMENT — zmierzone tego dnia,
-        # gdy oczy podniesiono z 2.5-flash na 3.6-flash. Dokladamy je tylko tam, gdzie dziala.
-        "generationConfig": ({"temperature": 0.0, "maxOutputTokens": limit}
-                             if not MODEL.startswith("gemini-2.")
-                             else {"temperature": 0.0, "maxOutputTokens": limit,
-                                   "thinkingConfig": {"thinkingBudget": 0}}),
+        "generationConfig": {"temperature": 0.0, "maxOutputTokens": limit,
+                             "thinkingConfig": {"thinkingBudget": 0}},
     }).encode()
     req = urllib.request.Request(
         f"{BAZA}/v1beta/models/{MODEL}:generateContent?key={k}",

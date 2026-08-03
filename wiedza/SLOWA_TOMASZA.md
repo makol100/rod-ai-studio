@@ -336,3 +336,7 @@ w weryfikacji, analizie i poszukiwaniu rozwiązań.
 
 **KOREKTA ŹRÓDŁA:** cytat zaczynający się od „Jeżeli coś nie zadziała…" obejmuje
 `AGENTS.md:55-56`, nie tylko wskazaną wyżej linię 55. Treść wcześniejszego wpisu pozostaje bez zmian.
+
+## 03.08.2026 08:54:36 (Europe/Vienna) — Telegram
+
+/start

@@ -1,0 +1,15 @@
+[Unit]
+Description=Hans — ucho: nasluch wiadomosci Tomasza na wlasnym bocie i zapis do SLOWA_TOMASZA.md
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/rod-ai-studio
+ExecStart=/usr/bin/python3 /root/rod-ai-studio/tools/hans_ucho.py --petla 60
+Restart=always
+RestartSec=30
+StandardOutput=append:/var/log/hans_ucho.log
+StandardError=append:/var/log/hans_ucho.log
+
+[Install]
+WantedBy=multi-user.target
