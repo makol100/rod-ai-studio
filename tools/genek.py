@@ -85,7 +85,7 @@ def droga_cli(zadanie: str, limit_s: int, model: str = "") -> tuple:
                           and "YOLO mode" not in l and not l.startswith("Attempt ")
                           and not l.strip().startswith("at ") and l.strip() not in ("}", "status: 503")).strip()
         if tekst and "503" not in tekst[:80] and "429" not in tekst[:80]:
-            if m != MODELE_CLI[0] and m not in MODELE_CLI[:1]:
+            if m != MODELE_CLI[0]:
                 tekst = (f"[GENEK pracowal na modelu {m}, bo {MODELE_CLI[0]} byl niedostepny: "
                          f"{'; '.join(powody)}]\n\n" + tekst)
             return tekst, ""

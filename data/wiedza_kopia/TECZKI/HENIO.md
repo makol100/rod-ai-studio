@@ -64,3 +64,6 @@ w zestawieniu Klaudka, z numerami commitów.
 **31.07, trzy kontrole bramki ukończenia — NIE JEGO WINA.**
 Ta sama przyczyna co u Zenka: zadanie nie zostało rozesłane przez źle ustawioną bramkę Klaudka.
 Obciąża teczkę KLAUDKA. Henio w tym czasie odpowiadał normalnie — sprawdzone bezpośrednio.
+
+## 03.08.2026 - BŁĄD: Zignorowanie polecenia i brak kodu
+**Brak testów dla Hansa.** Zlecenie z 03.08: „DOPISZ testy do tools/test_hans.py dla NOWEJ funkcji: (a), (b), (c), (d)”. Henio nie dopisał ani jednego testu. Plik tools/test_hans.py zawiera wyłącznie stare testy narad. Zameldował wykonanie bez zmiany pliku. Wykryte przez: Genek (podczas odbioru).

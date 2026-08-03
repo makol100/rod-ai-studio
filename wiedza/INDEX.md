@@ -1,20 +1,21 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 01.08.2026 23:46.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 03.08.2026 21:17.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (27), od najswiezszego
+## Pliki wiedzy (28), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `HANS_AGENT.md` | 01.08 | 2K | HANS — AGENT SPECJALNY |
-| `SLOWA_TOMASZA.md` | 01.08 | 2K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
+| `HANS_AGENT.md` | 03.08 | 5K | HANS — AGENT SPECJALNY |
+| `KONTROLA_KLAUDKA.md` | 02.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
+| `SLOWA_TOMASZA.md` | 02.08 | 4K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
+| `IZABELA_KANON_0.1.md` | 02.08 | 18K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `GENEROWANIE_OBRAZU.md` | 01.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
-| `IZABELA_KANON_0.1.md` | 31.07 | 18K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `ZALOGA_LIMITY.md` | 30.07 | 4K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
 | `START.md` | 29.07 | 6K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `KONEKTOR_DZIALKA.md` | 29.07 | 2K | KONEKTOR HA DZIAŁKA — NAPRAWIONY 29.07.2026 |
@@ -45,7 +46,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 |---|---|---|---|
 | `/root/rod-ai-studio/TELEPORT_fabryka.md` | 127K | 26.07 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 42K | 19.07 | teleport HA — ARCHIWUM, jw. |
-| `/root/rod-ai-studio/AGENTS.md` | 7K | 01.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
+| `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 1K | 29.07 | konfiguracja Claude Code na VPS |
 | `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 5K | 30.07 | podrecznik Henika (dyzurny) |
 

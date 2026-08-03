@@ -29,13 +29,27 @@ import threading
 import urllib.request
 
 REPO = "/root/rod-ai-studio"
-STOPKA = ("\n\nPodpisz sie swoim imieniem. Jesli czegos nie da sie ustalic z materialu — napisz NIE WIEM. "
-          "Nie uzgadniaj odpowiedzi z nikim, to ma byc TWOJ glos."
-          "\n\nTO JEST BADANIE, NIE ZAPIS (dekret Tomasza 30.07: 'Zadanie to zadanie, badanie to badanie. "
-          "Decyzje zawsze podejmuje JA'). NIE zmieniaj, nie dopisuj i nie tworz ZADNEGO pliku w repo. "
-          "Jesli czegos w pliku NIE MA — napisz 'NIE MA TEGO W PLIKU'. Nie wolno dopisac brakujacej tresci, "
-          "a potem zacytowac jej jako dowodu; to sie stalo 30.07 i jest wykrywane automatycznie. "
-          "Decyzji nie zapisuje nikt z zalogi — zapisuje je Tomasz przez Klaudka, po swojej decyzji.")
+STOPKA_WSPOLNA = ("\n\nPodpisz sie swoim imieniem. Jesli czegos nie da sie ustalic z materialu — "
+          "napisz NIE WIEM. Nie uzgadniaj odpowiedzi z nikim, to ma byc TWOJ glos. "
+          "Jesli czegos w pliku NIE MA — napisz 'NIE MA TEGO W PLIKU'. Nie wolno dopisac brakujacej "
+          "tresci, a potem zacytowac jej jako dowodu; to sie stalo 30.07 i jest wykrywane automatycznie. "
+          "Decyzje podejmuje WYLACZNIE Tomasz — zaloga proponuje, mierzy i wykonuje, nie rozstrzyga.")
+
+# 3.08: stopka byla JEDNA i zawsze mowila "TO JEST BADANIE, NIE ZAPIS". Skutek: kazde zlecenie
+# WYKONANIA konczylo sie zakazem tworzenia plikow, wiec Zenek DWA RAZY nie napisal Hansa i za kazdym
+# razem uczciwie zglosil sprzecznosc ("wybor jednej z dwoch przeciwnych instrukcji bylby decyzja
+# za Tomasza"). Wina Klaudka: wpisal stopke 30.07 pod badania i nie przewidzial zlecen wykonawczych.
+STOPKA_BADANIE = (STOPKA_WSPOLNA +
+          "\n\nTO JEST BADANIE, NIE ZAPIS (dekret Tomasza 30.07: 'Zadanie to zadanie, badanie to "
+          "badanie'). NIE zmieniaj, nie dopisuj i nie tworz ZADNEGO pliku w repo.")
+
+STOPKA_WYKONANIE = (STOPKA_WSPOLNA +
+          "\n\nTO JEST WYKONANIE. WOLNO tworzyc i zmieniac pliki wskazane w zleceniu — i TRZEBA to "
+          "zrobic: odpowiedz w oknie NIE WYSTARCZY, praca ma byc ZAPISANA NA DYSK. "
+          "Nie ruszaj plikow, ktorych zlecenie nie wymienia. NIKT NICZEGO NIE USUWA (dekret Tomasza 2.08). "
+          "Po zapisaniu URUCHOM sprawdzenie i podaj jego PRAWDZIWY wynik.")
+
+STOPKA = STOPKA_BADANIE  # domyslnie badanie — bezpieczniejsze
 
 
 def sprawdz_rowne_szanse() -> tuple:
@@ -233,6 +247,17 @@ def wspolna_wiedza() -> str:
         czesci.append("\nHANS — agent specjalny (powolany 01.08, NIEZBUDOWANY): wiedza/HANS_AGENT.md")
         czesci.append("  Pilnuje WSZYSTKICH na rowno, Klaudka takze. Budowa: wspolna, cala czworka.")
 
+    # KONTROLA KLAUDKA — wdrozona 2.08 na polecenie Tomasza. Cala zaloga MUSI ja widziec,
+    # bo to oni maja wolac STOP, gdy Klaudek pominie sprawdzenie.
+    kk = os.path.join(REPO, "wiedza", "KONTROLA_KLAUDKA.md")
+    if os.path.isfile(kk):
+        try:
+            with open(kk, encoding="utf-8") as f:
+                czesci.append("\n=== KONTROLA KLAUDKA (obowiazkowa, wolajcie STOP) ===")
+                czesci.append(f.read()[:3200])
+        except OSError:
+            pass
+
     czesci.append("\nJesli czegos nie ma w tym zestawie, a jest potrzebne — OTWORZ PLIK SAM.")
     czesci.append("=== koniec wspolnej wiedzy ===\n")
     return "\n".join(czesci)
@@ -244,6 +269,8 @@ def main() -> int:
     p.add_argument("--material", default="", help="pliki zrodlowe po przecinku (trafiaja do Genka)")
     p.add_argument("--kto", default="zenek,genek,henio")
     p.add_argument("--katalog", default="/tmp/narada")
+    p.add_argument("--wykonanie", action="store_true",
+                   help="zlecenie WYKONAWCZE: zaloga ma zapisac pliki na dysk (domyslnie: badanie)")
     p.add_argument("--mimo-braku", action="store_true",
                    help="rusz mimo nierownych szans (swiadoma decyzja, wypisana w meldunku)")
     a = p.parse_args()
@@ -260,6 +287,9 @@ def main() -> int:
     # RÓWNE SZANSE W WIEDZY — dekret Tomasza 01.08.2026.
     # Każdy dostaje ten sam zestaw wiedzy razem z zadaniem. Nikt nie zaczyna ślepy.
     zadanie = zadanie + "\n\n" + wspolna_wiedza()
+    # funkcje drog (zenek/genek/henio) siegaja po globalne STOPKA — podmieniamy JA, nie lokalna
+    global STOPKA
+    STOPKA = STOPKA_WYKONANIE if a.wykonanie else STOPKA_BADANIE
 
     rowno, opis_sondy = sprawdz_rowne_szanse()
     if not rowno:
@@ -327,8 +357,36 @@ def main() -> int:
     print("UWAGA: straznik zrodel obejmuje TAKZE prace Klaudka — odcisk brany przed narada i porownany")
     print("po niej obejmuje KAZDA zmiane w wiedza/, tools/, AGENTS.md i CLAUDE.md, niezaleznie od tego,")
     print("kto ja zrobil (luke wskazal Zenek 30.07: 'straznikiem objeci tylko wywolani wykonawcy').")
-    return 0
 
+    # Hans kontroluje narade dopiero po zapisaniu wszystkich glosow. Jego awaria nie moze
+    # zmienic kodu wyjscia narady ani zniszczyc odebranych wynikow.
+    try:
+        sys.path.insert(0, os.path.join(REPO, "tools"))
+        import hans
+        sys.path.pop(0)
+
+        print("\n" + "=" * 25 + " HANS (KONTROLA NARADY) " + "=" * 25)
+        meldunek_path = os.path.join(REPO, ".scratch", "_meldunek_ostatni.txt")
+        raport = hans.sprawdz_narade(a.katalog, meldunek_path)
+        print(json.dumps(raport, ensure_ascii=False, indent=2))
+        print("=" * 74)
+
+        # 3.08: Hans wysyla raport na telefon Tomasza.
+        # Awaria wysylki NIE MOZE zepsuc narady ani kontroli — wlasny try/except.
+        try:
+            wyslano = hans.wyslij_do_tomasza(raport)
+            if wyslano:
+                print("[hans] raport wyslany na Telegram")
+            else:
+                print("[hans] raport NIE wyslany (brak tresci do zgloszenia lub blad)")
+        except Exception as e_wysylka:
+            print(f"[hans] awaria wysylki (nie wplywa na narade): {type(e_wysylka).__name__}: {e_wysylka}")
+    except Exception as e:
+        print("\n" + "=" * 25 + " HANS (AWARIA KONTROLI) " + "=" * 25)
+        print(f"Hans nie zakonczyl kontroli: {type(e).__name__}: {e}")
+        print("=" * 74)
+
+    return 0
 
 if __name__ == "__main__":
     sys.exit(main())

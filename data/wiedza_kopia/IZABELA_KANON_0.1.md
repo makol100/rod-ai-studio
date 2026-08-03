@@ -275,14 +275,14 @@ Niesprawdzona przesłanka warta jednej próby: audio wolniejsze o 5-10%.
 
 Postać, głos i studio są ZAMKNIĘTE. Otwarte jest to, co dzieje się DALEJ:
 
-1. **Ożywienie Izabeli** — obecnie mamy nieruchomy kadr. Do gadającej głowy potrzebny Kling
-   (kanon ze Stanisława: `fal-ai/kling-video/ai-avatar/v2`, Standard $0.0562/s, PRO $0.115/s,
-   limit audio 60 s = tekst do ~900 znaków przy tempie Charlotte 15 znaków/s). WYMAGA ZGODY NA KOSZT.
-2. **Tekst pierwszego wejścia** — intro z deklaracją AI jest napisane i nagrane w castingu.
+1. [~] **Ożywienie Izabeli** — model: OmniHuman 1.5 (dwie próby wykonane 29-30.07, $1.73 łącznie,
+   patrz sekcja OŻYWIENIE wyżej). Do decyzji: czy jakość ust jest akceptowalna dla polskiego.
+   Kling NIE jest już modelem docelowym — został zastąpiony przez OmniHuman.
+2. [ ] **Tekst pierwszego wejścia** — intro z deklaracją AI jest napisane i nagrane w castingu.
    Do decyzji: czy zostaje w obecnym brzmieniu, czy skrócić.
-3. **Montaż WD_0001** — materiał zweryfikowany klatka po klatce (koparka WA0007 17-27 s,
+3. [ ] **Montaż WD_0001** — materiał zweryfikowany klatka po klatce (koparka WA0007 17-27 s,
    człowiek WA0005 19-29 s, teren 093926 0-52 s, gałęzie 62-70 s). Czeka na decyzję.
-4. **Zdjęcia „przed i po"** — Tomasz miał je zrobić (korzenie i cały teren), nie ma ich na dysku.
+4. [ ] **Zdjęcia „przed i po"** — Tomasz miał je zrobić (korzenie i cały teren), nie ma ich na dysku.
 
 ## PAN STANISŁAW — NA PÓŁKĘ
 Decyzja Tomasza 29.07: *„Pan Stanisław jest gotową postacią. Odstawiamy na półkę i wiemy, że go mamy."*
