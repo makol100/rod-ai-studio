@@ -1,0 +1,5 @@
+=== RAPORT BRAMKI: 10010/preflight_i_submit_k06niemy | 2026-07-26T14:42:36+00:00 ===
+[pf] k06 (BOHATER): ZIELONY
+[reroll] 1/1 ZIELONY — submit
+[reroll] k06 RID: 019f9ee0-cfa8-7452-90dd-272529f3ef17
+WERDYKT: 1/1 ZIELONY — submity poszly ($2.56)

@@ -1,0 +1,4 @@
+# NARADA po bramce klipu k00 (wstęp): ucho komiczne rozstrzyga. Genek.
+FAKTY z klipu (8s, tożsamość i usta OK, kwestia W2 słowo w słowo): Veo zagrało pauzę dramatyczną 0.96s po "grasuje." (— pauza — "Dzisiaj koniec tej zabawy." ciurkiem), NIE po "Dzisiaj" jak planowaliśmy. Wykonanie głosowe: półszept sceniczny "przez zaciśnięte zęby" (pomiar: 43% dźwięczności vs 66% przy pełnym krzyku; głośno zmiksowany close-mike).
+PYTANIA: 1. Czy pauza po "grasuje." broni się komicznie ("Złodziej jabłek grasuje. [cisza, powaga] Dzisiaj koniec tej zabawy.") czy struktura z pauzą po "Dzisiaj..." jest wyraźnie śmieszniejsza i warta $0.64 re-rollu? 2. Czy półszept przez zęby (Twoja własna wskazówka z narady!) gra mockumentary, czy potrzebny głębszy szept? 3. REKOMENDACJA: PRZYJĄĆ czy RE-ROLL — jednym zdaniem uzasadnij przez pryzmat widza Reels (pierwsze 3 sekundy).
+Format: ## PAUZA / ## SZEPT / ## REKOMENDACJA. Zwięźle.

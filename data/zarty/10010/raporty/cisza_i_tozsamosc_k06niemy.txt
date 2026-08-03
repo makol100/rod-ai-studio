@@ -1,0 +1,8 @@
+=== RAPORT BRAMKI: 10010/cisza_i_tozsamosc_k06niemy | 2026-07-26T14:53:20+00:00 ===
+TRANSKRYPCJA: '' | segmentów mowy: 0
+CISZA: PASS — nikt nie mówi
+===== TOŻSAMOŚĆ vs ZAAKCEPTOWANY KADR =====
+WERDYKT k04: WIERNY KADROWI
+UZASADNIENIE: 7/8 wykrytych twarzy ma sim >= 0.35; mediana=0.55, min=0.25
+WERDYKT k06: WIERNY KADROWI
+UZASADNIENIE: 8/8 wykrytych twarzy ma sim >= 0.35; mediana=0.85, min=0.46

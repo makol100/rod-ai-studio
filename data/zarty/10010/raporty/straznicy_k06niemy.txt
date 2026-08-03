@@ -1,0 +1,25 @@
+=== RAPORT BRAMKI: 10010/straznicy_k06niemy | 2026-07-26T14:52:06+00:00 ===
+===== 1. KANAREK =====
+===== k06 (BOHATER, niemy) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[POMINIĘTY] język
+[FAIL     ] tożsamość
+WERDYKT KANARKA: FAIL — batch ZABLOKOWANY. Konkretne zalecenia:
+  * TOŻSAMOŚĆ: obca twarz w kadrze [{'klatka': 'kl_02.jpg', 'najbliżej': 'BOHATER', 'sim': 0.27}, {'klatka': 'kl_03.jpg', 'najbliżej': 'BOHATER', 'sim': 0.3}]. ZALECENIE: zła referencja lub przeciek drugiej postaci — użyj kadru z JEDNĄ osobą, referencja z właściwej domeny światła.
+KONIEC STRAZNIKA K06 NIEMY
+===== 2. CISZA (whisper medium) =====
+Traceback (most recent call last):
+  File "/root/rod-ai-studio/data/zarty/10010/_cisza_k06.py", line 1, in <module>
+    import whisper, sys
+ModuleNotFoundError: No module named 'whisper'
+===== 3. USTA =====
+  6.50 | 0.14613
+  7.00 | 0.14012
+  7.50 | 0.14763
+
+statystyki: mediana=0.15099, q10=0.14411, q90=0.16431, zakres_q90-q10=0.02020, udział_otwartych=100.0%
+WERDYKT: USTA PRACUJĄ (mówi)
+===== 4. MAD ŚRODKA vs KADR =====
+MAD = 6.6 (wzorzec zdrowia 15.4, chore >>20)
+WERDYKT: sekcje wyżej — cisza exit=1 (0=PASS)

@@ -1,0 +1,650 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019f9eb7-62ec-7e41-af7b-227b0e2e6d9b
+--------
+user
+Przeczytaj plik data/zarty/10010/_zadanie_zenka_k06.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam wskazany plik i sprawdzę, jakie dokładnie działania oraz format wyniku narzuca.
+exec
+/bin/bash -lc "sed -n '1,240p' data/zarty/10010/_zadanie_zenka_k06.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+# NARADA TRÓJKI — KRYTYCZNE zgłoszenie bramki B: k06 — widoczny Tomek mówi kwestię Józka
+
+Rola: Zenek, pracownik. Protokół trójki + rozkaz Tomasza "Analizuj to z pracownikami!!! Zawsze!!!!". Nic nie zapisujesz na dysk; wynik na stdout, po polsku.
+
+## Zgłoszenie Tomasza (bramka B, nadrzędna)
+W klip_k06_reroll.mp4 widoczny mężczyzna pod drzewem (Tomek) WYPOWIADA puentę "To ja... Józek... niemowa ze wsi!" — rusza ustami — zamiast stać z zamkniętymi ustami, gdy kwestia pada z offu (z ukrytej korony). To zabija sedno żartu: niemowa ma przemówić Z KORONY.
+
+## Fakty
+1. Prompt k06 (data/zarty/10010/_klipy_reroll.json) mówił WPROST: "He does not speak. ... His face, mouth ... remain perfectly still." + "From high up in the hidden tree crown comes an off-screen voice ... crying out in Polish: [kwestia]". Veo to zignorowało i przypisało kwestię widocznej twarzy.
+2. Strażnik języka (whisper) potwierdza, że kwestia PADŁA — ale nie sprawdza, KTO ją mówi. Tożsamość: to Tomek. Środek: poza trzyma. Żadna bramka nie łapie ust.
+3. Wzorzec z wcześniejszych podejść: batchowy k06 dał głos 145 Hz (niski męski jak Tomek, zero pisku) — spójne z tym, że Veo od początku kładzie kwestię w usta widocznej postaci.
+4. Znane z serii: Veo z natywnym audio lip-syncuje kwestię do widocznej twarzy (na tym stoi cała seria mówiących postaci) — to jego silny magnes.
+
+## Zadania
+1. **DIAGNOZA**: dlaczego Veo przypisuje off-screen kwestię widocznej twarzy mimo wprost zakazu; czy da się to w ogóle wiarygodnie wymusić promptem w veo3.1 lite FLF, czy off-screen dialog w tym narzędziu to loteria. Jeśli masz dostęp do sieci — sprawdź praktyków; jeśli nie — zaznacz to i bazuj na logice + znanych wzorcach.
+2. **SKRYPT pomiaru ust ($0)**: kompletny Python (kontener, /app/venv/bin/python, insightface buffalo_l, ffmpeg pod /usr/bin/ffmpeg), który: wyciąga klatki 2/s z /root/rod-ai-studio/data/zarty/10010/klip_k06_reroll.mp4, dla każdej klatki mierzy ROZWARCIE UST widocznej twarzy (landmarki insightface — dystans warg znormalizowany wysokością twarzy), wypisuje tabelę czas→rozwarcie i WERDYKT: USTA PRACUJĄ (mówi) / USTA ZAMKNIĘTE. Ścieżki bezwzględne, zapis tylko do /tmp.
+3. **PROPOZYCJE naprawy** (min. 3, z $; stawki: klip Veo lite $0.64, edycja kadru $0.15, montaż $0; budżet $11.09/12, zostało $0.91) — obowiązkowo rozważ wariant: **klip w pełni NIEMY z Veo (zero kwestii w prompcie) + głos Józka położony w MONTAŻU** (pisk robimy i tak deterministycznie pitch-upem; źródło audio: kwestia wycięta z obecnego k06_reroll albo z batchowego k06). Rekomendacja jednym zdaniem.
+4. **PROJEKT bramki "KTO MÓWI"** na stałe: dla klipów z mówcą zza kadru — automatyczna kontrola zamkniętych ust widocznej postaci; opisz wejścia/wyjścia/próg, do wdrożenia po odcinku.
+
+## Format wyniku
+Sekcje: DIAGNOZA / SKRYPT (```python```) / PROPOZYCJE (z $) / BRAMKA-KTO-MÓWI.
+
+codex
+Instrukcja wymaga sprawdzenia doświadczeń praktyków, jeśli sieć jest dostępna. Zweryfikuję też techniczny szczegół modelu `buffalo_l`: pięć podstawowych punktów twarzy nie wystarcza do pomiaru rozwarcia ust, więc skrypt musi świadomie użyć gęstych landmarków 2D.
+web search: 
+web search: Google Veo 3 off screen dialogue lip sync visible character prompt problem practitioners ...
+web search: 
+web search: site:github.com/deepinsight/insightface landmark_2d_106 mouth indices ...
+web search: 
+web search: 
+codex
+Wynik praktyków jest spójny z materiałem od Tomasza: błędne przypisanie kwestii i poruszanie ustami niewłaściwej postaci powtarza się mimo jawnych zakazów; zalecenia Google zwiększają szansę przez precyzyjny opis, ale nie dają mechanizmu twardego przypisania mówcy. Przygotowuję więc bramkę opartą na ruchu ust oraz wariant naprawy, który usuwa dialog z generacji obrazu.
+codex
+## DIAGNOZA
+
+Veo otrzymuje dwa sprzeczne sygnały o nierównej sile:
+
+1. W kadrze jest jedna wyraźnie widoczna ludzka twarz.
+2. W ścieżce audio ma paść dialog.
+
+Natywny mechanizm audio–wideo traktuje taką twarz jako najbardziej prawdopodobnego mówcę i synchronizuje z nią dialog. Informacje semantyczne „off-screen”, „hidden in the crown” i „mouth perfectly still” są tylko miękkimi warunkami promptu. Przegrywają z wyuczonym wzorcem: słyszalna wypowiedź + widoczna twarz = ta twarz mówi. Negacja opisuje stan, ale nie tworzy technicznego rozdzielenia mówcy od postaci.
+
+To wyjaśnia cały zestaw obserwacji:
+
+- Whisper potwierdza treść, lecz nie tożsamość mówcy.
+- Bramka pozy i środka kadru nie bada aparatu mowy.
+- Niski głos około 145 Hz dodatkowo pasuje do widocznego Tomka.
+- Kolejny, mocniejszy zakaz w promptcie nadal walczyłby z podstawowym mechanizmem lip-sync.
+
+Google zaleca dokładne opisanie postaci, głosu, działania i dialogu, ale nie dokumentuje twardego mechanizmu przypisywania wypowiedzi do niewidocznego źródła. [Oficjalny przewodnik Veo](https://deepmind.google/models/veo/prompt-guide/) mówi o sterowaniu promptem, nie o gwarancji tożsamości mówcy. Relacje praktyków opisują dokładnie ten sam problem: kwestie przechodzą między postaciami albo trafiają do niewłaściwych ust mimo jednoznacznych instrukcji; powtarzanym obejściem jest generowanie ujęć niemych i składanie dialogu w postprodukcji. [Przykład błędnego przypisywania dialogu](https://www.reddit.com/r/VEO3/comments/1mprm33/help_with_wrong_characterspeechdialogue/), [praktyka z wersją niemą i maskowaniem](https://www.reddit.com/r/VEO3/comments/1pzs0wf/dialogue_challenge_in_veo_31/).
+
+Wniosek: w Veo 3.1 Lite FLF można promptem poprawiać prawdopodobieństwo, ale nie da się wiarygodnie wymusić takiej sceny. Off-screen dialog przy widocznej ludzkiej twarzy jest loterią, szczególnie gdy jednocześnie wymagamy natywnego audio.
+
+## SKRYPT
+
+Skrypt używa gęstych `landmark_2d_106`, obecnych w pakiecie `buffalo_l`; zwykłe `face.kps` zawiera jedynie pięć punktów i nie nadaje się do pomiaru ust. Rozwarcie jest medianą trzech pionowych odległości między górnym i dolnym konturem warg, podzieloną przez wysokość wykrytej twarzy.
+
+Uruchomienie:
+
+```bash
+/app/venv/bin/python /tmp/pomiar_ust_k06.py
+```
+
+Kod pliku `/tmp/pomiar_ust_k06.py`:
+
+```python
+#!/app/venv/bin/python
+from __future__ import annotations
+
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+import cv2
+import numpy as np
+from insightface.app import FaceAnalysis
+
+
+PYTHON = Path("/app/venv/bin/python")
+FFMPEG = Path("/usr/bin/ffmpeg")
+VIDEO = Path(
+    "/root/rod-ai-studio/data/zarty/10010/klip_k06_reroll.mp4"
+)
+
+SAMPLE_FPS = 2.0
+DET_SIZE = (640, 640)
+
+# Progi startowe do bramki konserwatywnej:
+# - CLOSED_LEVEL: ponad 2,2% wysokości twarzy uznajemy za zauważalne otwarcie;
+# - MOTION_RANGE: zmiana o co najmniej 0,8% wysokości twarzy oznacza pracę ust;
+# - OPEN_FRACTION: co najmniej 25% próbek zauważalnie otwartych.
+# Należy je skalibrować na kilku poprawnych i błędnych klipach z tej serii.
+CLOSED_LEVEL = 0.022
+MOTION_RANGE = 0.008
+OPEN_FRACTION = 0.25
+MAX_MISSING_FRACTION = 0.25
+
+# Kontur ust w schemacie InsightFace 106.
+# Trzy pary biegną przez centralną część górnej i dolnej wargi.
+LIP_PAIRS = ((54, 70), (55, 69), (56, 68))
+
+
+def fail(message: str) -> None:
+    print(f"BŁĄD: {message}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def find_model_root() -> Path:
+    """Znajdź już zainstalowany buffalo_l bez pobierania i zapisu poza /tmp."""
+    roots = (
+        Path("/root/.insightface"),
+        Path("/app/.insightface"),
+        Path("/app/models/insightface"),
+    )
+    for root in roots:
+        model_dir = root / "models" / "buffalo_l"
+        if (
+            model_dir.is_dir()
+            and (model_dir / "det_10g.onnx").is_file()
+            and (model_dir / "2d106det.onnx").is_file()
+        ):
+            return root
+
+    fail(
+        "nie znaleziono lokalnego buffalo_l z det_10g.onnx i "
+        "2d106det.onnx w oczekiwanych katalogach; skrypt celowo "
+        "nie pobiera modelu poza /tmp"
+    )
+
+
+def extract_frames(output_dir: Path) -> list[Path]:
+    pattern = output_dir / "frame_%05d.png"
+    command = [
+        str(FFMPEG),
+        "-hide_banner",
+        "-loglevel", "error",
+        "-nostdin",
+        "-y",
+        "-i", str(VIDEO),
+        "-vf", f"fps={SAMPLE_FPS:g}",
+        "-vsync", "0",
+        str(pattern),
+    ]
+    subprocess.run(command, check=True)
+    return sorted(output_dir.glob("frame_*.png"))
+
+
+def choose_visible_face(faces):
+    """W tym klipie widoczna postać to największa wykryta twarz."""
+    return max(
+        faces,
+        key=lambda face: float(
+            max(0.0, face.bbox[2] - face.bbox[0])
+            * max(0.0, face.bbox[3] - face.bbox[1])
+        ),
+    )
+
+
+def normalized_mouth_opening(face) -> float:
+    landmarks = getattr(face, "landmark_2d_106", None)
+    if landmarks is None or np.asarray(landmarks).shape != (106, 2):
+        raise RuntimeError("model nie zwrócił landmark_2d_106 o kształcie 106x2")
+
+    points = np.asarray(landmarks, dtype=np.float32)
+    face_height = float(face.bbox[3] - face.bbox[1])
+    if face_height <= 0:
+        raise RuntimeError("niepoprawna wysokość bbox twarzy")
+
+    distances = [
+        float(np.linalg.norm(points[upper] - points[lower]))
+        for upper, lower in LIP_PAIRS
+    ]
+    return float(np.median(distances) / face_height)
+
+
+def main() -> None:
+    if Path(sys.executable).resolve() != PYTHON.resolve():
+        print(
+            f"UWAGA: zalecany interpreter to {PYTHON}; "
+            f"obecnie: {sys.executable}",
+            file=sys.stderr,
+        )
+    if not FFMPEG.is_file():
+        fail(f"brak ffmpeg: {FFMPEG}")
+    if not VIDEO.is_file():
+        fail(f"brak klipu: {VIDEO}")
+
+    model_root = find_model_root()
+    app = FaceAnalysis(
+        name="buffalo_l",
+        root=str(model_root),
+        allowed_modules=["detection", "landmark_2d_106"],
+        providers=["CPUExecutionProvider"],
+    )
+    app.prepare(ctx_id=-1, det_size=DET_SIZE, det_thresh=0.35)
+
+    tmp_dir = Path(tempfile.mkdtemp(prefix="k06_mouth_", dir="/tmp"))
+    measurements: list[float] = []
+    rows: list[tuple[float, float | None]] = []
+
+    try:
+        frames = extract_frames(tmp_dir)
+        if not frames:
+            fail("ffmpeg nie wyodrębnił żadnych klatek")
+
+        for index, frame_path in enumerate(frames):
+            timestamp = index / SAMPLE_FPS
+            frame = cv2.imread(str(frame_path), cv2.IMREAD_COLOR)
+            if frame is None:
+                rows.append((timestamp, None))
+                continue
+
+            faces = app.get(frame)
+            if not faces:
+                rows.append((timestamp, None))
+                continue
+
+            face = choose_visible_face(faces)
+            opening = normalized_mouth_opening(face)
+            measurements.append(opening)
+            rows.append((timestamp, opening))
+
+        print("czas_s | rozwarcie_norm")
+        print("-------+----------------")
+        for timestamp, opening in rows:
+            value = "BRAK_TWARZY" if opening is None else f"{opening:.5f}"
+            print(f"{timestamp:6.2f} | {value}")
+
+        missing_fraction = 1.0 - len(measurements) / len(rows)
+        if missing_fraction > MAX_MISSING_FRACTION:
+            print(
+                f"\nWERDYKT: NIEWIARYGODNY POMIAR "
+                f"(brak twarzy w {missing_fraction:.1%} próbek)"
+            )
+            raise SystemExit(3)
+
+        if len(measurements) < 3:
+            fail("za mało poprawnych pomiarów do werdyktu")
+
+        values = np.asarray(measurements, dtype=np.float32)
+        q10, median, q90 = np.percentile(values, [10, 50, 90])
+        motion = float(q90 - q10)
+        open_fraction = float(np.mean(values > CLOSED_LEVEL))
+
+        # Ruch artykulacyjny albo częste wyraźne otwarcie uruchamia bramkę.
+        mouth_working = (
+            motion >= MOTION_RANGE
+            or open_fraction >= OPEN_FRACTION
+        )
+
+        print()
+        print(
+            f"statystyki: mediana={median:.5f}, "
+            f"q10={q10:.5f}, q90={q90:.5f}, "
+            f"zakres_q90-q10={motion:.5f}, "
+            f"udział_otwartych={open_fraction:.1%}"
+        )
+        print(
+            "WERDYKT: "
+            + ("USTA PRACUJĄ (mówi)" if mouth_working else "USTA ZAMKNIĘTE")
+        )
+
+        raise SystemExit(1 if mouth_working else 0)
+
+    finally:
+        # Wszystkie klatki tymczasowe powstały wyłącznie w /tmp.
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+Kody wyjścia: `0` — usta zamknięte, `1` — usta pracują, `2` — błąd wykonania, `3` — pomiar niewiarygodny.
+
+## PROPOZYCJE
+
+1. **Niemy klip Veo + głos w montażu — $0.64.**  
+   Wygenerować k06 bez cytatu, bez słów „dialog”, „voice” i bez natywnej wypowiedzi: Tomek nieruchomy, usta zamknięte, tylko ambient. Następnie za $0 wyciąć kwestię z obecnego `k06_reroll` albo batchowego k06, zrobić deterministyczny pitch-up i położyć ją jako głos z korony. Łączny stan: **$11.73/12, pozostaje $0.27**. To usuwa z generacji dokładnie ten sygnał, który uruchamia lip-sync Tomka.
+
+2. **Jeszcze jeden reroll z natywnym off-screen dialogiem — $0.64.**  
+   Prompt rozdzielony na warstwy: „silent reaction shot”, Tomek jako `NON-SPEAKING LISTENER`, źródło głosu poza obrazem, usta zamknięte w każdej klatce. Stan: **$11.73/12, pozostaje $0.27**. Najmniej pracy, ale nadal loteria i wysokie ryzyko ponowienia błędu.
+
+3. **Edycja kadru referencyjnego + niemy FLF — $0.79.**  
+   Za $0.15 przygotować klatkę z jednoznacznie domkniętymi ustami Tomka, następnie za $0.64 wygenerować z niej całkowicie niemy klip i dodać głos za $0 w montażu. Stan: **$11.88/12, pozostaje $0.12**. Mocniejsza kotwica wizualna niż sam prompt, lecz prawie wyczerpuje budżet.
+
+4. **Ratowanie istniejącego k06 w montażu — $0.**  
+   Zamaskować okolice ust nieruchomym lub stabilizowanym fragmentem z klatki, w której usta są zamknięte; zachować istniejący dźwięk i pitch-up. Stan: **$11.09/12, pozostaje $0.91**. Bez kosztu generacji, ale grożą artefakty maski, „zamrożona” żuchwa i nienaturalna mimika.
+
+**Rekomendacja: za $0.64 wygenerować całkowicie niemy klip bez kwestii w promptcie, a głos Józka z obecnego lub batchowego k06 dodać i podwyższyć deterministycznie w montażu.**
+
+## BRAMKA-KTO-MÓWI
+
+**Zakres:** każdy klip, w którym dialog ma pochodzić zza kadru, z ukrycia albo z obiektu bez widocznych ust.
+
+**Wejścia:**
+
+- plik MP4;
+- przedział czasowy wypowiedzi z transkrypcji/Whispera, powiększony o około 0,25 s z obu stron;
+- deklaracja `speaker_visibility=off_screen`;
+- opcjonalnie referencyjny embedding widocznej postaci, aby nie pomylić jej z inną twarzą.
+
+**Pomiar:**
+
+- próbkowanie docelowo 6–10 kl./s w przedziale dialogu; skrypt kontrolny 2 kl./s jest wystarczający do taniej diagnozy, ale słabszy dla krótkich sylab;
+- detekcja twarzy i `landmark_2d_106`;
+- wybór największej twarzy lub śledzenie twarzy zgodnej z embeddingiem;
+- mediana trzech odległości górna–dolna warga, znormalizowana wysokością bbox twarzy;
+- obliczenie poziomu otwarcia, zakresu `q90-q10` oraz udziału próbek przekraczających próg;
+- osobne wykrywanie braków twarzy, zasłonięcia i zbyt małej twarzy.
+
+**Progi startowe:**
+
+- zauważalne otwarcie: `0.022` wysokości twarzy;
+- praca ust: `q90-q10 >= 0.008`;
+- alternatywnie praca ust: co najmniej `25%` próbek powyżej `0.022`;
+- pomiar niewiarygodny: brak użytecznej twarzy w ponad `25%` próbek.
+
+Progi należy po odcinku skalibrować na zbiorze poprawnych niemych reakcji i znanych przypadków mówienia. Dla bramki produkcyjnej lepiej dopuścić fałszywe alarmy niż przepuścić widocznego, niewłaściwego mówcę.
+
+**Wyjścia:**
+
+- `PASS — USTA ZAMKNIĘTE`;
+- `FAIL — WIDOCZNA POSTAĆ MÓWI`;
+- `REVIEW — POMIAR NIEWIARYGODNY`;
+- CSV/JSON: czas, identyfikator twarzy, rozwarcie, próg, status;
+- opcjonalny klip dowodowy z zaznaczonymi ustami i wykresem.
+
+Bramka powinna działać po kontroli języka: Whisper odpowiada wtedy na pytanie „czy padła właściwa kwestia?”, a `KTO MÓWI` na brakujące pytanie „czy widoczna postać pozostała niema?”.
+tokens used
+36,570
+## DIAGNOZA
+
+Veo otrzymuje dwa sprzeczne sygnały o nierównej sile:
+
+1. W kadrze jest jedna wyraźnie widoczna ludzka twarz.
+2. W ścieżce audio ma paść dialog.
+
+Natywny mechanizm audio–wideo traktuje taką twarz jako najbardziej prawdopodobnego mówcę i synchronizuje z nią dialog. Informacje semantyczne „off-screen”, „hidden in the crown” i „mouth perfectly still” są tylko miękkimi warunkami promptu. Przegrywają z wyuczonym wzorcem: słyszalna wypowiedź + widoczna twarz = ta twarz mówi. Negacja opisuje stan, ale nie tworzy technicznego rozdzielenia mówcy od postaci.
+
+To wyjaśnia cały zestaw obserwacji:
+
+- Whisper potwierdza treść, lecz nie tożsamość mówcy.
+- Bramka pozy i środka kadru nie bada aparatu mowy.
+- Niski głos około 145 Hz dodatkowo pasuje do widocznego Tomka.
+- Kolejny, mocniejszy zakaz w promptcie nadal walczyłby z podstawowym mechanizmem lip-sync.
+
+Google zaleca dokładne opisanie postaci, głosu, działania i dialogu, ale nie dokumentuje twardego mechanizmu przypisywania wypowiedzi do niewidocznego źródła. [Oficjalny przewodnik Veo](https://deepmind.google/models/veo/prompt-guide/) mówi o sterowaniu promptem, nie o gwarancji tożsamości mówcy. Relacje praktyków opisują dokładnie ten sam problem: kwestie przechodzą między postaciami albo trafiają do niewłaściwych ust mimo jednoznacznych instrukcji; powtarzanym obejściem jest generowanie ujęć niemych i składanie dialogu w postprodukcji. [Przykład błędnego przypisywania dialogu](https://www.reddit.com/r/VEO3/comments/1mprm33/help_with_wrong_characterspeechdialogue/), [praktyka z wersją niemą i maskowaniem](https://www.reddit.com/r/VEO3/comments/1pzs0wf/dialogue_challenge_in_veo_31/).
+
+Wniosek: w Veo 3.1 Lite FLF można promptem poprawiać prawdopodobieństwo, ale nie da się wiarygodnie wymusić takiej sceny. Off-screen dialog przy widocznej ludzkiej twarzy jest loterią, szczególnie gdy jednocześnie wymagamy natywnego audio.
+
+## SKRYPT
+
+Skrypt używa gęstych `landmark_2d_106`, obecnych w pakiecie `buffalo_l`; zwykłe `face.kps` zawiera jedynie pięć punktów i nie nadaje się do pomiaru ust. Rozwarcie jest medianą trzech pionowych odległości między górnym i dolnym konturem warg, podzieloną przez wysokość wykrytej twarzy.
+
+Uruchomienie:
+
+```bash
+/app/venv/bin/python /tmp/pomiar_ust_k06.py
+```
+
+Kod pliku `/tmp/pomiar_ust_k06.py`:
+
+```python
+#!/app/venv/bin/python
+from __future__ import annotations
+
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+import cv2
+import numpy as np
+from insightface.app import FaceAnalysis
+
+
+PYTHON = Path("/app/venv/bin/python")
+FFMPEG = Path("/usr/bin/ffmpeg")
+VIDEO = Path(
+    "/root/rod-ai-studio/data/zarty/10010/klip_k06_reroll.mp4"
+)
+
+SAMPLE_FPS = 2.0
+DET_SIZE = (640, 640)
+
+# Progi startowe do bramki konserwatywnej:
+# - CLOSED_LEVEL: ponad 2,2% wysokości twarzy uznajemy za zauważalne otwarcie;
+# - MOTION_RANGE: zmiana o co najmniej 0,8% wysokości twarzy oznacza pracę ust;
+# - OPEN_FRACTION: co najmniej 25% próbek zauważalnie otwartych.
+# Należy je skalibrować na kilku poprawnych i błędnych klipach z tej serii.
+CLOSED_LEVEL = 0.022
+MOTION_RANGE = 0.008
+OPEN_FRACTION = 0.25
+MAX_MISSING_FRACTION = 0.25
+
+# Kontur ust w schemacie InsightFace 106.
+# Trzy pary biegną przez centralną część górnej i dolnej wargi.
+LIP_PAIRS = ((54, 70), (55, 69), (56, 68))
+
+
+def fail(message: str) -> None:
+    print(f"BŁĄD: {message}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def find_model_root() -> Path:
+    """Znajdź już zainstalowany buffalo_l bez pobierania i zapisu poza /tmp."""
+    roots = (
+        Path("/root/.insightface"),
+        Path("/app/.insightface"),
+        Path("/app/models/insightface"),
+    )
+    for root in roots:
+        model_dir = root / "models" / "buffalo_l"
+        if (
+            model_dir.is_dir()
+            and (model_dir / "det_10g.onnx").is_file()
+            and (model_dir / "2d106det.onnx").is_file()
+        ):
+            return root
+
+    fail(
+        "nie znaleziono lokalnego buffalo_l z det_10g.onnx i "
+        "2d106det.onnx w oczekiwanych katalogach; skrypt celowo "
+        "nie pobiera modelu poza /tmp"
+    )
+
+
+def extract_frames(output_dir: Path) -> list[Path]:
+    pattern = output_dir / "frame_%05d.png"
+    command = [
+        str(FFMPEG),
+        "-hide_banner",
+        "-loglevel", "error",
+        "-nostdin",
+        "-y",
+        "-i", str(VIDEO),
+        "-vf", f"fps={SAMPLE_FPS:g}",
+        "-vsync", "0",
+        str(pattern),
+    ]
+    subprocess.run(command, check=True)
+    return sorted(output_dir.glob("frame_*.png"))
+
+
+def choose_visible_face(faces):
+    """W tym klipie widoczna postać to największa wykryta twarz."""
+    return max(
+        faces,
+        key=lambda face: float(
+            max(0.0, face.bbox[2] - face.bbox[0])
+            * max(0.0, face.bbox[3] - face.bbox[1])
+        ),
+    )
+
+
+def normalized_mouth_opening(face) -> float:
+    landmarks = getattr(face, "landmark_2d_106", None)
+    if landmarks is None or np.asarray(landmarks).shape != (106, 2):
+        raise RuntimeError("model nie zwrócił landmark_2d_106 o kształcie 106x2")
+
+    points = np.asarray(landmarks, dtype=np.float32)
+    face_height = float(face.bbox[3] - face.bbox[1])
+    if face_height <= 0:
+        raise RuntimeError("niepoprawna wysokość bbox twarzy")
+
+    distances = [
+        float(np.linalg.norm(points[upper] - points[lower]))
+        for upper, lower in LIP_PAIRS
+    ]
+    return float(np.median(distances) / face_height)
+
+
+def main() -> None:
+    if Path(sys.executable).resolve() != PYTHON.resolve():
+        print(
+            f"UWAGA: zalecany interpreter to {PYTHON}; "
+            f"obecnie: {sys.executable}",
+            file=sys.stderr,
+        )
+    if not FFMPEG.is_file():
+        fail(f"brak ffmpeg: {FFMPEG}")
+    if not VIDEO.is_file():
+        fail(f"brak klipu: {VIDEO}")
+
+    model_root = find_model_root()
+    app = FaceAnalysis(
+        name="buffalo_l",
+        root=str(model_root),
+        allowed_modules=["detection", "landmark_2d_106"],
+        providers=["CPUExecutionProvider"],
+    )
+    app.prepare(ctx_id=-1, det_size=DET_SIZE, det_thresh=0.35)
+
+    tmp_dir = Path(tempfile.mkdtemp(prefix="k06_mouth_", dir="/tmp"))
+    measurements: list[float] = []
+    rows: list[tuple[float, float | None]] = []
+
+    try:
+        frames = extract_frames(tmp_dir)
+        if not frames:
+            fail("ffmpeg nie wyodrębnił żadnych klatek")
+
+        for index, frame_path in enumerate(frames):
+            timestamp = index / SAMPLE_FPS
+            frame = cv2.imread(str(frame_path), cv2.IMREAD_COLOR)
+            if frame is None:
+                rows.append((timestamp, None))
+                continue
+
+            faces = app.get(frame)
+            if not faces:
+                rows.append((timestamp, None))
+                continue
+
+            face = choose_visible_face(faces)
+            opening = normalized_mouth_opening(face)
+            measurements.append(opening)
+            rows.append((timestamp, opening))
+
+        print("czas_s | rozwarcie_norm")
+        print("-------+----------------")
+        for timestamp, opening in rows:
+            value = "BRAK_TWARZY" if opening is None else f"{opening:.5f}"
+            print(f"{timestamp:6.2f} | {value}")
+
+        missing_fraction = 1.0 - len(measurements) / len(rows)
+        if missing_fraction > MAX_MISSING_FRACTION:
+            print(
+                f"\nWERDYKT: NIEWIARYGODNY POMIAR "
+                f"(brak twarzy w {missing_fraction:.1%} próbek)"
+            )
+            raise SystemExit(3)
+
+        if len(measurements) < 3:
+            fail("za mało poprawnych pomiarów do werdyktu")
+
+        values = np.asarray(measurements, dtype=np.float32)
+        q10, median, q90 = np.percentile(values, [10, 50, 90])
+        motion = float(q90 - q10)
+        open_fraction = float(np.mean(values > CLOSED_LEVEL))
+
+        # Ruch artykulacyjny albo częste wyraźne otwarcie uruchamia bramkę.
+        mouth_working = (
+            motion >= MOTION_RANGE
+            or open_fraction >= OPEN_FRACTION
+        )
+
+        print()
+        print(
+            f"statystyki: mediana={median:.5f}, "
+            f"q10={q10:.5f}, q90={q90:.5f}, "
+            f"zakres_q90-q10={motion:.5f}, "
+            f"udział_otwartych={open_fraction:.1%}"
+        )
+        print(
+            "WERDYKT: "
+            + ("USTA PRACUJĄ (mówi)" if mouth_working else "USTA ZAMKNIĘTE")
+        )
+
+        raise SystemExit(1 if mouth_working else 0)
+
+    finally:
+        # Wszystkie klatki tymczasowe powstały wyłącznie w /tmp.
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+Kody wyjścia: `0` — usta zamknięte, `1` — usta pracują, `2` — błąd wykonania, `3` — pomiar niewiarygodny.
+
+## PROPOZYCJE
+
+1. **Niemy klip Veo + głos w montażu — $0.64.**  
+   Wygenerować k06 bez cytatu, bez słów „dialog”, „voice” i bez natywnej wypowiedzi: Tomek nieruchomy, usta zamknięte, tylko ambient. Następnie za $0 wyciąć kwestię z obecnego `k06_reroll` albo batchowego k06, zrobić deterministyczny pitch-up i położyć ją jako głos z korony. Łączny stan: **$11.73/12, pozostaje $0.27**. To usuwa z generacji dokładnie ten sygnał, który uruchamia lip-sync Tomka.
+
+2. **Jeszcze jeden reroll z natywnym off-screen dialogiem — $0.64.**  
+   Prompt rozdzielony na warstwy: „silent reaction shot”, Tomek jako `NON-SPEAKING LISTENER`, źródło głosu poza obrazem, usta zamknięte w każdej klatce. Stan: **$11.73/12, pozostaje $0.27**. Najmniej pracy, ale nadal loteria i wysokie ryzyko ponowienia błędu.
+
+3. **Edycja kadru referencyjnego + niemy FLF — $0.79.**  
+   Za $0.15 przygotować klatkę z jednoznacznie domkniętymi ustami Tomka, następnie za $0.64 wygenerować z niej całkowicie niemy klip i dodać głos za $0 w montażu. Stan: **$11.88/12, pozostaje $0.12**. Mocniejsza kotwica wizualna niż sam prompt, lecz prawie wyczerpuje budżet.
+
+4. **Ratowanie istniejącego k06 w montażu — $0.**  
+   Zamaskować okolice ust nieruchomym lub stabilizowanym fragmentem z klatki, w której usta są zamknięte; zachować istniejący dźwięk i pitch-up. Stan: **$11.09/12, pozostaje $0.91**. Bez kosztu generacji, ale grożą artefakty maski, „zamrożona” żuchwa i nienaturalna mimika.
+
+**Rekomendacja: za $0.64 wygenerować całkowicie niemy klip bez kwestii w promptcie, a głos Józka z obecnego lub batchowego k06 dodać i podwyższyć deterministycznie w montażu.**
+
+## BRAMKA-KTO-MÓWI
+
+**Zakres:** każdy klip, w którym dialog ma pochodzić zza kadru, z ukrycia albo z obiektu bez widocznych ust.
+
+**Wejścia:**
+
+- plik MP4;
+- przedział czasowy wypowiedzi z transkrypcji/Whispera, powiększony o około 0,25 s z obu stron;
+- deklaracja `speaker_visibility=off_screen`;
+- opcjonalnie referencyjny embedding widocznej postaci, aby nie pomylić jej z inną twarzą.
+
+**Pomiar:**
+
+- próbkowanie docelowo 6–10 kl./s w przedziale dialogu; skrypt kontrolny 2 kl./s jest wystarczający do taniej diagnozy, ale słabszy dla krótkich sylab;
+- detekcja twarzy i `landmark_2d_106`;
+- wybór największej twarzy lub śledzenie twarzy zgodnej z embeddingiem;
+- mediana trzech odległości górna–dolna warga, znormalizowana wysokością bbox twarzy;
+- obliczenie poziomu otwarcia, zakresu `q90-q10` oraz udziału próbek przekraczających próg;
+- osobne wykrywanie braków twarzy, zasłonięcia i zbyt małej twarzy.
+
+**Progi startowe:**
+
+- zauważalne otwarcie: `0.022` wysokości twarzy;
+- praca ust: `q90-q10 >= 0.008`;
+- alternatywnie praca ust: co najmniej `25%` próbek powyżej `0.022`;
+- pomiar niewiarygodny: brak użytecznej twarzy w ponad `25%` próbek.
+
+Progi należy po odcinku skalibrować na zbiorze poprawnych niemych reakcji i znanych przypadków mówienia. Dla bramki produkcyjnej lepiej dopuścić fałszywe alarmy niż przepuścić widocznego, niewłaściwego mówcę.
+
+**Wyjścia:**
+
+- `PASS — USTA ZAMKNIĘTE`;
+- `FAIL — WIDOCZNA POSTAĆ MÓWI`;
+- `REVIEW — POMIAR NIEWIARYGODNY`;
+- CSV/JSON: czas, identyfikator twarzy, rozwarcie, próg, status;
+- opcjonalny klip dowodowy z zaznaczonymi ustami i wykresem.
+
+Bramka powinna działać po kontroli języka: Whisper odpowiada wtedy na pytanie „czy padła właściwa kwestia?”, a `KTO MÓWI` na brakujące pytanie „czy widoczna postać pozostała niema?”.

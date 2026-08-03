@@ -1,0 +1,5 @@
+=== RAPORT BRAMKI: 10010/kadr_k05_bez_gumowca | 2026-07-26T13:09:27+00:00 ===
+OPIS OTWARTY: Na zdjęciu widoczny jest mężczyzna w średnim wieku, ubrany w czarną koszulę i ciemną kurtkę z kapturem. Na głowie nosi kapelusz. Mężczyzna ma brodę i wąsy, a jego usta są szeroko otwarte, jakby krzyczał lub śpiewał. W tle znajduje się drzewo z rozgałęzionymi gałęziami oraz słońce, które jest widoczne za drzewami, co sugeruje, że zdjęcie zostało wykonane w czasie zachodu słońca. Sylwetka mężczyzny i drzewa są podświetlone przez słońce, tworząc efekt kontrastu między ciemnością a światłem.
+BUT W KADRZE: NIE
+TWARZ NATURALNA: TAK
+WERDYKT: PASS — gumowiec usunięty, twarz czysta

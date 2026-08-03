@@ -1,0 +1,14 @@
+=== RAPORT BRAMKI: 10010/klip_k00 | 2026-07-26T16:14:16+00:00 ===
+WHISPER: [Złodziej 0.30-1.32] [jabłek 1.32-1.96] [grasuje. 1.96-2.66] [Dzisiaj 3.80-4.76] [koniec 4.76-5.66] [tej 5.66-5.96] [zabawy. 5.96-6.54]
+  OK   | whisper: kwestia VERBATIM W2 | uslyszal: "Złodziej jabłek grasuje. Dzisiaj koniec tej zabawy."
+  FAIL | pauza po "Dzisiaj" 0.6-0.8s (tol. 0.5-1.0) | zmierzono 0.00s
+  FAIL | szept: RMS >=3dB cichszy niz pytanie k03 | k00=-20.890293 dB, k03=-20.711909 dB, roznica 0.2 dB
+  tform.estimate(lmk, dst)
+  tform.estimate(lmk, dst)
+  OK   | tozsamosc: twarz wykrywalna na klatkach | brak twarzy na 0 klatkach
+  OK   | tozsamosc vs KADR k00: min cos >= 0.35 | min=0.790 mean=0.851
+  INFO | pomocniczo vs bohater_noc: min=0.545 mean=0.611
+  FAIL | usta: fazy wg timestampow | brak pauzy — nie wyznaczono faz
+OPIS klatki pauzy (B): Na obrazku widoczna jest twarz mężczyzny z długimi, ciemnymi włosami, które spadają mu na ramiona. Mężczyzna ma brodę i wąsy, które są białe i kręcone. Jego usta są otwarte, co sugeruje, że mówi lub wyraża zdziwienie. Usta są cienkie i mają naturalny kształt. Wokół ust widoczne są drobne zmarszczki,
+  OK   | MAD srodka w widelkach [0.3x, 3x] zdrowego k03 | k00=2.26 vs k03=6.41
+WERDYKT: 3 FAIL — STOP, decyzja Tomasza

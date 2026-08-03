@@ -1,0 +1,8 @@
+=== RAPORT BRAMKI: 10010/final_draft | 2026-07-26T15:32:52+00:00 ===
+Rolka #10010 "Kiedy złapiesz złodzieja jabłek" — DRAFT MONTAŻU wg ARCHITEKTURY v1.1 + głos Józka E (praat).
+DRAFT: https://panel.157-90-155-155.sslip.io/n150files/10010_final_draft.mp4
+25.56s | sync audio-wideo 0.024s (<0.05) | mean -17.5dB / max -0.2dB | pisk zweryfikowany whisperem ("Józek!")
+Beaty: intro 0.45 -> hook+plansza 1.2 -> trzask+shake -> VINE BOOM+punch-in w chwyt -> pyt.1 + cisza 0.30 -> cisza 0.55 -> pyt.2 (punch-in cięciem) -> pisk JÓZEK z korony -> pyt.3 nad Ken Burns kadru chwytu (obraz k05 wycięty) -> skrzypnięcie -> NIEMY k06 + puenta głosem E z pogłosem sadu -> outro AI pełne.
+ŚWIADOME ODSTĘPSTWA od sekundnika (18.6 -> 25.6s): realne kwestie Tomka dłuższe niż plan (słów nie tnę), pauzy Józka w puencie w całości (są żartem), outro pełne 3.0s (czytelne oznaczenie AI).
+Klatki kontrolne: 10010_final_f2.6 / f11.6 / f14.0 / f17.5 .jpg na panelu.
+WERDYKT: DRAFT GOTOWY — czeka oko i ucho Tomasza (poprawki albo zgoda; publikacja tylko osobnym słowem).

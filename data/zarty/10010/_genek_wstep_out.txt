@@ -1,0 +1,26 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## OCENA
+Wstęp-setup to fundament komizmu. Buduje klasyczny kontrast: śmiertelnie poważna „misja specjalna” kontra przyziemny problem (kradzież jabłek).
+*   **Plusy:** Buduje postać Tomka jako „strażnika sadu”, wyjaśnia kontekst od 1. sekundy i sprawia, że późniejszy atak w k02 jest logicznym rozwiązaniem intrygi, a nie tylko przypadkowym gagiem.
+*   **Ryzyko:** Jeśli scena przekroczy 4-5 sekund, zabije rytm Reels. Musi być „strzałem”.
+*   **Werdykt:** Zdecydowanie warto. To „ucho komiczne” domyka strukturę żartu.
+
+## FORMA
+Najśmieszniejszy będzie styl **mockumentary** (szept do kamery). Tomek kuca w krzakach, patrzy prosto w obiektyw, jakby relacjonował obławę dla Discovery Channel.
+*   **Detal:** Tomek ma wetkniętą za ucho lub w czapkę gałązkę jabłoni (pseudo-kamuflaż) — ten jeden detal sprzeda absurd całej sytuacji.
+*   **Czas:** Max 3.5 – 4 sekundy.
+*   **Dynamika:** Na koniec kwestii Tomek gwałtownie odwraca głowę w stronę drzewa (reakcja na „szelest”), po czym następuje cięcie do skradania.
+
+## PLANSZA
+Napis „Kiedy złapiesz złodzieja jabłek... 🍎” powinien zostać jako **nagłówek (hook)** na samej górze ekranu. 
+*   **Strategia:** Napis pełni rolę formatki mema, a szept Tomka to „content”. Razem działają jak magnes na widza, który od razu wie, w jakiej konwencji się poruszamy.
+
+## KWESTIA
+Propozycja Tomasza jest dobra, ale szept wymaga krótkich, urywanych fraz dla lepszego efektu dramatycznego:
+1. **Wariant „Twardziel”:** „Ktoś mi podkrada jabłka... Dzisiaj go dorwę.” (Krótko, konkretnie).
+2. **Wariant „Dramat ROD”:** „Złodziej jabłek grasuje. Dzisiaj... koniec tej zabawy.” (Bardziej przeszarżowane i komiczne).
+
+***
+
+**Narada załogi:** Genek (reżyseria), Zenek (technika) i Klaudek (analiza) czekają na stanowiskach. Wszystkie ustalenia trafiają do `DECYZJE_10110.md`. Budżet na ten moment to **$11.73/12** — dodanie nowej sceny (kadr + klip = ~$0.79) wiąże się z przekroczeniem limitu (**$12.52**), więc do generacji ruszymy dopiero po Twoim wyraźnym „Działaj”.

@@ -1,0 +1,796 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019f9ea8-ace5-7ca1-881a-b07ac10606b9
+--------
+user
+Przeczytaj plik data/zarty/10010/_zadanie_zenka_analiza.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw w całości odczytam wskazany plik i sprawdzę, jakie dokładnie działania oraz ograniczenia zawiera.
+exec
+/bin/bash -lc "sed -n '1,240p' data/zarty/10010/_zadanie_zenka_analiza.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+# NARADA TRÓJKI — analiza FAIL strażników (re-roll 10010)
+
+Rola: Zenek, pracownik. Protokół trójki (decyzja Tomasza): Twoja analiza zderza się z diagnozą szefa (Klaudka) i pomiarami strażników — masz się ZGODZIĆ albo UZASADNIĆ SPRZECIW dowodami. Nie zapisujesz nic na dysk; wynik na stdout, po polsku.
+
+## Materiał (czytaj w całości)
+1. data/zarty/10010/raporty/straznik_reroll.txt — werdykty kanarka dla 4 klipów re-rollu
+2. wiedza/DECYZJE_10010.md — ogon (ostatnie ~15 wpisów): pełna historia dnia z pomiarami
+
+## Twarde dane z pomiarów (z DECYZJE, do zderzenia)
+- Referencja bohater_noc.jpg jest ZDRYFOWANA: 0.59-0.63 vs reszta biblioteki (baza↔karta mają 0.92)
+- Kadr k04 mierzy 0.46 vs biblioteka; w kanarku2 klip był WIERNY kadrowi (0.39-0.87 vs kadr), a vs biblioteka 0.25-0.40
+- Kadr k06 mierzy 0.33 vs biblioteka — zaakceptowany OKIEM Tomasza (mimika osłupienia zaniża pomiar)
+- Zmierzona zasada dnia: Veo "zjada" ~0.25 podobieństwa w ruchu
+- k01/k05 (kadry 0.55-0.58) przeszły kanarka PASS przy TEJ SAMEJ referencji
+- Dziś: k02 PASS, k05 PASS, k04 FAIL (kl_01 sim 0.09 "obca twarz"), k06 FAIL (kl_00 0.27, kl_02 0.26)
+
+## Hipotezy szefa (zweryfikuj, nie przytakuj)
+H1: kl_01 w k04 (sim 0.09) to klatka z twarzą pod kątem/w cieniu/z otwartymi ustami — nie obca osoba
+H2: k06 0.26-0.27 przy kadrze 0.33 minus ruch = TA SAMA osoba, pomiar zgodny z oczekiwaniem
+H3: przyczyna źródłowa = dryf aktywu bohater_noc.jpg, nie zepsucie klipów
+H4: rozstrzygnięcie = pomiar klatek klipu vs ZAAKCEPTOWANY KADR (nie vs biblioteka)
+
+## Zadania
+1. DIAGNOZA: co naprawdę mówią te FAIL-e? Zgoda/sprzeciw wobec H1-H4, z uzasadnieniem.
+2. WERYFIKACJA $0: napisz KOMPLETNY skrypt Pythona (do uruchomienia przez szefa w kontenerze, /app/venv/bin/python, insightface buffalo_l dostępny), który dla klipów k04 i k06 (_reroll.mp4): wyciąga klatki co 1 s (ffmpeg), mierzy cosine podobieństwo twarzy każdej klatki (a) vs kadry/kXX.jpg (zaakceptowany kadr) i (b) vs assets/zarty/karty/bohater_noc.jpg, wypisuje tabelę i werdykt: WIERNY KADROWI / OBCA TWARZ. Ścieżki bezwzględne, zero zapisu poza /tmp.
+3. PROPOZYCJE NAPRAWY: minimum 2 warianty z kosztami w $ (stawki: klip Veo lite $0.64, edycja kadru $0.15), przy budżecie $11.09/12.
+
+## Format wyniku
+Sekcje: DIAGNOZA / WERDYKT WOBEC HIPOTEZ (H1-H4: zgoda/sprzeciw + 1 zdanie) / SKRYPT (blok ```python```) / PROPOZYCJE (z $).
+
+codex
+Teraz zestawiam raport kanarka z końcówką dziennika decyzji; wynik pozostanie wyłącznie w odpowiedzi, bez zapisu na dysk.
+exec
+/bin/bash -lc 'cat data/zarty/10010/raporty/straznik_reroll.txt && tail -n 220 wiedza/DECYZJE_10010.md' in /root/rod-ai-studio
+ succeeded in 0ms:
+=== RAPORT BRAMKI: 10010/straznik_reroll | 2026-07-26T13:35:56+00:00 ===
+===== k02 (BOHATER, niemy) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[POMINIĘTY] język
+[PASS     ] tożsamość
+WERDYKT KANARKA: PASS CZYSTY — prompt udowodniony, batch dozwolony.
+===== k04 (BOHATER) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[FAIL     ] tożsamość
+WERDYKT KANARKA: FAIL — batch ZABLOKOWANY. Konkretne zalecenia:
+  * TOŻSAMOŚĆ: obca twarz w kadrze [{'klatka': 'kl_01.jpg', 'najbliżej': 'BOHATER', 'sim': 0.09}]. ZALECENIE: zła referencja lub przeciek drugiej postaci — użyj kadru z JEDNĄ osobą, referencja z właściwej domeny światła.
+===== k05 (BOHATER) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[PASS     ] tożsamość
+WERDYKT KANARKA: PASS CZYSTY — prompt udowodniony, batch dozwolony.
+===== k06 (JOZEK) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[FAIL     ] tożsamość
+WERDYKT KANARKA: FAIL — batch ZABLOKOWANY. Konkretne zalecenia:
+  * TOŻSAMOŚĆ: obca twarz w kadrze [{'klatka': 'kl_00.jpg', 'najbliżej': 'BOHATER', 'sim': 0.27}, {'klatka': 'kl_02.jpg', 'najbliżej': 'BOHATER', 'sim': 0.26}]. ZALECENIE: zła referencja lub przeciek drugiej postaci — użyj kadru z JEDNĄ osobą, referencja z właściwej domeny światła.
+KONIEC STRAZNIKA 4 KLIPOW REROLL
+# DECYZJE — odcinek #10010 "Kiedy złapiesz złodzieja jabłek" (remake Niemowy)
+
+2026-07-26 | "Idź naszą drogą!" + wklejony scenariusz 6 scen | Scenariusz = KANON #10010 (data/zarty/10010/KANON.md), zapis DOSŁOWNY; produkcja wg DROGA_ROLKA_HUMOR (kadry → kanarek → batch → strażnik → montaż z nową bramką sync); #10004 (ten sam żart) pozostaje ZAMROŻONY, nie dotykać | PRZYJĘTE, W AUDYCIE
+2026-07-26 | [AUDYT Etap 2, $0] | USTALENIA: (1) BLOKER OBSADY — kod produkcji zna tylko BOHATER i JANUSZ (GLOSY_VEO/KOLORY_ASS); scenariusz wymaga "young rustic man" = Józek, usuniętego z kodu 23.07 komendą Tomasza; preflight zablokuje każdy klip z mówcą spoza słownika. Ogrodnik = BOHATER/Tomek pasuje wprost (kanoniczny głos "low, gruff, determined middle-aged"). (2) SCENA 4 łamie zasadę DROGI "jeden mówca na klip": twarz złodzieja + głos ogrodnika zza kadru = Veo animuje usta złodzieja do cudzej kwestii (gwarantowany rozjazd ust). (3) PUENTA — głos piskliwy/zduszony poza standardowym repertuarem Veo; mitygacja DARMOWA w montażu (podbicie wysokości ffmpeg asetrate+atempo na gotowym klipie), nie regeneracja. (4) SŁOWA-MINY (przemoc/ból/"draniu"): FLAG nie blok, safety_tolerance=6, słowa Tomasza NIETYKALNE. (5) SFX scen 1-2 (cykady, trzask, bass drop) dokładane w montażu $0. (6) Noc = domena bohater_noc.jpg/janusz_noc.jpg z biblioteki, portrety za $0. (7) Szacunek: 6 kadrów $0.90 + 6 klipów $3.84 = ~$4.74 przy limicie $12 | CZEKA NA DECYZJĘ TOMASZA (obsada złodzieja + kształt sceny 4)
+2026-07-26 | "Józka wogóle nie trzeba wygrnerować. Jego ma być nie widać. On siedzi nocą w koronie jabłoni a Tomek ściska go za jądra tak mocno że on niemowa przemawia." | ROZSTRZYGNIĘCIE OBSADY (przebija scenariusz Gemini): JÓZEK NIEWIDOCZNY — zero kadrów, zero kart, zero portretów, żadnej nowej postaci w kodzie; siedzi w koronie jabłoni, istnieje wyłącznie jako GŁOS z góry w puencie. W KAŻDYM kadrze widać TYLKO TOMKA. Sceny 4 i 6 scenariusza (close-up twarzy złodzieja) SKASOWANE jako kadry — zastąpione ujęciami Tomka; kwestie z nich zostają bez zmiany słowa. Akcja: Tomek ściska Józka za jądra (w kadrze: ręka w gałęziach/góra kadru, Józka nie widać) aż niemowa przemawia | PRZYJĘTE — struktura przebudowana
+2026-07-26 | "K04 dodaj już głos Józka - Józek.... Piszczy" | KOREKTA KANONU: w scenie k04 (kwestia Tomka "Gadaj, pókim dobry, ktoś ty?!") słychać już Józka z korony — PISK, bez słów. Józek nadal NIEWIDOCZNY. Uzasadnienie realizacyjne (do weryfikacji u Tomasza jeśli sprzeciw): pisk bez artykulacji, bo niemowa PRZEMAWIA dopiero w puencie k06 ("To ja... Józek... niemowa ze wsi!") — gdyby wypowiedział słowo w k04, puenta traci sens. Narastanie: k04 pisk → k05 maksymalna wściekłość Tomka → k06 wyduszone słowa piskliwym głosem. Realizacja: pisk w prompcie Veo jako off-screen squeal z góry; jeśli Veo nie da — dogranie w montażu $0 (ta sama droga co piskliwy głos puenty) | PRZYJĘTE
+2026-07-26 | "Wydusi Józek" (odpowiedź na pytanie Claude'a, czy w k04 Józek ma wydusić słowo) | KOREKTA PRZEBIJA propozycję Claude'a (pisk bez artykulacji ODRZUCONY): w k04 Józek WYDUSZA Z SIEBIE słowo — kwestia off-screen z korony: "Józek...." wyduszone piskliwie, z bólu, urywane. Puenta k06 zostaje pełna: "To ja... Józek... niemowa ze wsi!". Narastanie: k03 pytanie → k04 pytanie Tomka + wyduszone "Józek...." z góry → k05 maksymalna wściekłość → k06 pełne zdanie piskliwie. Józek NADAL NIEWIDOCZNY w każdym kadrze; jego głos = off-screen (Veo w prompcie, zabezpieczenie: dogranie w montażu $0 z podbiciem wysokości, gdy Veo nie da piskliwości) | PRZYJĘTE
+2026-07-26 | "Trzeba to jakoś uwidocznić że łapie józka za jądra" | WYMÓG REŻYSERSKI: chwyt musi być czytelny dla widza, przy zachowaniu zasady "Józka nie widać". PROPOZYCJA CLAUDE'A (czeka na zgodę): w kadrze widać WYŁĄCZNIE NOGI zwisające z korony (nogawki + gumowce, zero twarzy/sylwetki/tożsamości — więc Józek pozostaje anonimowy do puenty i nie wymaga karty postaci ani nie ruszy strażnika tożsamości); ręka Tomka sięga w górę MIĘDZY zwisające nogi i zaciska się; reakcja: nogi gwałtownie sztywnieją i drgają, jeden gumowiec spada na ziemię (gag). Prompt do Veo opisuje wyłącznie: dłoń zaciskająca się w górze między nogawkami + reakcja nóg — ZERO nazw anatomii (jawne sformułowanie = pewny odrzut content policy); komizm niosą: gest, reakcja nóg, spadający but, pisk z korony i SFX | CZEKA NA ZGODĘ TOMASZA
+2026-07-26 | "Pasuje." | ZGODA na wizualizację chwytu przez zwisające nogi (nogawki+gumowce, zero twarzy/sylwetki) ORAZ na generację 6 kadrów nocnych za $0.90; referencja = bohater_noc.jpg z biblioteki ($0); skrypt data/zarty/10010/_gen_kadry.py Z GUARDEM __main__ (lekcja 10009) | W REALIZACJI
+2026-07-26 | [BLOKER — KONTO FAL NA MINUSIE] | Generacja kadrów 10010 padła NATYCHMIAST na uploadzie referencji: HTTP 403 Forbidden z rest.fal.ai/storage/auth/token. Przyczyna zweryfikowana: saldo konta fal = -5.06 USD (endpoint billing/user_balance, oba hosty zwracają to samo). WYDANE DZIŚ: $0 — upload nie przeszedł, żaden obraz się nie wygenerował. Doładowanie fal.ai/dashboard/billing może zrobić WYŁĄCZNIE Tomasz. Produkcja 10010 STOI do doładowania; kanon, struktura, prompty kadrów i skrypt (z guardem) gotowe i czekają. Kontekst zużycia: 10009 ~$13.17 (w tym $5.12 nieautoryzowanego duplikatu z importu _batch.py) + rolka foto 000098 $2.55 | ZGŁOSZONE TOMASZOWI
+2026-07-26 | "Doładowane" | Saldo zweryfikowane na żywo: 19.94 USD (było -5.06). Start generacji 6 kadrów nocnych za $0.90, limit odcinka $12 | W REALIZACJI
+2026-07-26 | [Etap 3 — kadry] | 6/6 kadrów wygenerowanych, ZERO błędów i zero odrzutów content policy (safety_tolerance=6, prompty bez nazw anatomii — sam gest i reakcja nóg); koszt $0.90/12; bramka A PASS 6/6 (dokładnie 1 twarz w każdym kadrze = tylko Tomek, sim vs bohater_noc 0.39-0.58, próg 0.35; zwisające nogi bez twarzy nie generują drugiej tożsamości — projekt się potwierdził); kadry na panelu /n150files/10010_kNN.jpg i na moście git tmp_weryfikacja/10010/ | CZEKA NA BRAMKĘ B (oko Tomasza)
+2026-07-26 | "K02 trzyma go za nogę" (bramka B) | k02 ODRZUCONY: chwyt nieczytelny — ręka na łydce/kostce zamiast wysoko między nogawkami; regeneracja z jawnym wskazaniem miejsca (dłoń zaciśnięta wysoko, tam gdzie nogawki się schodzą = krok spodni, POWYŻEJ kolan) + negatyw "nie za łydkę, nie za kostkę"; nadal zero nazw anatomii ($0.15) | W REALIZACJI
+2026-07-26 | [k02 próby] | v2 ($0.15): nano-banana NADAL położyła dłoń przy kostce (VLM), bramka A czysta (1 twarz 0.40) — model ucieka od chwytu w kroku; v3 ($0.15): zmiana KOMPOZYCJI zamiast opisu — kadr obcina buty/kostki poza dolną krawędzią (nogi widoczne od ud do pod kolana), ręka wchodzi z dołu kadru, Tomek od tyłu w rogu; łącznie k02 = 3 próby, budżet $1.20/12; odrzuty zachowane (k02_odrzucony_za_noge.jpg, k02_v2_kostka.jpg) | WERYFIKACJA
+2026-07-26 | "Ostatnie k02 jest OK. Ścisk za jajca jest najważniejszy jak i pisk. W każdym widocznym uchwycie ma być złapany za jajca" | (a) k02 v3 ZAAKCEPTOWANY (kompozycja: buty poza kadrem, ręka wchodzi z dołu, nogi od ud do pod kolana) = WZORZEC UCHWYTU dla całego odcinka; (b) HIERARCHIA ŻARTU wg Tomasza: ŚCISK i PISK to elementy najważniejsze — nie wolno ich rozmyć ani zastąpić sugestią; (c) WYMÓG: w KAŻDYM kadrze, w którym uchwyt jest widoczny (k04, k05, k06), chwyt ma być w tym samym miejscu co w k02 v3 — audyt VLM tych kadrów, regeneracja niezgodnych z k02 v3 jako kotwicą kompozycji | W REALIZACJI
+2026-07-26 | "K04 trzyma go za nogawkę" (bramka B) | k04 v2 ODRZUCONY: pięść na jednej nogawce z boku zamiast MIĘDZY nogawkami; przyczyna robocza — dołożenie twarzy Tomka do kadru rozbiło kompozycję uchwytu z k02; v3: instrukcja "ta sama kompozycja i ten sam chwyt co w k02" + jawny negatyw "pięść NIE na jednej nogawce, nie z boku — MIĘDZY nimi" ($0.15) | W REALIZACJI
+2026-07-26 | "K04 jeszcze nie dokładnie" (+ zrzut k04 v3) | k04 v3 ODRZUCONY: (1) pięść zaciśnięta na LUŹNEJ FAŁDZIE materiału pod siedzeniem spodni zamiast w kroku między udami, (2) nogi ułożone w odwrócone V (jakby Józek wisiał głową w dół), zamiast zwisać prosto w dół z gałęzi na której siedzi; v4: jawnie — Józek SIEDZI okrakiem na grubej gałęzi, obie nogi zwisają PIONOWO I RÓWNOLEGLE po obu stronach uniesionego ramienia, spodnie napięte bez luźnych fałd, pięść zamknięta dokładnie w szwie kroku między udami ($0.15) | W REALIZACJI
+2026-07-26 | "Jesteś poważny?!!!!" (+ zrzut k04 v4) | k04 v4 ODRZUCONY — ABSURD ANATOMICZNY: model odwrócił Józka głową w dół, BUTY są w koronie u góry, krok na dole; chwyt technicznie w kroku, ale scena bez sensu. BILANS k04: 4 próby ($0.60), każda z inną wadą (kostka → nogawka → luźna fałda → odwrócenie do góry nogami). WNIOSEK: pionowe sięganie ręką w górę między zwisające nogi jest geometrią, której nano-banana nie ogarnia — STOP z tym ujęciem. PROPOZYCJA ZMIANY UJĘCIA (czeka na słowo Tomasza, nic nie generuję): kadr Z BOKU, Józek siedzi na NISKIEJ gałęzi (od pasa w górę ukryty w liściach), nogi zwisają naturalnie w dół obok pnia, Tomek stoi przy nim i sięga ręką z boku między uda — geometria naturalna, twarz Tomka w kadrze, chwyt czytelny | WSTRZYMANE DO DECYZJI
+2026-07-26 | "Ile razy mam pisać że uchwyt jest najważniejszy!!! Ty piszesz chujowe prompty więc możesz się też dowiedzieć od innych ludzi jak to się robi!!! Nie masz dostępu do internetu???" | Tomasz ma rację: research praktyków (jego ZASADA KLUCZOWA) zrobiony dopiero po 4 nieudanych próbach i $0.60. Wyniki researchu w NAUKI_SERII; k04 v5 robiony metodą praktyków: EDYCJA zaakceptowanego k02 (Change only / Preserve / Constraint) zamiast nowego promptu | W REALIZACJI
+2026-07-26 | [k04 v5/v6 metodą praktyków] | v5 (edycja k02 bez portretu): chwyt POPRAWNY (pięść w kroku — metoda Change only/Preserve zadziałała za pierwszym razem), ale tożsamość 0.19 = obca twarz (model wymyślił twarz, bo w referencjach nie było portretu); v6 (DWIE referencje: k02 jako baza kompozycji + bohater_noc jako identity lock, ta sama formuła): tożsamość 0.46 PASS, 1 twarz. Bilans k04: 6 prób = $0.90; budżet odcinka $2.10/12 | CZEKA NA OKO TOMASZA
+2026-07-26 | "Ok" (na k04 v6) | k04 ZAAKCEPTOWANY — metoda edit/preserve + podwójna referencja (baza kompozycji + portret) zatwierdzona w boju jako STANDARD poprawek kadrów; k06 przerabiany tą samą metodą (powstał starą, VLM wskazywał pięść przy kostce) | W REALIZACJI
+2026-07-26 | "Ok" (na k06) | BRAMKA B ZAMKNIĘTA — wszystkie 6 kadrów zaakceptowanych (k06 sim 0.33 przeszedł na oko Tomasza mimo progu 0.35 — mimika osłupienia zaniża podobieństwo); k05 zostaje bez uchwytu (brak sprzeciwu, kadr czystej emocji); START KANARKA: k04 jako najbogatszy test ryzyk naraz — lip-sync kwestii Tomka + PISK JÓZKA Z OFFU + drżące nogi + chwyt w ruchu ($0.64) | W REALIZACJI
+2026-07-26 | [kanarek k04 submit] | preflight: 1. przebieg CZERWONY — bramka złapała kwestię w prompcie bez polskich znaków ("pokim/ktos" vs kanon "pókim/ktoś"), poprawione; 2. przebieg 16/16 ZIELONY; SUBMIT veo3.1 lite FLF, RID 019f9da5-52ec-7ff3-8dc0-9e8e73f08b04, $0.64; prompt: kwestia Tomka w cudzysłowie + pisk Józka opisany BEZ cudzysłowu (żeby nie złamać kontroli jednej pary cudzysłowów) | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+2026-07-26 | [KANAREK k04 — wynik] | technika PASS, napisy-widmo PASS, język PASS (whisper medium: kwestia Tomka + "Józek!" z offu — Veo DAŁO głos Józka), tożsamość FAIL (0.19-0.22 vs bohater_noc). ANALIZA 6 klatek: klip WIERNIE odtwarza zaakceptowany kadr k04 (sim vs kadr 0.45-0.83), ale sam kadr k04 odbiega od portretu z biblioteki (0.41) — bo powstał łańcuchem edycji k02→v5→v6, twarz była odtwarzana przez model. Czyli alert = DRYF TOŻSAMOŚCI OD BIBLIOTEKI (nowa lekcja: metoda edit/preserve zachowuje kompozycję, ale kumuluje dryf twarzy), NIE zepsucie w klipie ani przeciek drugiej postaci. PISK JÓZKA: jest, F0 239 Hz vs Tomek 167 Hz — za mało piskliwy, plan: podbicie do ~400 Hz w montażu ffmpeg asetrate+atempo, $0. Koszt: $2.89/12 | CZEKA NA DECYZJĘ TOMASZA: force+batch (5 klipów $3.20) czy najpierw poprawa kadru + drugi kanarek ($0.79)
+2026-07-26 | "Wyeliminować wszystkie błędy zanim pójdzie do veo" | FORCE ODRZUCONY — zasada na ten odcinek: żaden klip nie idzie do Veo, dopóki kadry nie są czyste. Plan: (1) pomiar tożsamości WSZYSTKICH 6 kadrów, (2) poprawa każdego poniżej 0.45 (margines na spadek w ruchu — kanarek pokazał spadek kadr 0.41 → klip 0.19), (3) ponowny pomiar, (4) dopiero wtedy kanarek/batch | W REALIZACJI
+2026-07-26 | [audyt kadrów przed Veo] | Pomiar 6 kadrów vs biblioteka: k01 0.58 OK, k02 brak twarzy (Tomek tyłem — kadr akcji, OK), k03 0.41 słabo, k04 0.46 (w klipie spadło do 0.19!), k05 0.55 OK, k06 0.33 poniżej progu. ŹRÓDŁO ZNALEZIONE: nie kadry, tylko sama referencja bohater_noc.jpg jest zdryfowana (0.59-0.63 vs reszta biblioteki, gdy baza↔karta 0.92) — wszystkie kadry odziedziczyły jej dryf. PLAN NAPRAWY U ŹRÓDŁA (czeka na zgodę, $0.60): (1) regeneracja bohater_noc z kotwicą baza+karta $0.15 — naprawa AKTYWU serii, nie tylko tego odcinka; (2) poprawa k03, k04, k06 metodą edit/preserve z nowym portretem 3×$0.15; (3) ponowny pomiar, cel ≥0.60 w kadrze (bo Veo zjada ~0.25 w ruchu) | CZEKA NA ZGODĘ
+2026-07-26 | "Czyli co? Idziemy dalej?" | ZGODA na plan naprawy $0.60: regeneracja bohater_noc z kotwicą baza+karta + poprawa k03/k04/k06 | W REALIZACJI
+2026-07-26 | "Szukaj odpowiedzi u nas w zapisach bo są rolki i są dobre albo dokładnie doczytaj u ludzi jak to robią" | ODPOWIEDŹ ZNALEZIONA W ZAPISACH (dwie przyczyny, obie po stronie Claude'a): (1) DROGA Etap 3 mówi "najważniejsze referencje w PIERWSZYCH slotach; skonfliktowane referencje = model uśrednia" — Claude dawał jako pierwszą referencję kadr k02, w którym twarz Tomka jest niewidoczna (kadr od tyłu), więc model uśredniał nieistniejącą twarz z portretem → dryf; (2) DECYZJE_10005 (odcinek NOCNY, zaakceptowany): kanarek "PASS: jezyk pl, Janusz 0.63" przy kadrze startowym = CZYSTY PORTRET z biblioteki — czyli noc NIE zaniża pomiaru, moja teza była błędna; 10010 miał łańcuch edycji (portret→k02 v1→v2→v3→k04 v5→v6→k06 v3 = 6 pokoleń kopii) = ten sam błąd, który DROGA 3.1 zakazuje przy klipach ("kserowanie kserówki"). NAPRAWA w ramach udzielonej zgody $0.60 (wydane $0.15): k03/k04/k06 od nowa, referencje w kolejności [bohater_noc = tożsamość, bohater_arkusz = dodatkowe widoki twarzy, k02 = tylko kompozycja chwytu], cel ≥0.50 | W REALIZACJI
+2026-07-26 | "I doczytaj u ludzi jak to robią" | RESEARCH WYKONANY (5 źródeł praktyków, zapis w NAUKI_SERII): kluczowe czego nie robiłem — 4-6 referencji zamiast 1-2, twarz musi zajmować 30-50% kadru referencyjnego (nasze portrety: ~10-15%), identity lock formułą "same eyes, nose shape, jawline contour, skin texture", reuse tych samych tokenów opisowych. WYKONANE ZA $0: cropy twarzy crop_baza.jpg (40%), crop_karta.jpg (51%), crop_noc.jpg (40%) do assets/zarty/karty/ — nowy standard referencji serii. Regeneracja k03/k04/k06 z zestawem: crop_noc + crop_baza + crop_karta + arkusz + kadr kompozycji na końcu ($0.45 z wcześniejszej zgody) | W REALIZACJI
+2026-07-26 | [wynik regeneracji z 5 referencjami] | k03_new 0.27, k04_new 0.17, k06_new 0.36-0.20 — WSZYSTKIE GORSZE od poprzednich (0.41/0.46/0.33); nowe kadry zostają jako *_new.jpg, obowiązujące pozostają stare. Koszt $3.49/12. Zmierzona zasada: mniej referencji = lepiej, dopóki biblioteka nie jest wewnętrznie spójna | ZGŁOSZONE TOMASZOWI
+2026-07-26 | "B" | Kończymy 10010 na tym co jest: k04 i k06 regenerowane ŚWIEŻO z JEDNĄ referencją bohater_noc (metoda k01/k05, które dały najlepsze 0.55-0.58), zero łańcucha edycji, prompt łączy kompozycję z k02 (nogi, buty poza kadrem, pięść w kroku) z twarzą jak w k01/k05; naprawa biblioteki Tomka = osobny temat poza tym odcinkiem ($0.30) | W REALIZACJI
+2026-07-26 | [wynik B] | k04_b sim 0.46 (bez zmiany, ale bez łańcucha edycji), k06_b sim 0.55 (było 0.33 — +0.22, najlepszy wynik w odcinku obok k01/k05); OBA PODSTAWIONE jako obowiązujące, stare zachowane (k04_lancuch_046.jpg, k06_lancuch_033.jpg). POTWIERDZENIE ZASADY: jedna referencja z właściwej domeny > wiele referencji z niespójnej biblioteki. Koszt $3.79/12 | CZEKA NA BRAMKĘ B
+2026-07-26 | "Weryfikacja nie Halucynacja robiłeś to dzisiaj kilka razy więc dlaczego popełniasz dalej błędy" + zrzuty k04/k06 (PUSTE SPODNIE, bez człowieka) | k04_b i k06_b ODRZUCONE. Przyczyna obrazu: prompt "no face, no head, no torso, no silhouette" wzięty przez model dosłownie = wygenerował puste portki jak pranie. Przyczyna procesowa: VLM OSTRZEGAŁ ("nogi nie zwisają w dół") — zignorowane, pytania były naprowadzające, zabrakło pytania o sedno (czy w spodniach jest człowiek). Lekcja w NAUKI_SERII. NIC nie generuję do decyzji Tomasza o kształcie ujęcia (propozycja: nogi + fragment tułowia okrakiem na gałęzi, głowa i twarz w listowiu) | STOP, CZEKA NA DECYZJĘ
+2026-07-26 | "Jak można anulować starzników po co oni są?" | Przyznanie: Claude nadużył prawa do force — "wzorzec k09" był używany jako domyślna wymówka do przepuszczania FAIL-i tożsamości (10009 k05 przepuszczony własną decyzją; 10010 kadry poniżej progu prezentowane jako "do oka"). NOWA TWARDA REGUŁA (NAUKI_SERII): FAIL = STOP; naprawa albo force, a force wypowiada wyłącznie Tomasz po dowodach. Bez wyjątków, także przy presji czasu | PRZYJĘTE NA STAŁE
+2026-07-26 | "Dlaczego ja nie widzę tych odpowiedzi strażników" | Wdrożony wrapper jawności tools/bramka_raport.sh (raport → panel + Telegram); pierwszy raport na żywo: kanarek k04 (FAIL tożsamość 0.19-0.22) wystawiony na /n150files/10010_raport_kanarek_k04.txt, Telegram wysłany; commit wrappera do repo | WDROŻONE
+2026-07-26 | "Popraw" | ZGODA na kształt ujęcia: w koronie widać CZŁOWIEKA — biodra/dolny tułów okrakiem na grubej gałęzi, obie nogi w spodniach WYPEŁNIONYCH nogami zwisają w dół, stopy w GUMOWCACH (kanon rekwizytów: nogawki+gumowce, gumowiec spada w k05); głowa, ramiona i twarz całkowicie w listowiu = Józek nierozpoznawalny do puenty. Regeneracja k04+k06 świeżo, 1 referencja bohater_noc (zasada zmierzona), $0.30. Weryfikacja NOWĄ procedurą: najpierw OTWARTY opis VLM, potem detale, sprzeczność=FAIL, raport bramki A na panel+Telegram | W REALIZACJI
+2026-07-26 | [wynik "Popraw"] | k04+k06 przegenerowane z człowiekiem na gałęzi ($0.30) + k06 raz poprawiony po FAIL bramki A ($0.15) — budżet $4.24/12. STAN wg bramki A (raporty na panelu, TG wysłane): k04 — detale VLM zgodne z zamierzeniem (nogawki WYPEŁNIONE, pięść wysoko między udami, nogi w dół, tułów na gałęzi), 1 twarz 0.37, opis otwarty pogmatwany (VLM plecie o "pomaganiu zdobyć jabłko") = FLAGA; k06 v6 — sędzia PRZECZY SAM SOBIE: opis otwarty widzi człowieka z butami na gałęzi, detale twierdzą "puste spodnie"; 1 twarz 0.56, pięść między udami, głowa w liściach. WNIOSEK: osiągnięty limit wiarygodności qwen2.5vl:7b jako sędziego tej sceny; zgodnie z regułą FAIL=STOP Claude NIE generuje dalej i NIE rozstrzyga sam — oba kadry + surowe raporty idą pod oko Tomasza (bramka B rozstrzyga) | STOP, CZEKA NA WERDYKT
+2026-07-26 | "Nie trzymie go na obydwuch zdjęciach za jaja" (bramka B) | k04 i k06 (wersje "okrakiem na gałęzi") ODRZUCONE — chwyt nie siedzi; sędzia VLM znowu potwierdzał "pięść między udami" wbrew oku Tomasza = VLM niewiarygodny dla tej sceny, decyduje wyłącznie bramka B. DIAGNOZA GEOMETRII: osoba siedząca OKRAKIEM na gałęzi ma krok NA gałęzi — chwytu od dołu fizycznie nie da się tam położyć, dlatego model kładł pięść na nodze. Geometria zaakceptowanego k02 (nogi zwisają razem z listowia, zbieg nogawek odsłonięty) jest jedyną, w której chwyt wychodzi. NAPRAWA $0: przywrócenie wersji z ZAAKCEPTOWANYM przez Tomasza chwytem — k04_lancuch_046.jpg (v6, "Ok") i k06_lancuch_033.jpg (v3, "Ok") wracają jako obowiązujące; wersje okrakiem do zapasu | PRZYWRÓCONE, CZEKA NA POTWIERDZENIE + DECYZJĘ O KANARKU
+2026-07-26 | "Dawaj" | ZGODA na kanarka #2 k04 ($0.64): kadr = przywrócony k04 (zaakceptowany chwyt), prompt Veo ze wzmocnioną tożsamością (pełne tokeny + "the same man with the same face for the entire clip, his facial features never change" + kamera trzyma twarz w świetle przez cały klip); preflight i kanarek przez wrapper jawności | W REALIZACJI
+2026-07-26 | [kanarek2 submit] | preflight 16/16 ZIELONY (raport na panelu+TG); SUBMIT veo3.1 lite FLF z kadru k04 (zaakceptowany chwyt), RID zapisany w gen_state_k04_kanarek2.json | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+2026-07-26 | [kanarek2 — wynik i dowody] | Technika/napisy/język PASS, PISK JEST (whisper medium: kwestia + "Józek!" 2.3-3.1s), tożsamość FORMALNY FAIL (1 klatka kl_09 sim 0.2; w pierwszym kanarku były 2). Diagnostyka klatek co 1s: vs ZAAKCEPTOWANY KADR 0.39-0.87 (kotwice 0.81/0.87 — klip wierny kadrowi), f06-f07 bez twarzy (moment szarpnięcia/kamera przy nogach), vs biblioteka 0.25-0.40 (znany nocny poziom). Zgodnie z regułą FAIL=STOP: zero batcha, zero wydatków — klip wystawiony Tomaszowi do oka (faststart), decyzja force/poprawka/odrzut należy do niego. Budżet $4.88/12 | CZEKA NA WERDYKT TOMASZA
+2026-07-26 | "A piskliwy głos Józka???? Zapomniałeś już" | TOMASZ MA RACJĘ — pomiar na oknie słowa (whisper word-timestamps 2.48-2.90s): Tomek 230 Hz, "Józek!" 235 Hz = TEN SAM zwykły męski głos, ŻADNEGO pisku; moje "PISK JEST" w raporcie kanarka2 było kolejnym niezweryfikowanym twierdzeniem (słowo ≠ pisk). Realizacja zapisanego planu $0: pitch-up segmentu w montażu — DWA WARIANTY DEMO na panelu do ucha Tomasza: A ×1.7 (~400 Hz), B ×2.2 (~515 Hz, helowo-zduszony); tempo bez zmian, reszta klipu nietknięta. Ta sama obróbka pójdzie na każdy klip z głosem Józka (k04, k06) deterministycznie w montażu — pisk przestaje zależeć od loterii Veo | CZEKA NA WYBÓR A/B (albo odrzut → inne podejście)
+2026-07-26 | "Pierwszy" | (a) PISK = WARIANT A (×1.7, ~400 Hz) — obowiązuje dla każdego głosu Józka w montażu (k04 i k06); (b) pytanie było skonstruowane "A czy B + przy tym samym słowie force na batch" → "Pierwszy" = także FORCE NA BATCH 5 klipów ($3.20) mimo formalnego FAIL tożsamości kanarka (interpretacja z konstrukcji pytania Claude'a, zapisana jawnie). Budżet po batchu: $8.08/12 | W REALIZACJI
+2026-07-26 | [zmiana konfiguracji pod kanon] | k06 = kwestia JÓZKA (off-screen), a GLOSY_VEO zna tylko duet → dodany klucz "JOZEK" z głosem WPROST z kanonu Tomasza ("niezwykle piskliwy, nienaturalnie wysoki, zduszony, łamiący się, wyciśnięty z resztek sił"); to GŁOS epizodyczny na potrzeby 10010, NIE powrót postaci wizualnej z banku (komenda 23.07 "zostaw Tomasza i Janusza" dotyczyła obsady widocznej — kanon 10010 sam wprowadza głos Józka); backup kodu przed zmianą | W REALIZACJI
+2026-07-26 | [naprawy przed batchem] | (1) preflight.py: kontrola twarzy mówcy zasadnie POMIJANA dla klipów niemych (--bez-dialogu) i mówców zza kadru bez karty (JOZEK) — luka narzędzia wykryta przez batch, naprawiona z backupem (/tmp/preflight_backup_10010.py), regresja czysta (k01 niemy POMINIĘTY+ZIELONY, k04 dialog PASS 0.41); (2) k03: edycja standardowa dała 0.31 (za mało), ŚWIEŻA generacja z bohater_noc = 0.49 vs karta / 0.58 vs noc — NAJLEPSZY k03, podstawiony (zapasy k03_v1_033, k03_v2_031); wystawiony na panel do wglądu. Koszt napraw $0.30, budżet $5.18/12 | ZROBIONE, BATCH STARTUJE
+2026-07-26 | [BATCH submit] | 5/5 preflight ZIELONY (raport panel+TG); SUBMIT 5× veo3.1 lite FLF, PEŁNE RIDy: k01 019f9dea-d398-72d3-8492-f99e1e10517d, k02 019f9dea-d9eb-7080-9ff6-1d5fc545f5cb, k03 019f9dea-e050-7e82-b348-b4a7fb49666d, k05 019f9dea-e6fb-7660-848f-d22dc05c32bf, k06 019f9dea-ef2b-7a72-b776-599cad94fe9f; $3.20, budżet $8.38/12 | CZEKA NA WYNIKI
+2026-07-26 | [strażnik batchu — wyniki] | k02, k03, k05 PASS CZYSTY (k03 po świeżym kadrze przeszedł!); k01 PASS Z UWAGĄ (plan szeroki = mała twarz, zgodne z zamysłem zasadzki); k06 FAIL tożsamość (0.27-0.30, kadr miał 0.33) — zgodnie z regułą FAIL=STOP decyzja force/naprawa należy do Tomasza. TREŚĆ k06 POPRAWNA: whisper medium słyszy pełną puentę "To ja, Józek, niemowa ze wsi." (0.0-5.68s), F0 145 Hz (Veo dało NISKI głos — wariant A ×1.7 w montażu podbije do ~250... UWAGA: 145×1.7=247 Hz to za mało na pisk, dla k06 potrzebny większy mnożnik, do przetestowania na tym klipie przy montażu, $0). Podglądy 5 klipów na panelu (faststart). Budżet $8.38/12 | CZEKA NA WERDYKT: k06 force/naprawa
+2026-07-26 | "Japierdole" (po wystawieniu 5 klipów batchu) | reakcja bez wskazania konkretu — NIC nie ruszać (dotyczy też innych okien), zero generacji i wydatków, czekam na wskazanie: który klip i co jest nie tak | STOP
+2026-07-26 | "Wszystko jest zjebane" (werdykt po obejrzeniu 5 klipów batchu) | CAŁOŚCIOWY ODRZUT — bez wskazania konkretu; zamiast trzeci raz pytać, Claude robi PEŁNĄ diagnostykę własną ($0): transkrypcje whisper medium wszystkich klipów vs kanon (kontrola, której brakowało — lekcja 10009 niewdrożona!), otwarte opisy VLM klatek każdego klipu, macierz spójności twarzy Tomka MIĘDZY klipami (hipoteza: inny Tomek w każdym klipie — kadry mają między sobą tylko 0.38-0.58) | DIAGNOSTYKA W TOKU, ZERO WYDATKÓW
+2026-07-26 | [diagnoza całości — USTALENIA] | Dźwięk: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), k01/k02 nieme jak trzeba. OBRAZ — SCENY ROZPADAJĄ SIĘ W ŚRODKU KLIPÓW (otwarte opisy VLM na 4s): k02 ŚCISK ZNIKA — jakaś postać NA drzewie zbiera coś, przedmioty spadają; k04 Tomek ZAWIESZONY W PNIU, trzyma się gałęzi nogami rozłożonymi szeroko; k05 gumowiec WISI NA SZNURKU na gałęzi (VLM sam pisze "absurdalnie"); k06 chwyt znika, Tomek PODCIĄGA WŁASNE SPODNIE na biodrze; k03 znośny; k01 Tomek "spokojny zamyślony" zamiast zasadzki. PRZYCZYNA: (a) FLF kotwiczy tylko 1. i ostatnią klatkę — środek jest wolny (znane: "FLF = interpolacja"), a moje prompty opisywały DYNAMICZNE akcje ("legs JERK violently", "fist TIGHTENS, knuckles whiten") sprzeczne z "holds the exact pose" — Veo wybrało akrobatykę; w 10008/09 prompty były "holds pose + mówi" i działały; (b) LUKA BRAMEK: kanarek nie ma sędziego VLM scen (POMINIĘTY) — rozpad sceny w środku klipu jest niewidzialny dla technicznego/tożsamości; otwarty opis VLM środka klipu = brakująca bramka, wdrożyć na stałe | ZGŁOSZONE, PLAN NAPRAWY U TOMASZA
+2026-07-26 | "Przenieś wszystko co spierdoliłeś i nad czym pracowaliśmy dzisiaj bo idę do innego okna" | PRZEKAZANIE WYKONANE: wiedza/PRZEKAZANIE_2026-07-26_10010.md (pełny stan+diagnoza+plan+reguły dnia), wskaźnik w 1. linii TELEPORT_fabryka.md, LOCK ustawiony na PRZEKAZANY, backup preflightu do wiedza/backupy/, wszystko w gicie | OKNO ZAMKNIĘTE
+2026-07-26 | [przejęcie okna] | nowe okno (czat /route) przejęło odcinek wg PRZEKAZANIA; ZWERYFIKOWANE na żywo: LOCK był PRZEKAZANY, commit c0494b8 na origin (main==origin/main), zero procesów, budżet $8.38/12 zgodny | PRZEJĘTE, CZEKA NA SŁOWO TOMASZA (plan re-rolli)
+2026-07-26 | "Działaj" | zgoda na pakiet: re-roll k02/k04/k05/k06 w reżimie statycznym (prompty pracownika + poprawki szefa: k05=wariant B BEZ zdania o gumowcu, kamera locked-off) $2.56 + edycja kadru k05 (usunięcie gumowca z powietrza) $0.15 ≈ $2.71, budżet docelowo ~$11.09/12; k01/k03 BEZ re-rollu — ocena przy montażu; kolejność: sędzia anonimowy ($0) → bramka A kadru → preflight (jawność panel+TG) → submit | W REALIZACJI
+2026-07-26 | [sędzia anonimowy — werdykt] | k05 PASS, k06 PASS; k02 ZARZUT (brak cudzysłowów) ODRZUCONY przez szefa — klip niemy, reguła dotyczy klipów z kwestią, rozstrzyga preflight; k04 ZARZUT (pisk = drugi głos, pretekst ożywienia korony) CZĘŚCIOWO ZASADNY — mitygacja w prompcie (causes no visible movement) + bramka otwartego opisu środka klipu FAIL=STOP; pisk w k04 zostaje (oczekiwanie Tomasza: 'A piskliwy głos Józka????' po kanarku2) | ZAMKNIĘTE, IDZIE KADR K05
+2026-07-26 | [re-roll submit] | kadr k05: gumowiec usunięty nano-banana-pro/edit $0.15 (backup k05_gumowiec_w_powietrzu.jpg, bramka A PASS: VLM but=NIE twarz=TAK, raport+podgląd na panelu); preflight 4/4 ZIELONY (raport panel+TG); SUBMIT 4× veo3.1 lite FLF $2.56, PEŁNE RIDy: k02 019f9e8d-6089-75f0-b4c9-9db365ddbe20, k04 019f9e8d-6654-7651-993a-262a8704c159, k05 019f9e8d-6dca-75a2-90b7-f9ae9ba21a08, k06 019f9e8d-75a2-7d50-8faf-3df26ad84cf5; budżet $11.09/12 | CZEKA NA WYNIKI → strażnik + NOWA bramka otwartego opisu środka klipu
+
+exec
+/bin/bash -lc "find data/zarty/10010 -maxdepth 3 -type f | sort | sed -n '1,240p'; find assets/zarty/karty -maxdepth 1 -type f -name 'bohater_noc.jpg' -print" in /root/rod-ai-studio
+ succeeded in 0ms:
+data/zarty/10010/KANON.md
+data/zarty/10010/LOCK
+data/zarty/10010/_batch10010.py
+data/zarty/10010/_bramka_srodka.py
+data/zarty/10010/_edit_k05.py
+data/zarty/10010/_gen_kadry.log
+data/zarty/10010/_gen_kadry.py
+data/zarty/10010/_klipy_batch.json
+data/zarty/10010/_klipy_reroll.json
+data/zarty/10010/_okno_jozka.txt
+data/zarty/10010/_pobierz_reroll.py
+data/zarty/10010/_pracownik_out.txt
+data/zarty/10010/_prompt_k04.txt
+data/zarty/10010/_prompt_k04_v2.txt
+data/zarty/10010/_reroll10010.py
+data/zarty/10010/_sedzia_out.txt
+data/zarty/10010/_straz_batch.py
+data/zarty/10010/_straz_reroll.py
+data/zarty/10010/_straznicy_reroll.log
+data/zarty/10010/_vlm_k05_check.py
+data/zarty/10010/_zadanie_pracownika.md
+data/zarty/10010/_zadanie_sedziego.md
+data/zarty/10010/_zadanie_zenka_analiza.md
+data/zarty/10010/_zenek_analiza_out.txt
+data/zarty/10010/diag/f1.jpg
+data/zarty/10010/diag/f2.jpg
+data/zarty/10010/diag/f3.jpg
+data/zarty/10010/diag/f4.jpg
+data/zarty/10010/diag/f5.jpg
+data/zarty/10010/diag/f6.jpg
+data/zarty/10010/diag2/f01.jpg
+data/zarty/10010/diag2/f02.jpg
+data/zarty/10010/diag2/f03.jpg
+data/zarty/10010/diag2/f04.jpg
+data/zarty/10010/diag2/f05.jpg
+data/zarty/10010/diag2/f06.jpg
+data/zarty/10010/diag2/f07.jpg
+data/zarty/10010/diag2/f08.jpg
+data/zarty/10010/diag3/k01_1.jpg
+data/zarty/10010/diag3/k01_2.jpg
+data/zarty/10010/diag3/k01_3.jpg
+data/zarty/10010/diag3/k02_1.jpg
+data/zarty/10010/diag3/k02_2.jpg
+data/zarty/10010/diag3/k02_3.jpg
+data/zarty/10010/diag3/k03_1.jpg
+data/zarty/10010/diag3/k03_2.jpg
+data/zarty/10010/diag3/k03_3.jpg
+data/zarty/10010/diag3/k04_v2_1.jpg
+data/zarty/10010/diag3/k04_v2_2.jpg
+data/zarty/10010/diag3/k04_v2_3.jpg
+data/zarty/10010/diag3/k05_1.jpg
+data/zarty/10010/diag3/k05_2.jpg
+data/zarty/10010/diag3/k05_3.jpg
+data/zarty/10010/diag3/k06_1.jpg
+data/zarty/10010/diag3/k06_2.jpg
+data/zarty/10010/diag3/k06_3.jpg
+data/zarty/10010/gen_state_batch_k01.json
+data/zarty/10010/gen_state_batch_k02.json
+data/zarty/10010/gen_state_batch_k03.json
+data/zarty/10010/gen_state_batch_k05.json
+data/zarty/10010/gen_state_batch_k06.json
+data/zarty/10010/gen_state_k04.json
+data/zarty/10010/gen_state_k04_kanarek2.json
+data/zarty/10010/gen_state_reroll_k02.json
+data/zarty/10010/gen_state_reroll_k04.json
+data/zarty/10010/gen_state_reroll_k05.json
+data/zarty/10010/gen_state_reroll_k06.json
+data/zarty/10010/k04_audio.wav
+data/zarty/10010/k04v2_audio.wav
+data/zarty/10010/k06_audio.wav
+data/zarty/10010/kadry/k01.jpg
+data/zarty/10010/kadry/k02.jpg
+data/zarty/10010/kadry/k02_odrzucony_za_noge.jpg
+data/zarty/10010/kadry/k02_v2_kostka.jpg
+data/zarty/10010/kadry/k03.jpg
+data/zarty/10010/kadry/k03_new.jpg
+data/zarty/10010/kadry/k03_v1_033.jpg
+data/zarty/10010/kadry/k03_v2_031.jpg
+data/zarty/10010/kadry/k04.jpg
+data/zarty/10010/kadry/k04_bez_uchwytu.jpg
+data/zarty/10010/kadry/k04_lancuch_046.jpg
+data/zarty/10010/kadry/k04_new.jpg
+data/zarty/10010/kadry/k04_v2_nogawka.jpg
+data/zarty/10010/kadry/k04_v3_falda.jpg
+data/zarty/10010/kadry/k04_v4_doGoryNogami.jpg
+data/zarty/10010/kadry/k04_v5_obcaTwarz.jpg
+data/zarty/10010/kadry/k04_v7_pusteSpodnie.jpg
+data/zarty/10010/kadry/k04_v8_okrakiem.jpg
+data/zarty/10010/kadry/k05.jpg
+data/zarty/10010/kadry/k05_gumowiec_w_powietrzu.jpg
+data/zarty/10010/kadry/k06.jpg
+data/zarty/10010/kadry/k06_bez_uchwytu.jpg
+data/zarty/10010/kadry/k06_lancuch_033.jpg
+data/zarty/10010/kadry/k06_new.jpg
+data/zarty/10010/kadry/k06_v2_staraMetoda.jpg
+data/zarty/10010/kadry/k06_v4_pusteSpodnie.jpg
+data/zarty/10010/kadry/k06_v5_pusteVLM.jpg
+data/zarty/10010/kadry/k06_v6_okrakiem.jpg
+data/zarty/10010/klip_k01.mp4
+data/zarty/10010/klip_k02.mp4
+data/zarty/10010/klip_k02_reroll.mp4
+data/zarty/10010/klip_k03.mp4
+data/zarty/10010/klip_k04.mp4
+data/zarty/10010/klip_k04_reroll.mp4
+data/zarty/10010/klip_k04_v2.mp4
+data/zarty/10010/klip_k05.mp4
+data/zarty/10010/klip_k05_reroll.mp4
+data/zarty/10010/klip_k06.mp4
+data/zarty/10010/klip_k06_reroll.mp4
+data/zarty/10010/raporty/batch_preflight_submit.txt
+data/zarty/10010/raporty/batch_preflight_submit2.txt
+data/zarty/10010/raporty/bramkaA_k04_k06_czlowiek.txt
+data/zarty/10010/raporty/bramkaA_v2_k04_k06.txt
+data/zarty/10010/raporty/bramka_srodka_reroll.txt
+data/zarty/10010/raporty/diagnoza_calosc_1.txt
+data/zarty/10010/raporty/kadr_k05_bez_gumowca.txt
+data/zarty/10010/raporty/kanarek2_k04.txt
+data/zarty/10010/raporty/kanarek_k04.txt
+data/zarty/10010/raporty/preflight_i_submit_reroll.txt
+data/zarty/10010/raporty/preflight_kanarek2_k04.txt
+data/zarty/10010/raporty/straznik_batch.txt
+data/zarty/10010/raporty/straznik_reroll.txt
+assets/zarty/karty/bohater_noc.jpg
+
+codex
+## DIAGNOZA
+
+Strażnik wykrył niskie podobieństwo klatek do `bohater_noc.jpg`, ale nie udowodnił, że Veo wstawiło obcą osobę. Porównuje klipy ze zdryfowanym aktywem bibliotecznym, a nie z faktycznym zaakceptowanym kadrem wejściowym.
+
+- `k04`: pojedyncze `0.09` jest alarmem wymagającym obejrzenia lub pomiaru względem kadru. Samo nie dowodzi obcej twarzy. W poprzednim kanarku ten sam typ klipu miał `0.39–0.87` względem kadru, mimo `0.25–0.40` względem biblioteki.
+- `k06`: `0.26–0.27` przy kadrze mającym tylko `0.33` względem biblioteki nie jest zaskakujące. Spadek jest nawet mniejszy niż zmierzone typowe `~0.25`. To wskazuje raczej na zachowanie zdryfowanej twarzy niż jej podmianę.
+- PASS-y `k01`, `k02` i `k05` pokazują, że sama referencja nie powoduje automatycznie zepsucia każdego klipu. Wynik zależy również od kąta twarzy, mimiki, światła i wielkości twarzy.
+- Te FAIL-e mówią więc: „wybrane klatki są słabo podobne do wadliwej kotwicy bibliotecznej”. Nie mówią jeszcze: „w klipie występuje inny człowiek”.
+- Analiza dotyczy wyłącznie tożsamości. Nie unieważnia wcześniejszej bramki środka klipu ani oceny sceny, chwytu, pisku i geometrii.
+
+## WERDYKT WOBEC HIPOTEZ
+
+- **H1 — SPRZECIW jako stwierdzenie faktu:** kąt, cień lub otwarte usta są prawdopodobnym wyjaśnieniem `0.09`, ale bez pomiaru tej klatki względem `k04.jpg` albo jej oględzin nie wolno twierdzić, że to na pewno nie jest obca twarz.
+- **H2 — ZGODA:** `0.26–0.27` przy kadrze `0.33` jest zgodne z zachowaniem tej samej, już słabo zakotwiczonej twarzy; wynik nie stanowi dowodu podmiany osoby.
+- **H3 — ZGODA z ograniczeniem:** dryf `bohater_noc.jpg` wyjaśnia źródło formalnych FAIL-i tożsamości, ale nie dowodzi automatycznie, że klipy są poprawne wizualnie lub fabularnie.
+- **H4 — ZGODA:** wierność wygenerowanego klipu należy rozstrzygać względem zaakceptowanego kadru wejściowego; osobny pomiar względem biblioteki służy do audytu dryfu całego łańcucha.
+
+## SKRYPT
+
+```python
+#!/app/venv/bin/python
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+import cv2
+import numpy as np
+from insightface.app import FaceAnalysis
+
+PYTHON = "/app/venv/bin/python"
+FFMPEG = "/usr/bin/ffmpeg"
+ROOT = Path("/app")
+EPISODE = ROOT / "data/zarty/10010"
+FRAMES_ROOT = Path("/tmp/10010_identity_check")
+LIBRARY_REFERENCE = ROOT / "assets/zarty/karty/bohater_noc.jpg"
+
+CLIPS = {
+    "k04": EPISODE / "klip_k04_reroll.mp4",
+    "k06": EPISODE / "klip_k06_reroll.mp4",
+}
+
+ACCEPTED_FRAMES = {
+    "k04": EPISODE / "kadry/k04.jpg",
+    "k06": EPISODE / "kadry/k06.jpg",
+}
+
+# Próg pomocniczy zgodny z używaną bramką.
+# Decyzję opieramy przede wszystkim na podobieństwie do zaakceptowanego kadru.
+FRAME_THRESHOLD = 0.35
+
+
+def require_file(path: Path) -> None:
+    if not path.is_file():
+        raise FileNotFoundError(f"Brak pliku: {path}")
+
+
+def extract_frames(video: Path, output_dir: Path) -> list[Path]:
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    pattern = output_dir / "kl_%03d.jpg"
+    command = [
+        FFMPEG,
+        "-hide_banner",
+        "-loglevel", "error",
+        "-y",
+        "-i", str(video),
+        "-vf", "fps=1",
+        "-q:v", "2",
+        str(pattern),
+    ]
+    subprocess.run(command, check=True)
+
+    frames = sorted(output_dir.glob("kl_*.jpg"))
+    if not frames:
+        raise RuntimeError(f"FFmpeg nie wyciągnął klatek z {video}")
+    return frames
+
+
+def largest_face(app: FaceAnalysis, image_path: Path):
+    image = cv2.imread(str(image_path))
+    if image is None:
+        raise RuntimeError(f"Nie można odczytać obrazu: {image_path}")
+
+    faces = app.get(image)
+    if not faces:
+        return None
+
+    return max(
+        faces,
+        key=lambda face: (
+            float(face.bbox[2] - face.bbox[0])
+            * float(face.bbox[3] - face.bbox[1])
+        ),
+    )
+
+
+def normalized_embedding(face, image_path: Path) -> np.ndarray:
+    if face is None:
+        raise RuntimeError(f"Nie wykryto twarzy w referencji: {image_path}")
+
+    embedding = np.asarray(face.embedding, dtype=np.float32)
+    norm = float(np.linalg.norm(embedding))
+    if norm == 0:
+        raise RuntimeError(f"Zerowy embedding twarzy: {image_path}")
+    return embedding / norm
+
+
+def cosine(a: np.ndarray, b: np.ndarray) -> float:
+    return float(np.dot(a, b))
+
+
+def verdict(similarities: list[float | None]) -> tuple[str, str]:
+    detected = [value for value in similarities if value is not None]
+    if not detected:
+        return "NIE ROZSTRZYGNIĘTO", "w żadnej klatce nie wykryto twarzy"
+
+    passed = sum(value >= FRAME_THRESHOLD for value in detected)
+    ratio = passed / len(detected)
+    median = float(np.median(detected))
+    minimum = min(detected)
+
+    # Pojedyncza trudna klatka nie przesądza o zmianie osoby.
+    # Wymagamy, aby większość wykrytych twarzy trzymała zaakceptowany kadr.
+    if ratio >= 0.60 and median >= FRAME_THRESHOLD:
+        reason = (
+            f"{passed}/{len(detected)} wykrytych twarzy ma sim >= "
+            f"{FRAME_THRESHOLD:.2f}; mediana={median:.2f}, min={minimum:.2f}"
+        )
+        return "WIERNY KADROWI", reason
+
+    reason = (
+        f"tylko {passed}/{len(detected)} wykrytych twarzy ma sim >= "
+        f"{FRAME_THRESHOLD:.2f}; mediana={median:.2f}, min={minimum:.2f}"
+    )
+    return "OBCA TWARZ / SILNY DRYF W KLIPIE", reason
+
+
+def main() -> int:
+    if Path(sys.executable).resolve() != Path(PYTHON).resolve():
+        print(
+            f"UWAGA: zalecany interpreter to {PYTHON}; "
+            f"uruchomiono {sys.executable}",
+            file=sys.stderr,
+        )
+
+    require_file(Path(FFMPEG))
+    require_file(LIBRARY_REFERENCE)
+    for path in list(CLIPS.values()) + list(ACCEPTED_FRAMES.values()):
+        require_file(path)
+
+    # Buffalo_l może użyć GPU, jeżeli provider CUDA jest dostępny;
+    # CPU pozostaje bezpiecznym fallbackiem.
+    app = FaceAnalysis(
+        name="buffalo_l",
+        providers=["CUDAExecutionProvider", "CPUExecutionProvider"],
+    )
+    app.prepare(ctx_id=0, det_size=(640, 640))
+
+    library_embedding = normalized_embedding(
+        largest_face(app, LIBRARY_REFERENCE),
+        LIBRARY_REFERENCE,
+    )
+
+    for shot in ("k04", "k06"):
+        accepted_path = ACCEPTED_FRAMES[shot]
+        accepted_embedding = normalized_embedding(
+            largest_face(app, accepted_path),
+            accepted_path,
+        )
+
+        accepted_vs_library = cosine(
+            accepted_embedding,
+            library_embedding,
+        )
+
+        frames = extract_frames(
+            CLIPS[shot],
+            FRAMES_ROOT / shot,
+        )
+
+        print()
+        print("=" * 82)
+        print(f"{shot}: {CLIPS[shot]}")
+        print(f"Zaakceptowany kadr: {accepted_path}")
+        print(f"Biblioteka:          {LIBRARY_REFERENCE}")
+        print(
+            "Kadr vs biblioteka:  "
+            f"{accepted_vs_library:.3f}"
+        )
+        print("-" * 82)
+        print(
+            f"{'czas':>6}  {'plik':<14}  "
+            f"{'vs kadr':>9}  {'vs biblioteka':>15}  status"
+        )
+        print("-" * 82)
+
+        sims_to_frame: list[float | None] = []
+
+        for second, frame_path in enumerate(frames):
+            face = largest_face(app, frame_path)
+
+            if face is None:
+                sims_to_frame.append(None)
+                print(
+                    f"{second:5d}s  {frame_path.name:<14}  "
+                    f"{'BRAK':>9}  {'BRAK':>15}  brak wykrytej twarzy"
+                )
+                continue
+
+            embedding = normalized_embedding(face, frame_path)
+            sim_frame = cosine(embedding, accepted_embedding)
+            sim_library = cosine(embedding, library_embedding)
+            sims_to_frame.append(sim_frame)
+
+            status = (
+                "zgodna z kadrem"
+                if sim_frame >= FRAME_THRESHOLD
+                else "poniżej progu kadru"
+            )
+            print(
+                f"{second:5d}s  {frame_path.name:<14}  "
+                f"{sim_frame:9.3f}  {sim_library:15.3f}  {status}"
+            )
+
+        label, reason = verdict(sims_to_frame)
+        print("-" * 82)
+        print(f"WERDYKT {shot}: {label}")
+        print(f"UZASADNIENIE: {reason}")
+
+    print()
+    print(f"Klatki tymczasowe zapisano wyłącznie w: {FRAMES_ROOT}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Uruchomienie:
+
+```bash
+/app/venv/bin/python /tmp/sprawdz_10010.py
+```
+
+Sam skrypt należy wkleić do `/tmp/sprawdz_10010.py`; wszystkie generowane klatki trafiają wyłącznie do `/tmp/10010_identity_check`.
+
+## PROPOZYCJE
+
+Aktualny budżet: **$11.09 / $12.00**, pozostało **$0.91**.
+
+1. **Weryfikacja i rozstrzygnięcie bez generacji — $0.00**  
+   Uruchomić skrypt, obejrzeć najsłabsze klatki, a jeśli większość twarzy jest wierna zaakceptowanym kadrom, uznać formalne FAIL-e za efekt złej kotwicy. Budżet pozostaje **$11.09 / $12.00**.
+
+2. **Naprawa jednego kadru i re-roll jednego klipu — $0.79**  
+   Wybrać gorszy z `k04`/`k06` na podstawie pomiaru: edycja kadru **$0.15** + jeden klip Veo lite **$0.64**. Budżet wyniesie **$11.88 / $12.00**. Nie wystarczy środków na taką naprawę obu klipów.
+
+3. **Re-roll jednego klipu bez edycji kadru — $0.64**  
+   Ma sens tylko wtedy, gdy zaakceptowany kadr jest dobry, ale klip okaże się niewierny właśnie temu kadrowi. Budżet wyniesie **$11.73 / $12.00**.
+
+Rekomendacja: najpierw wariant 1. Nie wydawać pieniędzy na podstawie samego porównania ze zdryfowanym `bohater_noc.jpg`.
+tokens used
+21,942
+## DIAGNOZA
+
+Strażnik wykrył niskie podobieństwo klatek do `bohater_noc.jpg`, ale nie udowodnił, że Veo wstawiło obcą osobę. Porównuje klipy ze zdryfowanym aktywem bibliotecznym, a nie z faktycznym zaakceptowanym kadrem wejściowym.
+
+- `k04`: pojedyncze `0.09` jest alarmem wymagającym obejrzenia lub pomiaru względem kadru. Samo nie dowodzi obcej twarzy. W poprzednim kanarku ten sam typ klipu miał `0.39–0.87` względem kadru, mimo `0.25–0.40` względem biblioteki.
+- `k06`: `0.26–0.27` przy kadrze mającym tylko `0.33` względem biblioteki nie jest zaskakujące. Spadek jest nawet mniejszy niż zmierzone typowe `~0.25`. To wskazuje raczej na zachowanie zdryfowanej twarzy niż jej podmianę.
+- PASS-y `k01`, `k02` i `k05` pokazują, że sama referencja nie powoduje automatycznie zepsucia każdego klipu. Wynik zależy również od kąta twarzy, mimiki, światła i wielkości twarzy.
+- Te FAIL-e mówią więc: „wybrane klatki są słabo podobne do wadliwej kotwicy bibliotecznej”. Nie mówią jeszcze: „w klipie występuje inny człowiek”.
+- Analiza dotyczy wyłącznie tożsamości. Nie unieważnia wcześniejszej bramki środka klipu ani oceny sceny, chwytu, pisku i geometrii.
+
+## WERDYKT WOBEC HIPOTEZ
+
+- **H1 — SPRZECIW jako stwierdzenie faktu:** kąt, cień lub otwarte usta są prawdopodobnym wyjaśnieniem `0.09`, ale bez pomiaru tej klatki względem `k04.jpg` albo jej oględzin nie wolno twierdzić, że to na pewno nie jest obca twarz.
+- **H2 — ZGODA:** `0.26–0.27` przy kadrze `0.33` jest zgodne z zachowaniem tej samej, już słabo zakotwiczonej twarzy; wynik nie stanowi dowodu podmiany osoby.
+- **H3 — ZGODA z ograniczeniem:** dryf `bohater_noc.jpg` wyjaśnia źródło formalnych FAIL-i tożsamości, ale nie dowodzi automatycznie, że klipy są poprawne wizualnie lub fabularnie.
+- **H4 — ZGODA:** wierność wygenerowanego klipu należy rozstrzygać względem zaakceptowanego kadru wejściowego; osobny pomiar względem biblioteki służy do audytu dryfu całego łańcucha.
+
+## SKRYPT
+
+```python
+#!/app/venv/bin/python
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+import cv2
+import numpy as np
+from insightface.app import FaceAnalysis
+
+PYTHON = "/app/venv/bin/python"
+FFMPEG = "/usr/bin/ffmpeg"
+ROOT = Path("/app")
+EPISODE = ROOT / "data/zarty/10010"
+FRAMES_ROOT = Path("/tmp/10010_identity_check")
+LIBRARY_REFERENCE = ROOT / "assets/zarty/karty/bohater_noc.jpg"
+
+CLIPS = {
+    "k04": EPISODE / "klip_k04_reroll.mp4",
+    "k06": EPISODE / "klip_k06_reroll.mp4",
+}
+
+ACCEPTED_FRAMES = {
+    "k04": EPISODE / "kadry/k04.jpg",
+    "k06": EPISODE / "kadry/k06.jpg",
+}
+
+# Próg pomocniczy zgodny z używaną bramką.
+# Decyzję opieramy przede wszystkim na podobieństwie do zaakceptowanego kadru.
+FRAME_THRESHOLD = 0.35
+
+
+def require_file(path: Path) -> None:
+    if not path.is_file():
+        raise FileNotFoundError(f"Brak pliku: {path}")
+
+
+def extract_frames(video: Path, output_dir: Path) -> list[Path]:
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    pattern = output_dir / "kl_%03d.jpg"
+    command = [
+        FFMPEG,
+        "-hide_banner",
+        "-loglevel", "error",
+        "-y",
+        "-i", str(video),
+        "-vf", "fps=1",
+        "-q:v", "2",
+        str(pattern),
+    ]
+    subprocess.run(command, check=True)
+
+    frames = sorted(output_dir.glob("kl_*.jpg"))
+    if not frames:
+        raise RuntimeError(f"FFmpeg nie wyciągnął klatek z {video}")
+    return frames
+
+
+def largest_face(app: FaceAnalysis, image_path: Path):
+    image = cv2.imread(str(image_path))
+    if image is None:
+        raise RuntimeError(f"Nie można odczytać obrazu: {image_path}")
+
+    faces = app.get(image)
+    if not faces:
+        return None
+
+    return max(
+        faces,
+        key=lambda face: (
+            float(face.bbox[2] - face.bbox[0])
+            * float(face.bbox[3] - face.bbox[1])
+        ),
+    )
+
+
+def normalized_embedding(face, image_path: Path) -> np.ndarray:
+    if face is None:
+        raise RuntimeError(f"Nie wykryto twarzy w referencji: {image_path}")
+
+    embedding = np.asarray(face.embedding, dtype=np.float32)
+    norm = float(np.linalg.norm(embedding))
+    if norm == 0:
+        raise RuntimeError(f"Zerowy embedding twarzy: {image_path}")
+    return embedding / norm
+
+
+def cosine(a: np.ndarray, b: np.ndarray) -> float:
+    return float(np.dot(a, b))
+
+
+def verdict(similarities: list[float | None]) -> tuple[str, str]:
+    detected = [value for value in similarities if value is not None]
+    if not detected:
+        return "NIE ROZSTRZYGNIĘTO", "w żadnej klatce nie wykryto twarzy"
+
+    passed = sum(value >= FRAME_THRESHOLD for value in detected)
+    ratio = passed / len(detected)
+    median = float(np.median(detected))
+    minimum = min(detected)
+
+    # Pojedyncza trudna klatka nie przesądza o zmianie osoby.
+    # Wymagamy, aby większość wykrytych twarzy trzymała zaakceptowany kadr.
+    if ratio >= 0.60 and median >= FRAME_THRESHOLD:
+        reason = (
+            f"{passed}/{len(detected)} wykrytych twarzy ma sim >= "
+            f"{FRAME_THRESHOLD:.2f}; mediana={median:.2f}, min={minimum:.2f}"
+        )
+        return "WIERNY KADROWI", reason
+
+    reason = (
+        f"tylko {passed}/{len(detected)} wykrytych twarzy ma sim >= "
+        f"{FRAME_THRESHOLD:.2f}; mediana={median:.2f}, min={minimum:.2f}"
+    )
+    return "OBCA TWARZ / SILNY DRYF W KLIPIE", reason
+
+
+def main() -> int:
+    if Path(sys.executable).resolve() != Path(PYTHON).resolve():
+        print(
+            f"UWAGA: zalecany interpreter to {PYTHON}; "
+            f"uruchomiono {sys.executable}",
+            file=sys.stderr,
+        )
+
+    require_file(Path(FFMPEG))
+    require_file(LIBRARY_REFERENCE)
+    for path in list(CLIPS.values()) + list(ACCEPTED_FRAMES.values()):
+        require_file(path)
+
+    # Buffalo_l może użyć GPU, jeżeli provider CUDA jest dostępny;
+    # CPU pozostaje bezpiecznym fallbackiem.
+    app = FaceAnalysis(
+        name="buffalo_l",
+        providers=["CUDAExecutionProvider", "CPUExecutionProvider"],
+    )
+    app.prepare(ctx_id=0, det_size=(640, 640))
+
+    library_embedding = normalized_embedding(
+        largest_face(app, LIBRARY_REFERENCE),
+        LIBRARY_REFERENCE,
+    )
+
+    for shot in ("k04", "k06"):
+        accepted_path = ACCEPTED_FRAMES[shot]
+        accepted_embedding = normalized_embedding(
+            largest_face(app, accepted_path),
+            accepted_path,
+        )
+
+        accepted_vs_library = cosine(
+            accepted_embedding,
+            library_embedding,
+        )
+
+        frames = extract_frames(
+            CLIPS[shot],
+            FRAMES_ROOT / shot,
+        )
+
+        print()
+        print("=" * 82)
+        print(f"{shot}: {CLIPS[shot]}")
+        print(f"Zaakceptowany kadr: {accepted_path}")
+        print(f"Biblioteka:          {LIBRARY_REFERENCE}")
+        print(
+            "Kadr vs biblioteka:  "
+            f"{accepted_vs_library:.3f}"
+        )
+        print("-" * 82)
+        print(
+            f"{'czas':>6}  {'plik':<14}  "
+            f"{'vs kadr':>9}  {'vs biblioteka':>15}  status"
+        )
+        print("-" * 82)
+
+        sims_to_frame: list[float | None] = []
+
+        for second, frame_path in enumerate(frames):
+            face = largest_face(app, frame_path)
+
+            if face is None:
+                sims_to_frame.append(None)
+                print(
+                    f"{second:5d}s  {frame_path.name:<14}  "
+                    f"{'BRAK':>9}  {'BRAK':>15}  brak wykrytej twarzy"
+                )
+                continue
+
+            embedding = normalized_embedding(face, frame_path)
+            sim_frame = cosine(embedding, accepted_embedding)
+            sim_library = cosine(embedding, library_embedding)
+            sims_to_frame.append(sim_frame)
+
+            status = (
+                "zgodna z kadrem"
+                if sim_frame >= FRAME_THRESHOLD
+                else "poniżej progu kadru"
+            )
+            print(
+                f"{second:5d}s  {frame_path.name:<14}  "
+                f"{sim_frame:9.3f}  {sim_library:15.3f}  {status}"
+            )
+
+        label, reason = verdict(sims_to_frame)
+        print("-" * 82)
+        print(f"WERDYKT {shot}: {label}")
+        print(f"UZASADNIENIE: {reason}")
+
+    print()
+    print(f"Klatki tymczasowe zapisano wyłącznie w: {FRAMES_ROOT}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Uruchomienie:
+
+```bash
+/app/venv/bin/python /tmp/sprawdz_10010.py
+```
+
+Sam skrypt należy wkleić do `/tmp/sprawdz_10010.py`; wszystkie generowane klatki trafiają wyłącznie do `/tmp/10010_identity_check`.
+
+## PROPOZYCJE
+
+Aktualny budżet: **$11.09 / $12.00**, pozostało **$0.91**.
+
+1. **Weryfikacja i rozstrzygnięcie bez generacji — $0.00**  
+   Uruchomić skrypt, obejrzeć najsłabsze klatki, a jeśli większość twarzy jest wierna zaakceptowanym kadrom, uznać formalne FAIL-e za efekt złej kotwicy. Budżet pozostaje **$11.09 / $12.00**.
+
+2. **Naprawa jednego kadru i re-roll jednego klipu — $0.79**  
+   Wybrać gorszy z `k04`/`k06` na podstawie pomiaru: edycja kadru **$0.15** + jeden klip Veo lite **$0.64**. Budżet wyniesie **$11.88 / $12.00**. Nie wystarczy środków na taką naprawę obu klipów.
+
+3. **Re-roll jednego klipu bez edycji kadru — $0.64**  
+   Ma sens tylko wtedy, gdy zaakceptowany kadr jest dobry, ale klip okaże się niewierny właśnie temu kadrowi. Budżet wyniesie **$11.73 / $12.00**.
+
+Rekomendacja: najpierw wariant 1. Nie wydawać pieniędzy na podstawie samego porównania ze zdryfowanym `bohater_noc.jpg`.
