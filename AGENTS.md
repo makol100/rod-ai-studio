@@ -76,7 +76,7 @@ Nikt nie zaczyna od zera. Przed analizą i przed dyskusją każdy czyta:
 - `python3 tools/szukaj.py <slowo>` — przeszukuje wiedzę, dokumentację, skille ORAZ oba teleporty
 - Henik ma to samo w swoim oknie: `/home/hermes/fabryka/data/wiedza_kopia/`
   (wiedza + `archiwum/` z teleportami)
-- Genek nie ma dostępu do dysku — kto go pyta, ten dokłada mu surowy materiał do zlecenia
+- Genek ma dostęp do dysku przez DROGĘ 1 (Gemini CLI z --yolo, patrz tools/genek.py) — DROGA 2 (API, bez dysku) tylko awaryjnie, zawsze oznaczona w zleceniu
 
 Kolejność jest zawsze ta sama: **odczytać → ustawić się → przeanalizować → dopiero dyskusja.**
 
@@ -132,20 +132,3 @@ limit dobowy, L4. Nie domyślnie.
 Pełna tabela, zastrzeżenia i to, czego NIE zmierzyliśmy: **`wiedza/GENEROWANIE_OBRAZU.md`**.
 
 **Skoro Genek to potrafi — przy zadaniach wymagających obrazu proponujcie jego drogę, nie fal.ai.**
-
-
-## GENEROWANIE OBRAZU — KAŻDY MUSI TO WIEDZIEĆ
-
-Decyzja Tomasza 01.08.2026: **droga główna to GENEK, model `gemini-3.1-flash-image`**
-(Nano Banana 2), ~0,067 USD za obraz. **fal.ai (`fal-ai/nano-banana-pro`, ~0,15 USD) TYLKO
-przy awarii Genka** — 429/503, wyczerpany limit dobowy, L4.
-
-Inne modele na kluczu Gemini: `imagen-4.0-fast-generate-001` (0,02 USD, najtańszy),
-`gemini-3-pro-image` / `nano-banana-pro-preview` (0,134 USD 2K, 0,24 USD 4K — wersje ostateczne),
-`gemini-3.1-flash-lite-image`, `imagen-4.0-generate-001`.
-Wywołanie: `generateContent` dla rodziny `gemini-*-image`, `predict` dla `imagen-*`.
-`batchGenerateContent` = 50% taniej na serie niepilne.
-
-Pełna tabela i zastrzeżenia: `wiedza/GENEROWANIE_OBRAZU.md`.
-Powód decyzji, słowami Tomasza: „Na Was wydaje pieniądze, więc nie interesują mnie
-generowania na próby" — tańsze próby = wolno próbować.

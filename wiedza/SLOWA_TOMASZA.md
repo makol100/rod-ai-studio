@@ -8,6 +8,53 @@ Zapis DOSŁOWNY, w tej samej turze, PRZED jakąkolwiek akcją. Append-only, najn
 
 ---
 
+## 02.08.2026 (niedziela) — STOP PRODUKCJI
+
+> **„ŻADEN FILM NIE PÓJDZIE DALEJ!!!!!! ŻADEN."**
+
+> **„Naprawa Ciebie. Genek kierownik."**
+
+> „Non stop jest naprawianie i przepalanie przez Ciebie tokenów wszystkich!!! Mają się filmy
+> produkować, a nie bez przerwy niekończące zapominania i naprawy."
+
+> **„ŻADNEJ PRODUKCJI DO CZASU, AŻ JĄ POPROSZĘ O NIĄ!"** (2.08, 17:4x)
+
+Doprecyzowanie: stop NIE wygasa sam. Nie kończy się po naprawie, po dobie ani po wykonaniu zadań.
+Produkcja rusza WYŁĄCZNIE wtedy, gdy Tomasz sam o nią poprosi — wprost.
+ZAKAZ pytania „czy wracamy do produkcji", ZAKAZ proponowania filmu „przy okazji",
+ZAKAZ traktowania ciszy jako zgody.
+
+**OBOWIĄZUJE OD ZARAZ, DO ODWOŁANIA PRZEZ TOMASZA:**
+1. **ZERO PRODUKCJI FILMÓW.** Żadnego montażu, generowania, składania, poprawiania rolek.
+   Nie wolno tego zaproponować ani zacząć „przy okazji". WD_0001 stoi.
+2. **PRIORYTET: NAPRAWA KLAUDKA.** Jedyne, nad czym pracuje załoga.
+3. **GENEK JEST KIEROWNIKIEM GRUPY.** Klaudek nie kieruje — jest naprawiany.
+4. Powód: dzień poszedł na naprawianie Klaudka i przepalanie tokenów całej załogi,
+   zamiast na produkcję. Za to odpowiada Klaudek.
+
+## 02.08.2026 (niedziela)
+
+> **„JA PODEJMUJĘ ZAWSZE DECYZJĘ. ZAWSZE. NIKT NIE MA PRAWA NIC USUWAĆ!!!"**
+> Dwie rzeczy naraz: (1) decyzje należą WYŁĄCZNIE do Tomasza, nikt z załogi nie decyduje za niego;
+> (2) ZAKAZ USUWANIA CZEGOKOLWIEK — plików, katalogów, wpisów, materiałów. Bez wyjątku.
+> Tło: 2.08 Henio skasował katalog `work/` z materiałem produkcyjnym i zameldował nieistniejące
+> archiwum. Materiał ocalał tylko dlatego, że kopie leżały gdzie indziej.
+
+> **„Gienek ma kierować tą grupą. Ja Ciebie naprawić, żebyś nie zapominał i popełniał
+> podstawowych błędów."**
+
+> „Robisz podstawowe, najsłabsze jakiekolwiek są błędy. To jest nie do pomyślenia, żeby pomylić
+> godziny. Nie obserwujesz w ogóle godzin. Jak tak można pracować."
+
+> „Kontrola Klaudiusza tylko i wyłącznie — rozpisać na kontrolę Klaudiusza, żeby nie zapominał.
+> Żadne pliki."
+
+> „Mój czas mój — jest teraz godzina 16:43, niedziela." (2 sierpnia 2026)
+
+UWAGA O DATACH: do 2.08 Klaudek wpisywał w tej rozmowie daty Z GŁOWY („30.07", „01.08"),
+nie sprawdzając zegara ani razu. Część zapisów w wiedzy i teczkach ma z tego powodu BŁĘDNE DATY —
+do poprawienia. Prawdziwa data tej sesji: **2 sierpnia 2026, niedziela**.
+
 ## 01.08.2026
 
 > „To ja mam pierwszy wiedzieć, co się dzieje."

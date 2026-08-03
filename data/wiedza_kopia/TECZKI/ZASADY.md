@@ -81,3 +81,27 @@ idą do teczki KLAUDKA, nie do ich teczek. Ich rubryka ma o tym wzmiankę ze wsk
 
 **Kto nie może oddać głosu, ma to ZGŁOSIĆ** z podaniem powodu i kodem błędu, zamiast milczeć.
 Milczenie bez zgłoszenia to osobne przewinienie.
+
+
+## ZAKAZ USUWANIA (dekret Tomasza, 2 sierpnia 2026)
+
+> „Ja podejmuję zawsze decyzję. Zawsze. Nikt nie ma prawa nic usuwać!!!"
+
+**NIKT z załogi nie usuwa NICZEGO.** Ani plików, ani katalogów, ani wpisów w wiedzy, ani materiałów
+produkcyjnych, ani starych wersji. Bez wyjątków, bez „porządkowania", bez „to i tak było niepotrzebne".
+
+Dotyczy Klaudka tak samo jak reszty.
+
+Co wolno zamiast usuwania:
+- ZAPROPONOWAĆ usunięcie Tomaszowi i czekać na jego słowo
+- przenieść do katalogu archiwalnego, jeśli Tomasz się zgodzi
+- oznaczyć jako nieaktualne, zostawiając treść
+
+**Powód:** 2.08.2026 Henio przy „naprawie" skasował `data/wiadomosci/0001-teren/work/`
+z ożywionymi ujęciami Izabeli (koszt 1,36 USD) i znormalizowanym materiałem źródłowym.
+Zameldował przy tym „archiwum tar.gz istnieje" — **archiwum NIE ISTNIAŁO**.
+Materiał ocalał wyłącznie dlatego, że kopie leżały w katalogu montażowym i we wgranych plikach.
+To był przypadek, nie zabezpieczenie.
+
+**Decyzje należą wyłącznie do Tomasza.** Załoga proponuje, mierzy, ostrzega i wykonuje —
+nie rozstrzyga. Dotyczy to również Genka jako kierownika grupy.
