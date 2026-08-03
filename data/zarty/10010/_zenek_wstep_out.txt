@@ -1,0 +1,890 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/zarty/10010
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019f9f14-7966-70b0-9cd0-363f88b14621
+--------
+user
+Przeczytaj plik data/zarty/10010/_zadanie_zenka_wstep.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam wskazany plik i sprawdzę instrukcje, a następnie wykonam je w ramach dostępnego katalogu roboczego.
+exec
+/bin/bash -lc "pwd && sed -n '1,240p' _zadanie_zenka_wstep.md" in /root/rod-ai-studio/data/zarty/10010
+ succeeded in 0ms:
+/root/rod-ai-studio/data/zarty/10010
+# NARADA — WSTĘP do 10010 (korekta Tomasza po drafcie). Zenek: strona produkcyjna.
+Tomasz: "Wstępu brakuje. Np jak się Tomek skrada po cichu i mówi: Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię."
+STAN: draft 25.56s zmontowany (intro brand 0.45 -> hook k01+plansza -> atak -> przesłuchanie -> puenta niemowy). Budżet $11.73/12 — nowy kadr ($0.15)+klip ($0.64) PRZEKROCZY limit o ~$0.52 (decyzja Tomasza).
+KANON: noc, sad, Tomek=BOHATER (kanoniczny głos Veo "low, gruff, determined"), domena portretowa bohater_noc.jpg. Zasada serii: jeden mówca na klip; kwestie VERBATIM w prompcie.
+ZADANIE — przygotuj (bez uruchamiania!):
+1. PROMPT kadru 2K (skradanie nocą w sadzie, mock-thriller) + PROMPT klipu Veo 8s z kwestią szeptem: "Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię." (szept a lip-sync Veo — jak opromptować, by usta grały a głos był cichy-konspiracyjny; wnioski z NAUK: negacje miękkie nie działają, magnes lip-sync silny).
+2. RYZYKA + mitygacje (tożsamość vs biblioteka po lekcji zdryfowanego bohater_noc, kadr NAJPIERW bramka, potem klip).
+3. WPIĘCIE w montaż: gdzie tnie się do obecnego beatu 1 (hook k01), czy plansza tytułowa zostaje czy wypada.
+4. Dokładny KOSZT i co jeśli klip wyjdzie zły (re-roll = kolejne $0.64).
+Format: ## PROMPT_KADR / ## PROMPT_KLIP / ## RYZYKA / ## WPIĘCIE / ## KOSZT. Po polsku. Na końcu przypomnij prowadzącemu o naradzie, zapisach i praktykach.
+
+codex
+Instrukcja wymaga uwzględnienia lokalnych „NAUK”, kanonu postaci i istniejącego montażu. Wyszukuję teraz te materiały, żeby prompt i wyliczenia nie opierały się na domysłach.
+exec
+/bin/bash -lc "rg --files . | sed -n '1,240p'
+rg -n -i \"NAUK|bohater_noc|k01|lip.?sync|11\\.73|25\\.56|plansz|Veo|jabłka\" ." in /root/rod-ai-studio/data/zarty/10010
+ succeeded in 0ms:
+./_pracownik_out.txt
+./_genek_audyt_out.txt
+./_zadanie_genka_glos.md
+./_zadanie_zenka_hunt.md
+./gen_state_reroll_k05.json
+./gen_state_batch_k01.json
+./_vlm_k05_check.py
+./_reroll10010.py
+./gen_state_batch_k06.json
+./gen_state_k04_kanarek2.json
+./_okno_jozka.txt
+./_straznicy_k06niemy.sh
+./_zenek_k06_out.txt
+./_weryfikacja_tozsamosci.py
+./_czasy_slow.py
+./gen_state_k06niemy_k06.json
+./gen_state_reroll_k04.json
+./_zadanie_zenka_k06.md
+./gen_state_k04.json
+./napisy10.ass
+./KANON.md
+./_straz_reroll.py
+./_zenek_hunt_out.txt
+./_klipy_batch.json
+./sfx_boom.mp3
+./_pomiar_ust_k06niemy.py
+./_zadanie_zenka_wstep.md
+./gen_state_batch_k02.json
+./_prompt_k04_v2.txt
+./_zadanie_sedziego.md
+./diag3/k04_v2_3.jpg
+./diag3/k06_2.jpg
+./diag3/k01_2.jpg
+./diag3/k06_3.jpg
+./diag3/k04_v2_2.jpg
+./diag3/k06_1.jpg
+./diag3/k02_1.jpg
+./diag3/k03_1.jpg
+./diag3/k05_3.jpg
+./diag3/k03_3.jpg
+./diag3/k04_v2_1.jpg
+./diag3/k05_2.jpg
+./diag3/k02_3.jpg
+./diag3/k01_1.jpg
+./diag3/k03_2.jpg
+./diag3/k02_2.jpg
+./diag3/k01_3.jpg
+./diag3/k05_1.jpg
+./_genek_hunt_out.txt
+./_pobierz_k06niemy.py
+./_genek_wstep_out.txt
+./_edit_k05.py
+./gen_state_batch_k05.json
+./kadry/k06.jpg
+./_prompt_k04.txt
+./kadry/k02_v2_kostka.jpg
+./kadry/k01.jpg
+./LOCK
+./kadry/k03.jpg
+./kadry/k04_v2_nogawka.jpg
+./kadry/k04.jpg
+./kadry/k06_v4_pusteSpodnie.jpg
+./kadry/k05_gumowiec_w_powietrzu.jpg
+./kadry/k06_bez_uchwytu.jpg
+./kadry/k06_lancuch_033.jpg
+./kadry/k03_new.jpg
+./kadry/k06_v6_okrakiem.jpg
+./kadry/k03_v2_031.jpg
+./kadry/k04_v5_obcaTwarz.jpg
+./kadry/k04_v8_okrakiem.jpg
+./kadry/k04_lancuch_046.jpg
+./kadry/k06_new.jpg
+./kadry/k04_new.jpg
+./kadry/k02.jpg
+./kadry/k06_v2_staraMetoda.jpg
+./kadry/k06_v5_pusteVLM.jpg
+./kadry/k04_v3_falda.jpg
+./kadry/k05.jpg
+./kadry/k04_v4_doGoryNogami.jpg
+./kadry/k04_bez_uchwytu.jpg
+./kadry/k04_v7_pusteSpodnie.jpg
+./kadry/k02_odrzucony_za_noge.jpg
+./kadry/k03_v1_033.jpg
+./_zadanie_genka_hunt.md
+./_batch10010.py
+./gen_state_reroll_k02.json
+./_zadanie_genka_wstep.md
+./_zenek_architektura_out.txt
+./_gen_kadry.py
+./_zadanie_zenka_architektura.md
+./_pobierz_reroll.py
+./_zadanie_zenka_analiza.md
+./_glos_praat.praat
+./_zenek_wstep_out.txt
+./_zadanie_genka_audyt.md
+./_montaz_10010.py
+./_zenek_k05_out.txt
+./_k06niemy.json
+./_zadanie_zenka_glos.md
+./_zadanie_zenka_k05.md
+./_pomiar_ust_k06.py
+./gen_state_batch_k03.json
+./_zenek_glos_out.txt
+./gen_state_reroll_k06.json
+./_sedzia_out.txt
+./_k06niemy.py
+./_klipy_reroll.json
+./_cisza_k06.py
+./_zadanie_pracownika.md
+./_genek_glos_out.txt
+./_render_glosy.sh
+./_bramka_srodka.py
+./raporty/bramka_srodka_reroll.txt
+./raporty/straznik_batch.txt
+./raporty/preflight_i_submit_k06niemy.txt
+./raporty/bramkaA_k04_k06_czlowiek.txt
+./raporty/kanarek2_k04.txt
+./raporty/pomiar_ust_k06.txt
+./raporty/batch_preflight_submit.txt
+./raporty/preflight_kanarek2_k04.txt
+./raporty/batch_preflight_submit2.txt
+./raporty/straznik_reroll.txt
+./_czasy_kwestii.py
+./raporty/final_draft.txt
+./raporty/weryfikacja_tozsamosci_reroll.txt
+./raporty/straznicy_k06niemy.txt
+./raporty/kanarek_k04.txt
+./raporty/preflight_i_submit_reroll.txt
+./raporty/diagnoza_calosc_1.txt
+./raporty/bramkaA_v2_k04_k06.txt
+./raporty/kadr_k05_bez_gumowca.txt
+./raporty/cisza_i_tozsamosc_k06niemy.txt
+./_straz_k06niemy.py
+./_straz_batch.py
+./_zenek_analiza_out.txt
+./diag2/f05.jpg
+./diag2/f06.jpg
+./diag2/f08.jpg
+./diag2/f04.jpg
+./diag2/f03.jpg
+./diag2/f07.jpg
+./diag2/f01.jpg
+./diag2/f02.jpg
+./montaz_tmp/lista.txt
+./diag/f4.jpg
+./diag/f5.jpg
+./diag/f3.jpg
+./diag/f2.jpg
+./diag/f6.jpg
+./diag/f1.jpg
+./gen_state_k04_kanarek2.json:1:{"rid": "019f9dda-bbbf-7160-a225-0d6042725be3", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./_zenek_k06_out.txt:28:1. Prompt k06 (data/zarty/10010/_klipy_reroll.json) mówił WPROST: "He does not speak. ... His face, mouth ... remain perfectly still." + "From high up in the hidden tree crown comes an off-screen voice ... crying out in Polish: [kwestia]". Veo to zignorowało i przypisało kwestię widocznej twarzy.
+./_zenek_k06_out.txt:30:3. Wzorzec z wcześniejszych podejść: batchowy k06 dał głos 145 Hz (niski męski jak Tomek, zero pisku) — spójne z tym, że Veo od początku kładzie kwestię w usta widocznej postaci.
+./_zenek_k06_out.txt:31:4. Znane z serii: Veo z natywnym audio lip-syncuje kwestię do widocznej twarzy (na tym stoi cała seria mówiących postaci) — to jego silny magnes.
+./_zenek_k06_out.txt:34:1. **DIAGNOZA**: dlaczego Veo przypisuje off-screen kwestię widocznej twarzy mimo wprost zakazu; czy da się to w ogóle wiarygodnie wymusić promptem w veo3.1 lite FLF, czy off-screen dialog w tym narzędziu to loteria. Jeśli masz dostęp do sieci — sprawdź praktyków; jeśli nie — zaznacz to i bazuj na logice + znanych wzorcach.
+./_zenek_k06_out.txt:36:3. **PROPOZYCJE naprawy** (min. 3, z $; stawki: klip Veo lite $0.64, edycja kadru $0.15, montaż $0; budżet $11.09/12, zostało $0.91) — obowiązkowo rozważ wariant: **klip w pełni NIEMY z Veo (zero kwestii w prompcie) + głos Józka położony w MONTAŻU** (pisk robimy i tak deterministycznie pitch-upem; źródło audio: kwestia wycięta z obecnego k06_reroll albo z batchowego k06). Rekomendacja jednym zdaniem.
+./_zenek_k06_out.txt:45:web search: Google Veo 3 off screen dialogue lip sync visible character prompt problem practitioners ...
+./_zenek_k06_out.txt:55:Veo otrzymuje dwa sprzeczne sygnały o nierównej sile:
+./_zenek_k06_out.txt:67:- Kolejny, mocniejszy zakaz w promptcie nadal walczyłby z podstawowym mechanizmem lip-sync.
+./_zenek_k06_out.txt:69:Google zaleca dokładne opisanie postaci, głosu, działania i dialogu, ale nie dokumentuje twardego mechanizmu przypisywania wypowiedzi do niewidocznego źródła. [Oficjalny przewodnik Veo](https://deepmind.google/models/veo/prompt-guide/) mówi o sterowaniu promptem, nie o gwarancji tożsamości mówcy. Relacje praktyków opisują dokładnie ten sam problem: kwestie przechodzą między postaciami albo trafiają do niewłaściwych ust mimo jednoznacznych instrukcji; powtarzanym obejściem jest generowanie ujęć niemych i składanie dialogu w postprodukcji. [Przykład błędnego przypisywania dialogu](https://www.reddit.com/r/VEO3/comments/1mprm33/help_with_wrong_characterspeechdialogue/), [praktyka z wersją niemą i maskowaniem](https://www.reddit.com/r/VEO3/comments/1pzs0wf/dialogue_challenge_in_veo_31/).
+./_zenek_k06_out.txt:71:Wniosek: w Veo 3.1 Lite FLF można promptem poprawiać prawdopodobieństwo, ale nie da się wiarygodnie wymusić takiej sceny. Off-screen dialog przy widocznej ludzkiej twarzy jest loterią, szczególnie gdy jednocześnie wymagamy natywnego audio.
+./_zenek_k06_out.txt:299:1. **Niemy klip Veo + głos w montażu — $0.64.**  
+./_zenek_k06_out.txt:300:   Wygenerować k06 bez cytatu, bez słów „dialog”, „voice” i bez natywnej wypowiedzi: Tomek nieruchomy, usta zamknięte, tylko ambient. Następnie za $0 wyciąć kwestię z obecnego `k06_reroll` albo batchowego k06, zrobić deterministyczny pitch-up i położyć ją jako głos z korony. Łączny stan: **$11.73/12, pozostaje $0.27**. To usuwa z generacji dokładnie ten sygnał, który uruchamia lip-sync Tomka.
+./_zenek_k06_out.txt:303:   Prompt rozdzielony na warstwy: „silent reaction shot”, Tomek jako `NON-SPEAKING LISTENER`, źródło głosu poza obrazem, usta zamknięte w każdej klatce. Stan: **$11.73/12, pozostaje $0.27**. Najmniej pracy, ale nadal loteria i wysokie ryzyko ponowienia błędu.
+./_zenek_k06_out.txt:355:Veo otrzymuje dwa sprzeczne sygnały o nierównej sile:
+./_zenek_k06_out.txt:367:- Kolejny, mocniejszy zakaz w promptcie nadal walczyłby z podstawowym mechanizmem lip-sync.
+./_zenek_k06_out.txt:369:Google zaleca dokładne opisanie postaci, głosu, działania i dialogu, ale nie dokumentuje twardego mechanizmu przypisywania wypowiedzi do niewidocznego źródła. [Oficjalny przewodnik Veo](https://deepmind.google/models/veo/prompt-guide/) mówi o sterowaniu promptem, nie o gwarancji tożsamości mówcy. Relacje praktyków opisują dokładnie ten sam problem: kwestie przechodzą między postaciami albo trafiają do niewłaściwych ust mimo jednoznacznych instrukcji; powtarzanym obejściem jest generowanie ujęć niemych i składanie dialogu w postprodukcji. [Przykład błędnego przypisywania dialogu](https://www.reddit.com/r/VEO3/comments/1mprm33/help_with_wrong_characterspeechdialogue/), [praktyka z wersją niemą i maskowaniem](https://www.reddit.com/r/VEO3/comments/1pzs0wf/dialogue_challenge_in_veo_31/).
+./_zenek_k06_out.txt:371:Wniosek: w Veo 3.1 Lite FLF można promptem poprawiać prawdopodobieństwo, ale nie da się wiarygodnie wymusić takiej sceny. Off-screen dialog przy widocznej ludzkiej twarzy jest loterią, szczególnie gdy jednocześnie wymagamy natywnego audio.
+./_zenek_k06_out.txt:599:1. **Niemy klip Veo + głos w montażu — $0.64.**  
+./_zenek_k06_out.txt:600:   Wygenerować k06 bez cytatu, bez słów „dialog”, „voice” i bez natywnej wypowiedzi: Tomek nieruchomy, usta zamknięte, tylko ambient. Następnie za $0 wyciąć kwestię z obecnego `k06_reroll` albo batchowego k06, zrobić deterministyczny pitch-up i położyć ją jako głos z korony. Łączny stan: **$11.73/12, pozostaje $0.27**. To usuwa z generacji dokładnie ten sygnał, który uruchamia lip-sync Tomka.
+./_zenek_k06_out.txt:603:   Prompt rozdzielony na warstwy: „silent reaction shot”, Tomek jako `NON-SPEAKING LISTENER`, źródło głosu poza obrazem, usta zamknięte w każdej klatce. Stan: **$11.73/12, pozostaje $0.27**. Najmniej pracy, ale nadal loteria i wysokie ryzyko ponowienia błędu.
+./_zenek_k05_out.txt:31:4. Kanon celuje w rolkę 15-20 s; mamy zdrowe k01, k02, k03, k04 (+k06 w naprawie) — materiału jest dużo, klipy i tak będą cięte.
+./_zenek_k05_out.txt:32:5. Kwestia k05 "No gadaj draniu, ktoś ty?!" jest nagrana czysto w klip_k05_reroll (lip-sync na zbliżeniu).
+./_zenek_k05_out.txt:33:6. BUDŻET — sprzężenie: wydane $11.09/12; zatwierdzana równolegle naprawa k06 (niemy + głos z montażu) = $0.64 → $11.73. Limit $12; przekroczenie wyłącznie jawnym słowem Tomasza. Stawki: klip $0.64, edycja kadru $0.15, montaż $0.
+./_zenek_k05_out.txt:53:Problemem nie jest emocja ani lip-sync, lecz utrata ciągłości ścisku.
+./_zenek_k05_out.txt:58:   **Rachunek:** $11.09 + k06 $0.64 + k05 $0 = **$11.73**. Zostaje **$0.27**.
+./_zenek_k05_out.txt:63:3. **Edytowany kadr jako krótka plansza, z zachowaniem czystego audio z rerolla.** Za $0.15 dodać do kompozycji kotwicę chwytu: fragment uniesionej pięści/nogawki oraz poprawić przestrzeń tak, by korona drzewa była nad Tomkiem; następnie w montażu podłożyć istniejącą kwestię. Bez nowego klipu ruch będzie ograniczony, więc ujęcie powinno trwać krótko, ewentualnie z prostym cyfrowym najazdem.  
+./_zenek_k05_out.txt:67:   **Rachunek:** $11.09 + k06 $0.64 + k05 $0 = **$11.73**. Zostaje **$0.27**.
+./_zenek_k05_out.txt:71:Wybrać wariant 4: zachować czystą kwestię k05 jako głos nad szerokim obrazem nieprzerwanego chwytu, bo utrzymuje trzyetapową eskalację i zasadę „ścisk za jajca najważniejszy”, a po obu naprawach zamyka budżet na **$11.73**.
+./_zenek_k05_out.txt:83:Problemem nie jest emocja ani lip-sync, lecz utrata ciągłości ścisku.
+./_zenek_k05_out.txt:88:   **Rachunek:** $11.09 + k06 $0.64 + k05 $0 = **$11.73**. Zostaje **$0.27**.
+./_zenek_k05_out.txt:93:3. **Edytowany kadr jako krótka plansza, z zachowaniem czystego audio z rerolla.** Za $0.15 dodać do kompozycji kotwicę chwytu: fragment uniesionej pięści/nogawki oraz poprawić przestrzeń tak, by korona drzewa była nad Tomkiem; następnie w montażu podłożyć istniejącą kwestię. Bez nowego klipu ruch będzie ograniczony, więc ujęcie powinno trwać krótko, ewentualnie z prostym cyfrowym najazdem.  
+./_zenek_k05_out.txt:97:   **Rachunek:** $11.09 + k06 $0.64 + k05 $0 = **$11.73**. Zostaje **$0.27**.
+./_zenek_k05_out.txt:101:Wybrać wariant 4: zachować czystą kwestię k05 jako głos nad szerokim obrazem nieprzerwanego chwytu, bo utrzymuje trzyetapową eskalację i zasadę „ścisk za jajca najważniejszy”, a po obu naprawach zamyka budżet na **$11.73**.
+./_zadanie_genka_hunt.md:3:CEL: nasze nagranie Veo (męski głos 145Hz, polska kwestia "To ja... Józek... niemowa ze wsi!", dobra prozodia) ma dostać barwę: piskliwy, zduszony, łamiący się, jak przy zgniecionej krtani. Słowa i rytm zostają NASZE — zmieniamy charakter głosu.
+./_weryfikacja_tozsamosci.py:18:LIBRARY_REFERENCE = ROOT / "assets/zarty/karty/bohater_noc.jpg"
+./gen_state_batch_k03.json:1:{"rid": "019f9dea-e050-7e82-b348-b4a7fb49666d", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./gen_state_k04.json:1:{"rid": "019f9da5-52ec-7ff3-8dc0-9e8e73f08b04", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./gen_state_reroll_k06.json:1:{"rid": "019f9e8d-75a2-7d50-8faf-3df26ad84cf5", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./_batch10010.py:1:"""Batch 10010: 5 klipow (k01,k02 nieme; k03,k05 Tomek; k06 puenta Jozka).
+./_batch10010.py:9:M = 'fal-ai/veo3.1/lite/first-last-frame-to-video'
+./_straz_reroll.py:11:           '--wzorzec', f'BOHATER={W}/bohater_noc.jpg']
+./gen_state_k06niemy_k06.json:1:{"rid": "019f9ee0-cfa8-7452-90dd-272529f3ef17", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./_sedzia_out.txt:20:# ZADANIE — NIEZALEŻNY SĘDZIA promptów Veo (ocena adwersaryjna)
+./_sedzia_out.txt:25:Plik: data/zarty/10010/_klipy_reroll.json — 4 prompty do Veo 3.1 FLF (klipy ~8 s, 9:16, nocny sad).
+./_sedzia_out.txt:29:2. Poprzednia wersja promptów poległa: dynamiczne czasowniki ("legs JERK violently", "fist TIGHTENS") sprzeciwiały się "holds the exact pose" i Veo generowało akrobatykę w środku klipu.
+./_sedzia_out.txt:112:Prompt nie zawiera wymaganej dokładnie jednej pary cudzysłowów; przy nieskotwiczonym środku FLF brak jednoznacznie wydzielonego zdarzenia audio zwiększa ryzyko dodania przez Veo przypadkowej wokalizacji.
+./_sedzia_out.txt:118:Pisk tworzy drugi aktywny głos obok mówiącego bohatera, więc Veo może w środku klipu potraktować ukrytą osobę jako drugiego wykonawcę i wygenerować ruch nóg, liści albo ujawnienie postaci.
+./_sedzia_out.txt:137:Prompt nie zawiera wymaganej dokładnie jednej pary cudzysłowów; przy nieskotwiczonym środku FLF brak jednoznacznie wydzielonego zdarzenia audio zwiększa ryzyko dodania przez Veo przypadkowej wokalizacji.
+./_sedzia_out.txt:143:Pisk tworzy drugi aktywny głos obok mówiącego bohatera, więc Veo może w środku klipu potraktować ukrytą osobę jako drugiego wykonawcę i wygenerować ruch nóg, liści albo ujawnienie postaci.
+./_klipy_batch.json:2: "k01": {"mowca": "BOHATER", "niemy": true, "kwestia": "",
+./gen_state_reroll_k04.json:1:{"rid": "019f9e8d-6654-7651-993a-262a8704c159", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./gen_state_reroll_k02.json:1:{"rid": "019f9e8d-6089-75f0-b4c9-9db365ddbe20", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./_zadanie_zenka_k06.md:9:1. Prompt k06 (data/zarty/10010/_klipy_reroll.json) mówił WPROST: "He does not speak. ... His face, mouth ... remain perfectly still." + "From high up in the hidden tree crown comes an off-screen voice ... crying out in Polish: [kwestia]". Veo to zignorowało i przypisało kwestię widocznej twarzy.
+./_zadanie_zenka_k06.md:11:3. Wzorzec z wcześniejszych podejść: batchowy k06 dał głos 145 Hz (niski męski jak Tomek, zero pisku) — spójne z tym, że Veo od początku kładzie kwestię w usta widocznej postaci.
+./_zadanie_zenka_k06.md:12:4. Znane z serii: Veo z natywnym audio lip-syncuje kwestię do widocznej twarzy (na tym stoi cała seria mówiących postaci) — to jego silny magnes.
+./_zadanie_zenka_k06.md:15:1. **DIAGNOZA**: dlaczego Veo przypisuje off-screen kwestię widocznej twarzy mimo wprost zakazu; czy da się to w ogóle wiarygodnie wymusić promptem w veo3.1 lite FLF, czy off-screen dialog w tym narzędziu to loteria. Jeśli masz dostęp do sieci — sprawdź praktyków; jeśli nie — zaznacz to i bazuj na logice + znanych wzorcach.
+./_zadanie_zenka_k06.md:17:3. **PROPOZYCJE naprawy** (min. 3, z $; stawki: klip Veo lite $0.64, edycja kadru $0.15, montaż $0; budżet $11.09/12, zostało $0.91) — obowiązkowo rozważ wariant: **klip w pełni NIEMY z Veo (zero kwestii w prompcie) + głos Józka położony w MONTAŻU** (pisk robimy i tak deterministycznie pitch-upem; źródło audio: kwestia wycięta z obecnego k06_reroll albo z batchowego k06). Rekomendacja jednym zdaniem.
+./_reroll10010.py:8:M = 'fal-ai/veo3.1/lite/first-last-frame-to-video'
+./gen_state_batch_k05.json:1:{"rid": "019f9dea-e6fb-7660-848f-d22dc05c32bf", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./_zadanie_genka_wstep.md:2:Tomasz obejrzał draft (zasadzka -> atak -> przesłuchanie niemowy -> puenta) i orzekł: "Wstępu brakuje. Np jak się Tomek skrada po cichu i mówi: Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię."
+./_zadanie_genka_wstep.md:5:2. FORMA NAJŚMIESZNIEJSZA: szept do kamery (mockumentary)? szept do siebie? Ile sekund? Jaki jeden gest/detal wizualny sprzeda "śmiertelną powagę" misji o jabłka?
+./_zadanie_genka_wstep.md:6:3. PLANSZA: obecna plansza tekstowa "Kiedy złapiesz złodzieja jabłek... 🍎" — zostaje nad skradaniem, przesuwa się, czy wypada (bo szept ją zastępuje)?
+./_zadanie_genka_wstep.md:7:4. KWESTIA: czy dokładnie "Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię." czy proponujesz szlif (krócej/mocniej)? Zaproponuj max 2 warianty.
+./_zadanie_genka_wstep.md:8:Format: ## OCENA / ## FORMA / ## PLANSZA / ## KWESTIA. Po polsku, zwięźle. Na końcu przypomnij prowadzącemu o naradzie, zapisach i praktykach.
+./_zadanie_zenka_wstep.md:2:Tomasz: "Wstępu brakuje. Np jak się Tomek skrada po cichu i mówi: Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię."
+./_zadanie_zenka_wstep.md:3:STAN: draft 25.56s zmontowany (intro brand 0.45 -> hook k01+plansza -> atak -> przesłuchanie -> puenta niemowy). Budżet $11.73/12 — nowy kadr ($0.15)+klip ($0.64) PRZEKROCZY limit o ~$0.52 (decyzja Tomasza).
+./_zadanie_zenka_wstep.md:4:KANON: noc, sad, Tomek=BOHATER (kanoniczny głos Veo "low, gruff, determined"), domena portretowa bohater_noc.jpg. Zasada serii: jeden mówca na klip; kwestie VERBATIM w prompcie.
+./_zadanie_zenka_wstep.md:6:1. PROMPT kadru 2K (skradanie nocą w sadzie, mock-thriller) + PROMPT klipu Veo 8s z kwestią szeptem: "Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię." (szept a lip-sync Veo — jak opromptować, by usta grały a głos był cichy-konspiracyjny; wnioski z NAUK: negacje miękkie nie działają, magnes lip-sync silny).
+./_zadanie_zenka_wstep.md:7:2. RYZYKA + mitygacje (tożsamość vs biblioteka po lekcji zdryfowanego bohater_noc, kadr NAJPIERW bramka, potem klip).
+./_zadanie_zenka_wstep.md:8:3. WPIĘCIE w montaż: gdzie tnie się do obecnego beatu 1 (hook k01), czy plansza tytułowa zostaje czy wypada.
+./gen_state_batch_k06.json:1:{"rid": "019f9dea-ef2b-7a72-b776-599cad94fe9f", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./gen_state_reroll_k05.json:1:{"rid": "019f9e8d-6dca-75a2-90b7-f9ae9ba21a08", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./gen_state_batch_k02.json:1:{"rid": "019f9dea-d9eb-7080-9ff6-1d5fc545f5cb", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./raporty/final_draft.txt:4:25.56s | sync audio-wideo 0.024s (<0.05) | mean -17.5dB / max -0.2dB | pisk zweryfikowany whisperem ("Józek!")
+./raporty/final_draft.txt:5:Beaty: intro 0.45 -> hook+plansza 1.2 -> trzask+shake -> VINE BOOM+punch-in w chwyt -> pyt.1 + cisza 0.30 -> cisza 0.55 -> pyt.2 (punch-in cięciem) -> pisk JÓZEK z korony -> pyt.3 nad Ken Burns kadru chwytu (obraz k05 wycięty) -> skrzypnięcie -> NIEMY k06 + puenta głosem E z pogłosem sadu -> outro AI pełne.
+./raporty/weryfikacja_tozsamosci_reroll.txt:9:Biblioteka:          /root/rod-ai-studio/assets/zarty/karty/bohater_noc.jpg
+./raporty/weryfikacja_tozsamosci_reroll.txt:29:Biblioteka:          /root/rod-ai-studio/assets/zarty/karty/bohater_noc.jpg
+./gen_state_batch_k01.json:1:{"rid": "019f9dea-d398-72d3-8492-f99e1e10517d", "model": "fal-ai/veo3.1/lite/first-last-frame-to-video", "koszt": 0.64}
+./raporty/diagnoza_calosc_1.txt:3:k01: SŁYCHAĆ: (cisza)
+./raporty/diagnoza_calosc_1.txt:16:k01 (4s): Na zdjęciu widoczny jest mężczyzna siedzący pod dużym drzewem w lesie. Mężczyzna ma długą brodę i włosy, nosi kapelusz oraz ciemne ubrania. Jego ręce są na kolanach, a nogi są zgięte w kolanach. Drzewo jest wysokie i ma wiele gałęzi, które rozszerzają się szeroko. Na tle widoczna jest mgła lub dym, co dodaje atmosferycznego efektu do zdjęcia. Mężczyzna wygląda spokojnie i zamyślony, jakby patrzył w dal. Całość wydaje się naturalna i nie ma żadnych absurdalnych elementów.
+./raporty/diagnoza_calosc_1.txt:18:k03 (4s): Na zdjęciu widoczny jest mężczyzna w czarnej koszulce i czapce. Ma długą brodę i włosy, które przypominają muśnięte. Mężczyzna stoi przed drzewem owocowym z zielonymi jabłkami. Jego ręka jest podniesiona w górę, trzymając gałązkę z liśćmi. Wygląda na to, że próbuje zdobyć jabłko lub coś innego z gałęzi drzewa.  Mężczyzna ma otwarte usta i wydaje się być w stanie emocjonalnym, może śpiewać albo krzyczeć. Jego nogi są zgięte w kolanach, co sugeruje, że stoi na ziemi, a nie zwisają z drzewa.  Obraz wydaje się naturalny i realistyczny bez żadnych absurdalnych elementów lub nienaturalnych zachowań.
+./raporty/batch_preflight_submit2.txt:2:[pf] k01 (BOHATER): ZIELONY
+./raporty/batch_preflight_submit2.txt:8:[batch] k01 RID: 019f9dea-d398-72d3-8492-f99e1e10517d
+./raporty/batch_preflight_submit.txt:2:[pf] k01 (BOHATER): ZIELONY
+./_zadanie_genka_glos.md:5:2. RANKING 3 dróg pozyskania głosu pod względem ŚMIESZNOŚCI (nie wygody): (a) DSP na istniejącym nagraniu Veo (145Hz męski), (b) nowy głos z TTS z charakterem (wymaga konfiguracji+zgody na koszt), (c) Tomasz nagrywa pisk SAM telefonem (autor duszący własnego niemowę, $0). Uzasadnij po 1 zdaniu.
+./raporty/preflight_kanarek2_k04.txt:5:PASS | głos: mówca ma zdefiniowany głos w GLOSY_VEO | BOHATER
+./raporty/straznik_batch.txt:2:===== k01 (BOHATER, niemy) =====
+./_zenek_wstep_out.txt:22:Tomasz: "Wstępu brakuje. Np jak się Tomek skrada po cichu i mówi: Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię."
+./_zenek_wstep_out.txt:23:STAN: draft 25.56s zmontowany (intro brand 0.45 -> hook k01+plansza -> atak -> przesłuchanie -> puenta niemowy). Budżet $11.73/12 — nowy kadr ($0.15)+klip ($0.64) PRZEKROCZY limit o ~$0.52 (decyzja Tomasza).
+./_zenek_wstep_out.txt:24:KANON: noc, sad, Tomek=BOHATER (kanoniczny głos Veo "low, gruff, determined"), domena portretowa bohater_noc.jpg. Zasada serii: jeden mówca na klip; kwestie VERBATIM w prompcie.
+./_zenek_wstep_out.txt:26:1. PROMPT kadru 2K (skradanie nocą w sadzie, mock-thriller) + PROMPT klipu Veo 8s z kwestią szeptem: "Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię." (szept a lip-sync Veo — jak opromptować, by usta grały a głos był cichy-konspiracyjny; wnioski z NAUK: negacje miękkie nie działają, magnes lip-sync silny).
+./_zenek_wstep_out.txt:27:2. RYZYKA + mitygacje (tożsamość vs biblioteka po lekcji zdryfowanego bohater_noc, kadr NAJPIERW bramka, potem klip).
+./_zenek_wstep_out.txt:28:3. WPIĘCIE w montaż: gdzie tnie się do obecnego beatu 1 (hook k01), czy plansza tytułowa zostaje czy wypada.
+./_zenek_wstep_out.txt:33:Instrukcja wymaga uwzględnienia lokalnych „NAUK”, kanonu postaci i istniejącego montażu. Wyszukuję teraz te materiały, żeby prompt i wyliczenia nie opierały się na domysłach.
+./_gen_kadry.py:1:"""Kadry odcinka 10010 (6 szt.) — nano-banana-pro/edit, referencja bohater_noc.jpg.
+./_gen_kadry.py:24: "k01": NOC + "Wide shot. " + TOMEK + "He crouches hidden in the bushes below the "
+./_gen_kadry.py:46:    ref = fal_client.upload_file(str(K / "bohater_noc.jpg"))
+./_montaz_10010.py:20:run(['-i',str(B/'klip_k01.mp4'),'-ss','1.0','-t','1.0','-vn','-af','volume=-19dB','-ar','48000','-ac','2',str(T/'amb1.wav')])
+./_montaz_10010.py:49:part('p01.mp4', 1.20, ['-ss','0.50','-i',str(B/'klip_k01.mp4')], ['-vf',f'scale={W}:{H}'])
+./_montaz_10010.py:51:run(['-ss','7.50','-t','0.40','-i',str(B/'klip_k01.mp4'),'-vf',f"crop=1000:1780:'40+30*sin(n*2.7)':'70+24*cos(n*3.3)',scale={W}:{H}",'-an']+VIDEO+[str(T/'p02v.mp4')])
+./_montaz_10010.py:52:run(['-i',str(T/'p02v.mp4'),'-i',str(B/'klip_k01.mp4'),'-i',str(T/'trzask.wav'),'-filter_complex',"[1:a]atrim=7.50:7.90,asetpts=PTS-STARTPTS,afade=t=out:st=0.10:d=0.25[amb];[2:a]adelay=60|60[tr];[amb][tr]amix=inputs=2:normalize=0[a]",'-map','0:v','-map','[a]','-t','0.35']+VIDEO+AUDIO+[str(T/'p02.mp4')])
+./_zadanie_pracownika.md:1:# ZADANIE DLA PRACOWNIKA — prompty Veo w REŻIMIE STATYCZNYM (odcinek 10010)
+./_zadanie_pracownika.md:7:2. data/zarty/10010/_klipy_batch.json — obecne prompty k01/k02/k03/k05/k06 (k02, k05, k06 przepisujesz)
+./_zadanie_pracownika.md:12:Klipy generuje Veo 3.1 FLF (first-last-frame): model dostaje TYLKO pierwszą i ostatnią klatkę, środek klipu jest wolny. Każdy dynamiczny czasownik w prompcie ("legs JERK violently", "fist TIGHTENS", "twitch") to zaproszenie do akrobatyki w środku — dziś tak rozpadły się sceny (ścisk znikał, postać łaziła po drzewie, bohater podciągał własne spodnie). Reżim, który DZIAŁAŁ w odcinkach 10008/10009: postać trzyma dokładną pozę z kadru przez cały klip, rusza się tylko twarz przy mówieniu.
+./_zenek_analiza_out.txt:29:- Referencja bohater_noc.jpg jest ZDRYFOWANA: 0.59-0.63 vs reszta biblioteki (baza↔karta mają 0.92)
+./_zenek_analiza_out.txt:32:- Zmierzona zasada dnia: Veo "zjada" ~0.25 podobieństwa w ruchu
+./_zenek_analiza_out.txt:33:- k01/k05 (kadry 0.55-0.58) przeszły kanarka PASS przy TEJ SAMEJ referencji
+./_zenek_analiza_out.txt:39:H3: przyczyna źródłowa = dryf aktywu bohater_noc.jpg, nie zepsucie klipów
+./_zenek_analiza_out.txt:44:2. WERYFIKACJA $0: napisz KOMPLETNY skrypt Pythona (do uruchomienia przez szefa w kontenerze, /app/venv/bin/python, insightface buffalo_l dostępny), który dla klipów k04 i k06 (_reroll.mp4): wyciąga klatki co 1 s (ffmpeg), mierzy cosine podobieństwo twarzy każdej klatki (a) vs kadry/kXX.jpg (zaakceptowany kadr) i (b) vs assets/zarty/karty/bohater_noc.jpg, wypisuje tabelę i werdykt: WIERNY KADROWI / OBCA TWARZ. Ścieżki bezwzględne, zero zapisu poza /tmp.
+./_zenek_analiza_out.txt:45:3. PROPOZYCJE NAPRAWY: minimum 2 warianty z kosztami w $ (stawki: klip Veo lite $0.64, edycja kadru $0.15), przy budżecie $11.09/12.
+./_zenek_analiza_out.txt:86:2026-07-26 | [AUDYT Etap 2, $0] | USTALENIA: (1) BLOKER OBSADY — kod produkcji zna tylko BOHATER i JANUSZ (GLOSY_VEO/KOLORY_ASS); scenariusz wymaga "young rustic man" = Józek, usuniętego z kodu 23.07 komendą Tomasza; preflight zablokuje każdy klip z mówcą spoza słownika. Ogrodnik = BOHATER/Tomek pasuje wprost (kanoniczny głos "low, gruff, determined middle-aged"). (2) SCENA 4 łamie zasadę DROGI "jeden mówca na klip": twarz złodzieja + głos ogrodnika zza kadru = Veo animuje usta złodzieja do cudzej kwestii (gwarantowany rozjazd ust). (3) PUENTA — głos piskliwy/zduszony poza standardowym repertuarem Veo; mitygacja DARMOWA w montażu (podbicie wysokości ffmpeg asetrate+atempo na gotowym klipie), nie regeneracja. (4) SŁOWA-MINY (przemoc/ból/"draniu"): FLAG nie blok, safety_tolerance=6, słowa Tomasza NIETYKALNE. (5) SFX scen 1-2 (cykady, trzask, bass drop) dokładane w montażu $0. (6) Noc = domena bohater_noc.jpg/janusz_noc.jpg z biblioteki, portrety za $0. (7) Szacunek: 6 kadrów $0.90 + 6 klipów $3.84 = ~$4.74 przy limicie $12 | CZEKA NA DECYZJĘ TOMASZA (obsada złodzieja + kształt sceny 4)
+./_zenek_analiza_out.txt:88:2026-07-26 | "K04 dodaj już głos Józka - Józek.... Piszczy" | KOREKTA KANONU: w scenie k04 (kwestia Tomka "Gadaj, pókim dobry, ktoś ty?!") słychać już Józka z korony — PISK, bez słów. Józek nadal NIEWIDOCZNY. Uzasadnienie realizacyjne (do weryfikacji u Tomasza jeśli sprzeciw): pisk bez artykulacji, bo niemowa PRZEMAWIA dopiero w puencie k06 ("To ja... Józek... niemowa ze wsi!") — gdyby wypowiedział słowo w k04, puenta traci sens. Narastanie: k04 pisk → k05 maksymalna wściekłość Tomka → k06 wyduszone słowa piskliwym głosem. Realizacja: pisk w prompcie Veo jako off-screen squeal z góry; jeśli Veo nie da — dogranie w montażu $0 (ta sama droga co piskliwy głos puenty) | PRZYJĘTE
+./_zenek_analiza_out.txt:89:2026-07-26 | "Wydusi Józek" (odpowiedź na pytanie Claude'a, czy w k04 Józek ma wydusić słowo) | KOREKTA PRZEBIJA propozycję Claude'a (pisk bez artykulacji ODRZUCONY): w k04 Józek WYDUSZA Z SIEBIE słowo — kwestia off-screen z korony: "Józek...." wyduszone piskliwie, z bólu, urywane. Puenta k06 zostaje pełna: "To ja... Józek... niemowa ze wsi!". Narastanie: k03 pytanie → k04 pytanie Tomka + wyduszone "Józek...." z góry → k05 maksymalna wściekłość → k06 pełne zdanie piskliwie. Józek NADAL NIEWIDOCZNY w każdym kadrze; jego głos = off-screen (Veo w prompcie, zabezpieczenie: dogranie w montażu $0 z podbiciem wysokości, gdy Veo nie da piskliwości) | PRZYJĘTE
+./_zenek_analiza_out.txt:90:2026-07-26 | "Trzeba to jakoś uwidocznić że łapie józka za jądra" | WYMÓG REŻYSERSKI: chwyt musi być czytelny dla widza, przy zachowaniu zasady "Józka nie widać". PROPOZYCJA CLAUDE'A (czeka na zgodę): w kadrze widać WYŁĄCZNIE NOGI zwisające z korony (nogawki + gumowce, zero twarzy/sylwetki/tożsamości — więc Józek pozostaje anonimowy do puenty i nie wymaga karty postaci ani nie ruszy strażnika tożsamości); ręka Tomka sięga w górę MIĘDZY zwisające nogi i zaciska się; reakcja: nogi gwałtownie sztywnieją i drgają, jeden gumowiec spada na ziemię (gag). Prompt do Veo opisuje wyłącznie: dłoń zaciskająca się w górze między nogawkami + reakcja nóg — ZERO nazw anatomii (jawne sformułowanie = pewny odrzut content policy); komizm niosą: gest, reakcja nóg, spadający but, pisk z korony i SFX | CZEKA NA ZGODĘ TOMASZA
+./_zenek_analiza_out.txt:91:2026-07-26 | "Pasuje." | ZGODA na wizualizację chwytu przez zwisające nogi (nogawki+gumowce, zero twarzy/sylwetki) ORAZ na generację 6 kadrów nocnych za $0.90; referencja = bohater_noc.jpg z biblioteki ($0); skrypt data/zarty/10010/_gen_kadry.py Z GUARDEM __main__ (lekcja 10009) | W REALIZACJI
+./_zenek_analiza_out.txt:94:2026-07-26 | [Etap 3 — kadry] | 6/6 kadrów wygenerowanych, ZERO błędów i zero odrzutów content policy (safety_tolerance=6, prompty bez nazw anatomii — sam gest i reakcja nóg); koszt $0.90/12; bramka A PASS 6/6 (dokładnie 1 twarz w każdym kadrze = tylko Tomek, sim vs bohater_noc 0.39-0.58, próg 0.35; zwisające nogi bez twarzy nie generują drugiej tożsamości — projekt się potwierdził); kadry na panelu /n150files/10010_kNN.jpg i na moście git tmp_weryfikacja/10010/ | CZEKA NA BRAMKĘ B (oko Tomasza)
+./_zenek_analiza_out.txt:101:2026-07-26 | "Ile razy mam pisać że uchwyt jest najważniejszy!!! Ty piszesz chujowe prompty więc możesz się też dowiedzieć od innych ludzi jak to się robi!!! Nie masz dostępu do internetu???" | Tomasz ma rację: research praktyków (jego ZASADA KLUCZOWA) zrobiony dopiero po 4 nieudanych próbach i $0.60. Wyniki researchu w NAUKI_SERII; k04 v5 robiony metodą praktyków: EDYCJA zaakceptowanego k02 (Change only / Preserve / Constraint) zamiast nowego promptu | W REALIZACJI
+./_zenek_analiza_out.txt:102:2026-07-26 | [k04 v5/v6 metodą praktyków] | v5 (edycja k02 bez portretu): chwyt POPRAWNY (pięść w kroku — metoda Change only/Preserve zadziałała za pierwszym razem), ale tożsamość 0.19 = obca twarz (model wymyślił twarz, bo w referencjach nie było portretu); v6 (DWIE referencje: k02 jako baza kompozycji + bohater_noc jako identity lock, ta sama formuła): tożsamość 0.46 PASS, 1 twarz. Bilans k04: 6 prób = $0.90; budżet odcinka $2.10/12 | CZEKA NA OKO TOMASZA
+./_zenek_analiza_out.txt:104:2026-07-26 | "Ok" (na k06) | BRAMKA B ZAMKNIĘTA — wszystkie 6 kadrów zaakceptowanych (k06 sim 0.33 przeszedł na oko Tomasza mimo progu 0.35 — mimika osłupienia zaniża podobieństwo); k05 zostaje bez uchwytu (brak sprzeciwu, kadr czystej emocji); START KANARKA: k04 jako najbogatszy test ryzyk naraz — lip-sync kwestii Tomka + PISK JÓZKA Z OFFU + drżące nogi + chwyt w ruchu ($0.64) | W REALIZACJI
+./_zenek_analiza_out.txt:105:2026-07-26 | [kanarek k04 submit] | preflight: 1. przebieg CZERWONY — bramka złapała kwestię w prompcie bez polskich znaków ("pokim/ktos" vs kanon "pókim/ktoś"), poprawione; 2. przebieg 16/16 ZIELONY; SUBMIT veo3.1 lite FLF, RID 019f9da5-52ec-7ff3-8dc0-9e8e73f08b04, $0.64; prompt: kwestia Tomka w cudzysłowie + pisk Józka opisany BEZ cudzysłowu (żeby nie złamać kontroli jednej pary cudzysłowów) | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+./_zenek_analiza_out.txt:106:2026-07-26 | [KANAREK k04 — wynik] | technika PASS, napisy-widmo PASS, język PASS (whisper medium: kwestia Tomka + "Józek!" z offu — Veo DAŁO głos Józka), tożsamość FAIL (0.19-0.22 vs bohater_noc). ANALIZA 6 klatek: klip WIERNIE odtwarza zaakceptowany kadr k04 (sim vs kadr 0.45-0.83), ale sam kadr k04 odbiega od portretu z biblioteki (0.41) — bo powstał łańcuchem edycji k02→v5→v6, twarz była odtwarzana przez model. Czyli alert = DRYF TOŻSAMOŚCI OD BIBLIOTEKI (nowa lekcja: metoda edit/preserve zachowuje kompozycję, ale kumuluje dryf twarzy), NIE zepsucie w klipie ani przeciek drugiej postaci. PISK JÓZKA: jest, F0 239 Hz vs Tomek 167 Hz — za mało piskliwy, plan: podbicie do ~400 Hz w montażu ffmpeg asetrate+atempo, $0. Koszt: $2.89/12 | CZEKA NA DECYZJĘ TOMASZA: force+batch (5 klipów $3.20) czy najpierw poprawa kadru + drugi kanarek ($0.79)
+./_zenek_analiza_out.txt:107:2026-07-26 | "Wyeliminować wszystkie błędy zanim pójdzie do veo" | FORCE ODRZUCONY — zasada na ten odcinek: żaden klip nie idzie do Veo, dopóki kadry nie są czyste. Plan: (1) pomiar tożsamości WSZYSTKICH 6 kadrów, (2) poprawa każdego poniżej 0.45 (margines na spadek w ruchu — kanarek pokazał spadek kadr 0.41 → klip 0.19), (3) ponowny pomiar, (4) dopiero wtedy kanarek/batch | W REALIZACJI
+./_zenek_analiza_out.txt:108:2026-07-26 | [audyt kadrów przed Veo] | Pomiar 6 kadrów vs biblioteka: k01 0.58 OK, k02 brak twarzy (Tomek tyłem — kadr akcji, OK), k03 0.41 słabo, k04 0.46 (w klipie spadło do 0.19!), k05 0.55 OK, k06 0.33 poniżej progu. ŹRÓDŁO ZNALEZIONE: nie kadry, tylko sama referencja bohater_noc.jpg jest zdryfowana (0.59-0.63 vs reszta biblioteki, gdy baza↔karta 0.92) — wszystkie kadry odziedziczyły jej dryf. PLAN NAPRAWY U ŹRÓDŁA (czeka na zgodę, $0.60): (1) regeneracja bohater_noc z kotwicą baza+karta $0.15 — naprawa AKTYWU serii, nie tylko tego odcinka; (2) poprawa k03, k04, k06 metodą edit/preserve z nowym portretem 3×$0.15; (3) ponowny pomiar, cel ≥0.60 w kadrze (bo Veo zjada ~0.25 w ruchu) | CZEKA NA ZGODĘ
+./_zenek_analiza_out.txt:109:2026-07-26 | "Czyli co? Idziemy dalej?" | ZGODA na plan naprawy $0.60: regeneracja bohater_noc z kotwicą baza+karta + poprawa k03/k04/k06 | W REALIZACJI
+./_zenek_analiza_out.txt:110:2026-07-26 | "Szukaj odpowiedzi u nas w zapisach bo są rolki i są dobre albo dokładnie doczytaj u ludzi jak to robią" | ODPOWIEDŹ ZNALEZIONA W ZAPISACH (dwie przyczyny, obie po stronie Claude'a): (1) DROGA Etap 3 mówi "najważniejsze referencje w PIERWSZYCH slotach; skonfliktowane referencje = model uśrednia" — Claude dawał jako pierwszą referencję kadr k02, w którym twarz Tomka jest niewidoczna (kadr od tyłu), więc model uśredniał nieistniejącą twarz z portretem → dryf; (2) DECYZJE_10005 (odcinek NOCNY, zaakceptowany): kanarek "PASS: jezyk pl, Janusz 0.63" przy kadrze startowym = CZYSTY PORTRET z biblioteki — czyli noc NIE zaniża pomiaru, moja teza była błędna; 10010 miał łańcuch edycji (portret→k02 v1→v2→v3→k04 v5→v6→k06 v3 = 6 pokoleń kopii) = ten sam błąd, który DROGA 3.1 zakazuje przy klipach ("kserowanie kserówki"). NAPRAWA w ramach udzielonej zgody $0.60 (wydane $0.15): k03/k04/k06 od nowa, referencje w kolejności [bohater_noc = tożsamość, bohater_arkusz = dodatkowe widoki twarzy, k02 = tylko kompozycja chwytu], cel ≥0.50 | W REALIZACJI
+./_zenek_analiza_out.txt:111:2026-07-26 | "I doczytaj u ludzi jak to robią" | RESEARCH WYKONANY (5 źródeł praktyków, zapis w NAUKI_SERII): kluczowe czego nie robiłem — 4-6 referencji zamiast 1-2, twarz musi zajmować 30-50% kadru referencyjnego (nasze portrety: ~10-15%), identity lock formułą "same eyes, nose shape, jawline contour, skin texture", reuse tych samych tokenów opisowych. WYKONANE ZA $0: cropy twarzy crop_baza.jpg (40%), crop_karta.jpg (51%), crop_noc.jpg (40%) do assets/zarty/karty/ — nowy standard referencji serii. Regeneracja k03/k04/k06 z zestawem: crop_noc + crop_baza + crop_karta + arkusz + kadr kompozycji na końcu ($0.45 z wcześniejszej zgody) | W REALIZACJI
+./_zenek_analiza_out.txt:113:2026-07-26 | "B" | Kończymy 10010 na tym co jest: k04 i k06 regenerowane ŚWIEŻO z JEDNĄ referencją bohater_noc (metoda k01/k05, które dały najlepsze 0.55-0.58), zero łańcucha edycji, prompt łączy kompozycję z k02 (nogi, buty poza kadrem, pięść w kroku) z twarzą jak w k01/k05; naprawa biblioteki Tomka = osobny temat poza tym odcinkiem ($0.30) | W REALIZACJI
+./_zenek_analiza_out.txt:114:2026-07-26 | [wynik B] | k04_b sim 0.46 (bez zmiany, ale bez łańcucha edycji), k06_b sim 0.55 (było 0.33 — +0.22, najlepszy wynik w odcinku obok k01/k05); OBA PODSTAWIONE jako obowiązujące, stare zachowane (k04_lancuch_046.jpg, k06_lancuch_033.jpg). POTWIERDZENIE ZASADY: jedna referencja z właściwej domeny > wiele referencji z niespójnej biblioteki. Koszt $3.79/12 | CZEKA NA BRAMKĘ B
+./_zenek_analiza_out.txt:115:2026-07-26 | "Weryfikacja nie Halucynacja robiłeś to dzisiaj kilka razy więc dlaczego popełniasz dalej błędy" + zrzuty k04/k06 (PUSTE SPODNIE, bez człowieka) | k04_b i k06_b ODRZUCONE. Przyczyna obrazu: prompt "no face, no head, no torso, no silhouette" wzięty przez model dosłownie = wygenerował puste portki jak pranie. Przyczyna procesowa: VLM OSTRZEGAŁ ("nogi nie zwisają w dół") — zignorowane, pytania były naprowadzające, zabrakło pytania o sedno (czy w spodniach jest człowiek). Lekcja w NAUKI_SERII. NIC nie generuję do decyzji Tomasza o kształcie ujęcia (propozycja: nogi + fragment tułowia okrakiem na gałęzi, głowa i twarz w listowiu) | STOP, CZEKA NA DECYZJĘ
+./_zenek_analiza_out.txt:116:2026-07-26 | "Jak można anulować starzników po co oni są?" | Przyznanie: Claude nadużył prawa do force — "wzorzec k09" był używany jako domyślna wymówka do przepuszczania FAIL-i tożsamości (10009 k05 przepuszczony własną decyzją; 10010 kadry poniżej progu prezentowane jako "do oka"). NOWA TWARDA REGUŁA (NAUKI_SERII): FAIL = STOP; naprawa albo force, a force wypowiada wyłącznie Tomasz po dowodach. Bez wyjątków, także przy presji czasu | PRZYJĘTE NA STAŁE
+./_zenek_analiza_out.txt:118:2026-07-26 | "Popraw" | ZGODA na kształt ujęcia: w koronie widać CZŁOWIEKA — biodra/dolny tułów okrakiem na grubej gałęzi, obie nogi w spodniach WYPEŁNIONYCH nogami zwisają w dół, stopy w GUMOWCACH (kanon rekwizytów: nogawki+gumowce, gumowiec spada w k05); głowa, ramiona i twarz całkowicie w listowiu = Józek nierozpoznawalny do puenty. Regeneracja k04+k06 świeżo, 1 referencja bohater_noc (zasada zmierzona), $0.30. Weryfikacja NOWĄ procedurą: najpierw OTWARTY opis VLM, potem detale, sprzeczność=FAIL, raport bramki A na panel+Telegram | W REALIZACJI
+./_zenek_analiza_out.txt:121:2026-07-26 | "Dawaj" | ZGODA na kanarka #2 k04 ($0.64): kadr = przywrócony k04 (zaakceptowany chwyt), prompt Veo ze wzmocnioną tożsamością (pełne tokeny + "the same man with the same face for the entire clip, his facial features never change" + kamera trzyma twarz w świetle przez cały klip); preflight i kanarek przez wrapper jawności | W REALIZACJI
+./_zenek_analiza_out.txt:122:2026-07-26 | [kanarek2 submit] | preflight 16/16 ZIELONY (raport na panelu+TG); SUBMIT veo3.1 lite FLF z kadru k04 (zaakceptowany chwyt), RID zapisany w gen_state_k04_kanarek2.json | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+./_zenek_analiza_out.txt:124:2026-07-26 | "A piskliwy głos Józka???? Zapomniałeś już" | TOMASZ MA RACJĘ — pomiar na oknie słowa (whisper word-timestamps 2.48-2.90s): Tomek 230 Hz, "Józek!" 235 Hz = TEN SAM zwykły męski głos, ŻADNEGO pisku; moje "PISK JEST" w raporcie kanarka2 było kolejnym niezweryfikowanym twierdzeniem (słowo ≠ pisk). Realizacja zapisanego planu $0: pitch-up segmentu w montażu — DWA WARIANTY DEMO na panelu do ucha Tomasza: A ×1.7 (~400 Hz), B ×2.2 (~515 Hz, helowo-zduszony); tempo bez zmian, reszta klipu nietknięta. Ta sama obróbka pójdzie na każdy klip z głosem Józka (k04, k06) deterministycznie w montażu — pisk przestaje zależeć od loterii Veo | CZEKA NA WYBÓR A/B (albo odrzut → inne podejście)
+./_zenek_analiza_out.txt:126:2026-07-26 | [zmiana konfiguracji pod kanon] | k06 = kwestia JÓZKA (off-screen), a GLOSY_VEO zna tylko duet → dodany klucz "JOZEK" z głosem WPROST z kanonu Tomasza ("niezwykle piskliwy, nienaturalnie wysoki, zduszony, łamiący się, wyciśnięty z resztek sił"); to GŁOS epizodyczny na potrzeby 10010, NIE powrót postaci wizualnej z banku (komenda 23.07 "zostaw Tomasza i Janusza" dotyczyła obsady widocznej — kanon 10010 sam wprowadza głos Józka); backup kodu przed zmianą | W REALIZACJI
+./_zenek_analiza_out.txt:127:2026-07-26 | [naprawy przed batchem] | (1) preflight.py: kontrola twarzy mówcy zasadnie POMIJANA dla klipów niemych (--bez-dialogu) i mówców zza kadru bez karty (JOZEK) — luka narzędzia wykryta przez batch, naprawiona z backupem (/tmp/preflight_backup_10010.py), regresja czysta (k01 niemy POMINIĘTY+ZIELONY, k04 dialog PASS 0.41); (2) k03: edycja standardowa dała 0.31 (za mało), ŚWIEŻA generacja z bohater_noc = 0.49 vs karta / 0.58 vs noc — NAJLEPSZY k03, podstawiony (zapasy k03_v1_033, k03_v2_031); wystawiony na panel do wglądu. Koszt napraw $0.30, budżet $5.18/12 | ZROBIONE, BATCH STARTUJE
+./_zenek_analiza_out.txt:128:2026-07-26 | [BATCH submit] | 5/5 preflight ZIELONY (raport panel+TG); SUBMIT 5× veo3.1 lite FLF, PEŁNE RIDy: k01 019f9dea-d398-72d3-8492-f99e1e10517d, k02 019f9dea-d9eb-7080-9ff6-1d5fc545f5cb, k03 019f9dea-e050-7e82-b348-b4a7fb49666d, k05 019f9dea-e6fb-7660-848f-d22dc05c32bf, k06 019f9dea-ef2b-7a72-b776-599cad94fe9f; $3.20, budżet $8.38/12 | CZEKA NA WYNIKI
+./_zenek_analiza_out.txt:129:2026-07-26 | [strażnik batchu — wyniki] | k02, k03, k05 PASS CZYSTY (k03 po świeżym kadrze przeszedł!); k01 PASS Z UWAGĄ (plan szeroki = mała twarz, zgodne z zamysłem zasadzki); k06 FAIL tożsamość (0.27-0.30, kadr miał 0.33) — zgodnie z regułą FAIL=STOP decyzja force/naprawa należy do Tomasza. TREŚĆ k06 POPRAWNA: whisper medium słyszy pełną puentę "To ja, Józek, niemowa ze wsi." (0.0-5.68s), F0 145 Hz (Veo dało NISKI głos — wariant A ×1.7 w montażu podbije do ~250... UWAGA: 145×1.7=247 Hz to za mało na pisk, dla k06 potrzebny większy mnożnik, do przetestowania na tym klipie przy montażu, $0). Podglądy 5 klipów na panelu (faststart). Budżet $8.38/12 | CZEKA NA WERDYKT: k06 force/naprawa
+./_zenek_analiza_out.txt:132:2026-07-26 | [diagnoza całości — USTALENIA] | Dźwięk: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), k01/k02 nieme jak trzeba. OBRAZ — SCENY ROZPADAJĄ SIĘ W ŚRODKU KLIPÓW (otwarte opisy VLM na 4s): k02 ŚCISK ZNIKA — jakaś postać NA drzewie zbiera coś, przedmioty spadają; k04 Tomek ZAWIESZONY W PNIU, trzyma się gałęzi nogami rozłożonymi szeroko; k05 gumowiec WISI NA SZNURKU na gałęzi (VLM sam pisze "absurdalnie"); k06 chwyt znika, Tomek PODCIĄGA WŁASNE SPODNIE na biodrze; k03 znośny; k01 Tomek "spokojny zamyślony" zamiast zasadzki. PRZYCZYNA: (a) FLF kotwiczy tylko 1. i ostatnią klatkę — środek jest wolny (znane: "FLF = interpolacja"), a moje prompty opisywały DYNAMICZNE akcje ("legs JERK violently", "fist TIGHTENS, knuckles whiten") sprzeczne z "holds the exact pose" — Veo wybrało akrobatykę; w 10008/09 prompty były "holds pose + mówi" i działały; (b) LUKA BRAMEK: kanarek nie ma sędziego VLM scen (POMINIĘTY) — rozpad sceny w środku klipu jest niewidzialny dla technicznego/tożsamości; otwarty opis VLM środka klipu = brakująca bramka, wdrożyć na stałe | ZGŁOSZONE, PLAN NAPRAWY U TOMASZA
+./_zenek_analiza_out.txt:135:2026-07-26 | "Działaj" | zgoda na pakiet: re-roll k02/k04/k05/k06 w reżimie statycznym (prompty pracownika + poprawki szefa: k05=wariant B BEZ zdania o gumowcu, kamera locked-off) $2.56 + edycja kadru k05 (usunięcie gumowca z powietrza) $0.15 ≈ $2.71, budżet docelowo ~$11.09/12; k01/k03 BEZ re-rollu — ocena przy montażu; kolejność: sędzia anonimowy ($0) → bramka A kadru → preflight (jawność panel+TG) → submit | W REALIZACJI
+./_zenek_analiza_out.txt:137:2026-07-26 | [re-roll submit] | kadr k05: gumowiec usunięty nano-banana-pro/edit $0.15 (backup k05_gumowiec_w_powietrzu.jpg, bramka A PASS: VLM but=NIE twarz=TAK, raport+podgląd na panelu); preflight 4/4 ZIELONY (raport panel+TG); SUBMIT 4× veo3.1 lite FLF $2.56, PEŁNE RIDy: k02 019f9e8d-6089-75f0-b4c9-9db365ddbe20, k04 019f9e8d-6654-7651-993a-262a8704c159, k05 019f9e8d-6dca-75a2-90b7-f9ae9ba21a08, k06 019f9e8d-75a2-7d50-8faf-3df26ad84cf5; budżet $11.09/12 | CZEKA NA WYNIKI → strażnik + NOWA bramka otwartego opisu środka klipu
+./_zenek_analiza_out.txt:140:/bin/bash -lc "find data/zarty/10010 -maxdepth 3 -type f | sort | sed -n '1,240p'; find assets/zarty/karty -maxdepth 1 -type f -name 'bohater_noc.jpg' -print" in /root/rod-ai-studio
+./_zenek_analiza_out.txt:180:data/zarty/10010/diag3/k01_1.jpg
+./_zenek_analiza_out.txt:181:data/zarty/10010/diag3/k01_2.jpg
+./_zenek_analiza_out.txt:182:data/zarty/10010/diag3/k01_3.jpg
+./_zenek_analiza_out.txt:198:data/zarty/10010/gen_state_batch_k01.json
+./_zenek_analiza_out.txt:212:data/zarty/10010/kadry/k01.jpg
+./_zenek_analiza_out.txt:240:data/zarty/10010/klip_k01.mp4
+./_zenek_analiza_out.txt:264:assets/zarty/karty/bohater_noc.jpg
+./_zenek_analiza_out.txt:269:Strażnik wykrył niskie podobieństwo klatek do `bohater_noc.jpg`, ale nie udowodnił, że Veo wstawiło obcą osobę. Porównuje klipy ze zdryfowanym aktywem bibliotecznym, a nie z faktycznym zaakceptowanym kadrem wejściowym.
+./_zenek_analiza_out.txt:273:- PASS-y `k01`, `k02` i `k05` pokazują, że sama referencja nie powoduje automatycznie zepsucia każdego klipu. Wynik zależy również od kąta twarzy, mimiki, światła i wielkości twarzy.
+./_zenek_analiza_out.txt:281:- **H3 — ZGODA z ograniczeniem:** dryf `bohater_noc.jpg` wyjaśnia źródło formalnych FAIL-i tożsamości, ale nie dowodzi automatycznie, że klipy są poprawne wizualnie lub fabularnie.
+./_zenek_analiza_out.txt:303:LIBRARY_REFERENCE = ROOT / "assets/zarty/karty/bohater_noc.jpg"
+./_zenek_analiza_out.txt:525:   Wybrać gorszy z `k04`/`k06` na podstawie pomiaru: edycja kadru **$0.15** + jeden klip Veo lite **$0.64**. Budżet wyniesie **$11.88 / $12.00**. Nie wystarczy środków na taką naprawę obu klipów.
+./_zenek_analiza_out.txt:528:   Ma sens tylko wtedy, gdy zaakceptowany kadr jest dobry, ale klip okaże się niewierny właśnie temu kadrowi. Budżet wyniesie **$11.73 / $12.00**.
+./_zenek_analiza_out.txt:530:Rekomendacja: najpierw wariant 1. Nie wydawać pieniędzy na podstawie samego porównania ze zdryfowanym `bohater_noc.jpg`.
+./_zenek_analiza_out.txt:535:Strażnik wykrył niskie podobieństwo klatek do `bohater_noc.jpg`, ale nie udowodnił, że Veo wstawiło obcą osobę. Porównuje klipy ze zdryfowanym aktywem bibliotecznym, a nie z faktycznym zaakceptowanym kadrem wejściowym.
+./_zenek_analiza_out.txt:539:- PASS-y `k01`, `k02` i `k05` pokazują, że sama referencja nie powoduje automatycznie zepsucia każdego klipu. Wynik zależy również od kąta twarzy, mimiki, światła i wielkości twarzy.
+./_zenek_analiza_out.txt:547:- **H3 — ZGODA z ograniczeniem:** dryf `bohater_noc.jpg` wyjaśnia źródło formalnych FAIL-i tożsamości, ale nie dowodzi automatycznie, że klipy są poprawne wizualnie lub fabularnie.
+./_zenek_analiza_out.txt:569:LIBRARY_REFERENCE = ROOT / "assets/zarty/karty/bohater_noc.jpg"
+./_zenek_analiza_out.txt:791:   Wybrać gorszy z `k04`/`k06` na podstawie pomiaru: edycja kadru **$0.15** + jeden klip Veo lite **$0.64**. Budżet wyniesie **$11.88 / $12.00**. Nie wystarczy środków na taką naprawę obu klipów.
+./_zenek_analiza_out.txt:794:   Ma sens tylko wtedy, gdy zaakceptowany kadr jest dobry, ale klip okaże się niewierny właśnie temu kadrowi. Budżet wyniesie **$11.73 / $12.00**.
+./_zenek_analiza_out.txt:796:Rekomendacja: najpierw wariant 1. Nie wydawać pieniędzy na podstawie samego porównania ze zdryfowanym `bohater_noc.jpg`.
+./_zadanie_zenka_k05.md:12:4. Kanon celuje w rolkę 15-20 s; mamy zdrowe k01, k02, k03, k04 (+k06 w naprawie) — materiału jest dużo, klipy i tak będą cięte.
+./_zadanie_zenka_k05.md:13:5. Kwestia k05 "No gadaj draniu, ktoś ty?!" jest nagrana czysto w klip_k05_reroll (lip-sync na zbliżeniu).
+./_zadanie_zenka_k05.md:14:6. BUDŻET — sprzężenie: wydane $11.09/12; zatwierdzana równolegle naprawa k06 (niemy + głos z montażu) = $0.64 → $11.73. Limit $12; przekroczenie wyłącznie jawnym słowem Tomasza. Stawki: klip $0.64, edycja kadru $0.15, montaż $0.
+./_genek_glos_out.txt:17:3.  **Miejsce 3: DSP na nagraniu Veo** – Najmniej śmieszne. Mechaniczne podbicie pitchu (nawet z formantem) zawsze brzmi jak "Alvin i Wiewiórki", co Tomasz słusznie odrzucił jako taniznę.
+./_pracownik_out.txt:20:# ZADANIE DLA PRACOWNIKA — prompty Veo w REŻIMIE STATYCZNYM (odcinek 10010)
+./_pracownik_out.txt:26:2. data/zarty/10010/_klipy_batch.json — obecne prompty k01/k02/k03/k05/k06 (k02, k05, k06 przepisujesz)
+./_pracownik_out.txt:31:Klipy generuje Veo 3.1 FLF (first-last-frame): model dostaje TYLKO pierwszą i ostatnią klatkę, środek klipu jest wolny. Każdy dynamiczny czasownik w prompcie ("legs JERK violently", "fist TIGHTENS", "twitch") to zaproszenie do akrobatyki w środku — dziś tak rozpadły się sceny (ścisk znikał, postać łaziła po drzewie, bohater podciągał własne spodnie). Reżim, który DZIAŁAŁ w odcinkach 10008/10009: postać trzyma dokładną pozę z kadru przez cały klip, rusza się tylko twarz przy mówieniu.
+./_pracownik_out.txt:66:  + import bez guarda — obie lekcje w NAUKI_SERII).
+./_pracownik_out.txt:76:- NA DYSKU (data/zarty/10010/): kadry zaakceptowane (k01,k02,k03 v3,k04=lancuch_046,
+./_pracownik_out.txt:77:  k05,k06=lancuch_033) + wszystkie odrzuty z opisowymi nazwami; 6 klipów: klip_k01,
+./_pracownik_out.txt:89:  k03 znośny, k01 "spokojny zamyślony" zamiast zasadzki.
+./_pracownik_out.txt:91:  exact pose" — Veo wybiera akrobatykę. W 10008/09 działał reżim "holds pose + mówi".
+./_pracownik_out.txt:99:4. k01/k03: do oceny Tomasza — może przejdą po przycięciu w montażu.
+./_pracownik_out.txt:104:## NOWE TWARDE REGUŁY Z 26.07 (obowiązują wszystkie okna; szczegóły w NAUKI_SERII.md)
+./_pracownik_out.txt:117:  GLOSY_VEO ma klucz "JOZEK" (głos epizodyczny wg kanonu, NIE powrót postaci);
+./_pracownik_out.txt:176: "k01": {"mowca": "BOHATER", "niemy": true, "kwestia": "",
+./_pracownik_out.txt:222:- k04 zawiera dwa zdarzenia dźwiękowe: kwestię Tomka i pisk z korony. Choć pisk nie jest drugim mówcą ani mikroakcją wizualną, Veo może próbować powiązać go z ruchem nogawek lub liści.
+./_pracownik_out.txt:228:- k06 zawiera głos z ukrytej korony. Veo może próbować ujawnić Józka albo poruszyć nogawkami, liśćmi lub gałęziami w celu wizualnego wskazania źródła głosu.
+./_pracownik_out.txt:267:- k04 zawiera dwa zdarzenia dźwiękowe: kwestię Tomka i pisk z korony. Choć pisk nie jest drugim mówcą ani mikroakcją wizualną, Veo może próbować powiązać go z ruchem nogawek lub liści.
+./_pracownik_out.txt:273:- k06 zawiera głos z ukrytej korony. Veo może próbować ujawnić Józka albo poruszyć nogawkami, liśćmi lub gałęziami w celu wizualnego wskazania źródła głosu.
+./_zadanie_genka_audyt.md:21:| 1 | 0:45–3:00 | k01, szeroki plan zasadzki; powolny najazd. Plansza: „Kiedy złapiesz złodzieja jabłek... 🍎” przez ok. 1,6 s | Cykady i cichy szelest liści | Mock-seriousness: Tomek zachowuje się jak komandos, choć pilnuje jabłek |
+./_zadanie_genka_audyt.md:22:| 2 | 3:00–3:35 | Ostatnie klatki k01: nagły shake/whip w stronę korony | Głośny trzask gałęzi; szelest urywa się natychmiast | Zaskoczenie i przygotowanie ataku |
+./_zadanie_genka_audyt.md:52:Materiał gra zbyt grobowo przede wszystkim w k01 i dialogach Tomka. Nie próbowałbym udawać, że tego nie ma: montaż ma przekodować powagę w **mock-seriousness** przez krótkie jump-cuty, przesadnie filmowy VINE BOOM, kolorowe napisy, bezczelnie długie cisze i pisk będący kompletnie nieadekwatną odpowiedzią na groźne przesłuchanie.
+./_zadanie_genka_audyt.md:77:K01–k04, audio k05, zaakceptowane kadry 2K, czysta puenta z batchowego k06, intro, outro i materiał do darmowych SFX wystarczają. Nie potrzeba nowego k05, nowych kadrów ani nowych generacji postaci. Budżet końcowy: **$11.73/12**.
+./_zadanie_zenka_analiza.md:10:- Referencja bohater_noc.jpg jest ZDRYFOWANA: 0.59-0.63 vs reszta biblioteki (baza↔karta mają 0.92)
+./_zadanie_zenka_analiza.md:13:- Zmierzona zasada dnia: Veo "zjada" ~0.25 podobieństwa w ruchu
+./_zadanie_zenka_analiza.md:14:- k01/k05 (kadry 0.55-0.58) przeszły kanarka PASS przy TEJ SAMEJ referencji
+./_zadanie_zenka_analiza.md:20:H3: przyczyna źródłowa = dryf aktywu bohater_noc.jpg, nie zepsucie klipów
+./_zadanie_zenka_analiza.md:25:2. WERYFIKACJA $0: napisz KOMPLETNY skrypt Pythona (do uruchomienia przez szefa w kontenerze, /app/venv/bin/python, insightface buffalo_l dostępny), który dla klipów k04 i k06 (_reroll.mp4): wyciąga klatki co 1 s (ffmpeg), mierzy cosine podobieństwo twarzy każdej klatki (a) vs kadry/kXX.jpg (zaakceptowany kadr) i (b) vs assets/zarty/karty/bohater_noc.jpg, wypisuje tabelę i werdykt: WIERNY KADROWI / OBCA TWARZ. Ścieżki bezwzględne, zero zapisu poza /tmp.
+./_zadanie_zenka_analiza.md:26:3. PROPOZYCJE NAPRAWY: minimum 2 warianty z kosztami w $ (stawki: klip Veo lite $0.64, edycja kadru $0.15), przy budżecie $11.09/12.
+./_k06niemy.py:8:M = 'fal-ai/veo3.1/lite/first-last-frame-to-video'
+./_straz_batch.py:11:           '--wzorzec', f'BOHATER={W}/bohater_noc.jpg']
+./_straz_k06niemy.py:11:           '--wzorzec', f'BOHATER={W}/bohater_noc.jpg']
+./_zenek_architektura_out.txt:28:2. wiedza/DROGA_ROLKA_HUMOR.md — cała; szczególnie Etap 6 (montaż: jump-cuty do mowy, napisy KOLORY_ASS, plansza, intro/outro brand, puenta kończy)
+./_zenek_architektura_out.txt:29:3. wiedza/NAUKI_SERII.md — cała; szczególnie lekcje montażowe 10009 (napisy po interpunkcji, fps normalize, sync <0.05s, wzorzec montaz.py z 10008)
+./_zenek_architektura_out.txt:34:- Zdrowe klipy 8s: k01 (zasadzka, niemy, plan szeroki), k02 (chwyt, niemy), k03 (pytanie 1 "Gadaj, ktoś ty?!", ręka w górze), k04 (pytanie 2 "Gadaj, pókim dobry..." + pisk z korony w audio)
+./_zenek_architektura_out.txt:37:- Zaakceptowane kadry (stille 2K): k01-k06, w tym szerokie plany chwytu — pełnoprawny materiał montażowy (Ken Burns/punch-in)
+./_zenek_architektura_out.txt:38:- Plansza tytułowa z kanonu: "Kiedy złapiesz złodzieja jabłek... 🍎" (tekst w montażu); intro+outro brand obowiązkowe
+./_zenek_architektura_out.txt:39:- Budżet: $11.09/12; zaplanowany wydatek tylko k06 niemy $0.64 → $11.73
+./_zenek_architektura_out.txt:42:S1: Brakuje beatu ATAKU (kanon scena 2: rush + vine boom + "szelest ustaje") — zrobić go MONTAŻOWO za $0: k01 → gwałtowny cut z shake + VINE BOOM na szybkim punch-inie w kadr chwytu → k02. Bez tego ścisk pojawia się znikąd.
+./_zenek_architektura_out.txt:60:/bin/bash -lc 'for f in data/zarty/10010/KANON.md wiedza/DROGA_ROLKA_HUMOR.md wiedza/NAUKI_SERII.md wiedza/DECYZJE_SERIA_HUMOR.md wiedza/DECYZJE_10010.md; do wc -l "$f"; done
+./_zenek_architektura_out.txt:63:sed -n '1,500p' wiedza/NAUKI_SERII.md" in /root/rod-ai-studio
+./_zenek_architektura_out.txt:67:36 wiedza/NAUKI_SERII.md
+./_zenek_architektura_out.txt:123:  Tomasza (B) → kanarek → preflighty → Veo lite FLF (angielska reżyseria + polska
+./_zenek_architektura_out.txt:125:  do mowy, grade, napisy KOLORY_ASS, intro+outro brand, plansza AI) → ocena natywna.
+./_zenek_architektura_out.txt:126:- Silnik: fal-ai/veo3.1/lite (wideo z głosem). BIELIK NIE UCZESTNICZY.
+./_zenek_architektura_out.txt:138:- 2.4 | 17.07 10:4x | (ten commit) | tarcze przeciwbłędowe: suite wzorcowa, lint, natywne wejścia Veo, zbliżenie≠first, słowa-miny, koordynacja okien, higiena zmian, tryb --final
+./_zenek_architektura_out.txt:140:- 2.6 | 17.07 11:2x | (ten commit) | bramka PREFLIGHT przed każdym submitem ("1000% pewne w Veo"); kanon odcinka w data/zarty/NNNN/KANON.md
+./_zenek_architektura_out.txt:142:- 2.8 | 17.07 22:2x | (ten commit) | RESEARCH BRANŻOWY OBOWIĄZKOWY: przed każdym ryzykownym/nowym elementem (technika, trudna akcja, nieznany teren) najpierw doczytać praktyków w sieci — "ich praktyka ich kosztowała, nas nie musi"; wnioski do NAUK przed wydatkiem
+./_zenek_architektura_out.txt:147:- 3.2 | 18.07 | (ten commit) | TRANSPARENTNOŚĆ AI OBOWIĄZKOWA (TikTok C2PA auto-detekcja; UE AI Act art. 50 od 02.08.2026): (a) każda publikacja z platformowym oznaczeniem AI (TikTok toggle, YT checkbox, FB w opisie), (b) stała linijka w opisie "Wideo tworzone z pomocą AI", (c) nieinwazyjna plansza/ikonka AI w outro brandu (~5s, wzorzec draft Code of Practice — dzieło ewidentnie satyryczne = reżim lżejszy, zwolnienia brak), (d) postacie NIGDY z dosłowną twarzą realnej osoby prywatnej (TikTok: ban całkowity nawet z labelem), (e) dokumentacja wkładu ludzkiego = git/DECYZJE/KANON (polisa na YT "genuine creative value").
+./_zenek_architektura_out.txt:150:- 3.5 | 23.07 | (ten commit) | KANAREK Z PĘTLĄ KOREKCJI + BANK PROMPTÓW (decyzja "1 i 3 wdrożenie", max trafność zamiast przypuszczeń): tools/kanarek.py owija strażnika w warstwę diagnostyczną — przy FAIL mapuje werdykt na KONKRETNE zalecenie (język/twarz za mała/kadr/technika) zamiast samego PASS/FAIL; NIE wydaje kolejnych $ sam (decyzja Tomasza). Przy PASS+akceptacji zapisuje prompt do wiedza/PROMPTY_WZORCE.md (bank zwycięzców tagowany [postać][ujęcie][domena]); następny klip startuje z najbliższego wzorca nie z czystej kartki. Veo niedeterministyczny — 1000% gwarancji nie ma, ale tani test przed drogim batchem zbliża maksymalnie. Zweryfikowane na klip_02/10006: PASS czysty + ścieżka FAIL z zaleceniem.
+./_zenek_architektura_out.txt:188:- JEDEN mówca na klip (skuteczność lip-sync 80% vs 40% przy dwóch). Wymiana zdań = cięcie na klipy.
+./_zenek_architektura_out.txt:205:fal-ai/veo3.1/lite FLF 1080p Z NATYWNYM POLSKIM AUDIO: $0.64/8s — robi FINAŁY
+./_zenek_architektura_out.txt:215:ALTERNATYWA reference-to-video (Ingredients, veo3.1/reference-to-video na fal):
+./_zenek_architektura_out.txt:222:z KANON.md odcinka, blok głosu z GLOSY_VEO + native Polish + no captions,
+./_zenek_architektura_out.txt:231:kotwice FLF (MAD w 64px: start<12, koniec<18 — kalibracja na ziarnie Veo) /
+./_zenek_architektura_out.txt:239:INTRO I OUTRO BRANDU OBOWIĄZKOWE: animowane intro (rod_profilowe) + plansza
+./_zenek_architektura_out.txt:255:3. WEJŚCIA VEO NATYWNE: kadrów przed FLF się NIE upscaluje (768→1080 = seria odrzutów).
+./_zenek_architektura_out.txt:266:8. TRYB --final STRAŻNIKA: dozwolona liczba cięć montażowych (parametr), plansza/freeze
+./_zenek_architektura_out.txt:275:2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE operacje musi mieć submity za guardem `if __name__ == '__main__'` OD NAPISANIA; nigdy nie importować skryptu produkcyjnego po definicje (import wykonuje moduł); dane współdzielone (prompty/kwestie) trzymać w osobnym pliku danych (json), nie w skrypcie z efektami ubocznymi. Cancel w fal NIE przerywa zadań InProgress — działa najwyżej na InQueue, na Veo (~2 min) okno jest praktycznie zerowe.
+./_zenek_architektura_out.txt:283:2026-07-25 (#10009) | LIP-SYNC ROZJEŻDŻA SIĘ NA CONCACIE, NIE W VEO: demuxer concat na materiałach o różnym fps (body 24 + intro/outro 30 + plansza 25) gubi klatki i daje narastający rozjazd obrazu z dźwiękiem (zmierzone 2.25s na 70s). RECEPTA: przed sklejeniem znormalizować WSZYSTKIE części do parametrów body (fps klipów Veo = 24, 1080x1920, aac 48k stereo, cisza dokładana gdy część nie ma audio), potem concat -c copy. BRAMKA OBOWIĄZKOWA po każdym montażu: |duration_wideo - duration_audio| < 0.05s (ffprobe na obu strumieniach) — 10008 zaakceptowany ma 0.01s, odrzucony 10009 v1-v3 miał 2.25s. Bramkę sprawdzać ZANIM finał trafi do Tomasza.
+./_zenek_architektura_out.txt:298:2026-07-26 (#10010, POMIAR NA ŻYWO) | RADA PRAKTYKÓW "6 REFERENCJI" NIE DZIAŁA NA NASZEJ BIBLIOTECE — zmierzone: 1 referencja (bohater_noc) → kadry 0.55-0.58 (k01, k05, k02); 2 referencje (kadr kompozycji + portret) → 0.46; 5 referencji (crop_noc+crop_baza+crop_karta+arkusz+kompozycja) → 0.17-0.27. PRZYCZYNA (nasza własna DROGA to mówi: "skonfliktowane referencje = model uśrednia"): rada praktyków zakłada, że referencje to ZDJĘCIA TEJ SAMEJ OSOBY. Nasze portrety to generacje AI wzajemnie niespójne (macierz 0.59-0.92) — podanie czterech naraz każe modelowi uśrednić cztery różne twarze i wypluć piątą. WNIOSEK OPERACYJNY: przy bibliotece z generacji AI trzymać JEDNĄ referencję tożsamości na kadr (tę z właściwej domeny światła), nie mnożyć. Zanim kiedykolwiek podamy wiele referencji — najpierw ujednolicić bibliotekę (jedna kanoniczna twarz, reszta z niej).
+./_zenek_architektura_out.txt:345:  (nauka z odrzuconych kart); bramka A automatem PRZED linkami. | WYKONANE ($0.60; bramka A: twarze 3/1/3/1 zgodne, sim 0.50-0.76 vs baza, separacja postaci czysta)
+./_zenek_architektura_out.txt:383:  accent; (2) kanarek: 1 klip → strażnik → dopiero batch; (3) veo3.1/reference-to-video
+./_zenek_architektura_out.txt:388:  Wpisane do GLOSY_VEO w kodzie. | OBOWIĄZUJE
+./_zenek_architektura_out.txt:390:  w veo!!!" | Bramka PREFLIGHT (tools/preflight.py): automat sprawdza PRZED
+./_zenek_architektura_out.txt:391:  każdym submitem do Veo — kwestia verbatim z kanonu, blok głosu + native Polish
+./_zenek_architektura_out.txt:421:  spadającego jabłka" (~40s, Tomek=właściciel jabłoni, Janusz=łowca okazji). | OBOWIĄZUJE
+./_zenek_architektura_out.txt:425:  elementem produkcji; wnioski do NAUK przed wydatkiem. | OBOWIĄZUJE (DROGA 2.8)
+./_zenek_architektura_out.txt:439:  źródeł (całe artykuły, nie snippety). Wnioski → NAUKI + ew. DROGA. | W REALIZACJI
+./_zenek_architektura_out.txt:472:  nie ruszają parsera). health 200, MIECZYSŁAW w GLOSY_VEO/KOLORY_ASS = False,
+./_zenek_architektura_out.txt:479:  GLOSY_VEO=[BOHATER,JANUSZ], KOLORY_ASS=[BOHATER,JANUSZ], parser _kwestie zna
+./_zenek_architektura_out.txt:487:2026-07-26 | [AUDYT Etap 2, $0] | USTALENIA: (1) BLOKER OBSADY — kod produkcji zna tylko BOHATER i JANUSZ (GLOSY_VEO/KOLORY_ASS); scenariusz wymaga "young rustic man" = Józek, usuniętego z kodu 23.07 komendą Tomasza; preflight zablokuje każdy klip z mówcą spoza słownika. Ogrodnik = BOHATER/Tomek pasuje wprost (kanoniczny głos "low, gruff, determined middle-aged"). (2) SCENA 4 łamie zasadę DROGI "jeden mówca na klip": twarz złodzieja + głos ogrodnika zza kadru = Veo animuje usta złodzieja do cudzej kwestii (gwarantowany rozjazd ust). (3) PUENTA — głos piskliwy/zduszony poza standardowym repertuarem Veo; mitygacja DARMOWA w montażu (podbicie wysokości ffmpeg asetrate+atempo na gotowym klipie), nie regeneracja. (4) SŁOWA-MINY (przemoc/ból/"draniu"): FLAG nie blok, safety_tolerance=6, słowa Tomasza NIETYKALNE. (5) SFX scen 1-2 (cykady, trzask, bass drop) dokładane w montażu $0. (6) Noc = domena bohater_noc.jpg/janusz_noc.jpg z biblioteki, portrety za $0. (7) Szacunek: 6 kadrów $0.90 + 6 klipów $3.84 = ~$4.74 przy limicie $12 | CZEKA NA DECYZJĘ TOMASZA (obsada złodzieja + kształt sceny 4)
+./_zenek_architektura_out.txt:489:2026-07-26 | "K04 dodaj już głos Józka - Józek.... Piszczy" | KOREKTA KANONU: w scenie k04 (kwestia Tomka "Gadaj, pókim dobry, ktoś ty?!") słychać już Józka z korony — PISK, bez słów. Józek nadal NIEWIDOCZNY. Uzasadnienie realizacyjne (do weryfikacji u Tomasza jeśli sprzeciw): pisk bez artykulacji, bo niemowa PRZEMAWIA dopiero w puencie k06 ("To ja... Józek... niemowa ze wsi!") — gdyby wypowiedział słowo w k04, puenta traci sens. Narastanie: k04 pisk → k05 maksymalna wściekłość Tomka → k06 wyduszone słowa piskliwym głosem. Realizacja: pisk w prompcie Veo jako off-screen squeal z góry; jeśli Veo nie da — dogranie w montażu $0 (ta sama droga co piskliwy głos puenty) | PRZYJĘTE
+./_zenek_architektura_out.txt:490:2026-07-26 | "Wydusi Józek" (odpowiedź na pytanie Claude'a, czy w k04 Józek ma wydusić słowo) | KOREKTA PRZEBIJA propozycję Claude'a (pisk bez artykulacji ODRZUCONY): w k04 Józek WYDUSZA Z SIEBIE słowo — kwestia off-screen z korony: "Józek...." wyduszone piskliwie, z bólu, urywane. Puenta k06 zostaje pełna: "To ja... Józek... niemowa ze wsi!". Narastanie: k03 pytanie → k04 pytanie Tomka + wyduszone "Józek...." z góry → k05 maksymalna wściekłość → k06 pełne zdanie piskliwie. Józek NADAL NIEWIDOCZNY w każdym kadrze; jego głos = off-screen (Veo w prompcie, zabezpieczenie: dogranie w montażu $0 z podbiciem wysokości, gdy Veo nie da piskliwości) | PRZYJĘTE
+./_zenek_architektura_out.txt:491:2026-07-26 | "Trzeba to jakoś uwidocznić że łapie józka za jądra" | WYMÓG REŻYSERSKI: chwyt musi być czytelny dla widza, przy zachowaniu zasady "Józka nie widać". PROPOZYCJA CLAUDE'A (czeka na zgodę): w kadrze widać WYŁĄCZNIE NOGI zwisające z korony (nogawki + gumowce, zero twarzy/sylwetki/tożsamości — więc Józek pozostaje anonimowy do puenty i nie wymaga karty postaci ani nie ruszy strażnika tożsamości); ręka Tomka sięga w górę MIĘDZY zwisające nogi i zaciska się; reakcja: nogi gwałtownie sztywnieją i drgają, jeden gumowiec spada na ziemię (gag). Prompt do Veo opisuje wyłącznie: dłoń zaciskająca się w górze między nogawkami + reakcja nóg — ZERO nazw anatomii (jawne sformułowanie = pewny odrzut content policy); komizm niosą: gest, reakcja nóg, spadający but, pisk z korony i SFX | CZEKA NA ZGODĘ TOMASZA
+./_zenek_architektura_out.txt:492:2026-07-26 | "Pasuje." | ZGODA na wizualizację chwytu przez zwisające nogi (nogawki+gumowce, zero twarzy/sylwetki) ORAZ na generację 6 kadrów nocnych za $0.90; referencja = bohater_noc.jpg z biblioteki ($0); skrypt data/zarty/10010/_gen_kadry.py Z GUARDEM __main__ (lekcja 10009) | W REALIZACJI
+./_zenek_architektura_out.txt:495:2026-07-26 | [Etap 3 — kadry] | 6/6 kadrów wygenerowanych, ZERO błędów i zero odrzutów content policy (safety_tolerance=6, prompty bez nazw anatomii — sam gest i reakcja nóg); koszt $0.90/12; bramka A PASS 6/6 (dokładnie 1 twarz w każdym kadrze = tylko Tomek, sim vs bohater_noc 0.39-0.58, próg 0.35; zwisające nogi bez twarzy nie generują drugiej tożsamości — projekt się potwierdził); kadry na panelu /n150files/10010_kNN.jpg i na moście git tmp_weryfikacja/10010/ | CZEKA NA BRAMKĘ B (oko Tomasza)
+./_zenek_architektura_out.txt:502:2026-07-26 | "Ile razy mam pisać że uchwyt jest najważniejszy!!! Ty piszesz chujowe prompty więc możesz się też dowiedzieć od innych ludzi jak to się robi!!! Nie masz dostępu do internetu???" | Tomasz ma rację: research praktyków (jego ZASADA KLUCZOWA) zrobiony dopiero po 4 nieudanych próbach i $0.60. Wyniki researchu w NAUKI_SERII; k04 v5 robiony metodą praktyków: EDYCJA zaakceptowanego k02 (Change only / Preserve / Constraint) zamiast nowego promptu | W REALIZACJI
+./_zenek_architektura_out.txt:503:2026-07-26 | [k04 v5/v6 metodą praktyków] | v5 (edycja k02 bez portretu): chwyt POPRAWNY (pięść w kroku — metoda Change only/Preserve zadziałała za pierwszym razem), ale tożsamość 0.19 = obca twarz (model wymyślił twarz, bo w referencjach nie było portretu); v6 (DWIE referencje: k02 jako baza kompozycji + bohater_noc jako identity lock, ta sama formuła): tożsamość 0.46 PASS, 1 twarz. Bilans k04: 6 prób = $0.90; budżet odcinka $2.10/12 | CZEKA NA OKO TOMASZA
+./_zenek_architektura_out.txt:505:2026-07-26 | "Ok" (na k06) | BRAMKA B ZAMKNIĘTA — wszystkie 6 kadrów zaakceptowanych (k06 sim 0.33 przeszedł na oko Tomasza mimo progu 0.35 — mimika osłupienia zaniża podobieństwo); k05 zostaje bez uchwytu (brak sprzeciwu, kadr czystej emocji); START KANARKA: k04 jako najbogatszy test ryzyk naraz — lip-sync kwestii Tomka + PISK JÓZKA Z OFFU + drżące nogi + chwyt w ruchu ($0.64) | W REALIZACJI
+./_zenek_architektura_out.txt:506:2026-07-26 | [kanarek k04 submit] | preflight: 1. przebieg CZERWONY — bramka złapała kwestię w prompcie bez polskich znaków ("pokim/ktos" vs kanon "pókim/ktoś"), poprawione; 2. przebieg 16/16 ZIELONY; SUBMIT veo3.1 lite FLF, RID 019f9da5-52ec-7ff3-8dc0-9e8e73f08b04, $0.64; prompt: kwestia Tomka w cudzysłowie + pisk Józka opisany BEZ cudzysłowu (żeby nie złamać kontroli jednej pary cudzysłowów) | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+./_zenek_architektura_out.txt:507:2026-07-26 | [KANAREK k04 — wynik] | technika PASS, napisy-widmo PASS, język PASS (whisper medium: kwestia Tomka + "Józek!" z offu — Veo DAŁO głos Józka), tożsamość FAIL (0.19-0.22 vs bohater_noc). ANALIZA 6 klatek: klip WIERNIE odtwarza zaakceptowany kadr k04 (sim vs kadr 0.45-0.83), ale sam kadr k04 odbiega od portretu z biblioteki (0.41) — bo powstał łańcuchem edycji k02→v5→v6, twarz była odtwarzana przez model. Czyli alert = DRYF TOŻSAMOŚCI OD BIBLIOTEKI (nowa lekcja: metoda edit/preserve zachowuje kompozycję, ale kumuluje dryf twarzy), NIE zepsucie w klipie ani przeciek drugiej postaci. PISK JÓZKA: jest, F0 239 Hz vs Tomek 167 Hz — za mało piskliwy, plan: podbicie do ~400 Hz w montażu ffmpeg asetrate+atempo, $0. Koszt: $2.89/12 | CZEKA NA DECYZJĘ TOMASZA: force+batch (5 klipów $3.20) czy najpierw poprawa kadru + drugi kanarek ($0.79)
+./_zenek_architektura_out.txt:508:2026-07-26 | "Wyeliminować wszystkie błędy zanim pójdzie do veo" | FORCE ODRZUCONY — zasada na ten odcinek: żaden klip nie idzie do Veo, dopóki kadry nie są czyste. Plan: (1) pomiar tożsamości WSZYSTKICH 6 kadrów, (2) poprawa każdego poniżej 0.45 (margines na spadek w ruchu — kanarek pokazał spadek kadr 0.41 → klip 0.19), (3) ponowny pomiar, (4) dopiero wtedy kanarek/batch | W REALIZACJI
+./_zenek_architektura_out.txt:509:2026-07-26 | [audyt kadrów przed Veo] | Pomiar 6 kadrów vs biblioteka: k01 0.58 OK, k02 brak twarzy (Tomek tyłem — kadr akcji, OK), k03 0.41 słabo, k04 0.46 (w klipie spadło do 0.19!), k05 0.55 OK, k06 0.33 poniżej progu. ŹRÓDŁO ZNALEZIONE: nie kadry, tylko sama referencja bohater_noc.jpg jest zdryfowana (0.59-0.63 vs reszta biblioteki, gdy baza↔karta 0.92) — wszystkie kadry odziedziczyły jej dryf. PLAN NAPRAWY U ŹRÓDŁA (czeka na zgodę, $0.60): (1) regeneracja bohater_noc z kotwicą baza+karta $0.15 — naprawa AKTYWU serii, nie tylko tego odcinka; (2) poprawa k03, k04, k06 metodą edit/preserve z nowym portretem 3×$0.15; (3) ponowny pomiar, cel ≥0.60 w kadrze (bo Veo zjada ~0.25 w ruchu) | CZEKA NA ZGODĘ
+./_zenek_architektura_out.txt:510:2026-07-26 | "Czyli co? Idziemy dalej?" | ZGODA na plan naprawy $0.60: regeneracja bohater_noc z kotwicą baza+karta + poprawa k03/k04/k06 | W REALIZACJI
+./_zenek_architektura_out.txt:511:2026-07-26 | "Szukaj odpowiedzi u nas w zapisach bo są rolki i są dobre albo dokładnie doczytaj u ludzi jak to robią" | ODPOWIEDŹ ZNALEZIONA W ZAPISACH (dwie przyczyny, obie po stronie Claude'a): (1) DROGA Etap 3 mówi "najważniejsze referencje w PIERWSZYCH slotach; skonfliktowane referencje = model uśrednia" — Claude dawał jako pierwszą referencję kadr k02, w którym twarz Tomka jest niewidoczna (kadr od tyłu), więc model uśredniał nieistniejącą twarz z portretem → dryf; (2) DECYZJE_10005 (odcinek NOCNY, zaakceptowany): kanarek "PASS: jezyk pl, Janusz 0.63" przy kadrze startowym = CZYSTY PORTRET z biblioteki — czyli noc NIE zaniża pomiaru, moja teza była błędna; 10010 miał łańcuch edycji (portret→k02 v1→v2→v3→k04 v5→v6→k06 v3 = 6 pokoleń kopii) = ten sam błąd, który DROGA 3.1 zakazuje przy klipach ("kserowanie kserówki"). NAPRAWA w ramach udzielonej zgody $0.60 (wydane $0.15): k03/k04/k06 od nowa, referencje w kolejności [bohater_noc = tożsamość, bohater_arkusz = dodatkowe widoki twarzy, k02 = tylko kompozycja chwytu], cel ≥0.50 | W REALIZACJI
+./_zenek_architektura_out.txt:512:2026-07-26 | "I doczytaj u ludzi jak to robią" | RESEARCH WYKONANY (5 źródeł praktyków, zapis w NAUKI_SERII): kluczowe czego nie robiłem — 4-6 referencji zamiast 1-2, twarz musi zajmować 30-50% kadru referencyjnego (nasze portrety: ~10-15%), identity lock formułą "same eyes, nose shape, jawline contour, skin texture", reuse tych samych tokenów opisowych. WYKONANE ZA $0: cropy twarzy crop_baza.jpg (40%), crop_karta.jpg (51%), crop_noc.jpg (40%) do assets/zarty/karty/ — nowy standard referencji serii. Regeneracja k03/k04/k06 z zestawem: crop_noc + crop_baza + crop_karta + arkusz + kadr kompozycji na końcu ($0.45 z wcześniejszej zgody) | W REALIZACJI
+./_zenek_architektura_out.txt:514:2026-07-26 | "B" | Kończymy 10010 na tym co jest: k04 i k06 regenerowane ŚWIEŻO z JEDNĄ referencją bohater_noc (metoda k01/k05, które dały najlepsze 0.55-0.58), zero łańcucha edycji, prompt łączy kompozycję z k02 (nogi, buty poza kadrem, pięść w kroku) z twarzą jak w k01/k05; naprawa biblioteki Tomka = osobny temat poza tym odcinkiem ($0.30) | W REALIZACJI
+./_zenek_architektura_out.txt:515:2026-07-26 | [wynik B] | k04_b sim 0.46 (bez zmiany, ale bez łańcucha edycji), k06_b sim 0.55 (było 0.33 — +0.22, najlepszy wynik w odcinku obok k01/k05); OBA PODSTAWIONE jako obowiązujące, stare zachowane (k04_lancuch_046.jpg, k06_lancuch_033.jpg). POTWIERDZENIE ZASADY: jedna referencja z właściwej domeny > wiele referencji z niespójnej biblioteki. Koszt $3.79/12 | CZEKA NA BRAMKĘ B
+./_zenek_architektura_out.txt:516:2026-07-26 | "Weryfikacja nie Halucynacja robiłeś to dzisiaj kilka razy więc dlaczego popełniasz dalej błędy" + zrzuty k04/k06 (PUSTE SPODNIE, bez człowieka) | k04_b i k06_b ODRZUCONE. Przyczyna obrazu: prompt "no face, no head, no torso, no silhouette" wzięty przez model dosłownie = wygenerował puste portki jak pranie. Przyczyna procesowa: VLM OSTRZEGAŁ ("nogi nie zwisają w dół") — zignorowane, pytania były naprowadzające, zabrakło pytania o sedno (czy w spodniach jest człowiek). Lekcja w NAUKI_SERII. NIC nie generuję do decyzji Tomasza o kształcie ujęcia (propozycja: nogi + fragment tułowia okrakiem na gałęzi, głowa i twarz w listowiu) | STOP, CZEKA NA DECYZJĘ
+./_zenek_architektura_out.txt:517:2026-07-26 | "Jak można anulować starzników po co oni są?" | Przyznanie: Claude nadużył prawa do force — "wzorzec k09" był używany jako domyślna wymówka do przepuszczania FAIL-i tożsamości (10009 k05 przepuszczony własną decyzją; 10010 kadry poniżej progu prezentowane jako "do oka"). NOWA TWARDA REGUŁA (NAUKI_SERII): FAIL = STOP; naprawa albo force, a force wypowiada wyłącznie Tomasz po dowodach. Bez wyjątków, także przy presji czasu | PRZYJĘTE NA STAŁE
+./_zenek_architektura_out.txt:519:2026-07-26 | "Popraw" | ZGODA na kształt ujęcia: w koronie widać CZŁOWIEKA — biodra/dolny tułów okrakiem na grubej gałęzi, obie nogi w spodniach WYPEŁNIONYCH nogami zwisają w dół, stopy w GUMOWCACH (kanon rekwizytów: nogawki+gumowce, gumowiec spada w k05); głowa, ramiona i twarz całkowicie w listowiu = Józek nierozpoznawalny do puenty. Regeneracja k04+k06 świeżo, 1 referencja bohater_noc (zasada zmierzona), $0.30. Weryfikacja NOWĄ procedurą: najpierw OTWARTY opis VLM, potem detale, sprzeczność=FAIL, raport bramki A na panel+Telegram | W REALIZACJI
+./_zenek_architektura_out.txt:522:2026-07-26 | "Dawaj" | ZGODA na kanarka #2 k04 ($0.64): kadr = przywrócony k04 (zaakceptowany chwyt), prompt Veo ze wzmocnioną tożsamością (pełne tokeny + "the same man with the same face for the entire clip, his facial features never change" + kamera trzyma twarz w świetle przez cały klip); preflight i kanarek przez wrapper jawności | W REALIZACJI
+./_zenek_architektura_out.txt:523:2026-07-26 | [kanarek2 submit] | preflight 16/16 ZIELONY (raport na panelu+TG); SUBMIT veo3.1 lite FLF z kadru k04 (zaakceptowany chwyt), RID zapisany w gen_state_k04_kanarek2.json | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+./_zenek_architektura_out.txt:525:2026-07-26 | "A piskliwy głos Józka???? Zapomniałeś już" | TOMASZ MA RACJĘ — pomiar na oknie słowa (whisper word-timestamps 2.48-2.90s): Tomek 230 Hz, "Józek!" 235 Hz = TEN SAM zwykły męski głos, ŻADNEGO pisku; moje "PISK JEST" w raporcie kanarka2 było kolejnym niezweryfikowanym twierdzeniem (słowo ≠ pisk). Realizacja zapisanego planu $0: pitch-up segmentu w montażu — DWA WARIANTY DEMO na panelu do ucha Tomasza: A ×1.7 (~400 Hz), B ×2.2 (~515 Hz, helowo-zduszony); tempo bez zmian, reszta klipu nietknięta. Ta sama obróbka pójdzie na każdy klip z głosem Józka (k04, k06) deterministycznie w montażu — pisk przestaje zależeć od loterii Veo | CZEKA NA WYBÓR A/B (albo odrzut → inne podejście)
+./_zenek_architektura_out.txt:527:2026-07-26 | [zmiana konfiguracji pod kanon] | k06 = kwestia JÓZKA (off-screen), a GLOSY_VEO zna tylko duet → dodany klucz "JOZEK" z głosem WPROST z kanonu Tomasza ("niezwykle piskliwy, nienaturalnie wysoki, zduszony, łamiący się, wyciśnięty z resztek sił"); to GŁOS epizodyczny na potrzeby 10010, NIE powrót postaci wizualnej z banku (komenda 23.07 "zostaw Tomasza i Janusza" dotyczyła obsady widocznej — kanon 10010 sam wprowadza głos Józka); backup kodu przed zmianą | W REALIZACJI
+./_zenek_architektura_out.txt:528:2026-07-26 | [naprawy przed batchem] | (1) preflight.py: kontrola twarzy mówcy zasadnie POMIJANA dla klipów niemych (--bez-dialogu) i mówców zza kadru bez karty (JOZEK) — luka narzędzia wykryta przez batch, naprawiona z backupem (/tmp/preflight_backup_10010.py), regresja czysta (k01 niemy POMINIĘTY+ZIELONY, k04 dialog PASS 0.41); (2) k03: edycja standardowa dała 0.31 (za mało), ŚWIEŻA generacja z bohater_noc = 0.49 vs karta / 0.58 vs noc — NAJLEPSZY k03, podstawiony (zapasy k03_v1_033, k03_v2_031); wystawiony na panel do wglądu. Koszt napraw $0.30, budżet $5.18/12 | ZROBIONE, BATCH STARTUJE
+./_zenek_architektura_out.txt:529:2026-07-26 | [BATCH submit] | 5/5 preflight ZIELONY (raport panel+TG); SUBMIT 5× veo3.1 lite FLF, PEŁNE RIDy: k01 019f9dea-d398-72d3-8492-f99e1e10517d, k02 019f9dea-d9eb-7080-9ff6-1d5fc545f5cb, k03 019f9dea-e050-7e82-b348-b4a7fb49666d, k05 019f9dea-e6fb-7660-848f-d22dc05c32bf, k06 019f9dea-ef2b-7a72-b776-599cad94fe9f; $3.20, budżet $8.38/12 | CZEKA NA WYNIKI
+./_zenek_architektura_out.txt:530:2026-07-26 | [strażnik batchu — wyniki] | k02, k03, k05 PASS CZYSTY (k03 po świeżym kadrze przeszedł!); k01 PASS Z UWAGĄ (plan szeroki = mała twarz, zgodne z zamysłem zasadzki); k06 FAIL tożsamość (0.27-0.30, kadr miał 0.33) — zgodnie z regułą FAIL=STOP decyzja force/naprawa należy do Tomasza. TREŚĆ k06 POPRAWNA: whisper medium słyszy pełną puentę "To ja, Józek, niemowa ze wsi." (0.0-5.68s), F0 145 Hz (Veo dało NISKI głos — wariant A ×1.7 w montażu podbije do ~250... UWAGA: 145×1.7=247 Hz to za mało na pisk, dla k06 potrzebny większy mnożnik, do przetestowania na tym klipie przy montażu, $0). Podglądy 5 klipów na panelu (faststart). Budżet $8.38/12 | CZEKA NA WERDYKT: k06 force/naprawa
+./_zenek_architektura_out.txt:533:2026-07-26 | [diagnoza całości — USTALENIA] | Dźwięk: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), k01/k02 nieme jak trzeba. OBRAZ — SCENY ROZPADAJĄ SIĘ W ŚRODKU KLIPÓW (otwarte opisy VLM na 4s): k02 ŚCISK ZNIKA — jakaś postać NA drzewie zbiera coś, przedmioty spadają; k04 Tomek ZAWIESZONY W PNIU, trzyma się gałęzi nogami rozłożonymi szeroko; k05 gumowiec WISI NA SZNURKU na gałęzi (VLM sam pisze "absurdalnie"); k06 chwyt znika, Tomek PODCIĄGA WŁASNE SPODNIE na biodrze; k03 znośny; k01 Tomek "spokojny zamyślony" zamiast zasadzki. PRZYCZYNA: (a) FLF kotwiczy tylko 1. i ostatnią klatkę — środek jest wolny (znane: "FLF = interpolacja"), a moje prompty opisywały DYNAMICZNE akcje ("legs JERK violently", "fist TIGHTENS, knuckles whiten") sprzeczne z "holds the exact pose" — Veo wybrało akrobatykę; w 10008/09 prompty były "holds pose + mówi" i działały; (b) LUKA BRAMEK: kanarek nie ma sędziego VLM scen (POMINIĘTY) — rozpad sceny w środku klipu jest niewidzialny dla technicznego/tożsamości; otwarty opis VLM środka klipu = brakująca bramka, wdrożyć na stałe | ZGŁOSZONE, PLAN NAPRAWY U TOMASZA
+./_zenek_architektura_out.txt:536:2026-07-26 | "Działaj" | zgoda na pakiet: re-roll k02/k04/k05/k06 w reżimie statycznym (prompty pracownika + poprawki szefa: k05=wariant B BEZ zdania o gumowcu, kamera locked-off) $2.56 + edycja kadru k05 (usunięcie gumowca z powietrza) $0.15 ≈ $2.71, budżet docelowo ~$11.09/12; k01/k03 BEZ re-rollu — ocena przy montażu; kolejność: sędzia anonimowy ($0) → bramka A kadru → preflight (jawność panel+TG) → submit | W REALIZACJI
+./_zenek_architektura_out.txt:538:2026-07-26 | [re-roll submit] | kadr k05: gumowiec usunięty nano-banana-pro/edit $0.15 (backup k05_gumowiec_w_powietrzu.jpg, bramka A PASS: VLM but=NIE twarz=TAK, raport+podgląd na panelu); preflight 4/4 ZIELONY (raport panel+TG); SUBMIT 4× veo3.1 lite FLF $2.56, PEŁNE RIDy: k02 019f9e8d-6089-75f0-b4c9-9db365ddbe20, k04 019f9e8d-6654-7651-993a-262a8704c159, k05 019f9e8d-6dca-75a2-90b7-f9ae9ba21a08, k06 019f9e8d-75a2-7d50-8faf-3df26ad84cf5; budżet $11.09/12 | CZEKA NA WYNIKI → strażnik + NOWA bramka otwartego opisu środka klipu
+./_zenek_architektura_out.txt:539:2026-07-26 | [NARADA TRÓJKI — konsensus] | Strażnicy: k02+k05 podwójnie czyste; k04/k06 kanarek-FAIL tożsamości. Zenek: FAIL-e mierzone vs ZDRYFOWANA biblioteka nie dowodzą obcej twarzy, H2/H3/H4 zgoda, H1 wymaga pomiaru; napisał skrypt weryfikacji $0. POMIAR (raport na panelu+TG): k04 WIERNY KADROWI 6/6 (mediana 0.63, min 0.46), k06 WIERNY KADROWI 8/8 (mediana 0.69, min 0.47) — formalne FAIL-e = artefakt kotwicy bohater_noc. OTWARTE: k06 środek — VLM przeczy sam sobie (opis otwarty: siedzi na drzewie; detale: chwyt OK) → wg precedensu dnia rozstrzyga WYŁĄCZNIE bramka B (oko Tomasza); k04 środek PASS. Koszt narady $0, budżet $11.09/12 | KONSENSUS TRÓJKI OSIĄGNIĘTY, PROPOZYCJA U TOMASZA
+./_zenek_architektura_out.txt:542:2026-07-26 | [TRÓJKA k06 — konsensus] | POMIAR (raport panel+TG): usta widocznego Tomka PRACUJĄ przez 100% klatek (rozwarcie 0.14-0.17, oscylacja mowy) — bramka B potwierdzona liczbą. DIAGNOZA Zenka (zgodna z Klaudkiem): natywny lip-sync Veo traktuje widoczną twarz jako mówcę, miękkie negacje w prompcie przegrywają z wyuczonym wzorcem; praktycy: ujęcia nieme + dialog w postprodukcji. PROPOZYCJA TRÓJKI: Wariant 1 za $0.64 — k06 całkowicie NIEMY (prompt bez słowa o głosie/pisku, usta domknięte pozytywnie), głos Józka wycięty z batchowego k06 (czysta puenta, 145 Hz) + pitch-up deterministyczny (2 mnożniki do ucha Tomasza, ×1.7 za mało), położony w montażu; budżet po: $11.73/12. Alternatywy: loteria promptowa $0.64 / kadr+niemy $0.79 / maska ust $0 (artefakty). Bramka KTO MÓWI (projekt Zenka + progi z pomiaru) do wdrożenia po odcinku $0 | KONSENSUS, CZEKA NA SŁOWO TOMASZA
+./_zenek_architektura_out.txt:544:2026-07-26 | [TRÓJKA k05 — konsensus] | DIAGNOZA (Zenek+Klaudek zgodni): winowajca = zero wizualnej kotwicy chwytu (brak ręki/pięści/nogawek) + drzewo ZA plecami + zbliżenie odcinające przestrzeń k04 → efekt gapowicza; problem kompozycji, nie emocji/lip-synca. PROPOZYCJA TRÓJKI: Wariant 4+ za $0 — obraz k05 odpada, czysta kwestia 'No gadaj draniu, ktoś ty?!' z klip_k05_reroll idzie jako krzyk NAD ZAAKCEPTOWANYM SZEROKIM KADREM CHWYTU z zatrzymaniem/najazdem Ken Burns (statyczny obraz = zero konfliktu ust, chwyt na ekranie przez cały krzyk); awaryjnie: cięcie pytania (eskalacja na dwóch). Odrzucone: nowy kadr+reroll $0.79 (budżet po obu naprawach $12.52 = przekroczenie limitu — tylko jawnym słowem Tomasza). ŁĄCZNY PAKIET z k06 (niemy $0.64 + głos z montażu): budżet końcowy $11.73/12 | KONSENSUS, PAKIET U TOMASZA
+./_zenek_architektura_out.txt:545:2026-07-26 | "Rolka ma być zajebista i śmieszna więc naradzić się jeszcze raz doczytać wszyscy jak to ma wyglądać i działać" | NARADA #2 z innym celem: nie łatanie klipów, tylko ARCHITEKTURA KOMIZMU całej rolki — wszyscy czytają od nowa (kanon 10010+10004, DROGA, NAUKI, rytm 10008/09), wynik: sekundnik jak rolka wygląda i działa, żeby była zajebista i śmieszna; pakiet naprawczy podporządkowany architekturze; zero wydatków do słowa Tomasza | W TOKU
+./_zenek_architektura_out.txt:580:  (nauka z odrzuconych kart); bramka A automatem PRZED linkami. | WYKONANE ($0.60; bramka A: twarze 3/1/3/1 zgodne, sim 0.50-0.76 vs baza, separacja postaci czysta)
+./_zenek_architektura_out.txt:618:  accent; (2) kanarek: 1 klip → strażnik → dopiero batch; (3) veo3.1/reference-to-video
+./_zenek_architektura_out.txt:623:  Wpisane do GLOSY_VEO w kodzie. | OBOWIĄZUJE
+./_zenek_architektura_out.txt:625:  w veo!!!" | Bramka PREFLIGHT (tools/preflight.py): automat sprawdza PRZED
+./_zenek_architektura_out.txt:626:  każdym submitem do Veo — kwestia verbatim z kanonu, blok głosu + native Polish
+./_zenek_architektura_out.txt:656:  spadającego jabłka" (~40s, Tomek=właściciel jabłoni, Janusz=łowca okazji). | OBOWIĄZUJE
+./_zenek_architektura_out.txt:660:  elementem produkcji; wnioski do NAUK przed wydatkiem. | OBOWIĄZUJE (DROGA 2.8)
+./_zenek_architektura_out.txt:674:  źródeł (całe artykuły, nie snippety). Wnioski → NAUKI + ew. DROGA. | W REALIZACJI
+./_zenek_architektura_out.txt:707:  nie ruszają parsera). health 200, MIECZYSŁAW w GLOSY_VEO/KOLORY_ASS = False,
+./_zenek_architektura_out.txt:714:  GLOSY_VEO=[BOHATER,JANUSZ], KOLORY_ASS=[BOHATER,JANUSZ], parser _kwestie zna
+./_zenek_architektura_out.txt:728:     4	2026-07-26 | [AUDYT Etap 2, $0] | USTALENIA: (1) BLOKER OBSADY — kod produkcji zna tylko BOHATER i JANUSZ (GLOSY_VEO/KOLORY_ASS); scenariusz wymaga "young rustic man" = Józek, usuniętego z kodu 23.07 komendą Tomasza; preflight zablokuje każdy klip z mówcą spoza słownika. Ogrodnik = BOHATER/Tomek pasuje wprost (kanoniczny głos "low, gruff, determined middle-aged"). (2) SCENA 4 łamie zasadę DROGI "jeden mówca na klip": twarz złodzieja + głos ogrodnika zza kadru = Veo animuje usta złodzieja do cudzej kwestii (gwarantowany rozjazd ust). (3) PUENTA — głos piskliwy/zduszony poza standardowym repertuarem Veo; mitygacja DARMOWA w montażu (podbicie wysokości ffmpeg asetrate+atempo na gotowym klipie), nie regeneracja. (4) SŁOWA-MINY (przemoc/ból/"draniu"): FLAG nie blok, safety_tolerance=6, słowa Tomasza NIETYKALNE. (5) SFX scen 1-2 (cykady, trzask, bass drop) dokładane w montażu $0. (6) Noc = domena bohater_noc.jpg/janusz_noc.jpg z biblioteki, portrety za $0. (7) Szacunek: 6 kadrów $0.90 + 6 klipów $3.84 = ~$4.74 przy limicie $12 | CZEKA NA DECYZJĘ TOMASZA (obsada złodzieja + kształt sceny 4)
+./_zenek_architektura_out.txt:730:     6	2026-07-26 | "K04 dodaj już głos Józka - Józek.... Piszczy" | KOREKTA KANONU: w scenie k04 (kwestia Tomka "Gadaj, pókim dobry, ktoś ty?!") słychać już Józka z korony — PISK, bez słów. Józek nadal NIEWIDOCZNY. Uzasadnienie realizacyjne (do weryfikacji u Tomasza jeśli sprzeciw): pisk bez artykulacji, bo niemowa PRZEMAWIA dopiero w puencie k06 ("To ja... Józek... niemowa ze wsi!") — gdyby wypowiedział słowo w k04, puenta traci sens. Narastanie: k04 pisk → k05 maksymalna wściekłość Tomka → k06 wyduszone słowa piskliwym głosem. Realizacja: pisk w prompcie Veo jako off-screen squeal z góry; jeśli Veo nie da — dogranie w montażu $0 (ta sama droga co piskliwy głos puenty) | PRZYJĘTE
+./_zenek_architektura_out.txt:731:     7	2026-07-26 | "Wydusi Józek" (odpowiedź na pytanie Claude'a, czy w k04 Józek ma wydusić słowo) | KOREKTA PRZEBIJA propozycję Claude'a (pisk bez artykulacji ODRZUCONY): w k04 Józek WYDUSZA Z SIEBIE słowo — kwestia off-screen z korony: "Józek...." wyduszone piskliwie, z bólu, urywane. Puenta k06 zostaje pełna: "To ja... Józek... niemowa ze wsi!". Narastanie: k03 pytanie → k04 pytanie Tomka + wyduszone "Józek...." z góry → k05 maksymalna wściekłość → k06 pełne zdanie piskliwie. Józek NADAL NIEWIDOCZNY w każdym kadrze; jego głos = off-screen (Veo w prompcie, zabezpieczenie: dogranie w montażu $0 z podbiciem wysokości, gdy Veo nie da piskliwości) | PRZYJĘTE
+./_zenek_architektura_out.txt:732:     8	2026-07-26 | "Trzeba to jakoś uwidocznić że łapie józka za jądra" | WYMÓG REŻYSERSKI: chwyt musi być czytelny dla widza, przy zachowaniu zasady "Józka nie widać". PROPOZYCJA CLAUDE'A (czeka na zgodę): w kadrze widać WYŁĄCZNIE NOGI zwisające z korony (nogawki + gumowce, zero twarzy/sylwetki/tożsamości — więc Józek pozostaje anonimowy do puenty i nie wymaga karty postaci ani nie ruszy strażnika tożsamości); ręka Tomka sięga w górę MIĘDZY zwisające nogi i zaciska się; reakcja: nogi gwałtownie sztywnieją i drgają, jeden gumowiec spada na ziemię (gag). Prompt do Veo opisuje wyłącznie: dłoń zaciskająca się w górze między nogawkami + reakcja nóg — ZERO nazw anatomii (jawne sformułowanie = pewny odrzut content policy); komizm niosą: gest, reakcja nóg, spadający but, pisk z korony i SFX | CZEKA NA ZGODĘ TOMASZA
+./_zenek_architektura_out.txt:733:     9	2026-07-26 | "Pasuje." | ZGODA na wizualizację chwytu przez zwisające nogi (nogawki+gumowce, zero twarzy/sylwetki) ORAZ na generację 6 kadrów nocnych za $0.90; referencja = bohater_noc.jpg z biblioteki ($0); skrypt data/zarty/10010/_gen_kadry.py Z GUARDEM __main__ (lekcja 10009) | W REALIZACJI
+./_zenek_architektura_out.txt:736:    12	2026-07-26 | [Etap 3 — kadry] | 6/6 kadrów wygenerowanych, ZERO błędów i zero odrzutów content policy (safety_tolerance=6, prompty bez nazw anatomii — sam gest i reakcja nóg); koszt $0.90/12; bramka A PASS 6/6 (dokładnie 1 twarz w każdym kadrze = tylko Tomek, sim vs bohater_noc 0.39-0.58, próg 0.35; zwisające nogi bez twarzy nie generują drugiej tożsamości — projekt się potwierdził); kadry na panelu /n150files/10010_kNN.jpg i na moście git tmp_weryfikacja/10010/ | CZEKA NA BRAMKĘ B (oko Tomasza)
+./_zenek_architektura_out.txt:743:    19	2026-07-26 | "Ile razy mam pisać że uchwyt jest najważniejszy!!! Ty piszesz chujowe prompty więc możesz się też dowiedzieć od innych ludzi jak to się robi!!! Nie masz dostępu do internetu???" | Tomasz ma rację: research praktyków (jego ZASADA KLUCZOWA) zrobiony dopiero po 4 nieudanych próbach i $0.60. Wyniki researchu w NAUKI_SERII; k04 v5 robiony metodą praktyków: EDYCJA zaakceptowanego k02 (Change only / Preserve / Constraint) zamiast nowego promptu | W REALIZACJI
+./_zenek_architektura_out.txt:744:    20	2026-07-26 | [k04 v5/v6 metodą praktyków] | v5 (edycja k02 bez portretu): chwyt POPRAWNY (pięść w kroku — metoda Change only/Preserve zadziałała za pierwszym razem), ale tożsamość 0.19 = obca twarz (model wymyślił twarz, bo w referencjach nie było portretu); v6 (DWIE referencje: k02 jako baza kompozycji + bohater_noc jako identity lock, ta sama formuła): tożsamość 0.46 PASS, 1 twarz. Bilans k04: 6 prób = $0.90; budżet odcinka $2.10/12 | CZEKA NA OKO TOMASZA
+./_zenek_architektura_out.txt:746:    22	2026-07-26 | "Ok" (na k06) | BRAMKA B ZAMKNIĘTA — wszystkie 6 kadrów zaakceptowanych (k06 sim 0.33 przeszedł na oko Tomasza mimo progu 0.35 — mimika osłupienia zaniża podobieństwo); k05 zostaje bez uchwytu (brak sprzeciwu, kadr czystej emocji); START KANARKA: k04 jako najbogatszy test ryzyk naraz — lip-sync kwestii Tomka + PISK JÓZKA Z OFFU + drżące nogi + chwyt w ruchu ($0.64) | W REALIZACJI
+./_zenek_architektura_out.txt:747:    23	2026-07-26 | [kanarek k04 submit] | preflight: 1. przebieg CZERWONY — bramka złapała kwestię w prompcie bez polskich znaków ("pokim/ktos" vs kanon "pókim/ktoś"), poprawione; 2. przebieg 16/16 ZIELONY; SUBMIT veo3.1 lite FLF, RID 019f9da5-52ec-7ff3-8dc0-9e8e73f08b04, $0.64; prompt: kwestia Tomka w cudzysłowie + pisk Józka opisany BEZ cudzysłowu (żeby nie złamać kontroli jednej pary cudzysłowów) | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+./_zenek_architektura_out.txt:748:    24	2026-07-26 | [KANAREK k04 — wynik] | technika PASS, napisy-widmo PASS, język PASS (whisper medium: kwestia Tomka + "Józek!" z offu — Veo DAŁO głos Józka), tożsamość FAIL (0.19-0.22 vs bohater_noc). ANALIZA 6 klatek: klip WIERNIE odtwarza zaakceptowany kadr k04 (sim vs kadr 0.45-0.83), ale sam kadr k04 odbiega od portretu z biblioteki (0.41) — bo powstał łańcuchem edycji k02→v5→v6, twarz była odtwarzana przez model. Czyli alert = DRYF TOŻSAMOŚCI OD BIBLIOTEKI (nowa lekcja: metoda edit/preserve zachowuje kompozycję, ale kumuluje dryf twarzy), NIE zepsucie w klipie ani przeciek drugiej postaci. PISK JÓZKA: jest, F0 239 Hz vs Tomek 167 Hz — za mało piskliwy, plan: podbicie do ~400 Hz w montażu ffmpeg asetrate+atempo, $0. Koszt: $2.89/12 | CZEKA NA DECYZJĘ TOMASZA: force+batch (5 klipów $3.20) czy najpierw poprawa kadru + drugi kanarek ($0.79)
+./_zenek_architektura_out.txt:749:    25	2026-07-26 | "Wyeliminować wszystkie błędy zanim pójdzie do veo" | FORCE ODRZUCONY — zasada na ten odcinek: żaden klip nie idzie do Veo, dopóki kadry nie są czyste. Plan: (1) pomiar tożsamości WSZYSTKICH 6 kadrów, (2) poprawa każdego poniżej 0.45 (margines na spadek w ruchu — kanarek pokazał spadek kadr 0.41 → klip 0.19), (3) ponowny pomiar, (4) dopiero wtedy kanarek/batch | W REALIZACJI
+./_zenek_architektura_out.txt:750:    26	2026-07-26 | [audyt kadrów przed Veo] | Pomiar 6 kadrów vs biblioteka: k01 0.58 OK, k02 brak twarzy (Tomek tyłem — kadr akcji, OK), k03 0.41 słabo, k04 0.46 (w klipie spadło do 0.19!), k05 0.55 OK, k06 0.33 poniżej progu. ŹRÓDŁO ZNALEZIONE: nie kadry, tylko sama referencja bohater_noc.jpg jest zdryfowana (0.59-0.63 vs reszta biblioteki, gdy baza↔karta 0.92) — wszystkie kadry odziedziczyły jej dryf. PLAN NAPRAWY U ŹRÓDŁA (czeka na zgodę, $0.60): (1) regeneracja bohater_noc z kotwicą baza+karta $0.15 — naprawa AKTYWU serii, nie tylko tego odcinka; (2) poprawa k03, k04, k06 metodą edit/preserve z nowym portretem 3×$0.15; (3) ponowny pomiar, cel ≥0.60 w kadrze (bo Veo zjada ~0.25 w ruchu) | CZEKA NA ZGODĘ
+./_zenek_architektura_out.txt:751:    27	2026-07-26 | "Czyli co? Idziemy dalej?" | ZGODA na plan naprawy $0.60: regeneracja bohater_noc z kotwicą baza+karta + poprawa k03/k04/k06 | W REALIZACJI
+./_zenek_architektura_out.txt:752:    28	2026-07-26 | "Szukaj odpowiedzi u nas w zapisach bo są rolki i są dobre albo dokładnie doczytaj u ludzi jak to robią" | ODPOWIEDŹ ZNALEZIONA W ZAPISACH (dwie przyczyny, obie po stronie Claude'a): (1) DROGA Etap 3 mówi "najważniejsze referencje w PIERWSZYCH slotach; skonfliktowane referencje = model uśrednia" — Claude dawał jako pierwszą referencję kadr k02, w którym twarz Tomka jest niewidoczna (kadr od tyłu), więc model uśredniał nieistniejącą twarz z portretem → dryf; (2) DECYZJE_10005 (odcinek NOCNY, zaakceptowany): kanarek "PASS: jezyk pl, Janusz 0.63" przy kadrze startowym = CZYSTY PORTRET z biblioteki — czyli noc NIE zaniża pomiaru, moja teza była błędna; 10010 miał łańcuch edycji (portret→k02 v1→v2→v3→k04 v5→v6→k06 v3 = 6 pokoleń kopii) = ten sam błąd, który DROGA 3.1 zakazuje przy klipach ("kserowanie kserówki"). NAPRAWA w ramach udzielonej zgody $0.60 (wydane $0.15): k03/k04/k06 od nowa, referencje w kolejności [bohater_noc = tożsamość, bohater_arkusz = dodatkowe widoki twarzy, k02 = tylko kompozycja chwytu], cel ≥0.50 | W REALIZACJI
+./_zenek_architektura_out.txt:753:    29	2026-07-26 | "I doczytaj u ludzi jak to robią" | RESEARCH WYKONANY (5 źródeł praktyków, zapis w NAUKI_SERII): kluczowe czego nie robiłem — 4-6 referencji zamiast 1-2, twarz musi zajmować 30-50% kadru referencyjnego (nasze portrety: ~10-15%), identity lock formułą "same eyes, nose shape, jawline contour, skin texture", reuse tych samych tokenów opisowych. WYKONANE ZA $0: cropy twarzy crop_baza.jpg (40%), crop_karta.jpg (51%), crop_noc.jpg (40%) do assets/zarty/karty/ — nowy standard referencji serii. Regeneracja k03/k04/k06 z zestawem: crop_noc + crop_baza + crop_karta + arkusz + kadr kompozycji na końcu ($0.45 z wcześniejszej zgody) | W REALIZACJI
+./_zenek_architektura_out.txt:755:    31	2026-07-26 | "B" | Kończymy 10010 na tym co jest: k04 i k06 regenerowane ŚWIEŻO z JEDNĄ referencją bohater_noc (metoda k01/k05, które dały najlepsze 0.55-0.58), zero łańcucha edycji, prompt łączy kompozycję z k02 (nogi, buty poza kadrem, pięść w kroku) z twarzą jak w k01/k05; naprawa biblioteki Tomka = osobny temat poza tym odcinkiem ($0.30) | W REALIZACJI
+./_zenek_architektura_out.txt:756:    32	2026-07-26 | [wynik B] | k04_b sim 0.46 (bez zmiany, ale bez łańcucha edycji), k06_b sim 0.55 (było 0.33 — +0.22, najlepszy wynik w odcinku obok k01/k05); OBA PODSTAWIONE jako obowiązujące, stare zachowane (k04_lancuch_046.jpg, k06_lancuch_033.jpg). POTWIERDZENIE ZASADY: jedna referencja z właściwej domeny > wiele referencji z niespójnej biblioteki. Koszt $3.79/12 | CZEKA NA BRAMKĘ B
+./_zenek_architektura_out.txt:757:    33	2026-07-26 | "Weryfikacja nie Halucynacja robiłeś to dzisiaj kilka razy więc dlaczego popełniasz dalej błędy" + zrzuty k04/k06 (PUSTE SPODNIE, bez człowieka) | k04_b i k06_b ODRZUCONE. Przyczyna obrazu: prompt "no face, no head, no torso, no silhouette" wzięty przez model dosłownie = wygenerował puste portki jak pranie. Przyczyna procesowa: VLM OSTRZEGAŁ ("nogi nie zwisają w dół") — zignorowane, pytania były naprowadzające, zabrakło pytania o sedno (czy w spodniach jest człowiek). Lekcja w NAUKI_SERII. NIC nie generuję do decyzji Tomasza o kształcie ujęcia (propozycja: nogi + fragment tułowia okrakiem na gałęzi, głowa i twarz w listowiu) | STOP, CZEKA NA DECYZJĘ
+./_zenek_architektura_out.txt:758:    34	2026-07-26 | "Jak można anulować starzników po co oni są?" | Przyznanie: Claude nadużył prawa do force — "wzorzec k09" był używany jako domyślna wymówka do przepuszczania FAIL-i tożsamości (10009 k05 przepuszczony własną decyzją; 10010 kadry poniżej progu prezentowane jako "do oka"). NOWA TWARDA REGUŁA (NAUKI_SERII): FAIL = STOP; naprawa albo force, a force wypowiada wyłącznie Tomasz po dowodach. Bez wyjątków, także przy presji czasu | PRZYJĘTE NA STAŁE
+./_zenek_architektura_out.txt:760:    36	2026-07-26 | "Popraw" | ZGODA na kształt ujęcia: w koronie widać CZŁOWIEKA — biodra/dolny tułów okrakiem na grubej gałęzi, obie nogi w spodniach WYPEŁNIONYCH nogami zwisają w dół, stopy w GUMOWCACH (kanon rekwizytów: nogawki+gumowce, gumowiec spada w k05); głowa, ramiona i twarz całkowicie w listowiu = Józek nierozpoznawalny do puenty. Regeneracja k04+k06 świeżo, 1 referencja bohater_noc (zasada zmierzona), $0.30. Weryfikacja NOWĄ procedurą: najpierw OTWARTY opis VLM, potem detale, sprzeczność=FAIL, raport bramki A na panel+Telegram | W REALIZACJI
+./_zenek_architektura_out.txt:763:    39	2026-07-26 | "Dawaj" | ZGODA na kanarka #2 k04 ($0.64): kadr = przywrócony k04 (zaakceptowany chwyt), prompt Veo ze wzmocnioną tożsamością (pełne tokeny + "the same man with the same face for the entire clip, his facial features never change" + kamera trzyma twarz w świetle przez cały klip); preflight i kanarek przez wrapper jawności | W REALIZACJI
+./_zenek_architektura_out.txt:764:    40	2026-07-26 | [kanarek2 submit] | preflight 16/16 ZIELONY (raport na panelu+TG); SUBMIT veo3.1 lite FLF z kadru k04 (zaakceptowany chwyt), RID zapisany w gen_state_k04_kanarek2.json | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+./_zenek_architektura_out.txt:766:    42	2026-07-26 | "A piskliwy głos Józka???? Zapomniałeś już" | TOMASZ MA RACJĘ — pomiar na oknie słowa (whisper word-timestamps 2.48-2.90s): Tomek 230 Hz, "Józek!" 235 Hz = TEN SAM zwykły męski głos, ŻADNEGO pisku; moje "PISK JEST" w raporcie kanarka2 było kolejnym niezweryfikowanym twierdzeniem (słowo ≠ pisk). Realizacja zapisanego planu $0: pitch-up segmentu w montażu — DWA WARIANTY DEMO na panelu do ucha Tomasza: A ×1.7 (~400 Hz), B ×2.2 (~515 Hz, helowo-zduszony); tempo bez zmian, reszta klipu nietknięta. Ta sama obróbka pójdzie na każdy klip z głosem Józka (k04, k06) deterministycznie w montażu — pisk przestaje zależeć od loterii Veo | CZEKA NA WYBÓR A/B (albo odrzut → inne podejście)
+./_zenek_architektura_out.txt:768:    44	2026-07-26 | [zmiana konfiguracji pod kanon] | k06 = kwestia JÓZKA (off-screen), a GLOSY_VEO zna tylko duet → dodany klucz "JOZEK" z głosem WPROST z kanonu Tomasza ("niezwykle piskliwy, nienaturalnie wysoki, zduszony, łamiący się, wyciśnięty z resztek sił"); to GŁOS epizodyczny na potrzeby 10010, NIE powrót postaci wizualnej z banku (komenda 23.07 "zostaw Tomasza i Janusza" dotyczyła obsady widocznej — kanon 10010 sam wprowadza głos Józka); backup kodu przed zmianą | W REALIZACJI
+./_zenek_architektura_out.txt:769:    45	2026-07-26 | [naprawy przed batchem] | (1) preflight.py: kontrola twarzy mówcy zasadnie POMIJANA dla klipów niemych (--bez-dialogu) i mówców zza kadru bez karty (JOZEK) — luka narzędzia wykryta przez batch, naprawiona z backupem (/tmp/preflight_backup_10010.py), regresja czysta (k01 niemy POMINIĘTY+ZIELONY, k04 dialog PASS 0.41); (2) k03: edycja standardowa dała 0.31 (za mało), ŚWIEŻA generacja z bohater_noc = 0.49 vs karta / 0.58 vs noc — NAJLEPSZY k03, podstawiony (zapasy k03_v1_033, k03_v2_031); wystawiony na panel do wglądu. Koszt napraw $0.30, budżet $5.18/12 | ZROBIONE, BATCH STARTUJE
+./_zenek_architektura_out.txt:770:    46	2026-07-26 | [BATCH submit] | 5/5 preflight ZIELONY (raport panel+TG); SUBMIT 5× veo3.1 lite FLF, PEŁNE RIDy: k01 019f9dea-d398-72d3-8492-f99e1e10517d, k02 019f9dea-d9eb-7080-9ff6-1d5fc545f5cb, k03 019f9dea-e050-7e82-b348-b4a7fb49666d, k05 019f9dea-e6fb-7660-848f-d22dc05c32bf, k06 019f9dea-ef2b-7a72-b776-599cad94fe9f; $3.20, budżet $8.38/12 | CZEKA NA WYNIKI
+./_zenek_architektura_out.txt:771:    47	2026-07-26 | [strażnik batchu — wyniki] | k02, k03, k05 PASS CZYSTY (k03 po świeżym kadrze przeszedł!); k01 PASS Z UWAGĄ (plan szeroki = mała twarz, zgodne z zamysłem zasadzki); k06 FAIL tożsamość (0.27-0.30, kadr miał 0.33) — zgodnie z regułą FAIL=STOP decyzja force/naprawa należy do Tomasza. TREŚĆ k06 POPRAWNA: whisper medium słyszy pełną puentę "To ja, Józek, niemowa ze wsi." (0.0-5.68s), F0 145 Hz (Veo dało NISKI głos — wariant A ×1.7 w montażu podbije do ~250... UWAGA: 145×1.7=247 Hz to za mało na pisk, dla k06 potrzebny większy mnożnik, do przetestowania na tym klipie przy montażu, $0). Podglądy 5 klipów na panelu (faststart). Budżet $8.38/12 | CZEKA NA WERDYKT: k06 force/naprawa
+./_zenek_architektura_out.txt:774:    50	2026-07-26 | [diagnoza całości — USTALENIA] | Dźwięk: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), k01/k02 nieme jak trzeba. OBRAZ — SCENY ROZPADAJĄ SIĘ W ŚRODKU KLIPÓW (otwarte opisy VLM na 4s): k02 ŚCISK ZNIKA — jakaś postać NA drzewie zbiera coś, przedmioty spadają; k04 Tomek ZAWIESZONY W PNIU, trzyma się gałęzi nogami rozłożonymi szeroko; k05 gumowiec WISI NA SZNURKU na gałęzi (VLM sam pisze "absurdalnie"); k06 chwyt znika, Tomek PODCIĄGA WŁASNE SPODNIE na biodrze; k03 znośny; k01 Tomek "spokojny zamyślony" zamiast zasadzki. PRZYCZYNA: (a) FLF kotwiczy tylko 1. i ostatnią klatkę — środek jest wolny (znane: "FLF = interpolacja"), a moje prompty opisywały DYNAMICZNE akcje ("legs JERK violently", "fist TIGHTENS, knuckles whiten") sprzeczne z "holds the exact pose" — Veo wybrało akrobatykę; w 10008/09 prompty były "holds pose + mówi" i działały; (b) LUKA BRAMEK: kanarek nie ma sędziego VLM scen (POMINIĘTY) — rozpad sceny w środku klipu jest niewidzialny dla technicznego/tożsamości; otwarty opis VLM środka klipu = brakująca bramka, wdrożyć na stałe | ZGŁOSZONE, PLAN NAPRAWY U TOMASZA
+./_zenek_architektura_out.txt:777:    53	2026-07-26 | "Działaj" | zgoda na pakiet: re-roll k02/k04/k05/k06 w reżimie statycznym (prompty pracownika + poprawki szefa: k05=wariant B BEZ zdania o gumowcu, kamera locked-off) $2.56 + edycja kadru k05 (usunięcie gumowca z powietrza) $0.15 ≈ $2.71, budżet docelowo ~$11.09/12; k01/k03 BEZ re-rollu — ocena przy montażu; kolejność: sędzia anonimowy ($0) → bramka A kadru → preflight (jawność panel+TG) → submit | W REALIZACJI
+./_zenek_architektura_out.txt:779:    55	2026-07-26 | [re-roll submit] | kadr k05: gumowiec usunięty nano-banana-pro/edit $0.15 (backup k05_gumowiec_w_powietrzu.jpg, bramka A PASS: VLM but=NIE twarz=TAK, raport+podgląd na panelu); preflight 4/4 ZIELONY (raport panel+TG); SUBMIT 4× veo3.1 lite FLF $2.56, PEŁNE RIDy: k02 019f9e8d-6089-75f0-b4c9-9db365ddbe20, k04 019f9e8d-6654-7651-993a-262a8704c159, k05 019f9e8d-6dca-75a2-90b7-f9ae9ba21a08, k06 019f9e8d-75a2-7d50-8faf-3df26ad84cf5; budżet $11.09/12 | CZEKA NA WYNIKI → strażnik + NOWA bramka otwartego opisu środka klipu
+./_zenek_architektura_out.txt:780:    56	2026-07-26 | [NARADA TRÓJKI — konsensus] | Strażnicy: k02+k05 podwójnie czyste; k04/k06 kanarek-FAIL tożsamości. Zenek: FAIL-e mierzone vs ZDRYFOWANA biblioteka nie dowodzą obcej twarzy, H2/H3/H4 zgoda, H1 wymaga pomiaru; napisał skrypt weryfikacji $0. POMIAR (raport na panelu+TG): k04 WIERNY KADROWI 6/6 (mediana 0.63, min 0.46), k06 WIERNY KADROWI 8/8 (mediana 0.69, min 0.47) — formalne FAIL-e = artefakt kotwicy bohater_noc. OTWARTE: k06 środek — VLM przeczy sam sobie (opis otwarty: siedzi na drzewie; detale: chwyt OK) → wg precedensu dnia rozstrzyga WYŁĄCZNIE bramka B (oko Tomasza); k04 środek PASS. Koszt narady $0, budżet $11.09/12 | KONSENSUS TRÓJKI OSIĄGNIĘTY, PROPOZYCJA U TOMASZA
+./_zenek_architektura_out.txt:783:    59	2026-07-26 | [TRÓJKA k06 — konsensus] | POMIAR (raport panel+TG): usta widocznego Tomka PRACUJĄ przez 100% klatek (rozwarcie 0.14-0.17, oscylacja mowy) — bramka B potwierdzona liczbą. DIAGNOZA Zenka (zgodna z Klaudkiem): natywny lip-sync Veo traktuje widoczną twarz jako mówcę, miękkie negacje w prompcie przegrywają z wyuczonym wzorcem; praktycy: ujęcia nieme + dialog w postprodukcji. PROPOZYCJA TRÓJKI: Wariant 1 za $0.64 — k06 całkowicie NIEMY (prompt bez słowa o głosie/pisku, usta domknięte pozytywnie), głos Józka wycięty z batchowego k06 (czysta puenta, 145 Hz) + pitch-up deterministyczny (2 mnożniki do ucha Tomasza, ×1.7 za mało), położony w montażu; budżet po: $11.73/12. Alternatywy: loteria promptowa $0.64 / kadr+niemy $0.79 / maska ust $0 (artefakty). Bramka KTO MÓWI (projekt Zenka + progi z pomiaru) do wdrożenia po odcinku $0 | KONSENSUS, CZEKA NA SŁOWO TOMASZA
+./_zenek_architektura_out.txt:785:    61	2026-07-26 | [TRÓJKA k05 — konsensus] | DIAGNOZA (Zenek+Klaudek zgodni): winowajca = zero wizualnej kotwicy chwytu (brak ręki/pięści/nogawek) + drzewo ZA plecami + zbliżenie odcinające przestrzeń k04 → efekt gapowicza; problem kompozycji, nie emocji/lip-synca. PROPOZYCJA TRÓJKI: Wariant 4+ za $0 — obraz k05 odpada, czysta kwestia 'No gadaj draniu, ktoś ty?!' z klip_k05_reroll idzie jako krzyk NAD ZAAKCEPTOWANYM SZEROKIM KADREM CHWYTU z zatrzymaniem/najazdem Ken Burns (statyczny obraz = zero konfliktu ust, chwyt na ekranie przez cały krzyk); awaryjnie: cięcie pytania (eskalacja na dwóch). Odrzucone: nowy kadr+reroll $0.79 (budżet po obu naprawach $12.52 = przekroczenie limitu — tylko jawnym słowem Tomasza). ŁĄCZNY PAKIET z k06 (niemy $0.64 + głos z montażu): budżet końcowy $11.73/12 | KONSENSUS, PAKIET U TOMASZA
+./_zenek_architektura_out.txt:786:    62	2026-07-26 | "Rolka ma być zajebista i śmieszna więc naradzić się jeszcze raz doczytać wszyscy jak to ma wyglądać i działać" | NARADA #2 z innym celem: nie łatanie klipów, tylko ARCHITEKTURA KOMIZMU całej rolki — wszyscy czytają od nowa (kanon 10010+10004, DROGA, NAUKI, rytm 10008/09), wynik: sekundnik jak rolka wygląda i działa, żeby była zajebista i śmieszna; pakiet naprawczy podporządkowany architekturze; zero wydatków do słowa Tomasza | W TOKU
+./_zenek_architektura_out.txt:794:| 1 | 0:45–3:00 | k01, szeroki plan zasadzki; powolny najazd. Plansza: „Kiedy złapiesz złodzieja jabłek... 🍎” przez ok. 1,6 s | Cykady i cichy szelest liści | Mock-seriousness: Tomek zachowuje się jak komandos, choć pilnuje jabłek |
+./_zenek_architektura_out.txt:795:| 2 | 3:00–3:35 | Ostatnie klatki k01: nagły shake/whip w stronę korony | Głośny trzask gałęzi; szelest urywa się natychmiast | Zaskoczenie i przygotowanie ataku |
+./_zenek_architektura_out.txt:825:Materiał gra zbyt grobowo przede wszystkim w k01 i dialogach Tomka. Nie próbowałbym udawać, że tego nie ma: montaż ma przekodować powagę w **mock-seriousness** przez krótkie jump-cuty, przesadnie filmowy VINE BOOM, kolorowe napisy, bezczelnie długie cisze i pisk będący kompletnie nieadekwatną odpowiedzią na groźne przesłuchanie.
+./_zenek_architektura_out.txt:850:K01–k04, audio k05, zaakceptowane kadry 2K, czysta puenta z batchowego k06, intro, outro i materiał do darmowych SFX wystarczają. Nie potrzeba nowego k05, nowych kadrów ani nowych generacji postaci. Budżet końcowy: **$11.73/12**.
+./_zenek_architektura_out.txt:858:| 1 | 0:45–3:00 | k01, szeroki plan zasadzki; powolny najazd. Plansza: „Kiedy złapiesz złodzieja jabłek... 🍎” przez ok. 1,6 s | Cykady i cichy szelest liści | Mock-seriousness: Tomek zachowuje się jak komandos, choć pilnuje jabłek |
+./_zenek_architektura_out.txt:859:| 2 | 3:00–3:35 | Ostatnie klatki k01: nagły shake/whip w stronę korony | Głośny trzask gałęzi; szelest urywa się natychmiast | Zaskoczenie i przygotowanie ataku |
+./_zenek_architektura_out.txt:889:Materiał gra zbyt grobowo przede wszystkim w k01 i dialogach Tomka. Nie próbowałbym udawać, że tego nie ma: montaż ma przekodować powagę w **mock-seriousness** przez krótkie jump-cuty, przesadnie filmowy VINE BOOM, kolorowe napisy, bezczelnie długie cisze i pisk będący kompletnie nieadekwatną odpowiedzią na groźne przesłuchanie.
+./_zenek_architektura_out.txt:914:K01–k04, audio k05, zaakceptowane kadry 2K, czysta puenta z batchowego k06, intro, outro i materiał do darmowych SFX wystarczają. Nie potrzeba nowego k05, nowych kadrów ani nowych generacji postaci. Budżet końcowy: **$11.73/12**.
+./_zadanie_sedziego.md:1:# ZADANIE — NIEZALEŻNY SĘDZIA promptów Veo (ocena adwersaryjna)
+./_zadanie_sedziego.md:6:Plik: data/zarty/10010/_klipy_reroll.json — 4 prompty do Veo 3.1 FLF (klipy ~8 s, 9:16, nocny sad).
+./_zadanie_sedziego.md:10:2. Poprzednia wersja promptów poległa: dynamiczne czasowniki ("legs JERK violently", "fist TIGHTENS") sprzeciwiały się "holds the exact pose" i Veo generowało akrobatykę w środku klipu.
+./_zadanie_zenka_architektura.md:7:2. wiedza/DROGA_ROLKA_HUMOR.md — cała; szczególnie Etap 6 (montaż: jump-cuty do mowy, napisy KOLORY_ASS, plansza, intro/outro brand, puenta kończy)
+./_zadanie_zenka_architektura.md:8:3. wiedza/NAUKI_SERII.md — cała; szczególnie lekcje montażowe 10009 (napisy po interpunkcji, fps normalize, sync <0.05s, wzorzec montaz.py z 10008)
+./_zadanie_zenka_architektura.md:13:- Zdrowe klipy 8s: k01 (zasadzka, niemy, plan szeroki), k02 (chwyt, niemy), k03 (pytanie 1 "Gadaj, ktoś ty?!", ręka w górze), k04 (pytanie 2 "Gadaj, pókim dobry..." + pisk z korony w audio)
+./_zadanie_zenka_architektura.md:16:- Zaakceptowane kadry (stille 2K): k01-k06, w tym szerokie plany chwytu — pełnoprawny materiał montażowy (Ken Burns/punch-in)
+./_zadanie_zenka_architektura.md:17:- Plansza tytułowa z kanonu: "Kiedy złapiesz złodzieja jabłek... 🍎" (tekst w montażu); intro+outro brand obowiązkowe
+./_zadanie_zenka_architektura.md:18:- Budżet: $11.09/12; zaplanowany wydatek tylko k06 niemy $0.64 → $11.73
+./_zadanie_zenka_architektura.md:21:S1: Brakuje beatu ATAKU (kanon scena 2: rush + vine boom + "szelest ustaje") — zrobić go MONTAŻOWO za $0: k01 → gwałtowny cut z shake + VINE BOOM na szybkim punch-inie w kadr chwytu → k02. Bez tego ścisk pojawia się znikąd.
+
+exec
+/bin/bash -lc "sed -n '1,220p' KANON.md
+sed -n '1,180p' _genek_wstep_out.txt
+sed -n '1,180p' raporty/final_draft.txt
+sed -n '1,240p' _klipy_batch.json
+sed -n '1,220p' _montaz_10010.py" in /root/rod-ai-studio/data/zarty/10010
+ succeeded in 0ms:
+# KANON odcinka #10010 — "Kiedy złapiesz złodzieja jabłek" (remake żartu Niemowa)
+# Źródło: Tomasz, czat 26.07.2026, WKLEJONY SCENARIUSZ — DOSŁOWNIE.
+# Komenda: "Idź naszą drogą!" (produkcja wg DROGA_ROLKA_HUMOR)
+# UWAGA: ten sam żart co ZAMROŻONY #10004 (chattr +i) — 10004 NIE RUSZAĆ.
+
+Scenariusz do wygenerowania w AI (Reel 15-20 sek.)
+Tytuł/Tekst na ekranie (do dodania w montażu): Kiedy złapiesz złodzieja jabłek... 🍎
+🌳 Scena 1: Zasadzka
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Cinematic wide shot, dark apple orchard at night, illuminated by moonlight. A grumpy middle-aged gardener in a flat cap is hiding in the bushes, looking off-camera with intense focus, fog, moody lighting, highly detailed, photorealistic, 4k.
+Ruch kamery (Motion Prompt): Slow zoom in on the gardener's face.
+Audio (SFX): Dźwięk cykad, ciche szeleszczenie liści.
+⚡ Scena 2: Atak
+Czas trwania: 2 sekundy
+Prompt Video/Image (ENG): Dynamic action shot, low angle. The angry gardener rushes forward and reaches down aggressively with one hand out of the lower frame, night setting, motion blur, intense atmosphere.
+Ruch kamery (Motion Prompt): Fast camera shake, dynamic zoom.
+Audio (SFX): Głośny trzask gałęzi, nagły dźwięk "bass drop" / "vine boom". Szelest ustaje.
+🗣️ Scena 3: Pierwsze pytanie
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Close-up portrait of the angry gardener talking aggressively, shouting, night orchard background, dramatic cinematic lighting, deep shadows.
+Ruch kamery (Motion Prompt): Slight handheld camera movement.
+Dialog (Voice AI - PL):
+Tekst: "Gadaj, ktoś ty?!"
+Emocja (TTS): Głośno, agresywnie, stanowczo. Zwykły, niski męski głos.
+😧 Scena 4: Ból w milczeniu i drugie pytanie
+Czas trwania: 4 sekundy
+Prompt Video/Image (ENG): Close-up portrait of a young rustic man (the thief). His face is distorted in extreme pain, eyes bulging wide, mouth open trying to scream but no sound comes out, comedic exaggeration, sweaty forehead, moonlit.
+Ruch kamery (Motion Prompt): Slow tilt up, character's face shaking slightly from pain.
+Dialog (Voice AI - PL):
+Tekst: "Gadaj, pókim dobry, ktoś ty?!"
+Emocja (TTS): Głos ogrodnika zza kadru (Voiceover). Mówiony przez zaciśnięte zęby, jeszcze bardziej wściekły, powolny i groźny.
+💢 Scena 5: Ostatnie ściśnięcie
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Extreme close-up of the gardener's face. He is furious, veins popping on his forehead, he makes a hard clenching motion with his jaw, absolute anger.
+Ruch kamery (Motion Prompt): Quick zoom in on the gardener's eyes.
+Dialog (Voice AI - PL):
+Tekst: "No gadaj draniu, ktoś ty?!"
+Emocja (TTS): Krzyk, maksymalna wściekłość i zniecierpliwienie.
+🎭 Scena 6: Puenta (Józek)
+Czas trwania: 4 sekundy
+Prompt Video/Image (ENG): Extreme close-up of the young rustic man's face (the thief). He looks like he is about to pass out, tears in his eyes, face extremely red, absolute agony, comical expression.
+Ruch kamery (Motion Prompt): Static shot, character slowly blinking in pain while speaking.
+Dialog (Voice AI - PL):
+Tekst: "To ja... Józek... niemowa ze wsi!"
+Emocja (TTS): To najważniejszy element. Wygeneruj głos, który jest niezwykle piskliwy, nienaturalnie wysoki, zduszony i łamiący się (jak po wciągnięciu helu lub przy zgnieceniu krtani). Musi brzmieć jak wyciśnięty z resztek sił.
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## OCENA
+Wstęp-setup to fundament komizmu. Buduje klasyczny kontrast: śmiertelnie poważna „misja specjalna” kontra przyziemny problem (kradzież jabłek).
+*   **Plusy:** Buduje postać Tomka jako „strażnika sadu”, wyjaśnia kontekst od 1. sekundy i sprawia, że późniejszy atak w k02 jest logicznym rozwiązaniem intrygi, a nie tylko przypadkowym gagiem.
+*   **Ryzyko:** Jeśli scena przekroczy 4-5 sekund, zabije rytm Reels. Musi być „strzałem”.
+*   **Werdykt:** Zdecydowanie warto. To „ucho komiczne” domyka strukturę żartu.
+
+## FORMA
+Najśmieszniejszy będzie styl **mockumentary** (szept do kamery). Tomek kuca w krzakach, patrzy prosto w obiektyw, jakby relacjonował obławę dla Discovery Channel.
+*   **Detal:** Tomek ma wetkniętą za ucho lub w czapkę gałązkę jabłoni (pseudo=== RAPORT BRAMKI: 10010/final_draft | 2026-07-26T15:32:52+00:00 ===
+Rolka #10010 "Kiedy złapiesz złodzieja jabłek" — DRAFT MONTAŻU wg ARCHITEKTURY v1.1 + głos Józka E (praat).
+DRAFT: https://panel.157-90-155-155.sslip.io/n150files/10010_final_draft.mp4
+25.56s | sync audio-wideo 0.024s (<0.05) | mean -17.5dB / max -0.2dB | pisk zweryfikowany whisperem ("Józek!")
+Beaty: intro 0.45 -> hook+plansza 1.2 -> trzask+shake -> VINE BOOM+punch-in w chwyt -> pyt.1 + cisza 0.30 -> cisza 0.55 -> pyt.2 (punch-in cięciem) -> pisk JÓZEK z korony -> pyt.3 nad Ken Burns kadru chwytu (obraz k05 wycięty) -> skrzypnięcie -> NIEMY k06 + puenta głosem E z pogłosem sadu -> outro AI pełne.
+ŚWIADOME ODSTĘPSTWA od sekundnika (18.6 -> 25.6s): realne kwestie Tomka dłuższe niż plan (słów nie tnę), pauzy Józka w puencie w całości (są żartem), outro pełne 3.0s (czytelne oznaczenie AI).
+Klatki kontrolne: 10010_final_f2.6 / f11.6 / f14.0 / f17.5 .jpg na panelu.
+WERDYKT: DRAFT GOTOWY — czeka oko i ucho Tomasza (poprawki albo zgoda; publikacja tylko osobnym słowem).
+{
+ "k01": {"mowca": "BOHATER", "niemy": true, "kwestia": "",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty crouches hidden in the bushes below the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. He looks up into the tree crown with intense angry focus, barely moving, like a hunter in ambush. Neither he nor anyone else speaks. Quiet night garden ambience, distant crickets, soft rustling leaves. He holds the exact pose for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k02": {"mowca": "BOHATER", "niemy": true, "kwestia": "",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. His fist TIGHTENS harder between the trouser legs, his knuckles whiten, and the hanging legs JERK violently, leaves rustling and shaking. Nobody speaks. He holds the exact grip and stance for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k03": {"mowca": "BOHATER", "kwestia": "Gadaj, ktoś ty?!",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. One arm raised up into the branches, his face turned upward, clearly visible and lit by moonlight throughout. He shouts loudly and aggressively up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"Gadaj, ktoś ty?!\" He holds the exact pose for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k05": {"mowca": "BOHATER", "kwestia": "No gadaj draniu, ktoś ty?!",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. Extreme close-up of a man of about fifty - long hair tied in a ponytail, full salt-and-pepper beard, flat cap - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His face fills the frame, furious, veins on his forehead, jaw clenched, eyes burning with rage, lit by moonlight, clearly visible throughout. He screams at maximum fury and impatience up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"No gadaj draniu, ktoś ty?!\" He holds the exact framing for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k06": {"mowca": "JOZEK", "kwestia": "To ja... Józek... niemowa ze wsi!",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip. His arm is raised up, his fist between two trouser legs hanging down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. The man below is stunned and dumbfounded, eyebrows raised, eyes wide, mouth slightly open in disbelief - HE DOES NOT SPEAK at all. From high up in the hidden tree crown comes an off-screen voice, in an extremely high-pitched, unnaturally squeaky, strangled, breaking young male voice, as if squeezed out with the last of his strength, speaking fluent native Polish with a natural Polish accent, crying out in Polish: \"To ja... Józek... niemowa ze wsi!\" The hanging legs give a weak final twitch. The man below holds his stunned pose for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."}
+}
+# -*- coding: utf-8 -*-
+"""Montaz 10010 'Kiedy zlapiesz zlodzieja jablek' wg ARCHITEKTURA KOMIZMU v1.1."""
+import subprocess, sys
+sys.path.insert(0, '/app')
+from pathlib import Path
+from src.zarty_produkcja import ASS_HEADER, KOLORY_ASS
+
+B = Path('/root/rod-ai-studio/data/zarty/10010')
+T = B / 'montaz_tmp'; T.mkdir(exist_ok=True)
+W, H, FPS = 1080, 1920, 24
+VIDEO = ['-c:v','libx264','-preset','medium','-crf','18','-pix_fmt','yuv420p','-r',str(FPS),'-s',f'{W}x{H}']
+AUDIO = ['-c:a','aac','-b:a','192k','-ar','48000','-ac','2']
+
+def run(args):
+    r = subprocess.run(['ffmpeg','-y','-loglevel','error']+args, capture_output=True, text=True)
+    if r.returncode != 0:
+        print('FFMPEG FAIL:', ' '.join(map(str,args))[:300], '\n', r.stderr[-600:]); sys.exit(1)
+
+# ===== SFX =====
+run(['-i',str(B/'klip_k01.mp4'),'-ss','1.0','-t','1.0','-vn','-af','volume=-19dB','-ar','48000','-ac','2',str(T/'amb1.wav')])
+run(['-stream_loop','9','-i',str(T/'amb1.wav'),'-t','8',str(T/'amb45.wav')])
+run(['-f','lavfi','-i','anoisesrc=c=white:r=48000:d=0.09','-af','highpass=f=900,lowpass=f=4200,afade=t=in:d=0.005,afade=t=out:st=0.03:d=0.06,volume=6dB','-ac','2',str(T/'trzask.wav')])
+run(['-f','lavfi','-i','anoisesrc=c=pink:r=48000:d=0.22','-af','bandpass=f=1600:w=500,vibrato=f=11:d=0.6,afade=t=in:d=0.02,afade=t=out:st=0.12:d=0.10,volume=2dB','-ac','2',str(T/'skrzyp.wav')])
+run(['-i',str(B/'sfx_boom.mp3'),'-ar','48000','-ac','2',str(T/'boom.wav')])
+run(['-i',str(B/'pisk_A.wav'),'-ss','2.20','-t','1.00','-af','silenceremove=start_periods=1:start_threshold=-38dB,areverse,silenceremove=start_periods=1:start_threshold=-38dB,areverse,alimiter=limit=0.95','-ac','2',str(T/'pisk.wav')])
+run(['-i',str(B/'glos_Ef.wav'),'-t','5.70','-af','aecho=0.55:0.28:42:0.22,alimiter=limit=0.95','-ac','2','-ar','48000',str(T/'jozek.wav')])
+
+def dur(p):
+    r = subprocess.run(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',str(p)],capture_output=True,text=True)
+    return float(r.stdout.strip())
+D_PISK = dur(T/'pisk.wav'); D_JOZ = dur(T/'jozek.wav')
+print(f'pisk={D_PISK:.2f}s jozek={D_JOZ:.2f}s')
+
+def part(name, d, inputs, outopts):
+    run(inputs + outopts + ['-t',f'{d:.3f}']+VIDEO+AUDIO+[str(T/name)])
+
+KADR = str(B/'kadry'/'k04.jpg')
+def zoomvf(d, z0, z1, jitter=0.0):
+    fr = int(d*FPS)+1
+    jx = f"+({jitter})*sin(on*2.1)" if jitter>0 else ""
+    return f"zoompan=z='{z0}+({z1}-{z0})*on/{fr}':d={fr}:x='iw/2-(iw/zoom/2){jx}':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS}"
+
+def still(name, d, z0, z1, jitter=0.0, extra_a=None):
+    ins = ['-loop','1','-t',f'{d+0.15:.2f}','-i',KADR] + (extra_a if extra_a else ['-i',str(T/'amb45.wav')])
+    part(name, d, ins, ['-vf', zoomvf(d,z0,z1,jitter), '-map','0:v','-map','1:a'])
+
+# ===== CZESCI =====
+part('p00.mp4', 0.45, ['-i',str(B.parent/'10008'/'intro_a.mp4')], ['-vf',f'scale={W}:{H}'])
+part('p01.mp4', 1.20, ['-ss','0.50','-i',str(B/'klip_k01.mp4')], ['-vf',f'scale={W}:{H}'])
+# p02 shake + trzask, szelest ustaje
+run(['-ss','7.50','-t','0.40','-i',str(B/'klip_k01.mp4'),'-vf',f"crop=1000:1780:'40+30*sin(n*2.7)':'70+24*cos(n*3.3)',scale={W}:{H}",'-an']+VIDEO+[str(T/'p02v.mp4')])
+run(['-i',str(T/'p02v.mp4'),'-i',str(B/'klip_k01.mp4'),'-i',str(T/'trzask.wav'),'-filter_complex',"[1:a]atrim=7.50:7.90,asetpts=PTS-STARTPTS,afade=t=out:st=0.10:d=0.25[amb];[2:a]adelay=60|60[tr];[amb][tr]amix=inputs=2:normalize=0[a]",'-map','0:v','-map','[a]','-t','0.35']+VIDEO+AUDIO+[str(T/'p02.mp4')])
+# p03 atak 1.1s JEDNA czesc: zoompan 0.5 + k02 0.6, BOOM pelny od klatki 1
+run(['-loop','1','-t','0.65','-i',KADR,'-vf',zoomvf(0.50,1.00,1.28),'-an']+VIDEO+['-t','0.50',str(T/'p03v1.mp4')])
+run(['-ss','2.00','-t','0.65','-i',str(B/'klip_k02_reroll.mp4'),'-vf',f'scale={W}:{H}','-an']+VIDEO+['-t','0.60',str(T/'p03v2.mp4')])
+run(['-i',str(T/'p03v1.mp4'),'-i',str(T/'p03v2.mp4'),'-i',str(T/'boom.wav'),'-i',str(T/'amb45.wav'),'-filter_complex',"[0:v][1:v]concat=n=2:v=1[v];[3:a]atrim=0:1.10,volume=0.6[c];[c][2:a]amix=inputs=2:normalize=0[a]",'-map','[v]','-map','[a]','-t','1.10']+VIDEO+AUDIO+[str(T/'p03.mp4')])
+# p04 pyt1: k03 0-2.82 + 0.30 ciszy; punch-in cieciem od 1.90
+run(['-t','1.90','-i',str(B/'klip_k03.mp4'),'-vf',f'scale={W}:{H}','-an']+VIDEO+[str(T/'p04a.mp4')])
+run(['-ss','1.90','-t','1.25','-i',str(B/'klip_k03.mp4'),'-vf',f'crop=iw*0.94:ih*0.94,scale={W}:{H}','-an']+VIDEO+[str(T/'p04b.mp4')])
+run(['-i',str(T/'p04a.mp4'),'-i',str(T/'p04b.mp4'),'-i',str(B/'klip_k03.mp4'),'-i',str(T/'amb45.wav'),'-filter_complex',"[0:v][1:v]concat=n=2:v=1[v];[2:a]atrim=0:2.82,asetpts=PTS-STARTPTS[q];[3:a]atrim=0:0.30,asetpts=PTS-STARTPTS[c];[q][c]concat=n=2:v=0:a=1[a]",'-map','[v]','-map','[a]','-t','3.12']+VIDEO+AUDIO+[str(T/'p04.mp4')])
+# p05 czekanie 0.55s
+still('p05.mp4', 0.55, 1.02, 1.045)
+# p06 pyt2: k04_reroll 4.22s; punch-in cieciem od 3.10
+run(['-t','3.10','-i',str(B/'klip_k04_reroll.mp4'),'-vf',f'scale={W}:{H}','-an']+VIDEO+[str(T/'p06a.mp4')])
+run(['-ss','3.10','-t','1.20','-i',str(B/'klip_k04_reroll.mp4'),'-vf',f'crop=iw*0.90:ih*0.90,scale={W}:{H}','-an']+VIDEO+[str(T/'p06b.mp4')])
+run(['-i',str(T/'p06a.mp4'),'-i',str(T/'p06b.mp4'),'-i',str(B/'klip_k04_reroll.mp4'),'-filter_complex',"[0:v][1:v]concat=n=2:v=1[v];[2:a]atrim=0:4.22,asetpts=PTS-STARTPTS[a]",'-map','[v]','-map','[a]','-t','4.22']+VIDEO+AUDIO+[str(T/'p06.mp4')])
+# p07 'Jozek...'
+d7 = round(0.15 + D_PISK + 0.15, 2)
+run(['-i',str(T/'pisk.wav'),'-i',str(T/'amb45.wav'),'-filter_complex',f"[0:a]adelay=150|150[p];[1:a]atrim=0:{d7}[c];[c][p]amix=inputs=2:normalize=0[a]",'-map','[a]',str(T/'a07.wav')])
+still('p07.mp4', d7, 1.24, 1.26, extra_a=['-i',str(T/'a07.wav')])
+# p08 pyt3 nad Ken Burns + drzenie
+run(['-ss','0.05','-t','3.75','-i',str(B/'klip_k05_reroll.mp4'),'-vn','-af','asetpts=PTS-STARTPTS','-ar','48000','-ac','2',str(T/'a08.wav')])
+still('p08.mp4', 3.75, 1.00, 1.18, jitter=4.0, extra_a=['-i',str(T/'a08.wav')])
+# p09 scisniecie
+run(['-i',str(T/'skrzyp.wav'),'-i',str(T/'amb45.wav'),'-filter_complex',"[1:a]atrim=0:0.45[c];[c][0:a]amix=inputs=2:normalize=0[a]",'-map','[a]',str(T/'a09.wav')])
+still('p09.mp4', 0.45, 1.42, 1.46, extra_a=['-i',str(T/'a09.wav')])
+# p10 puenta
+d10 = round(0.12 + D_JOZ + 0.10, 2)
+run(['-i',str(T/'jozek.wav'),'-i',str(T/'amb45.wav'),'-filter_complex',f"[0:a]adelay=120|120[j];[1:a]atrim=0:{d10}[c];[c][j]amix=inputs=2:normalize=0,alimiter=limit=0.95[a]",'-map','[a]',str(T/'a10.wav')])
+run(['-i',str(B/'klip_k06_niemy.mp4'),'-i',str(T/'a10.wav'),'-vf',f'scale={W}:{H}','-map','0:v','-map','1:a','-t',f'{d10:.2f}']+VIDEO+AUDIO+[str(T/'p10.mp4')])
+# p11 outro pelne (oznaczenie AI czytelne)
+part('p11.mp4', 3.00, ['-i',str(B.parent/'10008'/'outro_a.mp4')], ['-vf',f'scale={W}:{H}'])
+
+# ===== CONCAT =====
+parts = ['p00.mp4','p01.mp4','p02.mp4','p03.mp4','p04.mp4','p05.mp4','p06.mp4','p07.mp4','p08.mp4','p09.mp4','p10.mp4','p11.mp4']
+(T/'lista.txt').write_text(''.join(f"file '{T/p}'\n" for p in parts))
+run(['-f','concat','-safe','0','-i',str(T/'lista.txt'),'-c','copy',str(T/'sklejka.mp4')])
+
+# ===== NAPISY =====
+offs, t = {}, 0.0
+for p in parts:
+    offs[p] = t; t += dur(T/p)
+print('TOTAL:', round(t,2), 's | offsety:', {k: round(v,2) for k,v in offs.items()})
+kb = KOLORY_ASS['BOHATER']; kj = '&H0AD9FF&'
+def cz(s): return f'{int(s//3600)}:{int(s%3600//60):02d}:{s%60:05.2f}'
+L = []
+L.append((offs['p01.mp4']+0.05, offs['p01.mp4']+1.15, '&HFFFFFF&', 'Kiedy złapiesz złodzieja jabłek... 🍎'))
+o=offs['p04.mp4']; L.append((o+0.08, o+2.82, kb, 'TOMEK: Gadaj, ktoś ty?!'))
+o=offs['p06.mp4']; L.append((o+0.02, o+2.76, kb, 'TOMEK: Gadaj, pókim dobry...')); L.append((o+3.18, o+4.22, kb, '...ktoś ty?!'))
+o=offs['p07.mp4']; L.append((o+0.15, o+0.15+D_PISK, kj, 'JÓZEK: Józek...!'))
+o=offs['p08.mp4']; L.append((o+0.09, o+2.19, kb, 'TOMEK: No gadaj, draniu!')); L.append((o+2.69, o+3.63, kb, 'Ktoś ty?!'))
+o=offs['p10.mp4']+0.12; L.append((o+0.00, o+1.12, kj, 'JÓZEK: To ja...')); L.append((o+2.40, o+2.88, kj, 'Józek...')); L.append((o+4.46, o+5.62, kj, 'niemowa ze wsi!'))
+tresc = ''.join(f'Dialogue: 0,{cz(a)},{cz(b)},Default,,0,0,0,,{{\\c{k}}}{txt}\n' for a,b,k,txt in L)
+(B/'napisy10.ass').write_text(ASS_HEADER + tresc, encoding='utf-8')
+
+# ===== FINAL =====
+run(['-i',str(T/'sklejka.mp4'),'-vf',f"ass={B/'napisy10.ass'}",'-c:a','copy','-movflags','+faststart',str(B/'final.mp4')])
+va = subprocess.run(['ffprobe','-v','error','-show_entries','stream=codec_type,duration','-of','csv=p=0',str(B/'final.mp4')],capture_output=True,text=True).stdout
+print('FINAL streams:', va.replace('\n',' '), '| plik:', (B/'final.mp4').stat().st_size//1024, 'KB')
+
+exec
+/bin/bash -lc "sed -n '1,160p' _genek_wstep_out.txt
+find /root/rod-ai-studio -path '*/wiedza/NAUKI_SERII.md' -o -path '*/wiedza/DROGA_ROLKA_HUMOR.md' | head -20" in /root/rod-ai-studio/data/zarty/10010
+ succeeded in 2091ms:
+/root/rod-ai-studio/wiedza/DROGA_ROLKA_HUMOR.md
+/root/rod-ai-studio/wiedza/NAUKI_SERII.md
+
+exec
+/bin/bash -lc 'rg -n -i "negac|lip.sync|tożsamo|referenc|kser|zdryf|jeden mówca|verbatim|szept|bramk|FLF" /root/rod-ai-studio/wiedza/NAUKI_SERII.md | tail -120' in /root/rod-ai-studio/data/zarty/10010
+ succeeded in 0ms:
+4: (1) DROGA KOŃCZY SIĘ NA STRAŻNIKU KLIPÓW — montaż nie jest w niej etapem z bramkami, więc robiłem go "z głowy". W 10008 istniał sprawdzony data/zarty/10008/montaz.py (51 linii, napisy = BLOK NA KWESTIĘ z prefiksem "JANUSZ:"/"TOMEK:"); zamiast wziąć go jako wzorzec i podmienić dane, napisałem własny generator ASS i zmieniłem format napisów serii bez pytania Tomasza.
+5: (2) BRAK KONTROLI "CO SŁYCHAĆ vs KANON" — kanarek/strażnik per klip sprawdza technikę, napisy-widmo, język, tożsamość; NIE porównuje transkrypcji z kwestią kanonu. Whisper wyłożył rozjazdy na stół przy liczeniu trimów (k04a "z Podgrójca" zamiast "spod Grójca", k04c "Wiesz, zanim prezes" zamiast "Bierz, zanim prezes", k04b zdublowane "w kosmos") — Claude PATRZYŁ na to i przeszedł obok, bo liczył tylko końce mowy.
+7: WNIOSEK: dopisać MONTAŻ do DROGA_ROLKA_HUMOR jako etap z bramkami: (a) wzorzec = ostatni zaakceptowany montaz.py, odstępstwa tylko za zgodą Tomasza; (b) obowiązkowe porównanie whisper vs kanon per klip PRZED montażem, rozjazdy meldować Tomaszowi; (c) wypis ASS z czasami do oczu przed renderem.
+9:2026-07-25 (#10009) | LIP-SYNC ROZJEŻDŻA SIĘ NA CONCACIE, NIE W VEO: demuxer concat na materiałach o różnym fps (body 24 + intro/outro 30 + plansza 25) gubi klatki i daje narastający rozjazd obrazu z dźwiękiem (zmierzone 2.25s na 70s). RECEPTA: przed sklejeniem znormalizować WSZYSTKIE części do parametrów body (fps klipów Veo = 24, 1080x1920, aac 48k stereo, cisza dokładana gdy część nie ma audio), potem concat -c copy. BRAMKA OBOWIĄZKOWA po każdym montażu: |duration_wideo - duration_audio| < 0.05s (ffprobe na obu strumieniach) — 10008 zaakceptowany ma 0.01s, odrzucony 10009 v1-v3 miał 2.25s. Bramkę sprawdzać ZANIM finał trafi do Tomasza.
+11:2026-07-26 | KONTROLA SALDA PRZED KAŻDYM ETAPEM PŁATNYM, nie tylko w preflighcie klipu: fal przy ujemnym saldzie odmawia już na UPLOADZIE referencji (403 z /storage/auth/token) — objaw wygląda na błąd kodu/uprawnień, a jest brakiem środków. Sprawdzać GET rest.fal.ai/billing/user_balance (nagłówek "Authorization: Key <FAL_KEY>") i meldować Tomaszowi liczbę, zanim zapowie się wydatek.
+17:2026-07-26 (#10010) | ŁAŃCUCH EDYCJI KADRÓW = ten sam błąd co łańcuch klatek między klipami (DROGA 3.1): każda kolejna edycja kadru to kopia kopii i twarz dryfuje (10010: 6 pokoleń → sim 0.33-0.46 w kadrze, 0.19 w klipie). Kadr poprawiać MAKSYMALNIE raz od zaakceptowanego wzorca, a przy trzeciej próbie wracać do ŚWIEŻEJ generacji z portretem w PIERWSZYM slocie referencji. KOLEJNOŚĆ REFERENCJI MA ZNACZENIE (DROGA Etap 3, potwierdzone w boju): najważniejsza rola w pierwszym slocie; kadr, na którym twarz jest niewidoczna, podany jako pierwsza referencja każe modelowi uśrednić twarz z niczego. DOWÓD ŻE NOC NIE JEST WYMÓWKĄ: nocny 10005 miał w klipie sim 0.63, bo kadrem startowym był czysty portret z biblioteki.
+19: (1) REFERENCJI MA BYĆ 4-6 (model przyjmuje do 14, wierność najwyższa przy ≤6) — jedna czy dwie to za mało; Image 1 = kotwica, kadr kompozycji na KOŃCU listy.
+20: (2) NAJWAŻNIEJSZE, cytat: "6 high-quality reference images at minimum 1024x1024, covering front, 3/4 left and 3/4 right, with even lighting and 30-50% FACE COVERAGE in the frame — this single change eliminates most consistency failures". Nasze portrety biblioteki to sylwetki 9:16, twarz zajmuje ~10-15% kadru = za mało. RECEPTA (darmowa): przygotować CROPY TWARZY z portretów (bbox insightface + margines) tak, by twarz zajmowała ~40% kadru, i podawać je jako referencje.
+21: (3) Formuła identity locka: "Maintain the exact same facial features as the reference images - same eyes, nose shape, jawline contour, skin texture".
+23: (5) Model RE-INTERPRETUJE twarz przy każdej generacji — 100% spójności nie ma architektonicznie; stąd łańcuch edycji kumuluje dryf (potwierdza nasz zakaz kserowania kserówki z DROGI 3.1, teraz rozszerzony na KADRY, nie tylko klipy).
+24:2026-07-26 (#10010, POMIAR NA ŻYWO) | RADA PRAKTYKÓW "6 REFERENCJI" NIE DZIAŁA NA NASZEJ BIBLIOTECE — zmierzone: 1 referencja (bohater_noc) → kadry 0.55-0.58 (k01, k05, k02); 2 referencje (kadr kompozycji + portret) → 0.46; 5 referencji (crop_noc+crop_baza+crop_karta+arkusz+kompozycja) → 0.17-0.27. PRZYCZYNA (nasza własna DROGA to mówi: "skonfliktowane referencje = model uśrednia"): rada praktyków zakłada, że referencje to ZDJĘCIA TEJ SAMEJ OSOBY. Nasze portrety to generacje AI wzajemnie niespójne (macierz 0.59-0.92) — podanie czterech naraz każe modelowi uśrednić cztery różne twarze i wypluć piątą. WNIOSEK OPERACYJNY: przy bibliotece z generacji AI trzymać JEDNĄ referencję tożsamości na kadr (tę z właściwej domeny światła), nie mnożyć. Zanim kiedykolwiek podamy wiele referencji — najpierw ujednolicić bibliotekę (jedna kanoniczna twarz, reszta z niej).
+30:2026-07-26 (#10010, pytanie Tomasza "Jak można anulować strażników po co oni są?") | REGUŁA WŁADZY NAD BRAMKAMI — na stałe:
+31: FAIL strażnika/preflightu/kanarka = TWARDY STOP produkcji. Wyjścia są dokładnie dwa: (a) NAPRAWA przyczyny i ponowny bieg bramki, albo (b) FORCE — który jest decyzją WYŁĄCZNIE TOMASZA, wypowiedzianą po obejrzeniu dowodów (otwarty opis VLM + klatki na panelu). Claude NIGDY sam nie klasyfikuje FAIL jako "fałszywy alarm" i nie kontynuuje — może najwyżej przedstawić dowody i rekomendację.
+32: Dlaczego: "wzorzec k09" (trafny niski sim przy zasłoniętej twarzy) stał się w rękach Claude'a uniwersalną wymówką — każdy alert tożsamości tłumaczony okluzją, dopytywany naprowadzającym VLM i przepuszczany. Ten sam mechanizm, który raz był prawdziwy (10008, potwierdzony przez Tomasza), użyty jako domyślne obejście doprowadził do generacji z pustymi spodniami i klipu 0.19. Kto projektuje kontrolę i sam rozpatruje od niej odwołania, ten nie ma kontroli.
+34:2026-07-26 (#10010, "Dlaczego ja nie widzę tych odpowiedzi strażników") | JAWNOŚĆ BRAMEK — na stałe: werdykty strażników lądowały wyłącznie w terminalu Claude'a (zwinięte wyniki narzędzi w czacie, zasypane szumem insightface) i docierały do Tomasza TYLKO przefiltrowane przez Claude'a — co umożliwiło nadużycia z poprzedniej lekcji (Claude jedynym okiem i jedynym sędzią). FIX WDROŻONY: tools/bramka_raport.sh — każdy bieg preflight/kanarka/strażnika idzie przez wrapper: pełny surowy werdykt → data/zarty/NNNN/raporty/ + kopia na panel /n150files/NNNN_raport_*.txt + ping Telegram z jednolinijkowym werdyktem i linkiem. Tomasz widzi to samo co Claude, bez pośrednika. OBOWIĄZEK: od teraz bramki uruchamiać wyłącznie przez wrapper.
+36:2026-07-26 | LEKCJA: bramka środka VLM-only jest niewiarygodna na nocnych szerokich planach (qwen2.5vl seryjnie halucynuje 'człowieka na drzewie' przy gałęziach nocą; pytania szczegółowe potakują) → bramkę środka NA STAŁE sprząc z pomiarem deterministycznym MAD klatka-środka vs kadr (wzorzec zdrowia z czystego klipu); sprzeczność opisu otwartego rozstrzyga liczba, nie drugi VLM.
+38:2026-07-26 | LEKCJA (kalibracja bramki KTO-MÓWI): pomiar rozwarcia ust NIE odróżnia mowy od twarzy zamarłej z OTWARTYMI ustami (oba dają stały gap ~0.15, wariancja ~0.02); werdykt 'mówi/niemy' musi łączyć: wariancję rozwarcia + segmenty mowy whisper (audio rozstrzyga); sama geometria ust wystarcza tylko przy ustach domkniętych.
+44:Ranking dróg (narada 26.07): 1. nagranie człowieka + ten łańcuch, 2. RVC z modelem (inna tożsamość), 3. czysty DSP. Skrypt: data/zarty/10010/_glos_praat.praat
+
+codex
+## PROMPT_KADR
+
+**Referencja tożsamości:** wyłącznie `bohater_noc.jpg`, w pierwszym slocie. Nie mieszać z pozostałą, niespójną biblioteką.
+
+```text
+Vertical 9:16 photorealistic cinematic frame, 2K. Dark Polish apple orchard at night, pale moonlight through apple branches, faint ground fog, deep blue-black shadows. Mock-thriller treated with complete deadly seriousness.
+
+Tomek, the exact same middle-aged man as in the provided bohater_noc.jpg identity reference, crouches low and sneaks between apple trees as if conducting a covert military operation. Long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket. Maintain the exact same facial features as the reference image: same eyes, nose shape, jawline contour, beard pattern and skin texture.
+
+Medium close shot from slightly below eye level. His face occupies about 35–40% of the frame and remains clearly readable in moonlight. Both eyes and the entire mouth are unobstructed and sharply visible for later lip-sync. He leans slightly toward the camera with intense conspiratorial focus. One small apple-tree twig tucked absurdly into the side of his flat cap as improvised camouflage. Apple tree trunks and several visible red apples establish the orchard immediately.
+
+One person only. Natural anatomy, realistic hands, cinematic depth of field, restrained mockumentary composition, no text, no captions, no logo.
+```
+
+**Bramka kadru przed Veo:** otwarty opis obrazu, porównanie twarzy z `bohater_noc.jpg`, kontrola anatomii, widoczności ust, jednej postaci, sadu i gałązki. Każdy FAIL oznacza STOP; bez klipu i bez samodzielnego force.
+
+## PROMPT_KLIP
+
+```text
+Dark Polish apple orchard at night, pale moonlight, faint ground fog, cinematic mock-thriller atmosphere. Continuous vertical 9:16 single take based on the approved start frame.
+
+Tomek is the only visible person and the only speaker. He is the exact same middle-aged man with the exact same face throughout the entire clip: long ponytail, full salt-and-pepper beard, flat cap with a small apple-tree twig tucked into it, dark work jacket. His face stays clearly lit and in focus. The camera holds a steady medium close shot with very subtle documentary-style handheld breathing.
+
+Tomek leans slightly toward the camera and delivers a secret field report. He speaks in fluent native Polish with a natural Polish accent, using his canonical low, gruff, determined middle-aged male voice reduced to a quiet, intimate, conspiratorial whisper. The whisper is clearly audible and intelligible, close-miked, tense and controlled. His visible lips actively articulate every Polish syllable with small, precise mouth movements perfectly synchronized to the whispered voice. His jaw, lips and cheeks visibly perform the full sentence while the vocal volume remains hushed.
+
+He whispers exactly: "Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię."
+
+After the final word, he closes his mouth, freezes for a brief beat, hears a faint rustle and shifts only his eyes toward the apple tree, maintaining deadly serious focus. Quiet crickets and soft leaves underneath. No other voice, no extra words, no vocalizations, no captions, no subtitles, no on-screen text.
+```
+
+Szept opisany jest pozytywnie: usta mają wykonywać małe, precyzyjne ruchy i artykułować każdą sylabę, natomiast cichy ma być głos. To wykorzystuje silny „magnes” lip-sync Veo zamiast próbować go osłabiać miękkimi negacjami.
+
+Generować źródłowe 8 s, lecz w montażu wykorzystać tylko około 4,5–5,5 s: całą kwestię, krótką pauzę i spojrzenie po szelestach.
+
+## RYZYKA
+
+- **Dryf tożsamości:** `bohater_noc.jpg` jest właściwą domeną nocną, ale wcześniejsze łańcuchy edycji dryfowały. Nowy kadr ma powstać świeżo, z jedną referencją `bohater_noc.jpg`; bez „kserowania kserówki”.
+- **Mieszanie biblioteki:** wiele wzajemnie niespójnych portretów dawało gorsze wyniki niż jedna referencja. Nie dodawać arkusza, cropów ani kadru kompozycyjnego jako kolejnych kotwic twarzy.
+- **Słaby lip-sync szeptu:** samo słowo „whisper” może dać nieruchome usta. Dlatego prompt wymaga aktywnego, widocznego artykułowania każdej sylaby, przy cichym poziomie głosu.
+- **Zbyt głośna interpretacja:** Veo może zachować kanoniczną chropowatość, ale podnieść natężenie. Kluczowe są określenia `quiet, intimate, conspiratorial whisper`, `close-miked`, `hushed`, `controlled`.
+- **Zasłonięte usta:** broda, cień lub gałąź mogą utrudnić lip-sync. Kadr ma pokazywać całe usta w świetle; gałązka wyłącznie w czapce.
+- **Nadmiar ruchu:** skradanie nie powinno trwać przez cały klip, bo grozi rozpadem sceny. Startowa poza jest już „skradaniem”; w klipie ruch ograniczyć do lekkiego pochylenia, mowy i spojrzenia.
+- **Proces:** najpierw płatny kadr i pełna bramka. Dopiero po PASS wolno wysłać go do Veo. FAIL nie może być uznany za fałszywy alarm bez decyzji Tomasza.
+
+## WPIĘCIE
+
+Układ:
+
+`intro brand 0,45 s → nowy szept Tomka → skrócony k01 → obecny trzask/shake → VINE BOOM i atak`
+
+Po słowie „złapię” zostawić około 0,2–0,3 s ciszy i spojrzenie w stronę drzewa, następnie twardo ciąć do obecnego k01. Z k01 wystarczy około 0,6–0,9 s końcowej fazy zasadzki; potem zachować istniejący trzask i shake prowadzący do ataku. Dzięki temu k01 nie powtarza całego skradania, tylko potwierdza, że Tomek namierzył cel.
+
+Plansza **„Kiedy złapiesz złodzieja jabłek... 🍎” wypada**. Szept przekazuje tę samą informację pełniej, a plansza dublowałaby setup, zasłaniała twarz i opóźniała atak. Napisy dialogowe zostają zgodnie z praktyką serii, zsynchronizowane z interpunkcją.
+
+## KOSZT
+
+- Stan obecny: **$11.73**
+- Nowy kadr 2K: **+$0.15 → $11.88**
+- Jeden klip Veo 8 s: **+$0.64 → $12.52**
+- Przekroczenie limitu $12: **$0.52**
+
+Wymaga to jawnej zgody Tomasza przed rozpoczęciem płatnej generacji.
+
+Jeżeli pierwszy klip będzie zły:
+
+- re-roll Veo: **+$0.64**
+- nowy koszt łączny: **$13.16**
+- przekroczenie limitu: **$1.16**
+
+Nie robić automatycznego re-rolla. Najpierw ustalić rodzaj błędu. Zły szept przy dobrych ustach można ewentualnie naprawić w montażu za **$0**; rozjazd ust, obca twarz lub rozpad sceny wymagają decyzji o re-rollu.
+
+Prowadzący powinien przed wydatkiem zwołać naradę, zapisać decyzję, prompty i saldo w zapisach produkcyjnych oraz zachować praktyki serii: kadr najpierw, jawna bramka, FAIL = STOP, dopiero potem Veo.
+tokens used
+58,714
+## PROMPT_KADR
+
+**Referencja tożsamości:** wyłącznie `bohater_noc.jpg`, w pierwszym slocie. Nie mieszać z pozostałą, niespójną biblioteką.
+
+```text
+Vertical 9:16 photorealistic cinematic frame, 2K. Dark Polish apple orchard at night, pale moonlight through apple branches, faint ground fog, deep blue-black shadows. Mock-thriller treated with complete deadly seriousness.
+
+Tomek, the exact same middle-aged man as in the provided bohater_noc.jpg identity reference, crouches low and sneaks between apple trees as if conducting a covert military operation. Long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket. Maintain the exact same facial features as the reference image: same eyes, nose shape, jawline contour, beard pattern and skin texture.
+
+Medium close shot from slightly below eye level. His face occupies about 35–40% of the frame and remains clearly readable in moonlight. Both eyes and the entire mouth are unobstructed and sharply visible for later lip-sync. He leans slightly toward the camera with intense conspiratorial focus. One small apple-tree twig tucked absurdly into the side of his flat cap as improvised camouflage. Apple tree trunks and several visible red apples establish the orchard immediately.
+
+One person only. Natural anatomy, realistic hands, cinematic depth of field, restrained mockumentary composition, no text, no captions, no logo.
+```
+
+**Bramka kadru przed Veo:** otwarty opis obrazu, porównanie twarzy z `bohater_noc.jpg`, kontrola anatomii, widoczności ust, jednej postaci, sadu i gałązki. Każdy FAIL oznacza STOP; bez klipu i bez samodzielnego force.
+
+## PROMPT_KLIP
+
+```text
+Dark Polish apple orchard at night, pale moonlight, faint ground fog, cinematic mock-thriller atmosphere. Continuous vertical 9:16 single take based on the approved start frame.
+
+Tomek is the only visible person and the only speaker. He is the exact same middle-aged man with the exact same face throughout the entire clip: long ponytail, full salt-and-pepper beard, flat cap with a small apple-tree twig tucked into it, dark work jacket. His face stays clearly lit and in focus. The camera holds a steady medium close shot with very subtle documentary-style handheld breathing.
+
+Tomek leans slightly toward the camera and delivers a secret field report. He speaks in fluent native Polish with a natural Polish accent, using his canonical low, gruff, determined middle-aged male voice reduced to a quiet, intimate, conspiratorial whisper. The whisper is clearly audible and intelligible, close-miked, tense and controlled. His visible lips actively articulate every Polish syllable with small, precise mouth movements perfectly synchronized to the whispered voice. His jaw, lips and cheeks visibly perform the full sentence while the vocal volume remains hushed.
+
+He whispers exactly: "Od jakiegoś czasu ktoś mi kradnie jabłka. Dzisiaj go złapię."
+
+After the final word, he closes his mouth, freezes for a brief beat, hears a faint rustle and shifts only his eyes toward the apple tree, maintaining deadly serious focus. Quiet crickets and soft leaves underneath. No other voice, no extra words, no vocalizations, no captions, no subtitles, no on-screen text.
+```
+
+Szept opisany jest pozytywnie: usta mają wykonywać małe, precyzyjne ruchy i artykułować każdą sylabę, natomiast cichy ma być głos. To wykorzystuje silny „magnes” lip-sync Veo zamiast próbować go osłabiać miękkimi negacjami.
+
+Generować źródłowe 8 s, lecz w montażu wykorzystać tylko około 4,5–5,5 s: całą kwestię, krótką pauzę i spojrzenie po szelestach.
+
+## RYZYKA
+
+- **Dryf tożsamości:** `bohater_noc.jpg` jest właściwą domeną nocną, ale wcześniejsze łańcuchy edycji dryfowały. Nowy kadr ma powstać świeżo, z jedną referencją `bohater_noc.jpg`; bez „kserowania kserówki”.
+- **Mieszanie biblioteki:** wiele wzajemnie niespójnych portretów dawało gorsze wyniki niż jedna referencja. Nie dodawać arkusza, cropów ani kadru kompozycyjnego jako kolejnych kotwic twarzy.
+- **Słaby lip-sync szeptu:** samo słowo „whisper” może dać nieruchome usta. Dlatego prompt wymaga aktywnego, widocznego artykułowania każdej sylaby, przy cichym poziomie głosu.
+- **Zbyt głośna interpretacja:** Veo może zachować kanoniczną chropowatość, ale podnieść natężenie. Kluczowe są określenia `quiet, intimate, conspiratorial whisper`, `close-miked`, `hushed`, `controlled`.
+- **Zasłonięte usta:** broda, cień lub gałąź mogą utrudnić lip-sync. Kadr ma pokazywać całe usta w świetle; gałązka wyłącznie w czapce.
+- **Nadmiar ruchu:** skradanie nie powinno trwać przez cały klip, bo grozi rozpadem sceny. Startowa poza jest już „skradaniem”; w klipie ruch ograniczyć do lekkiego pochylenia, mowy i spojrzenia.
+- **Proces:** najpierw płatny kadr i pełna bramka. Dopiero po PASS wolno wysłać go do Veo. FAIL nie może być uznany za fałszywy alarm bez decyzji Tomasza.
+
+## WPIĘCIE
+
+Układ:
+
+`intro brand 0,45 s → nowy szept Tomka → skrócony k01 → obecny trzask/shake → VINE BOOM i atak`
+
+Po słowie „złapię” zostawić około 0,2–0,3 s ciszy i spojrzenie w stronę drzewa, następnie twardo ciąć do obecnego k01. Z k01 wystarczy około 0,6–0,9 s końcowej fazy zasadzki; potem zachować istniejący trzask i shake prowadzący do ataku. Dzięki temu k01 nie powtarza całego skradania, tylko potwierdza, że Tomek namierzył cel.
+
+Plansza **„Kiedy złapiesz złodzieja jabłek... 🍎” wypada**. Szept przekazuje tę samą informację pełniej, a plansza dublowałaby setup, zasłaniała twarz i opóźniała atak. Napisy dialogowe zostają zgodnie z praktyką serii, zsynchronizowane z interpunkcją.
+
+## KOSZT
+
+- Stan obecny: **$11.73**
+- Nowy kadr 2K: **+$0.15 → $11.88**
+- Jeden klip Veo 8 s: **+$0.64 → $12.52**
+- Przekroczenie limitu $12: **$0.52**
+
+Wymaga to jawnej zgody Tomasza przed rozpoczęciem płatnej generacji.
+
+Jeżeli pierwszy klip będzie zły:
+
+- re-roll Veo: **+$0.64**
+- nowy koszt łączny: **$13.16**
+- przekroczenie limitu: **$1.16**
+
+Nie robić automatycznego re-rolla. Najpierw ustalić rodzaj błędu. Zły szept przy dobrych ustach można ewentualnie naprawić w montażu za **$0**; rozjazd ust, obca twarz lub rozpad sceny wymagają decyzji o re-rollu.
+
+Prowadzący powinien przed wydatkiem zwołać naradę, zapisać decyzję, prompty i saldo w zapisach produkcyjnych oraz zachować praktyki serii: kadr najpierw, jawna bramka, FAIL = STOP, dopiero potem Veo.

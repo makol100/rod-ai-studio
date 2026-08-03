@@ -1,0 +1,11 @@
+=== RAPORT BRAMKI: 10010/preflight_i_submit_reroll | 2026-07-26T13:11:19+00:00 ===
+[pf] k02 (BOHATER): ZIELONY
+[pf] k04 (BOHATER): ZIELONY
+[pf] k05 (BOHATER): ZIELONY
+[pf] k06 (JOZEK): ZIELONY
+[reroll] 4/4 ZIELONY — submit
+[reroll] k02 RID: 019f9e8d-6089-75f0-b4c9-9db365ddbe20
+[reroll] k04 RID: 019f9e8d-6654-7651-993a-262a8704c159
+[reroll] k05 RID: 019f9e8d-6dca-75a2-90b7-f9ae9ba21a08
+[reroll] k06 RID: 019f9e8d-75a2-7d50-8faf-3df26ad84cf5
+WERDYKT: 4/4 ZIELONY — submity poszly ($2.56)

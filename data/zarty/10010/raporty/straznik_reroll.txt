@@ -1,0 +1,28 @@
+=== RAPORT BRAMKI: 10010/straznik_reroll | 2026-07-26T13:35:56+00:00 ===
+===== k02 (BOHATER, niemy) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[POMINIĘTY] język
+[PASS     ] tożsamość
+WERDYKT KANARKA: PASS CZYSTY — prompt udowodniony, batch dozwolony.
+===== k04 (BOHATER) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[FAIL     ] tożsamość
+WERDYKT KANARKA: FAIL — batch ZABLOKOWANY. Konkretne zalecenia:
+  * TOŻSAMOŚĆ: obca twarz w kadrze [{'klatka': 'kl_01.jpg', 'najbliżej': 'BOHATER', 'sim': 0.09}]. ZALECENIE: zła referencja lub przeciek drugiej postaci — użyj kadru z JEDNĄ osobą, referencja z właściwej domeny światła.
+===== k05 (BOHATER) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[PASS     ] tożsamość
+WERDYKT KANARKA: PASS CZYSTY — prompt udowodniony, batch dozwolony.
+===== k06 (JOZEK) =====
+[PASS     ] techniczny
+[PASS     ] napisy
+[PASS     ] język
+[FAIL     ] tożsamość
+WERDYKT KANARKA: FAIL — batch ZABLOKOWANY. Konkretne zalecenia:
+  * TOŻSAMOŚĆ: obca twarz w kadrze [{'klatka': 'kl_00.jpg', 'najbliżej': 'BOHATER', 'sim': 0.27}, {'klatka': 'kl_02.jpg', 'najbliżej': 'BOHATER', 'sim': 0.26}]. ZALECENIE: zła referencja lub przeciek drugiej postaci — użyj kadru z JEDNĄ osobą, referencja z właściwej domeny światła.
+KONIEC STRAZNIKA 4 KLIPOW REROLL

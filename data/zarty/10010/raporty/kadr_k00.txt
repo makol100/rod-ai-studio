@@ -1,0 +1,12 @@
+=== RAPORT BRAMKI: 10010/kadr_k00 | 2026-07-26T15:53:40+00:00 ===
+===== k00 — OTWARTY OPIS: =====
+Na zdjęciu widoczny jest mężczyzna stojący w ogrodzie jabłoniowym. Jest ubrany w czarną kurtkę i kapelusz, a na jego głowie ma zieloną gałązkę z liśćmi. Mężczyzna ma długie włosy, brodę i wąsy. Jego twarz wydaje się spokojną i myślicielską. W tle znajduje się drzewo jabłoni z czerwonymi owocami. Słońce jest niskie nad horyzontem, co sugeruje, że obraz został wykonany wczesnym rankiem lub późnym popołudniem. Atmosfera zdjęcia jest spokojna i przytulna, z delikatną mgłą unoszącą się w powietrzu.
+  SEDNO: Czy na obrazie jest dokładnie jeden mężczyzna, kucający lub skradający się nocą w sadzie? -> TAK OK
+  SEDNO: Czy jego oczy i usta są wyraźnie widoczne i oświetlone? -> TAK OK
+  SEDNO: Czy w jego czapce lub przy głowie tkwi mała gałązka? -> TAK OK
+  SEDNO: Czy górna część obrazu to ciemna, pusta przestrzeń bez twarzy i bez tekstu? -> TAK OK
+  SEDNO: Czy widać drugą osobę albo jej twarz? -> NIE OK
+  SEDNO: Czy dłonie i ciało wyglądają anatomicznie naturalnie? -> TAK OK
+  tform.estimate(lmk, dst)
+  TOZSAMOSC vs bohater_noc: cos=0.680 (prog 0.35) OK
+WERDYKT: PASS — kadr k00 do Veo

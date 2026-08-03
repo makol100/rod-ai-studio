@@ -1,0 +1,276 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019f9e7f-d20f-70a0-b73a-7ea67e225d21
+--------
+user
+Przeczytaj plik data/zarty/10010/_zadanie_pracownika.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam instrukcję z podanego pliku, a potem wykonam ją dokładnie w dozwolonym zakresie.
+exec
+/bin/bash -lc "sed -n '1,240p' data/zarty/10010/_zadanie_pracownika.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+# ZADANIE DLA PRACOWNIKA — prompty Veo w REŻIMIE STATYCZNYM (odcinek 10010)
+
+Rola: pracownik w pętli dwumodelowej. Budujesz, nie decydujesz. Niczego nie zapisujesz na dysk, nie wykonujesz poleceń zmieniających stan — czytasz pliki i zwracasz wynik na stdout. Odpowiadasz po polsku (same prompty po angielsku, jak w oryginałach).
+
+## Przeczytaj najpierw (w całości)
+1. data/zarty/10010/KANON.md — scenariusz źródłowy; kwestie dialogowe są ŚWIĘTE, verbatim co do znaku
+2. data/zarty/10010/_klipy_batch.json — obecne prompty k01/k02/k03/k05/k06 (k02, k05, k06 przepisujesz)
+3. wiedza/PRZEKAZANIE_2026-07-26_10010.md — sekcja DIAGNOZA: jak i dlaczego obecne prompty poległy
+4. (opcjonalnie) data/zarty/10010/raporty/ — jeśli chcesz zobaczyć stary prompt k04, szukaj w raportach preflight
+
+## Sedno problemu
+Klipy generuje Veo 3.1 FLF (first-last-frame): model dostaje TYLKO pierwszą i ostatnią klatkę, środek klipu jest wolny. Każdy dynamiczny czasownik w prompcie ("legs JERK violently", "fist TIGHTENS", "twitch") to zaproszenie do akrobatyki w środku — dziś tak rozpadły się sceny (ścisk znikał, postać łaziła po drzewie, bohater podciągał własne spodnie). Reżim, który DZIAŁAŁ w odcinkach 10008/10009: postać trzyma dokładną pozę z kadru przez cały klip, rusza się tylko twarz przy mówieniu.
+
+## Twarde zasady przepisania (wszystkie obowiązkowe)
+1. Baza każdego promptu: postać "holds the exact pose/grip/framing from the first frame for the entire clip". Poza i chwyt DOMINUJĄ nad wszystkim.
+2. ZERO czasowników dynamicznych i ruchu ciała: jerk, tighten, twitch, shake, whiten, struggle, kick, thrash, rush, violently, suddenly itp. Szarpanie nóg, atak, ściskanie w ruchu — WYRZUCIĆ; dźwięk ataku dogra montaż (SFX), nie opisuj go.
+3. Maksymalnie JEDNA mikroakcja na klip, wyłącznie gdy konieczna dla sensu sceny.
+4. W klipach z kwestią rusza się WYŁĄCZNIE twarz/usta mówiącego. Reszta ciała i wszystko w kadrze zamrożone.
+5. Kwestie po polsku, VERBATIM z KANON.md, z polskimi znakami, w cudzysłowie. DOKŁADNIE JEDNA para cudzysłowów w całym prompcie — opisy głosu i dźwięków bez cudzysłowów.
+6. Z oryginałów zachować co do tokenu: opis tożsamości postaci ("A man of about fifty... THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change"), bloki opisu głosu, "speaking fluent native Polish with a natural Polish accent", "No captions, no subtitles, no on-screen text", scenografię nocnego sadu.
+7. Jeden mówca na klip.
+
+## Specyfikacja klipów do napisania
+- **k02** (niemy): Tomek stoi pod jabłonią, ręka w górze, pięść zaciśnięta między dwiema nogawkami zwisającymi z korony; osoba w koronie CAŁKOWICIE niewidoczna. Nikt nie mówi. Chwyt i poza trzymane przez cały klip — bez ruchu nogawek, bez szarpania.
+- **k04** (mówca: BOHATER + głos z korony): ta sama poza chwytu co k02. Tomek patrzy w górę i mówi kwestię z kanonu sceny 4: "Gadaj, pókim dobry, ktoś ty?!" (przez zaciśnięte zęby, wściekły, powolny, groźny — zwykły niski męski głos). Z ukrytej korony słychać krótki wysoki pisk bólu (opisz bez cudzysłowu, bez ruchu nogawek).
+- **k05** — DWA WARIANTY:
+  - **k05a** (do obecnego kadru, w którym gumowiec wisi w powietrzu): ekstremalne zbliżenie wściekłej twarzy Tomka, kwestia "No gadaj draniu, ktoś ty?!" (krzyk, maksymalna wściekłość); JEDYNA mikroakcja: pojedynczy gumowiec spada pionowo w dół przez kadr, raz, i znika — nic poza tym się nie rusza.
+  - **k05b** (do ewentualnego kadru po edycji, gumowiec już na ziemi): to samo zbliżenie i kwestia, ZERO mikroakcji.
+- **k06** (mówca: JOZEK z offu): poza jak k02 — Tomek osłupiały (brwi w górę, oczy szeroko, usta lekko otwarte), NIE MÓWI. Z ukrytej korony pada kwestia "To ja... Józek... niemowa ze wsi!" głosem niezwykle piskliwym, nienaturalnie wysokim, zduszonym, łamiącym się, jak wyciśnięty z resztek sił. Nogawki NIERUCHOME (żadnego "final twitch").
+
+## Format wyniku (dokładnie tak)
+1. Blok ```json``` — struktura identyczna jak _klipy_batch.json, klucze: k02, k04, k05a, k05b, k06 (pola: mowca, niemy/kwestia, prompt).
+2. Sekcja "## RYZYKA" — wypunktuj każde miejsce, gdzie mimo przepisania widzisz ryzyko ruchu w środku klipu, konflikt z FLF albo z zasadami wyżej.
+
+codex
+Instrukcja wymaga pełnego odczytu trzech plików źródłowych. Teraz wyciągam kanon, bieżące prompty i diagnozę, bez zapisywania czegokolwiek na dysku.
+exec
+/bin/bash -lc 'cat wiedza/PRZEKAZANIE_2026-07-26_10010.md' in /root/rod-ai-studio
+ succeeded in 0ms:
+# PRZEKAZANIE OKNA — 2026-07-26 — odcinek #10010 (+ zamknięcie 10009)
+# Dla następnego okna: przeczytać W CAŁOŚCI zanim ruszysz cokolwiek.
+
+## ZAMKNIĘTE DZIŚ
+- #10009 "Działkowy czarny rynek": OPUBLIKOWANY na FB (Reel 966556033068099) na komendę
+  "Opublikuj z opisem na FB". Finał = final_v5 (sync 0.008s, faststart). Pełna historia
+  w wiedza/DECYZJE_10009.md. Koszt ~$13.17 (limit przekroczony przez kolizję okien
+  + import bez guarda — obie lekcje w NAUKI_SERII).
+
+## #10010 "Kiedy złapiesz złodzieja jabłek" — STAN NA PRZEKAZANIE
+- KANON: data/zarty/10010/KANON.md (scenariusz Tomasza VERBATIM). Pełny log decyzji:
+  wiedza/DECYZJE_10010.md — CZYTAĆ OGON PRZED KAŻDYM RUCHEM.
+- Decyzje Tomasza (nienaruszalne): Józek NIEWIDOCZNY (tylko głos z korony); w kadrach
+  TYLKO Tomek; ŚCISK ZA JAJCA I PISK NAJWAŻNIEJSZE; chwyt jak w zaakceptowanym k02;
+  pisk = WARIANT A (×1.7) w montażu dla każdego głosu Józka (dla k06 zmierzone 145 Hz —
+  ×1.7 za mało, dobrać większy mnożnik i dać Tomaszowi do ucha); "Pierwszy" = force na batch.
+- BUDŻET: $8.38/12 wydane. Saldo fal doładowane dziś przez Tomasza (~$11 zostało po batchu).
+- NA DYSKU (data/zarty/10010/): kadry zaakceptowane (k01,k02,k03 v3,k04=lancuch_046,
+  k05,k06=lancuch_033) + wszystkie odrzuty z opisowymi nazwami; 6 klipów: klip_k01,
+  klip_k02, klip_k03, klip_k04_v2 (kanarek2), klip_k05, klip_k06; gen_state_* z PEŁNYMI
+  RIDami; _klipy_batch.json (prompty batchu — DO PRZEPISANIA, patrz niżej); raporty/
+  (wszystkie werdykty bramek, kopie na panelu /n150files/10010_raport_*).
+- PODGLĄDY dla Tomasza: /n150files/10010_klip_kXX.mp4 (faststart), kadry 10010_kXX.jpg.
+
+## DIAGNOZA (26.07, raport 10010_raport_diagnoza.txt) — SEDNO PROBLEMU
+- DŹWIĘK: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), pisk Józka
+  w k04_v2 i pełna puenta w k06 SĄ.
+- OBRAZ: sceny ROZPADAJĄ SIĘ W ŚRODKU klipów (FLF kotwiczy tylko 1. i ostatnią klatkę):
+  k02 ścisk znika (postać na drzewie zbiera coś), k04_v2 Tomek wisi w pniu trzymając się
+  nogami, k05 gumowiec wisi na sznurku, k06 chwyt znika (Tomek podciąga własne spodnie).
+  k03 znośny, k01 "spokojny zamyślony" zamiast zasadzki.
+- PRZYCZYNA: prompty z DYNAMICZNĄ akcją ("legs JERK violently") sprzeczne z "holds the
+  exact pose" — Veo wybiera akrobatykę. W 10008/09 działał reżim "holds pose + mówi".
+
+## PLAN CZEKAJĄCY NA ZGODĘ TOMASZA (nic nie ruszać bez jego słowa)
+1. Przepisać prompty k02/k04/k05/k06 na REŻIM STATYCZNY: poza i chwyt dominują, jedna
+   mikroakcja maks., dialogowe klipy ruszają tylko ustami; SFX ataku robi montaż.
+2. Re-roll k02, k04, k05, k06 = $2.56 (budżet zamknie się ~$10.94/12).
+3. k05: gumowiec zawieszony w powietrzu w kadrze → zapytać Tomasza: edycja kadru
+   (gumowiec leży na ziemi, $0.15) czy zostaje.
+4. k01/k03: do oceny Tomasza — może przejdą po przycięciu w montażu.
+5. NOWA OBOWIĄZKOWA BRAMKA po każdej generacji klipu: OTWARTY opis VLM środka klipu
+   (4s) — "opisz co widzisz"; sprzeczność z zamierzoną sceną = FAIL. To złapało dziś
+   wszystko, czego strażnik nie widzi.
+
+## NOWE TWARDE REGUŁY Z 26.07 (obowiązują wszystkie okna; szczegóły w NAUKI_SERII.md)
+- FAIL bramki = STOP. Naprawa albo FORCE — force wypowiada WYŁĄCZNIE Tomasz po dowodach.
+- JAWNOŚĆ: każdy bieg preflight/kanarka/strażnika przez tools/bramka_raport.sh
+  (pełny raport → panel /n150files + ping Telegram). Tomasz widzi to co my, bez pośrednika.
+- WERYFIKACJA VLM: NAJPIERW pytanie otwarte "opisz co widzisz", potem detale; pytania
+  naprowadzające zakazane jako jedyne; sprzeczność = FAIL; zawsze pytanie o SEDNO sceny.
+- REFERENCJE: 1 referencja z właściwej domeny światła (multi-ref przy naszej niespójnej
+  bibliotece uśrednia twarze — zmierzone 5 ref → sim 0.17-0.27). Poprawki kadrów metodą
+  CHANGE ONLY / PRESERVE / CONSTRAINTS na zaakceptowanym kadrze + portret jako 2. ref.
+- Skrypty z płatnymi submitami: dane w osobnym .json, kod za guardem __main__.
+- Pełne RIDy do DECYZJI natychmiast po submicie. Kwestie w promptach Z polskimi znakami.
+- ZMIANY NARZĘDZI DZIŚ (zacommitowane): preflight.py pomija kontrolę twarzy mówcy dla
+  klipów niemych i mówców zza kadru (backup: wiedza/backupy/preflight_przed_10010.py);
+  GLOSY_VEO ma klucz "JOZEK" (głos epizodyczny wg kanonu, NIE powrót postaci);
+  tools/bramka_raport.sh = wrapper jawności.
+
+## LOCK
+- data/zarty/10010/LOCK ustawiony na PRZEKAZANY — nowe okno przejmuje wpisując siebie.
+
+exec
+/bin/bash -lc 'cat data/zarty/10010/KANON.md' in /root/rod-ai-studio
+ succeeded in 0ms:
+# KANON odcinka #10010 — "Kiedy złapiesz złodzieja jabłek" (remake żartu Niemowa)
+# Źródło: Tomasz, czat 26.07.2026, WKLEJONY SCENARIUSZ — DOSŁOWNIE.
+# Komenda: "Idź naszą drogą!" (produkcja wg DROGA_ROLKA_HUMOR)
+# UWAGA: ten sam żart co ZAMROŻONY #10004 (chattr +i) — 10004 NIE RUSZAĆ.
+
+Scenariusz do wygenerowania w AI (Reel 15-20 sek.)
+Tytuł/Tekst na ekranie (do dodania w montażu): Kiedy złapiesz złodzieja jabłek... 🍎
+🌳 Scena 1: Zasadzka
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Cinematic wide shot, dark apple orchard at night, illuminated by moonlight. A grumpy middle-aged gardener in a flat cap is hiding in the bushes, looking off-camera with intense focus, fog, moody lighting, highly detailed, photorealistic, 4k.
+Ruch kamery (Motion Prompt): Slow zoom in on the gardener's face.
+Audio (SFX): Dźwięk cykad, ciche szeleszczenie liści.
+⚡ Scena 2: Atak
+Czas trwania: 2 sekundy
+Prompt Video/Image (ENG): Dynamic action shot, low angle. The angry gardener rushes forward and reaches down aggressively with one hand out of the lower frame, night setting, motion blur, intense atmosphere.
+Ruch kamery (Motion Prompt): Fast camera shake, dynamic zoom.
+Audio (SFX): Głośny trzask gałęzi, nagły dźwięk "bass drop" / "vine boom". Szelest ustaje.
+🗣️ Scena 3: Pierwsze pytanie
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Close-up portrait of the angry gardener talking aggressively, shouting, night orchard background, dramatic cinematic lighting, deep shadows.
+Ruch kamery (Motion Prompt): Slight handheld camera movement.
+Dialog (Voice AI - PL):
+Tekst: "Gadaj, ktoś ty?!"
+Emocja (TTS): Głośno, agresywnie, stanowczo. Zwykły, niski męski głos.
+😧 Scena 4: Ból w milczeniu i drugie pytanie
+Czas trwania: 4 sekundy
+Prompt Video/Image (ENG): Close-up portrait of a young rustic man (the thief). His face is distorted in extreme pain, eyes bulging wide, mouth open trying to scream but no sound comes out, comedic exaggeration, sweaty forehead, moonlit.
+Ruch kamery (Motion Prompt): Slow tilt up, character's face shaking slightly from pain.
+Dialog (Voice AI - PL):
+Tekst: "Gadaj, pókim dobry, ktoś ty?!"
+Emocja (TTS): Głos ogrodnika zza kadru (Voiceover). Mówiony przez zaciśnięte zęby, jeszcze bardziej wściekły, powolny i groźny.
+💢 Scena 5: Ostatnie ściśnięcie
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Extreme close-up of the gardener's face. He is furious, veins popping on his forehead, he makes a hard clenching motion with his jaw, absolute anger.
+Ruch kamery (Motion Prompt): Quick zoom in on the gardener's eyes.
+Dialog (Voice AI - PL):
+Tekst: "No gadaj draniu, ktoś ty?!"
+Emocja (TTS): Krzyk, maksymalna wściekłość i zniecierpliwienie.
+🎭 Scena 6: Puenta (Józek)
+Czas trwania: 4 sekundy
+Prompt Video/Image (ENG): Extreme close-up of the young rustic man's face (the thief). He looks like he is about to pass out, tears in his eyes, face extremely red, absolute agony, comical expression.
+Ruch kamery (Motion Prompt): Static shot, character slowly blinking in pain while speaking.
+Dialog (Voice AI - PL):
+Tekst: "To ja... Józek... niemowa ze wsi!"
+Emocja (TTS): To najważniejszy element. Wygeneruj głos, który jest niezwykle piskliwy, nienaturalnie wysoki, zduszony i łamiący się (jak po wciągnięciu helu lub przy zgnieceniu krtani). Musi brzmieć jak wyciśnięty z resztek sił.
+
+exec
+/bin/bash -lc 'cat data/zarty/10010/_klipy_batch.json' in /root/rod-ai-studio
+ succeeded in 0ms:
+{
+ "k01": {"mowca": "BOHATER", "niemy": true, "kwestia": "",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty crouches hidden in the bushes below the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. He looks up into the tree crown with intense angry focus, barely moving, like a hunter in ambush. Neither he nor anyone else speaks. Quiet night garden ambience, distant crickets, soft rustling leaves. He holds the exact pose for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k02": {"mowca": "BOHATER", "niemy": true, "kwestia": "",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. His fist TIGHTENS harder between the trouser legs, his knuckles whiten, and the hanging legs JERK violently, leaves rustling and shaking. Nobody speaks. He holds the exact grip and stance for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k03": {"mowca": "BOHATER", "kwestia": "Gadaj, ktoś ty?!",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. One arm raised up into the branches, his face turned upward, clearly visible and lit by moonlight throughout. He shouts loudly and aggressively up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"Gadaj, ktoś ty?!\" He holds the exact pose for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k05": {"mowca": "BOHATER", "kwestia": "No gadaj draniu, ktoś ty?!",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. Extreme close-up of a man of about fifty - long hair tied in a ponytail, full salt-and-pepper beard, flat cap - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His face fills the frame, furious, veins on his forehead, jaw clenched, eyes burning with rage, lit by moonlight, clearly visible throughout. He screams at maximum fury and impatience up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"No gadaj draniu, ktoś ty?!\" He holds the exact framing for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."},
+ "k06": {"mowca": "JOZEK", "kwestia": "To ja... Józek... niemowa ze wsi!",
+  "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip. His arm is raised up, his fist between two trouser legs hanging down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. The man below is stunned and dumbfounded, eyebrows raised, eyes wide, mouth slightly open in disbelief - HE DOES NOT SPEAK at all. From high up in the hidden tree crown comes an off-screen voice, in an extremely high-pitched, unnaturally squeaky, strangled, breaking young male voice, as if squeezed out with the last of his strength, speaking fluent native Polish with a natural Polish accent, crying out in Polish: \"To ja... Józek... niemowa ze wsi!\" The hanging legs give a weak final twitch. The man below holds his stunned pose for the entire clip. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."}
+}
+
+codex
+```json
+{
+  "k02": {
+    "mowca": "BOHATER",
+    "niemy": true,
+    "kwestia": "",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. He holds the exact pose/grip/framing from the first frame for the entire clip. His body, raised arm, fist, hand, fingers, clothing, and the two hanging trouser legs remain perfectly still. The grip never changes. Nobody speaks. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k04": {
+    "mowca": "BOHATER",
+    "kwestia": "Gadaj, pókim dobry, ktoś ty?!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. He holds the exact pose/grip/framing from the first frame for the entire clip. His body, raised arm, fist, hand, fingers, clothing, and the two hanging trouser legs remain perfectly still. The grip never changes. Only the man's face and mouth move as he looks upward and speaks through clenched teeth, even more furious, slow and threatening, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"Gadaj, pókim dobry, ktoś ty?!\" A short high-pitched squeal of pain is heard from the completely hidden tree crown. The squeal causes no visible movement. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k05a": {
+    "mowca": "BOHATER",
+    "kwestia": "No gadaj draniu, ktoś ty?!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. Extreme close-up of a man of about fifty - long hair tied in a ponytail, full salt-and-pepper beard, flat cap - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His face fills the frame, furious, veins on his forehead, jaw clenched, eyes burning with rage, lit by moonlight, clearly visible throughout. He holds the exact pose/grip/framing from the first frame for the entire clip. His head, neck, shoulders, clothing, eyes, and the rest of his body remain perfectly still. Only his face and mouth move as he screams at maximum fury and impatience up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"No gadaj draniu, ktoś ty?!\" The only other movement in the entire clip is one single rubber boot falling vertically downward through the frame once and disappearing out of the bottom of the frame. Nothing reacts to the boot. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k05b": {
+    "mowca": "BOHATER",
+    "kwestia": "No gadaj draniu, ktoś ty?!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. Extreme close-up of a man of about fifty - long hair tied in a ponytail, full salt-and-pepper beard, flat cap - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His face fills the frame, furious, veins on his forehead, jaw clenched, eyes burning with rage, lit by moonlight, clearly visible throughout. He holds the exact pose/grip/framing from the first frame for the entire clip. His head, neck, shoulders, clothing, eyes, and the rest of his body remain perfectly still. Only his face and mouth move as he screams at maximum fury and impatience up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"No gadaj draniu, ktoś ty?!\" The rubber boot is already lying on the ground and remains perfectly still. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k06": {
+    "mowca": "JOZEK",
+    "kwestia": "To ja... Józek... niemowa ze wsi!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. The man below is stunned and dumbfounded, eyebrows raised, eyes wide, mouth slightly open in disbelief. He does not speak. He holds the exact pose/grip/framing from the first frame for the entire clip. His face, mouth, body, raised arm, fist, hand, fingers, clothing, and the two hanging trouser legs remain perfectly still. The grip never changes. From high up in the hidden tree crown comes an off-screen voice, in an extremely high-pitched, unnaturally squeaky, strangled, breaking young male voice, as if squeezed out with the last of his strength, speaking fluent native Polish with a natural Polish accent, crying out in Polish: \"To ja... Józek... niemowa ze wsi!\" The hidden speaker causes no visible movement. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  }
+}
+```
+
+## RYZYKA
+
+- k04 zawiera dwa zdarzenia dźwiękowe: kwestię Tomka i pisk z korony. Choć pisk nie jest drugim mówcą ani mikroakcją wizualną, Veo może próbować powiązać go z ruchem nogawek lub liści.
+- k04 wymaga mówienia przez zaciśnięte zęby. Model może zinterpretować to jako ruch szczęki wykraczający poza dozwolony ruch twarzy i ust.
+- k05a celowo zawiera dynamiczny czasownik `falling`, ponieważ upadek gumowca jest wymaganą jedyną mikroakcją. To największe ryzyko dodatkowego, niekontrolowanego ruchu w środku klipu.
+- k05a może być sprzeczny z FLF, jeśli gumowiec znajduje się w tym samym miejscu zarówno w pierwszej, jak i ostatniej klatce. Model może wtedy odtworzyć go po upadku, zatrzymać w powietrzu albo dodać ruch powrotny.
+- k05b będzie zgodny z FLF tylko wtedy, gdy gumowiec faktycznie leży na ziemi w obu klatkach kotwiczących. Jeśli pozostanie zawieszony w którejkolwiek z nich, prompt wejdzie w konflikt z obrazem.
+- W k05a i k05b ekstremalne zbliżenie może nie obejmować ziemi. Informacja o gumowcu leżącym na ziemi w k05b może więc skłonić model do zmiany kadru mimo nakazu zachowania framingu.
+- k06 zawiera głos z ukrytej korony. Veo może próbować ujawnić Józka albo poruszyć nogawkami, liśćmi lub gałęziami w celu wizualnego wskazania źródła głosu.
+- We wszystkich klipach nocna mgła jest opisana jako nieruchoma. Modele wideo często automatycznie animują mgłę, liście, włosy i ubranie mimo statycznych zakazów.
+- Ruch twarzy podczas dialogu może wpłynąć na oczy, głowę lub szyję, mimo że prompt ogranicza ruch do twarzy i ust.
+
+tokens used
+6,014
+```json
+{
+  "k02": {
+    "mowca": "BOHATER",
+    "niemy": true,
+    "kwestia": "",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. He holds the exact pose/grip/framing from the first frame for the entire clip. His body, raised arm, fist, hand, fingers, clothing, and the two hanging trouser legs remain perfectly still. The grip never changes. Nobody speaks. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k04": {
+    "mowca": "BOHATER",
+    "kwestia": "Gadaj, pókim dobry, ktoś ty?!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. He holds the exact pose/grip/framing from the first frame for the entire clip. His body, raised arm, fist, hand, fingers, clothing, and the two hanging trouser legs remain perfectly still. The grip never changes. Only the man's face and mouth move as he looks upward and speaks through clenched teeth, even more furious, slow and threatening, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"Gadaj, pókim dobry, ktoś ty?!\" A short high-pitched squeal of pain is heard from the completely hidden tree crown. The squeal causes no visible movement. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k05a": {
+    "mowca": "BOHATER",
+    "kwestia": "No gadaj draniu, ktoś ty?!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. Extreme close-up of a man of about fifty - long hair tied in a ponytail, full salt-and-pepper beard, flat cap - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His face fills the frame, furious, veins on his forehead, jaw clenched, eyes burning with rage, lit by moonlight, clearly visible throughout. He holds the exact pose/grip/framing from the first frame for the entire clip. His head, neck, shoulders, clothing, eyes, and the rest of his body remain perfectly still. Only his face and mouth move as he screams at maximum fury and impatience up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"No gadaj draniu, ktoś ty?!\" The only other movement in the entire clip is one single rubber boot falling vertically downward through the frame once and disappearing out of the bottom of the frame. Nothing reacts to the boot. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k05b": {
+    "mowca": "BOHATER",
+    "kwestia": "No gadaj draniu, ktoś ty?!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. Extreme close-up of a man of about fifty - long hair tied in a ponytail, full salt-and-pepper beard, flat cap - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His face fills the frame, furious, veins on his forehead, jaw clenched, eyes burning with rage, lit by moonlight, clearly visible throughout. He holds the exact pose/grip/framing from the first frame for the entire clip. His head, neck, shoulders, clothing, eyes, and the rest of his body remain perfectly still. Only his face and mouth move as he screams at maximum fury and impatience up into the tree crown, in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: \"No gadaj draniu, ktoś ty?!\" The rubber boot is already lying on the ground and remains perfectly still. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  },
+  "k06": {
+    "mowca": "JOZEK",
+    "kwestia": "To ja... Józek... niemowa ze wsi!",
+    "prompt": "Dark Polish allotment orchard at night, moonlight through the apple tree branches, ground fog, cinematic moody lighting, comedic night scene. A man of about fifty stands under the apple tree - long hair tied in a ponytail, full salt-and-pepper beard, flat cap, dark work jacket - THE SAME MAN with THE SAME FACE for the entire clip, his facial features never change. His arm is raised straight up, his fist clenched between two trouser legs that hang down from the crown; the person up in the crown stays completely hidden in the leaves and is never seen. The man below is stunned and dumbfounded, eyebrows raised, eyes wide, mouth slightly open in disbelief. He does not speak. He holds the exact pose/grip/framing from the first frame for the entire clip. His face, mouth, body, raised arm, fist, hand, fingers, clothing, and the two hanging trouser legs remain perfectly still. The grip never changes. From high up in the hidden tree crown comes an off-screen voice, in an extremely high-pitched, unnaturally squeaky, strangled, breaking young male voice, as if squeezed out with the last of his strength, speaking fluent native Polish with a natural Polish accent, crying out in Polish: \"To ja... Józek... niemowa ze wsi!\" The hidden speaker causes no visible movement. The entire orchard, branches, leaves, fog, and background remain still. Locked-off static camera, continuous single take. No captions, no subtitles, no on-screen text."
+  }
+}
+```
+
+## RYZYKA
+
+- k04 zawiera dwa zdarzenia dźwiękowe: kwestię Tomka i pisk z korony. Choć pisk nie jest drugim mówcą ani mikroakcją wizualną, Veo może próbować powiązać go z ruchem nogawek lub liści.
+- k04 wymaga mówienia przez zaciśnięte zęby. Model może zinterpretować to jako ruch szczęki wykraczający poza dozwolony ruch twarzy i ust.
+- k05a celowo zawiera dynamiczny czasownik `falling`, ponieważ upadek gumowca jest wymaganą jedyną mikroakcją. To największe ryzyko dodatkowego, niekontrolowanego ruchu w środku klipu.
+- k05a może być sprzeczny z FLF, jeśli gumowiec znajduje się w tym samym miejscu zarówno w pierwszej, jak i ostatniej klatce. Model może wtedy odtworzyć go po upadku, zatrzymać w powietrzu albo dodać ruch powrotny.
+- k05b będzie zgodny z FLF tylko wtedy, gdy gumowiec faktycznie leży na ziemi w obu klatkach kotwiczących. Jeśli pozostanie zawieszony w którejkolwiek z nich, prompt wejdzie w konflikt z obrazem.
+- W k05a i k05b ekstremalne zbliżenie może nie obejmować ziemi. Informacja o gumowcu leżącym na ziemi w k05b może więc skłonić model do zmiany kadru mimo nakazu zachowania framingu.
+- k06 zawiera głos z ukrytej korony. Veo może próbować ujawnić Józka albo poruszyć nogawkami, liśćmi lub gałęziami w celu wizualnego wskazania źródła głosu.
+- We wszystkich klipach nocna mgła jest opisana jako nieruchoma. Modele wideo często automatycznie animują mgłę, liście, włosy i ubranie mimo statycznych zakazów.
+- Ruch twarzy podczas dialogu może wpłynąć na oczy, głowę lub szyję, mimo że prompt ogranicza ruch do twarzy i ust.
+

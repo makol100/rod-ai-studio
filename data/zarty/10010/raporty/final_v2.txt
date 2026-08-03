@@ -1,0 +1,10 @@
+=== RAPORT BRAMKI: 10010/final_v2 | 2026-07-26T16:24:34+00:00 ===
+FINAL v2 10010 — wstep-szept (k00) + skrocony hook + plansza an8
+streams: video,31.666667 audio,31.690667 
+sync: 0.024s (<0.05 OK)
+[Parsed_astats_0 @ 0x717514003980] Peak level dB: -0.227885
+[Parsed_astats_0 @ 0x717514003980] RMS level dB: -17.852319
+struktura: intro 0.45 | WSTEP szept 6.73 (plansza 0.66-3.10, W2 2 beaty) | hook k01 0.55 | trzask | atak+BOOM | pyt1 | pyt2 | pisk Jozek | pyt3 | skrzyp | puenta niemowa | outro 3.0
+budzet: 12.52/12.52 (sufit force Tomasza)
+bramka klipu k00: formalnie 3 FAIL -> pomiary poglebione obalily 2 (pauza 0.93s silencedetect, szept voiced 23% vs 74.6%), zostalo 1 odstepstwo (usta otwarte w pauzach) — narada jednoglosnie PRZYJAC, odwolanie FAIL nalezy do Tomasza
+WERDYKT: v2 GOTOWY DO OKA TOMASZA — czeka decyzja: przyjac wstep / re-roll (+0.64 za zgoda)

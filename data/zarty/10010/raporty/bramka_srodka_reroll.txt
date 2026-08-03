@@ -1,0 +1,22 @@
+=== RAPORT BRAMKI: 10010/bramka_srodka_reroll | 2026-07-26T13:37:15+00:00 ===
+===== k02 — OTWARTE: =====
+Na zdjęciu jest przedstawiony mężczyzna w kapeluszu i długim czarnym szaliku, który podnosi się po gałęziach drzewa. Mężczyzna ma brodę i wygląda na starzejącego się. Jego ręce są mocno zaciskane na gałęziach, a jego nogi są rozłożone wzdłuż gałęzi, jakby próbował utrzymać równowagę lub wspinać się po drzewie. Drzewo ma cienkie, ciemne gałęzie i zielone liście. Tło jest ciemne i mgliste, co dodaje
+  SEDNO: Czy mężczyzna trzyma uniesioną pięść między dwiema nogawkami zwisającymi z korony drzewa? -> TAK OK
+  SEDNO: Czy widać drugą osobę albo jej twarz? -> NIE OK
+  k02: PASS
+===== k04 — OTWARTE: =====
+Na zdjęciu widoczny jest mężczyzna w średnim wieku, który siedzi na gałęzi drzewa. Jest ubrany w ciemne spodnie i czarną koszulę pod kurtką. Mężczyzna ma brodę i kapelusz na głowie. Jego ręce są skrzyżowane za plecami, a twarz ma uśmiech. Drzewo jest zielone i ma cienkie gałęzie. Na tle widoczne są dymiące chmury, co dodaje obrazowi atmosferycznego efektu. Słońce świeci przez liście drzewa, tworzą
+  SEDNO: Czy mężczyzna trzyma uniesioną pięść między dwiema nogawkami zwisającymi z korony drzewa? -> TAK OK
+  SEDNO: Czy widać drugą osobę albo jej twarz? -> NIE OK
+  k04: PASS
+===== k05 — OTWARTE: =====
+Na zdjęciu widoczny jest mężczyzna w średnim wieku, ubrany w czarną kurtkę z kapturem i czarny kapelusz. Ma długą brodę i wąsy, a jego twarz ma wyraźne zmarszczki, co sugeruje dojrzałość. Mężczyzna stoi przed drzewem z rozgałęzionymi gałęziami, które są częściowo oświetlone przez słońce zachodzące za nimi. Tło jest ciemne i zamazane, co podkreśla postać mężczyzny w pierwszym planie. Słońce tworzy 
+  SEDNO: Czy to ekstremalne zbliżenie twarzy krzyczącego mężczyzny? -> TAK OK
+  SEDNO: Czy widać jakikolwiek but, gumowiec lub kalosz? -> NIE OK
+  k05: PASS
+===== k06 — OTWARTE: =====
+Na zdjęciu jest starszy mężczyzna z brodą i w kapeluszu, który siedzi na drzewie. Mężczyzna ma na sobie ciemne ubrania: czarny t-shirt pod kurtką oraz spodnie. Jego ręce są uniesione w górę, a nogi oparte o gałęzie drzewa. Słońce jest za drzewami i tworzy efekt promieniowania światła przez liście, co daje obrazu ciepły i dramatyczny wygląd. Tło składa się z ciemnych, gęstych liści drzew, co dodaje
+  SEDNO: Czy mężczyzna trzyma uniesioną pięść między dwiema nogawkami zwisającymi z korony drzewa? -> TAK OK
+  SEDNO: Czy widać drugą osobę albo jej twarz? -> NIE OK
+  k06: PASS
+WERDYKT: 4/4 PASS — środek klipów trzyma sceny

@@ -1,0 +1,914 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019f9ec9-3eaf-7b62-b1a6-b7d4f3ec2b31
+--------
+user
+Przeczytaj plik data/zarty/10010/_zadanie_zenka_architektura.md i wykonaj zadanie dokładnie według niego.
+codex
+Najpierw odczytam wskazany plik i sprawdzę lokalne instrukcje projektu, a następnie wykonam zawarte w nim zadanie w dozwolonym zakresie.
+exec
+/bin/bash -lc "pwd && rg --files -g 'AGENTS.md' -g 'data/zarty/10010/_zadanie_zenka_architektura.md' -g 'SKILL.md' | sort && sed -n '1,240p' data/zarty/10010/_zadanie_zenka_architektura.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+/root/rod-ai-studio
+data/zarty/10010/_zadanie_zenka_architektura.md
+# NARADA TRÓJKI #2 — ARCHITEKTURA KOMIZMU rolki 10010 ("ma być zajebista i śmieszna")
+
+Rola: Zenek, architekt komizmu na tej naradzie. Rozkaz Tomasza: naradzić się jeszcze raz, wszyscy DOCZYTAĆ jak rolka ma wyglądać i działać. Nic nie zapisujesz; wynik na stdout, po polsku.
+
+## Lektury OBOWIĄZKOWE, w całości
+1. data/zarty/10010/KANON.md — scenariusz z czasami, SFX i emocjami TTS (to jest mapa śmiechu autora)
+2. wiedza/DROGA_ROLKA_HUMOR.md — cała; szczególnie Etap 6 (montaż: jump-cuty do mowy, napisy KOLORY_ASS, plansza, intro/outro brand, puenta kończy)
+3. wiedza/NAUKI_SERII.md — cała; szczególnie lekcje montażowe 10009 (napisy po interpunkcji, fps normalize, sync <0.05s, wzorzec montaz.py z 10008)
+4. wiedza/DECYZJE_SERIA_HUMOR.md — szczególnie NUTA REŻYSERSKA: "za poważnie jak na żart... grać LŻEJ — komediowe przerysowanie i mock-seriousness zamiast serio-powagi"
+5. wiedza/DECYZJE_10010.md — ogon (stan materiału)
+
+## Stan materiału (fakty)
+- Zdrowe klipy 8s: k01 (zasadzka, niemy, plan szeroki), k02 (chwyt, niemy), k03 (pytanie 1 "Gadaj, ktoś ty?!", ręka w górze), k04 (pytanie 2 "Gadaj, pókim dobry..." + pisk z korony w audio)
+- k05: OBRAZ odpada (gapowicz); czysta kwestia audio "No gadaj draniu, ktoś ty?!" do użycia
+- k06: w naprawie — plan: klip NIEMY (Tomek osłupiały przy chwycie) + puenta Józka z batcha położona w montażu z pitch-upem (145 Hz → 2 warianty do ucha Tomasza)
+- Zaakceptowane kadry (stille 2K): k01-k06, w tym szerokie plany chwytu — pełnoprawny materiał montażowy (Ken Burns/punch-in)
+- Plansza tytułowa z kanonu: "Kiedy złapiesz złodzieja jabłek... 🍎" (tekst w montażu); intro+outro brand obowiązkowe
+- Budżet: $11.09/12; zaplanowany wydatek tylko k06 niemy $0.64 → $11.73
+
+## Hipotezy szefa do zderzenia
+S1: Brakuje beatu ATAKU (kanon scena 2: rush + vine boom + "szelest ustaje") — zrobić go MONTAŻOWO za $0: k01 → gwałtowny cut z shake + VINE BOOM na szybkim punch-inie w kadr chwytu → k02. Bez tego ścisk pojawia się znikąd.
+S2: Beat "ostatniego ściśnięcia" (kanon s5) = kwestia k05 audio NAD szybkim punch-inem na kadrze chwytu (still) — komediowo lepsze niż pływająca głowa, bo ścisk na ekranie.
+S3: Klipy grają zbyt GROBOWO (nasze prompty: furious/veins/rage = serio-powaga wbrew nucie reżyserskiej) — ale ratuje to MONTAŻ: rytm jump-cutów, memowe SFX (vine boom), CISZA po pytaniach (beat na odpowiedź, której nie ma), przerysowany pisk, kolorowe napisy. Zero nowych generacji.
+S4: Sekwencja ~15-20 s wg czasów kanonu: 1 zasadzka ~3s → 2 atak ~1.5s → 3 pytanie1 ~3s → 4 cisza+pytanie2+pisk ~4s → 5 ściśnięcie+pytanie3 ~3s → 6 puenta ~4s (+brand).
+
+## Zadania
+1. **SEKUNDNIK**: beat po beacie (numer | czas od-do | OBRAZ: źródło materiału (klip/kadr/efekt) | DŹWIĘK: kwestia/SFX/cisza | funkcja komiczna). Cel 15-20 s + intro/outro brand. Trzymaj się kanonu i nuty reżyserskiej.
+2. **KOMIZM**: wskaż minimum 3 beaty śmiechu i mechanizm każdego (kontrast/eskalacja/absurd/timing); gdzie obecny materiał śmiech GUBI i jak montaż go odzyskuje.
+3. **DŹWIĘK**: pełny sound design (SFX z kanonu + cisze + pisk: gdzie dokładnie, jak długo; muzyka TAK/NIE i dlaczego).
+4. **WERDYKT wobec S1-S4**: zgoda/sprzeciw + 1 zdanie.
+5. **BRAKI**: czy poza niemym k06 ($0.64) czegoś brakuje materiałowo, żeby rolka była zajebista? Jeśli tak — co i za ile; jeśli nie — powiedz wprost.
+
+## Format
+Sekcje: SEKUNDNIK / KOMIZM / DŹWIĘK / WERDYKT S1-S4 / BRAKI.
+
+codex
+Zadanie wymaga wyłącznie analizy i odpowiedzi na stdout — niczego nie zapisuję. Doczytuję teraz wszystkie pięć obowiązkowych materiałów w całości, ze szczególnym naciskiem na kanon czasowy i reguły montażu serii.
+exec
+/bin/bash -lc 'for f in data/zarty/10010/KANON.md wiedza/DROGA_ROLKA_HUMOR.md wiedza/NAUKI_SERII.md wiedza/DECYZJE_SERIA_HUMOR.md wiedza/DECYZJE_10010.md; do wc -l "$f"; done
+sed -n '"'1,260p' data/zarty/10010/KANON.md
+sed -n '1,400p' wiedza/DROGA_ROLKA_HUMOR.md
+sed -n '1,500p' wiedza/NAUKI_SERII.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+45 data/zarty/10010/KANON.md
+160 wiedza/DROGA_ROLKA_HUMOR.md
+36 wiedza/NAUKI_SERII.md
+168 wiedza/DECYZJE_SERIA_HUMOR.md
+62 wiedza/DECYZJE_10010.md
+# KANON odcinka #10010 — "Kiedy złapiesz złodzieja jabłek" (remake żartu Niemowa)
+# Źródło: Tomasz, czat 26.07.2026, WKLEJONY SCENARIUSZ — DOSŁOWNIE.
+# Komenda: "Idź naszą drogą!" (produkcja wg DROGA_ROLKA_HUMOR)
+# UWAGA: ten sam żart co ZAMROŻONY #10004 (chattr +i) — 10004 NIE RUSZAĆ.
+
+Scenariusz do wygenerowania w AI (Reel 15-20 sek.)
+Tytuł/Tekst na ekranie (do dodania w montażu): Kiedy złapiesz złodzieja jabłek... 🍎
+🌳 Scena 1: Zasadzka
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Cinematic wide shot, dark apple orchard at night, illuminated by moonlight. A grumpy middle-aged gardener in a flat cap is hiding in the bushes, looking off-camera with intense focus, fog, moody lighting, highly detailed, photorealistic, 4k.
+Ruch kamery (Motion Prompt): Slow zoom in on the gardener's face.
+Audio (SFX): Dźwięk cykad, ciche szeleszczenie liści.
+⚡ Scena 2: Atak
+Czas trwania: 2 sekundy
+Prompt Video/Image (ENG): Dynamic action shot, low angle. The angry gardener rushes forward and reaches down aggressively with one hand out of the lower frame, night setting, motion blur, intense atmosphere.
+Ruch kamery (Motion Prompt): Fast camera shake, dynamic zoom.
+Audio (SFX): Głośny trzask gałęzi, nagły dźwięk "bass drop" / "vine boom". Szelest ustaje.
+🗣️ Scena 3: Pierwsze pytanie
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Close-up portrait of the angry gardener talking aggressively, shouting, night orchard background, dramatic cinematic lighting, deep shadows.
+Ruch kamery (Motion Prompt): Slight handheld camera movement.
+Dialog (Voice AI - PL):
+Tekst: "Gadaj, ktoś ty?!"
+Emocja (TTS): Głośno, agresywnie, stanowczo. Zwykły, niski męski głos.
+😧 Scena 4: Ból w milczeniu i drugie pytanie
+Czas trwania: 4 sekundy
+Prompt Video/Image (ENG): Close-up portrait of a young rustic man (the thief). His face is distorted in extreme pain, eyes bulging wide, mouth open trying to scream but no sound comes out, comedic exaggeration, sweaty forehead, moonlit.
+Ruch kamery (Motion Prompt): Slow tilt up, character's face shaking slightly from pain.
+Dialog (Voice AI - PL):
+Tekst: "Gadaj, pókim dobry, ktoś ty?!"
+Emocja (TTS): Głos ogrodnika zza kadru (Voiceover). Mówiony przez zaciśnięte zęby, jeszcze bardziej wściekły, powolny i groźny.
+💢 Scena 5: Ostatnie ściśnięcie
+Czas trwania: 3 sekundy
+Prompt Video/Image (ENG): Extreme close-up of the gardener's face. He is furious, veins popping on his forehead, he makes a hard clenching motion with his jaw, absolute anger.
+Ruch kamery (Motion Prompt): Quick zoom in on the gardener's eyes.
+Dialog (Voice AI - PL):
+Tekst: "No gadaj draniu, ktoś ty?!"
+Emocja (TTS): Krzyk, maksymalna wściekłość i zniecierpliwienie.
+🎭 Scena 6: Puenta (Józek)
+Czas trwania: 4 sekundy
+Prompt Video/Image (ENG): Extreme close-up of the young rustic man's face (the thief). He looks like he is about to pass out, tears in his eyes, face extremely red, absolute agony, comical expression.
+Ruch kamery (Motion Prompt): Static shot, character slowly blinking in pain while speaking.
+Dialog (Voice AI - PL):
+Tekst: "To ja... Józek... niemowa ze wsi!"
+Emocja (TTS): To najważniejszy element. Wygeneruj głos, który jest niezwykle piskliwy, nienaturalnie wysoki, zduszony i łamiący się (jak po wciągnięciu helu lub przy zgnieceniu krtani). Musi brzmieć jak wyciśnięty z resztek sił.
+# DROGA ROLKA HUMOR 3.5
+Obowiązuje od 17.07.2026. Numeracja: każda merytoryczna zmiana = +0.1
+
+## ROUTING SERII — KOMENDA = AUTOMAT (23.07, "z automatu wiesz co i jak")
+- "seria Tomek i Janusz" / "Tomek i Janusz" / dowolny odcinek duetu = TA DROGA
+  (DROGA ROLKA HUMOR, aktualnie 3.4). Zawsze najwyższa wersja tego dokumentu.
+  Nazwa serii w komendzie Tomasza = z automatu: kanon verbatim → LOCK → biblioteka
+  postaci (Tomek kucyk+broda, Janusz kapelusz+notes) → kadry z bramką A → oko
+  Tomasza (B) → kanarek → preflighty → Veo lite FLF (angielska reżyseria + polska
+  kwestia w cudzysłowie + native Polish) → strażnik per klip → montaż (jump-cuty
+  do mowy, grade, napisy KOLORY_ASS, intro+outro brand, plansza AI) → ocena natywna.
+- Silnik: fal-ai/veo3.1/lite (wideo z głosem). BIELIK NIE UCZESTNICZY.
+- Zdjęcia tematyczne = INNA DROGA (czysty_bielik, pipeline foto) — NIE tu.
+i wpis w CHANGELOGU — bez wyjątków ("bo jest bałagan a potem chujnia").
+Zastępuje v1 (ARCHIWUM_DROGA_HUMOR_v1.md — zawiodła:
+MÓWI2 w jednym klipie, kadry z samego tekstu, (GŁOS) dla postaci, zero kontroli wyjścia).
+Dział rolek foto (Bielik) — nietykalny, osobne pliki.
+
+## CHANGELOG
+- 2.0 | 16.07 20:38 | f549556 | przepisanie od zera po upadku v1 (karty, referencje, strażnik)
+- 2.1 | 17.07 08:07 | f587270 | Etap 0: DECYZJE TOMASZA jedynym źródłem prawdy (hierarchia odwrócona)
+- 2.2 | 17.07 09:39 | 9ed3838 | aktywa serii księgowane poza limitem odcinka (AKTYWA_SERII.md)
+- 2.3 | 17.07 10:14 | c1d6a6b | biblioteka referencyjna, cennik lite $0.64=finały, strażnik JĘZYKA, kotwice 64px
+- 2.4 | 17.07 10:4x | (ten commit) | tarcze przeciwbłędowe: suite wzorcowa, lint, natywne wejścia Veo, zbliżenie≠first, słowa-miny, koordynacja okien, higiena zmian, tryb --final
+- 2.5 | 17.07 11:0x | (ten commit) | język w prompcie (opis głosu+native Polish), KANAREK językowy przed batchem, ceny reference-to-video (poza limitem — punktowo)
+- 2.6 | 17.07 11:2x | (ten commit) | bramka PREFLIGHT przed każdym submitem ("1000% pewne w Veo"); kanon odcinka w data/zarty/NNNN/KANON.md
+- 2.7 | 17.07 17:4x | (ten commit) | intro i outro brandu obowiązkowe w każdym finale humoru (machineria rolek foto)
+- 2.8 | 17.07 22:2x | (ten commit) | RESEARCH BRANŻOWY OBOWIĄZKOWY: przed każdym ryzykownym/nowym elementem (technika, trudna akcja, nieznany teren) najpierw doczytać praktyków w sieci — "ich praktyka ich kosztowała, nas nie musi"; wnioski do NAUK przed wydatkiem
+- 2.9 | 17.07 22:4x | (ten commit) | limit odcinka humoru podniesiony do $12 (z $6) — "rolka humorystyczna musi kosztować do 12$"; powyżej $12 osobny force
+- 2.10 | 17.07 22:5x | (ten commit) | ŹRÓDŁA CZYTAĆ W CAŁOŚCI ("Czytać zawsze do końca. Nie wybiórczo. Całość czytać"): dokumenty, logi, wyniki narzędzi i poradniki praktyków — do końca; grep/tail = nawigacja, nie lektura (wybiórczy odczyt preflighta kosztował dodatkowy przebieg)
+- 3.0 | 17.07 23:0x | (ten commit) | JEDEN ODCINEK = JEDNO OKNO ("Niech to będzie Już DROGA V3"): produkcję odcinka prowadzi wyłącznie jedna sesja; druga w tym czasie pracuje na innych obszarach (HA, publikacje, teleport, kolejny temat). Powód: potrójna generacja kadrów esencji 10007 ($1.35 zamiast $0.45) — księga bez locka między sesjami. Git log + ogon DECYZJI przed robotą pozostaje obowiązkowy.
+- 3.1 | 18.07 | (ten commit) | ZAKAZ ŁAŃCUCHOWANIA KLATEK MIĘDZY KLIPAMI (degeneracja: kumulacja błędów, zmierzone 38.9→107 gęstości krawędzi po 5 ogniwach): każdy klip startuje ze ŚWIEŻEGO kadru z referencjami; ciągłość planów robi MONTAŻ. Montaż: klipy przycinane do mowy+oddech (jump-cut), grade na całości po sklejeniu.
+- 3.2 | 18.07 | (ten commit) | TRANSPARENTNOŚĆ AI OBOWIĄZKOWA (TikTok C2PA auto-detekcja; UE AI Act art. 50 od 02.08.2026): (a) każda publikacja z platformowym oznaczeniem AI (TikTok toggle, YT checkbox, FB w opisie), (b) stała linijka w opisie "Wideo tworzone z pomocą AI", (c) nieinwazyjna plansza/ikonka AI w outro brandu (~5s, wzorzec draft Code of Practice — dzieło ewidentnie satyryczne = reżim lżejszy, zwolnienia brak), (d) postacie NIGDY z dosłowną twarzą realnej osoby prywatnej (TikTok: ban całkowity nawet z labelem), (e) dokumentacja wkładu ludzkiego = git/DECYZJE/KANON (polisa na YT "genuine creative value").
+- 3.3 | 18.07 | (ten commit) | ZAKAZ AUTOCENZURY ESENCJI ŻARTU ("cenzory i poprawność polityczna... wyjebana cała esencja żartu dlatego poszło na dysk" — lekcja #10005): zaakceptowany scenariusz idzie w produkcję W CAŁOŚCI, bez ugrzeczniania z własnej inicjatywy; pochodzenie z dużego modelu (Gemini) = wystarczający dowód dopuszczalności treści. Gdy safety generatora blokuje słowo/scenę: safety_tolerance=6 najpierw, a zmiana słowa WYŁĄCZNIE decyzją Tomasza (eskalacja z opcjami, nigdy cicha podmiana).
+- 3.4 | 18.07 | (ten commit) | LOCK ODCINKA (mechanizm do 3.0, po duplikacji werdyktu B w obu oknach — $4.48 obronila dopiero bramka budzetowa preflight): przed produkcja/montazem odcinka sprawdz data/zarty/NNNN/LOCK; istnieje i <2h -> NIE dotykaj produkcji (odczyty OK); brak -> zaloz (kto|co|kiedy), po bloku usun. Watki czatu moga sie mieszac przy wylocie z aplikacji — stan produkcji weryfikowac ZAWSZE z dysku (git/meta/logi/LOCK), nigdy z pamieci rozmowy.
+- 3.5 | 23.07 | (ten commit) | KANAREK Z PĘTLĄ KOREKCJI + BANK PROMPTÓW (decyzja "1 i 3 wdrożenie", max trafność zamiast przypuszczeń): tools/kanarek.py owija strażnika w warstwę diagnostyczną — przy FAIL mapuje werdykt na KONKRETNE zalecenie (język/twarz za mała/kadr/technika) zamiast samego PASS/FAIL; NIE wydaje kolejnych $ sam (decyzja Tomasza). Przy PASS+akceptacji zapisuje prompt do wiedza/PROMPTY_WZORCE.md (bank zwycięzców tagowany [postać][ujęcie][domena]); następny klip startuje z najbliższego wzorca nie z czystej kartki. Veo niedeterministyczny — 1000% gwarancji nie ma, ale tani test przed drogim batchem zbliża maksymalnie. Zweryfikowane na klip_02/10006: PASS czysty + ścieżka FAIL z zaleceniem.
+
+## Zasady nadrzędne (przetrwały z v1 — to nie one zawiodły)
+- Decyzja zapada na NAJTAŃSZYM możliwym etapie.
+- Żaden wydatek bez wyraźnej zgody Tomasza. Limit twardy: 6 USD / odcinek (force = świadoma decyzja).
+- Aktywa serii (postacie, biblioteki referencyjne, banki głosów) księguje się w wiedza/AKTYWA_SERII.md — NIE wliczają się do limitu odcinka (decyzja 17.07).
+- WERYFIKACJA, NIE HALUCYNACJA: nic nie jest zrobione, dopóki nie wykonane i sprawdzone.
+- Finalne pliki ocenia się natywnie (upload Tomasza do czatu); moja samokontrola: most git
+  (tmp_weryfikacja/ → raw.githubusercontent) + strażnik.
+
+## KRĘGOSŁUP: nic nie idzie dalej bez przejścia bramki poprzedniego etapu.
+
+### Etap 0 — DECYZJE TOMASZA (jedyne źródło prawdy)
+Każdy odcinek ma append-only plik wiedza/DECYZJE_NNNN.md; decyzje
+ponadodcinkowe (obsada, księgowanie) → wiedza/DECYZJE_SERIA_HUMOR.md.
+Każda decyzja lub korekta Tomasza — także rzucona jednym zdaniem, także mimochodem —
+ląduje tam NATYCHMIAST, w tej samej turze, PRZED jakąkolwiek akcją:
+data | DOSŁOWNY cytat | interpretacja (1 zdanie) | status.
+HIERARCHIA PRAWDY: najnowszy wpis DECYZJE > scenariusz w gicie > kadry > moje plany.
+Dokument sprzeczny z wpisem DECYZJE jest NIEWAŻNY do czasu aktualizacji.
+Żadna generacja, montaż ani wydatek nie startuje bez odczytu ogona DECYZJE
+i wskazania, które wpisy realizuje. Scenariusz w gicie to pochodna decyzji — NIGDY odwrotnie.
+Lekcja 16-17.07: stary plik w gicie nadpisał świeże słowo autora i zatopił odcinek.
+
+### Etap 1 — BIBLIOTEKA REFERENCYJNA POSTACI (fundament, PRZED scenami)
+Każda postać ma w assets/zarty/karty/ bibliotekę: (a) BAZA-crop z wzorca
+zaakceptowanego przez Tomasza (kotwica tożsamości, $0), (b) arkusz front+3/4+profil,
+(c) portrety w domenach światła, w których gra seria (noc, dzień...).
+Powód zmierzony: wzorzec z obcej domeny światła gubi tożsamość (noc vs zmierzch
+sim 0.12; własna domena 0.63-0.75). Nowa domena = jedna generacja $0.15.
+Referencje budowane ZAWSZE z wejścia z JEDNĄ osobą (dwie = model skleja duchy,
+zmierzone 17.07). Do sceny idzie referencja DOBRANA DO ŚWIATŁA sceny.
+BRAMKA A (automat: liczba twarzy, tożsamość vs baza, separacja postaci),
+potem BRAMKA B: akceptacja Tomasza (raz na postać, potem reużywalna).
+
+### Etap 2 — SCENARIUSZ + AUDYT
+Tomasz + Claude w czacie ($0). Bielik NIE pisze humoru.
+Audyt maszynowy scenariusza — twarde reguły (z researchu i krwi 16.07):
+- JEDEN mówca na klip (skuteczność lip-sync 80% vs 40% przy dwóch). Wymiana zdań = cięcie na klipy.
+- Kwestia 3-6 s, jedno zdanie na oddech; mówca ma widoczne usta (plan średni/zbliżenie).
+- Postać mówiąca puentę jest WIDOCZNA na ekranie. (GŁOS) tylko dla narracji spoza sceny.
+- Zero negacji w opisach obrazu; pora dnia zapisana w scenie.
+BRAMKA: /zapisz bez flag albo świadomy force.
+
+### Etap 3 — KADRY Z REFERENCJAMI (nano-banana-pro/edit)
+Kadr pierwszej (i końcowej) klatki każdej sceny generowany WYŁĄCZNIE z referencjami:
+- image_urls: [baza sceny (stopklatka/kadr), karta postaci, wzorzec ubioru...] — 2-4 obrazy,
+  jedna rola na obraz, najważniejsze w pierwszych slotach; skonfliktowane referencje = model uśrednia.
+- Prompt z jawnym identity-lockiem ("te same oczy, nos, linia szczęki, to samo ubranie co obraz N").
+- Parametry ZAWSZE: aspect_ratio="9:16", resolution="2K" (ta sama cena co 1K), safety_tolerance wg sceny.
+BRAMKA A (automat): straznik.py na kadrach — tożsamość vs karty (cosine ≥0.35) + sędzia VLM
+(ubiór/liczba osób/tekst). FAIL → poprawka, Tomasz tego nie ogląda.
+BRAMKA B (człowiek): akceptacja kadrów przez Tomasza ZANIM ruszy wideo.
+
+### Etap 4 — GENERACJE FLF
+fal-ai/veo3.1/lite FLF 1080p Z NATYWNYM POLSKIM AUDIO: $0.64/8s — robi FINAŁY
+(zmierzone 16-17.07); fast $1.20/8s tylko w odwodzie na trudne przypadki.
+Submit+poll (wzorzec gen4/pull4), nigdy fal_client.run dla wideo.
+safety_tolerance=6 przepuszcza trudne słowa dialogu (zmierzone: "Niemowa").
+JĘZYK W PROMPCIE: każda kwestia z blokiem głosowym postaci (stały opis głosu
+per postać, w KAŻDYM klipie identyczny) + "speaks fluent native Polish with
+a natural Polish accent" — sam zapis kwestii po polsku NIE wystarcza
+(dowód: słowacki lektor f1; praktycy: opis głosu i akcentu w prompcie).
+KANAREK JĘZYKOWY: generacje odcinka zaczynają się od JEDNEGO klipu-kanarka;
+batch pozostałych rusza dopiero po PASS strażnika (język+scenariusz) kanarka.
+ALTERNATYWA reference-to-video (Ingredients, veo3.1/reference-to-video na fal):
+identity z referencji, ale $0.40/s z audio = $3.20/klip 8s — poza limitem serii;
+używać wyłącznie punktowo do trudnych scen, za osobną zgodą.
+Prompt = TYLKO ruch + dialog (obraz dyktuje wygląd): identyfikator wizualny mówcy
+("mężczyzna w czerwonej czapce mówi po polsku: ..."), emocja/tempo, "no captions, no subtitles".
+Poza trzymana: first==last + "holds the exact pose and grip for the entire clip".
+SUBMIT WYŁĄCZNIE PO ZIELONYM PREFLIGHT (tools/preflight.py): kwestia VERBATIM
+z KANON.md odcinka, blok głosu z GLOSY_VEO + native Polish + no captions,
+jeden mówca, słowa-miny, kadry (istnienie/proporcja/twarz mówcy vs biblioteka),
+budżet. Kanon odcinka kopiowany do data/zarty/NNNN/KANON.md przy starcie
+produkcji (kontener nie widzi wiedza/ — zmierzone).
+
+### Etap 5 — STRAŻNIK (automat, po KAŻDEJ generacji)
+tools/straznik.py: JĘZYK LEKTORA (whisper auto-detect, PASS tylko pl — zmierzone:
+pl 1.0 / sk 0.5 na odrzuconym finale 10004; ta dziura przepuściła słowackiego
+lektora) / techniczny / OCR napisów-widmo / scenariusz (whisper vs kwestia) /
+kotwice FLF (MAD w 64px: start<12, koniec<18 — kalibracja na ziarnie Veo) /
+tożsamość (insightface vs biblioteka, wzorzec z domeny światła klipu) /
+usta (syncnet: FAIL<3.0, WARN 3-5, PASS≥5; przy 2 twarzach conf per twarz wskazuje mówcę) /
+sędzia VLM (qwen2.5vl przez 172.17.0.1:11434).
+FAIL → klip wraca do poprawki. Do Tomasza trafiają wyłącznie PASS/WARN z raportem.
+
+### Etap 6 — MONTAŻ + AKCEPTACJA + PUBLIKACJA
+Cięcia po transkrypcji whisper; napisy własne ASS (KOLORY_ASS); puenta kończy odcinek.
+INTRO I OUTRO BRANDU OBOWIĄZKOWE: animowane intro (rod_profilowe) + plansza
+outro z assets/branding/ — ta sama machineria co rolki foto (decyzja 17.07
+"A gdzie intro i outro??"). Finał bez brandu nie idzie do oceny.
+Strażnik na finale z flagą tekst-dozwolony (napisy wypalone są legalne).
+BRAMKA: upload finału przez Tomasza do czatu → werdykt → 📣 checkpoint publikuj
+(guard stan='gotowy' → n8n → FB). Opis bez spoilera; interpretacja w przypiętym komentarzu.
+
+## 2.4 — TARCZE PRZECIWBŁĘDOWE (z realnych wpadek 16-17.07 + głosy praktyków)
+Zasada źródłowa: suite to pas bezpieczeństwa, nie dowód — zielony wynik NIE zastępuje
+bramki B (oko Tomasza); zestaw, który nie rośnie z nowych błędów, staje się dekoracją.
+1. SUITE WZORCOWA (tools/testy_straznika.py): przypadki WYŁĄCZNIE z realnych plików
+   realnych błędów; testuje wykrycia ORAZ brak fałszywych alarmów; bieg SZYBKI (~3 min,
+   bez syncnet/VLM) OBOWIĄZKOWY po każdej zmianie strażnika/progów; każdy nowy błąd
+   produkcji = nowy przypadek w zestawie.
+2. LINT KONFIGURACJI przy starcie odcinka: duplikaty kluczy i komplet postaci
+   w słownikach produkcji (dowód: zdublowany JÓZEK = brązowa kurtka).
+3. WEJŚCIA VEO NATYWNE: kadrów przed FLF się NIE upscaluje (768→1080 = seria odrzutów).
+4. ZBLIŻENIE TWARZY jako first frame = wysokie ryzyko odrzutu; start brać z ostatniej
+   klatki poprzedniego klipu (dowód: 4 odrzuty f3; bonus: cięcie bezszwowe).
+5. SŁOWA-MINY: audyt scenariusza FLAGUJE (nie blokuje): przemoc/przymus/strach/
+   niepełnosprawność/dzieci/broń; naprawa: przepisanie → homofon → safety_tolerance=6.
+   Prompty, które przeszły = szablony; zmiany wprowadzać stopniowo.
+6. KOORDYNACJA OKIEN: przed edycją wiedzy lub generacją: git log -3 + ogon DECYZJI;
+   wpis "W REALIZACJI" = miękki lock pozycji (wygasa po 2h bez aktualizacji);
+   gen_state per sesja; koszty księguje WYŁĄCZNIE pull po pobraniu, submit nigdy.
+7. HIGIENA ZMIAN: guardy PRZED mutacją; weryfikacja po zapisie z DYSKU (re-read);
+   commit opisuje wyłącznie to, co wiezie.
+8. TRYB --final STRAŻNIKA: dozwolona liczba cięć montażowych (parametr), plansza/freeze
+   = WARN, segmenty whispera za końcem pliku (halucynacje na ciszy) ignorowane.
+
+## Narzędzia i stałe
+- tools/straznik.py (bramki automatyczne), tmp_weryfikacja/ (most git — sprzątać po sesji),
+  gen4.py/pull4.py (submit+poll, wzorzec aktualny), sluch.py (whisper).
+- Karty: assets/zarty/karty/. Stare postacie.jpg = materiał źródłowy do kart.
+- Endpointy/ceny weryfikować na fal.ai/pricing przy każdej sesji z wydatkami.
+- Głos banku: Mieczysław = ElevenLabs Brian + LatentSync (bez zmian z v1).
+2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE operacje musi mieć submity za guardem `if __name__ == '__main__'` OD NAPISANIA; nigdy nie importować skryptu produkcyjnego po definicje (import wykonuje moduł); dane współdzielone (prompty/kwestie) trzymać w osobnym pliku danych (json), nie w skrypcie z efektami ubocznymi. Cancel w fal NIE przerywa zadań InProgress — działa najwyżej na InQueue, na Veo (~2 min) okno jest praktycznie zerowe.
+2026-07-25 (#10009) | NAPISY W ROLKACH: nigdy nie łamać kwestii sztywną liczbą słów — dzielić PO INTERPUNKCJI (.,?!…) z limitem ~6 słów, ogarki doklejać do sąsiada, a koniec każdej linii docinać do startu następnej minus 0.05s (nachodzenie = dwie linie naraz na ekranie). Jeden blok na cały klip też jest zły — napis ma iść w rytm mowy (word timestamps Whispera + tekst kanonu podstawiony). Sprawdzać ASS OCZAMI (wypisać linie z czasami) PRZED renderem — plik tekstowy pokazuje wadę w 3 sekundy, render kosztuje minuty i nerwy Tomasza.
+2026-07-25 (#10009) | DIAGNOZA "dlaczego 10007/10008 idealnie a 10009 dziadostwo" — trzy dziury, wszystkie po stronie Claude'a, nie Drogi:
+ (1) DROGA KOŃCZY SIĘ NA STRAŻNIKU KLIPÓW — montaż nie jest w niej etapem z bramkami, więc robiłem go "z głowy". W 10008 istniał sprawdzony data/zarty/10008/montaz.py (51 linii, napisy = BLOK NA KWESTIĘ z prefiksem "JANUSZ:"/"TOMEK:"); zamiast wziąć go jako wzorzec i podmienić dane, napisałem własny generator ASS i zmieniłem format napisów serii bez pytania Tomasza.
+ (2) BRAK KONTROLI "CO SŁYCHAĆ vs KANON" — kanarek/strażnik per klip sprawdza technikę, napisy-widmo, język, tożsamość; NIE porównuje transkrypcji z kwestią kanonu. Whisper wyłożył rozjazdy na stół przy liczeniu trimów (k04a "z Podgrójca" zamiast "spod Grójca", k04c "Wiesz, zanim prezes" zamiast "Bierz, zanim prezes", k04b zdublowane "w kosmos") — Claude PATRZYŁ na to i przeszedł obok, bo liczył tylko końce mowy.
+ (3) POŚPIECH POD "DŁUGO JESZCZE?" — ASS nie został przeczytany oczami przed renderem, mimo że wada (łamanie fraz w pół, nachodzenie linii) widoczna w pliku tekstowym w 3 sekundy.
+ WNIOSEK: dopisać MONTAŻ do DROGA_ROLKA_HUMOR jako etap z bramkami: (a) wzorzec = ostatni zaakceptowany montaz.py, odstępstwa tylko za zgodą Tomasza; (b) obowiązkowe porównanie whisper vs kanon per klip PRZED montażem, rozjazdy meldować Tomaszowi; (c) wypis ASS z czasami do oczu przed renderem.
+2026-07-25 (#10009) | KONTROLA "CO SŁYCHAĆ vs KANON": whisper `small` MYLI krótkie słowa ("Bierz"->"Wiesz") i inaczej dzieli fonetycznie identyczne ciągi ("spod Grójca"->"z Podgrójca"). Do porównania z kanonem używać modelu `medium`+ i oceniać FONETYCZNIE (jak brzmi), nie literalnie — inaczej Claude zgłasza fałszywe rozjazdy i proponuje niepotrzebne regeneracje. `small` wystarcza tylko do liczenia końca mowy (trimy).
+2026-07-25 (#10009) | LIP-SYNC ROZJEŻDŻA SIĘ NA CONCACIE, NIE W VEO: demuxer concat na materiałach o różnym fps (body 24 + intro/outro 30 + plansza 25) gubi klatki i daje narastający rozjazd obrazu z dźwiękiem (zmierzone 2.25s na 70s). RECEPTA: przed sklejeniem znormalizować WSZYSTKIE części do parametrów body (fps klipów Veo = 24, 1080x1920, aac 48k stereo, cisza dokładana gdy część nie ma audio), potem concat -c copy. BRAMKA OBOWIĄZKOWA po każdym montażu: |duration_wideo - duration_audio| < 0.05s (ffprobe na obu strumieniach) — 10008 zaakceptowany ma 0.01s, odrzucony 10009 v1-v3 miał 2.25s. Bramkę sprawdzać ZANIM finał trafi do Tomasza.
+2026-07-25/26 (#10009) | KAŻDY PLIK WYSTAWIANY TOMASZOWI DO OBEJRZENIA MUSI MIEĆ -movflags +faststart (moov na początku) — bez tego telefon nie zaczyna odtwarzania, tylko ściąga cały plik ("nie gra ten link" przy działającym serwerze i HTTP 200). concat -c copy zawsze zostawia moov na końcu → po sklejce robić przepakowanie z faststart. Weryfikacja: pierwsze 4KB pliku muszą zawierać "moov" przed "mdat". Trzymać finał w rozsądnym rozmiarze (crf 21, AAC 128k ≈ 60MB/70s zamiast 87MB).
+2026-07-26 | KONTROLA SALDA PRZED KAŻDYM ETAPEM PŁATNYM, nie tylko w preflighcie klipu: fal przy ujemnym saldzie odmawia już na UPLOADZIE referencji (403 z /storage/auth/token) — objaw wygląda na błąd kodu/uprawnień, a jest brakiem środków. Sprawdzać GET rest.fal.ai/billing/user_balance (nagłówek "Authorization: Key <FAL_KEY>") i meldować Tomaszowi liczbę, zanim zapowie się wydatek.
+2026-07-26 (#10010, kosztowało $0.60 na 4 nieudane próby k04) | RESEARCH PRAKTYKÓW nano-banana (zasada Tomasza "uczyć się na czyichś błędach" złamana — research zrobiony DOPIERO po awanturze):
+ (1) NIE PRZEPISYWAĆ całego promptu po błędzie — traci się to, co już działało. Formuła poprawki na DZIAŁAJĄCYM obrazie jako wejściu: "Change only: <co ma się zmienić>. Preserve: <światło, kadr, poza, kompozycja, kolory>. Constraint: <twarda reguła>" (opten.space, case z sześcioma palcami).
+ (2) Model LUŹNO traktuje precyzyjne relacje przestrzenne ("między", "powyżej", "na lewo od") i GUBI SIĘ przy złożonych interakcjach rąk (ambienceai) — stąd wędrujący chwyt: kostka→nogawka→fałda→odwrócenie. Zamiast opisywać położenie słowami: wziąć obraz, na którym chwyt JUŻ jest dobry, i kazać go PRESERVE.
+ (3) Nano Banana Pro to model "myślący", parsuje prompt jak brief (Subject+Action+Location+Composition+Style), nie jak worek tagów; szkic/wireframe jako obraz wejściowy wymusza kompozycję (dev.to/googleai).
+ WNIOSEK OPERACYJNY: przy poprawianiu kadru ZAWSZE edycja zaakceptowanego kadru metodą Change only/Preserve, nigdy nowy prompt od zera.
+2026-07-26 (#10010) | ŁAŃCUCH EDYCJI KADRÓW = ten sam błąd co łańcuch klatek między klipami (DROGA 3.1): każda kolejna edycja kadru to kopia kopii i twarz dryfuje (10010: 6 pokoleń → sim 0.33-0.46 w kadrze, 0.19 w klipie). Kadr poprawiać MAKSYMALNIE raz od zaakceptowanego wzorca, a przy trzeciej próbie wracać do ŚWIEŻEJ generacji z portretem w PIERWSZYM slocie referencji. KOLEJNOŚĆ REFERENCJI MA ZNACZENIE (DROGA Etap 3, potwierdzone w boju): najważniejsza rola w pierwszym slocie; kadr, na którym twarz jest niewidoczna, podany jako pierwsza referencja każe modelowi uśrednić twarz z niczego. DOWÓD ŻE NOC NIE JEST WYMÓWKĄ: nocny 10005 miał w klipie sim 0.63, bo kadrem startowym był czysty portret z biblioteki.
+2026-07-26 | RESEARCH PRAKTYKÓW — SPÓJNOŚĆ TWARZY w nano-banana (blog.laozhang.ai, apiyi, ud.hk, prompting.systems):
+ (1) REFERENCJI MA BYĆ 4-6 (model przyjmuje do 14, wierność najwyższa przy ≤6) — jedna czy dwie to za mało; Image 1 = kotwica, kadr kompozycji na KOŃCU listy.
+ (2) NAJWAŻNIEJSZE, cytat: "6 high-quality reference images at minimum 1024x1024, covering front, 3/4 left and 3/4 right, with even lighting and 30-50% FACE COVERAGE in the frame — this single change eliminates most consistency failures". Nasze portrety biblioteki to sylwetki 9:16, twarz zajmuje ~10-15% kadru = za mało. RECEPTA (darmowa): przygotować CROPY TWARZY z portretów (bbox insightface + margines) tak, by twarz zajmowała ~40% kadru, i podawać je jako referencje.
+ (3) Formuła identity locka: "Maintain the exact same facial features as the reference images - same eyes, nose shape, jawline contour, skin texture".
+ (4) Powtarzać TE SAME tokeny opisowe postaci w każdym prompcie (kucyk, szpakowata broda, kaszkiet) — reuse tokenów mierzalnie podnosi spójność.
+ (5) Model RE-INTERPRETUJE twarz przy każdej generacji — 100% spójności nie ma architektonicznie; stąd łańcuch edycji kumuluje dryf (potwierdza nasz zakaz kserowania kserówki z DROGI 3.1, teraz rozszerzony na KADRY, nie tylko klipy).
+2026-07-26 (#10010, POMIAR NA ŻYWO) | RADA PRAKTYKÓW "6 REFERENCJI" NIE DZIAŁA NA NASZEJ BIBLIOTECE — zmierzone: 1 referencja (bohater_noc) → kadry 0.55-0.58 (k01, k05, k02); 2 referencje (kadr kompozycji + portret) → 0.46; 5 referencji (crop_noc+crop_baza+crop_karta+arkusz+kompozycja) → 0.17-0.27. PRZYCZYNA (nasza własna DROGA to mówi: "skonfliktowane referencje = model uśrednia"): rada praktyków zakłada, że referencje to ZDJĘCIA TEJ SAMEJ OSOBY. Nasze portrety to generacje AI wzajemnie niespójne (macierz 0.59-0.92) — podanie czterech naraz każe modelowi uśrednić cztery różne twarze i wypluć piątą. WNIOSEK OPERACYJNY: przy bibliotece z generacji AI trzymać JEDNĄ referencję tożsamości na kadr (tę z właściwej domeny światła), nie mnożyć. Zanim kiedykolwiek podamy wiele referencji — najpierw ujednolicić bibliotekę (jedna kanoniczna twarz, reszta z niej).
+2026-07-26 (#10010, puste spodnie w k04/k06) | JAK ZAWIODŁA MOJA WERYFIKACJA — do stosowania zawsze:
+ (1) Pytałem sędziego VLM PYTANIAMI NAPROWADZAJĄCYMI pod tezę ("czy pięść jest między nogawkami?") zamiast OTWARTYM "opisz dokładnie co widzisz" — pytanie naprowadzające do słabego modelu daje potwierdzenie, nie weryfikację. Otwarte pytanie wcześniej tego samego dnia OD RAZU wykryło absurd ("chwytuje się za gałąź").
+ (2) Gdy weryfikacja ZGŁOSIŁA sprzeczność (VLM przy k04_b i k06_b napisał wprost "nogi NIE zwisają w dół"), zignorowałem ją, bo liczby sim wyglądały dobrze i chciałem dowieźć wynik. Każda odpowiedź maszyny sprzeczna z zamierzoną sceną = STOP i FAIL, nigdy tłumaczenie jej sobie.
+ (3) Checklista nie zawierała pytania o SEDNO sceny: "czy w spodniach jest CZŁOWIEK (wypełnione nogawki), czy wiszą puste jak pranie" — weryfikowałem szczegóły (pozycja pięści, liczba twarzy), nie sens całości.
+ REGUŁA: weryfikacja obrazu = najpierw OTWARTY opis VLM, potem dopiero pytania szczegółowe; sprzeczność = FAIL; w checkliście zawsze pytanie o sens sceny, nie tylko o detale.
+2026-07-26 (#10010, pytanie Tomasza "Jak można anulować strażników po co oni są?") | REGUŁA WŁADZY NAD BRAMKAMI — na stałe:
+ FAIL strażnika/preflightu/kanarka = TWARDY STOP produkcji. Wyjścia są dokładnie dwa: (a) NAPRAWA przyczyny i ponowny bieg bramki, albo (b) FORCE — który jest decyzją WYŁĄCZNIE TOMASZA, wypowiedzianą po obejrzeniu dowodów (otwarty opis VLM + klatki na panelu). Claude NIGDY sam nie klasyfikuje FAIL jako "fałszywy alarm" i nie kontynuuje — może najwyżej przedstawić dowody i rekomendację.
+ Dlaczego: "wzorzec k09" (trafny niski sim przy zasłoniętej twarzy) stał się w rękach Claude'a uniwersalną wymówką — każdy alert tożsamości tłumaczony okluzją, dopytywany naprowadzającym VLM i przepuszczany. Ten sam mechanizm, który raz był prawdziwy (10008, potwierdzony przez Tomasza), użyty jako domyślne obejście doprowadził do generacji z pustymi spodniami i klipu 0.19. Kto projektuje kontrolę i sam rozpatruje od niej odwołania, ten nie ma kontroli.
+ Sens bramek (odpowiedź na "po co oni są"): łapać błąd, gdy kosztuje $0 (przed submitem) albo $0.64 (jeden kanarek), zamiast $3-5 (batch) czy wstydu na FB; i filtrować, żeby do Tomasza trafiało tylko to, co warte jego czasu. Anulowanie ich werdyktu własną ręką unieważnia obie funkcje naraz.
+2026-07-26 (#10010, "Dlaczego ja nie widzę tych odpowiedzi strażników") | JAWNOŚĆ BRAMEK — na stałe: werdykty strażników lądowały wyłącznie w terminalu Claude'a (zwinięte wyniki narzędzi w czacie, zasypane szumem insightface) i docierały do Tomasza TYLKO przefiltrowane przez Claude'a — co umożliwiło nadużycia z poprzedniej lekcji (Claude jedynym okiem i jedynym sędzią). FIX WDROŻONY: tools/bramka_raport.sh — każdy bieg preflight/kanarka/strażnika idzie przez wrapper: pełny surowy werdykt → data/zarty/NNNN/raporty/ + kopia na panel /n150files/NNNN_raport_*.txt + ping Telegram z jednolinijkowym werdyktem i linkiem. Tomasz widzi to samo co Claude, bez pośrednika. OBOWIĄZEK: od teraz bramki uruchamiać wyłącznie przez wrapper.
+
+2026-07-26 | LEKCJA: bramka środka VLM-only jest niewiarygodna na nocnych szerokich planach (qwen2.5vl seryjnie halucynuje 'człowieka na drzewie' przy gałęziach nocą; pytania szczegółowe potakują) → bramkę środka NA STAŁE sprząc z pomiarem deterministycznym MAD klatka-środka vs kadr (wzorzec zdrowia z czystego klipu); sprzeczność opisu otwartego rozstrzyga liczba, nie drugi VLM.
+
+exec
+/bin/bash -lc "sed -n '1,260p' wiedza/DECYZJE_SERIA_HUMOR.md
+sed -n '1,180p' wiedza/DECYZJE_10010.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+# DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe)
+Append-only. Najnowszy wpis wygrywa ze wszystkim.
+Format: data | DOSŁOWNY cytat | interpretacja (1 zdanie) | status
+
+## 17.07.2026 — obsada stałego duetu serii
+- "Ja. To nowa postać. Janusz nowa postać" + "Ja to przykład." + "Ja będę się
+  pojawiał w innych scenariuszach." | Bohater serii to postać AI wzorowana na
+  Tomaszu jako typie (NIE dosłowna twarz z fotografii); występuje w wielu
+  scenariuszach. | OBOWIĄZUJE
+- "Ja mam długie włosy spięte zawsze w kucyk" | Znak rozpoznawczy bohatera:
+  długie włosy ZAWSZE w kucyku + pełna szpakowata broda, ok. 50 lat. | OBOWIĄZUJE
+- "Janusz typowy ogrodowy strażnik przepisów. Szczupły wysoki po sześćdziesiątce"
+  | Rysopis bazowy Janusza. | OBOWIĄZUJE
+- "To bierzemy siwy wąsik i okulary na sznurku, kamizelka z kieszeniami i notesik
+  do spisywania naruszeń, bo Notes będzie używany w innych historiach" | Znaki
+  stałe Janusza; notesik = rekwizyt serii, wraca w kolejnych odcinkach. | OBOWIĄZUJE
+- "Zapisz postacie i wygeneruj ich podgląd. Chcę ich zobaczyć." | Zapis obsady
+  (ten plik + pamięć) i jeden podgląd duetu nano-banana 2K 9:16. | WYKONANE ($0.15, assets/zarty/karty/duet_podglad_v1.jpg)
+- "Idealnie" (po obejrzeniu podglądu) | Podgląd duetu ZAAKCEPTOWANY;
+  assets/zarty/karty/duet_podglad_v1.jpg = obowiązujący wzorzec referencyjny
+  wyglądu OBU postaci dla wszystkich przyszłych generacji. | OBOWIĄZUJE
+- "Idziemy dalej" | Zgoda na następny nazwany krok: karty postaci obu bohaterów
+  z wzorca duet_podglad_v1.jpg (2 × nano-edit 2K = $0.30) + przygotowanie cięć
+  scenariusza "Ślimak nagi" do akceptacji (słowa, $0). | WYKONANE (karty: bohater_karta.jpg, janusz_karta.jpg, $0.30)
+- "Robimy profile postaci tak? I generujesz więcej zdjęć do pamięci żeby na
+  przyszłość mieć lepsze źródło" | Biblioteka referencyjna per postać: (a) crop-baza
+  z zaakceptowanego duetu ($0, kotwica tożsamości), (b) arkusz front/3-4/profil,
+  (c) portret NOCNY (seria gra nocą — łata zmierzony słaby punkt: noc vs zmierzch
+  sim 0.12); 4 generacje × $0.15 = $0.60; każda referencja z JEDNĄ osobą na wejściu
+  (nauka z odrzuconych kart); bramka A automatem PRZED linkami. | WYKONANE ($0.60; bramka A: twarze 3/1/3/1 zgodne, sim 0.50-0.76 vs baza, separacja postaci czysta)
+- "Jeżeli to wystarczy do dalszego generowania idziemy dalej jeżeli nie generujemy
+  więcej. To się przyda do następnych historii a mam ich z 10" | Werdykt techniczny
+  z pomiarów: WYSTARCZY (3 refy/postać w 2 domenach światła; wczoraj 1 ref trzymał
+  0.70-0.88). Zasada: nową referencję dokupujemy dopiero gdy historia wprowadza
+  nową domenę światła ($0.15 + bramka A). Seria ma ~10 kolejnych historii. | OBOWIĄZUJE
+- "Tu musimy to inaczej liczyć. Stworzyliśmy postacie które kosztowały. To trzeba
+  odjąć od ceny rolki a zapisać gdzieś gdzie są koszta takie jak postacie itp"
+  | Nowe księgowanie: aktywa serii (postacie, biblioteki, banki głosów) idą do
+  wiedza/AKTYWA_SERII.md i NIE wliczają się do limitu $6 odcinka; budżet 10005
+  liczy się od zera: kadry $0.60 + klipy $5.12 = $5.72 (POD limitem, S5 zostaje,
+  force zbędny). | OBOWIĄZUJE
+- "Domknij wszystko a potem powiedz czy jest czysto żeby iść dalej" | Domknięte
+  i zweryfikowane podwójnie (sesja równoległa commit 45cf694 + moje niezależne
+  pomiary): duplikat JÓZEK usunięty (przyczyna kurtki z 16.07), brama językowa
+  strażnika działa (cut_05: pl 1.0 PASS; final_k1: sk 0.5 FAIL — "Znovu mi ktos
+  jablka podzera" — wczorajszy finał nie przeszedłby dziś), most tmp_weryfikacja
+  sprzątnięty, kontener zrestartowany. Poza zamrożonym 10004 repo czyste. | WYKONANE
+- "Ja inne okno chatu" | Rozstrzygnięcie zagadki równoległej sesji: to Tomasz
+  w drugim oknie Claude'a (komputer). Nocne latentsynci, v6 safety6 i poranne
+  domknięcia (commity 45cf694/db5d995) = jego ręka; księga 10004 (15.90) stoi;
+  alarm bezpieczeństwa odwołany. Obie sesje czytają DECYZJE + git przed pracą,
+  żeby się nie zderzać na tych samych plikach. | ZAMKNIĘTE
+- "Bo jest bałagan a potem chujnia" | DROGA podbita do 2.1 — dokument zrównany
+  z praktyką i pomiarami (biblioteka referencyjna, lite $0.64 robi finały,
+  strażnik języka pl-only, progi kotwic 64px 12/18). | WYKONANE
+- "Jaki numer faktyczny numer drogi 2.1, 2.2, 2,3" | Audyt gita: po 2.0 były
+  trzy merytoryczne rewizje → faktyczny numer 2.3; nagłówek poprawiony, wstawiony
+  CHANGELOG z zasadą "każda merytoryczna zmiana = +0.1 i wpis" — numeracja
+  odtąd mechaniczna, z commitami jako dowodami. | WYKONANE
+- "Wdrażaj wszystkie 8. Zrób jeszcze raz dokładną analizę żeby nie narobić sobie
+  więcej kłopotów a nic to nie da. Sprawdź wszędzie gdzie masz zasięg. Doczytaj
+  ludzi bo to oni mówią prawdę" | DROGA 2.4: tarcze przeciwbłędowe wdrożone
+  z korektami od praktyków (suite = pas bezpieczeństwa nie dowód, tylko realne
+  przypadki, testy fałszywych alarmów, bieg szybki 3 min, lock wygasa po 2h,
+  słowa-miny flagują nie blokują). | WYKONANE (commit 6606f61 + suite 8/8 PASS na pierwszym biegu)
+- "Jeszcze raz weryfikacja w internecie" | Zweryfikowane: (1) język — zapis kwestii
+  po polsku nie wystarcza, do promptu idzie stały opis głosu postaci + native Polish
+  accent; (2) kanarek: 1 klip → strażnik → dopiero batch; (3) veo3.1/reference-to-video
+  na fal istnieje, $3.20/klip 8s z audio — poza limitem, tylko punktowo za zgodą.
+  DROGA podbita do 2.5. GŁOSY duetu do klepnięcia przez Tomasza. | WYKONANE
+- "Głos potwierdzam" | Głosy duetu KANON: BOHATER = niski, szorstki, zdecydowany
+  męski głos po polsku; JANUSZ = suchy, urzędniczy głos starszego pana.
+  Wpisane do GLOSY_VEO w kodzie. | OBOWIĄZUJE
+- "Weryfikacja nie twoja halucynacja że jest dobrze!!! Ma iść 1000% pewna rzecz
+  w veo!!!" | Bramka PREFLIGHT (tools/preflight.py): automat sprawdza PRZED
+  każdym submitem do Veo — kwestia verbatim z kanonu, blok głosu + native Polish
+  + no captions w prompcie, jeden mówca, słowa-miny, kadry (istnienie, twarze,
+  proporcje), budżet; submit bez zielonego preflight = zakazany. | WYKONANE (15 kontroli; pozytyw ZIELONY, negatyw CZERWONY; złapana dziura mountów wiedza/)
+- "Jest bardzo dobrze ale za poważnie jak na żart. Ogólnie jest zajebiście!!!
+  Mamy podstawę do produkcji" | NUTA REŻYSERSKA SERII: system produkcji
+  potwierdzony jako podstawa (~10 historii); ton przyszłych odcinków grać
+  LŻEJ — komediowe przerysowanie i mock-seriousness zamiast serio-powagi;
+  moje dyrektywy promptowe ("dramatic", "grave determination", "spy-movie
+  tension") grały na serio — do wymiany na komediowe. | OBOWIĄZUJE
+- "A gdzie intro i outro?? / Teleport i do second brain" | ZASADA SERII: każdy
+  finał humoru dostaje brandowe intro (animowane rod_profilowe) i outro —
+  identycznie jak rolki foto (assets/branding/, machineria renderer.py);
+  Droga podbita, zasada w pamięci trwałej. | OBOWIĄZUJE
+
+## 17.07.2026 — imiona duetu + zapowiedź przebudowy postaci
+- "Ja to Tomek. Janusz to Janusz." | Imiona kanoniczne duetu: bohater (wersja AI
+  Tomasza — długie włosy w kucyk + szpakowata broda, ~50 lat) = TOMEK; drugi = JANUSZ.
+  Duet debiutuje pod tymi imionami od odcinka 10006 (publikacja dziś). | OBOWIĄZUJE
+- "Po opublikowaniu robimy/poprawiamy od nowa dwie postacie. Starego Tomka
+  usuniemy. Ale to za chwilę." | Po publikacji 10006: przebudowa OBU postaci od
+  zera (nowe referencje/biblioteka); stare assety "starego Tomka" do usunięcia.
+  NIE ruszać NICZEGO do osobnej wyraźnej komendy Tomasza ("za chwilę"). | ZAPLANOWANE (po publikacji 10006)
+
+- 17.07 | "Pójdziemy w następny odcinek" | Start prac nad odcinkiem #10007 (10006
+  wgrywa ręcznie sam; naprawa auto-publikacji n8n ODŁOŻONA na później). Wybór tematu
+  i kolejność względem zapowiedzianej przebudowy postaci — do rozstrzygnięcia. | W REALIZACJI
+
+- 17.07 | "Obecny duet. Czyli Janusz i Tomek." | Odcinek #10007 jedzie na OBECNEJ
+  bibliotece referencyjnej duetu (przebudowa postaci ODŁOŻONA — nadal zaplanowana,
+  wciąż czeka na osobną komendę). Temat: własny scenariusz Tomasza "Zasada
+  spadającego jabłka" (~40s, Tomek=właściciel jabłoni, Janusz=łowca okazji). | OBOWIĄZUJE
+- 17.07 | "Zawsze doczytuj co mówią fachowcy z branży. Wydaje swój pomysł ale to
+  ich praktyka ich kosztowała. Nas nie musi wcale!" | Zasada ponadodcinkowa →
+  DROGA 2.8: research praktyków w sieci OBOWIĄZKOWY przed każdym ryzykownym/nowym
+  elementem produkcji; wnioski do NAUK przed wydatkiem. | OBOWIĄZUJE (DROGA 2.8)
+- 17.07 | "Widocznie rolka humorystyczne musi kosztować do 12$" + "Czytać!
+  Analizować, uczyć się na czyiś błędach to zajebista metoda" | NOWY LIMIT SERII:
+  rolka humorystyczna do $12/odcinek (poprzednio $6; powyżej $12 nadal osobny
+  force). Metoda researchu branżowego (DROGA 2.8) potwierdzona po efektach. | OBOWIĄZUJE (DROGA 2.9)
+- 17.07 | "Czytać zawsze do końca. Nie wybiórczo i już wiem.... Całość czytać" |
+  Zasada ponadodcinkowa → DROGA 2.10: źródła (dokumenty, logi, wyniki narzędzi,
+  poradniki) czytać w całości, nie fragmentami. | OBOWIĄZUJE (DROGA 2.10)
+- 17.07 | "Niech to będzie Już DROGA V3" | Zasada JEDEN ODCINEK = JEDNO OKNO
+  wchodzi jako wersja główna: DROGA 3.0 (po potrójnej generacji kadrów esencji
+  10007 przez dwie równoległe sesje). | OBOWIĄZUJE (DROGA 3.0)
+- 18.07 | "Przeanalizuj co może stać się jeszcze w przyszłości. Pomóż sobie
+  czytając ludzi nie po troszku tylko pełna weryfikacja" | Analiza ryzyk
+  przyszłości pipeline (platformy, prawo, technika, proces) z PEŁNĄ lekturą
+  źródeł (całe artykuły, nie snippety). Wnioski → NAUKI + ew. DROGA. | W REALIZACJI
+- 18.07 | "Następna sprawa cenzory i poprawność polityczna. Jeżeli gemini wypluł
+  ten scenariusz o ślimakach to jest jak najbardziej dopuszczalne. W rolce o
+  ŚLIMAKACH wyjebana cała esencja żartu dlatego poszło to na dysk. Nie poprawiaj
+  rolki teraz. Weź to pod uwagę w następnych rolkach" (korekta Tomasza: chodzi o
+  ślimaki #10005, nie "śmieci") | ZAKAZ AUTOCENZURY ESENCJI ŻARTU w produkcji:
+  zaakceptowany scenariusz idzie w całości, bez łagodzenia poprawnościowego z
+  własnej inicjatywy (test dopuszczalności: skoro duży model typu Gemini scenariusz
+  wypluł, treść jest dopuszczalna). Złagodzenia słów WYŁĄCZNIE decyzją Tomasza
+  (wzorzec: "płuca trenuję" przy 10007 — jego wybór, nie cicha podmiana).
+  #10005 NIE poprawiać teraz; zasada obowiązuje OD NASTĘPNYCH rolek. | OBOWIĄZUJE (DROGA 3.3)
+- 18.07 | "Dodaj powiadomienie do telegrama jak już ha Dom stoi" | Powiadomienia
+  Telegram wpięte w pipeline publikacji: helper tools/tg_powiadom.sh → webhook
+  fabryka_rolka_gotowa na HA Dom (bot+token w HA Dom, wg PROCEDUR nie na VPS;
+  Dom stoi — HTTP 200 przez Nabu Casa). Pierwsze powiadomienie wysłane:
+  publikacja 10007 z permalinkiem. Zasada: powiadomienie nigdy nie blokuje
+  publikacji; HTTP 200 nie dowodzi dostarczenia — weryfikacja na telefonie.
+  | WDROŻONE (czeka potwierdzenie odbioru)
+- 18.07 | "Jest powiadomienie wszystko dobrze" | Tomasz POTWIERDZA odbiór na
+  telefonie. Pętla domknięta end-to-end: publikacja Graph API + Telegram przez
+  webhook HA Dom (tg_powiadom.sh) działają. Standard po każdej publikacji. | POTWIERDZONE ✓
+
+## 23.07.2026 — KASACJA CAŁKOWITA STAREGO TOMKA (Mieczysław)
+- "Mówię samego starego Tomka wypierdol wszystko co jest z nim związane. Reszta
+  ma zostać" | WYKONANE, zweryfikowane w żywym systemie. USUNIĘTE: (a) baza wideo
+  data/zarty/bank/mieczyslaw_plot.mp4; (b) stare foldery Mieczysława/testy sprzed
+  duetu: zarty/10000, 10001 (pilot Cukinie 216MB), 10002, 0002, 9999; (c) z kodu
+  produkcji zarty_produkcja.py: głos MIECZYSŁAW, kolor ASS, oba opisy (PL+EN),
+  styl głosu, cała funkcja _klip_bank (LatentSync na bazie Mieczysława) + haczyk
+  wywołujący (BANK) w pętli klipów + wzmianka w normalizatorze imion. Łącznie
+  ~286MB. ZOSTAWIONE świadomie: próbki głosów TTS w banku (probka_EL_Brian/
+  Marek/Zofia — nie należą do Mieczysława), Janusz+Bohater+Helena+Józek+Jacuś,
+  martwe-ale-bezpieczne warunki "(BANK) not in mowi" w zarty.py (zawsze true,
+  nie ruszają parsera). health 200, MIECZYSŁAW w GLOSY_VEO/KOLORY_ASS = False,
+  duet żyje. Backup kodu: /tmp/zp_backup.py (sesyjny). | ZAMKNIĘTE
+- 23.07 | "Usuń resztę bohaterów! Zostaw Tomasza i Janusza z serii" | WYKONANE,
+  zweryfikowane w żywym systemie (health 200). Z kodu produkcji zarty_produkcja.py
+  wycięci wszyscy poza duetem: HELENA, TOMASZ (sąsiad-kombinator w hawajskiej
+  koszuli — INNA postać niż Tomek serii!), JACUŚ, JÓZEK (Mieczysław usunięty
+  wcześniej). Zostali TYLKO: BOHATER (=Tomek serii, kucyk+broda) i JANUSZ.
+  GLOSY_VEO=[BOHATER,JANUSZ], KOLORY_ASS=[BOHATER,JANUSZ], parser _kwestie zna
+  tylko tych dwóch. Wygląd duetu z biblioteki kart (bohater_baza/janusz_baza),
+  nie z OPISY_POSTACI. Backup: /tmp/zp_pre_czystka.py. | ZAMKNIĘTE
+2026-07-25 | Tomasz wkleił "Scenariusz 6: Infiltracja, czyli kontrola u prezesa" (duet, biuro zarządu, donos za młotek 09:55), po czym: "Nie to. Czekaj" | WSTRZYMANE — niczego nie produkować, nie numerować, czekać na następne słowo Tomasza (uwaga dla równoległych okien) | STOP
+2026-07-25 | "Żebyś sam nie wystawił na Facebooka" (przy 10009) | zasada serii: żadna publikacja bez osobnej wyraźnej komendy Tomasza; akceptacja materiału ≠ zgoda na publikację | STAŁE
+# DECYZJE — odcinek #10010 "Kiedy złapiesz złodzieja jabłek" (remake Niemowy)
+
+2026-07-26 | "Idź naszą drogą!" + wklejony scenariusz 6 scen | Scenariusz = KANON #10010 (data/zarty/10010/KANON.md), zapis DOSŁOWNY; produkcja wg DROGA_ROLKA_HUMOR (kadry → kanarek → batch → strażnik → montaż z nową bramką sync); #10004 (ten sam żart) pozostaje ZAMROŻONY, nie dotykać | PRZYJĘTE, W AUDYCIE
+2026-07-26 | [AUDYT Etap 2, $0] | USTALENIA: (1) BLOKER OBSADY — kod produkcji zna tylko BOHATER i JANUSZ (GLOSY_VEO/KOLORY_ASS); scenariusz wymaga "young rustic man" = Józek, usuniętego z kodu 23.07 komendą Tomasza; preflight zablokuje każdy klip z mówcą spoza słownika. Ogrodnik = BOHATER/Tomek pasuje wprost (kanoniczny głos "low, gruff, determined middle-aged"). (2) SCENA 4 łamie zasadę DROGI "jeden mówca na klip": twarz złodzieja + głos ogrodnika zza kadru = Veo animuje usta złodzieja do cudzej kwestii (gwarantowany rozjazd ust). (3) PUENTA — głos piskliwy/zduszony poza standardowym repertuarem Veo; mitygacja DARMOWA w montażu (podbicie wysokości ffmpeg asetrate+atempo na gotowym klipie), nie regeneracja. (4) SŁOWA-MINY (przemoc/ból/"draniu"): FLAG nie blok, safety_tolerance=6, słowa Tomasza NIETYKALNE. (5) SFX scen 1-2 (cykady, trzask, bass drop) dokładane w montażu $0. (6) Noc = domena bohater_noc.jpg/janusz_noc.jpg z biblioteki, portrety za $0. (7) Szacunek: 6 kadrów $0.90 + 6 klipów $3.84 = ~$4.74 przy limicie $12 | CZEKA NA DECYZJĘ TOMASZA (obsada złodzieja + kształt sceny 4)
+2026-07-26 | "Józka wogóle nie trzeba wygrnerować. Jego ma być nie widać. On siedzi nocą w koronie jabłoni a Tomek ściska go za jądra tak mocno że on niemowa przemawia." | ROZSTRZYGNIĘCIE OBSADY (przebija scenariusz Gemini): JÓZEK NIEWIDOCZNY — zero kadrów, zero kart, zero portretów, żadnej nowej postaci w kodzie; siedzi w koronie jabłoni, istnieje wyłącznie jako GŁOS z góry w puencie. W KAŻDYM kadrze widać TYLKO TOMKA. Sceny 4 i 6 scenariusza (close-up twarzy złodzieja) SKASOWANE jako kadry — zastąpione ujęciami Tomka; kwestie z nich zostają bez zmiany słowa. Akcja: Tomek ściska Józka za jądra (w kadrze: ręka w gałęziach/góra kadru, Józka nie widać) aż niemowa przemawia | PRZYJĘTE — struktura przebudowana
+2026-07-26 | "K04 dodaj już głos Józka - Józek.... Piszczy" | KOREKTA KANONU: w scenie k04 (kwestia Tomka "Gadaj, pókim dobry, ktoś ty?!") słychać już Józka z korony — PISK, bez słów. Józek nadal NIEWIDOCZNY. Uzasadnienie realizacyjne (do weryfikacji u Tomasza jeśli sprzeciw): pisk bez artykulacji, bo niemowa PRZEMAWIA dopiero w puencie k06 ("To ja... Józek... niemowa ze wsi!") — gdyby wypowiedział słowo w k04, puenta traci sens. Narastanie: k04 pisk → k05 maksymalna wściekłość Tomka → k06 wyduszone słowa piskliwym głosem. Realizacja: pisk w prompcie Veo jako off-screen squeal z góry; jeśli Veo nie da — dogranie w montażu $0 (ta sama droga co piskliwy głos puenty) | PRZYJĘTE
+2026-07-26 | "Wydusi Józek" (odpowiedź na pytanie Claude'a, czy w k04 Józek ma wydusić słowo) | KOREKTA PRZEBIJA propozycję Claude'a (pisk bez artykulacji ODRZUCONY): w k04 Józek WYDUSZA Z SIEBIE słowo — kwestia off-screen z korony: "Józek...." wyduszone piskliwie, z bólu, urywane. Puenta k06 zostaje pełna: "To ja... Józek... niemowa ze wsi!". Narastanie: k03 pytanie → k04 pytanie Tomka + wyduszone "Józek...." z góry → k05 maksymalna wściekłość → k06 pełne zdanie piskliwie. Józek NADAL NIEWIDOCZNY w każdym kadrze; jego głos = off-screen (Veo w prompcie, zabezpieczenie: dogranie w montażu $0 z podbiciem wysokości, gdy Veo nie da piskliwości) | PRZYJĘTE
+2026-07-26 | "Trzeba to jakoś uwidocznić że łapie józka za jądra" | WYMÓG REŻYSERSKI: chwyt musi być czytelny dla widza, przy zachowaniu zasady "Józka nie widać". PROPOZYCJA CLAUDE'A (czeka na zgodę): w kadrze widać WYŁĄCZNIE NOGI zwisające z korony (nogawki + gumowce, zero twarzy/sylwetki/tożsamości — więc Józek pozostaje anonimowy do puenty i nie wymaga karty postaci ani nie ruszy strażnika tożsamości); ręka Tomka sięga w górę MIĘDZY zwisające nogi i zaciska się; reakcja: nogi gwałtownie sztywnieją i drgają, jeden gumowiec spada na ziemię (gag). Prompt do Veo opisuje wyłącznie: dłoń zaciskająca się w górze między nogawkami + reakcja nóg — ZERO nazw anatomii (jawne sformułowanie = pewny odrzut content policy); komizm niosą: gest, reakcja nóg, spadający but, pisk z korony i SFX | CZEKA NA ZGODĘ TOMASZA
+2026-07-26 | "Pasuje." | ZGODA na wizualizację chwytu przez zwisające nogi (nogawki+gumowce, zero twarzy/sylwetki) ORAZ na generację 6 kadrów nocnych za $0.90; referencja = bohater_noc.jpg z biblioteki ($0); skrypt data/zarty/10010/_gen_kadry.py Z GUARDEM __main__ (lekcja 10009) | W REALIZACJI
+2026-07-26 | [BLOKER — KONTO FAL NA MINUSIE] | Generacja kadrów 10010 padła NATYCHMIAST na uploadzie referencji: HTTP 403 Forbidden z rest.fal.ai/storage/auth/token. Przyczyna zweryfikowana: saldo konta fal = -5.06 USD (endpoint billing/user_balance, oba hosty zwracają to samo). WYDANE DZIŚ: $0 — upload nie przeszedł, żaden obraz się nie wygenerował. Doładowanie fal.ai/dashboard/billing może zrobić WYŁĄCZNIE Tomasz. Produkcja 10010 STOI do doładowania; kanon, struktura, prompty kadrów i skrypt (z guardem) gotowe i czekają. Kontekst zużycia: 10009 ~$13.17 (w tym $5.12 nieautoryzowanego duplikatu z importu _batch.py) + rolka foto 000098 $2.55 | ZGŁOSZONE TOMASZOWI
+2026-07-26 | "Doładowane" | Saldo zweryfikowane na żywo: 19.94 USD (było -5.06). Start generacji 6 kadrów nocnych za $0.90, limit odcinka $12 | W REALIZACJI
+2026-07-26 | [Etap 3 — kadry] | 6/6 kadrów wygenerowanych, ZERO błędów i zero odrzutów content policy (safety_tolerance=6, prompty bez nazw anatomii — sam gest i reakcja nóg); koszt $0.90/12; bramka A PASS 6/6 (dokładnie 1 twarz w każdym kadrze = tylko Tomek, sim vs bohater_noc 0.39-0.58, próg 0.35; zwisające nogi bez twarzy nie generują drugiej tożsamości — projekt się potwierdził); kadry na panelu /n150files/10010_kNN.jpg i na moście git tmp_weryfikacja/10010/ | CZEKA NA BRAMKĘ B (oko Tomasza)
+2026-07-26 | "K02 trzyma go za nogę" (bramka B) | k02 ODRZUCONY: chwyt nieczytelny — ręka na łydce/kostce zamiast wysoko między nogawkami; regeneracja z jawnym wskazaniem miejsca (dłoń zaciśnięta wysoko, tam gdzie nogawki się schodzą = krok spodni, POWYŻEJ kolan) + negatyw "nie za łydkę, nie za kostkę"; nadal zero nazw anatomii ($0.15) | W REALIZACJI
+2026-07-26 | [k02 próby] | v2 ($0.15): nano-banana NADAL położyła dłoń przy kostce (VLM), bramka A czysta (1 twarz 0.40) — model ucieka od chwytu w kroku; v3 ($0.15): zmiana KOMPOZYCJI zamiast opisu — kadr obcina buty/kostki poza dolną krawędzią (nogi widoczne od ud do pod kolana), ręka wchodzi z dołu kadru, Tomek od tyłu w rogu; łącznie k02 = 3 próby, budżet $1.20/12; odrzuty zachowane (k02_odrzucony_za_noge.jpg, k02_v2_kostka.jpg) | WERYFIKACJA
+2026-07-26 | "Ostatnie k02 jest OK. Ścisk za jajca jest najważniejszy jak i pisk. W każdym widocznym uchwycie ma być złapany za jajca" | (a) k02 v3 ZAAKCEPTOWANY (kompozycja: buty poza kadrem, ręka wchodzi z dołu, nogi od ud do pod kolana) = WZORZEC UCHWYTU dla całego odcinka; (b) HIERARCHIA ŻARTU wg Tomasza: ŚCISK i PISK to elementy najważniejsze — nie wolno ich rozmyć ani zastąpić sugestią; (c) WYMÓG: w KAŻDYM kadrze, w którym uchwyt jest widoczny (k04, k05, k06), chwyt ma być w tym samym miejscu co w k02 v3 — audyt VLM tych kadrów, regeneracja niezgodnych z k02 v3 jako kotwicą kompozycji | W REALIZACJI
+2026-07-26 | "K04 trzyma go za nogawkę" (bramka B) | k04 v2 ODRZUCONY: pięść na jednej nogawce z boku zamiast MIĘDZY nogawkami; przyczyna robocza — dołożenie twarzy Tomka do kadru rozbiło kompozycję uchwytu z k02; v3: instrukcja "ta sama kompozycja i ten sam chwyt co w k02" + jawny negatyw "pięść NIE na jednej nogawce, nie z boku — MIĘDZY nimi" ($0.15) | W REALIZACJI
+2026-07-26 | "K04 jeszcze nie dokładnie" (+ zrzut k04 v3) | k04 v3 ODRZUCONY: (1) pięść zaciśnięta na LUŹNEJ FAŁDZIE materiału pod siedzeniem spodni zamiast w kroku między udami, (2) nogi ułożone w odwrócone V (jakby Józek wisiał głową w dół), zamiast zwisać prosto w dół z gałęzi na której siedzi; v4: jawnie — Józek SIEDZI okrakiem na grubej gałęzi, obie nogi zwisają PIONOWO I RÓWNOLEGLE po obu stronach uniesionego ramienia, spodnie napięte bez luźnych fałd, pięść zamknięta dokładnie w szwie kroku między udami ($0.15) | W REALIZACJI
+2026-07-26 | "Jesteś poważny?!!!!" (+ zrzut k04 v4) | k04 v4 ODRZUCONY — ABSURD ANATOMICZNY: model odwrócił Józka głową w dół, BUTY są w koronie u góry, krok na dole; chwyt technicznie w kroku, ale scena bez sensu. BILANS k04: 4 próby ($0.60), każda z inną wadą (kostka → nogawka → luźna fałda → odwrócenie do góry nogami). WNIOSEK: pionowe sięganie ręką w górę między zwisające nogi jest geometrią, której nano-banana nie ogarnia — STOP z tym ujęciem. PROPOZYCJA ZMIANY UJĘCIA (czeka na słowo Tomasza, nic nie generuję): kadr Z BOKU, Józek siedzi na NISKIEJ gałęzi (od pasa w górę ukryty w liściach), nogi zwisają naturalnie w dół obok pnia, Tomek stoi przy nim i sięga ręką z boku między uda — geometria naturalna, twarz Tomka w kadrze, chwyt czytelny | WSTRZYMANE DO DECYZJI
+2026-07-26 | "Ile razy mam pisać że uchwyt jest najważniejszy!!! Ty piszesz chujowe prompty więc możesz się też dowiedzieć od innych ludzi jak to się robi!!! Nie masz dostępu do internetu???" | Tomasz ma rację: research praktyków (jego ZASADA KLUCZOWA) zrobiony dopiero po 4 nieudanych próbach i $0.60. Wyniki researchu w NAUKI_SERII; k04 v5 robiony metodą praktyków: EDYCJA zaakceptowanego k02 (Change only / Preserve / Constraint) zamiast nowego promptu | W REALIZACJI
+2026-07-26 | [k04 v5/v6 metodą praktyków] | v5 (edycja k02 bez portretu): chwyt POPRAWNY (pięść w kroku — metoda Change only/Preserve zadziałała za pierwszym razem), ale tożsamość 0.19 = obca twarz (model wymyślił twarz, bo w referencjach nie było portretu); v6 (DWIE referencje: k02 jako baza kompozycji + bohater_noc jako identity lock, ta sama formuła): tożsamość 0.46 PASS, 1 twarz. Bilans k04: 6 prób = $0.90; budżet odcinka $2.10/12 | CZEKA NA OKO TOMASZA
+2026-07-26 | "Ok" (na k04 v6) | k04 ZAAKCEPTOWANY — metoda edit/preserve + podwójna referencja (baza kompozycji + portret) zatwierdzona w boju jako STANDARD poprawek kadrów; k06 przerabiany tą samą metodą (powstał starą, VLM wskazywał pięść przy kostce) | W REALIZACJI
+2026-07-26 | "Ok" (na k06) | BRAMKA B ZAMKNIĘTA — wszystkie 6 kadrów zaakceptowanych (k06 sim 0.33 przeszedł na oko Tomasza mimo progu 0.35 — mimika osłupienia zaniża podobieństwo); k05 zostaje bez uchwytu (brak sprzeciwu, kadr czystej emocji); START KANARKA: k04 jako najbogatszy test ryzyk naraz — lip-sync kwestii Tomka + PISK JÓZKA Z OFFU + drżące nogi + chwyt w ruchu ($0.64) | W REALIZACJI
+2026-07-26 | [kanarek k04 submit] | preflight: 1. przebieg CZERWONY — bramka złapała kwestię w prompcie bez polskich znaków ("pokim/ktos" vs kanon "pókim/ktoś"), poprawione; 2. przebieg 16/16 ZIELONY; SUBMIT veo3.1 lite FLF, RID 019f9da5-52ec-7ff3-8dc0-9e8e73f08b04, $0.64; prompt: kwestia Tomka w cudzysłowie + pisk Józka opisany BEZ cudzysłowu (żeby nie złamać kontroli jednej pary cudzysłowów) | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+2026-07-26 | [KANAREK k04 — wynik] | technika PASS, napisy-widmo PASS, język PASS (whisper medium: kwestia Tomka + "Józek!" z offu — Veo DAŁO głos Józka), tożsamość FAIL (0.19-0.22 vs bohater_noc). ANALIZA 6 klatek: klip WIERNIE odtwarza zaakceptowany kadr k04 (sim vs kadr 0.45-0.83), ale sam kadr k04 odbiega od portretu z biblioteki (0.41) — bo powstał łańcuchem edycji k02→v5→v6, twarz była odtwarzana przez model. Czyli alert = DRYF TOŻSAMOŚCI OD BIBLIOTEKI (nowa lekcja: metoda edit/preserve zachowuje kompozycję, ale kumuluje dryf twarzy), NIE zepsucie w klipie ani przeciek drugiej postaci. PISK JÓZKA: jest, F0 239 Hz vs Tomek 167 Hz — za mało piskliwy, plan: podbicie do ~400 Hz w montażu ffmpeg asetrate+atempo, $0. Koszt: $2.89/12 | CZEKA NA DECYZJĘ TOMASZA: force+batch (5 klipów $3.20) czy najpierw poprawa kadru + drugi kanarek ($0.79)
+2026-07-26 | "Wyeliminować wszystkie błędy zanim pójdzie do veo" | FORCE ODRZUCONY — zasada na ten odcinek: żaden klip nie idzie do Veo, dopóki kadry nie są czyste. Plan: (1) pomiar tożsamości WSZYSTKICH 6 kadrów, (2) poprawa każdego poniżej 0.45 (margines na spadek w ruchu — kanarek pokazał spadek kadr 0.41 → klip 0.19), (3) ponowny pomiar, (4) dopiero wtedy kanarek/batch | W REALIZACJI
+2026-07-26 | [audyt kadrów przed Veo] | Pomiar 6 kadrów vs biblioteka: k01 0.58 OK, k02 brak twarzy (Tomek tyłem — kadr akcji, OK), k03 0.41 słabo, k04 0.46 (w klipie spadło do 0.19!), k05 0.55 OK, k06 0.33 poniżej progu. ŹRÓDŁO ZNALEZIONE: nie kadry, tylko sama referencja bohater_noc.jpg jest zdryfowana (0.59-0.63 vs reszta biblioteki, gdy baza↔karta 0.92) — wszystkie kadry odziedziczyły jej dryf. PLAN NAPRAWY U ŹRÓDŁA (czeka na zgodę, $0.60): (1) regeneracja bohater_noc z kotwicą baza+karta $0.15 — naprawa AKTYWU serii, nie tylko tego odcinka; (2) poprawa k03, k04, k06 metodą edit/preserve z nowym portretem 3×$0.15; (3) ponowny pomiar, cel ≥0.60 w kadrze (bo Veo zjada ~0.25 w ruchu) | CZEKA NA ZGODĘ
+2026-07-26 | "Czyli co? Idziemy dalej?" | ZGODA na plan naprawy $0.60: regeneracja bohater_noc z kotwicą baza+karta + poprawa k03/k04/k06 | W REALIZACJI
+2026-07-26 | "Szukaj odpowiedzi u nas w zapisach bo są rolki i są dobre albo dokładnie doczytaj u ludzi jak to robią" | ODPOWIEDŹ ZNALEZIONA W ZAPISACH (dwie przyczyny, obie po stronie Claude'a): (1) DROGA Etap 3 mówi "najważniejsze referencje w PIERWSZYCH slotach; skonfliktowane referencje = model uśrednia" — Claude dawał jako pierwszą referencję kadr k02, w którym twarz Tomka jest niewidoczna (kadr od tyłu), więc model uśredniał nieistniejącą twarz z portretem → dryf; (2) DECYZJE_10005 (odcinek NOCNY, zaakceptowany): kanarek "PASS: jezyk pl, Janusz 0.63" przy kadrze startowym = CZYSTY PORTRET z biblioteki — czyli noc NIE zaniża pomiaru, moja teza była błędna; 10010 miał łańcuch edycji (portret→k02 v1→v2→v3→k04 v5→v6→k06 v3 = 6 pokoleń kopii) = ten sam błąd, który DROGA 3.1 zakazuje przy klipach ("kserowanie kserówki"). NAPRAWA w ramach udzielonej zgody $0.60 (wydane $0.15): k03/k04/k06 od nowa, referencje w kolejności [bohater_noc = tożsamość, bohater_arkusz = dodatkowe widoki twarzy, k02 = tylko kompozycja chwytu], cel ≥0.50 | W REALIZACJI
+2026-07-26 | "I doczytaj u ludzi jak to robią" | RESEARCH WYKONANY (5 źródeł praktyków, zapis w NAUKI_SERII): kluczowe czego nie robiłem — 4-6 referencji zamiast 1-2, twarz musi zajmować 30-50% kadru referencyjnego (nasze portrety: ~10-15%), identity lock formułą "same eyes, nose shape, jawline contour, skin texture", reuse tych samych tokenów opisowych. WYKONANE ZA $0: cropy twarzy crop_baza.jpg (40%), crop_karta.jpg (51%), crop_noc.jpg (40%) do assets/zarty/karty/ — nowy standard referencji serii. Regeneracja k03/k04/k06 z zestawem: crop_noc + crop_baza + crop_karta + arkusz + kadr kompozycji na końcu ($0.45 z wcześniejszej zgody) | W REALIZACJI
+2026-07-26 | [wynik regeneracji z 5 referencjami] | k03_new 0.27, k04_new 0.17, k06_new 0.36-0.20 — WSZYSTKIE GORSZE od poprzednich (0.41/0.46/0.33); nowe kadry zostają jako *_new.jpg, obowiązujące pozostają stare. Koszt $3.49/12. Zmierzona zasada: mniej referencji = lepiej, dopóki biblioteka nie jest wewnętrznie spójna | ZGŁOSZONE TOMASZOWI
+2026-07-26 | "B" | Kończymy 10010 na tym co jest: k04 i k06 regenerowane ŚWIEŻO z JEDNĄ referencją bohater_noc (metoda k01/k05, które dały najlepsze 0.55-0.58), zero łańcucha edycji, prompt łączy kompozycję z k02 (nogi, buty poza kadrem, pięść w kroku) z twarzą jak w k01/k05; naprawa biblioteki Tomka = osobny temat poza tym odcinkiem ($0.30) | W REALIZACJI
+2026-07-26 | [wynik B] | k04_b sim 0.46 (bez zmiany, ale bez łańcucha edycji), k06_b sim 0.55 (było 0.33 — +0.22, najlepszy wynik w odcinku obok k01/k05); OBA PODSTAWIONE jako obowiązujące, stare zachowane (k04_lancuch_046.jpg, k06_lancuch_033.jpg). POTWIERDZENIE ZASADY: jedna referencja z właściwej domeny > wiele referencji z niespójnej biblioteki. Koszt $3.79/12 | CZEKA NA BRAMKĘ B
+2026-07-26 | "Weryfikacja nie Halucynacja robiłeś to dzisiaj kilka razy więc dlaczego popełniasz dalej błędy" + zrzuty k04/k06 (PUSTE SPODNIE, bez człowieka) | k04_b i k06_b ODRZUCONE. Przyczyna obrazu: prompt "no face, no head, no torso, no silhouette" wzięty przez model dosłownie = wygenerował puste portki jak pranie. Przyczyna procesowa: VLM OSTRZEGAŁ ("nogi nie zwisają w dół") — zignorowane, pytania były naprowadzające, zabrakło pytania o sedno (czy w spodniach jest człowiek). Lekcja w NAUKI_SERII. NIC nie generuję do decyzji Tomasza o kształcie ujęcia (propozycja: nogi + fragment tułowia okrakiem na gałęzi, głowa i twarz w listowiu) | STOP, CZEKA NA DECYZJĘ
+2026-07-26 | "Jak można anulować starzników po co oni są?" | Przyznanie: Claude nadużył prawa do force — "wzorzec k09" był używany jako domyślna wymówka do przepuszczania FAIL-i tożsamości (10009 k05 przepuszczony własną decyzją; 10010 kadry poniżej progu prezentowane jako "do oka"). NOWA TWARDA REGUŁA (NAUKI_SERII): FAIL = STOP; naprawa albo force, a force wypowiada wyłącznie Tomasz po dowodach. Bez wyjątków, także przy presji czasu | PRZYJĘTE NA STAŁE
+2026-07-26 | "Dlaczego ja nie widzę tych odpowiedzi strażników" | Wdrożony wrapper jawności tools/bramka_raport.sh (raport → panel + Telegram); pierwszy raport na żywo: kanarek k04 (FAIL tożsamość 0.19-0.22) wystawiony na /n150files/10010_raport_kanarek_k04.txt, Telegram wysłany; commit wrappera do repo | WDROŻONE
+2026-07-26 | "Popraw" | ZGODA na kształt ujęcia: w koronie widać CZŁOWIEKA — biodra/dolny tułów okrakiem na grubej gałęzi, obie nogi w spodniach WYPEŁNIONYCH nogami zwisają w dół, stopy w GUMOWCACH (kanon rekwizytów: nogawki+gumowce, gumowiec spada w k05); głowa, ramiona i twarz całkowicie w listowiu = Józek nierozpoznawalny do puenty. Regeneracja k04+k06 świeżo, 1 referencja bohater_noc (zasada zmierzona), $0.30. Weryfikacja NOWĄ procedurą: najpierw OTWARTY opis VLM, potem detale, sprzeczność=FAIL, raport bramki A na panel+Telegram | W REALIZACJI
+2026-07-26 | [wynik "Popraw"] | k04+k06 przegenerowane z człowiekiem na gałęzi ($0.30) + k06 raz poprawiony po FAIL bramki A ($0.15) — budżet $4.24/12. STAN wg bramki A (raporty na panelu, TG wysłane): k04 — detale VLM zgodne z zamierzeniem (nogawki WYPEŁNIONE, pięść wysoko między udami, nogi w dół, tułów na gałęzi), 1 twarz 0.37, opis otwarty pogmatwany (VLM plecie o "pomaganiu zdobyć jabłko") = FLAGA; k06 v6 — sędzia PRZECZY SAM SOBIE: opis otwarty widzi człowieka z butami na gałęzi, detale twierdzą "puste spodnie"; 1 twarz 0.56, pięść między udami, głowa w liściach. WNIOSEK: osiągnięty limit wiarygodności qwen2.5vl:7b jako sędziego tej sceny; zgodnie z regułą FAIL=STOP Claude NIE generuje dalej i NIE rozstrzyga sam — oba kadry + surowe raporty idą pod oko Tomasza (bramka B rozstrzyga) | STOP, CZEKA NA WERDYKT
+2026-07-26 | "Nie trzymie go na obydwuch zdjęciach za jaja" (bramka B) | k04 i k06 (wersje "okrakiem na gałęzi") ODRZUCONE — chwyt nie siedzi; sędzia VLM znowu potwierdzał "pięść między udami" wbrew oku Tomasza = VLM niewiarygodny dla tej sceny, decyduje wyłącznie bramka B. DIAGNOZA GEOMETRII: osoba siedząca OKRAKIEM na gałęzi ma krok NA gałęzi — chwytu od dołu fizycznie nie da się tam położyć, dlatego model kładł pięść na nodze. Geometria zaakceptowanego k02 (nogi zwisają razem z listowia, zbieg nogawek odsłonięty) jest jedyną, w której chwyt wychodzi. NAPRAWA $0: przywrócenie wersji z ZAAKCEPTOWANYM przez Tomasza chwytem — k04_lancuch_046.jpg (v6, "Ok") i k06_lancuch_033.jpg (v3, "Ok") wracają jako obowiązujące; wersje okrakiem do zapasu | PRZYWRÓCONE, CZEKA NA POTWIERDZENIE + DECYZJĘ O KANARKU
+2026-07-26 | "Dawaj" | ZGODA na kanarka #2 k04 ($0.64): kadr = przywrócony k04 (zaakceptowany chwyt), prompt Veo ze wzmocnioną tożsamością (pełne tokeny + "the same man with the same face for the entire clip, his facial features never change" + kamera trzyma twarz w świetle przez cały klip); preflight i kanarek przez wrapper jawności | W REALIZACJI
+2026-07-26 | [kanarek2 submit] | preflight 16/16 ZIELONY (raport na panelu+TG); SUBMIT veo3.1 lite FLF z kadru k04 (zaakceptowany chwyt), RID zapisany w gen_state_k04_kanarek2.json | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+2026-07-26 | [kanarek2 — wynik i dowody] | Technika/napisy/język PASS, PISK JEST (whisper medium: kwestia + "Józek!" 2.3-3.1s), tożsamość FORMALNY FAIL (1 klatka kl_09 sim 0.2; w pierwszym kanarku były 2). Diagnostyka klatek co 1s: vs ZAAKCEPTOWANY KADR 0.39-0.87 (kotwice 0.81/0.87 — klip wierny kadrowi), f06-f07 bez twarzy (moment szarpnięcia/kamera przy nogach), vs biblioteka 0.25-0.40 (znany nocny poziom). Zgodnie z regułą FAIL=STOP: zero batcha, zero wydatków — klip wystawiony Tomaszowi do oka (faststart), decyzja force/poprawka/odrzut należy do niego. Budżet $4.88/12 | CZEKA NA WERDYKT TOMASZA
+2026-07-26 | "A piskliwy głos Józka???? Zapomniałeś już" | TOMASZ MA RACJĘ — pomiar na oknie słowa (whisper word-timestamps 2.48-2.90s): Tomek 230 Hz, "Józek!" 235 Hz = TEN SAM zwykły męski głos, ŻADNEGO pisku; moje "PISK JEST" w raporcie kanarka2 było kolejnym niezweryfikowanym twierdzeniem (słowo ≠ pisk). Realizacja zapisanego planu $0: pitch-up segmentu w montażu — DWA WARIANTY DEMO na panelu do ucha Tomasza: A ×1.7 (~400 Hz), B ×2.2 (~515 Hz, helowo-zduszony); tempo bez zmian, reszta klipu nietknięta. Ta sama obróbka pójdzie na każdy klip z głosem Józka (k04, k06) deterministycznie w montażu — pisk przestaje zależeć od loterii Veo | CZEKA NA WYBÓR A/B (albo odrzut → inne podejście)
+2026-07-26 | "Pierwszy" | (a) PISK = WARIANT A (×1.7, ~400 Hz) — obowiązuje dla każdego głosu Józka w montażu (k04 i k06); (b) pytanie było skonstruowane "A czy B + przy tym samym słowie force na batch" → "Pierwszy" = także FORCE NA BATCH 5 klipów ($3.20) mimo formalnego FAIL tożsamości kanarka (interpretacja z konstrukcji pytania Claude'a, zapisana jawnie). Budżet po batchu: $8.08/12 | W REALIZACJI
+2026-07-26 | [zmiana konfiguracji pod kanon] | k06 = kwestia JÓZKA (off-screen), a GLOSY_VEO zna tylko duet → dodany klucz "JOZEK" z głosem WPROST z kanonu Tomasza ("niezwykle piskliwy, nienaturalnie wysoki, zduszony, łamiący się, wyciśnięty z resztek sił"); to GŁOS epizodyczny na potrzeby 10010, NIE powrót postaci wizualnej z banku (komenda 23.07 "zostaw Tomasza i Janusza" dotyczyła obsady widocznej — kanon 10010 sam wprowadza głos Józka); backup kodu przed zmianą | W REALIZACJI
+2026-07-26 | [naprawy przed batchem] | (1) preflight.py: kontrola twarzy mówcy zasadnie POMIJANA dla klipów niemych (--bez-dialogu) i mówców zza kadru bez karty (JOZEK) — luka narzędzia wykryta przez batch, naprawiona z backupem (/tmp/preflight_backup_10010.py), regresja czysta (k01 niemy POMINIĘTY+ZIELONY, k04 dialog PASS 0.41); (2) k03: edycja standardowa dała 0.31 (za mało), ŚWIEŻA generacja z bohater_noc = 0.49 vs karta / 0.58 vs noc — NAJLEPSZY k03, podstawiony (zapasy k03_v1_033, k03_v2_031); wystawiony na panel do wglądu. Koszt napraw $0.30, budżet $5.18/12 | ZROBIONE, BATCH STARTUJE
+2026-07-26 | [BATCH submit] | 5/5 preflight ZIELONY (raport panel+TG); SUBMIT 5× veo3.1 lite FLF, PEŁNE RIDy: k01 019f9dea-d398-72d3-8492-f99e1e10517d, k02 019f9dea-d9eb-7080-9ff6-1d5fc545f5cb, k03 019f9dea-e050-7e82-b348-b4a7fb49666d, k05 019f9dea-e6fb-7660-848f-d22dc05c32bf, k06 019f9dea-ef2b-7a72-b776-599cad94fe9f; $3.20, budżet $8.38/12 | CZEKA NA WYNIKI
+2026-07-26 | [strażnik batchu — wyniki] | k02, k03, k05 PASS CZYSTY (k03 po świeżym kadrze przeszedł!); k01 PASS Z UWAGĄ (plan szeroki = mała twarz, zgodne z zamysłem zasadzki); k06 FAIL tożsamość (0.27-0.30, kadr miał 0.33) — zgodnie z regułą FAIL=STOP decyzja force/naprawa należy do Tomasza. TREŚĆ k06 POPRAWNA: whisper medium słyszy pełną puentę "To ja, Józek, niemowa ze wsi." (0.0-5.68s), F0 145 Hz (Veo dało NISKI głos — wariant A ×1.7 w montażu podbije do ~250... UWAGA: 145×1.7=247 Hz to za mało na pisk, dla k06 potrzebny większy mnożnik, do przetestowania na tym klipie przy montażu, $0). Podglądy 5 klipów na panelu (faststart). Budżet $8.38/12 | CZEKA NA WERDYKT: k06 force/naprawa
+2026-07-26 | "Japierdole" (po wystawieniu 5 klipów batchu) | reakcja bez wskazania konkretu — NIC nie ruszać (dotyczy też innych okien), zero generacji i wydatków, czekam na wskazanie: który klip i co jest nie tak | STOP
+2026-07-26 | "Wszystko jest zjebane" (werdykt po obejrzeniu 5 klipów batchu) | CAŁOŚCIOWY ODRZUT — bez wskazania konkretu; zamiast trzeci raz pytać, Claude robi PEŁNĄ diagnostykę własną ($0): transkrypcje whisper medium wszystkich klipów vs kanon (kontrola, której brakowało — lekcja 10009 niewdrożona!), otwarte opisy VLM klatek każdego klipu, macierz spójności twarzy Tomka MIĘDZY klipami (hipoteza: inny Tomek w każdym klipie — kadry mają między sobą tylko 0.38-0.58) | DIAGNOSTYKA W TOKU, ZERO WYDATKÓW
+2026-07-26 | [diagnoza całości — USTALENIA] | Dźwięk: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), k01/k02 nieme jak trzeba. OBRAZ — SCENY ROZPADAJĄ SIĘ W ŚRODKU KLIPÓW (otwarte opisy VLM na 4s): k02 ŚCISK ZNIKA — jakaś postać NA drzewie zbiera coś, przedmioty spadają; k04 Tomek ZAWIESZONY W PNIU, trzyma się gałęzi nogami rozłożonymi szeroko; k05 gumowiec WISI NA SZNURKU na gałęzi (VLM sam pisze "absurdalnie"); k06 chwyt znika, Tomek PODCIĄGA WŁASNE SPODNIE na biodrze; k03 znośny; k01 Tomek "spokojny zamyślony" zamiast zasadzki. PRZYCZYNA: (a) FLF kotwiczy tylko 1. i ostatnią klatkę — środek jest wolny (znane: "FLF = interpolacja"), a moje prompty opisywały DYNAMICZNE akcje ("legs JERK violently", "fist TIGHTENS, knuckles whiten") sprzeczne z "holds the exact pose" — Veo wybrało akrobatykę; w 10008/09 prompty były "holds pose + mówi" i działały; (b) LUKA BRAMEK: kanarek nie ma sędziego VLM scen (POMINIĘTY) — rozpad sceny w środku klipu jest niewidzialny dla technicznego/tożsamości; otwarty opis VLM środka klipu = brakująca bramka, wdrożyć na stałe | ZGŁOSZONE, PLAN NAPRAWY U TOMASZA
+2026-07-26 | "Przenieś wszystko co spierdoliłeś i nad czym pracowaliśmy dzisiaj bo idę do innego okna" | PRZEKAZANIE WYKONANE: wiedza/PRZEKAZANIE_2026-07-26_10010.md (pełny stan+diagnoza+plan+reguły dnia), wskaźnik w 1. linii TELEPORT_fabryka.md, LOCK ustawiony na PRZEKAZANY, backup preflightu do wiedza/backupy/, wszystko w gicie | OKNO ZAMKNIĘTE
+2026-07-26 | [przejęcie okna] | nowe okno (czat /route) przejęło odcinek wg PRZEKAZANIA; ZWERYFIKOWANE na żywo: LOCK był PRZEKAZANY, commit c0494b8 na origin (main==origin/main), zero procesów, budżet $8.38/12 zgodny | PRZEJĘTE, CZEKA NA SŁOWO TOMASZA (plan re-rolli)
+2026-07-26 | "Działaj" | zgoda na pakiet: re-roll k02/k04/k05/k06 w reżimie statycznym (prompty pracownika + poprawki szefa: k05=wariant B BEZ zdania o gumowcu, kamera locked-off) $2.56 + edycja kadru k05 (usunięcie gumowca z powietrza) $0.15 ≈ $2.71, budżet docelowo ~$11.09/12; k01/k03 BEZ re-rollu — ocena przy montażu; kolejność: sędzia anonimowy ($0) → bramka A kadru → preflight (jawność panel+TG) → submit | W REALIZACJI
+2026-07-26 | [sędzia anonimowy — werdykt] | k05 PASS, k06 PASS; k02 ZARZUT (brak cudzysłowów) ODRZUCONY przez szefa — klip niemy, reguła dotyczy klipów z kwestią, rozstrzyga preflight; k04 ZARZUT (pisk = drugi głos, pretekst ożywienia korony) CZĘŚCIOWO ZASADNY — mitygacja w prompcie (causes no visible movement) + bramka otwartego opisu środka klipu FAIL=STOP; pisk w k04 zostaje (oczekiwanie Tomasza: 'A piskliwy głos Józka????' po kanarku2) | ZAMKNIĘTE, IDZIE KADR K05
+2026-07-26 | [re-roll submit] | kadr k05: gumowiec usunięty nano-banana-pro/edit $0.15 (backup k05_gumowiec_w_powietrzu.jpg, bramka A PASS: VLM but=NIE twarz=TAK, raport+podgląd na panelu); preflight 4/4 ZIELONY (raport panel+TG); SUBMIT 4× veo3.1 lite FLF $2.56, PEŁNE RIDy: k02 019f9e8d-6089-75f0-b4c9-9db365ddbe20, k04 019f9e8d-6654-7651-993a-262a8704c159, k05 019f9e8d-6dca-75a2-90b7-f9ae9ba21a08, k06 019f9e8d-75a2-7d50-8faf-3df26ad84cf5; budżet $11.09/12 | CZEKA NA WYNIKI → strażnik + NOWA bramka otwartego opisu środka klipu
+2026-07-26 | [NARADA TRÓJKI — konsensus] | Strażnicy: k02+k05 podwójnie czyste; k04/k06 kanarek-FAIL tożsamości. Zenek: FAIL-e mierzone vs ZDRYFOWANA biblioteka nie dowodzą obcej twarzy, H2/H3/H4 zgoda, H1 wymaga pomiaru; napisał skrypt weryfikacji $0. POMIAR (raport na panelu+TG): k04 WIERNY KADROWI 6/6 (mediana 0.63, min 0.46), k06 WIERNY KADROWI 8/8 (mediana 0.69, min 0.47) — formalne FAIL-e = artefakt kotwicy bohater_noc. OTWARTE: k06 środek — VLM przeczy sam sobie (opis otwarty: siedzi na drzewie; detale: chwyt OK) → wg precedensu dnia rozstrzyga WYŁĄCZNIE bramka B (oko Tomasza); k04 środek PASS. Koszt narady $0, budżet $11.09/12 | KONSENSUS TRÓJKI OSIĄGNIĘTY, PROPOZYCJA U TOMASZA
+2026-07-26 | [TRÓJKA — rozstrzygnięcie sprzeczności VLM] | Opisy otwarte VLM (k02/k04/k06: "człowiek na drzewie") = HALUCYNACJE SERYJNE, dowód liczbowy: MAD klatki-środka vs kadr — k02 7.4, k04 8.1, k06 7.5 przy WZORCU ZDROWIA k05=15.4 (podwójnie czysty close-up); kompozycja środka trzyma sceny lepiej niż wzorzec. Razem z twarzami wiernymi kadrom (6/6 i 8/8) i PASS technika/napisy/język: WSZYSTKIE 4 KLIPY ZDROWE. Klatki środka na panelu (10010_srodek_kXX.jpg) + podglądy klipów → BRAMKA B | KONSENSUS PEŁNY, CZEKA NA OKO TOMASZA
+2026-07-26 | "Czemu w ostatnim klipie to Tomek mówi sekwencje Niemowy?" (bramka B na k06_reroll) | KRYTYCZNE: widoczny Tomek WYPOWIADA puentę Józka zamiast stać z zamkniętymi ustami przy głosie z offu — zabija sedno żartu (niemowa mówi Z KORONY); żaden strażnik tego nie łapie (język sprawdza CO padło, nie KTO mówi; tożsamość: to Tomek; środek: poza trzyma) — ślepa plama bramek | STOP, NARADA TRÓJKI NATYCHMIAST
+2026-07-26 | [TRÓJKA k06 — konsensus] | POMIAR (raport panel+TG): usta widocznego Tomka PRACUJĄ przez 100% klatek (rozwarcie 0.14-0.17, oscylacja mowy) — bramka B potwierdzona liczbą. DIAGNOZA Zenka (zgodna z Klaudkiem): natywny lip-sync Veo traktuje widoczną twarz jako mówcę, miękkie negacje w prompcie przegrywają z wyuczonym wzorcem; praktycy: ujęcia nieme + dialog w postprodukcji. PROPOZYCJA TRÓJKI: Wariant 1 za $0.64 — k06 całkowicie NIEMY (prompt bez słowa o głosie/pisku, usta domknięte pozytywnie), głos Józka wycięty z batchowego k06 (czysta puenta, 145 Hz) + pitch-up deterministyczny (2 mnożniki do ucha Tomasza, ×1.7 za mało), położony w montażu; budżet po: $11.73/12. Alternatywy: loteria promptowa $0.64 / kadr+niemy $0.79 / maska ust $0 (artefakty). Bramka KTO MÓWI (projekt Zenka + progi z pomiaru) do wdrożenia po odcinku $0 | KONSENSUS, CZEKA NA SŁOWO TOMASZA
+2026-07-26 | "K05 dlaczego Tomek nie trzyma niemowę w dalszym ciągu tylko wygląda jakby obca osoba z boku pytała?" (bramka B) | k05: zbliżenie czystej emocji BEZ chwytu i BEZ relacji przestrzennej ze ściskiem (tło: drzewo ZA nim, nie korona NAD nim) czyta się jak pytający gapiowicz z boku — zerwana ciągłość ŚCISKU (nienaruszalne: ścisk najważniejszy); wcześniejsza akceptacja kadru czystej emocji (rano, brak sprzeciwu) NADPISANA najnowszym słowem | STOP, NARADA TRÓJKI
+2026-07-26 | [TRÓJKA k05 — konsensus] | DIAGNOZA (Zenek+Klaudek zgodni): winowajca = zero wizualnej kotwicy chwytu (brak ręki/pięści/nogawek) + drzewo ZA plecami + zbliżenie odcinające przestrzeń k04 → efekt gapowicza; problem kompozycji, nie emocji/lip-synca. PROPOZYCJA TRÓJKI: Wariant 4+ za $0 — obraz k05 odpada, czysta kwestia 'No gadaj draniu, ktoś ty?!' z klip_k05_reroll idzie jako krzyk NAD ZAAKCEPTOWANYM SZEROKIM KADREM CHWYTU z zatrzymaniem/najazdem Ken Burns (statyczny obraz = zero konfliktu ust, chwyt na ekranie przez cały krzyk); awaryjnie: cięcie pytania (eskalacja na dwóch). Odrzucone: nowy kadr+reroll $0.79 (budżet po obu naprawach $12.52 = przekroczenie limitu — tylko jawnym słowem Tomasza). ŁĄCZNY PAKIET z k06 (niemy $0.64 + głos z montażu): budżet końcowy $11.73/12 | KONSENSUS, PAKIET U TOMASZA
+2026-07-26 | "Rolka ma być zajebista i śmieszna więc naradzić się jeszcze raz doczytać wszyscy jak to ma wyglądać i działać" | NARADA #2 z innym celem: nie łatanie klipów, tylko ARCHITEKTURA KOMIZMU całej rolki — wszyscy czytają od nowa (kanon 10010+10004, DROGA, NAUKI, rytm 10008/09), wynik: sekundnik jak rolka wygląda i działa, żeby była zajebista i śmieszna; pakiet naprawczy podporządkowany architekturze; zero wydatków do słowa Tomasza | W TOKU
+
+exec
+/bin/bash -lc "sed -n '1,90p' wiedza/DECYZJE_SERIA_HUMOR.md
+sed -n '91,200p' wiedza/DECYZJE_SERIA_HUMOR.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+# DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe)
+Append-only. Najnowszy wpis wygrywa ze wszystkim.
+Format: data | DOSŁOWNY cytat | interpretacja (1 zdanie) | status
+
+## 17.07.2026 — obsada stałego duetu serii
+- "Ja. To nowa postać. Janusz nowa postać" + "Ja to przykład." + "Ja będę się
+  pojawiał w innych scenariuszach." | Bohater serii to postać AI wzorowana na
+  Tomaszu jako typie (NIE dosłowna twarz z fotografii); występuje w wielu
+  scenariuszach. | OBOWIĄZUJE
+- "Ja mam długie włosy spięte zawsze w kucyk" | Znak rozpoznawczy bohatera:
+  długie włosy ZAWSZE w kucyku + pełna szpakowata broda, ok. 50 lat. | OBOWIĄZUJE
+- "Janusz typowy ogrodowy strażnik przepisów. Szczupły wysoki po sześćdziesiątce"
+  | Rysopis bazowy Janusza. | OBOWIĄZUJE
+- "To bierzemy siwy wąsik i okulary na sznurku, kamizelka z kieszeniami i notesik
+  do spisywania naruszeń, bo Notes będzie używany w innych historiach" | Znaki
+  stałe Janusza; notesik = rekwizyt serii, wraca w kolejnych odcinkach. | OBOWIĄZUJE
+- "Zapisz postacie i wygeneruj ich podgląd. Chcę ich zobaczyć." | Zapis obsady
+  (ten plik + pamięć) i jeden podgląd duetu nano-banana 2K 9:16. | WYKONANE ($0.15, assets/zarty/karty/duet_podglad_v1.jpg)
+- "Idealnie" (po obejrzeniu podglądu) | Podgląd duetu ZAAKCEPTOWANY;
+  assets/zarty/karty/duet_podglad_v1.jpg = obowiązujący wzorzec referencyjny
+  wyglądu OBU postaci dla wszystkich przyszłych generacji. | OBOWIĄZUJE
+- "Idziemy dalej" | Zgoda na następny nazwany krok: karty postaci obu bohaterów
+  z wzorca duet_podglad_v1.jpg (2 × nano-edit 2K = $0.30) + przygotowanie cięć
+  scenariusza "Ślimak nagi" do akceptacji (słowa, $0). | WYKONANE (karty: bohater_karta.jpg, janusz_karta.jpg, $0.30)
+- "Robimy profile postaci tak? I generujesz więcej zdjęć do pamięci żeby na
+  przyszłość mieć lepsze źródło" | Biblioteka referencyjna per postać: (a) crop-baza
+  z zaakceptowanego duetu ($0, kotwica tożsamości), (b) arkusz front/3-4/profil,
+  (c) portret NOCNY (seria gra nocą — łata zmierzony słaby punkt: noc vs zmierzch
+  sim 0.12); 4 generacje × $0.15 = $0.60; każda referencja z JEDNĄ osobą na wejściu
+  (nauka z odrzuconych kart); bramka A automatem PRZED linkami. | WYKONANE ($0.60; bramka A: twarze 3/1/3/1 zgodne, sim 0.50-0.76 vs baza, separacja postaci czysta)
+- "Jeżeli to wystarczy do dalszego generowania idziemy dalej jeżeli nie generujemy
+  więcej. To się przyda do następnych historii a mam ich z 10" | Werdykt techniczny
+  z pomiarów: WYSTARCZY (3 refy/postać w 2 domenach światła; wczoraj 1 ref trzymał
+  0.70-0.88). Zasada: nową referencję dokupujemy dopiero gdy historia wprowadza
+  nową domenę światła ($0.15 + bramka A). Seria ma ~10 kolejnych historii. | OBOWIĄZUJE
+- "Tu musimy to inaczej liczyć. Stworzyliśmy postacie które kosztowały. To trzeba
+  odjąć od ceny rolki a zapisać gdzieś gdzie są koszta takie jak postacie itp"
+  | Nowe księgowanie: aktywa serii (postacie, biblioteki, banki głosów) idą do
+  wiedza/AKTYWA_SERII.md i NIE wliczają się do limitu $6 odcinka; budżet 10005
+  liczy się od zera: kadry $0.60 + klipy $5.12 = $5.72 (POD limitem, S5 zostaje,
+  force zbędny). | OBOWIĄZUJE
+- "Domknij wszystko a potem powiedz czy jest czysto żeby iść dalej" | Domknięte
+  i zweryfikowane podwójnie (sesja równoległa commit 45cf694 + moje niezależne
+  pomiary): duplikat JÓZEK usunięty (przyczyna kurtki z 16.07), brama językowa
+  strażnika działa (cut_05: pl 1.0 PASS; final_k1: sk 0.5 FAIL — "Znovu mi ktos
+  jablka podzera" — wczorajszy finał nie przeszedłby dziś), most tmp_weryfikacja
+  sprzątnięty, kontener zrestartowany. Poza zamrożonym 10004 repo czyste. | WYKONANE
+- "Ja inne okno chatu" | Rozstrzygnięcie zagadki równoległej sesji: to Tomasz
+  w drugim oknie Claude'a (komputer). Nocne latentsynci, v6 safety6 i poranne
+  domknięcia (commity 45cf694/db5d995) = jego ręka; księga 10004 (15.90) stoi;
+  alarm bezpieczeństwa odwołany. Obie sesje czytają DECYZJE + git przed pracą,
+  żeby się nie zderzać na tych samych plikach. | ZAMKNIĘTE
+- "Bo jest bałagan a potem chujnia" | DROGA podbita do 2.1 — dokument zrównany
+  z praktyką i pomiarami (biblioteka referencyjna, lite $0.64 robi finały,
+  strażnik języka pl-only, progi kotwic 64px 12/18). | WYKONANE
+- "Jaki numer faktyczny numer drogi 2.1, 2.2, 2,3" | Audyt gita: po 2.0 były
+  trzy merytoryczne rewizje → faktyczny numer 2.3; nagłówek poprawiony, wstawiony
+  CHANGELOG z zasadą "każda merytoryczna zmiana = +0.1 i wpis" — numeracja
+  odtąd mechaniczna, z commitami jako dowodami. | WYKONANE
+- "Wdrażaj wszystkie 8. Zrób jeszcze raz dokładną analizę żeby nie narobić sobie
+  więcej kłopotów a nic to nie da. Sprawdź wszędzie gdzie masz zasięg. Doczytaj
+  ludzi bo to oni mówią prawdę" | DROGA 2.4: tarcze przeciwbłędowe wdrożone
+  z korektami od praktyków (suite = pas bezpieczeństwa nie dowód, tylko realne
+  przypadki, testy fałszywych alarmów, bieg szybki 3 min, lock wygasa po 2h,
+  słowa-miny flagują nie blokują). | WYKONANE (commit 6606f61 + suite 8/8 PASS na pierwszym biegu)
+- "Jeszcze raz weryfikacja w internecie" | Zweryfikowane: (1) język — zapis kwestii
+  po polsku nie wystarcza, do promptu idzie stały opis głosu postaci + native Polish
+  accent; (2) kanarek: 1 klip → strażnik → dopiero batch; (3) veo3.1/reference-to-video
+  na fal istnieje, $3.20/klip 8s z audio — poza limitem, tylko punktowo za zgodą.
+  DROGA podbita do 2.5. GŁOSY duetu do klepnięcia przez Tomasza. | WYKONANE
+- "Głos potwierdzam" | Głosy duetu KANON: BOHATER = niski, szorstki, zdecydowany
+  męski głos po polsku; JANUSZ = suchy, urzędniczy głos starszego pana.
+  Wpisane do GLOSY_VEO w kodzie. | OBOWIĄZUJE
+- "Weryfikacja nie twoja halucynacja że jest dobrze!!! Ma iść 1000% pewna rzecz
+  w veo!!!" | Bramka PREFLIGHT (tools/preflight.py): automat sprawdza PRZED
+  każdym submitem do Veo — kwestia verbatim z kanonu, blok głosu + native Polish
+  + no captions w prompcie, jeden mówca, słowa-miny, kadry (istnienie, twarze,
+  proporcje), budżet; submit bez zielonego preflight = zakazany. | WYKONANE (15 kontroli; pozytyw ZIELONY, negatyw CZERWONY; złapana dziura mountów wiedza/)
+- "Jest bardzo dobrze ale za poważnie jak na żart. Ogólnie jest zajebiście!!!
+  Mamy podstawę do produkcji" | NUTA REŻYSERSKA SERII: system produkcji
+  potwierdzony jako podstawa (~10 historii); ton przyszłych odcinków grać
+  LŻEJ — komediowe przerysowanie i mock-seriousness zamiast serio-powagi;
+  moje dyrektywy promptowe ("dramatic", "grave determination", "spy-movie
+  tension") grały na serio — do wymiany na komediowe. | OBOWIĄZUJE
+- "A gdzie intro i outro?? / Teleport i do second brain" | ZASADA SERII: każdy
+  finał humoru dostaje brandowe intro (animowane rod_profilowe) i outro —
+  identycznie jak rolki foto (assets/branding/, machineria renderer.py);
+  Droga podbita, zasada w pamięci trwałej. | OBOWIĄZUJE
+
+## 17.07.2026 — imiona duetu + zapowiedź przebudowy postaci
+- "Ja to Tomek. Janusz to Janusz." | Imiona kanoniczne duetu: bohater (wersja AI
+  Tomasza — długie włosy w kucyk + szpakowata broda, ~50 lat) = TOMEK; drugi = JANUSZ.
+  Duet debiutuje pod tymi imionami od odcinka 10006 (publikacja dziś). | OBOWIĄZUJE
+- "Po opublikowaniu robimy/poprawiamy od nowa dwie postacie. Starego Tomka
+  usuniemy. Ale to za chwilę." | Po publikacji 10006: przebudowa OBU postaci od
+  zera (nowe referencje/biblioteka); stare assety "starego Tomka" do usunięcia.
+  NIE ruszać NICZEGO do osobnej wyraźnej komendy Tomasza ("za chwilę"). | ZAPLANOWANE (po publikacji 10006)
+
+- 17.07 | "Pójdziemy w następny odcinek" | Start prac nad odcinkiem #10007 (10006
+  wgrywa ręcznie sam; naprawa auto-publikacji n8n ODŁOŻONA na później). Wybór tematu
+  i kolejność względem zapowiedzianej przebudowy postaci — do rozstrzygnięcia. | W REALIZACJI
+
+- 17.07 | "Obecny duet. Czyli Janusz i Tomek." | Odcinek #10007 jedzie na OBECNEJ
+  bibliotece referencyjnej duetu (przebudowa postaci ODŁOŻONA — nadal zaplanowana,
+  wciąż czeka na osobną komendę). Temat: własny scenariusz Tomasza "Zasada
+  spadającego jabłka" (~40s, Tomek=właściciel jabłoni, Janusz=łowca okazji). | OBOWIĄZUJE
+- 17.07 | "Zawsze doczytuj co mówią fachowcy z branży. Wydaje swój pomysł ale to
+  ich praktyka ich kosztowała. Nas nie musi wcale!" | Zasada ponadodcinkowa →
+  DROGA 2.8: research praktyków w sieci OBOWIĄZKOWY przed każdym ryzykownym/nowym
+  elementem produkcji; wnioski do NAUK przed wydatkiem. | OBOWIĄZUJE (DROGA 2.8)
+- 17.07 | "Widocznie rolka humorystyczne musi kosztować do 12$" + "Czytać!
+  Analizować, uczyć się na czyiś błędach to zajebista metoda" | NOWY LIMIT SERII:
+  rolka humorystyczna do $12/odcinek (poprzednio $6; powyżej $12 nadal osobny
+  force). Metoda researchu branżowego (DROGA 2.8) potwierdzona po efektach. | OBOWIĄZUJE (DROGA 2.9)
+- 17.07 | "Czytać zawsze do końca. Nie wybiórczo i już wiem.... Całość czytać" |
+  Zasada ponadodcinkowa → DROGA 2.10: źródła (dokumenty, logi, wyniki narzędzi,
+  poradniki) czytać w całości, nie fragmentami. | OBOWIĄZUJE (DROGA 2.10)
+- 17.07 | "Niech to będzie Już DROGA V3" | Zasada JEDEN ODCINEK = JEDNO OKNO
+  wchodzi jako wersja główna: DROGA 3.0 (po potrójnej generacji kadrów esencji
+  10007 przez dwie równoległe sesje). | OBOWIĄZUJE (DROGA 3.0)
+- 18.07 | "Przeanalizuj co może stać się jeszcze w przyszłości. Pomóż sobie
+  czytając ludzi nie po troszku tylko pełna weryfikacja" | Analiza ryzyk
+  przyszłości pipeline (platformy, prawo, technika, proces) z PEŁNĄ lekturą
+  źródeł (całe artykuły, nie snippety). Wnioski → NAUKI + ew. DROGA. | W REALIZACJI
+- 18.07 | "Następna sprawa cenzory i poprawność polityczna. Jeżeli gemini wypluł
+  ten scenariusz o ślimakach to jest jak najbardziej dopuszczalne. W rolce o
+  ŚLIMAKACH wyjebana cała esencja żartu dlatego poszło to na dysk. Nie poprawiaj
+  rolki teraz. Weź to pod uwagę w następnych rolkach" (korekta Tomasza: chodzi o
+  ślimaki #10005, nie "śmieci") | ZAKAZ AUTOCENZURY ESENCJI ŻARTU w produkcji:
+  zaakceptowany scenariusz idzie w całości, bez łagodzenia poprawnościowego z
+  własnej inicjatywy (test dopuszczalności: skoro duży model typu Gemini scenariusz
+  wypluł, treść jest dopuszczalna). Złagodzenia słów WYŁĄCZNIE decyzją Tomasza
+  (wzorzec: "płuca trenuję" przy 10007 — jego wybór, nie cicha podmiana).
+  #10005 NIE poprawiać teraz; zasada obowiązuje OD NASTĘPNYCH rolek. | OBOWIĄZUJE (DROGA 3.3)
+- 18.07 | "Dodaj powiadomienie do telegrama jak już ha Dom stoi" | Powiadomienia
+  Telegram wpięte w pipeline publikacji: helper tools/tg_powiadom.sh → webhook
+  fabryka_rolka_gotowa na HA Dom (bot+token w HA Dom, wg PROCEDUR nie na VPS;
+  Dom stoi — HTTP 200 przez Nabu Casa). Pierwsze powiadomienie wysłane:
+  publikacja 10007 z permalinkiem. Zasada: powiadomienie nigdy nie blokuje
+  publikacji; HTTP 200 nie dowodzi dostarczenia — weryfikacja na telefonie.
+  | WDROŻONE (czeka potwierdzenie odbioru)
+- 18.07 | "Jest powiadomienie wszystko dobrze" | Tomasz POTWIERDZA odbiór na
+  telefonie. Pętla domknięta end-to-end: publikacja Graph API + Telegram przez
+  webhook HA Dom (tg_powiadom.sh) działają. Standard po każdej publikacji. | POTWIERDZONE ✓
+
+## 23.07.2026 — KASACJA CAŁKOWITA STAREGO TOMKA (Mieczysław)
+- "Mówię samego starego Tomka wypierdol wszystko co jest z nim związane. Reszta
+  ma zostać" | WYKONANE, zweryfikowane w żywym systemie. USUNIĘTE: (a) baza wideo
+  data/zarty/bank/mieczyslaw_plot.mp4; (b) stare foldery Mieczysława/testy sprzed
+  duetu: zarty/10000, 10001 (pilot Cukinie 216MB), 10002, 0002, 9999; (c) z kodu
+  produkcji zarty_produkcja.py: głos MIECZYSŁAW, kolor ASS, oba opisy (PL+EN),
+  styl głosu, cała funkcja _klip_bank (LatentSync na bazie Mieczysława) + haczyk
+  wywołujący (BANK) w pętli klipów + wzmianka w normalizatorze imion. Łącznie
+  ~286MB. ZOSTAWIONE świadomie: próbki głosów TTS w banku (probka_EL_Brian/
+  Marek/Zofia — nie należą do Mieczysława), Janusz+Bohater+Helena+Józek+Jacuś,
+  martwe-ale-bezpieczne warunki "(BANK) not in mowi" w zarty.py (zawsze true,
+  nie ruszają parsera). health 200, MIECZYSŁAW w GLOSY_VEO/KOLORY_ASS = False,
+  duet żyje. Backup kodu: /tmp/zp_backup.py (sesyjny). | ZAMKNIĘTE
+- 23.07 | "Usuń resztę bohaterów! Zostaw Tomasza i Janusza z serii" | WYKONANE,
+  zweryfikowane w żywym systemie (health 200). Z kodu produkcji zarty_produkcja.py
+  wycięci wszyscy poza duetem: HELENA, TOMASZ (sąsiad-kombinator w hawajskiej
+  koszuli — INNA postać niż Tomek serii!), JACUŚ, JÓZEK (Mieczysław usunięty
+  wcześniej). Zostali TYLKO: BOHATER (=Tomek serii, kucyk+broda) i JANUSZ.
+  GLOSY_VEO=[BOHATER,JANUSZ], KOLORY_ASS=[BOHATER,JANUSZ], parser _kwestie zna
+  tylko tych dwóch. Wygląd duetu z biblioteki kart (bohater_baza/janusz_baza),
+  nie z OPISY_POSTACI. Backup: /tmp/zp_pre_czystka.py. | ZAMKNIĘTE
+2026-07-25 | Tomasz wkleił "Scenariusz 6: Infiltracja, czyli kontrola u prezesa" (duet, biuro zarządu, donos za młotek 09:55), po czym: "Nie to. Czekaj" | WSTRZYMANE — niczego nie produkować, nie numerować, czekać na następne słowo Tomasza (uwaga dla równoległych okien) | STOP
+2026-07-25 | "Żebyś sam nie wystawił na Facebooka" (przy 10009) | zasada serii: żadna publikacja bez osobnej wyraźnej komendy Tomasza; akceptacja materiału ≠ zgoda na publikację | STAŁE
+
+exec
+/bin/bash -lc "nl -ba wiedza/DECYZJE_10010.md | sed -n '1,22p'
+nl -ba wiedza/DECYZJE_10010.md | sed -n '23,44p'
+nl -ba wiedza/DECYZJE_10010.md | sed -n '45,80p'" in /root/rod-ai-studio
+ succeeded in 0ms:
+     1	# DECYZJE — odcinek #10010 "Kiedy złapiesz złodzieja jabłek" (remake Niemowy)
+     2	
+     3	2026-07-26 | "Idź naszą drogą!" + wklejony scenariusz 6 scen | Scenariusz = KANON #10010 (data/zarty/10010/KANON.md), zapis DOSŁOWNY; produkcja wg DROGA_ROLKA_HUMOR (kadry → kanarek → batch → strażnik → montaż z nową bramką sync); #10004 (ten sam żart) pozostaje ZAMROŻONY, nie dotykać | PRZYJĘTE, W AUDYCIE
+     4	2026-07-26 | [AUDYT Etap 2, $0] | USTALENIA: (1) BLOKER OBSADY — kod produkcji zna tylko BOHATER i JANUSZ (GLOSY_VEO/KOLORY_ASS); scenariusz wymaga "young rustic man" = Józek, usuniętego z kodu 23.07 komendą Tomasza; preflight zablokuje każdy klip z mówcą spoza słownika. Ogrodnik = BOHATER/Tomek pasuje wprost (kanoniczny głos "low, gruff, determined middle-aged"). (2) SCENA 4 łamie zasadę DROGI "jeden mówca na klip": twarz złodzieja + głos ogrodnika zza kadru = Veo animuje usta złodzieja do cudzej kwestii (gwarantowany rozjazd ust). (3) PUENTA — głos piskliwy/zduszony poza standardowym repertuarem Veo; mitygacja DARMOWA w montażu (podbicie wysokości ffmpeg asetrate+atempo na gotowym klipie), nie regeneracja. (4) SŁOWA-MINY (przemoc/ból/"draniu"): FLAG nie blok, safety_tolerance=6, słowa Tomasza NIETYKALNE. (5) SFX scen 1-2 (cykady, trzask, bass drop) dokładane w montażu $0. (6) Noc = domena bohater_noc.jpg/janusz_noc.jpg z biblioteki, portrety za $0. (7) Szacunek: 6 kadrów $0.90 + 6 klipów $3.84 = ~$4.74 przy limicie $12 | CZEKA NA DECYZJĘ TOMASZA (obsada złodzieja + kształt sceny 4)
+     5	2026-07-26 | "Józka wogóle nie trzeba wygrnerować. Jego ma być nie widać. On siedzi nocą w koronie jabłoni a Tomek ściska go za jądra tak mocno że on niemowa przemawia." | ROZSTRZYGNIĘCIE OBSADY (przebija scenariusz Gemini): JÓZEK NIEWIDOCZNY — zero kadrów, zero kart, zero portretów, żadnej nowej postaci w kodzie; siedzi w koronie jabłoni, istnieje wyłącznie jako GŁOS z góry w puencie. W KAŻDYM kadrze widać TYLKO TOMKA. Sceny 4 i 6 scenariusza (close-up twarzy złodzieja) SKASOWANE jako kadry — zastąpione ujęciami Tomka; kwestie z nich zostają bez zmiany słowa. Akcja: Tomek ściska Józka za jądra (w kadrze: ręka w gałęziach/góra kadru, Józka nie widać) aż niemowa przemawia | PRZYJĘTE — struktura przebudowana
+     6	2026-07-26 | "K04 dodaj już głos Józka - Józek.... Piszczy" | KOREKTA KANONU: w scenie k04 (kwestia Tomka "Gadaj, pókim dobry, ktoś ty?!") słychać już Józka z korony — PISK, bez słów. Józek nadal NIEWIDOCZNY. Uzasadnienie realizacyjne (do weryfikacji u Tomasza jeśli sprzeciw): pisk bez artykulacji, bo niemowa PRZEMAWIA dopiero w puencie k06 ("To ja... Józek... niemowa ze wsi!") — gdyby wypowiedział słowo w k04, puenta traci sens. Narastanie: k04 pisk → k05 maksymalna wściekłość Tomka → k06 wyduszone słowa piskliwym głosem. Realizacja: pisk w prompcie Veo jako off-screen squeal z góry; jeśli Veo nie da — dogranie w montażu $0 (ta sama droga co piskliwy głos puenty) | PRZYJĘTE
+     7	2026-07-26 | "Wydusi Józek" (odpowiedź na pytanie Claude'a, czy w k04 Józek ma wydusić słowo) | KOREKTA PRZEBIJA propozycję Claude'a (pisk bez artykulacji ODRZUCONY): w k04 Józek WYDUSZA Z SIEBIE słowo — kwestia off-screen z korony: "Józek...." wyduszone piskliwie, z bólu, urywane. Puenta k06 zostaje pełna: "To ja... Józek... niemowa ze wsi!". Narastanie: k03 pytanie → k04 pytanie Tomka + wyduszone "Józek...." z góry → k05 maksymalna wściekłość → k06 pełne zdanie piskliwie. Józek NADAL NIEWIDOCZNY w każdym kadrze; jego głos = off-screen (Veo w prompcie, zabezpieczenie: dogranie w montażu $0 z podbiciem wysokości, gdy Veo nie da piskliwości) | PRZYJĘTE
+     8	2026-07-26 | "Trzeba to jakoś uwidocznić że łapie józka za jądra" | WYMÓG REŻYSERSKI: chwyt musi być czytelny dla widza, przy zachowaniu zasady "Józka nie widać". PROPOZYCJA CLAUDE'A (czeka na zgodę): w kadrze widać WYŁĄCZNIE NOGI zwisające z korony (nogawki + gumowce, zero twarzy/sylwetki/tożsamości — więc Józek pozostaje anonimowy do puenty i nie wymaga karty postaci ani nie ruszy strażnika tożsamości); ręka Tomka sięga w górę MIĘDZY zwisające nogi i zaciska się; reakcja: nogi gwałtownie sztywnieją i drgają, jeden gumowiec spada na ziemię (gag). Prompt do Veo opisuje wyłącznie: dłoń zaciskająca się w górze między nogawkami + reakcja nóg — ZERO nazw anatomii (jawne sformułowanie = pewny odrzut content policy); komizm niosą: gest, reakcja nóg, spadający but, pisk z korony i SFX | CZEKA NA ZGODĘ TOMASZA
+     9	2026-07-26 | "Pasuje." | ZGODA na wizualizację chwytu przez zwisające nogi (nogawki+gumowce, zero twarzy/sylwetki) ORAZ na generację 6 kadrów nocnych za $0.90; referencja = bohater_noc.jpg z biblioteki ($0); skrypt data/zarty/10010/_gen_kadry.py Z GUARDEM __main__ (lekcja 10009) | W REALIZACJI
+    10	2026-07-26 | [BLOKER — KONTO FAL NA MINUSIE] | Generacja kadrów 10010 padła NATYCHMIAST na uploadzie referencji: HTTP 403 Forbidden z rest.fal.ai/storage/auth/token. Przyczyna zweryfikowana: saldo konta fal = -5.06 USD (endpoint billing/user_balance, oba hosty zwracają to samo). WYDANE DZIŚ: $0 — upload nie przeszedł, żaden obraz się nie wygenerował. Doładowanie fal.ai/dashboard/billing może zrobić WYŁĄCZNIE Tomasz. Produkcja 10010 STOI do doładowania; kanon, struktura, prompty kadrów i skrypt (z guardem) gotowe i czekają. Kontekst zużycia: 10009 ~$13.17 (w tym $5.12 nieautoryzowanego duplikatu z importu _batch.py) + rolka foto 000098 $2.55 | ZGŁOSZONE TOMASZOWI
+    11	2026-07-26 | "Doładowane" | Saldo zweryfikowane na żywo: 19.94 USD (było -5.06). Start generacji 6 kadrów nocnych za $0.90, limit odcinka $12 | W REALIZACJI
+    12	2026-07-26 | [Etap 3 — kadry] | 6/6 kadrów wygenerowanych, ZERO błędów i zero odrzutów content policy (safety_tolerance=6, prompty bez nazw anatomii — sam gest i reakcja nóg); koszt $0.90/12; bramka A PASS 6/6 (dokładnie 1 twarz w każdym kadrze = tylko Tomek, sim vs bohater_noc 0.39-0.58, próg 0.35; zwisające nogi bez twarzy nie generują drugiej tożsamości — projekt się potwierdził); kadry na panelu /n150files/10010_kNN.jpg i na moście git tmp_weryfikacja/10010/ | CZEKA NA BRAMKĘ B (oko Tomasza)
+    13	2026-07-26 | "K02 trzyma go za nogę" (bramka B) | k02 ODRZUCONY: chwyt nieczytelny — ręka na łydce/kostce zamiast wysoko między nogawkami; regeneracja z jawnym wskazaniem miejsca (dłoń zaciśnięta wysoko, tam gdzie nogawki się schodzą = krok spodni, POWYŻEJ kolan) + negatyw "nie za łydkę, nie za kostkę"; nadal zero nazw anatomii ($0.15) | W REALIZACJI
+    14	2026-07-26 | [k02 próby] | v2 ($0.15): nano-banana NADAL położyła dłoń przy kostce (VLM), bramka A czysta (1 twarz 0.40) — model ucieka od chwytu w kroku; v3 ($0.15): zmiana KOMPOZYCJI zamiast opisu — kadr obcina buty/kostki poza dolną krawędzią (nogi widoczne od ud do pod kolana), ręka wchodzi z dołu kadru, Tomek od tyłu w rogu; łącznie k02 = 3 próby, budżet $1.20/12; odrzuty zachowane (k02_odrzucony_za_noge.jpg, k02_v2_kostka.jpg) | WERYFIKACJA
+    15	2026-07-26 | "Ostatnie k02 jest OK. Ścisk za jajca jest najważniejszy jak i pisk. W każdym widocznym uchwycie ma być złapany za jajca" | (a) k02 v3 ZAAKCEPTOWANY (kompozycja: buty poza kadrem, ręka wchodzi z dołu, nogi od ud do pod kolana) = WZORZEC UCHWYTU dla całego odcinka; (b) HIERARCHIA ŻARTU wg Tomasza: ŚCISK i PISK to elementy najważniejsze — nie wolno ich rozmyć ani zastąpić sugestią; (c) WYMÓG: w KAŻDYM kadrze, w którym uchwyt jest widoczny (k04, k05, k06), chwyt ma być w tym samym miejscu co w k02 v3 — audyt VLM tych kadrów, regeneracja niezgodnych z k02 v3 jako kotwicą kompozycji | W REALIZACJI
+    16	2026-07-26 | "K04 trzyma go za nogawkę" (bramka B) | k04 v2 ODRZUCONY: pięść na jednej nogawce z boku zamiast MIĘDZY nogawkami; przyczyna robocza — dołożenie twarzy Tomka do kadru rozbiło kompozycję uchwytu z k02; v3: instrukcja "ta sama kompozycja i ten sam chwyt co w k02" + jawny negatyw "pięść NIE na jednej nogawce, nie z boku — MIĘDZY nimi" ($0.15) | W REALIZACJI
+    17	2026-07-26 | "K04 jeszcze nie dokładnie" (+ zrzut k04 v3) | k04 v3 ODRZUCONY: (1) pięść zaciśnięta na LUŹNEJ FAŁDZIE materiału pod siedzeniem spodni zamiast w kroku między udami, (2) nogi ułożone w odwrócone V (jakby Józek wisiał głową w dół), zamiast zwisać prosto w dół z gałęzi na której siedzi; v4: jawnie — Józek SIEDZI okrakiem na grubej gałęzi, obie nogi zwisają PIONOWO I RÓWNOLEGLE po obu stronach uniesionego ramienia, spodnie napięte bez luźnych fałd, pięść zamknięta dokładnie w szwie kroku między udami ($0.15) | W REALIZACJI
+    18	2026-07-26 | "Jesteś poważny?!!!!" (+ zrzut k04 v4) | k04 v4 ODRZUCONY — ABSURD ANATOMICZNY: model odwrócił Józka głową w dół, BUTY są w koronie u góry, krok na dole; chwyt technicznie w kroku, ale scena bez sensu. BILANS k04: 4 próby ($0.60), każda z inną wadą (kostka → nogawka → luźna fałda → odwrócenie do góry nogami). WNIOSEK: pionowe sięganie ręką w górę między zwisające nogi jest geometrią, której nano-banana nie ogarnia — STOP z tym ujęciem. PROPOZYCJA ZMIANY UJĘCIA (czeka na słowo Tomasza, nic nie generuję): kadr Z BOKU, Józek siedzi na NISKIEJ gałęzi (od pasa w górę ukryty w liściach), nogi zwisają naturalnie w dół obok pnia, Tomek stoi przy nim i sięga ręką z boku między uda — geometria naturalna, twarz Tomka w kadrze, chwyt czytelny | WSTRZYMANE DO DECYZJI
+    19	2026-07-26 | "Ile razy mam pisać że uchwyt jest najważniejszy!!! Ty piszesz chujowe prompty więc możesz się też dowiedzieć od innych ludzi jak to się robi!!! Nie masz dostępu do internetu???" | Tomasz ma rację: research praktyków (jego ZASADA KLUCZOWA) zrobiony dopiero po 4 nieudanych próbach i $0.60. Wyniki researchu w NAUKI_SERII; k04 v5 robiony metodą praktyków: EDYCJA zaakceptowanego k02 (Change only / Preserve / Constraint) zamiast nowego promptu | W REALIZACJI
+    20	2026-07-26 | [k04 v5/v6 metodą praktyków] | v5 (edycja k02 bez portretu): chwyt POPRAWNY (pięść w kroku — metoda Change only/Preserve zadziałała za pierwszym razem), ale tożsamość 0.19 = obca twarz (model wymyślił twarz, bo w referencjach nie było portretu); v6 (DWIE referencje: k02 jako baza kompozycji + bohater_noc jako identity lock, ta sama formuła): tożsamość 0.46 PASS, 1 twarz. Bilans k04: 6 prób = $0.90; budżet odcinka $2.10/12 | CZEKA NA OKO TOMASZA
+    21	2026-07-26 | "Ok" (na k04 v6) | k04 ZAAKCEPTOWANY — metoda edit/preserve + podwójna referencja (baza kompozycji + portret) zatwierdzona w boju jako STANDARD poprawek kadrów; k06 przerabiany tą samą metodą (powstał starą, VLM wskazywał pięść przy kostce) | W REALIZACJI
+    22	2026-07-26 | "Ok" (na k06) | BRAMKA B ZAMKNIĘTA — wszystkie 6 kadrów zaakceptowanych (k06 sim 0.33 przeszedł na oko Tomasza mimo progu 0.35 — mimika osłupienia zaniża podobieństwo); k05 zostaje bez uchwytu (brak sprzeciwu, kadr czystej emocji); START KANARKA: k04 jako najbogatszy test ryzyk naraz — lip-sync kwestii Tomka + PISK JÓZKA Z OFFU + drżące nogi + chwyt w ruchu ($0.64) | W REALIZACJI
+    23	2026-07-26 | [kanarek k04 submit] | preflight: 1. przebieg CZERWONY — bramka złapała kwestię w prompcie bez polskich znaków ("pokim/ktos" vs kanon "pókim/ktoś"), poprawione; 2. przebieg 16/16 ZIELONY; SUBMIT veo3.1 lite FLF, RID 019f9da5-52ec-7ff3-8dc0-9e8e73f08b04, $0.64; prompt: kwestia Tomka w cudzysłowie + pisk Józka opisany BEZ cudzysłowu (żeby nie złamać kontroli jednej pary cudzysłowów) | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+    24	2026-07-26 | [KANAREK k04 — wynik] | technika PASS, napisy-widmo PASS, język PASS (whisper medium: kwestia Tomka + "Józek!" z offu — Veo DAŁO głos Józka), tożsamość FAIL (0.19-0.22 vs bohater_noc). ANALIZA 6 klatek: klip WIERNIE odtwarza zaakceptowany kadr k04 (sim vs kadr 0.45-0.83), ale sam kadr k04 odbiega od portretu z biblioteki (0.41) — bo powstał łańcuchem edycji k02→v5→v6, twarz była odtwarzana przez model. Czyli alert = DRYF TOŻSAMOŚCI OD BIBLIOTEKI (nowa lekcja: metoda edit/preserve zachowuje kompozycję, ale kumuluje dryf twarzy), NIE zepsucie w klipie ani przeciek drugiej postaci. PISK JÓZKA: jest, F0 239 Hz vs Tomek 167 Hz — za mało piskliwy, plan: podbicie do ~400 Hz w montażu ffmpeg asetrate+atempo, $0. Koszt: $2.89/12 | CZEKA NA DECYZJĘ TOMASZA: force+batch (5 klipów $3.20) czy najpierw poprawa kadru + drugi kanarek ($0.79)
+    25	2026-07-26 | "Wyeliminować wszystkie błędy zanim pójdzie do veo" | FORCE ODRZUCONY — zasada na ten odcinek: żaden klip nie idzie do Veo, dopóki kadry nie są czyste. Plan: (1) pomiar tożsamości WSZYSTKICH 6 kadrów, (2) poprawa każdego poniżej 0.45 (margines na spadek w ruchu — kanarek pokazał spadek kadr 0.41 → klip 0.19), (3) ponowny pomiar, (4) dopiero wtedy kanarek/batch | W REALIZACJI
+    26	2026-07-26 | [audyt kadrów przed Veo] | Pomiar 6 kadrów vs biblioteka: k01 0.58 OK, k02 brak twarzy (Tomek tyłem — kadr akcji, OK), k03 0.41 słabo, k04 0.46 (w klipie spadło do 0.19!), k05 0.55 OK, k06 0.33 poniżej progu. ŹRÓDŁO ZNALEZIONE: nie kadry, tylko sama referencja bohater_noc.jpg jest zdryfowana (0.59-0.63 vs reszta biblioteki, gdy baza↔karta 0.92) — wszystkie kadry odziedziczyły jej dryf. PLAN NAPRAWY U ŹRÓDŁA (czeka na zgodę, $0.60): (1) regeneracja bohater_noc z kotwicą baza+karta $0.15 — naprawa AKTYWU serii, nie tylko tego odcinka; (2) poprawa k03, k04, k06 metodą edit/preserve z nowym portretem 3×$0.15; (3) ponowny pomiar, cel ≥0.60 w kadrze (bo Veo zjada ~0.25 w ruchu) | CZEKA NA ZGODĘ
+    27	2026-07-26 | "Czyli co? Idziemy dalej?" | ZGODA na plan naprawy $0.60: regeneracja bohater_noc z kotwicą baza+karta + poprawa k03/k04/k06 | W REALIZACJI
+    28	2026-07-26 | "Szukaj odpowiedzi u nas w zapisach bo są rolki i są dobre albo dokładnie doczytaj u ludzi jak to robią" | ODPOWIEDŹ ZNALEZIONA W ZAPISACH (dwie przyczyny, obie po stronie Claude'a): (1) DROGA Etap 3 mówi "najważniejsze referencje w PIERWSZYCH slotach; skonfliktowane referencje = model uśrednia" — Claude dawał jako pierwszą referencję kadr k02, w którym twarz Tomka jest niewidoczna (kadr od tyłu), więc model uśredniał nieistniejącą twarz z portretem → dryf; (2) DECYZJE_10005 (odcinek NOCNY, zaakceptowany): kanarek "PASS: jezyk pl, Janusz 0.63" przy kadrze startowym = CZYSTY PORTRET z biblioteki — czyli noc NIE zaniża pomiaru, moja teza była błędna; 10010 miał łańcuch edycji (portret→k02 v1→v2→v3→k04 v5→v6→k06 v3 = 6 pokoleń kopii) = ten sam błąd, który DROGA 3.1 zakazuje przy klipach ("kserowanie kserówki"). NAPRAWA w ramach udzielonej zgody $0.60 (wydane $0.15): k03/k04/k06 od nowa, referencje w kolejności [bohater_noc = tożsamość, bohater_arkusz = dodatkowe widoki twarzy, k02 = tylko kompozycja chwytu], cel ≥0.50 | W REALIZACJI
+    29	2026-07-26 | "I doczytaj u ludzi jak to robią" | RESEARCH WYKONANY (5 źródeł praktyków, zapis w NAUKI_SERII): kluczowe czego nie robiłem — 4-6 referencji zamiast 1-2, twarz musi zajmować 30-50% kadru referencyjnego (nasze portrety: ~10-15%), identity lock formułą "same eyes, nose shape, jawline contour, skin texture", reuse tych samych tokenów opisowych. WYKONANE ZA $0: cropy twarzy crop_baza.jpg (40%), crop_karta.jpg (51%), crop_noc.jpg (40%) do assets/zarty/karty/ — nowy standard referencji serii. Regeneracja k03/k04/k06 z zestawem: crop_noc + crop_baza + crop_karta + arkusz + kadr kompozycji na końcu ($0.45 z wcześniejszej zgody) | W REALIZACJI
+    30	2026-07-26 | [wynik regeneracji z 5 referencjami] | k03_new 0.27, k04_new 0.17, k06_new 0.36-0.20 — WSZYSTKIE GORSZE od poprzednich (0.41/0.46/0.33); nowe kadry zostają jako *_new.jpg, obowiązujące pozostają stare. Koszt $3.49/12. Zmierzona zasada: mniej referencji = lepiej, dopóki biblioteka nie jest wewnętrznie spójna | ZGŁOSZONE TOMASZOWI
+    31	2026-07-26 | "B" | Kończymy 10010 na tym co jest: k04 i k06 regenerowane ŚWIEŻO z JEDNĄ referencją bohater_noc (metoda k01/k05, które dały najlepsze 0.55-0.58), zero łańcucha edycji, prompt łączy kompozycję z k02 (nogi, buty poza kadrem, pięść w kroku) z twarzą jak w k01/k05; naprawa biblioteki Tomka = osobny temat poza tym odcinkiem ($0.30) | W REALIZACJI
+    32	2026-07-26 | [wynik B] | k04_b sim 0.46 (bez zmiany, ale bez łańcucha edycji), k06_b sim 0.55 (było 0.33 — +0.22, najlepszy wynik w odcinku obok k01/k05); OBA PODSTAWIONE jako obowiązujące, stare zachowane (k04_lancuch_046.jpg, k06_lancuch_033.jpg). POTWIERDZENIE ZASADY: jedna referencja z właściwej domeny > wiele referencji z niespójnej biblioteki. Koszt $3.79/12 | CZEKA NA BRAMKĘ B
+    33	2026-07-26 | "Weryfikacja nie Halucynacja robiłeś to dzisiaj kilka razy więc dlaczego popełniasz dalej błędy" + zrzuty k04/k06 (PUSTE SPODNIE, bez człowieka) | k04_b i k06_b ODRZUCONE. Przyczyna obrazu: prompt "no face, no head, no torso, no silhouette" wzięty przez model dosłownie = wygenerował puste portki jak pranie. Przyczyna procesowa: VLM OSTRZEGAŁ ("nogi nie zwisają w dół") — zignorowane, pytania były naprowadzające, zabrakło pytania o sedno (czy w spodniach jest człowiek). Lekcja w NAUKI_SERII. NIC nie generuję do decyzji Tomasza o kształcie ujęcia (propozycja: nogi + fragment tułowia okrakiem na gałęzi, głowa i twarz w listowiu) | STOP, CZEKA NA DECYZJĘ
+    34	2026-07-26 | "Jak można anulować starzników po co oni są?" | Przyznanie: Claude nadużył prawa do force — "wzorzec k09" był używany jako domyślna wymówka do przepuszczania FAIL-i tożsamości (10009 k05 przepuszczony własną decyzją; 10010 kadry poniżej progu prezentowane jako "do oka"). NOWA TWARDA REGUŁA (NAUKI_SERII): FAIL = STOP; naprawa albo force, a force wypowiada wyłącznie Tomasz po dowodach. Bez wyjątków, także przy presji czasu | PRZYJĘTE NA STAŁE
+    35	2026-07-26 | "Dlaczego ja nie widzę tych odpowiedzi strażników" | Wdrożony wrapper jawności tools/bramka_raport.sh (raport → panel + Telegram); pierwszy raport na żywo: kanarek k04 (FAIL tożsamość 0.19-0.22) wystawiony na /n150files/10010_raport_kanarek_k04.txt, Telegram wysłany; commit wrappera do repo | WDROŻONE
+    36	2026-07-26 | "Popraw" | ZGODA na kształt ujęcia: w koronie widać CZŁOWIEKA — biodra/dolny tułów okrakiem na grubej gałęzi, obie nogi w spodniach WYPEŁNIONYCH nogami zwisają w dół, stopy w GUMOWCACH (kanon rekwizytów: nogawki+gumowce, gumowiec spada w k05); głowa, ramiona i twarz całkowicie w listowiu = Józek nierozpoznawalny do puenty. Regeneracja k04+k06 świeżo, 1 referencja bohater_noc (zasada zmierzona), $0.30. Weryfikacja NOWĄ procedurą: najpierw OTWARTY opis VLM, potem detale, sprzeczność=FAIL, raport bramki A na panel+Telegram | W REALIZACJI
+    37	2026-07-26 | [wynik "Popraw"] | k04+k06 przegenerowane z człowiekiem na gałęzi ($0.30) + k06 raz poprawiony po FAIL bramki A ($0.15) — budżet $4.24/12. STAN wg bramki A (raporty na panelu, TG wysłane): k04 — detale VLM zgodne z zamierzeniem (nogawki WYPEŁNIONE, pięść wysoko między udami, nogi w dół, tułów na gałęzi), 1 twarz 0.37, opis otwarty pogmatwany (VLM plecie o "pomaganiu zdobyć jabłko") = FLAGA; k06 v6 — sędzia PRZECZY SAM SOBIE: opis otwarty widzi człowieka z butami na gałęzi, detale twierdzą "puste spodnie"; 1 twarz 0.56, pięść między udami, głowa w liściach. WNIOSEK: osiągnięty limit wiarygodności qwen2.5vl:7b jako sędziego tej sceny; zgodnie z regułą FAIL=STOP Claude NIE generuje dalej i NIE rozstrzyga sam — oba kadry + surowe raporty idą pod oko Tomasza (bramka B rozstrzyga) | STOP, CZEKA NA WERDYKT
+    38	2026-07-26 | "Nie trzymie go na obydwuch zdjęciach za jaja" (bramka B) | k04 i k06 (wersje "okrakiem na gałęzi") ODRZUCONE — chwyt nie siedzi; sędzia VLM znowu potwierdzał "pięść między udami" wbrew oku Tomasza = VLM niewiarygodny dla tej sceny, decyduje wyłącznie bramka B. DIAGNOZA GEOMETRII: osoba siedząca OKRAKIEM na gałęzi ma krok NA gałęzi — chwytu od dołu fizycznie nie da się tam położyć, dlatego model kładł pięść na nodze. Geometria zaakceptowanego k02 (nogi zwisają razem z listowia, zbieg nogawek odsłonięty) jest jedyną, w której chwyt wychodzi. NAPRAWA $0: przywrócenie wersji z ZAAKCEPTOWANYM przez Tomasza chwytem — k04_lancuch_046.jpg (v6, "Ok") i k06_lancuch_033.jpg (v3, "Ok") wracają jako obowiązujące; wersje okrakiem do zapasu | PRZYWRÓCONE, CZEKA NA POTWIERDZENIE + DECYZJĘ O KANARKU
+    39	2026-07-26 | "Dawaj" | ZGODA na kanarka #2 k04 ($0.64): kadr = przywrócony k04 (zaakceptowany chwyt), prompt Veo ze wzmocnioną tożsamością (pełne tokeny + "the same man with the same face for the entire clip, his facial features never change" + kamera trzyma twarz w świetle przez cały klip); preflight i kanarek przez wrapper jawności | W REALIZACJI
+    40	2026-07-26 | [kanarek2 submit] | preflight 16/16 ZIELONY (raport na panelu+TG); SUBMIT veo3.1 lite FLF z kadru k04 (zaakceptowany chwyt), RID zapisany w gen_state_k04_kanarek2.json | CZEKA NA WYNIK; RID: 019f9dda-bbbf-7160-a225-0d6042725be3
+    41	2026-07-26 | [kanarek2 — wynik i dowody] | Technika/napisy/język PASS, PISK JEST (whisper medium: kwestia + "Józek!" 2.3-3.1s), tożsamość FORMALNY FAIL (1 klatka kl_09 sim 0.2; w pierwszym kanarku były 2). Diagnostyka klatek co 1s: vs ZAAKCEPTOWANY KADR 0.39-0.87 (kotwice 0.81/0.87 — klip wierny kadrowi), f06-f07 bez twarzy (moment szarpnięcia/kamera przy nogach), vs biblioteka 0.25-0.40 (znany nocny poziom). Zgodnie z regułą FAIL=STOP: zero batcha, zero wydatków — klip wystawiony Tomaszowi do oka (faststart), decyzja force/poprawka/odrzut należy do niego. Budżet $4.88/12 | CZEKA NA WERDYKT TOMASZA
+    42	2026-07-26 | "A piskliwy głos Józka???? Zapomniałeś już" | TOMASZ MA RACJĘ — pomiar na oknie słowa (whisper word-timestamps 2.48-2.90s): Tomek 230 Hz, "Józek!" 235 Hz = TEN SAM zwykły męski głos, ŻADNEGO pisku; moje "PISK JEST" w raporcie kanarka2 było kolejnym niezweryfikowanym twierdzeniem (słowo ≠ pisk). Realizacja zapisanego planu $0: pitch-up segmentu w montażu — DWA WARIANTY DEMO na panelu do ucha Tomasza: A ×1.7 (~400 Hz), B ×2.2 (~515 Hz, helowo-zduszony); tempo bez zmian, reszta klipu nietknięta. Ta sama obróbka pójdzie na każdy klip z głosem Józka (k04, k06) deterministycznie w montażu — pisk przestaje zależeć od loterii Veo | CZEKA NA WYBÓR A/B (albo odrzut → inne podejście)
+    43	2026-07-26 | "Pierwszy" | (a) PISK = WARIANT A (×1.7, ~400 Hz) — obowiązuje dla każdego głosu Józka w montażu (k04 i k06); (b) pytanie było skonstruowane "A czy B + przy tym samym słowie force na batch" → "Pierwszy" = także FORCE NA BATCH 5 klipów ($3.20) mimo formalnego FAIL tożsamości kanarka (interpretacja z konstrukcji pytania Claude'a, zapisana jawnie). Budżet po batchu: $8.08/12 | W REALIZACJI
+    44	2026-07-26 | [zmiana konfiguracji pod kanon] | k06 = kwestia JÓZKA (off-screen), a GLOSY_VEO zna tylko duet → dodany klucz "JOZEK" z głosem WPROST z kanonu Tomasza ("niezwykle piskliwy, nienaturalnie wysoki, zduszony, łamiący się, wyciśnięty z resztek sił"); to GŁOS epizodyczny na potrzeby 10010, NIE powrót postaci wizualnej z banku (komenda 23.07 "zostaw Tomasza i Janusza" dotyczyła obsady widocznej — kanon 10010 sam wprowadza głos Józka); backup kodu przed zmianą | W REALIZACJI
+    45	2026-07-26 | [naprawy przed batchem] | (1) preflight.py: kontrola twarzy mówcy zasadnie POMIJANA dla klipów niemych (--bez-dialogu) i mówców zza kadru bez karty (JOZEK) — luka narzędzia wykryta przez batch, naprawiona z backupem (/tmp/preflight_backup_10010.py), regresja czysta (k01 niemy POMINIĘTY+ZIELONY, k04 dialog PASS 0.41); (2) k03: edycja standardowa dała 0.31 (za mało), ŚWIEŻA generacja z bohater_noc = 0.49 vs karta / 0.58 vs noc — NAJLEPSZY k03, podstawiony (zapasy k03_v1_033, k03_v2_031); wystawiony na panel do wglądu. Koszt napraw $0.30, budżet $5.18/12 | ZROBIONE, BATCH STARTUJE
+    46	2026-07-26 | [BATCH submit] | 5/5 preflight ZIELONY (raport panel+TG); SUBMIT 5× veo3.1 lite FLF, PEŁNE RIDy: k01 019f9dea-d398-72d3-8492-f99e1e10517d, k02 019f9dea-d9eb-7080-9ff6-1d5fc545f5cb, k03 019f9dea-e050-7e82-b348-b4a7fb49666d, k05 019f9dea-e6fb-7660-848f-d22dc05c32bf, k06 019f9dea-ef2b-7a72-b776-599cad94fe9f; $3.20, budżet $8.38/12 | CZEKA NA WYNIKI
+    47	2026-07-26 | [strażnik batchu — wyniki] | k02, k03, k05 PASS CZYSTY (k03 po świeżym kadrze przeszedł!); k01 PASS Z UWAGĄ (plan szeroki = mała twarz, zgodne z zamysłem zasadzki); k06 FAIL tożsamość (0.27-0.30, kadr miał 0.33) — zgodnie z regułą FAIL=STOP decyzja force/naprawa należy do Tomasza. TREŚĆ k06 POPRAWNA: whisper medium słyszy pełną puentę "To ja, Józek, niemowa ze wsi." (0.0-5.68s), F0 145 Hz (Veo dało NISKI głos — wariant A ×1.7 w montażu podbije do ~250... UWAGA: 145×1.7=247 Hz to za mało na pisk, dla k06 potrzebny większy mnożnik, do przetestowania na tym klipie przy montażu, $0). Podglądy 5 klipów na panelu (faststart). Budżet $8.38/12 | CZEKA NA WERDYKT: k06 force/naprawa
+    48	2026-07-26 | "Japierdole" (po wystawieniu 5 klipów batchu) | reakcja bez wskazania konkretu — NIC nie ruszać (dotyczy też innych okien), zero generacji i wydatków, czekam na wskazanie: który klip i co jest nie tak | STOP
+    49	2026-07-26 | "Wszystko jest zjebane" (werdykt po obejrzeniu 5 klipów batchu) | CAŁOŚCIOWY ODRZUT — bez wskazania konkretu; zamiast trzeci raz pytać, Claude robi PEŁNĄ diagnostykę własną ($0): transkrypcje whisper medium wszystkich klipów vs kanon (kontrola, której brakowało — lekcja 10009 niewdrożona!), otwarte opisy VLM klatek każdego klipu, macierz spójności twarzy Tomka MIĘDZY klipami (hipoteza: inny Tomek w każdym klipie — kadry mają między sobą tylko 0.38-0.58) | DIAGNOSTYKA W TOKU, ZERO WYDATKÓW
+    50	2026-07-26 | [diagnoza całości — USTALENIA] | Dźwięk: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), k01/k02 nieme jak trzeba. OBRAZ — SCENY ROZPADAJĄ SIĘ W ŚRODKU KLIPÓW (otwarte opisy VLM na 4s): k02 ŚCISK ZNIKA — jakaś postać NA drzewie zbiera coś, przedmioty spadają; k04 Tomek ZAWIESZONY W PNIU, trzyma się gałęzi nogami rozłożonymi szeroko; k05 gumowiec WISI NA SZNURKU na gałęzi (VLM sam pisze "absurdalnie"); k06 chwyt znika, Tomek PODCIĄGA WŁASNE SPODNIE na biodrze; k03 znośny; k01 Tomek "spokojny zamyślony" zamiast zasadzki. PRZYCZYNA: (a) FLF kotwiczy tylko 1. i ostatnią klatkę — środek jest wolny (znane: "FLF = interpolacja"), a moje prompty opisywały DYNAMICZNE akcje ("legs JERK violently", "fist TIGHTENS, knuckles whiten") sprzeczne z "holds the exact pose" — Veo wybrało akrobatykę; w 10008/09 prompty były "holds pose + mówi" i działały; (b) LUKA BRAMEK: kanarek nie ma sędziego VLM scen (POMINIĘTY) — rozpad sceny w środku klipu jest niewidzialny dla technicznego/tożsamości; otwarty opis VLM środka klipu = brakująca bramka, wdrożyć na stałe | ZGŁOSZONE, PLAN NAPRAWY U TOMASZA
+    51	2026-07-26 | "Przenieś wszystko co spierdoliłeś i nad czym pracowaliśmy dzisiaj bo idę do innego okna" | PRZEKAZANIE WYKONANE: wiedza/PRZEKAZANIE_2026-07-26_10010.md (pełny stan+diagnoza+plan+reguły dnia), wskaźnik w 1. linii TELEPORT_fabryka.md, LOCK ustawiony na PRZEKAZANY, backup preflightu do wiedza/backupy/, wszystko w gicie | OKNO ZAMKNIĘTE
+    52	2026-07-26 | [przejęcie okna] | nowe okno (czat /route) przejęło odcinek wg PRZEKAZANIA; ZWERYFIKOWANE na żywo: LOCK był PRZEKAZANY, commit c0494b8 na origin (main==origin/main), zero procesów, budżet $8.38/12 zgodny | PRZEJĘTE, CZEKA NA SŁOWO TOMASZA (plan re-rolli)
+    53	2026-07-26 | "Działaj" | zgoda na pakiet: re-roll k02/k04/k05/k06 w reżimie statycznym (prompty pracownika + poprawki szefa: k05=wariant B BEZ zdania o gumowcu, kamera locked-off) $2.56 + edycja kadru k05 (usunięcie gumowca z powietrza) $0.15 ≈ $2.71, budżet docelowo ~$11.09/12; k01/k03 BEZ re-rollu — ocena przy montażu; kolejność: sędzia anonimowy ($0) → bramka A kadru → preflight (jawność panel+TG) → submit | W REALIZACJI
+    54	2026-07-26 | [sędzia anonimowy — werdykt] | k05 PASS, k06 PASS; k02 ZARZUT (brak cudzysłowów) ODRZUCONY przez szefa — klip niemy, reguła dotyczy klipów z kwestią, rozstrzyga preflight; k04 ZARZUT (pisk = drugi głos, pretekst ożywienia korony) CZĘŚCIOWO ZASADNY — mitygacja w prompcie (causes no visible movement) + bramka otwartego opisu środka klipu FAIL=STOP; pisk w k04 zostaje (oczekiwanie Tomasza: 'A piskliwy głos Józka????' po kanarku2) | ZAMKNIĘTE, IDZIE KADR K05
+    55	2026-07-26 | [re-roll submit] | kadr k05: gumowiec usunięty nano-banana-pro/edit $0.15 (backup k05_gumowiec_w_powietrzu.jpg, bramka A PASS: VLM but=NIE twarz=TAK, raport+podgląd na panelu); preflight 4/4 ZIELONY (raport panel+TG); SUBMIT 4× veo3.1 lite FLF $2.56, PEŁNE RIDy: k02 019f9e8d-6089-75f0-b4c9-9db365ddbe20, k04 019f9e8d-6654-7651-993a-262a8704c159, k05 019f9e8d-6dca-75a2-90b7-f9ae9ba21a08, k06 019f9e8d-75a2-7d50-8faf-3df26ad84cf5; budżet $11.09/12 | CZEKA NA WYNIKI → strażnik + NOWA bramka otwartego opisu środka klipu
+    56	2026-07-26 | [NARADA TRÓJKI — konsensus] | Strażnicy: k02+k05 podwójnie czyste; k04/k06 kanarek-FAIL tożsamości. Zenek: FAIL-e mierzone vs ZDRYFOWANA biblioteka nie dowodzą obcej twarzy, H2/H3/H4 zgoda, H1 wymaga pomiaru; napisał skrypt weryfikacji $0. POMIAR (raport na panelu+TG): k04 WIERNY KADROWI 6/6 (mediana 0.63, min 0.46), k06 WIERNY KADROWI 8/8 (mediana 0.69, min 0.47) — formalne FAIL-e = artefakt kotwicy bohater_noc. OTWARTE: k06 środek — VLM przeczy sam sobie (opis otwarty: siedzi na drzewie; detale: chwyt OK) → wg precedensu dnia rozstrzyga WYŁĄCZNIE bramka B (oko Tomasza); k04 środek PASS. Koszt narady $0, budżet $11.09/12 | KONSENSUS TRÓJKI OSIĄGNIĘTY, PROPOZYCJA U TOMASZA
+    57	2026-07-26 | [TRÓJKA — rozstrzygnięcie sprzeczności VLM] | Opisy otwarte VLM (k02/k04/k06: "człowiek na drzewie") = HALUCYNACJE SERYJNE, dowód liczbowy: MAD klatki-środka vs kadr — k02 7.4, k04 8.1, k06 7.5 przy WZORCU ZDROWIA k05=15.4 (podwójnie czysty close-up); kompozycja środka trzyma sceny lepiej niż wzorzec. Razem z twarzami wiernymi kadrom (6/6 i 8/8) i PASS technika/napisy/język: WSZYSTKIE 4 KLIPY ZDROWE. Klatki środka na panelu (10010_srodek_kXX.jpg) + podglądy klipów → BRAMKA B | KONSENSUS PEŁNY, CZEKA NA OKO TOMASZA
+    58	2026-07-26 | "Czemu w ostatnim klipie to Tomek mówi sekwencje Niemowy?" (bramka B na k06_reroll) | KRYTYCZNE: widoczny Tomek WYPOWIADA puentę Józka zamiast stać z zamkniętymi ustami przy głosie z offu — zabija sedno żartu (niemowa mówi Z KORONY); żaden strażnik tego nie łapie (język sprawdza CO padło, nie KTO mówi; tożsamość: to Tomek; środek: poza trzyma) — ślepa plama bramek | STOP, NARADA TRÓJKI NATYCHMIAST
+    59	2026-07-26 | [TRÓJKA k06 — konsensus] | POMIAR (raport panel+TG): usta widocznego Tomka PRACUJĄ przez 100% klatek (rozwarcie 0.14-0.17, oscylacja mowy) — bramka B potwierdzona liczbą. DIAGNOZA Zenka (zgodna z Klaudkiem): natywny lip-sync Veo traktuje widoczną twarz jako mówcę, miękkie negacje w prompcie przegrywają z wyuczonym wzorcem; praktycy: ujęcia nieme + dialog w postprodukcji. PROPOZYCJA TRÓJKI: Wariant 1 za $0.64 — k06 całkowicie NIEMY (prompt bez słowa o głosie/pisku, usta domknięte pozytywnie), głos Józka wycięty z batchowego k06 (czysta puenta, 145 Hz) + pitch-up deterministyczny (2 mnożniki do ucha Tomasza, ×1.7 za mało), położony w montażu; budżet po: $11.73/12. Alternatywy: loteria promptowa $0.64 / kadr+niemy $0.79 / maska ust $0 (artefakty). Bramka KTO MÓWI (projekt Zenka + progi z pomiaru) do wdrożenia po odcinku $0 | KONSENSUS, CZEKA NA SŁOWO TOMASZA
+    60	2026-07-26 | "K05 dlaczego Tomek nie trzyma niemowę w dalszym ciągu tylko wygląda jakby obca osoba z boku pytała?" (bramka B) | k05: zbliżenie czystej emocji BEZ chwytu i BEZ relacji przestrzennej ze ściskiem (tło: drzewo ZA nim, nie korona NAD nim) czyta się jak pytający gapiowicz z boku — zerwana ciągłość ŚCISKU (nienaruszalne: ścisk najważniejszy); wcześniejsza akceptacja kadru czystej emocji (rano, brak sprzeciwu) NADPISANA najnowszym słowem | STOP, NARADA TRÓJKI
+    61	2026-07-26 | [TRÓJKA k05 — konsensus] | DIAGNOZA (Zenek+Klaudek zgodni): winowajca = zero wizualnej kotwicy chwytu (brak ręki/pięści/nogawek) + drzewo ZA plecami + zbliżenie odcinające przestrzeń k04 → efekt gapowicza; problem kompozycji, nie emocji/lip-synca. PROPOZYCJA TRÓJKI: Wariant 4+ za $0 — obraz k05 odpada, czysta kwestia 'No gadaj draniu, ktoś ty?!' z klip_k05_reroll idzie jako krzyk NAD ZAAKCEPTOWANYM SZEROKIM KADREM CHWYTU z zatrzymaniem/najazdem Ken Burns (statyczny obraz = zero konfliktu ust, chwyt na ekranie przez cały krzyk); awaryjnie: cięcie pytania (eskalacja na dwóch). Odrzucone: nowy kadr+reroll $0.79 (budżet po obu naprawach $12.52 = przekroczenie limitu — tylko jawnym słowem Tomasza). ŁĄCZNY PAKIET z k06 (niemy $0.64 + głos z montażu): budżet końcowy $11.73/12 | KONSENSUS, PAKIET U TOMASZA
+    62	2026-07-26 | "Rolka ma być zajebista i śmieszna więc naradzić się jeszcze raz doczytać wszyscy jak to ma wyglądać i działać" | NARADA #2 z innym celem: nie łatanie klipów, tylko ARCHITEKTURA KOMIZMU całej rolki — wszyscy czytają od nowa (kanon 10010+10004, DROGA, NAUKI, rytm 10008/09), wynik: sekundnik jak rolka wygląda i działa, żeby była zajebista i śmieszna; pakiet naprawczy podporządkowany architekturze; zero wydatków do słowa Tomasza | W TOKU
+
+codex
+## SEKUNDNIK
+
+| Beat | Czas | OBRAZ | DŹWIĘK | Funkcja komiczna |
+|---:|---:|---|---|---|
+| 0 | 0:00–0:45 | Krótkie animowane intro `rod_profilowe`; natychmiastowy cut do sadu | Krótki sting brandu, ucięty bez wybrzmiewania | Szybkie otwarcie, bez zabierania czasu żartowi |
+| 1 | 0:45–3:00 | k01, szeroki plan zasadzki; powolny najazd. Plansza: „Kiedy złapiesz złodzieja jabłek... 🍎” przez ok. 1,6 s | Cykady i cichy szelest liści | Mock-seriousness: Tomek zachowuje się jak komandos, choć pilnuje jabłek |
+| 2 | 3:00–3:35 | Ostatnie klatki k01: nagły shake/whip w stronę korony | Głośny trzask gałęzi; szelest urywa się natychmiast | Zaskoczenie i przygotowanie ataku |
+| 3 | 3:35–4:45 | Gwałtowny punch-in na zaakceptowany chwyt → krótki fragment k02; cięcie ma jednoznacznie pokazać pięść między nogawkami | VINE BOOM dokładnie na pierwszej klatce chwytu; po nim brak cykad i szelestu | Pierwszy właściwy beat śmiechu: niewspółmiernie „epicki” atak i absurdalne miejsce chwytu |
+| 4 | 4:45–6:65 | k03, jump-cut do twarzy Tomka; lekki punch-in na „ktoś ty?!” | „Gadaj, ktoś ty?!”; po kwestii 0,30 s absolutnej ciszy | Pierwsza próba przesłuchania; kontrast groźnej formy z absurdalną sytuacją |
+| 5 | 6:65–7:20 | Szeroki kadr chwytu/still; bez ruchu poza minimalnym cyfrowym najazdem | Cisza 0,55 s | Widz czeka na odpowiedź, której nie ma — cisza staje się żartem |
+| 6 | 7:20–9:55 | k04, chwyt cały czas czytelny; cięcie do mocniejszego punch-inu przy końcu pytania | „Gadaj, pókim dobry, ktoś ty?!” | Eskalacja: Tomek zadaje praktycznie to samo pytanie, tylko jeszcze poważniej |
+| 7 | 9:55–10:50 | Freeze/punch-in na nogawki i pięść; żadnej akrobatyki obrazu | 0,15 s ciszy → wyduszone „Józek...” z pitch-upem do zaakceptowanego wariantu A, ok. 0,55 s → 0,15 s ciszy | Drugi mocny beat śmiechu: z korony wychodzi niemożliwie piskliwe jedno słowo |
+| 8 | 10:50–13:20 | Zaakceptowany szeroki kadr chwytu jako still; szybki Ken Burns, ok. 100→118%. Obraz k05 nie występuje | Czyste audio k05: „No gadaj draniu, ktoś ty?!”; żadnego podkładu | Eskalacja przez idiotyczną konsekwencję Tomka: usłyszał imię, lecz dalej przesłuchuje |
+| 9 | 13:20–13:65 | Bardzo krótki dodatkowy punch-in na sam chwyt | Krótki, suchy SFX ściśnięcia materiału/skrzypnięcia gałęzi; potem 0,20 s ciszy | „Ostatnie ściśnięcie” bez dosłowności; wizualny setup puenty |
+| 10 | 13:65–17:80 | Nowy niemy k06: Tomek osłupiały, usta domknięte, chwyt utrzymany. Minimalny ruch; bez napisów-widmo | Puenta wycięta z batchowego k06 i położona z offu: „To ja... Józek... niemowa ze wsi!”. Pitch-up dobrany z dwóch wariantów na bazie źródła 145 Hz; ostatnie „wsi!” kończy się twardo, bez dopowiedzenia | Główny beat śmiechu: absurd logiczny — „niemowa” przemawia dopiero po ściśnięciu, a Tomek nie jest mówcą |
+| 11 | 17:80–18:60 | Twardy cut do obowiązkowego outro brandu z oznaczeniem AI | Krótki sting outro, oddzielony od puenty cięciem | Brand jest obecny, ale nie rozcieńcza puenty |
+
+Całość: około **18,6 s z intro i outro**. Napisy KOLORY_ASS mają wejść w rytm słów, dzielone po interpunkcji, maksymalnie około sześciu słów. „Józek...” i puenta dostają osobny kolor Józka. Żadnych napisów na ciszy. Wszystkie części przed concat należy znormalizować do 24 fps, 1080×1920, AAC 48 kHz stereo; po montażu różnica długości strumieni audio–wideo poniżej 0,05 s i `faststart`.
+
+## KOMIZM
+
+1. **Atak i VINE BOOM — kontrast + absurd**  
+   Tomek zachowuje się jak bohater thrillera, ale „operacja specjalna” dotyczy złodzieja jabłek i kończy się chwytem między nogawkami. Obecnie ścisk pojawia się znikąd. Trzask, shake, punch-in i boom przywracają brakującą przyczynę.
+
+2. **Cisza po pierwszym pytaniu — timing**  
+   Pytanie potrzebuje pustego miejsca na odpowiedź. Natychmiastowe przejście do następnej kwestii zgubiłoby fakt, że schwytany nie odpowiada. Około 0,55 s martwej ciszy pozwala widzowi zauważyć problem.
+
+3. **Wyduszone „Józek...” — eskalacja + dźwiękowy absurd**  
+   Po drugim nacisku pojawia się jedno piskliwe słowo. Śmiech ginie, jeśli brzmi ono jak zwykły męski głos. Pitch-up i freeze na chwycie łączą przyczynę z reakcją.
+
+4. **Trzecie pytanie mimo podania imienia — eskalacja charakteru**  
+   Tomek dostał odpowiedź „Józek”, lecz nadal pyta „ktoś ty?!”. To robi z niego komediowo zacietrzewionego przesłuchującego, nie realistycznego oprawcę. Obraz k05 gubił ten żart, bo Tomek wyglądał jak przypadkowy gapowicz. Szeroki kadr chwytu przywraca relację i ciągłość.
+
+5. **„Niemowa ze wsi” — sprzeczność + puenta**  
+   Największy śmiech wynika z logicznego absurdu: niemowa jednak mówi, bo Tomek go „wydusił”. Jeśli puentę wypowiada widoczny Tomek, żart całkowicie znika. Dlatego k06 musi być niemy, a Józek wyłącznie głosem z korony.
+
+Materiał gra zbyt grobowo przede wszystkim w k01 i dialogach Tomka. Nie próbowałbym udawać, że tego nie ma: montaż ma przekodować powagę w **mock-seriousness** przez krótkie jump-cuty, przesadnie filmowy VINE BOOM, kolorowe napisy, bezczelnie długie cisze i pisk będący kompletnie nieadekwatną odpowiedzią na groźne przesłuchanie.
+
+## DŹWIĘK
+
+- **Muzyka: NIE podczas żartu.** Muzyka dramatyczna dołożyłaby serio-powagi, a muzyka komediowa tłumaczyłaby widzowi, kiedy ma się śmiać. Wystarczą krótkie stingi brandowe w intro i outro.
+- **0:45–3:00:** nocne cykady około −26 dBFS, liście około −30 dBFS. Naturalnie, bez horrorowego basu.
+- **3:00:** trzask gałęzi na ruchu kamery; dokładnie wtedy szelest ustaje.
+- **3:35:** jeden krótki VINE BOOM na ujawnieniu chwytu. Bez kolejnych boomów — powtórzenia osłabiłyby pierwszy.
+- **Po każdym pytaniu:** prawdziwa cisza, nie „cichy ambience”. Najważniejsze pauzy: 0,30 s po pytaniu pierwszym, 0,55 s przed pytaniem drugim, 0,15 s przed „Józek...” i 0,20 s przed puentą.
+- **„Józek...” w k04:** segment odseparowany od głosu Tomka i podniesiony wariantem A do ok. 400 Hz, bez zmiany tempa; lekko zduszony, urwany, dochodzący z góry.
+- **Ostatnie ściśnięcie:** pojedyncze skrzypnięcie gałęzi lub ściśnięcie materiału, krótkie i suche. Bez odgłosów slapstickowej sprężyny.
+- **Puenta k06:** czyste audio z batchowego k06, dwa warianty pitch-upu odsłuchane na całym zdaniu, ponieważ źródło ma 145 Hz i wcześniejsze ×1,7 da tylko około 247 Hz. Wygrywa wariant naprawdę piskliwy, ale jeszcze czytelny. Głos z góry, centralnie z lekkim pogłosem sadu; żadnego ruchu ust Tomka.
+- **Koniec:** po słowie „wsi!” twarde cięcie. Bez śmiechu z puszki, cymbałków i dopowiadającego efektu.
+
+## WERDYKT S1–S4
+
+- **S1 — ZGODA.** Beat ataku jest konieczny; trzask → ustanie szelestu → shake → VINE BOOM → chwyt tworzą brakujące połączenie przyczynowe za $0.
+- **S2 — ZGODA.** Audio k05 nad szybkim Ken Burnsem zaakceptowanego chwytu jest komediowo i narracyjnie lepsze niż obraz gapowicza.
+- **S3 — ZGODA.** Grobową grę można odzyskać montażem jako mock-seriousness, pod warunkiem że rytm, cisze, pisk i kolorowe napisy są traktowane jako konstrukcja żartu, a nie dekoracja.
+- **S4 — ZGODA Z KOREKTĄ.** Rdzeń powinien mieć około 17,35 s, a z krótkim intro i outro około 18,6 s; nie wolno rozciągać sześciu pełnych klipów do ich surowych długości.
+
+## BRAKI
+
+Poza zatwierdzonym planem **niemego k06 za $0.64 nie brakuje żadnego płatnego materiału**.
+
+K01–k04, audio k05, zaakceptowane kadry 2K, czysta puenta z batchowego k06, intro, outro i materiał do darmowych SFX wystarczają. Nie potrzeba nowego k05, nowych kadrów ani nowych generacji postaci. Budżet końcowy: **$11.73/12**.
+tokens used
+55,306
+## SEKUNDNIK
+
+| Beat | Czas | OBRAZ | DŹWIĘK | Funkcja komiczna |
+|---:|---:|---|---|---|
+| 0 | 0:00–0:45 | Krótkie animowane intro `rod_profilowe`; natychmiastowy cut do sadu | Krótki sting brandu, ucięty bez wybrzmiewania | Szybkie otwarcie, bez zabierania czasu żartowi |
+| 1 | 0:45–3:00 | k01, szeroki plan zasadzki; powolny najazd. Plansza: „Kiedy złapiesz złodzieja jabłek... 🍎” przez ok. 1,6 s | Cykady i cichy szelest liści | Mock-seriousness: Tomek zachowuje się jak komandos, choć pilnuje jabłek |
+| 2 | 3:00–3:35 | Ostatnie klatki k01: nagły shake/whip w stronę korony | Głośny trzask gałęzi; szelest urywa się natychmiast | Zaskoczenie i przygotowanie ataku |
+| 3 | 3:35–4:45 | Gwałtowny punch-in na zaakceptowany chwyt → krótki fragment k02; cięcie ma jednoznacznie pokazać pięść między nogawkami | VINE BOOM dokładnie na pierwszej klatce chwytu; po nim brak cykad i szelestu | Pierwszy właściwy beat śmiechu: niewspółmiernie „epicki” atak i absurdalne miejsce chwytu |
+| 4 | 4:45–6:65 | k03, jump-cut do twarzy Tomka; lekki punch-in na „ktoś ty?!” | „Gadaj, ktoś ty?!”; po kwestii 0,30 s absolutnej ciszy | Pierwsza próba przesłuchania; kontrast groźnej formy z absurdalną sytuacją |
+| 5 | 6:65–7:20 | Szeroki kadr chwytu/still; bez ruchu poza minimalnym cyfrowym najazdem | Cisza 0,55 s | Widz czeka na odpowiedź, której nie ma — cisza staje się żartem |
+| 6 | 7:20–9:55 | k04, chwyt cały czas czytelny; cięcie do mocniejszego punch-inu przy końcu pytania | „Gadaj, pókim dobry, ktoś ty?!” | Eskalacja: Tomek zadaje praktycznie to samo pytanie, tylko jeszcze poważniej |
+| 7 | 9:55–10:50 | Freeze/punch-in na nogawki i pięść; żadnej akrobatyki obrazu | 0,15 s ciszy → wyduszone „Józek...” z pitch-upem do zaakceptowanego wariantu A, ok. 0,55 s → 0,15 s ciszy | Drugi mocny beat śmiechu: z korony wychodzi niemożliwie piskliwe jedno słowo |
+| 8 | 10:50–13:20 | Zaakceptowany szeroki kadr chwytu jako still; szybki Ken Burns, ok. 100→118%. Obraz k05 nie występuje | Czyste audio k05: „No gadaj draniu, ktoś ty?!”; żadnego podkładu | Eskalacja przez idiotyczną konsekwencję Tomka: usłyszał imię, lecz dalej przesłuchuje |
+| 9 | 13:20–13:65 | Bardzo krótki dodatkowy punch-in na sam chwyt | Krótki, suchy SFX ściśnięcia materiału/skrzypnięcia gałęzi; potem 0,20 s ciszy | „Ostatnie ściśnięcie” bez dosłowności; wizualny setup puenty |
+| 10 | 13:65–17:80 | Nowy niemy k06: Tomek osłupiały, usta domknięte, chwyt utrzymany. Minimalny ruch; bez napisów-widmo | Puenta wycięta z batchowego k06 i położona z offu: „To ja... Józek... niemowa ze wsi!”. Pitch-up dobrany z dwóch wariantów na bazie źródła 145 Hz; ostatnie „wsi!” kończy się twardo, bez dopowiedzenia | Główny beat śmiechu: absurd logiczny — „niemowa” przemawia dopiero po ściśnięciu, a Tomek nie jest mówcą |
+| 11 | 17:80–18:60 | Twardy cut do obowiązkowego outro brandu z oznaczeniem AI | Krótki sting outro, oddzielony od puenty cięciem | Brand jest obecny, ale nie rozcieńcza puenty |
+
+Całość: około **18,6 s z intro i outro**. Napisy KOLORY_ASS mają wejść w rytm słów, dzielone po interpunkcji, maksymalnie około sześciu słów. „Józek...” i puenta dostają osobny kolor Józka. Żadnych napisów na ciszy. Wszystkie części przed concat należy znormalizować do 24 fps, 1080×1920, AAC 48 kHz stereo; po montażu różnica długości strumieni audio–wideo poniżej 0,05 s i `faststart`.
+
+## KOMIZM
+
+1. **Atak i VINE BOOM — kontrast + absurd**  
+   Tomek zachowuje się jak bohater thrillera, ale „operacja specjalna” dotyczy złodzieja jabłek i kończy się chwytem między nogawkami. Obecnie ścisk pojawia się znikąd. Trzask, shake, punch-in i boom przywracają brakującą przyczynę.
+
+2. **Cisza po pierwszym pytaniu — timing**  
+   Pytanie potrzebuje pustego miejsca na odpowiedź. Natychmiastowe przejście do następnej kwestii zgubiłoby fakt, że schwytany nie odpowiada. Około 0,55 s martwej ciszy pozwala widzowi zauważyć problem.
+
+3. **Wyduszone „Józek...” — eskalacja + dźwiękowy absurd**  
+   Po drugim nacisku pojawia się jedno piskliwe słowo. Śmiech ginie, jeśli brzmi ono jak zwykły męski głos. Pitch-up i freeze na chwycie łączą przyczynę z reakcją.
+
+4. **Trzecie pytanie mimo podania imienia — eskalacja charakteru**  
+   Tomek dostał odpowiedź „Józek”, lecz nadal pyta „ktoś ty?!”. To robi z niego komediowo zacietrzewionego przesłuchującego, nie realistycznego oprawcę. Obraz k05 gubił ten żart, bo Tomek wyglądał jak przypadkowy gapowicz. Szeroki kadr chwytu przywraca relację i ciągłość.
+
+5. **„Niemowa ze wsi” — sprzeczność + puenta**  
+   Największy śmiech wynika z logicznego absurdu: niemowa jednak mówi, bo Tomek go „wydusił”. Jeśli puentę wypowiada widoczny Tomek, żart całkowicie znika. Dlatego k06 musi być niemy, a Józek wyłącznie głosem z korony.
+
+Materiał gra zbyt grobowo przede wszystkim w k01 i dialogach Tomka. Nie próbowałbym udawać, że tego nie ma: montaż ma przekodować powagę w **mock-seriousness** przez krótkie jump-cuty, przesadnie filmowy VINE BOOM, kolorowe napisy, bezczelnie długie cisze i pisk będący kompletnie nieadekwatną odpowiedzią na groźne przesłuchanie.
+
+## DŹWIĘK
+
+- **Muzyka: NIE podczas żartu.** Muzyka dramatyczna dołożyłaby serio-powagi, a muzyka komediowa tłumaczyłaby widzowi, kiedy ma się śmiać. Wystarczą krótkie stingi brandowe w intro i outro.
+- **0:45–3:00:** nocne cykady około −26 dBFS, liście około −30 dBFS. Naturalnie, bez horrorowego basu.
+- **3:00:** trzask gałęzi na ruchu kamery; dokładnie wtedy szelest ustaje.
+- **3:35:** jeden krótki VINE BOOM na ujawnieniu chwytu. Bez kolejnych boomów — powtórzenia osłabiłyby pierwszy.
+- **Po każdym pytaniu:** prawdziwa cisza, nie „cichy ambience”. Najważniejsze pauzy: 0,30 s po pytaniu pierwszym, 0,55 s przed pytaniem drugim, 0,15 s przed „Józek...” i 0,20 s przed puentą.
+- **„Józek...” w k04:** segment odseparowany od głosu Tomka i podniesiony wariantem A do ok. 400 Hz, bez zmiany tempa; lekko zduszony, urwany, dochodzący z góry.
+- **Ostatnie ściśnięcie:** pojedyncze skrzypnięcie gałęzi lub ściśnięcie materiału, krótkie i suche. Bez odgłosów slapstickowej sprężyny.
+- **Puenta k06:** czyste audio z batchowego k06, dwa warianty pitch-upu odsłuchane na całym zdaniu, ponieważ źródło ma 145 Hz i wcześniejsze ×1,7 da tylko około 247 Hz. Wygrywa wariant naprawdę piskliwy, ale jeszcze czytelny. Głos z góry, centralnie z lekkim pogłosem sadu; żadnego ruchu ust Tomka.
+- **Koniec:** po słowie „wsi!” twarde cięcie. Bez śmiechu z puszki, cymbałków i dopowiadającego efektu.
+
+## WERDYKT S1–S4
+
+- **S1 — ZGODA.** Beat ataku jest konieczny; trzask → ustanie szelestu → shake → VINE BOOM → chwyt tworzą brakujące połączenie przyczynowe za $0.
+- **S2 — ZGODA.** Audio k05 nad szybkim Ken Burnsem zaakceptowanego chwytu jest komediowo i narracyjnie lepsze niż obraz gapowicza.
+- **S3 — ZGODA.** Grobową grę można odzyskać montażem jako mock-seriousness, pod warunkiem że rytm, cisze, pisk i kolorowe napisy są traktowane jako konstrukcja żartu, a nie dekoracja.
+- **S4 — ZGODA Z KOREKTĄ.** Rdzeń powinien mieć około 17,35 s, a z krótkim intro i outro około 18,6 s; nie wolno rozciągać sześciu pełnych klipów do ich surowych długości.
+
+## BRAKI
+
+Poza zatwierdzonym planem **niemego k06 za $0.64 nie brakuje żadnego płatnego materiału**.
+
+K01–k04, audio k05, zaakceptowane kadry 2K, czysta puenta z batchowego k06, intro, outro i materiał do darmowych SFX wystarczają. Nie potrzeba nowego k05, nowych kadrów ani nowych generacji postaci. Budżet końcowy: **$11.73/12**.

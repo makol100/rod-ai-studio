@@ -1,0 +1,46 @@
+=== RAPORT BRAMKI: 10010/weryfikacja_tozsamosci_reroll | 2026-07-26T13:44:11+00:00 ===
+/app/venv/lib/python3.14/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py:147: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
+  warnings.warn(
+  tform.estimate(lmk, dst)
+
+==================================================================================
+k04: /root/rod-ai-studio/data/zarty/10010/klip_k04_reroll.mp4
+Zaakceptowany kadr: /root/rod-ai-studio/data/zarty/10010/kadry/k04.jpg
+Biblioteka:          /root/rod-ai-studio/assets/zarty/karty/bohater_noc.jpg
+Kadr vs biblioteka:  0.464
+----------------------------------------------------------------------------------
+  czas  plik              vs kadr    vs biblioteka  status
+----------------------------------------------------------------------------------
+    0s  kl_001.jpg          0.775            0.317  zgodna z kadrem
+    1s  kl_002.jpg          0.569            0.265  zgodna z kadrem
+    2s  kl_003.jpg          0.479            0.302  zgodna z kadrem
+    3s  kl_004.jpg          0.460            0.315  zgodna z kadrem
+    4s  kl_005.jpg           BRAK             BRAK  brak wykrytej twarzy
+    5s  kl_006.jpg          0.696            0.295  zgodna z kadrem
+    6s  kl_007.jpg           BRAK             BRAK  brak wykrytej twarzy
+    7s  kl_008.jpg          0.806            0.328  zgodna z kadrem
+----------------------------------------------------------------------------------
+WERDYKT k04: WIERNY KADROWI
+UZASADNIENIE: 6/6 wykrytych twarzy ma sim >= 0.35; mediana=0.63, min=0.46
+
+==================================================================================
+k06: /root/rod-ai-studio/data/zarty/10010/klip_k06_reroll.mp4
+Zaakceptowany kadr: /root/rod-ai-studio/data/zarty/10010/kadry/k06.jpg
+Biblioteka:          /root/rod-ai-studio/assets/zarty/karty/bohater_noc.jpg
+Kadr vs biblioteka:  0.328
+----------------------------------------------------------------------------------
+  czas  plik              vs kadr    vs biblioteka  status
+----------------------------------------------------------------------------------
+    0s  kl_001.jpg          0.718            0.186  zgodna z kadrem
+    1s  kl_002.jpg          0.515            0.327  zgodna z kadrem
+    2s  kl_003.jpg          0.470            0.277  zgodna z kadrem
+    3s  kl_004.jpg          0.664            0.410  zgodna z kadrem
+    4s  kl_005.jpg          0.809            0.287  zgodna z kadrem
+    5s  kl_006.jpg          0.822            0.353  zgodna z kadrem
+    6s  kl_007.jpg          0.595            0.389  zgodna z kadrem
+    7s  kl_008.jpg          0.862            0.392  zgodna z kadrem
+----------------------------------------------------------------------------------
+WERDYKT k06: WIERNY KADROWI
+UZASADNIENIE: 8/8 wykrytych twarzy ma sim >= 0.35; mediana=0.69, min=0.47
+
+Klatki tymczasowe zapisano wyłącznie w: /tmp/10010_identity_check

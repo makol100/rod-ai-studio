@@ -1,0 +1,28 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+## ROZPISKA
+Kwestia: **"To ja... Józek... niemowa ze wsi!"**
+
+*   **"To"** – (Pisk krótki, gwałtowny) Start z wysokiego pułapu, jakby ktoś nadepnął na gumową kaczkę.
+*   **"ja..."** – (Drżenie) Głos wibruje, opada lekko w dół, kończy się gwałtownym urwaniem tchu.
+*   **[PAUZA 0.5s]** – Słyszalny, świszczący wdech (walka o tlen).
+*   **"Jó-zek..."** – (Szczyt piskliwości) Na sylabie "Jó" głos musi pęknąć (falsetto), "zek" wyrzucone z resztką sił, niemal bezdźwięcznie.
+*   **[PAUZA 0.8s]** – Dźwięk przełykania śliny lub stłumiony jęk (efekt miażdżonej krtani).
+*   **"nie-mo-wa..."** – (Rezygnacja) Głos staje się cienki, "nitkowaty", każda sylaba to osobny wysiłek, końcówka "wa" przechodzi w szept.
+*   **"ze wsi!"** – (Finalny wyziew) Głos gwałtownie siada na niskie tony, jakby z Józka uszło całe powietrze; brzmi jak kapitulacja.
+
+## RANKING (Śmieszność)
+1.  **Miejsce 1: Tomasz nagrywa sam (Human-In-Pain)** – Największy potencjał komiczny. Tylko człowiek odda naturalne "pęknięcia" głosu, parsknięcia i autentyczny brak tchu przy samoduszeniu. $0, 100% emocji.
+2.  **Miejsce 2: TTS z charakterem (np. ElevenLabs/Piper z promptem 'strangled')** – Może wyjść "dziwnie" w sposób niepokojący, co buduje humor abstrakcyjny. Wymaga jednak rzeźbienia w parametrach i akcentach.
+3.  **Miejsce 3: DSP na nagraniu Veo** – Najmniej śmieszne. Mechaniczne podbicie pitchu (nawet z formantem) zawsze brzmi jak "Alvin i Wiewiórki", co Tomasz słusznie odrzucił jako taniznę.
+
+## FLAGI (Anty-Chipmunk)
+*   **Stały Pitch:** Jeśli wysokość głosu jest idealnie płaska przez całe zdanie – to zabawka, nie Józek. Ludzka agonia "pływa" w częstotliwościach.
+*   **Brak "brudu":** Brak mlaśnięć, świstów i sapnięć dyskwalifikuje nagranie. Józek musi brzmieć "mokro" i ciężko.
+*   **Czyste pasmo:** Zbyt sterylne nagranie brzmi sztucznie. Głos Józka powinien mieć lekkie zniekształcenie (jakby mikrofon był za blisko ust lub wciśnięty w korę jabłoni).
+
+---
+**Pamiętaj o:**
+1. Zwołaniu narady załogi (Tomasz, Genek, Józef) w celu odsłuchu próbek.
+2. Zapisaniu wybranej drogi w `wiedza/DECYZJE_10010.md` oraz aktualizacji `TELEPORT_fabryka.md`.
+3. Konsultacji z ekspertami-praktykami, jeśli Tomasz poczuje, że "to wciąż nie to".

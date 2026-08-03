@@ -1,0 +1,24 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,64,&H00FFFFFF,&H00FFFFFF,&H00101010,&H88000000,-1,0,0,0,100,100,0,0,1,4,2,2,60,60,220,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.66,0:00:03.10,Default,,0,0,0,,{\c&HFFFFFF&}{\an8\fad(200,150)}Kiedy złapiesz złodzieja jabłek... 🍎
+Dialogue: 0,0:00:00.71,0:00:03.10,Default,,0,0,0,,{\c&H5AC8FA&}TOMEK (szeptem): Złodziej jabłek grasuje.
+Dialogue: 0,0:00:03.98,0:00:07.04,Default,,0,0,0,,{\c&H5AC8FA&}Dzisiaj... koniec tej zabawy.
+Dialogue: 0,0:00:09.37,0:00:12.11,Default,,0,0,0,,{\c&H5AC8FA&}TOMEK: Gadaj, ktoś ty?!
+Dialogue: 0,0:00:12.99,0:00:15.73,Default,,0,0,0,,{\c&H5AC8FA&}TOMEK: Gadaj, pókim dobry...
+Dialogue: 0,0:00:16.15,0:00:17.19,Default,,0,0,0,,{\c&H5AC8FA&}...ktoś ty?!
+Dialogue: 0,0:00:17.37,0:00:18.37,Default,,0,0,0,,{\c&H0AD9FF&}JÓZEK: Józek...!
+Dialogue: 0,0:00:18.61,0:00:20.71,Default,,0,0,0,,{\c&H5AC8FA&}TOMEK: No gadaj, draniu!
+Dialogue: 0,0:00:21.21,0:00:22.15,Default,,0,0,0,,{\c&H5AC8FA&}Ktoś ty?!
+Dialogue: 0,0:00:22.84,0:00:23.96,Default,,0,0,0,,{\c&H0AD9FF&}JÓZEK: To ja...
+Dialogue: 0,0:00:25.24,0:00:25.72,Default,,0,0,0,,{\c&H0AD9FF&}Józek...
+Dialogue: 0,0:00:27.30,0:00:28.46,Default,,0,0,0,,{\c&H0AD9FF&}niemowa ze wsi!

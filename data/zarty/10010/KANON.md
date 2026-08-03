@@ -1,4 +1,7 @@
 # KANON odcinka #10010 — "Kiedy złapiesz złodzieja jabłek" (remake żartu Niemowa)
+# >>> ODCINEK OPUBLIKOWANY I ZAMKNIETY — 2026-08-04 01:49 CEST <<<
+# Decyzja Tomasza: "Odcinek opublikowany. Odznaczyc. Koniec produkcji bo jest opublikowany."
+# NIE PRODUKOWAC, nie generowac, nie poprawiac. Kanon zostaje jako zapis, nie jako zadanie.
 # Źródło: Tomasz, czat 26.07.2026, WKLEJONY SCENARIUSZ — DOSŁOWNIE.
 # Komenda: "Idź naszą drogą!" (produkcja wg DROGA_ROLKA_HUMOR)
 # UWAGA: ten sam żart co ZAMROŻONY #10004 (chattr +i) — 10004 NIE RUSZAĆ.
@@ -43,3 +46,11 @@ Ruch kamery (Motion Prompt): Static shot, character slowly blinking in pain whil
 Dialog (Voice AI - PL):
 Tekst: "To ja... Józek... niemowa ze wsi!"
 Emocja (TTS): To najważniejszy element. Wygeneruj głos, który jest niezwykle piskliwy, nienaturalnie wysoki, zduszony i łamiący się (jak po wciągnięciu helu lub przy zgnieceniu krtani). Musi brzmieć jak wyciśnięty z resztek sił.
+
+🎭 Scena 0: Wstęp-szept (DOPISANA 26.07.2026 dekretem Tomasza: "Wstępu brakuje... Kwestia W2... Ruszać!")
+Czas trwania: ~4 sekundy (z klipu 8s bierzemy kwestię + spojrzenie)
+Prompt Video/Image (ENG): Mockumentary night intro. Tomek crouches low, sneaking between apple trees, small apple-tree twig tucked into his flat cap as absurd camouflage, leans toward camera and whispers a secret field report. After the words he closes his mouth, hears a faint rustle and shifts only his eyes toward the tree.
+Dialog (Voice AI - PL):
+Tekst: "Złodziej jabłek grasuje. Dzisiaj... koniec tej zabawy."
+Emocja (TTS): Cichy, konspiracyjny szept przez zaciśnięte zęby; akcent na "Dzisiaj", pauza 0.6-0.8 s po nim, syczące "koniec". Śmiertelna powaga misji o jabłka.
+Plansza: "Kiedy złapiesz złodzieja jabłek... 🍎" zostaje jako nagłówek-mem nad wstępem (wchodzi 0.2 s, schodzi po "grasuje.").
