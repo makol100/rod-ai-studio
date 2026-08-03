@@ -1,0 +1,10 @@
+[Unit]
+Description=Hans — oczy: skan zmian w repo i wykrywanie niedokonczonych sladow Klaudka
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/rod-ai-studio
+ExecStart=/usr/bin/python3 /root/rod-ai-studio/tools/hans_oczy.py
+StandardOutput=append:/var/log/hans_oczy.log
+StandardError=append:/var/log/hans_oczy.log

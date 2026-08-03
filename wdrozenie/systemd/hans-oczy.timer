@@ -1,0 +1,10 @@
+[Unit]
+Description=Hans — oczy co 15 minut
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
