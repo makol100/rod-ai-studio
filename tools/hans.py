@@ -502,15 +502,345 @@ def wyslij_do_tomasza(raport: dict) -> bool:
         return False
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# NOWE FUNKCJE — HENIO, 04.08.2026 (dekret Tomasza: Hans należy do Henia)
+# ═══════════════════════════════════════════════════════════════════════════
+
+def _magiczne_slowa_kodu(sciezka: Path) -> set[str]:
+    """Zbiera nazwy, identyfikatory i stałe z pliku kodu Python."""
+    if not sciezka.suffix == ".py":
+        return set()
+    try:
+        tekst = sciezka.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return set()
+    slowa: set[str] = set()
+    for token in re.findall(r"[A-Z_]{4,}|[a-z_]{6,}", tekst):
+        slowa.add(token.lower())
+    # Dodajemy nazwy modułów i klas
+    for token in re.findall(r"(?:def|class)\s+(\w+)", tekst):
+        slowa.add(token.lower())
+    return slowa
+
+
+def _magiczne_slowa_wiedzy(sciezka: Path) -> set[str]:
+    """Zbiera słowa kluczowe z pliku wiedzy."""
+    if not sciezka.suffix == ".md":
+        return set()
+    try:
+        tekst = sciezka.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return set()
+    slowa: set[str] = set()
+    for token in re.findall(r"[a-z_]{5,}", tekst):
+        slowa.add(token)
+    # Dodajemy ścieżki plików wymienione w wiedzy
+    for trafienie in SCIEZKA_W_TEKSCIE.finditer(tekst):
+        slowa.add(trafienie.group(0).lower())
+    return slowa
+
+
+def sprawdz_niedokonczone_slady(katalog_bazowy: str | Path | None = None) -> dict[str, Any]:
+    """Wykrywa kod zmieniony bez aktualizacji wiedzy (i odwrotnie).
+
+    Wzorzec Klaudka: zmienia tools/xyz.py, nie aktualizuje wiedza/XYZ.md.
+    Skutek dla Henia: czyta nieaktualną wiedzę i podejmuje błędne decyzje.
+
+    Zwraca raport z listą plików, które zmieniły się BEZ powiązanych zmian
+    w drugim katalogu. Nie blokuje niczego — tylko melduje.
+    """
+    bazowy = Path.cwd() if katalog_bazowy is None else Path(katalog_bazowy)
+    tools_dir = bazowy / "tools"
+    wiedza_dir = bazowy / "wiedza"
+
+    kod_slowa: dict[str, set[str]] = {}
+    wiedza_slowa: dict[str, set[str]] = {}
+
+    # Zbieramy słowa z plików kodu (pomijamy testy)
+    if tools_dir.is_dir():
+        for plik in tools_dir.glob("*.py"):
+            if "test" in plik.name.lower():
+                continue
+            slowa = _magiczne_slowa_kodu(plik)
+            if slowa:
+                kod_slowa[plik.name] = slowa
+
+    # Zbieramy słowa z plików wiedzy
+    if wiedza_dir.is_dir():
+        for plik in wiedza_dir.rglob("*.md"):
+            slowa = _magiczne_slowa_wiedzy(plik)
+            if slowa:
+                rel = str(plik.relative_to(wiedza_dir))
+                wiedza_slowa[rel] = slowa
+
+    osierocone_kod: list[dict[str, Any]] = []
+    osierocone_wiedza: list[dict[str, Any]] = []
+
+    # Każdy plik kodu powinien mieć swój odpowiednik w wiedzy
+    for nazwa, slowa_kodu in kod_slowa.items():
+        rdzen = Path(nazwa).stem.lower()
+        znaleziono = False
+        for sciezka_w, slowa_w in wiedza_slowa.items():
+            # Sprawdzamy, czy plik wiedzy wspomina o tym pliku kodu
+            if nazwa.lower() in slowa_w or rdzen in slowa_w:
+                znaleziono = True
+                break
+            # Albo czy słowa z kodu są w wiedzy
+            wspolne = slowa_kodu & slowa_w
+            if len(wspolne) >= 3:
+                znaleziono = True
+                break
+        if not znaleziono:
+            osierocone_kod.append({
+                "plik": f"tools/{nazwa}",
+                "problem": "brak_powiazania_w_wiedzy",
+                "komunikat": (
+                    f"Plik kodu tools/{nazwa} nie ma powiązania w wiedza/. "
+                    "Po zmianie kodu Klaudek musi zaktualizować dokumentację."
+                ),
+            })
+
+    # Każdy plik wiedzy o narzędziach powinien mieć swój odpowiednik w kodzie
+    for sciezka_w, slowa_w in wiedza_slowa.items():
+        # Interesują nas tylko pliki wiedzy, które opisują narzędzia/procedury
+        if not any(s in sciezka_w.lower() for s in (
+            "tools", "narzedzi", "procedur", "hans", "genek", "klaudek",
+            "zenek", "henio", "decyzje", "styl", "droga", "architekt",
+            "kontrol", "bramk", "strazn", "generow",
+        )):
+            continue
+        rdzen_w = Path(sciezka_w).stem.lower()
+        znaleziono = False
+        for nazwa, slowa_k in kod_slowa.items():
+            rdzen_k = Path(nazwa).stem.lower()
+            if rdzen_k in slowa_w or rdzen_w in slowa_k:
+                znaleziono = True
+                break
+            wspolne = slowa_k & slowa_w
+            if len(wspolne) >= 3:
+                znaleziono = True
+                break
+        if not znaleziono:
+            osierocone_wiedza.append({
+                "plik": f"wiedza/{sciezka_w}",
+                "problem": "brak_powiazania_w_kodzie",
+                "komunikat": (
+                    f"Plik wiedzy wiedza/{sciezka_w} opisuje procedurę/narzędzie, "
+                    "ale nie znaleziono odpowiadającego pliku kodu w tools/. "
+                    "Być może opis jest nieaktualny."
+                ),
+            })
+
+    alerty = osierocone_kod + osierocone_wiedza
+    return {
+        "czas_utc": datetime.now(timezone.utc).isoformat(),
+        "katalog": str(bazowy),
+        "pliki_kodu": len(kod_slowa),
+        "pliki_wiedzy": len(wiedza_slowa),
+        "osierocone_kod": osierocone_kod,
+        "osierocone_wiedza": osierocone_wiedza,
+        "poziom": "ALERT" if alerty else "OK",
+        "rozbieznosci": alerty,
+    }
+
+
+def sprawdz_srodowisko_henia() -> dict[str, Any]:
+    """Sprawdza, czy środowisko Henia jest prawidłowo skonfigurowane.
+
+    Wykrywa:
+    - nieaktualny alias modelu (FLASH zamiast PRO)
+    - limit pamięci poniżej normy
+    - brak uprawnień zapisu do repo
+    - nieaktualną kartę środowiska
+
+    Problem udokumentowany w TECZKI/HENIO.md: pracowałem na FLASH zamiast PRO
+    przez tydzień, bo nikt nie sprawdził konfiguracji. Ta funkcja to wykrywa.
+    """
+    rozbieznosci: list[dict[str, Any]] = []
+    stan: dict[str, Any] = {}
+
+    # 1. Sprawdź model
+    config_paths = [
+        Path("/home/hermes/.hermes/config.yaml"),
+        Path.home() / ".hermes" / "config.yaml",
+    ]
+    model_ok = False
+    for cfg in config_paths:
+        try:
+            tekst = cfg.read_text(encoding="utf-8", errors="replace")
+            stan["config_path"] = str(cfg)
+            # Szukamy aliasu modelu
+            if "deepseek" in tekst.lower():
+                if "pro" in tekst.lower() or "v4-pro" in tekst.lower():
+                    model_ok = True
+                    stan["model"] = "deepseek-v4-pro (OK)"
+                elif "flash" in tekst.lower():
+                    stan["model"] = "deepseek-v4-flash (UWAGA: słabszy model!)"
+                    rozbieznosci.append({
+                        "problem": "model_flash",
+                        "komunikat": (
+                            "HENIO UŻYWA FLASH ZAMIAST PRO. "
+                            "Dekret Tomasza 01.08: 'Bo już jest dobry, a będzie lepszy'. "
+                            f"Sprawdź alias w {cfg}."
+                        ),
+                    })
+                else:
+                    stan["model"] = "nieznany wariant deepseek"
+            else:
+                stan["model"] = "nieznany (brak deepseek w config.yaml)"
+            break
+        except OSError:
+            continue
+    if not model_ok and "model" not in stan:
+        stan["model"] = "NIE SPRAWDZONO — brak config.yaml"
+        rozbieznosci.append({
+            "problem": "brak_configu",
+            "komunikat": "Nie można odczytać config.yaml — nie wiadomo, na jakim modelu działa Henio.",
+        })
+
+    # 2. Sprawdź uprawnienia do repo
+    repo = Path("/root/rod-ai-studio")
+    if repo.is_dir():
+        # Append-only: dekret Tomasza zabrania usuwania, więc próba zapisu
+        # zostaje w dzienniku zamiast tworzyć i kasować plik tymczasowy.
+        test_plik = repo / ".scratch" / "hans" / "proby_zapisu_henia.jsonl"
+        try:
+            test_plik.parent.mkdir(parents=True, exist_ok=True)
+            with test_plik.open("a", encoding="utf-8") as uchwyt:
+                uchwyt.write(json.dumps({
+                    "czas_utc": datetime.now(timezone.utc).isoformat(),
+                    "proba": "zapis_do_repo",
+                }, ensure_ascii=False) + "\n")
+            stan["zapis_do_repo"] = True
+        except OSError as e:
+            stan["zapis_do_repo"] = False
+            rozbieznosci.append({
+                "problem": "brak_zapisu",
+                "komunikat": f"HENIO NIE MOŻE ZAPISAĆ DO REPO: {e}. Sprawdź ACL/uprawnienia.",
+            })
+    else:
+        stan["zapis_do_repo"] = "NIE SPRAWDZONO — brak katalogu repo"
+
+    # 3. Sprawdź limit pamięci
+    pamiec_path = Path("/sys/fs/cgroup/memory.current")
+    pamiec_max = Path("/sys/fs/cgroup/memory.max")
+    if pamiec_path.exists():
+        try:
+            biezaca = int(pamiec_path.read_text().strip())
+            stan["pamiec_biezaca_bajty"] = biezaca
+            stan["pamiec_biezaca_mb"] = round(biezaca / 1024 / 1024, 1)
+            if pamiec_max.exists():
+                maks_raw = pamiec_max.read_text().strip()
+                if maks_raw != "max":
+                    maks = int(maks_raw)
+                    stan["pamiec_limit_mb"] = round(maks / 1024 / 1024, 1)
+                    if biezaca > maks * 0.8:
+                        rozbieznosci.append({
+                            "problem": "pamiec_blisko_limitu",
+                            "komunikat": (
+                                f"HENIO: pamięć {stan['pamiec_biezaca_mb']} MB "
+                                f"z {stan['pamiec_limit_mb']} MB (>{round(biezaca/maks*100)}%). "
+                                "Ogranicza to kontekst i zdolność analityczną."
+                            ),
+                        })
+        except (ValueError, OSError):
+            pass
+    else:
+        stan["pamiec"] = "NIE SPRAWDZONO — brak cgroup"
+
+    return {
+        "czas_utc": datetime.now(timezone.utc).isoformat(),
+        "stan": stan,
+        "rozbieznosci": rozbieznosci,
+        "poziom": "ALERT" if rozbieznosci else "OK",
+    }
+
+
+def sprawdz_narade_z_glosami(
+    katalog_narady: str | Path,
+    plik_meldunku: str | Path,
+) -> dict[str, Any]:
+    """Rozszerzona wersja sprawdz_narade — dodatkowo wykrywa pominięte głosy.
+
+    Oprócz markerów sprawdza też, czy każdy plik głosu ma swojego autora
+    wymienionego w meldunku Klaudka. Jeśli nie — głos został pominięty.
+    """
+    wynik = sprawdz_narade(katalog_narady, plik_meldunku)
+
+    # Dodajemy sprawdzenie pominiętych głosów
+    katalog = Path(katalog_narady)
+    meldunek_path = Path(plik_meldunku)
+    meldunek = ""
+    if meldunek_path.is_file():
+        try:
+            meldunek = meldunek_path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            pass
+
+    pominiete_glosy: list[dict[str, Any]] = []
+    if katalog.is_dir():
+        for plik in sorted(katalog.glob("*.txt")):
+            autor = plik.stem.lower()  # np. "zenek", "henio", "genek", "klaudek"
+            # Sprawdź, czy autor jest wymieniony w meldunku.
+            # Polskie imiona odmieniają się (Zenek→Zenka, Henio→Henia),
+            # więc używamy prefiksu 3 znaków zamiast pełnego dopasowania.
+            prefiks = autor[:3] if len(autor) >= 3 else autor
+            if prefiks not in meldunek.lower() and autor not in meldunek.lower():
+                pominiete_glosy.append({
+                    "autor": plik.stem,
+                    "plik": str(plik),
+                    "problem": "glos_pominiety",
+                    "komunikat": (
+                        f"Głos {plik.stem} ({plik.name}) NIE został wymieniony "
+                        "w meldunku Klaudka. Czy Klaudek go uwzględnił?"
+                    ),
+                })
+
+    if pominiete_glosy:
+        wynik["pominiete_glosy"] = pominiete_glosy
+        # Dodajemy do rozbieżności
+        wynik["rozbieznosci"] = wynik.get("rozbieznosci", []) + pominiete_glosy
+        if wynik["poziom"] == "OK":
+            wynik["poziom"] = "ALERT"
+
+    return wynik
+
+
 def main() -> int:
     """Udostępnia tę samą kontrolę z terminala i drukuje pełny raport z cytatami."""
-    parser = argparse.ArgumentParser(description="Sprawdź, co z głosów pominięto w meldunku.")
-    parser.add_argument("--narada", required=True, help="Katalog z głosami *.txt")
-    parser.add_argument("--meldunek", required=True, help="Plik meldunku Klaudka")
+    parser = argparse.ArgumentParser(description="Hans — kontrola Klaudka i ochrona Henia.")
+    parser.add_argument("--narada", help="Katalog z głosami *.txt")
+    parser.add_argument("--meldunek", help="Plik meldunku Klaudka")
+    parser.add_argument("--z-glosami", action="store_true",
+                        help="Rozszerzona narada: wykrywaj też pominięte głosy")
+    parser.add_argument("--niedokonczone-slady", action="store_true",
+                        help="Wykryj kod bez powiązanej wiedzy (wzorzec Klaudka)")
+    parser.add_argument("--srodowisko-henia", action="store_true",
+                        help="Sprawdź, czy środowisko Henia jest prawidłowe")
+    parser.add_argument("--repo", default=None,
+                        help="Katalog repo (domyślnie: bieżący)")
     argumenty = parser.parse_args()
-    print(json.dumps(sprawdz_narade(argumenty.narada, argumenty.meldunek), ensure_ascii=False, indent=2))
-    # Hans zgłasza po fakcie i nie blokuje, dlatego także ALERT kończy się kodem zero.
-    return 0
+
+    if argumenty.niedokonczone_slady:
+        wynik = sprawdz_niedokonczone_slady(argumenty.repo)
+        print(json.dumps(wynik, ensure_ascii=False, indent=2))
+        return 0
+
+    if argumenty.srodowisko_henia:
+        wynik = sprawdz_srodowisko_henia()
+        print(json.dumps(wynik, ensure_ascii=False, indent=2))
+        return 0
+
+    if argumenty.narada and argumenty.meldunek:
+        if argumenty.z_glosami:
+            wynik = sprawdz_narade_z_glosami(argumenty.narada, argumenty.meldunek)
+        else:
+            wynik = sprawdz_narade(argumenty.narada, argumenty.meldunek)
+        print(json.dumps(wynik, ensure_ascii=False, indent=2))
+        return 0
+
+    parser.print_help()
+    return 1
 
 
 if __name__ == "__main__":

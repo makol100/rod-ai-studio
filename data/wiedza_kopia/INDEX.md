@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 03.08.2026 21:17.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 03.08.2026 23:19.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,13 +11,13 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `HANS_AGENT.md` | 03.08 | 5K | HANS — AGENT SPECJALNY |
-| `KONTROLA_KLAUDKA.md` | 02.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
-| `SLOWA_TOMASZA.md` | 02.08 | 4K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
+| `HANS_AGENT.md` | 03.08 | 6K | HANS — AGENT SPECJALNY |
+| `SLOWA_TOMASZA.md` | 03.08 | 17K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
+| `START.md` | 03.08 | 7K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
+| `KONTROLA_KLAUDKA.md` | 03.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
 | `IZABELA_KANON_0.1.md` | 02.08 | 18K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `GENEROWANIE_OBRAZU.md` | 01.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `ZALOGA_LIMITY.md` | 30.07 | 4K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
-| `START.md` | 29.07 | 6K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `KONEKTOR_DZIALKA.md` | 29.07 | 2K | KONEKTOR HA DZIAŁKA — NAPRAWIONY 29.07.2026 |
 | `START_SESJI_CLAUDE_CODE.md` | 29.07 | 2K | START SESJI CLAUDE CODE — co ładuje się automatycznie (29.07.2026) |
 | `SETUP_CLAUDE_CODE.md` | 29.07 | 2K | SETUP CLAUDE CODE — poprawki z 29.07.2026 (film Eric Tech + pomiar) |

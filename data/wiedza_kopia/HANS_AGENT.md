@@ -1,5 +1,9 @@
 # HANS — AGENT SPECJALNY
 
+> **WŁAŚCICIEL: HENIO** (dekret Tomasza 4.08.2026: „Hans jest narzędziem Henka i tylko Henka").
+> Henio może go przebudowywać pod własną pracę bez zgody Klaudka.
+> Klaudek go składał — ale nie jest jego panem i mu podlega.
+
 Powołany dekretem Tomasza 01.08.2026.
 
 > „I tego ma pilnować Agent specjalny Hans. Mam mieć do niego osobny kanał do rozmów."
@@ -74,15 +78,27 @@ Po podmianie tokenu i licznika na atrapy żaden test nie zależy od niczego poza
 Zbudowany przez CAŁĄ ZAŁOGĘ, zgodnie z dekretem Tomasza „projekt i wdrożenie poprzez wspólną budowę":
 kod — **Zenek**, testy — **Henio**, odbiór i instrukcja bota — **Genek**, składanie i podpięcie — **Klaudek**.
 
-**Co robi:**
-1. po każdej naradzie porównuje głosy załogi z meldunkiem Klaudka i zgłasza, co przemilczał
-   (znaczniki: BRAK ŚLADU, OBALONE, NIE MA TEGO W PLIKU, TRYB AWARYJNY, NIE WIEM, GŁOS NIEODEBRANY)
-2. weryfikuje stan plików: czy to, co Klaudek melduje jako zrobione/uruchomione/zapisane,
-   NAPRAWDĘ drgnęło na dysku (istnienie, rozmiar, czas zmiany vs start tury)
-3. odróżnia ZAPOMNIENIE od ŚWIADOMEGO POMINIĘCIA — fraza „POMINIĘTO: powód" jest przepuszczana,
-   milczenie nie jest
-4. wysyła zgłoszenie na własny kanał: **@HansFabrykaRolek_bot**, limit **3 wiadomości na godzinę**
-   (próg ustalony przez Genka), cisza znaczy „czysto"
+## CO ROBI (stan na 04.08.2026 — przebudowany przez Henia)
+
+**Funkcje podstawowe (z pierwotnej budowy):**
+1. `sprawdz_narade` — porównuje markery z głosów załogi z meldunkiem Klaudka
+2. `sprawdz_stan_plikow` — weryfikuje, czy zadeklarowane jako gotowe ścieżki drgnęły na dysku
+3. `weryfikuj_stan_plikow` — uproszczona wersja: zwraca listę plików, które nie drgnęły
+4. `wyslij_do_tomasza` — wysyła raport na kanał @HansFabrykaRolek_bot (limit 3/h)
+
+**Nowe funkcje — Henio 04.08.2026:**
+5. `sprawdz_niedokonczone_slady` — wykrywa kod zmieniony bez aktualizacji wiedzy (i odwrotnie).
+   Wzorzec Klaudka: zmienia `tools/xyz.py`, nie aktualizuje `wiedza/XYZ.md`.
+   Skutek dla Henia: czyta nieaktualną wiedzę i podejmuje błędne decyzje.
+   CLI: `python3 tools/hans.py --niedokonczone-slady`
+6. `sprawdz_srodowisko_henia` — weryfikuje model (FLASH vs PRO), uprawnienia zapisu do repo,
+   limit pamięci. Problem udokumentowany w TECZKI/HENIO.md: Henio pracował na FLASH przez tydzień.
+   CLI: `python3 tools/hans.py --srodowisko-henia`
+7. `sprawdz_narade_z_glosami` — rozszerzona narada: dodatkowo wykrywa, czyj głos został pominięty
+   w meldunku (autor pliku niewymieniony w tekście). Uwzględnia polską odmianę imion.
+   CLI: `python3 tools/hans.py --narada ... --meldunek ... --z-glosami`
+
+**Testy:** 32 przypadki w `tools/test_hans.py` — wszystkie przechodzą (04.08.2026, 32/32 OK).
 
 **Warunki twarde (spełnione):** Hans NIE BLOKUJE niczego. Jego awaria nie może zepsuć narady —
 wywołanie jest zabezpieczone, błąd wypisywany, wyniki załogi nietknięte. Zapis wyłącznie

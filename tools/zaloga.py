@@ -23,6 +23,9 @@ Awaria jednego wykonawcy NIE jest zgoda — w podsumowaniu stoi wtedy "GLOS NIEO
 import argparse
 import json
 import os
+import hashlib
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 import subprocess
 import sys
 import threading
@@ -170,7 +173,87 @@ def zapisz_glos(katalog: str, imie: str, tresc: str) -> None:
     os.makedirs(katalog, exist_ok=True)
     with open(os.path.join(katalog, f"{imie}.txt"), "w", encoding="utf-8") as f:
         f.write(tresc)
-    print(f"[glos zapisany] {imie}.txt ({len(tresc)} znakow) -> {katalog}/", flush=True)
+
+    # 4.08 — uklad katalogow zazadany przez HENIA (dekret Tomasza: "Heniek ma do tego prawo").
+    # Surowy, NIEPRZEREDAGOWANY glos ladu je dodatkowo w narada/<autor>.txt. Kopia, nie przenosiny:
+    # stary uklad zostaje, zeby nic nie zniknelo (dekret 2.08: nikt niczego nie usuwa).
+    podkatalog = os.path.join(katalog, "narada")
+    os.makedirs(podkatalog, exist_ok=True)
+    with open(os.path.join(podkatalog, f"{imie}.txt"), "w", encoding="utf-8") as f:
+        f.write(tresc)
+
+    # dziennik wywolan — Henio prosil o slad: czas, autor, dlugosc, sciezka
+    try:
+        dz = os.path.join(REPO, ".scratch", "hans", "glosy.jsonl")
+        os.makedirs(os.path.dirname(dz), exist_ok=True)
+        with open(dz, "a", encoding="utf-8") as f:
+            f.write(json.dumps({
+                "czas_tomasza": datetime.now(ZoneInfo("Europe/Vienna")).strftime("%Y-%m-%d %H:%M:%S %Z"),
+                "czas_utc": datetime.now(timezone.utc).isoformat(),
+                "autor": imie,
+                "zadanie": os.path.basename(katalog.rstrip("/")),
+                "znakow": len(tresc),
+                "plik": os.path.join(podkatalog, f"{imie}.txt"),
+            }, ensure_ascii=False) + "\n")
+    except OSError:
+        pass  # dziennik nie moze zablokowac zapisu glosu
+
+    print(f"[glos zapisany] {imie}.txt ({len(tresc)} znakow) -> {katalog}/ + narada/", flush=True)
+
+
+def zapisz_manifest(katalog: str, plik_zadania: str, kto: list, wykonanie: bool) -> str:
+    """Manifest zadania — DLA HENIA, na jego zadanie z 4.08.2026.
+
+    Dekret Tomasza: "Hans jest narzedziem Henka i tylko Henka (...) moze i musi przeanalizowac
+    zatajenia Klaudiusza z obawy na swoja prace" + "Heniek ma do tego prawo i petla sie zamyka".
+
+    Henio ujal koszt zatajen Klaudka tak: "kiedy Klaudek pomija decyzje, glos albo wlasny blad,
+    moja praca zmienia sie z KONTROLI w REKONSTRUKCJE HISTORII". Manifest ma to zamknac —
+    stan wejsciowy zadania jest zapisany ZANIM ktokolwiek zacznie pracowac, wiec Henio
+    nie musi go odtwarzac po fakcie ani wierzyc Klaudkowi na slowo.
+
+    Zapis jednorazowy, nie nadpisuje istniejacego (dekret 2.08: nikt niczego nie usuwa).
+    """
+    os.makedirs(katalog, exist_ok=True)
+    sciezka = os.path.join(katalog, "manifest.json")
+    if os.path.exists(sciezka):
+        return sciezka
+
+    # odcisk KAZDEGO pliku wiedzy w chwili startu — Henio widzi, na czym zaloga pracowala
+    zrodla = []
+    for korzen, _, pliki in os.walk(os.path.join(REPO, "wiedza")):
+        for nazwa in sorted(pliki):
+            if not nazwa.endswith(".md"):
+                continue
+            pelna = os.path.join(korzen, nazwa)
+            try:
+                with open(pelna, "rb") as f:
+                    odcisk = hashlib.sha256(f.read()).hexdigest()
+                zrodla.append({"path": os.path.relpath(pelna, REPO), "sha256": odcisk})
+            except OSError:
+                continue
+
+    tresc_zadania = ""
+    try:
+        with open(plik_zadania, encoding="utf-8", errors="replace") as f:
+            tresc_zadania = f.read()
+    except OSError:
+        pass
+
+    manifest = {
+        "task_id": os.path.basename(katalog.rstrip("/")),
+        "start_utc": datetime.now(timezone.utc).isoformat(),
+        "start_tomasz": datetime.now(ZoneInfo("Europe/Vienna")).strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "typ": "wykonanie" if wykonanie else "badanie",
+        "wymagane_glosy": kto,
+        "zrodla_wiedzy": zrodla,
+        "plik_zadania": plik_zadania,
+        "tresc_zadania": tresc_zadania,
+    }
+    with open(sciezka, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=1)
+    print(f"[manifest] {sciezka} — {len(zrodla)} plikow wiedzy odciskiem, typ: {manifest['typ']}")
+    return sciezka
 
 
 def wspolna_wiedza() -> str:
@@ -267,7 +350,11 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--zadanie", required=True, help="plik z trescia zadania")
     p.add_argument("--material", default="", help="pliki zrodlowe po przecinku (trafiaja do Genka)")
-    p.add_argument("--kto", default="zenek,genek,henio")
+    # 4.08 dekret Tomasza: "Gienka oszczedzac ze wzgledu na oczy i uszy i generowanie grafik".
+    # Genek jest JEDYNYM, ktory widzi, slyszy i rysuje — jego konto to zasob calej fabryki.
+    # Dlatego NIE jest domyslnie wolany do narad tekstowych. Wolac go jawnie: --kto zenek,genek,henio
+    p.add_argument("--kto", default="zenek,henio",
+                   help="domyslnie zenek,henio — Genek oszczedzany na oczy/uszy/grafike (dekret 4.08)")
     p.add_argument("--katalog", default="/tmp/narada")
     p.add_argument("--wykonanie", action="store_true",
                    help="zlecenie WYKONAWCZE: zaloga ma zapisac pliki na dysk (domyslnie: badanie)")
@@ -286,6 +373,9 @@ def main() -> int:
 
     # RÓWNE SZANSE W WIEDZY — dekret Tomasza 01.08.2026.
     # Każdy dostaje ten sam zestaw wiedzy razem z zadaniem. Nikt nie zaczyna ślepy.
+    # manifest DLA HENIA — zapisany ZANIM zaloga zacznie pracowac
+    zapisz_manifest(a.katalog, a.zadanie, [k.strip() for k in a.kto.split(",") if k.strip()],
+                    a.wykonanie)
     zadanie = zadanie + "\n\n" + wspolna_wiedza()
     # funkcje drog (zenek/genek/henio) siegaja po globalne STOPKA — podmieniamy JA, nie lokalna
     global STOPKA

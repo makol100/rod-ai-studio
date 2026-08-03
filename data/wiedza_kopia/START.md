@@ -45,7 +45,17 @@ Na KAŻDE zadanie, nie tylko na trudne:
 | **Genek** (Gemini) | OCZY I USZY + PELNY DYSK od 29.07: czyta, ZAPISUJE i URUCHAMIA POLECENIA przez `tools/genek.py` | zapis plikow tylko w obrebie repo (poza nim: „Path not in workspace"); przy limitach Google tryb awaryjny, jawnie oznaczony | „co widać/słychać", weryfikacja plikow, bramka wizyjna |
 | **Henio** | 24/7, grosze, pelny zapis w repo, sudo, docker, internet przez `szukaj_net.py`, OCZY przez `oczy_uszy.py` | jego silnik nie przyjmuje obrazow bezposrednio — oglada POLECENIEM, nie modelem | pelny czlonek druzyny: analizuje, wnioskuje, audytuje meldunki Klaudka |
 
-Klaudek **nie jest nad załogą, jest w niej** — jego meldunek podlega tej samej kontroli.
+**KIEROWNIKIEM GRUPY JEST ZAWSZE KLAUDEK** — rozstrzygnięcie Tomasza z 4.08.2026:
+*„Ja decyduję. Klaudek jest zawsze kierownikiem. Genek był raz mianowany na kierownika i to
+wszystko. W każdej chwili mogę powołać innego kierownika i to będzie moja decyzja, z którą nikt
+nie będzie dyskutował."*
+
+Kierowanie NIE oznacza bycia ponad kontrolą: meldunek Klaudka podlega tej samej weryfikacji
+co praca każdego innego, nikt nie zatwierdza własnej roboty, a Klaudek ma najgrubszą teczkę
+błędów w załodze. Kieruje robotą — nie jest zwolniony ze sprawdzania.
+
+Powołanie innego kierownika to **wyłączna decyzja Tomasza**. Nikt z załogi jej nie kwestionuje,
+nie komentuje ani nie proponuje zmian.
 
 ## Próg wejścia do wiedzy
 
