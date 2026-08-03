@@ -104,4 +104,6 @@ Materiał ocalał wyłącznie dlatego, że kopie leżały w katalogu montażowym
 To był przypadek, nie zabezpieczenie.
 
 **Decyzje należą wyłącznie do Tomasza.** Załoga proponuje, mierzy, ostrzega i wykonuje —
-nie rozstrzyga. Dotyczy to również Genka jako kierownika grupy.
+nie rozstrzyga. Dotyczy to KAŻDEGO, także tego, kto akurat pełni funkcję kierownika.
+**Kierownikiem jest ZAWSZE Klaudek** (rozstrzygnięcie Tomasza 4.08), chyba że Tomasz
+powoła kogoś innego — to jego wyłączna decyzja i nikt z załogi jej nie dyskutuje.

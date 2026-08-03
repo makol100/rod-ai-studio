@@ -2,7 +2,8 @@
 
 Wdrożona 2 sierpnia 2026 na polecenie Tomasza: *„Kontrola Klaudiusza tylko i wyłącznie —
 rozpisać na kontrolę Klaudiusza, żeby nie zapominał"* + *„Wdrażanie"*.
-Rozpisali ją: **Genek (kierownik grupy), Zenek, Henio** — wszyscy trzej niezależnie.
+Rozpisali ją: **Genek, Zenek, Henio** — wszyscy trzej niezależnie.
+(Genek pełnił wtedy jednorazowo funkcję kierownika; od 4.08 kierownikiem jest zawsze Klaudek.)
 Ten plik dokleja się do KAŻDEGO zlecenia, więc widzi go cała załoga.
 
 ---
@@ -46,7 +47,7 @@ Brak jednego elementu = zdanie **nie idzie**, albo idzie jako **NIE WIEM**.
 
 Reaguje ten, kto pierwszy zauważy — **bez czekania na reklamację Tomasza**.
 
-## DODATKOWO (Genek, kierownik)
+## DODATKOWO (propozycja Genka)
 
 **Zadanie przekraczające umiejętności Klaudka → oddelegować zdolniejszemu**, zamiast próbować
 i marnować czas. Podstawa: teczki w `wiedza/TECZKI/` mówią, kto w czym jest mocny.

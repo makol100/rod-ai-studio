@@ -466,6 +466,149 @@ class TestHansWysylka(unittest.TestCase):
         self.assertEqual(mock_urlopen.call_count, 3)
 
 
+
+class TestHansNiedokonczoneSlady(unittest.TestCase):
+    """Testy nowej funkcji sprawdz_niedokonczone_slady — Henio 04.08.2026.
+    Hans ma być moim narzędziem do wykrywania niedokończonych śladów Klaudka."""
+
+    def test_a_pusty_katalog_zwraca_ok(self) -> None:
+        """(a) Pusty katalog bez kodu i wiedzy -> OK, zero rozbieżności."""
+        with TemporaryDirectory() as tmp:
+            wynik = hans.sprawdz_niedokonczone_slady(tmp)
+            self.assertEqual(wynik["poziom"], "OK")
+            self.assertEqual(wynik["pliki_kodu"], 0)
+            self.assertEqual(wynik["pliki_wiedzy"], 0)
+            self.assertEqual(wynik["rozbieznosci"], [])
+
+    def test_b_kod_bez_wiedzy_wykrywa(self) -> None:
+        """(b) Plik kodu BEZ powiązania w wiedzy -> ALERT, osierocony_kod niepusty."""
+        with TemporaryDirectory() as tmp:
+            kat = Path(tmp)
+            tools_dir = kat / "tools"
+            tools_dir.mkdir()
+            wiedza_dir = kat / "wiedza"
+            wiedza_dir.mkdir()
+            # Tworzymy plik kodu
+            (tools_dir / "nowy_skrypt.py").write_text(
+                "# Nowy skrypt do przetwarzania\n"
+                "def przetwarzaj_dane():\n"
+                "    return 'gotowe'\n"
+                "STALA_KONFIGURACYJNA = 42\n",
+                encoding="utf-8",
+            )
+            # Tworzymy wiedzę, która NIE wspomina o tym skrypcie
+            (wiedza_dir / "inny_temat.md").write_text(
+                "# Jakiś inny temat\nTo nie dotyczy nowego skryptu.\n",
+                encoding="utf-8",
+            )
+            wynik = hans.sprawdz_niedokonczone_slady(tmp)
+            self.assertEqual(wynik["poziom"], "ALERT")
+            self.assertGreater(len(wynik["osierocone_kod"]), 0)
+            self.assertIn("tools/nowy_skrypt.py",
+                          [r["plik"] for r in wynik["osierocone_kod"]])
+
+    def test_c_kod_z_wiedza_przepuszcza(self) -> None:
+        """(c) Plik kodu z odpowiadającą mu wiedzą -> OK."""
+        with TemporaryDirectory() as tmp:
+            kat = Path(tmp)
+            tools_dir = kat / "tools"
+            tools_dir.mkdir()
+            wiedza_dir = kat / "wiedza"
+            wiedza_dir.mkdir()
+            (tools_dir / "straznik.py").write_text(
+                "def pilnuj():\n    return 'OK'\n",
+                encoding="utf-8",
+            )
+            (wiedza_dir / "STRAZNIK.md").write_text(
+                "# Strażnik\nOpis narzędzia tools/straznik.py.\n",
+                encoding="utf-8",
+            )
+            wynik = hans.sprawdz_niedokonczone_slady(tmp)
+            self.assertEqual(wynik["poziom"], "OK")
+            self.assertEqual(wynik["osierocone_kod"], [])
+
+    def test_d_testowe_pominiete(self) -> None:
+        """(d) Pliki test_*.py NIE są brane pod uwagę."""
+        with TemporaryDirectory() as tmp:
+            kat = Path(tmp)
+            tools_dir = kat / "tools"
+            tools_dir.mkdir()
+            (tools_dir / "test_cos.py").write_text(
+                "def test_funkcji():\n    assert True\n",
+                encoding="utf-8",
+            )
+            wynik = hans.sprawdz_niedokonczone_slady(tmp)
+            self.assertEqual(wynik["pliki_kodu"], 0,
+                             "Pliki testowe nie powinny być liczone jako kod produkcyjny")
+
+
+class TestHansSrodowiskoHenia(unittest.TestCase):
+    """Testy funkcji sprawdz_srodowisko_henia — Henio 04.08.2026."""
+
+    def test_a_zwraca_strukture(self) -> None:
+        """(a) Funkcja zawsze zwraca słownik z polami: poziom, stan, rozbieznosci."""
+        wynik = hans.sprawdz_srodowisko_henia()
+        self.assertIn("poziom", wynik)
+        self.assertIn("stan", wynik)
+        self.assertIn("rozbieznosci", wynik)
+        self.assertIn("czas_utc", wynik)
+        self.assertIsInstance(wynik["stan"], dict)
+
+    def test_b_wykrywa_brak_zapisu(self) -> None:
+        """(b) Symulowany brak dostępu do repo -> ALERT z komunikatem."""
+        with patch.object(hans.Path, "is_dir", return_value=False):
+            wynik = hans.sprawdz_srodowisko_henia()
+        # Jeśli repo nie istnieje, powinno być odnotowane
+        self.assertIsNotNone(wynik["stan"].get("zapis_do_repo"))
+
+
+class TestHansNaradaZGlosami(unittest.TestCase):
+    """Testy rozszerzonej funkcji sprawdz_narade_z_glosami — Henio 04.08.2026."""
+
+    def _sprawdz(self, glosy: dict[str, str], meldunek: str) -> dict:
+        with TemporaryDirectory() as tmp:
+            kat = Path(tmp)
+            narada = kat / "narada"
+            narada.mkdir()
+            for nazwa, tresc in glosy.items():
+                (narada / nazwa).write_text(tresc, encoding="utf-8")
+            plik_meld = kat / "meldunek.txt"
+            plik_meld.write_text(meldunek, encoding="utf-8")
+            dziennik = kat / "dziennik.jsonl"
+            with patch.object(hans, "DZIENNIK", dziennik):
+                return hans.sprawdz_narade_z_glosami(narada, plik_meld)
+
+    def test_a_glos_wymieniony_przepuszcza(self) -> None:
+        """(a) Autor głosu wymieniony w meldunku -> brak pominiętych głosów."""
+        wynik = self._sprawdz(
+            {"zenek.txt": "Kontrola OK.", "henio.txt": "Moja analiza."},
+            "Meldunek: Zenek zgłosił OK, Henio też się wypowiedział."
+        )
+        self.assertNotIn("pominiete_glosy", wynik)
+
+    def test_b_glos_pominiety_wykrywa(self) -> None:
+        """(b) Głos Zenka NIE wymieniony w meldunku -> ALERT."""
+        wynik = self._sprawdz(
+            {"zenek.txt": "Kontrola: BRAK SLADU.", "henio.txt": "OK."},
+            "Meldunek: Henio zgłosił OK."
+        )
+        self.assertEqual(wynik["poziom"], "ALERT")
+        self.assertIn("pominiete_glosy", wynik)
+        pominiety = [g["autor"] for g in wynik["pominiete_glosy"]]
+        self.assertIn("zenek", pominiety)
+
+    def test_c_wszystkie_glosy_wymienione_ok(self) -> None:
+        """(c) Wszyscy autorzy wymienieni -> poziom może być OK."""
+        wynik = self._sprawdz(
+            {"zenek.txt": "Głos bez zastrzeżeń.",
+             "henio.txt": "Też OK.",
+             "genek.txt": "OK."},
+            "Meldunek uwzględnia głosy Zenka, Henia i Genka."
+        )
+        # Nie ma pominiętych głosów (funkcja bazowa może dać OK)
+        self.assertNotIn("pominiete_glosy", wynik)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
 
