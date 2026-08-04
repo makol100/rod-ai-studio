@@ -187,6 +187,33 @@ Odrzucone: „do usłyszenia przy płocie" (zostało po Stanisławie, uznane za 
 **Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
 „awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
+## UBIOR — DECYZJA TOMASZA 4.08.2026: LNIANA MARYNARKA Z WIDOCZNYM DEKOLTEM
+
+> Tomasz 4.08 09:45, doslownie: **„Lniana marynarka z widocznym dekoltem."**
+
+**OBOWIAZUJE:** lniana marynarka, **dekolt widoczny** (bez koszuli pod spodem zapinanej pod szyje).
+
+**WYGASA:** obecna bluzka `#466270` (turkus) z karty `IZABELA_CANON.png` — gladka, bez kolnierzyka,
+bez warstwy. Karta zostaje na dysku, ale ubior na niej NIE JEST juz kanonem.
+
+**Skad ta sprawa wrocila:** w zapisach pracy nad postacia lezala specyfikacja, ktorej obecna karta
+nie spelniala: *„Sweter lub lniana marynarka w stonowanych kolorach (butelkowa zielen, braz, grafit).
+Koszula pod spodem (kolnierzyk)."* Tomasz sam o tym przypomnial 4.08 („z tego co pamietam mielismy
+zmienic ubior Izabeli") — Klaudek tego nie wychwycil, mimo ze zapis lezal na dysku.
+Tomasz rozstrzygnal odmiennie niz stara specyfikacja: marynarka TAK, koszula pod szyje NIE.
+
+**KOLEJNOSC PRAC — wynika z zapisu Zenka, wazna:**
+> *„Jesli tlo ma byc dobrane pod nia, to UBIOR JEST WAZNIEJSZY NIZ TLO — bo to on musi sie od tla odciac."*
+
+Czyli: **najpierw ubior, potem tlo.** Obecnie mamy odwrotnie — tlo bylo zamykane jako kanon 30.07,
+a ubior dopiero teraz jest rozstrzygniety. Po wygenerowaniu Izabeli w marynarce trzeba sprawdzic,
+czy ktorakolwiek z dwoch wersji studia z 1.08 nadal do niej pasuje.
+
+**DO ZROBIENIA (czeka na slowo Tomasza — STOP PRODUKCJI obowiazuje):**
+1. wygenerowac karte Izabeli w lnianej marynarce z widocznym dekoltem
+2. dopiero potem rozstrzygnac tlo (TV_STUDIO.png czy TV_STUDIO_v2.png czy nowe)
+3. wyciac postac i zlozyc studio jak przy poprzedniej karcie
+
 ## STUDIO — DECYZJA TOMASZA 4.08.2026: ZOSTAJA TYLKO WERSJE Z 1 SIERPNIA
 
 > Tomasz 4.08 09:39, po obejrzeniu wszystkich 15 wariantow: **„Zostaja tylko te z pierwszego sierpnia."**
