@@ -187,6 +187,25 @@ Odrzucone: „do usłyszenia przy płocie" (zostało po Stanisławie, uznane za 
 **Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
 „awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
+## TLO — KANON ZAMKNIETY 4.08.2026: TV_STUDIO.png
+
+> Tomasz 4.08 09:46: **„Tlo uwazam za gotowe."** — po obejrzeniu wskazal TV_STUDIO.png.
+
+**PLIK KANONICZNY:** `assets/izabela/STUDIO_IZABELI_CANON_v2.png` (kopia `TV_STUDIO.png` z 1.08 20:46)
+SHA-256 (24 znaki): `16de5a3a227fcc64b48fcd8b` · 1080 px szerokosci · 1184 KB
+
+**CO ZAWIERA:** niebieskie studio telewizyjne z gradientem i pionowymi liniami w tle;
+napis **PREZENTERKA AI** w lewym gornym rogu na szarym pasku; **logo ROD** w zielonym kole
+w prawym gornym rogu; na dole belka z zoltym akcentem: **IZABELA / wirtualny awatar zarzadu**.
+
+**WYGASA:** `STUDIO_IZABELI_CANON.png` z 30.07 (tlo umbra taupe) oraz TV_STUDIO_v2.png.
+Nic nie usuniete — pliki zostaja na dysku.
+
+**UWAGA — KOLEJNOSC:** to tlo dobierano pod TURKUSOWA BLUZKE. Ubior zmienia sie na lniana marynarke
+z widocznym dekoltem (D-0029), wiec po wygenerowaniu nowej karty trzeba SPRAWDZIC, czy postac
+nadal odcina sie od tego tla. Zenek: *„ubior jest wazniejszy niz tlo — bo to on musi sie od tla odciac"*.
+Jesli nie bedzie sie odcinac, decyduje Tomasz: poprawiamy tlo czy dobieramy inny odcien marynarki.
+
 ## UBIOR — DECYZJA TOMASZA 4.08.2026: LNIANA MARYNARKA Z WIDOCZNYM DEKOLTEM
 
 > Tomasz 4.08 09:45, doslownie: **„Lniana marynarka z widocznym dekoltem."**
