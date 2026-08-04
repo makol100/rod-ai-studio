@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 07:57.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 09:44.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,8 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `IZABELA_KANON_0.1.md` | 04.08 | 24K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
-| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 09:54:17 CEST |
+| `IZABELA_KANON_0.1.md` | 04.08 | 26K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
+| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 11:31:12 CEST |
 | `LISTA_PRACOWNIKOW.md` | 04.08 | 6K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
 | `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
 | `GDZIE_SIE_ZAPISUJE.md` | 04.08 | 4K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |

@@ -187,6 +187,36 @@ Odrzucone: „do usłyszenia przy płocie" (zostało po Stanisławie, uznane za 
 **Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
 „awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
+## KARTA v2 — ZATWIERDZONA 4.08.2026 11:30
+
+> Tomasz po obejrzeniu dwoch wersji: **„Zdecydowanie 2."**
+
+**PLIK KANONICZNY:** `assets/izabela/IZABELA_CANON_v2.png`
+SHA-256 (24 znaki): `03e9331ac795a4796127b6ce`
+
+**JAK POWSTALA — do powtorzenia, gdyby trzeba bylo generowac ponownie:**
+- narzedzie: `tools/gen_izabela_v2.py`, model `gemini-3.1-flash-image` (kanon, ~0,067 USD)
+- metoda: **EDYCJA obrazu wzorcowego**, nie generowanie od zera. Wzorzec: `IZABELA_CANON.png`.
+  Generowanie od zera dalo by INNA kobiete, tylko podobna.
+- polecenie nazywalo problem WPROST: *„the reference looks like a PASSPORT PHOTO - centred,
+  symmetrical, shoulders square to the lens, cropped at the chest, no hands, no depth"*
+  i wymienialo wymagania jako OBOWIAZKOWE, nie sugestie.
+
+**LEKCJA — pierwsza proba (v1) NIE ZADZIALALA:** te same wymagania podane lagodniej model
+potraktowal jako sugestie. Postac zostala na osi (50% zamiast 46% — czyli BARDZIEJ na srodku
+niz oryginal), kadr poszerzyl sie o 3 punkty. Dopiero nazwanie problemu po imieniu
+(„passport photo") + slowa ESSENTIAL / MANDATORY / MUST przy kazdym punkcie dalo skutek.
+
+**ZMIERZONE v2 wobec oryginalu:**
+| co | oryginal | v1 | v2 |
+|---|---|---|---|
+| podobienstwo twarzy | — | 0.90 | **0.87** (prog 0.35) |
+| twarz % szerokosci kadru | 29% | 26% | **24%** (szerszy plan) |
+| srodek twarzy od lewej | 46% | 50% | **57%** (poza osia, miejsce na material z lewej) |
+
+**CO DALEJ:** wyciecie postaci (`tools/wytnij_izabele.py`) i zlozenie ze SWIETYM studiem
+(`STUDIO_IZABELI_CANON_v2.png`). Tla nie ruszamy (D-0031).
+
 ## POZYCJA POSTACI — DO ZMIANY (Tomasz 4.08 09:56)
 
 > **„Nie podoba mi sie jej pozycja, jest taka jakby ze zdjecia paszportowego —
