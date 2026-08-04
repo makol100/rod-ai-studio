@@ -1,0 +1,10 @@
+[Unit]
+Description=Pobranie najnowszego APK z wydania GitHub do data/rolka-prad/
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/rod-ai-studio
+ExecStart=/root/rod-ai-studio/tools/pobierz_apk.sh
+StandardOutput=append:/var/log/apk_pobierz.log
+StandardError=append:/var/log/apk_pobierz.log
