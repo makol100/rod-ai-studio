@@ -1,8 +1,8 @@
-1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 06:56:09 CEST
-2. OSTATNIA DECYZJA: D-0012 | 2026-08-04 | Klaudek ma wiedziec o swojej prawej rece na starcie ZAWSZE. Zepchnal wspolna prace na koniec pliku. Obie…
+1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 07:26:10 CEST
+2. OSTATNIA DECYZJA: D-0013 | 2026-08-04 | Wszystkie kopie prac robi KLAUDEK, a HENIEK kontroluje go, zeby nie zapomnial i nie pomieszal gdzie chce…
 3. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
 4. HANS: Henia, nie Klaudka (D-0006)
-5. TELEPORTY: fabryka 0.2 dnia, Home Assistant 0.2 dnia
+5. TELEPORTY: fabryka 0.2 dnia, Home Assistant 0.0 dnia
 6. /root/.claude/CLAUDE.md: 0.1 dnia bez zmian
 7. OSTATNIA NAGANA KLAUDKA: NAGANA 2 — 4.08.2026, 02:0x — NARAŻENIE FIRMY NA UTRATĘ DANYCH DO ODZYSKU
 8. GENEK: oszczędzany — tylko oczy/uszy/grafika (D-0005: Gienka oszczedzac ze wzgledu na oczy i uszy i generowanie grafik.)

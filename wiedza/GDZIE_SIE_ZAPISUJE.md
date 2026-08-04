@@ -30,6 +30,24 @@
   synchronizowane po SHA-256 przez `tools/porzadek.py`. **NIE ruszać ręcznie** — to nie są oryginały.
 - kopia sprzed porządku: `/root/HISTORIA_ZABEZPIECZONA/TELEPORT_HA_przed_porzadkiem.md`
 
+## NOTATNIKI OSOBNE (dekret Tomasza 4.08 07:3x)
+
+> „Jeżeli każdy ma swój notatnik osobno, to Zenek też niech ma osobno.
+> Jeżeli Genek nie ma dostępu do dysku, czyli nie może mieć swojego notatnika.
+> Jakie to jest proste jak budowa cepa."
+
+**Zasada: kto ma dostęp do dysku — ma własny notatnik. Kto nie ma — nie ma.**
+
+| kto | notatnik | uwagi (zmierzone 4.08) |
+|---|---|---|
+| KLAUDEK | pamięć trwała (wstrzykiwana automatycznie) + `/root/.claude/CLAUDE.md` | jedyny kanał docierający bez jego decyzji |
+| HENIO | `/home/hermes/.hermes/memories/MEMORY.md` | limit 4 mln znaków; poza repo, BEZ kopii na GitHubie |
+| ZENEK | `notatniki/NOTATNIK_ZENKA.md` | **w repo** — jego piaskownica to `workspace-write [workdir, /tmp]`; próba w `/root/.codex/` odrzucona: „writing outside of the project". Zysk: ma kopię na GitHubie |
+| GENEK | **BRAK — i mieć nie może** | nie ma dostępu do dysku; jego jedyna pamięć to treść dołożona w zleceniu przez `tools/zaloga.py` |
+
+**Co w notatniku osobnym:** własny tok pracy, hipotezy, co nie wyszło, na co uważać.
+**Czego NIE:** wniosków trwałych i decyzji — te idą do `wiedza/` przez Klaudka.
+
 ## ZASADA
 Nowe miejsce zapisu powstaje **wyłącznie decyzją Tomasza**. Nikt z załogi nie zakłada własnego
 katalogu na notatki. Jeśli czegoś nie ma gdzie zapisać — pyta się Tomasza, nie wymyśla miejsca.
