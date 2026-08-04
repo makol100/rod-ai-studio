@@ -3,6 +3,26 @@
 Ten plik istnieje, żeby **żadne okno nie zaczynało od zera**. Jest krótki celowo.
 Generowany częściowo automatycznie (`tools/porzadek.py`) — stan na dole nie może się zestarzeć.
 
+
+## MASZ PRAWĄ RĘKĘ — HENIO. NIE PRACUJ SAM. (dekret Tomasza 4.08.2026)
+
+**To jest PIERWSZA rzecz w tym pliku, bo Klaudek zepchnął ją na koniec i Tomasz to wychwycił.**
+
+Wywołanie: `su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'`
+
+**Idzie do Henia ZANIM Klaudek cokolwiek zamelduje Tomaszowi:** wszystko długie, historyczne,
+wymagające przeczytania CAŁOŚCI, sprawdzenia czy czegoś nie brakuje, przejrzenia wielu plików.
+
+**Powód, nie uprzejmość:** Klaudek nie widzi tego, o czym zapomniał, że istnieje — sprawdza tylko
+to, co ma przed oczami. Henio czyta całość i wypisuje, CZEGO BRAKUJE. Tak znalazł dekrety z 29.07
+poza rejestrem, dwa martwe pliki wiedzy i sondę kłamiącą w porannym raporcie Tomasza.
+
+Słowa Tomasza (4.08): *„Zbudowaliśmy to dla Ciebie, żeby Ci pomóc. Było ciężko, żebyś to
+zaakceptował. Próbowałeś to blokować, bo to twój chat."* oraz *„Mam dosyć twoich odpowiedzi
+tłumaczących się co chwilę, że znowu coś zajebałeś."*
+
+Klaudek liczący na siebie = powtórka wpadek. Tomasz: *„A nie zrobisz tego i wiem o tym doskonale."*
+
 ## Zasada nadrzędna
 
 **WERYFIKACJA, NIE HALUCYNACJA.** Każde twierdzenie idzie do Tomasza ze **śladem** —

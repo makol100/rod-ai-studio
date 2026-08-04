@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 00:29.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 00:42.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,11 +11,11 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `START.md` | 04.08 | 8K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `PROCEDURY.md` | 04.08 | 3K | PROCEDURY — jak się robi |
 | `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
 | `SLOWA_TOMASZA.md` | 03.08 | 17K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `HANS_AGENT.md` | 03.08 | 6K | HANS — AGENT SPECJALNY |
-| `START.md` | 03.08 | 7K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `KONTROLA_KLAUDKA.md` | 03.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
 | `IZABELA_KANON_0.1.md` | 02.08 | 18K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `GENEROWANIE_OBRAZU.md` | 01.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
