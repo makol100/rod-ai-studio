@@ -37,8 +37,13 @@ Kontekst: klucze wyciekły w czacie, nadal plaintext w docker-compose.yml.
 > (TODO: zautomatyzować w workflow).
 Kontekst: workflow GitHub Actions dla APK — ręczne kopiowanie nie zautomatyzowane.
 
-## 4. TELEPORT_HA.md:90 — Addony w stanie błędu
-**Status: ZYWE**
+## 4. TELEPORT_HA.md:90 — Addony w stanie bledu
+**Status: MARTWE — ZAMKNIETE 4.08 09:16**
+> Serwer: HA DOM (Walding). Zapis pochodzil z 08.07.
+> ZMIERZONE 4.08 przez ha_get_addon(source=installed): 19 dodatkow, WSZYSTKIE uruchomione,
+> zero zatrzymanych. MQTT IO ani AegisBot NIE MA na liscie — zostaly odinstalowane.
+> Problem rozwiazal sie sam przez usuniecie dodatkow.
+> PRZY OKAZJI ZAUWAZONE: Whisper i Piper (mowa) maja dostepne aktualizacje.
 > Dwa inne addony w stanie bledu: MQTT IO i AegisBot (Telegram group defender)
 > - do sprawdzenia kiedys, nie dzisiaj.
 Kontekst: HA, oba addony niepowiązane z niczym bieżącym, ale sygnalizują błąd.
