@@ -49,7 +49,16 @@ Kontekst: workflow GitHub Actions dla APK — ręczne kopiowanie nie zautomatyzo
 Kontekst: HA, oba addony niepowiązane z niczym bieżącym, ale sygnalizują błąd.
 
 ## 5. TELEPORT_HA.md:226 — Watchdog Tailscale + sensory PV
-**Status: ZYWE**
+**Status: ZALATWIONE — decyzja Tomasza 4.08 09:20**
+> Serwer: HA DZIALKA (po migracji na N150).
+> ZMIERZONE 4.08 przed zamknieciem:
+> - watchdog Tailscale: JUZ ZALATWIONY — stoi w tym samym zapisie, ktory go zglaszal
+>   (boot=auto, watchdog=True, checklist migracji domkniety). Znacznik TODO zostal przez pomylke.
+> - falownik InfiniSolar: WROCIL, 44 encje z prawdziwymi wartosciami (napiecia, prady,
+>   tryb 'Solar and utility simultaneously'). Solar Assistant sam odnalazl nowy adres serwera.
+> - encje niedostepne: 377 wobec 488 przy pomiarze odniesienia — spadek o 111 (o jedna piata).
+>   Urzadzenia wracaly falami, zgodnie z przewidywaniem.
+> Tomasz: *Ten watek uwazam za zalatwiony.*
 > TODO otwarte: watchdog addonu Tailscale, sensory PV (SA→.250?),
 > re-pomiar unavailable (baseline 488 @ 03:0x).
 Kontekst: monitoring HA — watchdog, sensory fotowoltaiki, ponowny pomiar.
