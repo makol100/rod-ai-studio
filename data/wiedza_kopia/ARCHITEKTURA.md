@@ -1,5 +1,12 @@
 # ARCHITEKTURA — jak jest teraz
 
+> **AKTUALIZACJA 04.08.2026** — decyzja Tomasza: *„Nadpisać, żeby wiedzieć, jak dążyliśmy do celu.
+> To wszystko nasza wiedza."*
+> Plik stał 20 dni bez zmian, choć rzeczywistość szła dalej. Rozbieżności wykrył **Henio**
+> (4.08, raport w `.scratch/henio/`), cytatem z pliku przeciw stanowi dysku.
+> **Stare zapisy NIE SĄ kasowane** — zostają jako ślad drogi, oznaczone `BYŁO`.
+> Obowiązuje to, co po `JEST`.
+
 ## Infrastruktura
 - VPS Hetzner 157.90.155.155 (22 GB RAM), kontener `fabryka-api` (FastAPI, venv: `./venv/bin/python`)
 - Repo: github.com/makol100/rod-ai-studio (PUBLICZNE — sekrety tylko w docker-compose.yml, który jest w .gitignore)
@@ -11,9 +18,14 @@
 
 ## Modele
 - **Bielik-11B v3 Q8_0** (Ollama, lokalny) — polski tekst: artykuł, sceny, lektor, prompty PL, opisy FB
-- **Qwen3:14b** — angielskie prompty obrazów (tylko Droga #2) + zadanie NAPRAW; thinking mode ~12 GB
+- BYŁO (do 04.08.2026): **Qwen3:14b** — angielskie prompty obrazów (Droga #2) + zadanie NAPRAW; thinking ~12 GB
+- **JEST:** w Ollamie stoi **`qwen2.5vl:7b`** (5692 MB). Modelu `qwen3:14b` NIE MA w systemie —
+  sprawdzone `ollama list` / `curl localhost:11434/api/tags` (Henio, 4.08).
 - OLLAMA_MAX_LOADED_MODELS=1 — Bielik i Qwen NIE mieszczą się razem; ładowanie sekwencyjne
-- **Nano Banana Pro = Gemini 3 Pro Image przez fal.ai** (`fal-ai/nano-banana-pro`, $0.15/obraz) — obrazy rolek; FLUX.2 max w odwodzie
+- BYŁO (do 01.08): **Nano Banana Pro przez fal.ai** (`fal-ai/nano-banana-pro`, $0.15/obraz) — droga główna
+- **JEST (od 01.08, decyzja Tomasza):** droga główna to **Genek, `gemini-3.1-flash-image`**
+  (~0,067 USD/obraz). Fal.ai **tylko zapasowo, przy awarii Genka**. Kanon: `wiedza/GENEROWANIE_OBRAZU.md`.
+  Słowa Tomasza: „Gienek nano banana 2" + „Fal.ai jako alternatywa w przypadku awarii Gienka".; FLUX.2 max w odwodzie
 - **edge-tts pl-PL-MarekNeural** — lektor (11.6 znaków/s); działa TYLKO na VPS (proxy sandboxa Claude blokuje Microsoft)
 - **Whisper** — napisy; autoryzowany bez pytania (znany tekst podstawiany, gdy liczba słów się zgadza)
 - **Claude w panelu**: pomocnik poprawek = claude-sonnet-4-6; AUDYTOR checkpointu ("Sprawdź
@@ -57,12 +69,15 @@ apps/api/src/barometr.py — Open-Meteo (bez klucza), 4 lokalizacje (Woźniki, L
 Koszęcin, Boronów), cache 3 h. Algorytm 0-100: opady 10d (→45) + deszcz 4-10 dni temu
 (→15) + temp 5d (→40, optimum 12-19°C) − przymrozek (−20). Progi: 75/55/30.
 
-## Fabryka Żartów (Droga B — w budowie, 15.07)
-Moduł `src/zarty.py`, dane `data/zarty/NNNN/`. Pipeline docelowy: Bielik pisze żart
+## Fabryka Żartów (Droga B) — BYŁO „w budowie" (15.07). **JEST: DZIAŁA i produkuje.**
+Odcinki 10004–10010 wyprodukowane; **10010 „Kiedy złapiesz złodzieja jabłek" OPUBLIKOWANY
+i zamknięty** (04.08.2026, decyzja Tomasza). W `data/zarty/`: 7 katalogów odcinków + bank + tematy.
+Moduł: BYŁO `src/zarty.py` — **JEST `apps/api/src/zarty.py`** (przeniesiony; stara ścieżka
+NIE ISTNIEJE, sprawdzone 04.08.2026). Dane bez zmian: `data/zarty/NNNN/`. Pipeline docelowy: Bielik pisze żart
 (KLIP/RUCH/DIALOG, bohaterowie: HENIEK + HALINKA przy płocie) → CHECKPOINT z wyceną $
 → kadr referencyjny NB Pro ($0.15) → klipy Veo 3.1 Fast image-to-video (fal.ai,
 $0.10/s bez audio, 8s/klip, 9:16) → dialogi edge-tts (Marek+Zofia) → ffmpeg concat.
 Żart 3×8s ≈ $2.55. Endpointy: POST /generate-zart, GET /zart-checkpoint/{id},
 POST .../zapisz, GET /zarty. ZBUDOWANE: scenariusz+checkpoint+wycena.
 DO ZBUDOWANIA: produkcja (kadr → Veo → audio → render) + karta w panelu.
-Styl bohaterów: stała STYL_BOHATEROW w zarty.py.
+Styl bohaterów: stała STYL_BOHATEROW w `apps/api/src/zarty.py` (ścieżka poprawiona 4.08).
