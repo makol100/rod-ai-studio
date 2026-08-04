@@ -70,8 +70,19 @@ Kontekst: monitoring HA — watchdog, sensory fotowoltaiki, ponowny pomiar.
 Kontekst: zapis z konkretnego dnia („rano"), HA Dom był offline ~9h.
 Wygląda na jednorazowe, prawdopodobnie już sprawdzone.
 
-## 7. wiedza/archiwum/DECYZJE_10007_jablko.md:35 — Preflight przez kontener
-**Status: ZYWE (narzędziowe)**
+## 7. DECYZJE_10007_jablko.md:35 — Preflight przez kontener
+**Status: ZROBIONE 4.08 09:30** — polecenie Tomasza: *Zrobic ten watek, jezeli jest potrzebny.*
+> BYL POTRZEBNY: bez bibliotek kontrola twarzy blokuje produkcje na pierwszym kadrze
+> (bramka jest fail-closed — brak narzedzia = FAIL, nie ciche przepuszczenie. To dobrze).
+> ZMIERZONE PRZED: cv2 i insightface NIE BYLO ani na serwerze, ani w kontenerze —
+> czyli obejscie z 17.07 (uruchomienie w kontenerze) tez juz nie dzialalo.
+> ZROBIONE: opencv-python-headless + insightface + onnxruntime w kontenerze fabryka-api,
+> model buffalo_l pobrany. Koszt: 0 zl, tylko miejsce na dysku (bylo 82 GB wolne).
+> SPRAWDZONE BOJOWO na prawdziwych kadrach 10010: f01 — 1 twarz, pewnosc 0.75; f07 — 0 twarzy.
+> KONTEKST HISTORYCZNY: kontrola dzialala normalnie przy odcinkach 10008, 10009 i 10010
+> (zapisy pomiarow: Tomek 0.53-0.81, Janusz 0.38-0.61 nad progiem 0.35). Znacznik TODO
+> z 17.07 zostal, choc sprawa rozwiazala sie sama — biblioteka zniknela dopiero pozniej,
+> przy przebudowie kontenera.
 > TODO-narzędziowe: preflight przez kontener albo insightface na host.
 Kontekst: decyzja 10007 (kanarek), narzędzie do preflightu. W archiwum,
 ale technicznie może być nadal potrzebne.
