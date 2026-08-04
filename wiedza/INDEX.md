@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 07:15.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 07:40.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 09:07:12 CEST |
+| `IZABELA_KANON_0.1.md` | 04.08 | 19K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
+| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 09:29:11 CEST |
 | `LISTA_PRACOWNIKOW.md` | 04.08 | 6K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
 | `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
 | `GDZIE_SIE_ZAPISUJE.md` | 04.08 | 4K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |
@@ -20,7 +21,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `SLOWA_TOMASZA.md` | 03.08 | 17K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `HANS_AGENT.md` | 03.08 | 6K | HANS — AGENT SPECJALNY |
 | `KONTROLA_KLAUDKA.md` | 03.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
-| `IZABELA_KANON_0.1.md` | 02.08 | 18K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `GENEROWANIE_OBRAZU.md` | 01.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `ZALOGA_LIMITY.md` | 30.07 | 4K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
 | `KONEKTOR_DZIALKA.md` | 29.07 | 2K | KONEKTOR HA DZIAŁKA — NAPRAWIONY 29.07.2026 |
@@ -46,8 +46,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 135K | 04.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
-| `/root/TELEPORT_HA.md` | 46K | 04.08 | teleport HA — ARCHIWUM, jw. |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 136K | 04.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/TELEPORT_HA.md` | 47K | 04.08 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
 | `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 5K | 30.07 | podrecznik Henika (dyzurny) |

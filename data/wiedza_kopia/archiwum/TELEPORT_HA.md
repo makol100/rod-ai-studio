@@ -554,3 +554,30 @@ Kontrola zaległości: `python3 tools/teleport.py --sprawdz`
 ==============================================================================
 
 PORZADEK 4.08 07:14 — /root/TELEPORT_HA.md jest teraz DOWIAZANIEM do /root/rod-ai-studio/TELEPORT_HA.md. Jedna tresc, jedno miejsce, w repo i na GitHubie. Kopia sprzed porzadku: /root/HISTORIA_ZABEZPIECZONA/TELEPORT_HA_przed_porzadkiem.md
+
+
+==============================================================================
+## SESJA 04.08.2026 09:17 CEST
+==============================================================================
+
+4.08 09:16 — SPRAWDZENIE OTWARTEGO WATKU z 08.07 'dwa addony w stanie bledu: MQTT IO i AegisBot'.
+ZMIERZONE (ha_get_addon source=installed na HA DOM): 19 dodatkow, 19 uruchomionych, 0 zatrzymanych.
+MQTT IO i AegisBot NIE ISTNIEJA — odinstalowane w miedzyczasie. Watek MARTWY, zamkniety.
+ZAUWAZONE PRZY OKAZJI: Whisper (3.5.0) i Piper (2.3.1) maja dostepne aktualizacje — para obslugujaca
+sterowanie glosem. Do decyzji Tomasza, nie ruszane.
+UWAGA METODYCZNA: to CZWARTY dzis watek oznaczony jako otwarty, ktory dawno nie istnieje
+(po: liscie pracownikow, architekturze, publikacji FB). Zanim ktokolwiek zacznie robic cokolwiek
+z listy otwartych watkow — NAJPIERW zmierzyc, czy sprawa jeszcze zyje.
+
+
+==============================================================================
+## SESJA 04.08.2026 09:22 CEST
+==============================================================================
+
+4.08 09:20 — WATEK 'watchdog Tailscale + sensory PV' ZAMKNIETY decyzja Tomasza.
+ZMIERZONE PRZED ZAMKNIECIEM (HA Dzialka, N150):
+- watchdog Tailscale: byl juz zalatwiony w tej samej sesji, ktora go zglosila (boot=auto, watchdog=True).
+- falownik InfiniSolar: WROCIL — 44 encje z prawdziwymi wartosciami. Solar Assistant sam znalazl nowy adres brokera, nie trzeba bylo klikac w jego panelu.
+- encje niedostepne: 377 (baseline byl 488) — spadek o 111. Urzadzenia wracaly falami zgodnie z przewidywaniem.
+POZOSTAJE NIEZBADANE (nie jako watek, jako obserwacja): co skladа sie na te 377 — czy to glownie bateryjne Zigbee czekajace na pierwszy ruch, czy cos realnie martwego. Do sprawdzenia, gdy Tomasz uzna za potrzebne.
+Tomasz: 'Ten watek uwazam za zalatwiony.'
