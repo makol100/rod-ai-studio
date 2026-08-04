@@ -88,7 +88,18 @@ Kontekst: decyzja 10007 (kanarek), narzędzie do preflightu. W archiwum,
 ale technicznie może być nadal potrzebne.
 
 ## 8. wiedza/FILM_OPUS5_WNIOSEK.md:33 — Remotion jako kandydat
-**Status: ZYWE**
+**Status: ODRZUCONE 4.08 09:31 — decyzja Tomasza**
+> Remotion = pisanie animacji jako kodu (React) zamiast skladania ffmpegiem.
+> ZMIERZONE PRZED DECYZJA: uzywamy 6 rodzajow operacji (scale, zoompan, overlay, drawtext,
+> crop, boxblur) w 5 narzedziach i 33 skryptach przy odcinkach. To PROSTE rzeczy —
+> ffmpeg robi je dobrze. Remotion wygrywa przy animacji ZLOZONEJ (wykresy w rytm mowy,
+> kilkanascie elementow naraz, szablony z podmienianymi danymi) — my tego nie robimy.
+> Nasza produkcja to material GENEROWANY przez modele; montaz to cienka warstwa na wierzchu.
+> Node v22 jest zainstalowany, wiec prog wejscia bylby niski — ale to nie powod, zeby brac.
+> GLOSY Z LIPCA: Genek za, Zenek i Henio przeciw ('trzy nowe zaleznosci, trzy miejsca awarii').
+> LEKCJA Z WD_0001: rolka zostala odrzucona nie przez slaby montaz, tylko dlatego, ze Izabela
+> stala jak na zdjeciu paszportowym. Zadne narzedzie do animacji tego nie naprawi.
+> WRACAMY, jesli kiedys zaczniemy robic cos zlozonego graficznie.
 > Remotion pozwala napisać je jako kod pod konkretny odcinek. To kandydat
 > do sprawdzenia, nie decyzja.
 Kontekst: analiza narzędzi po Opus 5, Remotion nierozstrzygnięty.
