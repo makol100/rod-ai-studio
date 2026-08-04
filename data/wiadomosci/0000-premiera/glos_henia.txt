@@ -1,0 +1,113 @@
+Materiały sprawdzone. Oto mój głos.
+
+---
+
+## GŁOS HENIA — SCENARIUSZ PREMIERY Z IZABELĄ
+
+### NAPIĘCIE Z KANONEM (zgłaszam jawnie)
+
+Kanon IZABELA_KANON_0.1.md (wiersz 130-136) mówi: "BEZ powitania, bez wstępu. Deklaracja jest pierwszym słowem" — wzorzec z filmu youtu.be/N91bU7nzo-Q. Argument: "Izabela to nie recepcjonistka — pierwsze słowo to jej imię."
+
+Tomasz 4.08 mówi: "Izabela wita się, przedstawia się."
+
+Słowo Tomasza przebija kanon. Powitanie wchodzi — ALE musi być krótkie i nie może osłabiać wejścia. Proponuję: "Witam Państwa." (14 znaków, ~0,9 s) — żadnego "dzień dobry", żadnego "kłaniam się nisko".
+
+---
+
+### 1. PEŁNY SCENARIUSZ (gotowy do nagrania)
+
+> Witam Państwa. Nazywam się Izabela — jestem wirtualnym awatarem Zarządu Rodzinnego Ogrodu Działkowego imienia Józefa Lompy w Woźnikach. Zostałam powołana, by informować Szanownych Działkowiczów o pracach zarządu i o tym, co dzieje się na ogrodach. To pierwszy odcinek z cyklu — zapraszam.
+
+**Pomiar:** ~349 znaków. Tempo Charlotte (kanon: 460 znaków / 31 s = 14,8 znaku/s). **Szacowana długość: ~24 sekundy.**
+
+Bez didaskaliów. Cztery zdania. Każde ma jeden cel:
+- Zdanie 1: powitanie + imię (kim jestem)
+- Zdanie 2: czyim jestem awatarem (deklaracja AI + pełna nazwa ROD)
+- Zdanie 3: po co jestem (misja, słowami Tomasza)
+- Zdanie 4: zapowiedź cyklu (co dalej)
+
+---
+
+### 2. PIERWSZE ZDANIE — HACZYK NA 3 SEKUNDY
+
+> Witam Państwa. Nazywam się Izabela — jestem wirtualnym awatarem Zarządu.
+
+Dlaczego to działa w 3 sekundy:
+- "Witam Państwa" = ~1 s — czysty sygnał startu, bez cepelii
+- "Nazywam się Izabela" = ~1,5 s — imię, twarz, konkret
+- "wirtualnym awatarem" = słowo-klucz, które zatrzymuje kciuk — na Facebooku ludzie scrollują i słowo "wirtualny" w kontekście prezenterki newsowej jest na tyle nieoczywiste, że wywołuje reakcję "zaraz, co?"
+
+Nie "dzień dobry" (recepcja), nie "witam serdecznie" (cepelie), nie "cześć" (nie ten format). "Witam Państwa" — formalnie, krótko, bez nadęcia.
+
+---
+
+### 3. JAK SIĘ PRZEDSTAWIA — OTWARCIE CZY UKRYWANIE?
+
+**Mówi wprost: "wirtualny awatar Zarządu".** To jest rozstrzygnięte w kanonie (wiersz 128-129, słowa Tomasza: "Jestem wirtualnym awatarem zarządu").
+
+Nie chowa się, nie udaje człowieka. Dlaczego NIE może być inaczej:
+- Na ekranie OD PIERWSZEJ KLATKI stoi napis "PREZENTERKA AI" (lewy górny róg) i "wirtualny awatar zarządu" (dolna belka) — źródło: IZABELA_KANON_0.1.md wiersz 281-283. Ukrywanie tego w głosie przy widocznych napisach to fałsz, który widz wyłapie w sekundę.
+- AI Act (wiersz 40-44) wymaga ujawnienia przy pierwszym kontakcie.
+- Dwa kanały (wiersz 137-141): obraz mówi "PREZENTERKA AI", głos mówi "wirtualny awatar zarządu". Każdy wystarcza samodzielnie — nawet bez dźwięku widz wie, z czym ma do czynienia.
+
+"Wirtualny awatar Zarządu" to NIE to samo co "jestem sztuczną inteligencją" — i dobrze. Napis na ekranie domyka AI, głos mówi czyim jest awatarem. Bez przepraszania, bez tłumaczenia się.
+
+**"Izabela" — bez nazwiska.** Kanon (wiersz 128) ustala formułę "Jestem Izabela". Jest awatarem organu, nie człowieka — nazwisko sugerowałoby realną osobę, co jest fałszem.
+
+---
+
+### 4. FORMA ZWRACANIA SIĘ
+
+**"Szanowni Działkowicze" — RAZ, w zdaniu o misji.** Dokładnie tam, gdzie Tomasz to umieścił. To jest zwrot zarządu do działkowców — formalny, pasuje do funkcji Izabeli jako głosu zarządu.
+
+Potem: **"Państwa"** — naturalne, profesjonalne, bez sztywności.
+
+Jak uniknąć sztywności, nie wpadając w swojskość:
+- Krótkie zdania (10-15 słów, nie 25+) — sztywność bierze się z długich, urzędowych zdań
+- Czasowniki w pierwszej osobie ("zapraszam", nie "zaprasza się")
+- Żadnego "proszę państwa" w tonie Stanisława (kanon STANISLAW_CANON_1.0.md wiersz 12: "proszę państwa" to jego stały zwrot — odpada)
+- Żadnego "u nas na ogrodzie", zdrobnień, przysłów
+- Żadnego "kłaniam się nisko" (wiersz 22 — pogrzebane)
+
+Granica: "Witam Państwa" zamiast "Dzień dobry państwu, kłaniam się nisko". Pierwsze to profesjonalne studio, drugie to zebranie wiejskie.
+
+---
+
+### 5. DŁUGOŚĆ — 24 SEKUNDY
+
+**Uzasadnienie liczbami, nie przeczuciem:**
+
+| podstawa | wartość | źródło |
+|---|---|---|
+| długość tekstu | 349 znaków | policzone z proponowanego scenariusza |
+| tempo Charlotte | 14,8 znaku/s | kanon wiersz 78: 460 znaków / 31 s |
+| wynik | 23,6 s → **~24 s** | matematyka |
+
+Dlaczego tyle, a nie 15 czy 40:
+- Poniżej 15 s — za krótko na cztery elementy (powitanie, kto, po co, zapowiedź). Wypadnie któryś.
+- Powyżej 30 s — Izabela jest klamrą (kanon wiersz 54-55: "Postać jest KLAMRĄ, nie całą rolką"), a to jest sam wstęp bez treści merytorycznej. Dłuższy wstęp = widzowie odpadają przed pierwszym materiałem.
+- Facebook: format pionowy, pierwsze 3 s decydują o obejrzeniu do końca (dane z briefu). Po 24 s mamy albo widza, który został, albo takiego, który i tak by odpadł przy 15 s.
+
+---
+
+### 6. CO NA EKRANIE
+
+**Izabela w studio przez całe 24 sekundy. Bez przebitek.** Dlaczego:
+
+1. **To jest jej przedstawienie się.** Nie ma materiału z terenu — premiera to czysta klamra, nie ma "środka" do wypełnienia zdjęciami ogrodu.
+2. **Studio jest nowe i profesjonalne** — zatwierdzone przez Tomasza 4.08 (wiersz 192: "Brawo! Jest! Zapisać!!!"). Ma logo ROD, belki, gradient, podświetlaną krawędź blatu. Jest CO oglądać.
+3. **Problem "zdjęcia paszportowego" jest rozwiązany** — Izabela w wersji v2 (karta IZABELA_CANON_v2.png, wiersz 227) ma korpus skręcony, ręce na blacie, postać poza osią kadru (57% od lewej, wiersz 248), kadr do pasa. To NIE jest frontalna gadająca głowa.
+4. **Przebitki w 24-sekundowym intro rozbijają uwagę.** Widz ma zapamiętać JEDNO: jest nowa prowadząca, nazywa się Izabela, mówi w imieniu zarządu. Każda przebitka to ryzyko, że widz nie skojarzy twarzy z nazwiskiem.
+
+**Co się dzieje na ekranie w czasie:**
+- **0,0–2,5 s:** napis "WIADOMOŚCI DZIAŁKOWE" (miękkie wejście, kanon wiersz 149). Izabela już jest widoczna, zaczyna mówić "Witam Państwa...".
+- **2,5–24,0 s:** czysta Izabela w studio — napisy "PREZENTERKA AI" i "IZABELA / wirtualny awatar zarządu" obecne przez cały czas (są częścią tła studia, nie nakładką montażową).
+- **Ostatnia klatka:** zatrzymanie ~1 s, bez planszy z logo (kanon wiersz 152: "bez planszy z logo").
+
+---
+
+### PODSUMOWANIE
+
+Scenariusz: 349 znaków, ~24 sekundy, cztery zdania. Izabela w studio przez cały czas. "Witam Państwa. Nazywam się Izabela — jestem wirtualnym awatarem Zarządu..." — żadnego chowania AI, żadnego "dzień dobry", żadnego "kłaniam się nisko". Profesjonalnie, krótko, na miarę studia które Tomasz zatwierdził słowem "Brawo!".
+
+— HENIO
