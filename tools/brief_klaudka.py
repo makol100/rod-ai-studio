@@ -62,6 +62,26 @@ def zaleglosc_teleportow():
     return ", ".join(f"{nazwa} {dni} dnia" for nazwa, dni in pomiary)
 
 
+def pilne_reczne():
+    """Sprawy wymagajace RECZNEJ roboty Tomasza — Klaudek ma o nich PRZYPOMINAC, nie robic sam.
+
+    4.08: Tomasz odlozyl wymiane kluczy API ("dzis wieczorem albo jutro rano, teraz nie mam czasu").
+    ODLOZYL, a nie odwolal — i to jest roznica, ktora Klaudek gubi. Bez tego przypomnienia
+    sprawa zniknelaby tak samo jak teleport: nie przez decyzje, tylko przez ciszę.
+
+    Brief ma TWARDO 9 linii (metoda Gawande — dluzsza lista uczy, zeby jej nie czytac),
+    wiec sprawa pilna WYPIERA linie o naganie. Nagana jest historia, to jest do zrobienia.
+    """
+    sciezka = REPO / ".scratch" / "pilne_reczne.txt"
+    try:
+        for l in sciezka.read_text(encoding="utf-8").splitlines():
+            if l.strip() and not l.startswith("#"):
+                return jedna_linia(l.strip())
+    except OSError:
+        pass
+    return ""
+
+
 def ostatnia_nagana():
     nagany = list(re.finditer(r"^## (NAGANA[^\n]+)$", TECZKA.read_text(encoding="utf-8"), re.M))
     if not nagany:
@@ -81,6 +101,7 @@ def main():
     kierownik = temat(wpisy, "kierownik")
     teraz = datetime.now(ZoneInfo("Europe/Warsaw"))
     dni_claude = (datetime.now().timestamp() - CLAUDE.stat().st_mtime) / 86400
+    _pilne = pilne_reczne()
     linie = [
         f"1. STOP PRODUKCJI: OBOWIĄZUJE ({stop['id']}) | wygenerowano {teraz:%Y-%m-%d %H:%M:%S %Z}",
         f"2. OSTATNIA DECYZJA: {ostatnia['id']} | {ostatnia['czas_tomasza'][:10]} | {skrot(ostatnia)}",
@@ -88,7 +109,8 @@ def main():
         f"4. HANS: Henia, nie Klaudka ({hans['id']})",
         f"5. TELEPORTY: {zaleglosc_teleportow()}",
         f"6. /root/.claude/CLAUDE.md: {dni_claude:.1f} dnia bez zmian",
-        f"7. OSTATNIA NAGANA KLAUDKA: {ostatnia_nagana()}",
+        (f"7. !! DO ZROBIENIA PRZEZ TOMASZA: {_pilne}" if _pilne
+         else f"7. OSTATNIA NAGANA KLAUDKA: {ostatnia_nagana()}"),
         f"8. GENEK: oszczędzany — tylko oczy/uszy/grafika ({genek['id']}: {skrot(genek)})",
         f"9. KIEROWNIK: Klaudek, rozstrzygnięte 4.08 ({kierownik['id']})",
     ]
