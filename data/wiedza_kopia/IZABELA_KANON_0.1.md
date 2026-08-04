@@ -187,6 +187,27 @@ Odrzucone: „do usłyszenia przy płocie" (zostało po Stanisławie, uznane za 
 **Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
 „awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
+## POZYCJA POSTACI — DO ZMIANY (Tomasz 4.08 09:56)
+
+> **„Nie podoba mi sie jej pozycja, jest taka jakby ze zdjecia paszportowego —
+> i takie zdjecie paszportowe przemawia."**
+
+**TO NIE JEST UWAGA O MONTAZU.** Klaudek probowal to potraktowac jako problem dlugosci ujecia
+(„skrocic ja do 3 sekund") — Tomasz odrzucil to wprost. Problem jest w SAMEJ POZIE POSTACI.
+
+**CO TWORZY EFEKT ZDJECIA PASZPORTOWEGO (zmierzone na pliku kanonicznym):**
+twarz 29% szerokosci kadru, wysrodkowana (46% od lewej), ramiona rowno do obiektywu,
+kadr uciety na piersiach, BRAK RAK, brak glebi, pelna symetria.
+
+**CO MA BYC:**
+1. **Korpus skrecony 15-20 stopni**, glowa zwrocona do kamery — sama ta zmiana likwiduje efekt dokumentu
+2. **Kadr szerszy — do pasa albo zza blatu**, zeby WIDAC RECE. Rece sa roznica miedzy czlowiekiem a fotografia
+3. **Blat/pulpit przed nia**, dlonie oparte albo z kartkami — tak siedzi kazdy serwis informacyjny
+4. **Postac przesunieta z osi**, nie idealnie na srodku — daje glebie i miejsce na material obok niej
+
+**TLO STUDIA ZOSTAJE SWIETE** (D-0031). Zmienia sie postac: ubior (marynarka ecru #E8DFD0,
+dekolt widoczny) ORAZ poza wedlug powyzszego.
+
 ## TLO — KANON ZAMKNIETY 4.08.2026: TV_STUDIO.png
 
 > Tomasz 4.08 09:46: **„Tlo uwazam za gotowe."** — po obejrzeniu wskazal TV_STUDIO.png.
