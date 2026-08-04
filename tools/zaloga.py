@@ -327,7 +327,13 @@ def wspolna_wiedza() -> str:
     # HANS — agent specjalny pilnujacy wspolnego dobra pracy w grupie, WSZYSTKICH na rowno.
     h = os.path.join(REPO, "wiedza", "HANS_AGENT.md")
     if os.path.isfile(h):
-        czesci.append("\nHANS — agent specjalny (powolany 01.08, NIEZBUDOWANY): wiedza/HANS_AGENT.md")
+        czesci.append(
+            "\nHANS — agent specjalny: ZBUDOWANY I DZIALA (3-4.08). Wlascicielem jest HENIO "
+            "(dekret Tomasza 4.08), nie Klaudek. Chodzi sam: hans-ucho.service (nasluch bota "
+            "Tomasza co 60 s, jego slowa trafiaja do rejestru BEZ Klaudka) + hans-oczy.timer "
+            "(co 15 min skan repo, wykrywa niedokonczone slady Klaudka). Szczegoly: "
+            "wiedza/HANS_AGENT.md. Poprawione 4.08 — do tego dnia zaloga dostawala w KAZDYM "
+            "zleceniu informacje 'NIEZBUDOWANY', wykryl to Zenek w audycie calosci.")
         czesci.append("  Pilnuje WSZYSTKICH na rowno, Klaudka takze. Budowa: wspolna, cala czworka.")
 
     # KONTROLA KLAUDKA — wdrozona 2.08 na polecenie Tomasza. Cala zaloga MUSI ja widziec,

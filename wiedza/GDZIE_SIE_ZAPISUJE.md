@@ -38,12 +38,14 @@
 
 **Zasada: kto ma dostęp do dysku — ma własny notatnik. Kto nie ma — nie ma.**
 
+**Wynik po sprawdzeniu KAŻDEGO pomiarem (4.08): wszyscy czterej mają dysk, więc wszyscy mają notatnik.** Klaudek twierdził, że Genek dysku nie ma — nie sprawdziwszy. Ta pomyłka trafiła do kanonu i do decyzji D-0014, którą Tomasz podjął na fałszywej przesłance. Sprostowane jako D-0017.
+
 | kto | notatnik | uwagi (zmierzone 4.08) |
 |---|---|---|
 | KLAUDEK | pamięć trwała (wstrzykiwana automatycznie) + `notatniki/NOTATNIK_KLAUDKA.md` | `/root/.claude/CLAUDE.md` = dowiązanie do repo (4.08 07:38). Ma kopię na GitHubie |
 | HENIO | `notatniki/NOTATNIK_HENIA.md` | limit 4 mln znaków. `/home/hermes/.hermes/memories/MEMORY.md` = dowiązanie do repo (4.08 07:38, zapis przez starą ścieżkę sprawdzony). Ma kopię na GitHubie |
 | ZENEK | `notatniki/NOTATNIK_ZENKA.md` | **w repo** — jego piaskownica to `workspace-write [workdir, /tmp]`; próba w `/root/.codex/` odrzucona: „writing outside of the project". Zysk: ma kopię na GitHubie |
-| GENEK | **BRAK — i mieć nie może** | nie ma dostępu do dysku; jego jedyna pamięć to treść dołożona w zleceniu przez `tools/zaloga.py` |
+| GENEK | `notatniki/NOTATNIK_GENKA.md` | **SPROSTOWANIE 4.08 08:03** — Klaudek zameldował, że Genek nie ma dysku i notatnika mieć nie może. NIEPRAWDA, nie sprawdził. Test: Genek zapisał plik (14 B). `START.md:65` mówił to od 29.07: PEŁNY DYSK, czyta, ZAPISUJE i URUCHAMIA POLECENIA. Ma kopię na GitHubie |
 
 **Co w notatniku osobnym:** własny tok pracy, hipotezy, co nie wyszło, na co uważać.
 **Czego NIE:** wniosków trwałych i decyzji — te idą do `wiedza/` przez Klaudka.
