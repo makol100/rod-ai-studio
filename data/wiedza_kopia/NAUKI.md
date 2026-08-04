@@ -158,3 +158,35 @@ sieciowym NIE zakladac dzialajacej klawiatury — automat embedded pewniejszy.
 
 - 23.07 USTERKA kanarka do naprawy: --zapis-bank pada w kontenerze (FileNotFoundError /root/rod-ai-studio/wiedza/PROMPTY_WZORCE.md), bo kontener fabryka-api NIE widzi katalogu wiedza/ (repo montowane jako /app, wiedza tylko na hoscie). Obejscie: zwyciezce dopisywac do banku Z HOSTA. Do naprawy: kanarek powinien zapisywac przez sciezke widoczna w kontenerze albo publikacja/zapis-bank ma isc z hosta.
 - test hooka 06:55:24
+
+## 04.08.2026 — HENIO ZDLAWIONY PRZEZ WLASNE ZADANIE (5 godzin martwy)
+
+**Objaw:** Henio nie odpowiadal na NIC, nawet na slowo „TEST". Bramka `active`, proces zyje,
+silnik DeepSeek sprawdzony osobno — odpowiada w sekunde. Ale ostatnie wywolanie silnika: 10:07,
+przez 5 godzin ANI JEDNEGO.
+
+**Prawdziwa przyczyna:** proces `tools/wytnij_izabele.py` (rembg, model birefnet-portrait na CPU)
+uruchomiony przez Henia o 11:50 **wisial 2h56min i puchl do 6154 MB**. Klatka pamieci uzytkownika
+hermes miala `MemoryHigh=1536M / MemoryMax=2048M` — z czasow probnego dyzuru read-only w lipcu,
+NIGDY NIE ZDJETA mimo pelnych praw od 29.07.
+Jadro zdlawilo CALA grupe: bramka Henia utknela w stanie `D (disk sleep)`,
+stos: `__mem_cgroup_handle_over_high`. **Henio nie padl — zostal uduszony przez wlasne zadanie.**
+
+**Tomasz nazwal to od razu i trafnie:** *„Wycinal, a ty cos innego musiales robic. I sie Henio posral."*
+W tym samym czasie Klaudek generowal obrazy u Genka i uruchamial rozpoznawanie twarzy w kontenerze.
+
+**BLAD KLAUDKA — SZUKAL NIE TAM 3 RAZY:**
+1. obwinil swoja zmiane `reasoning_effort: high` (00:16) — cofnal, nie pomoglo
+2. obwinil `memory_char_limit: 4000000` — cofnal cala konfiguracje, nie pomoglo
+3. obwinil plik blokady `MEMORY.md.lock` — odlozyl, nie pomoglo
+Dopiero za CZWARTYM podejsciem zapytal `ps -u hermes --sort=-rss` — JEDNO polecenie,
+ktore od razu pokazalo winowajce. **Diagnoze zaczynac od pytania „co zjada zasoby",
+a nie od „co ja ostatnio zmienilem".**
+
+**NAPRAWA:** klatka podniesiona do `MemoryHigh=6G / MemoryMax=8G`
+(`/etc/systemd/system/user-1000.slice.d/pamiec.conf`). Nic nie kosztuje — serwer ma 22 GB,
+wolnych bylo 18. Ustawienia Henia przywrocone (tryb wysoki, pamiec 4 mln) — nie byly winne.
+
+**ZASADA NA PRZYSZLOSC:** ciezkie zadania na procesorze (rembg, modele wizyjne) NIE uruchamiac
+rownolegle z inna ciezka praca. Przy poprzedniej karcie wycinal Zenek — spoza klatki hermesa,
+wiec problem sie nie ujawnil.
