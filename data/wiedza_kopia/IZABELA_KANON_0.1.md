@@ -220,7 +220,17 @@ Odcienie do unikniecia: granat, ciemny blekit, czern (zleja sie z tlem).
 
 > Tomasz 4.08 09:45, doslownie: **„Lniana marynarka z widocznym dekoltem."**
 
-**OBOWIAZUJE:** lniana marynarka, **dekolt widoczny** (bez koszuli pod spodem zapinanej pod szyje).
+**OBOWIAZUJE:** lniana marynarka **ECRU `#E8DFD0`** (zlamana biel), **dekolt widoczny**
+(bez koszuli pod spodem zapinanej pod szyje). Kroj dopasowany, sylwetka zadbana — elegancko,
+nie wieczorowo, bo to wiadomosci.
+
+**DLACZEGO ECRU — dobor oparty na POMIARZE tla, nie na wyobrazeniu (4.08 09:52):**
+tlo studia `#041631` (bardzo ciemny granat), gorna belka `#1A3F76`, dolna `#0A1B2E`,
+zloty akcent, zielone logo ROD. Przy tak ciemnym i zimnym tle kolor marynarki MUSI byc
+jasniejszy i cieplejszy, inaczej postac sie rozplynie.
+ODPADAJA: granat, czern, ciemny blekit, ciemna zielen.
+Tomasz wybral ECRU z trzech propozycji (ecru `#E8DFD0` / camel `#B08D5A` / szalwia `#8A9481`).
+Ecru daje najmocniejszy kontrast i jest najbardziej „lniane" — czysto, elegancko, bez krzyku.
 
 **WYGASA:** obecna bluzka `#466270` (turkus) z karty `IZABELA_CANON.png` — gladka, bez kolnierzyka,
 bez warstwy. Karta zostaje na dysku, ale ubior na niej NIE JEST juz kanonem.
