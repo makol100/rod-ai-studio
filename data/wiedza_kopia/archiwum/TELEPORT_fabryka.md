@@ -1275,3 +1275,84 @@ KOSZTY dnia: diagnoza i2v ~$1.40 + żart 0002 $2.40 + test 9999 $1.20.
 
 **PROTOKÓŁ TRÓJKI (decyzja Tomasza 26.07):** Klaudek = szef. Przy błędach trójka (Klaudek + Zenek + strażnicy drogi) iteruje analizę aż do pełnej zgody; dopiero konsensus idzie do Tomasza jako propozycja naprawy.
 **GENEK ZATRUDNIONY (26.07):** Gemini = Genek, drugi pracownik, trzecia rodzina modeli = prawdziwie niezależny sędzia. Auth: klucz AI Studio (darmowy login Google wyłączony 18.06.26), model Gemini 3 Flash.
+
+
+==============================================================================
+## SESJA 04.08.2026 02:04 CEST
+==============================================================================
+
+# UZUPEŁNIENIE LUKI 26.07 → 04.08.2026 (8,4 dnia, 83 commity)
+
+**Wpis nadrobiony na polecenie Tomasza: „Wszystko natychmiast."**
+Powód luki: Klaudek przekwalifikował teleport na „archiwum" BEZ ZGODY TOMASZA i przestał go
+prowadzić. Za to dwie nagany w `wiedza/TECZKI/KLAUDEK.md` (4.08). Słowa Tomasza:
+„Mogłeś mu dopisać funkcje, ale nigdy nie skasować jego podstawowego zadania."
+
+## 29.07 — NAPRAWA NARZĘDZI I RÓWNE SZANSE
+- Zenek naprawiony: w piaskownicy Codex był odcięty DNS — sonda pilnuje tej zdolności.
+- Konektor Działka naprawiony: most przez Caddy, wystawiony TYLKO webhook MCP, reszta HA daje 404.
+- Sonda zdolności załogi (codzienna) + hook odrzucający zepsute narzędzie.
+- **Równe szanse jako BRAMKA:** `zaloga.py` nie roześle zadania, gdy komuś coś padło.
+- **Bramka ukończenia `zrobione.py` + hook:** twierdzenie o działaniu wymaga dowodu, testu i głosu załogi.
+- Bramka naprawiona metodą ze skilla `/diagnosing-bugs` — pętla testowa 7/7 zielonych.
+- Dekret Tomasza: „Nie ma takiego czegoś jak niesprawdzone" + próg wejścia do wiedzy + drużyna zawsze.
+
+## 29.07–31.07 — IZABELA (nowa postać prowadząca)
+- **29.07:** Izabela zastępuje Pana Stanisława (decyzja Tomasza). Deklaracja AI na wejściu.
+- **30.07:** głos = **Charlotte** (wybór Tomasza z castingu 6 głosów, 0,23 USD). Wymowa
+  „Woźniki" i „Lompy" zweryfikowana.
+- **30.07:** karta zamknięta — wycięcie modelem birefnet-portrait, studio kodem (umbra taupe),
+  logo w kółku 110 px, napis PREZENTERKA AI.
+- **30.07:** kanon ożywienia = **OmniHuman 1.5** (decyzja Tomasza), 0,17 USD/s,
+  **prompt ruchu OBOWIĄZKOWY** (bez niego rusza się sama twarz). Wersja B, normalne tempo —
+  test spowolnienia odrzucony.
+- **31.07:** teksty wejścia i wyjścia zatwierdzone; czołówka: napis 2,5 s na pierwszym ujęciu,
+  daty na zdjęciach, bez planszy i bez outro z logo.
+- **31.07:** poprawki Tomasza po kontroli — „doły po ciężkiej pracy" zamiast niepotwierdzonych gałęzi.
+- Strażnik źródeł objął TAKŻE Klaudka (lukę wskazał Zenek).
+
+## 01.08 — SYSTEM KONTROLY ZAŁOGI
+- **Kanon generowania obrazu:** Genek nano-banana-2 drogą główną, fal.ai zapasową przy awarii.
+- **TECZKI ZAŁOGI** (dekret Tomasza): 4 teczki błędów i zasług + ZASADY, wgląd dla wszystkich.
+- **HANS POWOŁANY** (dekret Tomasza): ma pilnować wszystkich na równo, Klaudka też.
+- **NIEOBECNOŚCI:** usprawiedliwienie tylko brak środków; L4 = wyczerpane WSZYSTKIE możliwości.
+- Nagana: komunikat Genka cytował ZASTĄPIONĄ zasadę zamiast dekretu Tomasza.
+
+## 02.08 — STOP PRODUKCJI
+- **WD_0001 ODRZUCONA** przez Tomasza: „Izabela w tej pozycji jak ze zdjęcia paszportowego
+  i przemawia. Nie ma to nic wspólnego z wizją wiadomości."
+- **„ŻADEN FILM NIE PÓJDZIE DALEJ. Żadnej produkcji do czasu, aż JĄ poproszę."** — obowiązuje.
+- **ZAKAZ USUWANIA:** „Nikt nie ma prawa nic usuwać" — po tym, jak Henio skasował katalog `work/`
+  i zameldował archiwum, którego nie było.
+- Genek mianowany kierownikiem (jednorazowo — patrz 4.08).
+
+## 03.08 — HANS ZBUDOWANY
+- **Awaria własna Klaudka:** w `zaloga.py` stopka „TO JEST BADANIE, NIE ZAPIS" doklejała się do
+  KAŻDEGO zlecenia, także wykonawczego. Zenek DWA RAZY nie napisał kodu i DWA RAZY miał rację:
+  „wybór jednej z dwóch przeciwnych instrukcji byłby decyzją za Tomasza". Rozdzielone na
+  STOPKA_BADANIE / STOPKA_WYKONANIE.
+- **Hans działa:** kontrola narad, kontrola stanu plików na dysku (czy zgłoszone jako zrobione
+  naprawdę drgnęły), rozróżnianie „POMINIĘTO" od zapomnienia, własny bot **@HansFabrykaRolek_bot**,
+  limit 3 wiadomości/h, blokada trybu testowego.
+- **Spór pomiarowy Zenek↔Klaudek rozstrzygnięty faktem:** dwa testy czytały prawdziwy token
+  z `/home/hermes/.hermes/.env` — plik SPOZA repo. Klaudek jako root go widział, Zenek
+  w piaskownicy nie. Nikt się nie mylił; test zależał od środowiska.
+
+## 04.08 (noc) — PRAWA RĘKA I ROZSTRZYGNIĘCIA
+- **KIEROWNIK: zawsze KLAUDEK.** „Genek był raz mianowany i to wszystko. W każdej chwili mogę
+  powołać innego kierownika i to będzie moja decyzja, z którą nikt nie będzie dyskutował."
+  Poprawione 4 pliki ze sprzecznym zapisem; stare oznaczone WYGASŁE, nie usunięte.
+- **HENIO = PRAWA RĘKA.** Silnik `deepseek-v4-pro` potwierdzony pomiarem. Tryb myślenia `high`.
+  **Pamięć: katalog był PUSTY** — nie limit był problemem. Po naprawie sufit 4 mln znaków (~1 mln
+  tokenów). Oczy podniesione `gemini-2.5-flash` → `gemini-3.6-flash` (model Genka).
+- **HANS NALEŻY DO HENIA** (dekret Tomasza), Henio przebudował go pod siebie: 32 testy.
+- **Narzędzia dla Henia** („pętla się zamyka"): `manifest.json` na starcie zadania (odcisk 61
+  plików wiedzy), `tools/meldunek.py`, `tools/decyzje.py` (pole „zastepuje"), `tools/zmiany.py`
+  (wykrywa niedokończone ślady), głosy w `narada/<autor>.txt`.
+- **Hans samodzielny:** `hans-ucho.service` (nasłuch co 60 s, słowa Tomasza do rejestru BEZ
+  Klaudka) + `hans-oczy.timer` (co 15 min).
+- **Genek oszczędzany** na oczy, uszy i grafikę — nie jest domyślnie wołany do narad.
+  Zmierzone 4.08 01:34: `gemini-3.1-pro-preview` = przekroczony przydział.
+- **Odcinek 10010 „Kiedy złapiesz złodzieja jabłek" OPUBLIKOWANY** — koniec produkcji, LOCK zamknięty.
+- **Diagnoza Henia, warta zapamiętania:** „Kiedy Klaudek pomija decyzję, głos albo własny błąd,
+  moja praca zmienia się z KONTROLI w REKONSTRUKCJĘ HISTORII."
