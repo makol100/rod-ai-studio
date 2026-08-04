@@ -340,3 +340,47 @@ w weryfikacji, analizie i poszukiwaniu rozwiązań.
 ## 03.08.2026 08:54:36 (Europe/Vienna) — Telegram
 
 /start
+
+## 04.08.2026 17:5x — PREMIERA WIADOMOSCI: KONIEC PANA STANISLAWA, WCHODZI IZABELA
+
+> **„Wiadomości pana Stanisława to przeżytek i wiało tam wieśniactwem, a dzisiaj mamy panią
+> Izabelę — piękną, czarującą kobietę, profesjonalne studio telewizyjne. Widzi mi się, że pani
+> Izabela wita się, przedstawia się, mówi o tym, że jest złożona przez zarząd ROD, aby informować
+> szanownych działkowiczów tymi wiadomościami o pracach zarządu, ogólnie co się dzieje na ogrodach.
+> Pomyślcie wszyscy razem, żeby to było ładne, profesjonalne, na miarę dzisiejszego świata —
+> bo takie też mamy studio."**
+
+**OBOWIAZUJE:**
+1. **STYL PANA STANISLAWA JEST MARTWY.** Gwara, „kłaniam się nisko", „moja Halinka", swojskosc,
+   przyslowia z podworka — TO ODPADA. Tomasz nazwal to wprost: przezytek, wialo wiesniactwem.
+2. **IZABELA = profesjonalna prezenterka.** Piekna, czarujaca, nowoczesna. Poziom dzisiejszej
+   telewizji — bo studio jest na takim poziomie.
+3. **PIERWSZY ODCINEK TO PREMIERA/PRZEDSTAWIENIE SIE**, nie relacja z terenu:
+   powitanie; przedstawienie sie; **powolana przez ZARZAD ROD**, zeby informowac
+   **szanownych dzialkowiczow** o pracach zarzadu i ogolnie o tym, co sie dzieje na ogrodach.
+4. **„Pomyslcie wszyscy razem"** — zadanie dla CALEJ zalogi, nie dla Klaudka samego.
+
+## 04.08.2026 18:4x — WIADOMOSCI IDA DO WLASNEJ GRUPY, NIE W OTWARTY SWIAT
+
+> **„Z tymi wiadomościami trafiamy do naszej grupy odbiorców. Tak że koło chuja mi lata
+> te 3 sekundy."**
+
+**OBOWIAZUJE — DOTYCZY WYLACZNIE WIADOMOSCI DZIALKOWYCH (Izabela), NIE serii humor:**
+
+Zasada „pierwsze 3 sekundy decyduja o obejrzeniu do konca" pochodzi z algorytmu Facebooka
+dla materialu podawanego OBCYM. **Wiadomosci Dzialkowe ida do WLASNEJ GRUPY ODBIORCOW** —
+dzialkowicze ROD im. Jozefa Lompy, ktorzy CZEKAJA na informacje o swoim ogrodzie.
+Oni nie przewijaja. Oni szukaja.
+
+**Co z tego wynika:**
+1. **NIE skracac tresci pod trzysekundowy haczyk.** Dlugosc ma wynikac z tego, ile jest
+   do powiedzenia — nie z algorytmu.
+2. **NIE rezygnowac z czolowki** z obawy, ze „zjada te 3 sekundy". Tomasz zapytal o czolowke
+   i argument o 3 sekundach zostal przez niego odrzucony.
+3. **Ton: serwis dla swoich**, a nie walka o uwage przypadkowego przechodnia.
+   Bez sztuczek na zatrzymanie kciuka.
+
+**BLAD, KTORY TO UJAWNILO:** regula 3 sekund byla doklejana do zlecen zalogi jako fakt
+(„Kanal: Facebook, format pionowy. Pierwsze 3 sekundy decyduja o obejrzeniu do konca")
+i BEZ SPRAWDZENIA sterowala decyzjami — Henio liczyl na niej dlugosc 24 s, Genek 30-35 s,
+Klaudek ostrzegal przed czolowka. Zaden nie zapytal, czy ta regula w ogole dotyczy TEGO kanalu.
