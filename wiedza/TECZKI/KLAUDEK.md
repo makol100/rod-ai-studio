@@ -166,3 +166,24 @@ On musi tłumaczyć po raz trzeci to, co już raz ustalił.
 - luka 8 dni i 15,5 dnia — do natychmiastowego uzupełnienia (polecenie: „Wszystko natychmiast")
 
 **Nikt tego wpisu nie usuwa ani nie łagodzi** (dekret Tomasza 2.08).
+
+
+## WPADKA — 4.08.2026, 08:03 — ZAMELDOWAŁ NIEPRAWDĘ O KOLEDZE BEZ SPRAWDZENIA
+
+Klaudek zameldował Tomaszowi: *„Genek nie ma notatnika i mieć nie może, bo nie ma dostępu
+do dysku"*. Wpisał to do `wiedza/GDZIE_SIE_ZAPISUJE.md` i do rejestru jako decyzję **D-0014**.
+Tomasz podjął decyzję na tej przesłance („proste jak budowa cepa").
+
+**PRZESŁANKA BYŁA FAŁSZYWA.** Test 4.08 08:03: Genek dostał polecenie zapisu pliku — zapisał
+(14 B, zweryfikowane na dysku). Co gorsza, `wiedza/START.md:65` mówił to WPROST od 29.07:
+„Genek — OCZY I USZY + PEŁNY DYSK od 29.07: czyta, ZAPISUJE i URUCHAMIA POLECENIA".
+
+**Klaudek miał to w pliku i nie przeczytał.** Powtórzył stary obraz z pamięci, bo tak pamiętał
+z czasów, gdy Genek faktycznie dysku nie miał. Wykrył to Zenek w audycie całości jako
+„dokumentacja przeczy sama sobie w sprawie dostępu Genka do dysku".
+
+**WZORZEC:** ten sam co przy teleporcie i przy liście pracowników — stan zmienił się, opis został.
+Tym razem z tą różnicą, że Klaudek nie tylko nie zaktualizował starego zapisu, ale **wytworzył
+nowy fałszywy** i podał go Tomaszowi jako podstawę decyzji.
+
+Sprostowane: D-0017, notatnik Genka założony i sprawdzony jego własnym zapisem.

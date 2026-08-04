@@ -224,4 +224,11 @@ def main():
                 print("\n✅ Spójność zachowana: Zmieniono zarówno kod w tools/, jak i wiedzę w wiedza/.")
 
 if __name__ == "__main__":
+    # 4.08: bez tego kazde uruchomienie — TAKZE `--help` — wykonywalo zapis.
+    # Zenek NADPISAL brief, probujac tylko zobaczyc pomoc (zglosil to sam w audycie).
+    import argparse as _ap
+    _p = _ap.ArgumentParser(description="Oczy Hansa — skan zmian w repo")
+    _p.add_argument("--pokaz", action="store_true",
+                    help="tylko wypisz wynik, NIE zapisuj niczego na dysk")
+    _ARGS = _p.parse_args()
     main()

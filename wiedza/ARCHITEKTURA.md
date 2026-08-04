@@ -74,7 +74,7 @@ Odcinki 10004–10010 wyprodukowane; **10010 „Kiedy złapiesz złodzieja jabł
 i zamknięty** (04.08.2026, decyzja Tomasza). W `data/zarty/`: 7 katalogów odcinków + bank + tematy.
 Moduł: BYŁO `src/zarty.py` — **JEST `apps/api/src/zarty.py`** (przeniesiony; stara ścieżka
 NIE ISTNIEJE, sprawdzone 04.08.2026). Dane bez zmian: `data/zarty/NNNN/`. Pipeline docelowy: Bielik pisze żart
-(KLIP/RUCH/DIALOG, bohaterowie: HENIEK + HALINKA przy płocie) → CHECKPOINT z wyceną $
+(KLIP/RUCH/DIALOG, bohaterowie: BYŁO HENIEK + HALINKA przy płocie, JEST **BOHATER + JANUSZ** (stały duet serii wg kanonu; poprawione 4.08, wykrył Zenek w audycie)) → CHECKPOINT z wyceną $
 → kadr referencyjny NB Pro ($0.15) → klipy Veo 3.1 Fast image-to-video (fal.ai,
 $0.10/s bez audio, 8s/klip, 9:16) → dialogi edge-tts (Marek+Zofia) → ffmpeg concat.
 Żart 3×8s ≈ $2.55. Endpointy: POST /generate-zart, GET /zart-checkpoint/{id},

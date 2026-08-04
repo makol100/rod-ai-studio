@@ -1,5 +1,5 @@
-1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 07:44:43 CEST
-2. OSTATNIA DECYZJA: D-0015 | 2026-08-04 | Wszystkie notatniki maja miec kopie poza serwerem. Notatniki Klaudka i Henia przeniesione do repo, stare…
+1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 07:56:10 CEST
+2. OSTATNIA DECYZJA: D-0016 | 2026-08-04 | Naprawione po audycie: ucho Hansa zglasza awarie zamiast milczec (alarm drugim botem po 3 cyklach), list…
 3. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
 4. HANS: Henia, nie Klaudka (D-0006)
 5. TELEPORTY: fabryka 0.2 dnia, Home Assistant 0.0 dnia
