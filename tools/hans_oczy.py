@@ -15,6 +15,21 @@ from datetime import datetime
 
 SCIEZKA_OCZY = ".scratch/hans/oczy.jsonl"
 
+# Te pliki są produktami automatów, a nie ręczną zmianą ustaleń. Ich drgnięcie
+# nie może być ani sygnałem zmiany wiedzy, ani zmianą zapamiętywanego stanu.
+GENEROWANE_PLIKI = {
+    "wiedza/BRIEF_DLA_KLAUDKA.md",
+    "wiedza/INDEX.md",
+}
+GENEROWANE_PREFIKSY = ("data/wiedza_kopia/",)
+
+
+def czy_plik_generowany(sciezka: str) -> bool:
+    """Rozpoznaje automatycznie odtwarzane pliki wyłączone z kontroli oczu."""
+    sciezka_norm = sciezka.replace("\\", "/").lstrip("./")
+    return (sciezka_norm in GENEROWANE_PLIKI
+            or sciezka_norm.startswith(GENEROWANE_PREFIKSY))
+
 def oblicz_stan_plikow() -> dict:
     """Skanuje katalogi wiedza/ i tools/ i oblicza ich aktualny stan."""
     stan = {}
@@ -32,6 +47,8 @@ def oblicz_stan_plikow() -> dict:
                 sciezka = os.path.join(root, file)
                 # Ujednolicamy ukośniki na systemach unix-podobnych/windows
                 sciezka_norm = sciezka.replace("\\", "/")
+                if czy_plik_generowany(sciezka_norm):
+                    continue
                 
                 try:
                     stat = os.stat(sciezka)
@@ -133,6 +150,8 @@ def czy_plik_kodu(sciezka: str) -> bool:
 
 def czy_plik_wiedzy(sciezka: str) -> bool:
     """Sprawdza, czy plik jest plikiem wiedzy w wiedza/."""
+    if czy_plik_generowany(sciezka):
+        return False
     if not sciezka.startswith("wiedza/"):
         return False
     return sciezka.endswith(".md")
