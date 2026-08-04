@@ -497,3 +497,53 @@ D. Fold7 MCP (telefon.157-90-155-155.sslip.io) — jedyne oko w LAN dzialki;
   Konto HA 'Jacuzzi' (esp_jacuzzi) ma nadal swoje stare, nieznane haslo —
   nieuzywane, ESP loguje sie loginem brokera. Rezerwacja DHCP dla .115 przy
   AX55 do listy strefy PV.
+
+
+==============================================================================
+## SESJA 04.08.2026 02:05 CEST
+==============================================================================
+
+# UZUPEŁNIENIE LUKI 19.07 → 04.08.2026 (15,5 dnia)
+
+**Wpis nadrobiony na polecenie Tomasza: „Wszystko natychmiast."**
+Powód luki: Klaudek przekwalifikował teleporty na „archiwum" BEZ ZGODY TOMASZA i przestał je
+prowadzić. Dwie nagany w `wiedza/TECZKI/KLAUDEK.md` (4.08) — druga brzmi wprost:
+NARAŻENIE FIRMY NA UTRATĘ DANYCH DO ODZYSKU. Teleport HA był zaniedbany BARDZIEJ niż fabryki
+i Klaudek o nim w ogóle nie wspomniał, bo sam o jego istnieniu zapomniał.
+
+## UCZCIWE OSTRZEŻENIE O TYM WPISIE
+Prace nad Home Assistant w tym okresie toczyły się GŁÓWNIE W INNYCH OKNACH ROZMOWY,
+których Klaudek nie widzi. Poniżej jest TYLKO to, co ma pokrycie w historii gita repozytorium
+fabryki i w plikach na dysku. **To nie jest pełny obraz 15 dni pracy nad HA** — i właśnie
+dlatego zaniechanie prowadzenia tego dziennika jest tak kosztowne: przebiegu tamtych sesji
+NIE MA JUŻ SKĄD ODTWORZYĆ. Ta luka jest nie do nadrobienia, można ją tylko odnotować.
+
+## 29.07 — KONEKTOR DZIAŁKA NAPRAWIONY
+Most przez Caddy. Wystawiony **TYLKO webhook MCP**, cała reszta Home Assistant zwraca 404.
+Powód: bezpieczeństwo — zdalny dostęp ograniczony do jednego punktu wejścia.
+(commit `5ef7f75`)
+
+## 29.07 — SONDA PILNUJE APKI NA TELEFONIE
+Apka na telefonie Tomasza była martwa 29.07 dokładnie wtedy, gdy była potrzebna.
+Od tego dnia sonda zdolności sprawdza ją codziennie razem z resztą narzędzi załogi.
+(commit `b9f4f31`)
+
+## STAN ZASTANY NA KONIEC POPRZEDNIEGO WPISU (19.07) — dla ciągłości
+Jacuzzi/ESP: host `.124` → `.250`, konto brokera `esp_jacuzzi`, login przez mosquitto
+(bo `admin_change_password` użytkownika HA zwracał Unauthorized). Konto HA „Jacuzzi"
+ma nadal swoje stare, nieznane hasło — nieużywane, ESP loguje się loginem brokera.
+Rezerwacja DHCP dla `.115` przy AX55 do listy strefy PV. Sterowanie z HA działa,
+odczyt na żywo (0.73→0.74, `last_reported` co ~20 s).
+
+## OTWARTE, NIEDOMKNIĘTE (stan na 4.08.2026)
+Z pamięci projektowej, do zweryfikowania na miejscu przy następnej sesji HA:
+- **WiFi mesh Działka** — przebudowa na trzy węzły OneMesh; wymaga obecności na miejscu.
+- **Migracja N150** — przeniesienie HA Działka ze starego serwera „Nuki" na mini-PC Intel N150.
+- **Krystyna** (kosiarka `greenworks_optimow`) — konsolidacja w jedną integrację i wdrożenie.
+- **Ekran na rozdzielnicę** — panel dotykowy Waveshare 7B z pulpitem energii.
+Każde z powyższych: sprawdzić stan FAKTYCZNY zanim cokolwiek się o nich napisze.
+
+## ZASADA NA PRZYSZŁOŚĆ (4.08)
+Po KAŻDEJ sesji dotyczącej Home Assistant:
+    python3 tools/teleport.py --ha --wpis "co się wydarzyło"
+Kontrola zaległości: `python3 tools/teleport.py --sprawdz`
