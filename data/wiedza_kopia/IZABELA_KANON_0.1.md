@@ -201,10 +201,20 @@ w prawym gornym rogu; na dole belka z zoltym akcentem: **IZABELA / wirtualny awa
 **WYGASA:** `STUDIO_IZABELI_CANON.png` z 30.07 (tlo umbra taupe) oraz TV_STUDIO_v2.png.
 Nic nie usuniete — pliki zostaja na dysku.
 
-**UWAGA — KOLEJNOSC:** to tlo dobierano pod TURKUSOWA BLUZKE. Ubior zmienia sie na lniana marynarke
-z widocznym dekoltem (D-0029), wiec po wygenerowaniu nowej karty trzeba SPRAWDZIC, czy postac
-nadal odcina sie od tego tla. Zenek: *„ubior jest wazniejszy niz tlo — bo to on musi sie od tla odciac"*.
-Jesli nie bedzie sie odcinac, decyduje Tomasz: poprawiamy tlo czy dobieramy inny odcien marynarki.
+**TLO JEST SWIETE — NIE DO PODMIANY.** Rozstrzygniecie Tomasza 4.08 09:48, doslownie:
+> *„To tlo jest swiete, nie do podmiany. To jest studio. Izabeli zostalo zmienic tylko ubior,
+> zeby pasowal do calosci, do tla, jako wiadomosci."*
+
+**Co z tego wynika dla pracy:**
+- tla NIE RUSZAMY. Zadnych wariantow, zadnych poprawek, zadnego dobierania pod postac.
+- ZMIENNA JEST WYLACZNIE MARYNARKA. To ona ma pasowac do tla, nie odwrotnie.
+- Jesli po wygenerowaniu postac nie odcina sie od tla — poprawiamy ODCIEN MARYNARKI i generujemy
+  ponownie. Tlo zostaje takie, jakie jest.
+- To ODWRACA wczesniejsza zasade Zenka („tlo dobrane pod nia"). Obowiazuje slowo Tomasza:
+  tlo pierwsze i niezmienne, ubior sie do niego dopasowuje.
+
+**Tlo jest ciemnoniebieskie** — wiec marynarka musi sie od ciemnego niebieskiego ODCIAC.
+Odcienie do unikniecia: granat, ciemny blekit, czern (zleja sie z tlem).
 
 ## UBIOR — DECYZJA TOMASZA 4.08.2026: LNIANA MARYNARKA Z WIDOCZNYM DEKOLTEM
 
