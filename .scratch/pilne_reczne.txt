@@ -1,4 +1,4 @@
 # Sprawy wymagajace RECZNEJ roboty Tomasza. Klaudek przypomina, NIE robi sam.
 # Usunac linie dopiero po wykonaniu — na wyrazne slowo Tomasza.
 WYMIANA KLUCZY API (FAL_KEY + ANTHROPIC_API_KEY) — wyswietlone w czacie 10.07, nadal jawnym tekstem w docker-compose.yml. Tomasz 4.08: "dzis wieczorem albo jutro rano".
-IZABELA — nowa karta w LNIANEJ MARYNARCE Z WIDOCZNYM DEKOLTEM (D-0029). Potem dopiero tlo. CZEKA na slowo Tomasza (STOP PRODUKCJI).
+IZABELA — nowa karta: lniana marynarka ECRU #E8DFD0 z widocznym dekoltem (D-0032). Tlo GOTOWE i SWIETE. Koszt ~7 groszy. CZEKA na slowo Tomasza (STOP PRODUKCJI).

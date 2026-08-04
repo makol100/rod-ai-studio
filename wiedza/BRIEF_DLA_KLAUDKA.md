@@ -1,5 +1,5 @@
-1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 09:44:40 CEST
-2. OSTATNIA DECYZJA: D-0029 | 2026-08-04 | UBIOR IZABELI: lniana marynarka z widocznym dekoltem. Zastepuje obecna bluzke #466270 z karty kanoniczne…
+1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 09:54:17 CEST
+2. OSTATNIA DECYZJA: D-0033 | 2026-08-04 | UBIOR IZABELI: lniana marynarka ECRU #E8DFD0 z widocznym dekoltem. Wybor Tomasza z trzech propozycji (ec…
 3. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
 4. HANS: Henia, nie Klaudka (D-0006)
 5. TELEPORTY: fabryka 0.0 dnia, Home Assistant 0.0 dnia
