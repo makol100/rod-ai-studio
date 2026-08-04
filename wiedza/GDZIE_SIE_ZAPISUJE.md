@@ -40,13 +40,18 @@
 
 | kto | notatnik | uwagi (zmierzone 4.08) |
 |---|---|---|
-| KLAUDEK | pamięć trwała (wstrzykiwana automatycznie) + `/root/.claude/CLAUDE.md` | jedyny kanał docierający bez jego decyzji |
-| HENIO | `/home/hermes/.hermes/memories/MEMORY.md` | limit 4 mln znaków; poza repo, BEZ kopii na GitHubie |
+| KLAUDEK | pamięć trwała (wstrzykiwana automatycznie) + `notatniki/NOTATNIK_KLAUDKA.md` | `/root/.claude/CLAUDE.md` = dowiązanie do repo (4.08 07:38). Ma kopię na GitHubie |
+| HENIO | `notatniki/NOTATNIK_HENIA.md` | limit 4 mln znaków. `/home/hermes/.hermes/memories/MEMORY.md` = dowiązanie do repo (4.08 07:38, zapis przez starą ścieżkę sprawdzony). Ma kopię na GitHubie |
 | ZENEK | `notatniki/NOTATNIK_ZENKA.md` | **w repo** — jego piaskownica to `workspace-write [workdir, /tmp]`; próba w `/root/.codex/` odrzucona: „writing outside of the project". Zysk: ma kopię na GitHubie |
 | GENEK | **BRAK — i mieć nie może** | nie ma dostępu do dysku; jego jedyna pamięć to treść dołożona w zleceniu przez `tools/zaloga.py` |
 
 **Co w notatniku osobnym:** własny tok pracy, hipotezy, co nie wyszło, na co uważać.
 **Czego NIE:** wniosków trwałych i decyzji — te idą do `wiedza/` przez Klaudka.
+
+**WSZYSTKIE notatniki mają kopię poza serwerem** (dekret Tomasza 4.08: „do rozstrzygnięcia teraz").
+Notatniki Klaudka i Henia leżały wcześniej poza repo, na jednym dysku — ta sama sytuacja co
+TELEPORT_HA. Rozwiązane tak samo: plik w repo, stara ścieżka jako dowiązanie, więc nic nie trzeba
+przestawiać w narzędziach. Sprawdzone zapisem przez stare ścieżki, obie działają.
 
 ## ZASADA
 Nowe miejsce zapisu powstaje **wyłącznie decyzją Tomasza**. Nikt z załogi nie zakłada własnego
