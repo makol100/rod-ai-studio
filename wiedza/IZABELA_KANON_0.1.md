@@ -187,6 +187,23 @@ Odrzucone: „do usłyszenia przy płocie" (zostało po Stanisławie, uznane za 
 **Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
 „awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
+## STUDIO — DECYZJA TOMASZA 4.08.2026: ZOSTAJA TYLKO WERSJE Z 1 SIERPNIA
+
+> Tomasz 4.08 09:39, po obejrzeniu wszystkich 15 wariantow: **„Zostaja tylko te z pierwszego sierpnia."**
+
+**OBOWIAZUJA:** `TV_STUDIO.png` (1.08, 20:46) i `TV_STUDIO_v2.png` (1.08, 21:07).
+
+**WYGASLY** wszystkie warianty z 30.07: kanon `STUDIO_IZABELI_CANON.png`, cztery warianty tonacji
+(t1 zielen z logo, t2 ciemniejsza, t3 zgaszona, t4 srednia), cztery warianty kadru (w1 kwadrat,
+w2 kolo, w3 kolo przygaszone, w4 kolo male), tlo i podglad kanonu.
+Nie usuniete (dekret 2.08) — oryginaly w `assets/izabela/` i `data/upload/podglad/`,
+kopie robocze odstawione do `.scratch/studio_odrzucone_4.08/`.
+
+**LUKA W ZAPISACH, ktora to ujawnilo:** obie wersje z 1.08 powstaly wieczorem (20:46 i 21:07)
+i NIE MA o nich ani slowa w kanonie ani w teleporcie — mimo ze waza po ponad megabajcie,
+czyli sa pelnymi obrazami, nie podgladami. Klaudek meldowal 4.08, ze „studio bylo do poprawki
+i wszystkie warianty odrzucone", nie sprawdziwszy, ze dzien przed odrzuceniem rolki powstaly dwa nowe.
+
 ## STUDIO — KANON ZAMKNIĘTY 30.07.2026 (wersja po wygenerowaniu Izabeli)
 
 Generator: `tools/tlo_izabeli.sh` — **kod, nie model AI**. Dwa przebiegi = plik identyczny co do piksela.

@@ -1381,3 +1381,16 @@ Znaleziono 20 niedociagniec (Zenek 5, Henio 12, reszta wspolne). NAPRAWIONE:
 8. test_hans_oczy.py (27 testow) + wykluczenie plikow generowanych z alarmow.
 ZGLOSZONE TOMASZOWI DO DECYZJI: data/reels 537 MB bez kopii poza serwerem; 16 otwartych watkow w .scratch/otwarte_watki.md.
 ZARZUT NIEPOTWIERDZONY: 'brief nie przezyje restartu' — bramka Henia to usluga uzytkownika z linger=yes.
+
+
+==============================================================================
+## SESJA 04.08.2026 09:29 CEST
+==============================================================================
+
+4.08 09:30 — KONTROLA TWARZY W PREFLIGHT NAPRAWIONA (polecenie Tomasza: 'Zrobic ten watek, jezeli jest potrzebny').
+BYL POTRZEBNY. Zmierzone przed: cv2/insightface NIE BYLO ani na hoscie, ani w kontenerze — obejscie z 17.07 tez nie dzialalo.
+Skutek byl bezpieczny (bramka fail-closed: brak narzedzia = FAIL, nie ciche przepuszczenie), ale przy wznowieniu produkcji zablokowalaby prace na pierwszym kadrze.
+ZROBIONE: opencv-python-headless + insightface 1.0.1 + onnxruntime w kontenerze fabryka-api, model buffalo_l pobrany. Koszt 0, miejsce na dysku bylo.
+TEST BOJOWY na kadrach 10010: f01 wykryto 1 twarz pewnosc 0.75, f07 zero twarzy (kadr bez twarzy).
+HISTORIA: kontrola dzialala przy 10008/10009/10010 (Tomek 0.53-0.81, Janusz 0.38-0.61 przy progu 0.35). Znacznik TODO z 17.07 zostal mimo ze sprawa sie rozwiazala — biblioteka zniknela dopiero przy pozniejszej przebudowie kontenera.
+OSTATNI ODCINEK SERII: 10010 'Kiedy zlapiesz zlodzieja jablek', opublikowany, zamkniety 4.08.
