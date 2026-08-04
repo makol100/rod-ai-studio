@@ -187,6 +187,39 @@ Odrzucone: „do usłyszenia przy płocie" (zostało po Stanisławie, uznane za 
 **Odrzucone warianty:** pełna nazwa ogrodu w wejściu (zjada 9,8 s, nie zostaje czasu na treść),
 „awatar zarządu naszego ogrodu" (dłuższe bez zysku), wersje bez imienia.
 
+## STUDIO KOMPLETNE — ZATWIERDZONE 4.08.2026 17:15
+
+> Tomasz: **„Brawo! Jest! Zapisać!!!"**
+
+**KANON:** `assets/izabela/STUDIO_IZABELI_CANON_v3.png` · SHA-256 (24): `e6c3e36b45c119939f7acdc8`
+
+**NAJWAZNIEJSZA ZMIANA — TLO I POSTAC TO TERAZ OSOBNE PLIKI.**
+Do 4.08 studio i Izabela powstawaly JEDNYM generowaniem i byly zrosniete — dlatego zmiana ubioru
+wymagala robienia calosci od nowa, a „tlo dobierano pod turkusowa bluzke".
+Teraz sklada sie to kodem, wiec **wymiana postaci, ubioru, pozy albo imienia na belce NIC NIE KOSZTUJE.**
+
+**SKLADNIKI:**
+| co | plik | skad |
+|---|---|---|
+| tlo puste | `TLO_STUDIO_PUSTE_CANON.png` | `tools/gen_studio_puste.py`, ~0,067 USD |
+| postac | `IZABELA_CANON_v2.png` | `tools/gen_izabela_v2.py`, ~0,067 USD |
+| wyciecie | `IZABELA_ODKLEJONA_v2.png` | `tools/wytnij_izabele.py` (rembg) |
+| logo | `assets/branding/rod_profilowe.png` | istniejace |
+| zlozenie | — | `tools/zloz_studio_izabeli.py` (blat, belki, napisy — KODEM, za darmo) |
+
+**BLAT — dorobiony kodem na polecenie Tomasza („Stol jej dorobic").** Gradient, podswietlana
+krawedz, odbicie. Krawedz blatu jest ZWIAZANA z dolna krawedzia postaci (`blat_y = doc_belki`),
+zeby dlonie lezaly NA plycie.
+
+**TRZY WPADKI PRZY SKLADANIU — zapisane, zeby nie powtorzyc:**
+1. **„Pol baby wisi w powietrzu"** — postac konczyla sie 9 px NAD belka, widac bylo uciecie.
+2. **„Rece jej upierdoliliscie"** — blat wjechal na dlonie i je zakryl.
+3. **„Patrz idioto"** (z powiekszeniem) — blat wchodzil 14 px na palce, wygladalo na ucieta opuszki.
+   Z calego kadru tego NIE BYLO WIDAC. **Tomasz powiekszyl i pokazal — sprawdzac szczegoly w zblizeniu.**
+
+**Zmierzone:** 1080x1920, jedna twarz, 26% szerokosci kadru, srodek 60% od lewej (poza osia,
+wolne miejsce na material z lewej).
+
 ## KARTA v2 — ZATWIERDZONA 4.08.2026 11:30
 
 > Tomasz po obejrzeniu dwoch wersji: **„Zdecydowanie 2."**
