@@ -39,6 +39,17 @@ LIMIT_PATH = (Path(tempfile.gettempdir()) / "_hans_limit_testowy.jsonl"
               else Path(".scratch/hans/limit.jsonl"))
 LIMIT_GODZINA = 3  # twardy limit wiadomosci na godzine (dekret Genka)
 
+# Dziennik przebiegu ma zapewniac ciaglosc miedzy oknami. Doba daje prowadzacemu
+# cala sesje na domkniecie wpisu, ale nie pozwala, aby drugie okno przez kilka dni
+# uznawalo stary stan za biezacy. To ten sam prog, ktory tools/teleport.py oznacza
+# jako "ZALEGLOSC"; Hans tylko doklada niezalezna, zawsze widoczna kontrole.
+PROG_ZALEGLOSCI_DZIENNIKA_DNI = 1.0
+REPO_HANSA = Path(__file__).resolve().parent.parent
+DOMYSLNE_DZIENNIKI = (
+    ("fabryka", REPO_HANSA / "TELEPORT_fabryka.md"),
+    ("Home Assistant", Path("/root/TELEPORT_HA.md")),
+)
+
 KONFIGI_HANS = (
     "/home/hermes/.hermes/.env",
     "/home/hermes/.hermes/hermes-agent/.env",
@@ -264,6 +275,60 @@ def _dopisz_do_dziennika(wynik: dict[str, Any]) -> str | None:
     except (OSError, TypeError, ValueError) as blad:
         # Awaria pamięci nie może ukryć wyniku samej kontroli.
         return f"Nie można dopisać dziennika {DZIENNIK}: {blad}"
+
+
+def sprawdz_zaleglosc_dziennikow(
+    dzienniki: tuple[tuple[str, Path], ...] | None = None,
+    prog_dni: float = PROG_ZALEGLOSCI_DZIENNIKA_DNI,
+    teraz_epoch: float | None = None,
+) -> dict[str, Any]:
+    """Sprawdza wiek dziennikow ciaglosci, niczego w nich nie zmieniajac.
+
+    Funkcja jest addytywna wobec ``tools/teleport.py --sprawdz``: tamto narzedzie
+    pozostaje bez zmian i nadal jest kanonicznym narzedziem teleportu. Hans zwraca
+    maszynowy raport, ktory moze dolaczyc do kazdego swojego przebiegu.
+    """
+    if prog_dni < 0:
+        raise ValueError("prog_dni nie moze byc ujemny")
+    sprawdzane = DOMYSLNE_DZIENNIKI if dzienniki is None else dzienniki
+    teraz = datetime.now(timezone.utc).timestamp() if teraz_epoch is None else float(teraz_epoch)
+    stany: list[dict[str, Any]] = []
+    rozbieznosci: list[dict[str, Any]] = []
+
+    for nazwa, sciezka in sprawdzane:
+        plik = Path(sciezka)
+        istnieje = plik.is_file()
+        mtime = plik.stat().st_mtime if istnieje else None
+        dni = max(0.0, (teraz - mtime) / 86400) if mtime is not None else None
+        zalegly = dni is None or dni > prog_dni
+        stan = {
+            "nazwa": nazwa,
+            "sciezka": str(plik),
+            "istnieje": istnieje,
+            "mtime": mtime,
+            "dni_bez_wpisu": round(dni, 3) if dni is not None else None,
+            "prog_dni": prog_dni,
+            "zalegly": zalegly,
+        }
+        stany.append(stan)
+        if zalegly:
+            powod = "plik_nie_istnieje" if not istnieje else "przekroczony_prog"
+            rozbieznosci.append({**stan, "problem": powod})
+
+    return {
+        "czas_utc": datetime.fromtimestamp(teraz, timezone.utc).isoformat(),
+        "poziom": "ALERT" if rozbieznosci else "OK",
+        "prog_dni": prog_dni,
+        "dzienniki": stany,
+        "rozbieznosci": rozbieznosci,
+    }
+
+
+def _dolacz_kontrole_dziennikow(wynik: dict[str, Any]) -> dict[str, Any]:
+    """Dodaje kontrolę do raportu Hansa bez zmiany znaczenia pola ``poziom``."""
+    rozszerzony = dict(wynik)
+    rozszerzony["kontrola_dziennikow"] = sprawdz_zaleglosc_dziennikow()
+    return rozszerzony
 
 
 def sprawdz_narade(katalog_narady: str | Path, plik_meldunku: str | Path) -> dict[str, Any]:
@@ -817,17 +882,24 @@ def main() -> int:
                         help="Wykryj kod bez powiązanej wiedzy (wzorzec Klaudka)")
     parser.add_argument("--srodowisko-henia", action="store_true",
                         help="Sprawdź, czy środowisko Henia jest prawidłowe")
+    parser.add_argument("--dzienniki", action="store_true",
+                        help="Sprawdź zaległość teleportów (próg: 1 doba)")
     parser.add_argument("--repo", default=None,
                         help="Katalog repo (domyślnie: bieżący)")
     argumenty = parser.parse_args()
 
+    if argumenty.dzienniki:
+        wynik = sprawdz_zaleglosc_dziennikow()
+        print(json.dumps(wynik, ensure_ascii=False, indent=2))
+        return 0
+
     if argumenty.niedokonczone_slady:
-        wynik = sprawdz_niedokonczone_slady(argumenty.repo)
+        wynik = _dolacz_kontrole_dziennikow(sprawdz_niedokonczone_slady(argumenty.repo))
         print(json.dumps(wynik, ensure_ascii=False, indent=2))
         return 0
 
     if argumenty.srodowisko_henia:
-        wynik = sprawdz_srodowisko_henia()
+        wynik = _dolacz_kontrole_dziennikow(sprawdz_srodowisko_henia())
         print(json.dumps(wynik, ensure_ascii=False, indent=2))
         return 0
 
@@ -836,6 +908,7 @@ def main() -> int:
             wynik = sprawdz_narade_z_glosami(argumenty.narada, argumenty.meldunek)
         else:
             wynik = sprawdz_narade(argumenty.narada, argumenty.meldunek)
+        wynik = _dolacz_kontrole_dziennikow(wynik)
         print(json.dumps(wynik, ensure_ascii=False, indent=2))
         return 0
 

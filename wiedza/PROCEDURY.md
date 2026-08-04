@@ -1,5 +1,10 @@
 # PROCEDURY — jak się robi
 
+> **AKTUALIZACJA 04.08.2026** — decyzja Tomasza: *„Nadpisać, żeby wiedzieć, jak dążyliśmy do celu."*
+> Stare zapisy zostają jako `BYŁO`, obowiązuje `JEST`. Rozbieżność wykrył Henio (4.08).
+> **UWAGA:** pozostałych procedur (patch, restart kontenera, transfer plików, HA) Henio
+> NIE TESTOWAŁ — brak dowodów przeciwnych nie znaczy, że są sprawdzone.
+
 ## Patch zamiast pełnego renderu (naprawa 1-2 scen)
 NIE odpalaj pipeline'u od nowa. Kolejność:
 1. Popraw prompt w `data/reels/NNNNNN/prompts.txt` (backup!) i/lub LEKTOR w scenes.txt

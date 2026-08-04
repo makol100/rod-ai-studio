@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 00:05.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 00:29.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,6 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `PROCEDURY.md` | 04.08 | 3K | PROCEDURY — jak się robi |
+| `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
 | `SLOWA_TOMASZA.md` | 03.08 | 17K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `HANS_AGENT.md` | 03.08 | 6K | HANS — AGENT SPECJALNY |
 | `START.md` | 03.08 | 7K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
@@ -36,15 +38,13 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `DECYZJE_SERIA_HUMOR.md` | 25.07 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
 | `PROMPTY_WZORCE.md` | 23.07 | 3K | BANK PROMPTÓW-ZWYCIĘZCÓW — seria Tomek i Janusz (DROGA HUMOR) |
 | `DROGA_ROLKA_HUMOR.md` | 23.07 | 14K | DROGA ROLKA HUMOR 3.5 |
-| `PROCEDURY.md` | 18.07 | 3K | PROCEDURY — jak się robi |
 | `STYL.md` | 15.07 | 2K | STYL — treść i publikacja |
-| `ARCHITEKTURA.md` | 15.07 | 4K | ARCHITEKTURA — jak jest teraz |
 
 ## Pozostale magazyny
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 132K | 04.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 133K | 04.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 45K | 04.08 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 1K | 29.07 | konfiguracja Claude Code na VPS |
