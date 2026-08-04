@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 05:16.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 05:37.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,8 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `GDZIE_SIE_ZAPISUJE.md` | 04.08 | 2K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |
-| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 06:56:09 CEST |
+| `GDZIE_SIE_ZAPISUJE.md` | 04.08 | 3K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |
+| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 07:26:10 CEST |
 | `START.md` | 04.08 | 8K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `PROCEDURY.md` | 04.08 | 3K | PROCEDURY — jak się robi |
 | `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
