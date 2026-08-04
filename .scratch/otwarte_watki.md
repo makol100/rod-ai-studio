@@ -9,7 +9,13 @@ Legenda:
 ---
 
 ## 1. TELEPORT_fabryka.md:131 — Uprawnienia FB Reels
-**Status: ZYWE**
+**Status: MARTWE — ZAMKNIETE 4.08 przez Tomasza**
+> Tomasz 4.08 09:09: *Publikacja na Facebooku dziala, bo sam przeciez wystawiales rolki.*
+> DOWOD ZMIERZONY: znaczniki publikacji przy rolkach 000085, 000087, 000088, 000090, 000091
+> (daty 10-14.07) + odcinek 10010 zamkniety 4.08 jako OPUBLIKOWANY.
+> Zapis w teleporcie pochodzi z 10.07, gdy uprawnienia byly niepewne — od tamtej pory
+> publikacja przeszla w praktyce co najmniej 5 razy. Kolejny MARTWY WATEK UDAJACY ZYWY:
+> stan poszedl do przodu, opis zostal.
 > Otwarte do sprawdzenia: czy PAGE_ID 1174205105781401 ma poprawnie przypisane
 > uprawnienia pages_manage_posts dla tokenu; czy plik wideo spelnia wymogi FB
 > Reels (9:16, min 4s/max 60s, min rozdzielczosc 540x960)

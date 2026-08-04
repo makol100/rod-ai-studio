@@ -128,7 +128,7 @@ Credential "Facebook Page Token (ROD Wozniki)" (id JqZNdgyrpWXTCyFS, typ httpQue
 
 **PRZED AKTYWACJA:** przetestowac recznie (Execute workflow w UI) z wypelnionym tokenem, sprawdzic czy realnie posypie sie na FB, dopiero potem workflow.active=true. Workflow celowo utworzony jako NIEAKTYWNY zeby nic nie posz≥o samo na prawdziwa strone spolecznosci przed weryfikacja.
 
-Otwarte do sprawdzenia: czy PAGE_ID 1174205105781401 ma poprawnie przypisane uprawnienia pages_manage_posts dla tokenu; czy plik wideo spelnia wymogi FB Reels (9:16, min 4s/max 60s, min rozdzielczosc 540x960 - Ken Burns 1080x1920 z pipeline'u powinien spelniac).
+[ZAMKNIETE 4.08 — publikacja DZIALA, potwierdzil Tomasz i znaczniki przy 5 rolkach z 10-14.07 oraz odcinek 10010. Ponizszy zapis to stan z 10.07, nieaktualny.] Otwarte do sprawdzenia: czy PAGE_ID 1174205105781401 ma poprawnie przypisane uprawnienia pages_manage_posts dla tokenu; czy plik wideo spelnia wymogi FB Reels (9:16, min 4s/max 60s, min rozdzielczosc 540x960 - Ken Burns 1080x1920 z pipeline'u powinien spelniac).
 
 ## SLOWA-KLUCZE OD TOMASZA (ustalone 08.07.2026)
 - **"Aktualizuj wszędzie" / "Update wszędzie"** (Tomasz uzywa OBU form — to jedno i to samo haslo) = pelny zapis stanu w TRZECH miejscach jednoczesnie. Domyslny rytual zamkniecia wiekszej zmiany, NIE pomijac zadnego z trzech:
