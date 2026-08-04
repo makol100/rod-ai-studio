@@ -1,0 +1,30 @@
+[GENEK — DROGA 1: wlasny dostep do dysku przez CLI]
+
+Oto moje odpowiedzi na podstawie przeanalizowanych wymagań, dokumentacji oraz opisu wizualnego studia i postaci. Odpowiadam z perspektywy obrazu i dynamiki materiału.
+
+**1. TEKST:**
+"Szanowni Działkowicze, przed wami nowy, oficjalny serwis informacyjny. Nazywam się Izabela i jestem wirtualną prezenterką, powołaną do życia przez Zarząd Rodzinnego Ogrodu Działkowego imienia Józefa Lompy w Woźnikach. Od dziś to właśnie ja będę dbać o to, aby rzetelnie informować państwa o bieżących pracach zarządu oraz o wszystkim, co ważnego dzieje się na terenie naszych ogrodów. Otwieramy tym samym stały cykl wiadomości, dzięki któremu najważniejsze komunikaty zawsze dotrą do was na czas. Dziękuję za uwagę i zapraszam na kolejne wydania."
+
+*Szacowana długość:* Tekst ma 81 słów. Przy tempie 2,5 słowa na sekundę (typowe tempo lektorskie) całość potrwa około 32 sekund.
+
+**2. PIERWSZE ZDANIE (HACZYK 3-SEKUNDOWY):**
+"Szanowni Działkowicze, przed wami nowy, oficjalny serwis informacyjny."
+*Uzasadnienie:* Ma 8 słów, więc zostanie wypowiedziane dokładnie w 3 sekundy. Zatrzymuje uwagę natychmiastowym zwrotem do grupy docelowej ("Szanowni Działkowicze") i obietnicą czegoś świeżego oraz ważnego ("nowy, oficjalny"). Odrzuca dawny, przaśny styl pana Stanisława już od pierwszej sekundy.
+
+**3. JAK SIĘ PRZEDSTAWIA:**
+Musi powiedzieć o sobie: "Nazywam się Izabela i jestem wirtualną prezenterką".
+*Uzasadnienie:* Z faktów wynika, że na ekranie będą widniały belki "PREZENTERKA AI" oraz "wirtualny awatar zarządu". Ukrywanie w tekście tego, co widz od razu czyta wielkimi literami na ekranie, wywoła dysonans i będzie wyglądać nienaturalnie. Należy z tej sztuczności zrobić profesjonalny atut. Nazwisko jest zbędne (na belkach jest tylko "IZABELA").
+
+**4. FORMA ZWRACANIA SIĘ:**
+Zwrot "Szanowni Działkowicze" użyty jest tylko raz – jako eleganckie wejście. 
+*Uzasadnienie:* Ciągłe powtarzanie tego zwrotu w 30-sekundowym filmie będzie brzmiało sztucznie, niczym odczytywanie nudnego komunikatu z tablicy ogłoszeń. Reszta tekstu jest neutralnie uprzejma ("informować państwa", "dotrą do was"), co pasuje do opisanego "profesjonalnego studia" i profesjonalnego tonu (bez swojskiego "u nas na ogrodzie").
+
+**5. DŁUGOŚĆ:**
+Odcinek premierowy powinien trwać około 30-35 sekund. 
+*Uzasadnienie:* To format pionowy 9:16, przeznaczony na Facebook Reels. Widz na tych platformach decyduje w 3 sekundy, a jego uwaga rzadko utrzymuje się powyżej 40 sekund, jeśli na ekranie widzi tylko jeden plan. Skoro to tylko "wizytówka" nowej prowadzącej, tekst musi być gęsty i krótki. Rozciąganie tego do minuty sprawi, że ludzie przewiną przed puentą.
+
+**6. CO NA EKRANIE:**
+Absolutnie nie może to być wyłącznie Izabela przez 30 sekund. Tomasz słusznie odrzucił styl "zdjęcia paszportowego". Z opisu studia wiemy, że Izabela jest z prawej strony ekranu, a z lewej mamy wolną przestrzeń ("miejsce na materiał z lewej"). 
+*Uzasadnienie z perspektywy wizualnej:* Gdy mówi "Zarząd ROD...", po lewej stronie powinien płynnie wjechać wirtualny prostokąt (insert telewizyjny) ze zdjęciem tablicy ogrodu (ul. Młyńska 40c). Gdy mówi "...co dzieje się na terenie naszych ogrodów", prostokąt powinien zmienić się na ujęcie z alejki/działek. To urozmaici obraz na pionowym ekranie, zamieni nagranie w "prawdziwe wydanie wiadomości" i odciągnie wzrok od tego, że awatar cały czas znajduje się w jednej pozie za blatem.
+
+GENEK
