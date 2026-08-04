@@ -547,3 +547,10 @@ Każde z powyższych: sprawdzić stan FAKTYCZNY zanim cokolwiek się o nich napi
 Po KAŻDEJ sesji dotyczącej Home Assistant:
     python3 tools/teleport.py --ha --wpis "co się wydarzyło"
 Kontrola zaległości: `python3 tools/teleport.py --sprawdz`
+
+
+==============================================================================
+## SESJA 04.08.2026 07:15 CEST
+==============================================================================
+
+PORZADEK 4.08 07:14 — /root/TELEPORT_HA.md jest teraz DOWIAZANIEM do /root/rod-ai-studio/TELEPORT_HA.md. Jedna tresc, jedno miejsce, w repo i na GitHubie. Kopia sprzed porzadku: /root/HISTORIA_ZABEZPIECZONA/TELEPORT_HA_przed_porzadkiem.md
