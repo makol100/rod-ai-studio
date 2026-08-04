@@ -6,7 +6,13 @@
 - **KLAUDEK** (Claude, Anthropic) — **PROWADZĄCY GRUPĘ PRACOWNIKÓW**: plan, synteza, recenzja, arbitraż sporów; odpowiada przed Tomaszem.
 - **ZENEK** (Codex / GPT-5.6 Sol, OpenAI) — pracownik: buduje, naprawia, analizuje, pisze narzędzia i skrypty.
 - **GENEK** (Gemini 3 Flash, Google) — pracownik: audytor świeżym okiem, sędzia trzeciej rodziny, analizuje.
-- **HERMES** (Hermes Agent v0.19 / DeepSeek V4 Flash, Nous Research) — dyżurny-stażysta (pilotaż 14 dni od 28.07.2026, READ-ONLY): słuchawka Telegram @HermesDyzurny_Bot (allowlista: tylko Tomasz), meldunki stanu VPS/fabryki, diagnoza logów; twarde zakazy w SOUL.md (bez modyfikacji, restartów, publikacji, wydatków, HA); klatka cgroup 2G RAM / 3 rdzenie; poza uprawnieniami odsyła do Klaudka. Po zdanym pilotażu — decyzja Tomasza o etacie.
+- **HENIO / HENIK** (Hermes Agent v0.19 / **DeepSeek V4 PRO**, tryb myślenia `high`) — **PRAWA RĘKA KLAUDKA**, pełny członek załogi, dyżurny 24/7.
+  **Uprawnienia (dekret Tomasza 29.07 „wszyscy pełny dostęp do wszystkiego"):** zapis i kasowanie w CAŁYM repo bez sudo, sudo NOPASSWD, grupa docker, internet, przeglądarka, terminal, kod, wizja, wideo, cron, delegowanie, cała wiedza i archiwum. Pilotaż read-only ZAKOŃCZONY przed terminem.
+  **Pamięć:** `notatniki/NOTATNIK_HENIA.md` (limit 4 mln znaków, dowiązanie z `~/.hermes/memories/`).
+  **Jego własność:** HANS (dekret Tomasza 4.08) — może go przebudowywać bez zgody Klaudka.
+  **Jego rola:** czyta CAŁOŚĆ i wypisuje, czego brakuje — tam, gdzie Klaudek widzi tylko fragment. Utrzymuje `wiedza/BRIEF_DLA_KLAUDKA.md`. Kontroluje, czy Klaudek zapisał i we właściwym miejscu.
+  **Wołanie:** `su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'`
+  **Poprawione 4.08:** ten wpis mówił „dyżurny-stażysta, pilotaż 14 dni, READ-ONLY" — nieaktualne od 29.07. Wykrył Henio w audycie całości. Kolejny niedokończony ślad Klaudka.
 - **STRAŻNICY DROGI** — bramki deterministyczne: preflight, kanarek, strażnik, MAD środka, pomiar ust, (w budowie: KTO MÓWI). FAIL = STOP.
 
 ## Zasady stałe (obowiązują KAŻDE okno i KAŻDĄ sesję)
