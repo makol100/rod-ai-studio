@@ -1,0 +1,10 @@
+[Unit]
+Description=Sprawdzanie nowego APK co godzine (build trwa kilka minut, wiec godzina wystarcza)
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -29,7 +29,10 @@ Kontekst: integracja GitHub Actions → Facebook Reels. Nie wiadomo czy testowan
 Kontekst: klucze wyciekły w czacie, nadal plaintext w docker-compose.yml.
 
 ## 3. TELEPORT_fabryka.md:1087 — Automatyzacja APK
-**Status: ZYWE**
+**Status: ZROBIONE 4.08 09:14** — polecenie Tomasza: *Automatyzacja kopiowania aplikacji po kazdym zbudowaniu wykonac.*
+> Zrobione INACZEJ niz mowil zapis z 15.07 i to celowo: notatka mowila *skopiowac APK do repo*, ale APK ma 2,3 MB i NIE jest sledzony w gicie (0 commitow). Wgrywanie go przy kazdym budowaniu wsadzaloby binaria do historii — to samo, czego Tomasz nie chcial przy rolkach (D-0020).
+> ZAMIAST TEGO: `tools/pobierz_apk.sh` sciaga plik z wydania `apk-latest`, ktore workflow i tak juz publikuje. Timer `apk-pobierz.timer` sprawdza co godzine, wstaje po restarcie.
+> Zabezpieczenia: sprawdza czy pobrany plik to naprawde APK; przy bledzie NIE rusza lokalnego; stara wersje zachowuje obok (dekret 2.08: nikt niczego nie usuwa).
 > Po każdym buildzie skopiować nowy APK do data/rolka-prad/app-debug.apk
 > (TODO: zautomatyzować w workflow).
 Kontekst: workflow GitHub Actions dla APK — ręczne kopiowanie nie zautomatyzowane.
