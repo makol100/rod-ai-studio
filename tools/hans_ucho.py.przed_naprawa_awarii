@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import os
-import subprocess
 import sys
 import time
 import json
@@ -41,70 +40,6 @@ def _wczytaj_token_hansa() -> tuple[str, str]:
 
 def _pobierz_slowa_path() -> Path:
     return Path(os.environ.get("HANS_SLOWA_PATH", "wiedza/SLOWA_TOMASZA.md"))
-
-
-
-REPO = os.environ.get("HANS_REPO", "/root/rod-ai-studio")  # 4.08: brakowalo tej stalej — moj blad
-AWARIE_PATH = os.path.join(REPO, ".scratch", "hans", "ucho_awarie.jsonl")
-LICZNIK_PATH = os.path.join(REPO, ".scratch", "hans", "ucho_licznik.json")
-PROG_ALARMU = 3  # trzy kolejne nieudane cykle = alarm; przy odpytaniu co 60 s to ok. 3 minuty ciszy
-
-# UWAGA (zmierzone 4.08 07:56): Telegram pozwala tylko na JEDEN nasluch getUpdates naraz.
-# Uruchomienie tego narzedzia RECZNIE, gdy chodzi usluga hans-ucho.service, daje blad
-# "409 Client Error: Conflict" — czyli FALSZYWA awarie. Przed recznym testem:
-#   systemctl stop hans-ucho.service   ... test ...   systemctl start hans-ucho.service
-
-
-def _zapisz_awarie(powod: str) -> None:
-    """Awaria ucha NIE MOZE byc cicha — to kanal, ktorym Tomasz omija pamiec Klaudka.
-
-    Zapisuje kazda awarie (dopisywanie, nigdy nadpisywanie) i liczy KOLEJNE niepowodzenia.
-    Po PROG_ALARMU uderza alarmem DRUGIM botem (dzwonek Henia) — bo wlasny kanal Hansa
-    jest wlasnie tym, co nie dziala. Alarm wysylany RAZ na serie, zeby nie zasypac Tomasza.
-    """
-    os.makedirs(os.path.dirname(AWARIE_PATH), exist_ok=True)
-    try:
-        with open(AWARIE_PATH, "a", encoding="utf-8") as f:
-            f.write(json.dumps({"czas": time.time(), "powod": powod}, ensure_ascii=False) + "\n")
-    except OSError:
-        pass
-
-    stan = {"kolejne": 0, "alarm_wyslany": False}
-    try:
-        with open(LICZNIK_PATH, encoding="utf-8") as f:
-            stan = json.load(f)
-    except (OSError, ValueError):
-        pass
-    stan["kolejne"] = int(stan.get("kolejne", 0)) + 1
-
-    if stan["kolejne"] >= PROG_ALARMU and not stan.get("alarm_wyslany"):
-        try:
-            subprocess.run(
-                ["python3", os.path.join(REPO, "tools", "dzwonek.py"),
-                 f"UCHO HANSA NIE DZIALA od {stan['kolejne']} cykli. Powod: {powod[:150]}\n"
-                 f"Twoje wiadomosci do @HansFabrykaRolek_bot NIE SA ZAPISYWANE.",
-                 "--tytul", "AWARIA UCHA HANSA"],
-                capture_output=True, timeout=60)
-            stan["alarm_wyslany"] = True
-        except (OSError, subprocess.SubprocessError):
-            pass
-    try:
-        with open(LICZNIK_PATH, "w", encoding="utf-8") as f:
-            json.dump(stan, f)
-    except OSError:
-        pass
-
-
-def _wyczysc_awarie() -> None:
-    """Udany cykl zeruje licznik — zeby kolejna seria znow wywolala alarm."""
-    try:
-        with open(LICZNIK_PATH, encoding="utf-8") as f:
-            stan = json.load(f)
-        if stan.get("kolejne", 0) or stan.get("alarm_wyslany"):
-            with open(LICZNIK_PATH, "w", encoding="utf-8") as f:
-                json.dump({"kolejne": 0, "alarm_wyslany": False}, f)
-    except (OSError, ValueError):
-        pass
 
 
 def _pobierz_offset_path() -> Path:
@@ -164,18 +99,12 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
         res.raise_for_status()
         dane = res.json()
     except Exception as e:
-        # 4.08: TU BYLO "return True" — awaria byla meldowana jako SUKCES. Wykryl Zenek w audycie:
-        # "hans_ucho uznaje awarie Telegrama za sukces, wiec moze bez konca nie odbierac slow
-        # Tomasza, a usluga nadal wyglada na dzialajaca". To bylo ciche milczenie tego samego
-        # mechanizmu, ktory mial zerwac zaleznosc od pamieci Klaudka.
-        _zapisz_awarie(f"polaczenie/odpowiedz: {e}")
-        print(f"Hans ucho: AWARIA polaczenia z Telegramem: {e}", file=sys.stderr)
-        return False
+        print(f"Hans ucho: Błąd połączenia lub odpowiedzi z Telegrama: {e}", file=sys.stderr)
+        return True
 
     if not dane.get("ok") or not isinstance(dane.get("result"), list):
-        _zapisz_awarie(f"wadliwa odpowiedz: {str(dane)[:200]}")
-        print(f"Hans ucho: AWARIA — Telegram zwrocil blad lub zly format: {dane}", file=sys.stderr)
-        return False
+        print(f"Hans ucho: Telegram getUpdates zwrócił błąd lub wadliwy format: {dane}", file=sys.stderr)
+        return True
 
     wyniki = dane["result"]
     dopisane = 0
@@ -210,7 +139,6 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
 
     if dopisane > 0 or wyniki:
         print(f"Hans ucho: odebrano {len(wyniki)} wpisów, dopisano {dopisane} nowych słów Tomasza.")
-    _wyczysc_awarie()  # udany cykl kasuje licznik kolejnych awarii
     return True
 
 

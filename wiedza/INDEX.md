@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 05:39.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 05:56.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,8 +11,9 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `LISTA_PRACOWNIKOW.md` | 04.08 | 3K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
+| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 07:44:43 CEST |
 | `GDZIE_SIE_ZAPISUJE.md` | 04.08 | 3K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |
-| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0004) | wygenerowano 2026-08-04 07:26:10 CEST |
 | `START.md` | 04.08 | 8K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
 | `PROCEDURY.md` | 04.08 | 3K | PROCEDURY — jak się robi |
 | `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
@@ -34,7 +35,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `NAUKI.md` | 29.07 | 12K | NAUKI — lekcje z produkcji (destylat) |
 | `DECYZJE_0007_bramka_oka.md` | 28.07 | 1K | DECYZJA 0007 — BRAMKA OKA fail-closed (28.07.2026, dekret Tomasza "Naprawiać") |
 | `NAUKI_SERII.md` | 28.07 | 20K | 2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE oper |
-| `LISTA_PRACOWNIKOW.md` | 28.07 | 2K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
 | `DECYZJE_CLAUDE_CODE.md` | 28.07 | 5K | 2026-07-26 | "Leć" (po planie: Claude Code + Codex CLI + plugin codex@openai-codex na fabryce, review gate OFF |
 | `AKTYWA_SERII.md` | 26.07 | 1K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `DECYZJE_SERIA_HUMOR.md` | 25.07 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
