@@ -128,7 +128,7 @@ Credential "Facebook Page Token (ROD Wozniki)" (id JqZNdgyrpWXTCyFS, typ httpQue
 
 **PRZED AKTYWACJA:** przetestowac recznie (Execute workflow w UI) z wypelnionym tokenem, sprawdzic czy realnie posypie sie na FB, dopiero potem workflow.active=true. Workflow celowo utworzony jako NIEAKTYWNY zeby nic nie posz≥o samo na prawdziwa strone spolecznosci przed weryfikacja.
 
-Otwarte do sprawdzenia: czy PAGE_ID 1174205105781401 ma poprawnie przypisane uprawnienia pages_manage_posts dla tokenu; czy plik wideo spelnia wymogi FB Reels (9:16, min 4s/max 60s, min rozdzielczosc 540x960 - Ken Burns 1080x1920 z pipeline'u powinien spelniac).
+[ZAMKNIETE 4.08 — publikacja DZIALA, potwierdzil Tomasz i znaczniki przy 5 rolkach z 10-14.07 oraz odcinek 10010. Ponizszy zapis to stan z 10.07, nieaktualny.] Otwarte do sprawdzenia: czy PAGE_ID 1174205105781401 ma poprawnie przypisane uprawnienia pages_manage_posts dla tokenu; czy plik wideo spelnia wymogi FB Reels (9:16, min 4s/max 60s, min rozdzielczosc 540x960 - Ken Burns 1080x1920 z pipeline'u powinien spelniac).
 
 ## SLOWA-KLUCZE OD TOMASZA (ustalone 08.07.2026)
 - **"Aktualizuj wszędzie" / "Update wszędzie"** (Tomasz uzywa OBU form — to jedno i to samo haslo) = pelny zapis stanu w TRZECH miejscach jednoczesnie. Domyslny rytual zamkniecia wiekszej zmiany, NIE pomijac zadnego z trzech:
@@ -1363,3 +1363,21 @@ prowadzić. Za to dwie nagany w `wiedza/TECZKI/KLAUDEK.md` (4.08). Słowa Tomasz
 ==============================================================================
 
 Henio wykonal zadanie Tomasza: addytywnie rozszerzyl tools/hans.py o sprawdzanie zaleglosci obu dziennikow z progiem 1 doby, dodal osobne testy tools/test_hans_dzienniki.py oraz raport roboczy .scratch/hans-second-brain-2026-08-04/raport_henia.md. Biezacy pomiar dal 61 plikow wiedzy i 20 starszych niz 7 dni, nie 18; wszystkie 20 opisano bez poprawiania ich tresci. Zenek skontrolowal addytywnosc, wykryl wzgledna sciezke teleportu; Henio poprawil ja na absolutna i dodal regresyjny test uruchomienia spoza repo. Wynik koncowy: 47/47 testow Hansa OK; AST: 22 funkcje przed, 24 po, usuniete zero. Bramka Henia przepuscila raport przed ostatnia poprawka sciezki; finalna kontrola skladni i diff --check OK. Brak produkcji filmow, brak usuwania.
+
+
+==============================================================================
+## SESJA 04.08.2026 08:49 CEST
+==============================================================================
+
+AUDYT CALOSCI 4.08 (07:40-08:25). Tomasz: 'Sprawdzic wszystkie niedociagniecia, wszyscy sprawdzic' -> 'Naprawiac' -> 'Pracowac'.
+Znaleziono 20 niedociagniec (Zenek 5, Henio 12, reszta wspolne). NAPRAWIONE:
+1. UCHO HANSA uznawalo awarie Telegrama za SUKCES — teraz zglasza, liczy kolejne awarie i po 3 cyklach alarmuje DRUGIM botem. Sprawdzone bojowo podmiana tokenu.
+2. HENIO NIE MOGL PISAC do .scratch (prawa) — naprawione, sprawdzone jego zapisem.
+3. ZALOGA dostawala w KAZDYM zleceniu 'Hans NIEZBUDOWANY' — poprawione.
+4. brief_klaudka.py i hans_oczy.py NISZCZYLY PLIKI przy --help (Zenek nadpisal brief probujac zobaczyc pomoc).
+5. LISTA_PRACOWNIKOW: Henio jako 'stazysta READ-ONLY' (nieaktualne od 29.07) + cala lista doprowadzona do stanu faktycznego.
+6. SPROSTOWANIE WLASNEJ NIEPRAWDY: Klaudek zameldowal, ze Genek nie ma dysku — MA (test: zapisal plik). D-0014 zastapiona D-0017, notatnik Genka zalozony. WSZYSCY CZTEREJ maja notatniki w repo i na GitHubie.
+7. ARCHITEKTURA: bohaterowie HENIEK+HALINKA -> BOHATER+JANUSZ.
+8. test_hans_oczy.py (27 testow) + wykluczenie plikow generowanych z alarmow.
+ZGLOSZONE TOMASZOWI DO DECYZJI: data/reels 537 MB bez kopii poza serwerem; 16 otwartych watkow w .scratch/otwarte_watki.md.
+ZARZUT NIEPOTWIERDZONY: 'brief nie przezyje restartu' — bramka Henia to usluga uzytkownika z linger=yes.
