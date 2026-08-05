@@ -123,22 +123,27 @@ def main():
         # Start sesji celowo jest SKROTEM (~4,5 tys. znakow zamiast 11 tys.), zeby nie zjadac
         # okna. Klaudek MUSI wiedziec, ze to skrot i gdzie lezy reszta — inaczej uzna,
         # ze dostal calosc, i bedzie pracowal na urwanym obrazie.
-        "3. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba:"
+        # Dopisane 5.08 po wskazaniu Tomasza (ayghri/i-have-adhd). Tomasz pracuje z telefonu:
+        # odpowiedz zakopana w prozie jest odpowiedzia strAconą. Pelne reguly: wiedza/JAK_PISZEMY.md
+        "3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz"
+        " do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast"
+        " ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md",
+        "4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba:"
         " pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje"
         " `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md"
         " · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/"
         " · rozmowy /mnt/transcripts/journal.txt",
-        f"4. PRAWA RĘKA: HENIO | {komenda_henia()}",
-        f"5. HANS: Henia, nie Klaudka ({hans['id']})",
-        f"6. TELEPORTY: {zaleglosc_teleportow()}",
-        f"7. /root/.claude/CLAUDE.md: {dni_claude:.1f} dnia bez zmian",
-        (f"8. !! DO ZROBIENIA PRZEZ TOMASZA: {_pilne}" if _pilne
+        f"5. PRAWA RĘKA: HENIO | {komenda_henia()}",
+        f"6. HANS: Henia, nie Klaudka ({hans['id']})",
+        f"7. TELEPORTY: {zaleglosc_teleportow()}",
+        f"8. /root/.claude/CLAUDE.md: {dni_claude:.1f} dnia bez zmian",
+        (f"9. !! DO ZROBIENIA PRZEZ TOMASZA: {_pilne}" if _pilne
          else f"7. OSTATNIA NAGANA KLAUDKA: {ostatnia_nagana()}"),
-        f"9. GENEK: oszczędzany — tylko oczy/uszy/grafika ({genek['id']}: {skrot(genek)})",
-        f"10. KIEROWNIK: Klaudek, rozstrzygnięte 4.08 ({kierownik['id']})",
+        f"10. GENEK: oszczędzany — tylko oczy/uszy/grafika ({genek['id']}: {skrot(genek)})",
+        f"11. KIEROWNIK: Klaudek, rozstrzygnięte 4.08 ({kierownik['id']})",
     ]
-    if len(linie) != 10 or any("\n" in linia for linia in linie):
-        raise RuntimeError("brief nie ma dokładnie dziesięciu pojedynczych linii")
+    if len(linie) != 11 or any("\n" in linia for linia in linie):
+        raise RuntimeError("brief nie ma dokładnie jedenastu pojedynczych linii")
     tmp = CEL.with_suffix(".md.tmp")
     tmp.write_text("\n".join(linie) + "\n", encoding="utf-8")
     os.replace(tmp, CEL)
