@@ -384,3 +384,20 @@ Oni nie przewijaja. Oni szukaja.
 („Kanal: Facebook, format pionowy. Pierwsze 3 sekundy decyduja o obejrzeniu do konca")
 i BEZ SPRAWDZENIA sterowala decyzjami — Henio liczyl na niej dlugosc 24 s, Genek 30-35 s,
 Klaudek ostrzegal przed czolowka. Zaden nie zapytal, czy ta regula w ogole dotyczy TEGO kanalu.
+
+## 05.08.2026 08:4x — NA KLAUDKA, NIE NA HENIA
+
+> **„Kurwa nie na Heniu tylko na Klaudku."**
+
+Powiedziane po tym, jak Klaudek zameldowal glosy zalogi. Tomasz mowil to JUZ TRZECI RAZ tego dnia
+i Klaudek za kazdym razem odbijal narzedzie Heniowi:
+1. 4.08 noc: *„ClawMem dziala tez z Hermesem, czyli z silnikiem Henia"* — odbil Heniowi.
+2. 5.08: *„Ma sprawdzic na Klaudiuszu"* — Tomasz musial poprawic.
+3. 5.08: *„repozytorium, ktore chcialem na ciebie zalozyc, ktore stwierdziles, ze ma byc
+   na Henia, ale tak naprawde ona jest na ciebie"* — Tomasz poprawil DRUGI raz.
+4. 5.08: *„Kurwa nie na Heniu tylko na Klaudku"* — TRZECI raz.
+
+**OBOWIAZUJE:** wszystko, co ma naprawiac dziure „Klaudek dziala solo", montuje sie
+**NA KLAUDKU** — w jego kanale MCP. Henio z tego nie zyskuje nowej mozliwosci pomagania;
+zaloga potwierdzila to niezaleznie (Henio o sobie: *„sila sprawcza lezy po stronie Klaudka,
+nie Henia"*).
