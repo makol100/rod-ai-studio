@@ -1,18 +1,19 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 17:07.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 04.08.2026 18:21.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (30), od najswiezszego
+## Pliki wiedzy (31), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `CZOLOWKA_WIADOMOSCI.md` | 04.08 | 2K | CZOLOWKA WIADOMOSCI DZIALKOWYCH — KANON |
+| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0039) | wygenerowano 2026-08-04 20:06:57 CEST |
 | `SLOWA_TOMASZA.md` | 04.08 | 20K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
-| `BRIEF_DLA_KLAUDKA.md` | 04.08 | 1K | 1. STOP PRODUKCJI: OBOWIĄZUJE (D-0039) | wygenerowano 2026-08-04 19:05:56 CEST |
 | `IZABELA_KANON_0.1.md` | 04.08 | 27K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `NAUKI.md` | 04.08 | 14K | NAUKI — lekcje z produkcji (destylat) |
 | `LISTA_PRACOWNIKOW.md` | 04.08 | 6K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |

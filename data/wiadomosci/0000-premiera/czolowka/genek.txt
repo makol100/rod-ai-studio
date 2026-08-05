@@ -1,0 +1,40 @@
+[GENEK — DROGA 1: wlasny dostep do dysku przez CLI]
+
+Odpowiedzi na pytania Tomasza:
+
+1. **CZY czolowka ma sens dla TEGO odbiorcy?**
+Tak, absolutnie ma sens. Nasi odbiorcy to konkretna społeczność 51 działkowiczów. Są przyzwyczajeni do tradycyjnych form telewizyjnych, takich jak Dziennik czy Teleexpress. Zależy im na komunikatach od zarządu, więc i tak obejrzą, bo to o nich. Czołówka buduje powagę, godność i rangę oficjalnego komunikatu. Upewnia ich od pierwszych sekund, że to poważne "Wiadomości", a nie śmieszny tik-tok czy błąd w internecie.
+
+2. **ILE SEKUND.**
+5 sekund. To klasyczny, telewizyjny czas krótkiego jingla informacyjnego. Daje wystarczająco dużo czasu na mocne wybrzmienie fanfar oraz swobodne przeczytanie nazwy bez pośpiechu. Skoro nie uciekają z palcem nad ekranem, możemy dać im te parę sekund, aby skupili wzrok i wczuli się w oficjalny, informacyjny klimat (to buduje respekt do Izabeli).
+
+3. **CO SIE DZIEJE NA EKRANIE.**
+- **Sekunda 0.0 - 1.0**: Pusty, elegancki ekran w głównym kolorze studia (granat `#041631`). Na nim pojawiają się pionowe, ciemniejsze pasy (jak te podświetlane ze studia Izabeli).
+- **Sekunda 1.0 - 2.5**: Z góry lub ze środka płynnie wyłania się i powiększa (skaluje) zielone koło z logo ogrodu (`assets/branding/rod_profilowe.png`).
+- **Sekunda 2.5 - 4.0**: Pod logiem rozsuwa się zgrabna, złota belka w kolorze `#C49E4A`. Pojawia się na niej "wbijany" literka po literce główny tekst czołówki.
+- **Sekunda 4.0 - 5.0**: Logo i napis lekko rozmywają się na brzegach, a następnie ekran płynnie przenika (cross-fade przez kanał alpha) do gotowej grafiki `STUDIO_IZABELI_CANON_v3.png` z prezenterką na stanowisku, po czym rozpoczyna się jej pierwsza kwestia.
+
+4. **DZWIEK.**
+Tak, dżingiel informacyjny to obowiązek – dodaje 50% profesjonalizmu. Potrzebujemy krótkiego uderzenia dźwiękowego kojarzącego się z serwisem informacyjnym. 
+Skąd wziąć: Ponieważ wygenerowanie dżingla muzycznego za pomocą kodu to rzępolenie niegodne serwisu, trzeba wejść na giełdy z muzyką na licencji CC0 (np. Pixabay, Free Music Archive) i pobrać darmowy plik z hasłem "news intro jingle" / "news broadcast". Nie naruszymy tym cudzych praw. Plik zrzucamy do `assets/music/`, a adnotację z podziękowaniem wpiszemy do `assets/music_atrybucja/`.
+
+5. **NAPIS/TYTUL.**
+Tytuł główny musi bić po oczach: **"WIADOMOŚCI DZIAŁKOWE"** (drukowanymi literami, na złotej belce).
+Pod spodem subtelny podtytuł, konieczny dla pełnej lokalizacji i dumy: **"ROD im. Józefa Lompy w Woźnikach"**. 
+
+6. **CZY DA SIE TO ZROBIC KODEM (PIL + ffmpeg)?**
+Tak, zrobimy to w 100% kodem, koszt generowania to 0 zł.
+Jak dokładnie:
+- Napiszę skrypt w Pythonie wykorzystujący bibliotekę `PIL` (`Pillow`). 
+- Ustawię pętlę na 150 klatek (przy 30 fps to daje 5 sekund). 
+- W każdej iteracji pętli skrypt namaluje tło jako `Image.new("RGB", (1080, 1920), color="#041631")`.
+- `Image.paste` posłuży do osadzenia `rod_profilowe.png`, gdzie w zależności od numeru klatki (iteracji) wielkość koła zmieni się proporcjonalnie przez `resize` (animacja wejścia).
+- Złotą belkę wyrysuję prostokątem `ImageDraw.Draw().rectangle`.
+- Napisy wstawię funkcją `ImageDraw.Draw().text()` na podstawie czcionki TTF, ucinając string proporcjonalnie do numeru klatki, żeby stworzyć efekt pisania tekstu.
+- Ostatnie 30 klatek wygeneruję za pomocą `Image.blend()` przenikając klatkę czołówki z obrazkiem `STUDIO_IZABELI_CANON_v3.png`.
+- Po zapisaniu serii klatek w `.png` odpalimy `ffmpeg -framerate 30 -i klatka_%03d.png -i intro.mp3 -c:v libx264 -c:a aac gotowa_czolowka.mp4` by połączyć wideo z darmowym audio. Skrypt zamknie się w jednym prostym pliku.
+
+7. **CZOLOWKA vs ZAKONCZENIE.**
+Tak, outro na zakończenie jest równie ważne co początek – serwis nie może urywać się widzowi w połowie słowa Izabeli. Wystarczą krótkie 3 sekundy. Zbliżenie na logo ROD na tym samym granatowym tle ze skróconym dźwiękowym sygnałem zamykającym "wydanie" i napisem w stylu "Koniec Wiadomości", żeby naturalnie pożegnać działkowicza.
+
+- GENEK
