@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 05:46.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 05:57.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 07:46:18 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 07:57:05 CEST |
 | `CZOLOWKA_WIADOMOSCI.md` | 04.08 | 2K | CZOLOWKA WIADOMOSCI DZIALKOWYCH — KANON |
 | `SLOWA_TOMASZA.md` | 04.08 | 20K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `IZABELA_KANON_0.1.md` | 04.08 | 27K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
