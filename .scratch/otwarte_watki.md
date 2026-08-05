@@ -120,3 +120,9 @@ Przegladarka dzielaca zalogowana sesje z agentem AI. Rozwiazuje realny problem: 
 wymagajace logowania, do ktorych Klaudek nie siega (Tailscale, Tuya QR, Facebook).
 Dzis TYLKO macOS. Sprawdzac lite.ego.app/roadmap i github.com/citrolabs/ego-lite/releases.
 Opis: wiedza/EGO_LITE_DO_WROCENIA.md
+
+## EGO LITE — czekamy na wersje Windows (od 5.08.2026)
+`citrolabs/ego-lite` — przegladarka dzielaca zalogowana sesje z agentami AI.
+Rozwiazuje realne blokady: zatwierdzanie tras Tailscale, kod QR Tuya, publikacja FB.
+DZIS TYLKO macOS. Sprawdzic ponownie za jakis czas: czy doszedl Windows.
+Opis i ostrzezenia: wiedza/EGO_LITE_ROZPOZNANIE.md
