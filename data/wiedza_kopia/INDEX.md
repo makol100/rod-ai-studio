@@ -1,16 +1,17 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 07:32.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 07:40.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (32), od najswiezszego
+## Pliki wiedzy (33), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `ZACZEP_W_MOSCIE.md` | 05.08 | 3K | ZACZEP W MOSCIE — NIEMY REJESTRATOR (5.08.2026) |
 | `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 09:15:03 CEST |
 | `NAUKI.md` | 05.08 | 17K | NAUKI — lekcje z produkcji (destylat) |
 | `SLOWA_TOMASZA.md` | 05.08 | 21K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
