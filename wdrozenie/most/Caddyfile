@@ -1,0 +1,75 @@
+157-90-155-155.sslip.io {
+    reverse_proxy localhost:8765
+}
+
+panel.157-90-155-155.sslip.io {
+	reverse_proxy localhost:8000
+}
+
+barometr.157-90-155-155.sslip.io {
+	@barometr path /barometr /barometr.json /barometr/*
+	handle @barometr {
+		reverse_proxy localhost:8000
+	}
+	handle / {
+		redir /barometr 302
+	}
+	handle {
+		respond 404
+	}
+}
+
+telefon.157-90-155-155.sslip.io {
+	reverse_proxy 100.101.116.106:8080
+}
+
+wgraj.157-90-155-155.sslip.io {
+	reverse_proxy localhost:5030
+}
+
+# HA DZIALKA — TYLKO webhook MCP, cala reszta Home Assistanta na 404 (propozycja Henia, 29.07)
+# Powod: aplikacja Tomasza jest poza Tailnetem, wiec adres .ts.net jest dla niej nieosiagalny.
+dzialka.157-90-155-155.sslip.io {
+	@mcp path /api/webhook/mcp_25232d954273e3ee9d206037e9ecca84*
+	handle @mcp {
+		reverse_proxy 100.115.112.5:8123 {
+			# HA odrzuca ruch z nieznanego proxy (400 Bad Request). Zdejmujemy naglowki proxy,
+			# zeby widzial polaczenie jak zwykle z tailnetu — bez zmian w konfiguracji Dzialki.
+			header_up -X-Forwarded-For
+			header_up -X-Forwarded-Proto
+			header_up -X-Forwarded-Host
+			header_up Host {upstream_hostport}
+		}
+	}
+	handle {
+		respond "Nie ma tu nic." 404
+	}
+}
+
+podglad.157-90-155-155.sslip.io {
+	reverse_proxy localhost:5031
+}
+
+# HA SOSNOWIEC (mieszkanie, Wybickiego) — 5.08.2026, D-0054.
+# Tomasz: "Masz miec pelen dostep jak do domu albo dzialki."
+# Ta sama zasada co przy Dzialce (wiedza/KONEKTOR_DZIALKA.md):
+#  - wystawiona TYLKO sciezka webhooka MCP, reszta HA zwraca 404
+#  - naglowki X-Forwarded-* ZDJETE, Host podstawiony — inaczej HA odrzuca ruch (400 Bad Request)
+#    i trzeba by dopisywac trusted_proxies w configuration.yaml zdalnej instalacji
+sosnowiec.157-90-155-155.sslip.io {
+	# 5.08 11:17 — POPRAWKA: Sosnowiec NIE ma webhooka. Serwer MCP jest osiagalny
+	# WPROST przez Tailscale na porcie 9583, pod tajna sciezka wygenerowana przez dodatek.
+	# Dzieki temu pominięty zostaje pośrednik webhooka — jedno ogniwo mniej.
+	@mcp path /private_1S_c5tNNIZ_qWO_4Ks777A*
+	handle @mcp {
+		reverse_proxy 100.67.61.100:9583 {
+			header_up -X-Forwarded-For
+			header_up -X-Forwarded-Proto
+			header_up -X-Forwarded-Host
+			header_up Host {upstream_hostport}
+		}
+	}
+	handle {
+		respond "Nie ma tu nic." 404
+	}
+}
