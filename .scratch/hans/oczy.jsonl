@@ -733,3 +733,12 @@
 {"timestamp": "2026-08-05 11:25:46", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/HA_WYBICKIEGO.md"]}
 {"timestamp": "2026-08-05 13:26:37", "file": "wiedza/przeglady/MARTWE_TUYA_5.08.md", "mtime": 1785936073.494937, "checksum": "c6f27f645b9187474c321746f1345e09bfde294bfb5acb8a49e8b56e4636d1d9", "status": "added"}
 {"timestamp": "2026-08-05 13:26:37", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/przeglady/MARTWE_TUYA_5.08.md"]}
+{"timestamp": "2026-08-05 18:15:00", "file": "wiedza/EGO_LITE_ROZPOZNANIE.md", "mtime": 1785953173.0092335, "checksum": "6e40525548e8052d34fc79ccc6321d9c70005a2184e5ab3cad578a67a00af41e", "status": "added"}
+{"timestamp": "2026-08-05 18:15:00", "file": "wiedza/EGO_LITE_DO_WROCENIA.md", "mtime": 1785953102.2035177, "checksum": "659ebf0ef69cd5f69e6d1a66afcd54f1abfc71fa0575c18a86fb05949304512a", "status": "added"}
+{"timestamp": "2026-08-05 18:15:00", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/EGO_LITE_ROZPOZNANIE.md", "wiedza/EGO_LITE_DO_WROCENIA.md"]}
+{"timestamp": "2026-08-05 18:30:02", "file": "wiedza/JAK_PISZEMY.md", "mtime": 1785954046.9037225, "checksum": "5687e5ed8d20befa06b778ee87a55e6caa1a9edaae9f435442a8ab54ec654fc4", "status": "added"}
+{"timestamp": "2026-08-05 18:30:02", "file": "tools/zaloga.py", "mtime": 1785954095.4921544, "checksum": "a1ce19b7d465ce5d925cc8fc76d0b43d6969bd6db15cb0398121604d2b70b11e", "status": "modified"}
+{"timestamp": "2026-08-05 18:30:02", "file": "tools/brief_klaudka.py", "mtime": 1785954131.5895455, "checksum": "651491761d365d933c2685ecd4cb731eb7611899d73041140696e24f97b13a2f", "status": "modified"}
+{"timestamp": "2026-08-05 18:30:02", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zaloga.py", "tools/brief_klaudka.py"], "knowledge_files": ["wiedza/JAK_PISZEMY.md"]}
+{"timestamp": "2026-08-05 19:00:50", "file": "tools/zadanie.py", "mtime": 1785956054.8077424, "checksum": "08f80189b09d6cd28917c30c837c95500d31cfeb24813cca6ed2990740f6a3ed", "status": "added"}
+{"timestamp": "2026-08-05 19:00:50", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zadanie.py"], "knowledge_files": []}
