@@ -84,3 +84,44 @@ Dzialka GO MA. **Gdyby wlaczyc go na Wybickiego, Klaudek instalowalby dodatki sa
 
 Instalacja nazywala sie w srodku **„Dom"** — tak samo jak Walding. Zmienione na **„Wybickiego"**
 poleceniem `config/core/update` przez WebSocket (zwykle REST API nie ma tej sciezki: 404).
+
+## PRZEGLAD 5.08.2026 — CO ZNALEZIONO
+
+**AKTUALIZACJE: ZERO.** HA core 2026.7.4, HA OS 18.2, supervisor 2026.07.5 — wszystko najnowsze.
+Konfiguracja: `valid`, zero bledow.
+
+### NAPRAWIONE
+
+**1. ZABEZPIECZENIE GAZOWE NIE DZIALALO OD 8 DNI — najwazniejsze znalezisko.**
+Automatyzacja „Wykrycie gazu zamkniecie zaworu gazu" byla WLACZONA i wygladala na sprawna,
+ale jej wyzwalacz wskazywal `device_id: 258f191a...` — urzadzenie **niedostepne od 28.07 11:59**.
+Zawor **nigdy by sie nie zamknal**. W mieszkaniu byl przy tym DRUGI, dzialajacy czujnik gazu
+(`binary_sensor.gas_sensor_2_gaz`), ktorego ta automatyzacja nie widziala.
+**Przepisana:** wyzwalacz `state` na OBA czujniki, akcja przez `entity_id` zamiast `device_id`.
+Awaria jednego czujnika nie unieruchamia juz zabezpieczenia.
+
+**2. DRUGA, BLEDNA INTEGRACJA TUYA** (`01KBQXSQG8BMH3EGP67VFH2B44`, stan `setup_error`)
+— usunieta na polecenie Tomasza. Zostala jedna, `loaded`.
+
+### PRZYCZYNA 107 MARTWYCH ENCJI — USTALONA
+
+**Bramka Zigbee Setti SGW430 padla 28.07 o 11:59:18** i wrocila dopiero 5.08 o 13:11,
+gdy Tomasz przelogowal Tuya. Wszystkie jej urzadzenia zamilkly W TEJ SAMEJ SEKUNDZIE —
+dlatego to nie byly baterie. Po jej powrocie: **107 -> 45 niedostepnych.**
+
+**BLAD KLAUDKA przy tej diagnozie:** zobaczyl `zha: not_loaded` i **ogłosil, ze Zigbee nie dziala**.
+Nieprawda — Zigbee chodzi przez **Zigbee2MQTT** (6 urzadzen + mostek), ZHA to nieuzywana
+pozostalosc. Tomasz poprawil: *„Zigbee dziala idioto."*
+Klaudek widzial Zigbee2MQTT na liscie dodatkow i nie polaczyl faktow.
+
+### ZOSTAJE DO ZROBIENIA
+
+- **Czujnik gazu w kuchni i czujnik zalania w lazience nadal niedostepne** — nie zameldowaly sie
+  jeszcze bramce po jej powrocie. Obudzic: czujnik zalania — zewrzec styki mokrym palcem;
+  czujnik gazu — wyjac i wlozyc baterie.
+- **Tuya: Tomasz nie moze zeskanowac kodu QR** tym samym telefonem, ktory go wyswietla.
+  Obejscie: otworzyc HA na komputerze/tablecie i zeskanowac telefonem.
+- **1209 wpisow o zbyt niskim napieciu** w dmesg (Raspberry Pi 4). Zasilacz jest ORYGINALNY —
+  Tomasz: „mozliwe spadki napiecia" w sieci mieszkania. **Do obserwacji, nie przyczyna
+  dzisiejszych awarii.**
+- **Nabu Casa wygasa 9.08.2026** (zdalny dostep i tak wylaczony — jedzie przez Tailscale).
