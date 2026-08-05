@@ -219,3 +219,27 @@ python3 tools/odpal.py --zadanie /tmp/x.md --kto zenek,henio --katalog /tmp/x
 python3 tools/odpal.py --stan
 ```
 **300 razy krocej trzymane polaczenie.** Nie naprawia zrywania — schodzi mu z drogi.
+
+## 05.08.2026 — NAPRAWIAJAC JEDNO, CICHO ZABRALEM DRUGIE
+
+**Uwaga Tomasza:** *„Powinienem dostać odpowiedź, że są gotowi, przez telegrama."*
+
+**Co sie stalo:** Klaudek napisal `tools/odpal.py`, zeby zlecenia zalogi nie trzymaly
+polaczenia MCP (naprawa realnego problemu — 21 zerwan na dobe). Stary wzorzec brzmial:
+```
+nohup bash -c 'zaloga.py ...; python3 tools/dzwonek.py "gotowe"' &
+```
+Nowy `odpal.py` uruchamial samo `zaloga.py` — **bez czlonu z dzwonkiem.**
+Tomasz przestal dostawac powiadomienia i musial pytac o stan sam.
+
+**To jest ten sam blad, przed ktorym ostrzega dekret Tomasza o teleporcie (26.07):
+„wolno dopisac funkcje, NIGDY odebrac podstawowego zadania".**
+Klaudek nie zrobil tego zlosliwie — po prostu przepisujac narzedzie od nowa
+NIE SPRAWDZIL, co stary wzorzec robil poza tym, co wlasnie naprawial.
+
+**ZASADA:** przepisujac cokolwiek, co dzialalo, najpierw WYPISAC WSZYSTKIE jego funkcje,
+dopiero potem pisac nowe. Inaczej naprawa jednej rzeczy jest cicha strata innej.
+
+**Naprawione:** `odpal.py` wysyla dzwonek ZAWSZE po zakonczeniu narady (wbudowane w powloke,
+nie doklejane przez wolajacego — zeby nie dalo sie znowu zapomniec).
+Test 5.08 09:12: wiadomosc doszla, Tomasz potwierdzil.
