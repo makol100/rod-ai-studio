@@ -39,9 +39,20 @@ def odpal(zadanie, kto, katalog, wykonanie=False):
         polecenie.append("--wykonanie")
 
     log = f"{katalog}/_przebieg.log"
+    # POWIADOMIENIE DLA TOMASZA — dopisane 5.08 po jego uwadze:
+    # „Powinienem dostac odpowiedz ze sa gotowi przez telegrama".
+    # Stary wzorzec (nohup ... ; dzwonek.py) to wysylal. Klaudek pisząc odpal.py WYRZUCIL to
+    # razem z reszta — Tomasz musial pytac o stan sam. Teraz dzwonek idzie ZAWSZE po zakonczeniu.
+    dzwonek = str(KATALOG / "tools/dzwonek.py")
+    tytul = f"ZALOGA: {Path(katalog).name}"
+    powloka = (
+        f"timeout 1500 {' '.join(polecenie)} >> {log} 2>&1; "
+        f"python3 {dzwonek} \"Zaloga skonczyla: {Path(katalog).name}. "
+        f"Glosy w {katalog}\" --tytul \"{tytul}\" >> {log} 2>&1"
+    )
     with open(log, "w") as f:
         p = subprocess.Popen(
-            ["timeout", "1500"] + polecenie,
+            ["bash", "-lc", powloka],
             cwd=str(KATALOG), stdout=f, stderr=subprocess.STDOUT,
             start_new_session=True,
         )
