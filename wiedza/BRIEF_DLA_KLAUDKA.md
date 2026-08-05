@@ -1,5 +1,5 @@
-1. STOP PRODUKCJI: OBOWIĄZUJE (D-0039) | wygenerowano 2026-08-05 07:14:02 CEST
-2. OSTATNIA DECYZJA: D-0045 | 2026-08-04 | SYGNAL WIADOMOSCI: wybrany kandydat 4 — Freesound id=827121 'Minimalist news transition', 4.6 s, licencj…
+1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 07:46:18 CEST
+2. OSTATNIA DECYZJA: D-0046 | 2026-08-05 | CZOLOWKA ZATWIERDZONA JAKO KANON: assets/izabela/CZOLOWKA_CANON.mp4, 6 s, z dzwiekiem CC0. Tomasz: 'Ok'.…
 3. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
 4. HANS: Henia, nie Klaudka (D-0006)
 5. TELEPORTY: fabryka 0.0 dnia, Home Assistant 0.9 dnia
