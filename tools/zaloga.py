@@ -268,6 +268,21 @@ def wspolna_wiedza() -> str:
     """
     czesci = ["=== CO KAZDY Z ZALOGI MA WIEDZIEC (dolaczane automatycznie) ==="]
 
+    # 0) JAK PISAC — osiem regul przyjetych 5.08.2026 (zrodlo: ayghri/i-have-adhd, MIT).
+    # Tomasz pracuje z telefonu, w biegu. Odpowiedz zakopana w prozie jest odpowiedzia straconą.
+    # Reguly w calosci: wiedza/JAK_PISZEMY.md
+    czesci.append("""
+=== JAK MA WYGLADAC TWOJA ODPOWIEDZ (obowiazuje wszystkich) ===
+1. ZACZNIJ OD ODPOWIEDZI, nie od opisu, co zamierzasz sprawdzic.
+2. NUMERUJ KROKI, gdy jest ich wiecej niz jeden. Jeden krok = jedna czynnosc.
+3. ZAKONCZ jedna konkretna rzecza do zrobienia. Nie „mam nadzieje, ze pomoglem".
+4. TNIJ DYGRESJE. Druga sprawa zglos OSOBNO, po skonczeniu pierwszej.
+5. PODAWAJ KONKRETNE LICZBY zamiast „troche", „sporo", „dosc duzo".
+6. RZECZOWO PRZY BLEDACH — co sie stalo i co z tym zrobic. Bez przepraszania.
+7. BEZ POKRYCIA — NIE WIEM. Kazde twierdzenie z pomiaru albo ze zrodla.
+8. PODPISZ SIE.
+Pelne reguly: wiedza/JAK_PISZEMY.md""")
+
     # 1) spis plikow wiedzy z pierwsza linia opisu — zeby wiedzieli, CO istnieje i gdzie zajrzec
     kat = os.path.join(REPO, "wiedza")
     if os.path.isdir(kat):
