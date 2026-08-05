@@ -1,5 +1,5 @@
-1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 21:28:10 CEST
-2. OSTATNIA DECYZJA: D-0064 | 2026-08-05 | TRASY TAILSCALE DLA WYBICKIEGO ZATWIERDZONE — 5.08 21:15. Klaudek zrobil to STEROJAC TELEFONEM Tomasza (…
+1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 22:30:10 CEST
+2. OSTATNIA DECYZJA: D-0065 | 2026-08-05 | TRASY TAILSCALE — UKLAD KONCOWY 5.08 21:37. Tomasz: 'Wszedzie siegaj' + 'Dzialka to priorytet'. KOLIZJA:…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
