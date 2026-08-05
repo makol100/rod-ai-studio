@@ -1,5 +1,5 @@
-1. STOP PRODUKCJI: OBOWIĄZUJE (D-0039) | wygenerowano 2026-08-04 19:05:56 CEST
-2. OSTATNIA DECYZJA: D-0042 | 2026-08-04 | PREMIERA — Tomasz wybral: TEKST GENKA (32 s, 'Szanowni Dzialkowicze, przed wami nowy, oficjalny serwis i…
+1. STOP PRODUKCJI: OBOWIĄZUJE (D-0039) | wygenerowano 2026-08-04 20:06:57 CEST
+2. OSTATNIA DECYZJA: D-0044 | 2026-08-04 | CZOLOWKA WIADOMOSCI DZIALKOWYCH: ROBIMY, 6 SEKUND (wybor Tomasza z 5/6/7). Tytul 'WIADOMOSCI DZIALKOWE'…
 3. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
 4. HANS: Henia, nie Klaudka (D-0006)
 5. TELEPORTY: fabryka 0.4 dnia, Home Assistant 0.4 dnia

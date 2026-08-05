@@ -1,0 +1,181 @@
+Mam pełny obraz. Oto mój głos.
+
+---
+
+# HENIO — ODPOWIEDŹ NA 7 PYTAŃ
+
+## 1. CZY CZOŁÓWKA MA SENS?
+
+**TAK. I to BARDZIEJ niż przy poprzednim kanonie.**
+
+Poprzednia decyzja (30.07, `wiedza/IZABELA_KANON_0.1.md` 143-163) mówiła: "BEZ osobnej planszy czołówkowej. Napis nakładany NA pierwsze ujęcie." To była DOBRA decyzja dla materiału idącego na Facebooka do obcych, gdzie liczyło się tempo.
+
+Teraz Tomasz mówi wprost: trafiamy DO SWOICH. 51 działkowców, którzy CZEKAJĄ na informacje o swoim ogrodzie. Oni nie przewijają — oni szukają.
+
+Czołówka dla tej grupy to:
+- **Znak rozpoznawczy** — jak dzwonek w szkole: "O, nadają nasze Wiadomości"
+- **Rytuał otwarcia** — buduje oczekiwanie, daje chwilę na skupienie
+- **Godność serwisu** — nie jesteśmy partyzantką nagrywaną na kolanie, tylko oficjalnym kanałem zarządu; czołówka to pieczęć
+
+Stary kanon NIE JEST święty w tym punkcie — powstał przy innych założeniach. Nowe założenia (własna grupa, godność i rozpoznawalność) uzasadniają zmianę.
+
+## 2. ILE SEKUND
+
+**7 sekund.**
+
+Uzasadnienie BEZ reguły 3 sekund:
+- Czołówki serwisów informacyjnych: TVP Info ~7 s, Polsat News ~8 s, TVN24 ~5 s. To są wzorce dla dorosłego odbiorcy.
+- 5 s to minimum techniczne: logo (1,5 s) + tytuł (2,5 s) + belka/studio (1 s) — mniej to niedosyt.
+- 8+ s to przesada przy 51 działkach — serwis ma być sprawny, nie pompatyczny. Działkowicze nie przyszli oglądać czołówki, tylko dowiedzieć się, co u nich w ogrodzie.
+- Dłuższa niż 2,5 s (stary kanon), bo NIE walczymy o zatrzymanie kciuka. Mamy czas, żeby tytuł został PRZECZYTANY ze zrozumieniem przez starszych odbiorców.
+
+## 3. CO SIĘ DZIEJE NA EKRANIE — klatka po klatce
+
+Bazą jest `TLO_STUDIO_PUSTE_CANON.png` (ciemny granat #041631, pionowe podświetlane panele, ciemna góra i dół — zmierzone narzędziem `oczy_uszy.py`, TLO NIE MA napisów ani logo).
+
+Wszystko w 30 fps, 210 klatek na 7 sekund.
+
+**0,0–1,0 s (klatki 0–30): "Światła studia"**
+- Start: pełna czerń.
+- Granatowe tło studia wyłania się z czerni — miękki fade-in całej planszy (alpha 0 → 1.0). Wrażenie: światła na planie się zapalają.
+- Panele z pionowymi liniami stają się widoczne.
+
+**1,0–2,2 s (klatki 30–66): "Znak firmowy"**
+- W prawym górnym rogu pojawia się logo ROD (zielone koło z `rod_profilowe.png`) — scale 0.85 → 1.0, jednocześnie fade-in alpha 0 → 1.0. Efekt: logo "wskakuje" na miejsce miękko.
+- W lewym górnym rogu pojawia się etykieta "PREZENTERKA AI" — szary pasek + biały tekst, identycznie jak w `zloz_studio_izabeli.py` (linie 71-74). Fade-in.
+- Górna część studia jest już w pełni czytelna.
+
+**2,2–4,0 s (klatki 66–120): "Tytuł"**
+- Na środku kadru (mniej więcej tam, gdzie normalnie stoi Izabela — 60% od lewej, wolna przestrzeń), pojawia się napis:
+
+  **WIADOMOŚCI  
+  DZIAŁKOWE**
+
+  Dwie linie, duża biała czcionka szeryfowa (DejaVu Serif lub podobna, rozmiar ~90-100 px). Fade-in z lekkim rozjaśnieniem (alpha 0 → 1.0 + glow 0 → peak → 0).
+- 0,5 s po tytule głównym (klatka ~81), pod spodem pojawia się mniejszy podtytuł:
+
+  **ROD im. Józefa Lompy w Woźnikach**
+
+  Biały, czcionka szeryfowa, ~36 px. Fade-in.
+
+**4,0–5,5 s (klatki 120–165): "Baza studia"**
+- Dolna belka studia (ta z imieniem "IZABELA / wirtualny awatar zarządu") wsuwa się od dołu — slide-up z alpha 0 → 1.0. Złoty akcent #C49E4A po lewej stronie belki rozbłyska krótko (żółty glow, 0,3 s).
+- Blat prezenterski (podświetlana krawędź) staje się widoczny.
+- Przez ~1,5 s WIDZIMY PEŁNE STUDIO z tytułem na środku — to jest KLUCZOWY KADR, który zapada w pamięć.
+
+**5,5–7,0 s (klatki 165–210): "Przejście do materiału"**
+- Tytuł "WIADOMOŚCI DZIAŁKOWE" i podtytuł znikają — fade-out alpha 1.0 → 0.
+- Studio zostaje puste przez kilka klatek.
+- Na końcu pojawia się Izabela (crossfade: ostatnie klatki czołówki → pierwsze klatki nagrania z Izabelą przy biurku). To jest KLAMRA: studio było puste w czołówce (tylko architektura), teraz jest w nim prezenterka.
+
+**Alternatywny wariant końcówki:** tytuł znika, ale zamiast pustego studia — od razu wchodzi Izabela mówiąca "Jestem Izabela, wirtualny awatar zarządu." Czołówka i treść łączą się bez pauzy.
+
+## 4. DŹWIĘK
+
+**TAK, czołówka powinna mieć sygnał dźwiękowy (jingiel).**
+
+Charakter: spokojny, dostojny, CZYSTY. Nie muzyka — SYGNAŁ. Jak w radiowych wiadomościach: 3-4 tony, które mówią "uwaga, zaczynamy".
+
+Propozycja: TRZY WZNOSZĄCE SIĘ TONY w interwale kwinty (C5 → E5 → G5, czyli 523 → 659 → 784 Hz). Czysta synteza sinusoidalna. Ostatni ton wybrzmiewa dłużej.
+
+**SKĄD WZIĄĆ — BEZ PRAW AUTORSKICH, ZA DARMO:**
+
+1. **ffmpeg `sine` filter** — potwierdzone, DZIAŁA na tym VPS-ie:
+   ```
+   ffmpeg -f lavfi -i "sine=frequency=523.25:duration=0.7,afade=t=out:st=0.5:d=0.2" ton1.wav
+   ```
+   Wygenerowałem test — ton 523 Hz, OK. Składamy 3 tony z odstępami, nakładamy obwiednię, mamy jingiel.
+
+2. **Python + numpy** — więcej kontroli. Generujemy próbki audio 44100 Hz, każdy ton z obwiednią ADSR (attack 0.05 s, decay 0.4 s), zapis jako WAV, konwersja do MP3.
+
+3. **Czego NIE robić:** nie ciągnąć z internetu "free jingle" — licencje CC nakładają obowiązek atrybucji, a to kłopotliwe w materiale wideo. Nie używać ElevenLabs SFX — płatne, STOP PRODUKCJI obowiązuje.
+
+**Koszt: 0,00 USD.** Czas: ~20 minut na napisanie generatora.
+
+## 5. NAPIS/TYTUŁ
+
+Główny: **"WIADOMOŚCI DZIAŁKOWE"** — to działa, to jest już w kanonie, to jest czytelne i konkretne.
+
+Podtytuł: **"ROD im. Józefa Lompy w Woźnikach"** — uzasadnienie:
+- Działkowicze identyfikują się z NAZWĄ OGRODU, nie tylko z "Wiadomościami Działkowymi" (teoretycznie każdy ROD może mieć swoje)
+- Logo ROD w rogu jest małe (118 px przy 1080 szerokości) — podtytuł wzmacnia identyfikację
+- 7 sekund czołówki daje czas na odczytanie obu linii
+- Nie dodawałbym numeru odcinka ani daty — to leci w treści, nie w czołówce
+
+Czcionka: szeryfowa (nawiązanie do logo ROD, które też ma szeryfy — potwierdzone analizą `intro.png` przez `oczy_uszy.py`). Biel na ciemnym granacie — sprawdzony kontrast.
+
+## 6. CZY DA SIĘ ZROBIĆ KODEM?
+
+**TAK. W całości. Koszt: ZERO.**
+
+Oto KONKRETNA ŚCIEŻKA TECHNICZNA:
+
+**Krok 1: Generator klatek** — nowy skrypt `tools/czolowka_klatki.py`
+
+Bazuje na tym samym PIL co `zloz_studio_izabeli.py`. Różnica: zamiast jednej klatki — generuje 210 klatek (30 fps × 7 s), każda z inną wartością alpha/scale/offset dla animowanych elementów.
+
+Co robi w pętli:
+```python
+for klatka in range(210):
+    t = klatka / 30.0  # czas w sekundach
+    img = Image.open(TLO).copy()
+    # fade-in tła: t=0→1.0
+    overlay = Image.new('RGBA', size, (0,0,0, int(255*(1-min(t, 1.0)))))
+    img.paste(overlay, (0,0), overlay)
+    # animacja logo (t=1.0→2.2)
+    # animacja tytułu (t=2.2→5.5)
+    # animacja belki (t=4.0→5.5)
+    img.save(f'/tmp/czolowka_klatki/{klatka:04d}.png')
+```
+
+**Krok 2: Generator dźwięku** — nowy skrypt `tools/czolowka_dzwiek.py`
+
+```python
+import numpy as np
+fs = 44100
+# generuj 3 tony, każdy z obwiednią ADSR
+# składaj z odstępami
+# zapisz jako WAV
+```
+
+**Krok 3: Montaż** — ffmpeg (jedno polecenie):
+```bash
+ffmpeg -framerate 30 -i /tmp/czolowka_klatki/%04d.png \
+       -i czolowka_dzwiek.wav \
+       -c:v libx264 -preset medium -crf 18 \
+       -pix_fmt yuv420p -r 30 \
+       -c:a aac -b:a 128k -shortest \
+       czolowka_final.mp4
+```
+
+**Mamy wszystko:** PIL 12.3.0, numpy 2.4.6, ffmpeg 8.0.1 z libx264/libmp3lame. Tło studia (`TLO_STUDIO_PUSTE_CANON.png`), logo ROD (`rod_profilowe.png`), czcionki DejaVu — wszystko na dysku.
+
+**Czego NIE trzeba:** żadnego API, żadnego modelu AI, żadnych pieniędzy. Czysty kod.
+
+## 7. CZOŁÓWKA vs ZAKOŃCZENIE
+
+**TAK, potrzebna też końcówka (outro).**
+
+Ale KRÓTKA: 3 sekundy. To samo studio, logo ROD wyśrodkowane i powiększone (skala ~2× względem rogu), napis "Zarząd ROD im. Józefa Lompy w Woźnikach". Tylko jeden niski ton (C4, 262 Hz) dla domknięcia — nie cały jingiel.
+
+Bookending: intro + materiał + outro = pełna rama. To podnosi postrzeganą profesjonalność nieporównanie bardziej niż kosztuje (koszt: zero).
+
+Stary kanon (30.07) mówił "bez planszy z logo" — ale to było dla pierwszego odcinka z konkretną prośbą na końcu. Dla serii jako formatu — stała plansza końcowa z logo ma sens.
+
+---
+
+## PODSUMOWANIE
+
+| co | moja odpowiedź |
+|---|---|
+| Czy ma sens | TAK. Dla swoich, nie dla algorytmu. Godność > tempo. |
+| Ile sekund | 7 s |
+| Co na ekranie | Studio ciemnieje→rozjaśnia się, logo+etykieta, tytuł WIADOMOŚCI DZIAŁKOWE z podtytułem, dolna belka ze złotym akcentem, tytuł znika → Izabela |
+| Dźwięk | TAK, 3-tonowy sygnał C-E-G, generowany numpy lub ffmpeg, ZA DARMO |
+| Tytuł | WIADOMOŚCI DZIAŁKOWE + podtytuł "ROD im. Józefa Lompy w Woźnikach" |
+| Czy da się kodem | TAK. PIL + numpy + ffmpeg. 0 zł. |
+| Outro | TAK, 3 s, logo ROD + napis "Zarząd ROD im. Józefa Lompy", jeden niski ton |
+
+**JEDNO ZASTRZEŻENIE:** kanon Izabeli (linie 143-163 `IZABELA_KANON_0.1.md`) mówi "BEZ osobnej planszy czołówkowej" i "dźwięk czołówki: brak". Ta decyzja została podjęta 30.07 przy innych założeniach (Facebook, obcy odbiorcy, reguła 3 sekund). Dzisiejsza dyskusja (4.08 18:3x + 18:4x) zmienia założenia. To NIE jest konflikt — to aktualizacja. Decyzję podejmuje Tomasz.
+
+— Henio

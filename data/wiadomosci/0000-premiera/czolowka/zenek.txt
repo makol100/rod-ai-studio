@@ -1,0 +1,129 @@
+## POTWIERDZONE
+
+- Kanoniczne studio istnieje jako obraz 1080×1920 RGB, a logo jako 1000×1000 RGB. Sprawdziłem oba pliki narzędziem PIL.
+- Obecny skrypt faktycznie składa studio kodem: nakłada postać i logo, rysuje blat, gradienty, podświetlenia oraz belki z tekstem ([zloz_studio_izabeli.py](/root/rod-ai-studio/tools/zloz_studio_izabeli.py)).
+- Dostępny ffmpeg 8.0.1 ma filtry `drawtext`, `overlay`, `xfade`, `zoompan`, `sine`, `aevalsrc`, `afade`, `amix` oraz kodowanie H.264 i AAC.
+- Dotychczasowy kanon przewiduje tytuł „WIADOMOŚCI DZIAŁKOWE” przez 2,5 s, bez jingla i bez osobnej planszy ([IZABELA_KANON_0.1.md:143](/root/rod-ai-studio/wiedza/IZABELA_KANON_0.1.md:143)).
+- Nowsze słowo Tomasza mówi wprost, że nie należy rezygnować z czołówki z powodu reguły trzech sekund ([SLOWA_TOMASZA.md:363](/root/rod-ai-studio/wiedza/SLOWA_TOMASZA.md:363)). Dlatego poniżej proponuję nowy wariant. Nie uznaję go za decyzję — decyduje Tomasz.
+
+## HIPOTEZY — moja propozycja
+
+### 1. Czy czołówka ma sens?
+
+**Tak.** Dla własnej, oczekującej na informacje grupy czołówka pełni inną funkcję niż haczyk reklamowy: mówi „zaczyna się oficjalny serwis naszego ogrodu”. Buduje rytuał, rangę i rozpoznawalność kolejnych wydań.
+
+Nie robiłbym jednak osobnego, oderwanego ekranu. Czołówka powinna rozgrywać się na kanonicznym studiu, z Izabelą już obecną. Dzięki temu wygląda jak otwarcie serwisu, a nie doklejona reklama.
+
+### 2. Ile sekund?
+
+**6 sekund.**
+
+To wystarcza, żeby:
+
+- spokojnie rozpoznać logo;
+- przeczytać tytuł i nazwę ogrodu;
+- usłyszeć pełny, krótki sygnał;
+- zobaczyć eleganckie przejście do prezenterki.
+
+Nie opieram tej liczby na regule trzech sekund. Wynika ona z czytelności dwóch linii tekstu i telewizyjnego, godnego tempa. Dłużej niż 6–7 sekund zaczynałoby już wyglądać ceremonialnie; 2–3 sekundy byłyby zbyt szybkie dla proponowanego układu.
+
+### 3. Co dokładnie dzieje się na ekranie?
+
+**0,0–1,0 s**
+
+Kanoniczne studio jest widoczne, ale przykryte granatową półprzezroczystą warstwą. Izabela pozostaje rozpoznawalna. Pionowe panele kolejno rozświetlają się od lewej do prawej. Złota linia `#C49E4A` zaczyna biec wzdłuż podświetlanej krawędzi blatu.
+
+**1,0–2,0 s**
+
+Logo w prawym górnym rogu delikatnie rośnie od 94% do 100% i uzyskuje krótki zielono-złoty blask. Bez obrotu i bez wyskakiwania. Na środku pojawia się cienka złota kreska, rozszerzająca się poziomo od środka.
+
+**2,0–3,0 s**
+
+Nad kreską wchodzi napis:
+
+`WIADOMOŚCI`
+
+Litery pojawiają się jednocześnie przez łagodne rozjaśnienie i przesunięcie o około 20 pikseli w górę.
+
+**3,0–4,0 s**
+
+Pod pierwszym słowem pojawia się:
+
+`DZIAŁKOWE`
+
+Poniżej złotej kreski miękko wchodzi mniejszy podtytuł:
+
+`ROD im. Józefa Lompy w Woźnikach`
+
+Tytuł jest biały, podtytuł jasnoszary, kreska złota. Pełny układ pozostaje czytelny przez około sekundę.
+
+**4,0–5,0 s**
+
+Tytuł pozostaje nieruchomy. Panele studia wykonują jeden bardzo subtelny impuls światła. Złoty przebłysk kończy drogę na prawej krawędzi blatu. Żadnych kolejnych elementów ani ruchomego chaosu.
+
+**5,0–6,0 s**
+
+Tytuł, podtytuł i granatowa warstwa znikają przez płynne wygaszenie. Odsłania się pełne studio z istniejącymi napisami „PREZENTERKA AI” oraz „IZABELA / wirtualny awatar zarządu”. O godzinie 6,0 Izabela zaczyna: „Szanowni Działkowicze…”.
+
+### 4. Dźwięk
+
+**Tak — krótki, własny jingiel.** Charakter: spokojny, nowoczesny i oficjalny, bez fanfar, werbla oraz „wiejskiego” motywu.
+
+Proponuję trzy składniki:
+
+- niski, miękki ton otwierający;
+- dwa jasne dźwięki tworzące prostą wznoszącą sygnaturę;
+- bardzo cichy szum/przebłysk zsynchronizowany ze złotą linią.
+
+Można to złożyć samemu w ffmpeg z `sine` albo `aevalsrc`, obwiedni głośności, pogłosu i miksowania. Nie trzeba pobierać cudzego nagrania ani kupować biblioteki. Melodia powinna być własna i bardzo krótka, a plik źródłowy jingla zachowany jako stałe aktywo serii.
+
+### 5. Napis i tytuł
+
+Główna nazwa:
+
+**WIADOMOŚCI DZIAŁKOWE**
+
+Nie zmieniałbym jej. Jest prosta, już występuje w kanonie i natychmiast mówi, czym jest materiał.
+
+Podtytuł:
+
+**ROD im. Józefa Lompy w Woźnikach**
+
+Podtytuł jest potrzebny, ponieważ nadaje ogólnemu tytułowi jednoznacznego właściciela. Nie dodawałbym słów „oficjalny serwis informacyjny” — tę informację przekazuje zatwierdzony tekst Izabeli.
+
+### 6. Czy da się zrobić kodem?
+
+**Tak, bez płatnego generowania.**
+
+Proponowany skrypt:
+
+1. Otwiera kanoniczne studio w PIL.
+2. Tworzy 180 klatek dla 6 sekund przy 30 fps.
+3. Dla każdej klatki oblicza z czasu:
+   - jasność poszczególnych paneli;
+   - pozycję złotego przebłysku;
+   - skalę i poświatę logo;
+   - przezroczystość tytułu, podtytułu i granatowej warstwy;
+   - końcowe odsłonięcie studia.
+4. Napisy rysuje DejaVu Sans Bold, którego obecność została sprawdzona.
+5. Zapisuje klatki do katalogu tymczasowego.
+6. ffmpeg składa je do H.264, 1080×1920, 30 fps, `yuv420p`.
+7. Drugi filtr ffmpeg tworzy syntetyczny jingiel i koduje go do AAC.
+8. Obraz i dźwięk są łączone w jeden sześci sekundowy klip.
+9. Czołówkę najlepiej włączyć w jeden filtr montażowy z materiałem głównym, z wymuszeniem tych samych parametrów. Kanon opisuje wcześniejszy zmierzony problem rozjazdu przy łączeniu materiałów o różnych fps ([IZABELA_KANON_0.1.md:155](/root/rod-ai-studio/wiedza/IZABELA_KANON_0.1.md:155)).
+
+Koszt zewnętrzny: **0 zł**. Potrzebne obrazy, fonty, PIL i właściwe filtry ffmpeg są obecne.
+
+### 7. Czołówka a zakończenie
+
+**Tak, krótka końcówka 2–2,5 s.** Ostatni kadr studia, logo, napis „WIADOMOŚCI DZIAŁKOWE” i nazwa ogrodu. Do tego dwudźwiękowe domknięcie będące skróconą odpowiedzią na jingiel otwierający.
+
+Bez długiego pożegnania, bez nowych komunikatów i bez powtarzania całej czołówki.
+
+## NIE WIEM
+
+- Nie wiem, czy Tomasz będzie wolał 6 sekund od wcześniejszych 2,5 s — to wymaga jego decyzji.
+- Nie wiem, czy jingiel powinien wracać identycznie w każdym wydaniu, dopóki nie zostanie wykonany i odsłuchany.
+- W repo nie ma opinii prawnej rozstrzygającej status prawny syntetycznej kompozycji. Zaproponowana metoda nie korzysta jednak z pobranego cudzego nagrania.
+
+**Zenek**
