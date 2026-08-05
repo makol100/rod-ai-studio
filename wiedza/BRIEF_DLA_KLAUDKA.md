@@ -1,4 +1,4 @@
-1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 09:44:39 CEST
+1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 10:16:04 CEST
 2. OSTATNIA DECYZJA: D-0052 | 2026-08-05 | POMIAR ZACZEPU: sprawdzamy ZA 12 GODZIN. Tomasz 5.08 09:45. Start fazy cichej: 2026-08-05 09:43. Termin…
 3. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 4. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
