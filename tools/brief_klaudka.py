@@ -89,6 +89,16 @@ def ostatnia_nagana():
     return jedna_linia(nagany[-1].group(1))
 
 
+def stan_produkcji(d):
+    """Czy ostatnia decyzja o produkcji NAKLADA stop, czy go ZDEJMUJE."""
+    t = (d.get("tresc") or d.get("decyzja") or "").upper()
+    t = t.replace("Ę", "E").replace("Ó", "O").replace("Ż", "Z").replace("Ź", "Z")
+    zdjete = ("ZDJETY", "ZDJETE", "ZDJETA", "WZNOWION", "RUSZAMY", "ODWOLANY", "ODWOLANE")
+    if any(k in t for k in zdjete):
+        return "WOLNA — stop zdjety"
+    return "STOP OBOWIAZUJE"
+
+
 def main():
     wpisy = wczytaj_decyzje()
     aktywne = obowiazujace(wpisy)
@@ -103,7 +113,11 @@ def main():
     dni_claude = (datetime.now().timestamp() - CLAUDE.stat().st_mtime) / 86400
     _pilne = pilne_reczne()
     linie = [
-        f"1. STOP PRODUKCJI: OBOWIĄZUJE ({stop['id']}) | wygenerowano {teraz:%Y-%m-%d %H:%M:%S %Z}",
+        # BLAD ZNALEZIONY 5.08 przez Tomasza ("Aktualizacja przed odprawa zrobiona?"):
+        # narzedzie pisalo ZAWSZE "OBOWIĄZUJE", nie sprawdzajac, czy decyzja stop NAKLADA
+        # czy ZDEJMUJE. Po D-0039 ("STOP PRODUKCJI ZDJETY") brief nadal straszyl stopem —
+        # nowy Klaudek stanalby z produkcja, ktora Tomasz wznowil.
+        f"1. PRODUKCJA: {stan_produkcji(stop)} ({stop['id']}) | wygenerowano {teraz:%Y-%m-%d %H:%M:%S %Z}",
         f"2. OSTATNIA DECYZJA: {ostatnia['id']} | {ostatnia['czas_tomasza'][:10]} | {skrot(ostatnia)}",
         f"3. PRAWA RĘKA: HENIO | {komenda_henia()}",
         f"4. HANS: Henia, nie Klaudka ({hans['id']})",
