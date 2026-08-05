@@ -1,16 +1,17 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 18:05.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 18:06.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (35), od najswiezszego
+## Pliki wiedzy (36), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `EGO_LITE_ROZPOZNANIE.md` | 05.08 | 2K | EGO LITE — ROZPOZNANIE (5.08.2026). WATEK ODLOZONY, NIE ODRZUCONY. |
 | `EGO_LITE_DO_WROCENIA.md` | 05.08 | 2K | EGO LITE — WATEK ODLOZONY (rozpoznane 5.08.2026) |
 | `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 19:57:09 CEST |
 | `HA_WYBICKIEGO.md` | 05.08 | 6K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
