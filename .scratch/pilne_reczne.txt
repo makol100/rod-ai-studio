@@ -2,3 +2,4 @@
 # Usunac linie dopiero po wykonaniu — na wyrazne slowo Tomasza.
 WYMIANA KLUCZY API (FAL_KEY + ANTHROPIC_API_KEY) — wyswietlone w czacie 10.07, nadal jawnym tekstem w docker-compose.yml. Tomasz 4.08: "dzis wieczorem albo jutro rano".
 IZABELA GOTOWA (karta, studio, czolowka, tekst premiery). ZOSTALO: nagrac glos Charlotte do tekstu premiery + montaz.
+POMIAR ZACZEPU — ODCZYT 5.08 ok. 21:45 (12 h od startu 09:43). Liczy Hans z .scratch/hans/most.jsonl: ile razy Klaudek uruchomil naprawe BEZ zlecenia dla zalogi. Polecenie: python3 tools/hans.py --most (do zbudowania przez Henia) albo recznie z pliku.
