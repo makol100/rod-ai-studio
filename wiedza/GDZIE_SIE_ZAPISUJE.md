@@ -58,3 +58,28 @@ przestawiać w narzędziach. Sprawdzone zapisem przez stare ścieżki, obie dzia
 ## ZASADA
 Nowe miejsce zapisu powstaje **wyłącznie decyzją Tomasza**. Nikt z załogi nie zakłada własnego
 katalogu na notatki. Jeśli czegoś nie ma gdzie zapisać — pyta się Tomasza, nie wymyśla miejsca.
+
+## POLECENIE STARTOWE NOWEJ SESJI — LIMIT 14039 ZNAKOW
+
+Tomasz 5.08.2026: **„Nie zapominając o liczbie 14039"** — tyle miesci sie w oknie startowym.
+
+```
+cd /root/rod-ai-studio && cat wiedza/BRIEF_DLA_KLAUDKA.md && python3 tools/teleport.py --sprawdz && python3 tools/decyzje.py --lista | tail -6 && tail -120 TELEPORT_fabryka.md
+```
+
+**Zmierzone 5.08: 11 738 znakow, zapas 2301.**
+
+| czesc | znakow |
+|---|---|
+| brief (10 linii) | 1150 |
+| teleport --sprawdz | 78 |
+| decyzje tail -6 | 904 |
+| dziennik tail -120 | 9606 |
+
+**UWAGA — DZIENNIK ROSNIE.** Przy kazdym nowym wpisie `tail -120` bedzie ciezszy.
+**Przed podaniem polecenia ZMIERZYC**, nie ufac tej tabeli:
+```
+{ cat wiedza/BRIEF_DLA_KLAUDKA.md; python3 tools/teleport.py --sprawdz; python3 tools/decyzje.py --lista | tail -6; tail -120 TELEPORT_fabryka.md; } | wc -c
+```
+Jesli przekracza 14039 — zmniejszyc liczbe linii dziennika (90, 60, 30), NIE skracac briefu
+ani decyzji. Brief ma linie 3 mowiaca, ze to skrot i gdzie lezy reszta, wiec Klaudek dociagnie sam.
