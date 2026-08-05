@@ -190,3 +190,32 @@ wolnych bylo 18. Ustawienia Henia przywrocone (tryb wysoki, pamiec 4 mln) — ni
 **ZASADA NA PRZYSZLOSC:** ciezkie zadania na procesorze (rembg, modele wizyjne) NIE uruchamiac
 rownolegle z inna ciezka praca. Przy poprzedniej karcie wycinal Zenek — spoza klatki hermesa,
 wiec problem sie nie ujawnil.
+
+## 05.08.2026 — ZERWANIA MOSTU: NIE NASZA WINA, ALE DA SIE ZEJSC Z LINII OGNIA
+
+**Podejrzenie Tomasza:** *„Co jest z tym mostem? Nie zepsułeś go? Działało to bez żadnych zarzutów."*
+
+**ZMIERZONE (dziennik `caddy-mcp`, doba wstecz):**
+- `mcp-fabryka.service`: **zero restartow, zero bledow wlasnych**, proces zyje 5 dni,
+  obciazenie serwera 0,23. Chodzi w `/system.slice` — **zmiana klatki pamieci z 4.08
+  dotyczyla `user-1000.slice` (Henio) i mostu NIE DOTYKA.**
+- Zerwania fabryki: **21 w dobe**, komunikat `aborting with incomplete response`,
+  czas trwania **0,003 s** — polaczenie ginie natychmiast po nawiazaniu.
+  Zrywa adres `160.79.106.x` = **STRONA ANTHROPICA**, nie serwer.
+- **Naprawic z naszej strony SIE NIE DA.**
+
+**OSOBNE ZNALEZISKO:** 363 bledy `dial tcp 100.101.116.106:8080 i/o timeout` dotycza
+`telefon.157-90-155-155.sslip.io` — Galaxy Z Fold7 jest **offline w Tailscale**.
+To nie szkodzi niczemu poza dziennikiem, ale **lacznik do telefonu jest martwy**.
+
+**CO DA SIE ZROBIC — I ZOSTALO ZROBIONE:**
+Klaudek odpalal zlecenia zalogi wzorcem `nohup ... & sleep 20-25` i TRZYMAL polaczenie,
+czekajac az ruszy. Kazda sekunda to okazja do zerwania, a zerwanie w trakcie = Klaudek
+NIE WIE, czy zlecenie wystartowalo.
+
+**`tools/odpal.py`** — odpala i wraca **w 0,08 s** (zmierzone), stan sprawdza sie osobno:
+```
+python3 tools/odpal.py --zadanie /tmp/x.md --kto zenek,henio --katalog /tmp/x
+python3 tools/odpal.py --stan
+```
+**300 razy krocej trzymane polaczenie.** Nie naprawia zrywania — schodzi mu z drogi.

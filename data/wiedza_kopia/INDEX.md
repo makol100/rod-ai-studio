@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 06:20.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 06:40.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,13 +11,13 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `NAUKI.md` | 05.08 | 16K | NAUKI — lekcje z produkcji (destylat) |
 | `CLAWMEM_ROZPOZNANIE.md` | 05.08 | 2K | CLAWMEM — ROZPOZNANIE (5.08.2026, na polecenie Tomasza) |
 | `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 08:15:03 CEST |
 | `GDZIE_SIE_ZAPISUJE.md` | 05.08 | 5K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |
 | `CZOLOWKA_WIADOMOSCI.md` | 04.08 | 2K | CZOLOWKA WIADOMOSCI DZIALKOWYCH — KANON |
 | `SLOWA_TOMASZA.md` | 04.08 | 20K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `IZABELA_KANON_0.1.md` | 04.08 | 27K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
-| `NAUKI.md` | 04.08 | 14K | NAUKI — lekcje z produkcji (destylat) |
 | `LISTA_PRACOWNIKOW.md` | 04.08 | 6K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
 | `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
 | `START.md` | 04.08 | 8K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
