@@ -1,18 +1,19 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 08:41.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 09:19.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (33), od najswiezszego
+## Pliki wiedzy (34), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `HA_WYBICKIEGO.md` | 05.08 | 2K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
+| `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 11:18:04 CEST |
 | `NAUKI.md` | 05.08 | 18K | NAUKI — lekcje z produkcji (destylat) |
-| `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 10:16:04 CEST |
 | `ZACZEP_W_MOSCIE.md` | 05.08 | 3K | ZACZEP W MOSCIE — NIEMY REJESTRATOR (5.08.2026) |
 | `SLOWA_TOMASZA.md` | 05.08 | 21K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `CLAWMEM_ROZPOZNANIE.md` | 05.08 | 2K | CLAWMEM — ROZPOZNANIE (5.08.2026, na polecenie Tomasza) |
