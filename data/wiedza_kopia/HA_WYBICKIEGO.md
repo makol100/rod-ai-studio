@@ -34,6 +34,33 @@ sosnowiec.157-90-155-155.sslip.io {
 **Jedno ogniwo mniej, ktore moze sie zepsuc.** Sprawdzone: korzen adresu zwraca 404,
 odpowiada wylacznie tajna sciezka.
 
+## SPRZET (zmierzone przez SSH 5.08)
+
+**Raspberry Pi 4 (64-bit)**, `raspberrypi4-64`, aarch64. HA OS, jadro `6.18.34-haos-raspi`.
+**RAM 7817 MB** (wolne 6606). **Dysk 28,5 GB** (wolne 19,1 GB).
+Dla porownania: Dzialka i Dom chodza na mocniejszym sprzecie — przy ciezkich zadaniach
+(rozpoznawanie, modele) pamietac o tym ograniczeniu.
+
+## SSH — WLACZONY 5.08, DOSTEP PELNY
+
+Tomasz: *„Instaluj terminal i SSH na Wybickiego."*
+```
+ssh root@100.67.61.100        # klucz /root/.ssh/id_ed25519 na VPS
+```
+
+**JAK TO ZROBIONO — bo zwykla droga nie dziala:**
+Klucz dlugoterminowy HA **nie siega Supervisora** (401), wiec dodatku nie da sie zainstalowac
+przez REST. **Obejscie: serwer MCP Wybickiego SAM ma token Supervisora.**
+Narzedzie `tools/mcp_wybickiego.py` wola jego `ha_manage_addon` bez posrednictwa lacznika
+w aplikacji — czyli Klaudek zainstalowal dodatek rekami dodatku, ktory tam juz stal.
+
+**DWIE RZECZY, BEZ KTORYCH SSH NIE DZIALA — obie latwo przeoczyc:**
+1. **`authorized_keys`** — bez wgranego klucza publicznego dodatek nie wpuszcza nikogo.
+2. **`network: {"22/tcp": 22}`** — **PORT MUSI BYC WYSTAWIONY**. Domyslnie jest `null`,
+   czyli terminal dziala TYLKO przez strone HA, nie przez siec.
+   **Na Dzialce jest wlasnie `null` — dlatego SSH tam z zewnatrz NIE DZIALA**, wbrew temu,
+   co Klaudek wczesniej zalozyl. Gdyby bylo potrzebne, trzeba zrobic to samo.
+
 ## CZEGO NIE DA SIE ZROBIC KLUCZEM — ZMIERZONE 5.08
 
 Klucz dlugoterminowy HA daje pelen dostep do encji, urzadzen, automatyzacji i historii,
