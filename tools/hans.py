@@ -37,7 +37,13 @@ DZIENNIK = Path(".scratch/hans/dziennik.jsonl")
 LIMIT_PATH = (Path(tempfile.gettempdir()) / "_hans_limit_testowy.jsonl"
               if "unittest" in sys.modules
               else Path(".scratch/hans/limit.jsonl"))
-LIMIT_GODZINA = 3  # twardy limit wiadomosci na godzine (dekret Genka)
+LIMIT_GODZINA = 12  # twardy limit wiadomosci na godzine
+# 3.08: 3/h (dekret Genka) — chronilo Tomasza przed zalewem.
+# 5.08: PODNIESIONE DO 12 na polecenie Tomasza. Powod: limit UCISZYL wiadomosc,
+# NA KTORA TOMASZ CZEKAL — po naradzie o ClawMem Hans mial zameldowac gotowosc
+# i sam siebie zablokowal ('limit 3/h przekroczony'), bo rano nabil go innymi zgloszeniami.
+# 12/h = jedna wiadomosc na 5 minut w szczycie. Nadal chroni przed zalewem,
+# ale nie gubi meldunkow, ktorych Tomasz oczekuje.
 
 # Dziennik przebiegu ma zapewniac ciaglosc miedzy oknami. Doba daje prowadzacemu
 # cala sesje na domkniecie wpisu, ale nie pozwala, aby drugie okno przez kilka dni

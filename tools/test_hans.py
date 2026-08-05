@@ -453,17 +453,21 @@ class TestHansWysylka(unittest.TestCase):
         mock_response.read.return_value = b'{"ok": true, "result": {"message_id": 99}}'
         mock_urlopen.return_value.__enter__.return_value = mock_response
 
-        # Wysylamy 3 razy
-        for _ in range(3):
+        # 5.08: test NIE zaklada juz konkretnej liczby — czyta ja z hans.LIMIT_GODZINA.
+        # Wczesniej bylo wpisane 3 na sztywno, wiec podniesienie limitu ZEPSULOBY test.
+        # Tomasz: "Zwiekszyc limit Hansowi, nie spierdolic zarazem czegos innego."
+        limit = hans.LIMIT_GODZINA
+
+        for _ in range(limit):
             wynik = hans.wyslij_do_tomasza(raport)
             self.assertTrue(wynik)
 
-        self.assertEqual(mock_urlopen.call_count, 3)
+        self.assertEqual(mock_urlopen.call_count, limit)
 
-        # Czwarta proba powinna zablokowac, urlopen nie powinno urosnac call_count
-        wynik4 = hans.wyslij_do_tomasza(raport)
-        self.assertFalse(wynik4)
-        self.assertEqual(mock_urlopen.call_count, 3)
+        # Proba ponad limit powinna zablokowac, urlopen nie powinno urosnac
+        wynik_ponad = hans.wyslij_do_tomasza(raport)
+        self.assertFalse(wynik_ponad)
+        self.assertEqual(mock_urlopen.call_count, limit)
 
 
 
