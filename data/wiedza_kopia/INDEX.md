@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 07:40.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 08:41.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,9 +11,9 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `NAUKI.md` | 05.08 | 18K | NAUKI — lekcje z produkcji (destylat) |
+| `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 10:16:04 CEST |
 | `ZACZEP_W_MOSCIE.md` | 05.08 | 3K | ZACZEP W MOSCIE — NIEMY REJESTRATOR (5.08.2026) |
-| `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 09:15:03 CEST |
-| `NAUKI.md` | 05.08 | 17K | NAUKI — lekcje z produkcji (destylat) |
 | `SLOWA_TOMASZA.md` | 05.08 | 21K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
 | `CLAWMEM_ROZPOZNANIE.md` | 05.08 | 2K | CLAWMEM — ROZPOZNANIE (5.08.2026, na polecenie Tomasza) |
 | `GDZIE_SIE_ZAPISUJE.md` | 05.08 | 5K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |

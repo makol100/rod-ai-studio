@@ -243,3 +243,24 @@ dopiero potem pisac nowe. Inaczej naprawa jednej rzeczy jest cicha strata innej.
 **Naprawione:** `odpal.py` wysyla dzwonek ZAWSZE po zakonczeniu narady (wbudowane w powloke,
 nie doklejane przez wolajacego — zeby nie dalo sie znowu zapomniec).
 Test 5.08 09:12: wiadomosc doszla, Tomasz potwierdzil.
+
+## 05.08.2026 — NIGDY NIE GUBIC GODZINY TOMASZA
+
+**Tomasz:** *„U mnie jest 10:39. Poprawić i nigdy nie zgubić mojej godziny."*
+
+**Co bylo zle:** zaczep w moscie i dziennik audytu zapisywaly `datetime.now()` — czyli czas
+SERWERA (UTC). W pliku stalo `07:39`, gdy u Tomasza bylo `09:39`. Miedzy soba wpisy zgadzaly sie,
+wiec bledu nie widac — **ale przy zestawieniu z decyzjami Tomasza i jego slowami wszystko
+wychodziloby przesuniete o 2 godziny.** Hans mial na tym liczyc.
+
+**Poprawione:** `STREFA_TOMASZA = ZoneInfo("Europe/Vienna")` w `mcp_server.py`.
+Znacznik ma teraz jawne przesuniecie: `2026-08-05T10:40:46+02:00`.
+Poprawione W OBU miejscach — zaczep i `_audit` — zeby w jednym systemie nie bylo dwoch czasow.
+
+**REGULA:** kazdy znacznik czasu, ktory Tomasz zobaczy albo ktory bedzie porownywany
+z jego zapisami, **MA BYC W JEGO STREFIE, z jawnym przesunieciem.**
+Serwer chodzi na UTC — to jest pulapka, ktora wraca. Sprawdzac przy KAZDYM nowym narzedziu,
+ktore cokolwiek datuje.
+
+**Wdrozone ta sama procedura co zaczep:** kopia -> proba na porcie 8799 -> test funkcji ->
+podmiana -> restart -> sprawdzenie dostepu. Stara wersja: /tmp/mcp_przed_czasem.py

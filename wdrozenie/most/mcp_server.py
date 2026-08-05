@@ -3,6 +3,7 @@
 Tools: execute_command, read_file, write_file, append_file, list_dir.
 Every execute_command call is logged to /var/log/claude-mcp/audit.log."""
 import os, subprocess, datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
@@ -30,7 +31,7 @@ mcp.settings.transport_security = TransportSecuritySettings(
 )
 
 def _audit(kind: str, detail: str) -> None:
-    ts = datetime.datetime.now().isoformat(timespec="seconds")
+    ts = datetime.datetime.now(STREFA_TOMASZA).isoformat(timespec="seconds")
     with open(AUDIT_LOG, "a", encoding="utf-8") as f:
         f.write(f"[{ts}] {kind}: {detail}\n")
 
@@ -50,6 +51,13 @@ def _audit(kind: str, detail: str) -> None:
 #   zaczepu nie bylo. Utrata mostu = Klaudek traci dostep do serwera.
 # WYLACZNIK: zmienna srodowiskowa ZACZEP_WYLACZONY=1 gasi go bez dotykania kodu.
 # ==========================================================================
+# CZAS TOMASZA — dekret 5.08.2026: „Poprawić i nigdy nie zgubić mojej godziny."
+# Serwer chodzi na UTC. Zaczep zapisywal 07:39, gdy u Tomasza bylo 09:39 — przy zestawieniu
+# z jego decyzjami i slowami wszystko wychodziloby przesuniete o 2 godziny.
+# KAZDY znacznik czasu widziany przez Tomasza albo porownywany z jego zapisami
+# MA BYC W JEGO STREFIE.
+STREFA_TOMASZA = ZoneInfo("Europe/Vienna")
+
 ZACZEP_PLIK = Path("/root/rod-ai-studio/.scratch/hans/most.jsonl")
 _ZACZEP_WYLACZONY = os.environ.get("ZACZEP_WYLACZONY", "") in ("1", "true", "TRUE", "yes")
 
@@ -70,7 +78,7 @@ def _zaczep(narzedzie: str, tresc: str) -> None:
         t = (tresc or "")[:400]
         niski = t.lower()
         wpis = {
-            "ts": datetime.datetime.now().isoformat(timespec="seconds"),
+            "ts": datetime.datetime.now(STREFA_TOMASZA).isoformat(timespec="seconds"),
             "narzedzie": narzedzie,
             "zlecenie_dla_zalogi": any(w in t for w in _WZORCE_ZLECENIA),
             "wyglada_na_naprawe": any(w in niski for w in _WZORCE_NAPRAWY),
