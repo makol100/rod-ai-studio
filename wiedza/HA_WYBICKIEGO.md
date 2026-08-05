@@ -146,3 +146,27 @@ tailscale set --accept-routes=true        # NIE 'tailscale up --accept-routes'
 **ZMIERZONE PO WLACZENIU:**
 - `192.168.0.107:8123` -> **HTTP 200** z VPS (wczesniej 000)
 - router `192.168.0.1` — port 80 otwarty, widoczny z serwera
+
+## KOLIZJA SIECI — ROZSTRZYGNIETA 5.08 21:37
+
+**Dzialka i Sosnowiec maja TE SAMA numeracje: `192.168.0.0/24`.**
+Nie da sie zatwierdzic obu tras naraz — serwer mialby dwie drogi do tego samego adresu
+i wybieralby losowo. Pukajac do routera Dzialki trafialbys do Sosnowca albo odwrotnie.
+
+**Tomasz 5.08: „Dzialka to priorytet"** (600 km, bez obslugi na miejscu).
+
+| instalacja | trasa | uwagi |
+|---|---|---|
+| **Dzialka** (homeassistant-1, 100.115.112.5) | `192.168.0.0/24` | **ma priorytet** |
+| **Walding** (homeassistant-2, 100.87.37.19) | `192.168.68.0/24` + IPv6 | inna numeracja, brak konfliktu |
+| **Sosnowiec** (homeassistant, 100.67.61.100) | tylko IPv6 | trasa IPv4 ZDJETA — kolidowala |
+
+**Zmierzone po zmianie:** HA Dzialki `192.168.0.250:8123` -> **HTTP 200 z VPS**.
+
+**TRWALE ROZWIAZANIE (nie zrobione):** zmienic numeracje w routerze Dzialki albo Sosnowca
+(np. na `192.168.5.0/24`). **Wymaga obecnosci na miejscu** i przestawienia urzadzen
+ze stalymi adresami. Do rozwazenia przy najblizszym wyjezdzie.
+
+**JAK TO ZROBIONO:** wszystko sterujac telefonem Tomasza przez lacznik `Telefon Fold7`.
+Panel Tailscale wymaga zalogowanej przegladarki — Tomasz jest zalogowany na telefonie,
+wiec eksport sesji (propozycja Genka: playwright + ciasteczka) okazal sie NIEPOTRZEBNY.
