@@ -1,0 +1,142 @@
+## POTWIERDZONE
+
+- Hans ma pilnować wszystkich siedmiu obowiązków, w tym niewybiórczego meldowania błędów, pełnego składu narady, równych szans, kontroli krzyżowej i wydatków. Klaudek również podlega kontroli: [wiedza/HANS_AGENT.md](/root/rod-ai-studio/wiedza/HANS_AGENT.md:17).
+- Hans jest obecnie „POWOŁANY, NIEZBUDOWANY”; dokument nie wskazuje implementacji ani gotowego kanału: [wiedza/HANS_AGENT.md](/root/rod-ai-studio/wiedza/HANS_AGENT.md:35).
+- `zaloga.py` zapisuje niezależne głosy do katalogu narady, po jednym pliku na osobę: [tools/zaloga.py](/root/rod-ai-studio/tools/zaloga.py:150).
+- Do każdego briefu doklejane są spis wiedzy, teczki, słowa Tomasza i informacja o Hansie: [tools/zaloga.py](/root/rod-ai-studio/tools/zaloga.py:162).
+- Nierówne szanse można obecnie świadomie obejść przez `--mimo-braku`: [tools/zaloga.py](/root/rod-ai-studio/tools/zaloga.py:247).
+- `audyt_meldunku.py` szuka twierdzeń obalonych lub bez śladu, ale kontroluje treść przedstawionego meldunku — nie porównuje go z pełnym rejestrem zdarzeń tury: [tools/audyt_meldunku.py](/root/rod-ai-studio/tools/audyt_meldunku.py:29).
+- Istniejący Telegram `@HermesDyzurny_Bot` słucha wyłącznie Tomasza, ID `8339659505`: [wiedza/srodowiska/henio.md](/root/rod-ai-studio/wiedza/srodowiska/henio.md:4).
+
+## HIPOTEZY — moja propozycja
+
+### 1. Czym technicznie ma być Hans
+
+Wybieram **(a): `tools/hans.py`, czysto mechaniczny audytor uruchamiany po każdej naradzie**, a dodatkowo okresowo przez cron.
+
+Nie wybieram osobnego modelu w pierwszej wersji. Główne pytanie Hansa jest porównaniem zbiorów: „co wydarzyło się” kontra „co zameldowano”. Model językowy zwiększa koszt i sam może przemilczeć lub zinterpretować zdarzenie korzystnie dla kogoś.
+
+Szacowany koszt:
+
+- model/API: **0 USD miesięcznie**;
+- Telegram: **0 USD opłat modelowych**;
+- CPU: kilka krótkich uruchomień Pythona — koszt marginalny w istniejącym VPS, ale jego dokładnej wartości **NIE WIEM**.
+
+Hans może później otrzymać model wyłącznie do odpowiadania opisowego. Werdykt zgodności nadal powinien pochodzić z mechaniki.
+
+### 2. Jak wykrywa brak pełnego obrazu
+
+Każda narada powinna mieć trwały `events.jsonl`. Każdy wpis dostaje niezmienny `event_id`, czas, wykonawcę, kategorię, rezultat oraz ślad.
+
+Hans buduje zbiór `E` z następujących zdarzeń:
+
+- brak lub spóźniony głos;
+- `GLOS NIEODEBRANY`, tryb awaryjny, timeout;
+- nierówne szanse i użycie `--mimo-braku`;
+- `OBALONE`, `BRAK SLADU`, czerwony test;
+- zmiana źródła wykryta przez `straznik_zrodel.py`;
+- płatna operacja i identyfikator zgody Tomasza;
+- błąd polecenia lub bramki;
+- wykryty błąd członka załogi i odpowiadający mu wpis do teczki.
+
+Meldunek musi zawierać sekcję `ZDARZENIA TURY` z identyfikatorami. Hans wyciąga z niej zbiór `M` i liczy:
+
+```text
+POMINIĘTE = E_wymagające_ujawnienia − M
+NIEPOPARTY_MELDUNEK = M − E
+```
+
+Dodatkowo porównuje czterech oczekiwanych uczestników z plikami głosów oraz czas rozpoczęcia zadania z czasami odpowiedzi. Dzięki temu odróżni naradę równoległą od dopytywania kogoś po fakcie.
+
+Ważne ograniczenie: Hans nie odkryje błędu, którego żadne narzędzie ani człowiek nie zarejestrował. Nie może „wiedzieć wszystkiego”; może zagwarantować kompletność względem dziennika zdarzeń. Dlatego dziennik musi być zapisywany automatycznie przez wspólne wrappery, nie ręcznie przez Klaudka.
+
+### 3. Osobny kanał do Tomasza
+
+Najprostsza wersja na telefon: **komendy `/hans` i `/hans_alerty` w istniejącym `@HermesDyzurny_Bot`**, obsługiwane mechanicznie przez osobny moduł Hansa:
+
+- `/hans` — stan ostatniej narady;
+- `/hans_alerty` — nierozliczone naruszenia;
+- `/hans <ID>` — szczegóły zdarzenia i ślad;
+- `/hans_klaudek`, `/hans_zenek`, `/hans_genek`, `/hans_henio` — identyczny raport według osoby.
+
+To daje bezpośredni dostęp z telefonu i nie przechodzi przez Klaudka. Jednak jest to osobna funkcja w istniejącym bocie, a nie dosłownie osobny czat.
+
+Jeżeli „osobny kanał” oznacza koniecznie osobne okno rozmowy, wersją docelową powinien być osobny bot `@Hans...Bot`, korzystający z tego samego pliku stanu. Do tego potrzebny jest nowy token od BotFather. Czy Tomasz wymaga osobnego bota, czy wystarczy osobna komenda — **NIE WIEM**.
+
+### 4. Co i kiedy raportuje
+
+Próg bez zasypywania:
+
+- **natychmiast** tylko naruszenie krytyczne: pominięty błąd w meldunku, wydatek bez zgody, praca solo, użycie `--mimo-braku`, zmiana źródła podczas badania;
+- **po naradzie bez naruszeń:** cisza; stan dostępny przez `/hans`;
+- **raz dziennie:** tylko gdy istnieją nierozliczone naruszenia — jedna wiadomość zbiorcza;
+- brak codziennego „wszystko dobrze”.
+
+Format telefonu:
+
+```text
+HANS: ALERT
+Narada: N-123
+Pominięte: 2
+Krytyczne: wydatek bez zgody
+Dotyczy: Genek, Klaudek
+/hans N-123
+```
+
+### 5. Kto pilnuje Hansa
+
+Hans powinien mieć piątą, publiczną teczkę, na tych samych zasadach co reszta.
+
+Kontrola Hansa:
+
+- każdy alarm zawiera surowe `event_id`, plik i linię;
+- raz dziennie niezależny skrypt `audyt_hansa.py` ponownie wylicza różnicę `E − M`;
+- kontroler nie używa kodu Hansa do obliczenia oczekiwanego wyniku;
+- testy regresyjne zawierają prawdziwe przypadki przemilczeń;
+- Tomasz może przez `/hans_kwestionuj <ID>` oznaczyć werdykt do kontroli całej czwórki.
+
+Hans nie może sam usuwać ani zamykać wpisu dotyczącego własnego błędu.
+
+### 6. Trzy zagrożenia i zabezpieczenia
+
+1. **Hans stanie się blokującą bramką omijaną przez `--no-verify`.**  
+   Zabezpieczenie: Hans nie blokuje pracy ani commita. Jest niezależnym audytorem po fakcie; krytyczne rozbieżności wysyła bezpośrednio Tomaszowi. Nie może być wyłączany flagą procesu wykonawczego.
+
+2. **Ktoś nie zapisze niewygodnego zdarzenia do dziennika.**  
+   Zabezpieczenie: wpisy tworzą wrappery narady, sondy, bramek i operacji płatnych. Cron wykrywa także wykonanie narady bez odpowiadającego jej zamkniętego dziennika. Akcji wykonanej całkowicie poza instrumentowanymi drogami Hans może nie wykryć — dlatego wszystkie płatne i produkcyjne wejścia muszą mieć wspólny wrapper.
+
+3. **Hans zacznie traktować jedną osobę surowiej albo sam wyda błędny werdykt.**  
+   Zabezpieczenie: identyczne reguły i kategorie dla pięciu teczek, deterministyczny wynik, jawne zdarzenia wejściowe oraz niezależny audyt regresyjny. Bez pola pozwalającego wpisać „wyjątek dla Klaudka”.
+
+### 7. Pierwszy krok na dziś
+
+Pierwszy plik: `tools/hans.py`.
+
+Pierwsza funkcja:
+
+```python
+def sprawdz_ture(katalog_narady: str, meldunek: str) -> dict:
+    """Zwraca brakujące głosy, wykryte markery naruszeń,
+    zdarzenia nieobecne w meldunku i poziom alarmu."""
+```
+
+Minimalna wersja czyta istniejące pliki głosów z katalogu narady i szuka udokumentowanych markerów:
+
+- `GLOS NIEODEBRANY`
+- `TRYB AWARYJNY`
+- `BRAK SLADU` / `BRAK ŚLADU`
+- `OBALONE`
+- `STRACONE`
+- `ZRODLO ZMIENILO`
+- `RUSZAM MIMO BRAKU`
+
+Następnie sprawdza, czy każdy wykryty przypadek znajduje się w meldunku. To jeszcze nie daje pełnego `events.jsonl`, ale tego samego dnia wykryje część realnych przemilczeń bez modelu i bez kosztu API.
+
+## NIE WIEM
+
+- Nie ma w materiale miesięcznej ceny uruchamiania istniejącego VPS, więc nie podaję fikcyjnej kwoty CPU.
+- Nie ma decyzji, czy „osobny kanał” oznacza osobnego bota Telegram, czy wystarczy niezależna komenda w bocie Hermesa.
+- Nie ma obecnie kompletnego, kanonicznego dziennika wszystkich zdarzeń tury. Bez niego Hans nie zagwarantuje wykrycia każdego przemilczanego błędu.
+- NIE MA W PLIKU gotowego projektu technicznego Hansa ani wybranego silnika.
+
+**Zenek**

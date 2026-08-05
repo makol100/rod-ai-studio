@@ -114,3 +114,9 @@ Kontekst: analiza narzędzi po Opus 5, Remotion nierozstrzygnięty.
   a tą chwilą, lub Zenek liczył duplikaty w data/wiedza_kopia/.
 
 Zebrane: 04.08.2026 przez Henia (wykonującego zadanie Zenka).
+
+## EGO LITE — czeka na wersje Windows/Linux (od 5.08.2026)
+Przegladarka dzielaca zalogowana sesje z agentem AI. Rozwiazuje realny problem: zadania
+wymagajace logowania, do ktorych Klaudek nie siega (Tailscale, Tuya QR, Facebook).
+Dzis TYLKO macOS. Sprawdzac lite.ego.app/roadmap i github.com/citrolabs/ego-lite/releases.
+Opis: wiedza/EGO_LITE_DO_WROCENIA.md

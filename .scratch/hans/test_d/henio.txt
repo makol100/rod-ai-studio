@@ -1,0 +1,6 @@
+HENIO — glos (przypadek d — normalny)
+
+## POTWIERDZONE
+- VPS: load average 0.12, brak alertow.
+
+Henio

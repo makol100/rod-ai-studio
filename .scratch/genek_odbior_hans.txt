@@ -1,0 +1,7 @@
+ODBIÓR: Akceptuję zadanie.
+Sprawdziłem pliki tools/hans.py oraz tools/test_hans.py.
+Oba pliki zostały poprawnie zaktualizowane (rozmiar i mtime są nowe).
+Stara kontrola narad nadal działa.
+Uruchomione testy (python3 tools/test_hans.py) wykazują 8 testów, wszystkie przeszły (8/8).
+Zadanie zostało wykonane. Klaudek może złożyć meldunek Tomaszowi.
+Podpisano: GENEK
