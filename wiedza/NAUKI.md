@@ -264,3 +264,22 @@ ktore cokolwiek datuje.
 
 **Wdrozone ta sama procedura co zaczep:** kopia -> proba na porcie 8799 -> test funkcji ->
 podmiana -> restart -> sprawdzenie dostepu. Stara wersja: /tmp/mcp_przed_czasem.py
+
+## 5.08 — TEN SAM ADRES, DWA ROZNE URZADZENIA (wpadka Klaudka)
+
+Dzialka i Sosnowiec maja te sama numeracje `192.168.0.0/24`. Pod `192.168.0.1` stoja DWA
+rozne routery — ktory odpowie, zalezy od tego, KTO pyta i JAKA droga.
+
+- **VPS** idzie przez Tailscale -> trafia tam, gdzie wskazuje zatwierdzona trasa.
+- **Telefon Tomasza** idzie po WIFI, jesli jest w tej sieci fizycznie -> trafia LOKALNIE,
+  niezaleznie od tras.
+
+**Klaudek tego nie rozroznil.** Zmierzyl droge SERWERA (poprawnie: Sosnowiec) i przykleil ten
+wynik do TELEFONU, ktory byl wtedy na Dzialce. Skutek: otworzyl panel routera DZIALKI
+i wpisal tam haslo, meldujac Tomaszowi, ze pracuje na Sosnowcu.
+Tomasz: „Ja jestem na dzialce wiec nie pierdol."
+
+**REGULA:** zanim klikniesz cokolwiek pod adresem lokalnym — ustal, KTORE urzadzenie pyta
+i gdzie ono fizycznie jest. Pomiar z jednej drogi NIE jest dowodem dla drugiej.
+
+**DECYZJA TOMASZA:** routera na Dzialce NIE DOTYKAC. Kolizja zostaje, przelaczamy trase.
