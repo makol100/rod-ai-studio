@@ -32,3 +32,4 @@
 {"czas": 1785912456.768432, "czas_iso": "2026-08-05T06:47:36.768441+00:00", "powod": "message_id=32", "wyslane": true}
 {"czas": 1785914351.750393, "czas_iso": "2026-08-05T07:19:11.750397+00:00", "powod": "Hans wstrzymal wysylke — limit 3/h przekroczony (3 w ostatniej godzinie)", "wyslane": false}
 {"czas": 1785915095.058304, "czas_iso": "2026-08-05T07:31:35.058309+00:00", "powod": "Hans wstrzymal wysylke — limit 3/h przekroczony (3 w ostatniej godzinie)", "wyslane": false}
+{"czas": 1785955660.414263, "czas_iso": "2026-08-05T18:47:40.414276+00:00", "powod": "message_id=33", "wyslane": true}

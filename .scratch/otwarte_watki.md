@@ -126,3 +126,14 @@ Opis: wiedza/EGO_LITE_DO_WROCENIA.md
 Rozwiazuje realne blokady: zatwierdzanie tras Tailscale, kod QR Tuya, publikacja FB.
 DZIS TYLKO macOS. Sprawdzic ponownie za jakis czas: czy doszedl Windows.
 Opis i ostrzezenia: wiedza/EGO_LITE_ROZPOZNANIE.md
+
+## POMIAR JAKOSCI PRODUKCJI — wskazany przez Zenka 5.08, NIEROZWIAZANY
+Zenek (narada „czego fabryce brakuje") wskazal to jako bolaczke NAJWAZNIEJSZA i podparl
+naszymi liczbami z wiedza/CENA_BLEDOW.md: 21,86 USD udokumentowanych strat, w odcinku #10009
+okolo 10,88 z 13,17 USD to koszt bledow.
+Proponowal `HumanSignal/label-studio` (27992 gwiazdki, Apache-2.0).
+**Tomasz 5.08: NIE INSTALOWAC.**
+Sprawa ZOSTAJE OTWARTA — problem jest realny, tylko rozwiazanie bylo zle dobrane.
+Sedno wg Klaudka: nie brakuje FORMULARZA do oceniania (ocenia Tomasz, jeden, i robi to i tak),
+tylko ocena przychodzi PO wygenerowaniu i zaplaceniu. Szukac czegos, co ocenia PRZED wydatkiem.
+Mamy juz tools/bramka_oka.py (VLM: orientacja, glitche, rozmycie, pusty/podwojny obraz).

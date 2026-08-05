@@ -3,3 +3,4 @@
 WYMIANA KLUCZY API (FAL_KEY + ANTHROPIC_API_KEY) — wyswietlone w czacie 10.07, nadal jawnym tekstem w docker-compose.yml. Tomasz 4.08: "dzis wieczorem albo jutro rano".
 IZABELA GOTOWA (karta, studio, czolowka, tekst premiery). ZOSTALO: nagrac glos Charlotte do tekstu premiery + montaz.
 POMIAR ZACZEPU — ODCZYT 5.08 ok. 21:45 (12 h od startu 09:43). Liczy Hans z .scratch/hans/most.jsonl: ile razy Klaudek uruchomil naprawe BEZ zlecenia dla zalogi. Polecenie: python3 tools/hans.py --most (do zbudowania przez Henia) albo recznie z pliku.
+ODCZYT ZACZEPU — Tomasz potwierdzil 5.08 20:28, ze chce policzenia o 21:45 (12 h od startu 09:43). Liczy Hans z .scratch/hans/most.jsonl: ile razy Klaudek uruchomil NAPRAWE (wyglada_na_naprawe=true) BEZ zlecenia dla zalogi w oknie poprzedzajacym. Wpisy sprzed 10:41 maja czas UTC (przesuniete o 2 h) — uwzglednic.
