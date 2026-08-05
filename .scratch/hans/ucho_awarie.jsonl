@@ -1,0 +1,16 @@
+{"czas": 1785822847.7589066, "powod": "polaczenie/odpowiedz: 401 Client Error: Unauthorized for url: https://api.telegram.org/bot8905454527:ZLY_TOKEN_TEST/getUpdates?offset=817596622&timeout=20"}
+{"czas": 1785822847.9833877, "powod": "polaczenie/odpowiedz: 401 Client Error: Unauthorized for url: https://api.telegram.org/bot8905454527:ZLY_TOKEN_TEST/getUpdates?offset=817596622&timeout=20"}
+{"czas": 1785822848.2060525, "powod": "polaczenie/odpowiedz: 401 Client Error: Unauthorized for url: https://api.telegram.org/bot8905454527:ZLY_TOKEN_TEST/getUpdates?offset=817596622&timeout=20"}
+{"czas": 1785822862.6701992, "powod": "polaczenie/odpowiedz: 409 Client Error: Conflict for url: https://api.telegram.org/bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596622&timeout=20"}
+{"czas": 1785914989.3999672, "powod": "polaczenie/odpowiedz: brak sieci"}
+{"czas": 1785914989.4024222, "powod": "wadliwa odpowiedz: {'ok': False, 'description': 'Unauthorized'}"}
+{"czas": 1785915072.1990683, "powod": "polaczenie/odpowiedz: brak sieci"}
+{"czas": 1785915072.1998792, "powod": "wadliwa odpowiedz: {'ok': False, 'description': 'Unauthorized'}"}
+{"czas": 1785915085.5877652, "powod": "polaczenie/odpowiedz: brak sieci"}
+{"czas": 1785915085.5886254, "powod": "wadliwa odpowiedz: {'ok': False, 'description': 'Unauthorized'}"}
+{"czas": 1785915092.5154982, "powod": "polaczenie/odpowiedz: brak sieci"}
+{"czas": 1785915092.5163321, "powod": "wadliwa odpowiedz: {'ok': False, 'description': 'Unauthorized'}"}
+{"czas": 1785915133.404435, "powod": "polaczenie/odpowiedz: brak sieci"}
+{"czas": 1785915133.4052958, "powod": "wadliwa odpowiedz: {'ok': False, 'description': 'Unauthorized'}"}
+{"czas": 1785919367.5531154, "powod": "polaczenie/odpowiedz: brak sieci"}
+{"czas": 1785919367.5541458, "powod": "wadliwa odpowiedz: {'ok': False, 'description': 'Unauthorized'}"}

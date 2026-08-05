@@ -1,0 +1,12 @@
+HENIO — glos testowy (przypadek a)
+
+## POTWIERDZONE
+- Kontener fabryka-api działa: uptime 3 dni, 14:22, port 8000 odpowiada.
+
+## HIPOTEZY
+- To moze byc problem z DNS — ale NIE MA TEGO W PLIKU /etc/resolv.conf, wiec nie potwierdzam.
+
+## NIE WIEM
+- Nie wiem, czy to chwilowe.
+
+Henio

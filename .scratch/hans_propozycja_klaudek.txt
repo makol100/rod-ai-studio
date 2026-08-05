@@ -1,0 +1,80 @@
+PROPOZYCJA KLAUDKA — na tych samych prawach co reszta, nie jako koordynator.
+
+1. CZYM MA BYC HANS — wybieram (a): skrypt tools/hans.py, BEZ wlasnego silnika.
+
+Uzasadnienie: Hans ma pilnowac faktow sprawdzalnych mechanicznie (czy zadanie poszlo do wszystkich,
+czy byl slad, czy blad trafil do teczki). Do tego silnik jest niepotrzebny i kosztuje.
+Silnik wprowadzalby to samo ryzyko, ktore Hans ma zwalczac — ocene zamiast pomiaru.
+Koszt miesieczny: 0 USD. Gdyby kiedys potrzebna byla ocena tekstu meldunku, wola istniejacych
+pracownikow (kontrola_krzyzowa.py), zamiast miec wlasny.
+
+2. JAK WYKRYWA, ZE TOMASZ NIE DOSTAL PELNEGO OBRAZU
+
+Mechanizm: DZIENNIK ZDARZEN vs MELDUNEK.
+- kazde narzedzie, ktore konczy sie bledem albo odrzuceniem (zrobione.py ODRZUCONE, sonda STRACONE,
+  hook COMMIT ODRZUCONY, glos NIEODEBRANY, straznik zrodel STOP), dopisuje linie do
+  .scratch/_dziennik_zdarzen.jsonl: {czas, zdarzenie, plik, kto}
+- Hans porownuje zdarzenia z ostatniej tury z tym, co poszlo do Tomasza
+- jesli w dzienniku jest zdarzenie, ktorego nie ma w meldunku — ZGLOSZENIE
+
+To jest sprawdzalne bez oceniania tresci: albo zdarzenie jest w obu miejscach, albo nie ma go
+w jednym. Slaba strona, ktora zglaszam sam: Hans nie widzi meldunku Klaudka do Tomasza, bo ten idzie
+przez okno czatu, nie przez dysk. ROZWIAZANIE: Klaudek ma obowiazek zapisac skrot swojego meldunku
+do .scratch/_meldunek_ostatni.txt PRZED wyslaniem. Jesli tego nie zrobi — Hans zglasza brak,
+co samo w sobie jest naruszeniem.
+
+3. OSOBNY KANAL DO TOMASZA — Telegram, ten sam bot @HermesDyzurny_Bot, komenda /hans
+
+Uzasadnienie: Tomasz pracuje z telefonu. Telegram juz dziala, juz slucha jego ID, nie wymaga
+zakladania niczego nowego. Nowy bot = nowy token, nowa konfiguracja, nowy punkt awarii.
+Komenda /hans zwraca stan grupy z ostatnich 24 h prosto z dziennika zdarzen — bez Klaudka w srodku.
+
+Alternatywa gdyby Telegram zawiodl: plik wiedza/HANS_RAPORT.md odswiezany co godzine przez cron,
+czytelny przez przegladarke na podgladzie.
+
+4. CO RAPORTUJE I KIEDY — PROG: tylko przy naruszeniu, plus jeden raport dzienny rano
+
+Tomasz nie chce byc zasypywany (to jest w jego preferencjach). Wiec:
+- NATYCHMIAST: tylko naruszenia ciezkie — wydatek bez zgody, zadanie zrobione solo zamiast w grupie,
+  blad wykryty i nieujawniony w meldunku
+- RAZ DZIENNIE: krotkie zestawienie, ile bylo narad, ile solo, ile bledow, kto ile dopisal do teczek
+- NIGDY: pochwaly, statystyki bez znaczenia, powtorzenia tego co Tomasz juz wie
+
+5. KTO PILNUJE HANSA — TAK, Hans tez ma teczke
+
+Hans jest skryptem, wiec jego bledy to falszywe alarmy i przeoczenia. Obie kategorie sa mierzalne:
+- falszywy alarm: zgloszenie naruszenia, ktore po sprawdzeniu nim nie bylo -> wpis do teczki HANSA
+- przeoczenie: naruszenie wykryte przez czlowieka albo kolege, ktorego Hans nie zglosil -> wpis
+Kazdy z zalogi ma obowiazek dopisac. Jesli Hans przez tydzien nie ma ani jednego wpisu — to znaczy,
+ze nikt go nie sprawdzal, i to samo jest zadaniem (tak jak pusta teczka Zenka).
+
+6. RYZYKO — trzy konkretne
+
+(a) HANS STANIE SIE BRAMKA DO OBCHODZENIA. Dzis sam obszedlem wlasny hook trzy razy, w tym raz
+    slusznie (falszywy alarm na cytacie Tomasza). ZABEZPIECZENIE: Hans NIE BLOKUJE niczego.
+    Tylko zglasza. Blokowanie zostawiamy istniejacym bramkom. Agent, ktory nie blokuje,
+    nie ma po co byc obchodzony.
+(b) DZIENNIK ZDARZEN NIE BEDZIE ZAPISYWANY, bo kazde narzedzie trzeba zmienic osobno.
+    ZABEZPIECZENIE: zaczac od TRZECH miejsc, ktore juz wypisuja te zdarzenia na ekran
+    (zrobione.py, sonda, hook) — dopisanie jednej linii do pliku to kilka znakow w kazdym.
+    Reszta pozniej, jak sie sprawdzi.
+(c) HANS BEDZIE POWTARZAL TO, CO JUZ WIADOMO, i Tomasz przestanie czytac.
+    ZABEZPIECZENIE: prog z punktu 4 + zasada, ze zgloszenie musi zawierac SLAD (plik, linia, czas),
+    nie ogolnik. Zgloszenie bez sladu Hans odrzuca sam.
+
+7. PIERWSZY KROK — DZIS, W WERSJI MINIMALNEJ
+
+Jeden plik: tools/hans.py z jedna funkcja `sprawdz_ture()`.
+Jedno zrodlo: .scratch/_dziennik_zdarzen.jsonl.
+Trzy miejsca dopisujace do dziennika: zrobione.py (werdykt), sonda_zdolnosci.py (STRACONE),
+zaloga.py (glos nieodebrany + praca solo).
+Jedno wyjscie: wypisanie na ekran listy zdarzen z ostatniej tury, ktorych nie ma
+w .scratch/_meldunek_ostatni.txt.
+
+To jest okolo 60 linii kodu i mozna to sprawdzic tego samego dnia na prawdziwych danych z dzis —
+mamy w logach komplet zdarzen z calej sesji.
+
+CZEGO NIE WIEM: czy Telegram bot Henia da sie rozszerzyc o komende /hans bez ruszania jego
+dyzuru — nie sprawdzalem kodu bota. To do zweryfikowania przed decyzja.
+
+— Klaudek

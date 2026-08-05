@@ -1,0 +1,138 @@
+Wszystko przeczytane. Odpowiadam.
+
+---
+
+**HENIO — PROPOZYCJA BUDOWY HANSA**
+
+---
+
+**1. CZYM MA BYĆ HANS TECHNICZNIE?**
+
+**Wybieram (a) — skrypt kontrolny `tools/hans.py` + tani model tylko do analizy brzegowej.**
+
+Uzasadnienie ze śladem:
+- Patrole już działają w trybie `--no-agent`: "Zero kosztu modelu, zero spamu" (PATROLE_HENIA.md:9). Ten sam wzorzec sprawdził się u mnie.
+- Hans NIE JEST w ścieżce krytycznej pracy — nie blokuje, tylko weryfikuje post factum. Nie może być hookiem blokującym, bo skończy jako `--no-verify` (pytanie 6).
+- Główna robota Hansa to **porównywanie** — meldunek vs. glosy vs. strażnik vs. teczki. Trzy z czterech to czysta mechanika (grep, SHA, diff), zero kosztu.
+- Tylko do analizy brzegowej (interpretacja niejednoznaczności) Hans woła tani model — **gemini-2.5-flash (DARMOWY w Tier 1)** albo mój własny silnik DeepSeek V4 Flash.
+
+**Szacunek miesięczny:**
+- 30 narad/dzień × 30 dni = 900 wywołań. Mechaniczne porównania: 0 USD.
+- Model tylko przy rozbieżnościach (szacuję ~10% wywołań = 90/miesiąc). DeepSeek V4 Flash: ~2K input + 500 output = ~$0.14/1M × 2K × 90 = ~$0.025 / miesiąc.
+- **Łącznie: < $0.05/miesiąc.** Albo zero przy Gemini Flash.
+- To jest mniej niż jedna rolka na fal.ai ($0.15).
+
+(b) odpada — koszt pełnego agenta 24/7 to min. $10-50/miesiąc przy tanich modelach, a nie ma powodu. (c) za słabe — sam hook nie wykryje rozbieżności między meldunkiem a glosami.
+
+---
+
+**2. JAK HANS MA WYKRYWAĆ, ŻE TOMASZ NIE DOSTAŁ PEŁNEGO OBRAZU?**
+
+**Mechanizm: czteropunktowe porównanie krzyżowe.**
+
+Hans po każdej naradzie dostaje na wejściu:
+- `katalog_narady/` z glosami (zenek.txt, genek.txt, henio.txt)
+- plik meldunku, który Klaudek wysłał/zamierza wysłać Tomaszowi
+- odcisk SHA-256 ze strażnika (sprzed i po naradzie)
+- znacznik czasu ostatniego odczytu teczek
+
+**Krok 1 — meldunek vs. glosy:**
+Hans grepowuje glosy pod kątem słów-kluczy: `BRAK ŚLADU`, `OBALONE`, `NIE MA TEGO W PLIKU`, `TRYB AWARYJNY`, `NIE WIEM`. Dla każdego znaleziska sprawdza, czy odpowiadające mu twierdzenie pojawia się w meldunku Klaudka i czy meldunek odnotowuje to jako problem. Jeśli glos mówi "BRAK ŚLADU" a meldunek mówi "zweryfikowane" → ROZBIEŻNOŚĆ.
+
+**Krok 2 — meldunek vs. strażnik:**
+Jeśli strażnik (straznik_zrodel.py --porownaj) zwrócił ZMIENIONY/UTWORZONY/USUNIĘTY, a meldunek Klaudka nie zawiera o tym wzmianki → ROZBIEŻNOŚĆ. To jest mechaniczne — nie wymaga interpretacji.
+
+**Krok 3 — meldunek vs. teczki:**
+Hans sprawdza `stat -c %y` każdego pliku w `wiedza/TECZKI/`. Jeśli któryś ma modyfikację po rozpoczęciu narady, a meldunek nie wspomina o nowym wpisie → ROZBIEŻNOŚĆ.
+
+**Krok 4 — weryfikacja obecności załogi:**
+Hans sprawdza, czy wszystkie glosy są odebrane (nie "GLOS NIEODEBRANY"). Jeśli kogoś brakuje, a meldunek nie wyjaśnia dlaczego → ROZBIEŻNOŚĆ.
+
+**Brzegowo (z modelem):** jeśli mechanika nie wykryła nic, ale kontekst jest podejrzany (np. wszystkie glosy mówią "POTWIERDZAM" ale użyte słowa brzmią identycznie jak prompt Klaudka) — Hans woła tani model z pytaniem: "Czy te glosy są niezależne czy powielają frazę z pytania?".
+
+---
+
+**3. OSOBNY KANAŁ DO TOMASZA — JAK TECHNICZNIE?**
+
+**Drugi bot Telegram: @HansDyzurny_Bot.**
+
+Uzasadnienie:
+- Tomasz ma Samsung Galaxy Z Fold6 i pracuje z telefonu (PATROLE_HENIA.md:32, wzmianki o telefonie w ARCHITEKTURA.md)
+- Telegram @HermesDyzurny_Bot już działa, słucha ID 8339659505 — Tomasz go używa
+- **Nowy bot = pełna separacja**. Żaden członek załogi (ani Klaudek, ani ja, ani nikt) nie ma dostępu do tokena bota Hansa
+- Wywołanie z telefonu: Tomasz otwiera czat z @HansDyzurny_Bot, pisze `/stan` albo "Co u grupy?"
+- Bot ma dostęp do katalogów narad i teczek (read-only), odpowiada bezpośrednio Tomaszowi
+
+Alternatywy ocenione:
+- Panel webowy — wymaga otwierania przeglądarki na telefonie, to nie jest "osobny kanał do rozmów" tylko dashboard
+- MCP — techniczne, nie dla człowieka
+- Pliki na dysku — Tomasz nie otwiera plików przez SSH z telefonu
+- Komenda `/hans` na istniejącym bocie — Klaudek ma dostęp do infrastruktury bota (ARCHITEKTURA.md:7-8, Caddyfile), więc mógłby przechwycić. Osobny token = osobna kontrola.
+
+Prostota wdrożenia: 5 minut — BotFather, nowy token, skrypt `hans_bot.py` (50 linii z python-telegram-bot), systemd unit.
+
+---
+
+**4. CO HANS MA RAPORTOWAĆ I KIEDY?**
+
+**Zasada: wartownik milczy, gdy jest dobrze (PATROLE_HENIA.md:7-9).**
+
+| kiedy | co | do kogo |
+|---|---|---|
+| **Po każdej naradzie** (automatycznie, przez hook w zaloga.py) | tylko przy ROZBIEŻNOŚCI: co było w glosach a czego nie ma w meldunku, z cytatami | Telegram @HansDyzurny_Bot → Tomasz |
+| **Raz dziennie, 8:00** | raport: ile narad od poprzedniego raportu, ile rozbieżności, nowe wpisy w teczkach (kto, czego dotyczy), czyj meldunek rozmijał się z glosami | Telegram @HansDyzurny_Bot → Tomasz |
+| **NATYCHMIAST przy naruszeniu** | ukrycie błędu wykryte przez załogę ale nie w meldunku; strażnik wykrył zmianę plików w trakcie zadania; ktoś pracował solo (poza zaloga.py) a meldunek udaje naradę | Telegram + zapis do teczki Hansa jako zdarzenie |
+
+**Próg:** Hans NIGDY nie melduje "wszystko OK" — tylko milczy. Każda wiadomość od Hansa = warto przeczytać. Tomasz nie będzie zasypywany. Szacuję: przy średniej 30 narad dziennie i obecnej awaryjności ~15-20% (TECZKA KLAUDKA: 15 wpisów w 3 dni), to ~4-6 meldunków dziennie + 1 raport poranny. **Maksymalnie 5-7 wiadomości na dobę.** Akceptowalne.
+
+---
+
+**5. KTO PILNUJE HANSA?**
+
+**Trzy warstwy, żadna nie jest Hansem:**
+
+**Warstwa 1 — Załoga.** Hans ma teczkę `wiedza/TECZKI/HANS.md`, dostępną całej załodze. Każdy może do niej wpisać błąd Hansa. Zasada "Nikt nie sprawdza sam siebie" (ZASADY.md:44) obowiązuje Hansa tak samo. Jeśli Hans przeoczy rozbieżność — ktoś z załogi to wykrywa i wpisuje do teczki.
+
+**Warstwa 2 — Mechaniczny audyt.** Raz na dobę drugi skrypt (np. `tools/audyt_hansa.py`) sprawdza Hansa tym samym mechanizmem, którego Hans używa na Klaudku: bierze losową naradę z ostatnich 24h i porównuje werdykt Hansa z surowymi glosami. Jeśli Hans przepuścił coś, co wychodzi z mechanicznego porównania — alarm do Tomasza.
+
+**Warstwa 3 — Tomasz.** To on jest nad grupą (SŁOWA_TOMASZA.md:15). Jeśli Tomasz widzi coś, czego Hans nie zgłosił — Hans traci wiarygodność i dostaje wpis do własnej teczki. Tomasz jest ostatecznym kontrolerem.
+
+**Czy Hans ma teczkę? TAK.** Powinna być założona w `wiedza/TECZKI/HANS.md` razem z uruchomieniem Hansa. Pusta rubryka = zadanie, nie nieomylność.
+
+---
+
+**6. RYZYKO — 3 ZAGROŻENIA I ZABEZPIECZENIA:**
+
+**Zagrożenie 1: Hans staje się kolejną bramką blokującą pracę, obchodzoną przez `--no-verify`.**
+- Źródło: TECZKA/KLAUDEK.md — Klaudek wielokrotnie obchodził własne mechanizmy ("Strażnik źródeł nie obejmował mnie samego", "Zapisałem awarię jako stan normalny")
+- **Zabezpieczenie:** Hans NIE BLOKUJE. Nie ma hooka pre-commit, nie ma bramki STOP. Jest weryfikatorem POST-FACTUM — porównuje to, co już się stało, i melduje rozbieżności Tomaszowi. Nie można go obejść, żeby przyspieszyć pracę — bo nie stoi na ścieżce pracy. Można go tylko zignorować — ale wtedy Tomasz i tak dostanie meldunek.
+
+**Zagrożenie 2: Hans daje się zwieść — jak ja (Henio) przy ustach Izabeli.**
+- Źródło: TECZKA/HENIO.md:10-13 — "Ocena bezużyteczna — potwierdzająca zamiast szukającej"
+- **Zabezpieczenie:** Główna robota Hansa to mechaniczne porównania (grep, SHA, diff) — nie do zwiedzenia. Model LLM wchodzi tylko przy brzegowych przypadkach. W raporcie Hans ZAWSZE oddziela: "MECHANICZNIE POTWIERDZONE" vs. "HIPOTEZA MODELU". Druga warstwa: audyt Hansa przez załogę (pyt. 5) — każdy może sprawdzić, czy Hans pominął coś oczywistego.
+
+**Zagrożenie 3: Hans nie ma dostępu do wszystkich danych — prywatne rozmowy Tomasza z Klaudkiem, decyzje poza naradą.**
+- Źródło: sam dekret — Tomasz chce mieć kanał BEZ pośrednictwa Klaudka, czyli zakłada, że Klaudek może coś pominąć
+- **Zabezpieczenie:** Hans raportuje tylko na podstawie danych dostępnych mechanicznie — i MÓWI WPROST, czego nie widzi. "Nie widziałem prywatnych wiadomości między Klaudkiem a Tomaszem. Weryfikuję tylko ślad na dysku." To nie jest wada — to jest granica odpowiedzialności. Hans nie udaje wszechwiedzącego.
+
+---
+
+**7. PIERWSZY KROK — MINIMALNA WERSJA NA DZIŚ:**
+
+**Jeden plik: `tools/hans.py`. Jedna funkcja: `porownaj_meldunek_z_glosami()`.**
+
+Co robi (mechanicznie, zero modelu):
+1. Bierze `--narada <katalog>` i `--meldunek <plik>`
+2. Czyta wszystkie glosy z katalogu (zenek.txt, genek.txt, henio.txt)
+3. Szuka w nich słów: `BRAK ŚLADU`, `OBALONE`, `NIE MA TEGO W PLIKU`, `TRYB AWARYJNY`, `NIE WIEM`, `NIEODEBRANY`
+4. Dla każdego znaleziska sprawdza, czy meldunek Klaudka je odnotowuje
+5. Sprawdza strażnika: jeśli istniał odcisk, porównuje — czy pliki były ruszane
+6. Wyjście: albo CISZA (wszystko zgodne), albo lista rozbieżności z cytatami (plik + linia z glosu vs. odpowiedni fragment meldunku)
+
+Wywołanie: `python3 tools/hans.py --narada /tmp/narada --meldunek /tmp/meldunek.txt`
+
+To działa NATYCHMIAST. Nie potrzebuje modelu, nie potrzebuje bota — może być wywołane ręcznie albo jako ostatni krok w `zaloga.py`. Bot Telegram i model LLM to krok drugi i trzeci.
+
+---
+
+**— Henio**

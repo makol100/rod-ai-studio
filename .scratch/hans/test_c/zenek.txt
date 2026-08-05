@@ -1,0 +1,6 @@
+ZENEK — glos (przypadek c — brak meldunku)
+
+## POTWIERDZONE
+- Wszystkie 3 endpointy API odpowiadaja: /health 200, /status 200, /metrics 200.
+
+Zenek

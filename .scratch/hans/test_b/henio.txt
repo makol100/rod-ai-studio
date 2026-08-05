@@ -1,0 +1,13 @@
+HENIO — glos (przypadek b — czysta narada)
+
+## POTWIERDZONE
+- Sonda zdolnosci: wszystkie patrole OK, ostatnie uruchomienie 07:00 dzis.
+- Pamiec VPS: 8.1 GB wolne z 22 GB (potwierdzone free -h, linia 2).
+
+## HIPOTEZY
+- Brak.
+
+## NIE WIEM
+- Nic — stan czysty.
+
+Henio

@@ -1,0 +1,7 @@
+GENEK — glos (przypadek d — GLOS NIEODEBRANY)
+
+GLOS NIEODEBRANY
+
+Genek nie odpowiedzial w wyznaczonym czasie 120s. Przyczyna nieznana — prawdopodobnie problem z API Gemini (Tier 1, mozliwe wyczerpanie limitu).
+
+— zenek.txt (przypadek d, wygenerowany przez zaloga.py jako placeholder)

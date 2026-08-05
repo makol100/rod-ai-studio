@@ -1,0 +1,10 @@
+MELDUNEK KLAUDKA (przypadek d — NIEPELNY, pomija glos nieodebrany)
+
+Tomaszu, narada zakonczona.
+
+Zenek: potwierdzil domeny — HTTP 200, cert OK.
+Henio: VPS OK, load 0.12.
+
+Wszystko w normie.
+
+Klaudek

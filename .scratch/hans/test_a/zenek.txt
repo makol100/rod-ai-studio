@@ -1,0 +1,12 @@
+ZENEK — glos testowy (przypadek a)
+
+## POTWIERDZONE
+- Plik konfiguracyjny istnieje: /etc/app/config.yaml, linia 12
+
+## HIPOTEZY
+- Przyczyna błędu to prawdopodobnie timeout połączenia — BRAK SLADU na to w logach, timeout był 3 sekundy wcześniej i nie został odnotowany.
+
+## NIE WIEM
+- Nie wiem, czy to powtarzalne.
+
+Zenek

@@ -1,0 +1,12 @@
+GENEK — glos testowy (przypadek a)
+
+## POTWIERDZONE
+- Stan konta: $12.34 (sprawdzone przed chwilą)
+
+## HIPOTEZY
+- Limit dzienny może być wyczerpany — OBALONE: sprawdziłem, limit jest OK.
+
+## NIE WIEM
+- Nie znam dokładnej przyczyny spowolnienia.
+
+Genek

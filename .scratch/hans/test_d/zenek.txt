@@ -1,0 +1,6 @@
+ZENEK — glos (przypadek d — normalny)
+
+## POTWIERDZONE
+- Domena odpowiada: rod-ai-studio.pl, HTTP 200, certyfikat wazny do wrzesnia.
+
+Zenek

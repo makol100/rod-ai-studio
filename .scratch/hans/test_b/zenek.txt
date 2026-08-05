@@ -1,0 +1,13 @@
+ZENEK — glos (przypadek b — czysta narada)
+
+## POTWIERDZONE
+- Plik /etc/hosts zawiera wpis 127.0.0.1 localhost, linia 1.
+- Usluga SSH nasluchuje na porcie 22 (potwierdzone netstat -tlnp, linia 3).
+
+## HIPOTEZY
+- Brak.
+
+## NIE WIEM
+- Nic — wszystko sprawdzone.
+
+Zenek
