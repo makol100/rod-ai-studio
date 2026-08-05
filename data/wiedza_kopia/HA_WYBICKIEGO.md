@@ -125,3 +125,24 @@ Klaudek widzial Zigbee2MQTT na liscie dodatkow i nie polaczyl faktow.
   Tomasz: „mozliwe spadki napiecia" w sieci mieszkania. **Do obserwacji, nie przyczyna
   dzisiejszych awarii.**
 - **Nabu Casa wygasa 9.08.2026** (zdalny dostep i tak wylaczony — jedzie przez Tailscale).
+
+## TRASY TAILSCALE — ZATWIERDZONE 5.08 21:15
+
+**Klaudek zrobil to STEROJAC TELEFONEM TOMASZA** (lacznik `Telefon Fold7`), za jego zgoda.
+Wczesniej ta czynnosc byla poza zasiegiem — wymagala zalogowanej przegladarki.
+
+**Zatwierdzone:** `192.168.0.0/24` (siec mieszkania) + `fd5a:33b2:1ab5:fcac::/64`.
+**Wezel wyjsciowy NIEZAZNACZONY** — przepuszczalby caly ruch internetowy przez mieszkanie.
+Niepotrzebny do sterowania Home Assistant.
+
+**DRUGI KROK, BEZ KTOREGO TO NIE DZIALA — latwo przeoczyc:**
+Zatwierdzenie tras w panelu NIE WYSTARCZA. **Linux domyslnie IGNORUJE cudze trasy.**
+Zmierzone: `RouteAll: False`, tras przez tailscale: 0, mimo zatwierdzenia.
+```
+tailscale set --accept-routes=true        # NIE 'tailscale up --accept-routes'
+```
+`tailscale up` odmawia zmiany („requires mentioning all non-default flags"). **Uzywac `set`.**
+
+**ZMIERZONE PO WLACZENIU:**
+- `192.168.0.107:8123` -> **HTTP 200** z VPS (wczesniej 000)
+- router `192.168.0.1` — port 80 otwarty, widoczny z serwera

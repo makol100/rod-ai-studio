@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 19:01.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 05.08.2026 19:13.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,11 +11,11 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `HA_WYBICKIEGO.md` | 05.08 | 7K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
 | `BRIEF_DLA_KLAUDKA.md` | 05.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-05 20:58:09 CEST |
 | `JAK_PISZEMY.md` | 05.08 | 3K | JAK PISZEMY — OSIEM REGUL (przyjete 5.08.2026) |
 | `EGO_LITE_ROZPOZNANIE.md` | 05.08 | 2K | EGO LITE — ROZPOZNANIE (5.08.2026). WATEK ODLOZONY, NIE ODRZUCONY. |
 | `EGO_LITE_DO_WROCENIA.md` | 05.08 | 2K | EGO LITE — WATEK ODLOZONY (rozpoznane 5.08.2026) |
-| `HA_WYBICKIEGO.md` | 05.08 | 6K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
 | `NAUKI.md` | 05.08 | 18K | NAUKI — lekcje z produkcji (destylat) |
 | `ZACZEP_W_MOSCIE.md` | 05.08 | 3K | ZACZEP W MOSCIE — NIEMY REJESTRATOR (5.08.2026) |
 | `SLOWA_TOMASZA.md` | 05.08 | 21K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
