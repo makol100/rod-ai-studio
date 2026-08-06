@@ -2796,3 +2796,26 @@ ZROBIONE: opencv-python-headless + insightface 1.0.1 + onnxruntime w kontenerze 
 TEST BOJOWY na kadrach 10010: f01 wykryto 1 twarz pewnosc 0.75, f07 zero twarzy (kadr bez twarzy).
 HISTORIA: kontrola dzialala przy 10008/10009/10010 (Tomek 0.53-0.81, Janusz 0.38-0.61 przy progu 0.35). Znacznik TODO z 17.07 zostal mimo ze sprawa sie rozwiazala — biblioteka zniknela dopiero przy pozniejszej przebudowie kontenera.
 OSTATNI ODCINEK SERII: 10010 'Kiedy zlapiesz zlodzieja jablek', opublikowany, zamkniety 4.08.
+
+
+==============================================================================
+## SESJA 06.08.2026 08:17 CEST
+==============================================================================
+
+5.08 + 6.08 — NADRABIANIE (dziennik fabryki stal na 4.08 09:29, zaleglosc 1.0 dnia).
+
+=== 5.08 — DECYZJE I WATKI ===
+- REGULY PISANIA przyjete (D-0061; wtedy jako OSIEM). Zrodlo ayghri/i-have-adhd, MIT. Tomasz wskazal sam po zestawieniu 'Top 10 GitHub Repos This Week'. Wpiete w brief Klaudka + zlecenia zalogi.
+- POWIADOMIENIA tools/zadanie.py (D-0062) — wniosek Henia z narady 5.08: Tomasz ma dostawac sygnal po kazdym dlugim zadaniu.
+- LABEL-STUDIO — NIE INSTALOWAC (D-0063). Zenek proponowal na pomiar jakosci; Tomasz odrzucil.
+- EGO LITE (citrolabs/ego-lite) — ROZPOZNANE, ODLOZONE (D-0059, D-0060). Przegladarka dzielaca zalogowana sesje z agentem; wraca w wersji Windows.
+- CLAWMEM (yoloshii/ClawMem) — ROZPOZNANY, NIE INSTALOWANY (D-0048). Mechanizm pamieci MA ISC NA KLAUDKA, nie na Henia (D-0049, Tomasz: 'Kurwa nie na Heniu tylko na Klaudku'). NADAL NIEWDROZONY — otwarty watek.
+- HANS: limit 3/h -> 12/h (D-0050).
+- ZACZEP W MOSCIE budowany (D-0051); pomiar zaplanowany za 12h od startu fazy cichej 5.08 09:43 (D-0052) => okno pomiaru ~5.08 21:43. STATUS POMIARU nieustalony w rejestrach — do sprawdzenia w logach ZANIM ktokolwiek go powtorzy.
+
+=== 6.08 — TA SESJA (Klaudek + Henio) ===
+- REGULY PISANIA UZUPELNIONE DO PELNYCH 10 (commit d3b02e8, mtime ~05:56). Porownanie 1:1 z oryginalnym SKILL.md wykazalo, ze wersja z 5.08 miala 8 z 10 regul. Dopisano regule 9 (listy do 5 pozycji) i 10 (zero preambul/podsumowan/zamkniec) + dwie sekcje: 'kiedy wolno zlamac regule' (6 wyjatkow) oraz 'przed wyslaniem — szybki check'. Regul 1-8 nie zmieniano, WPADKI KLAUDKA zostaja. OSIEM->DZIESIEC w JAK_PISZEMY.md, INDEX.md, zaloga.py. Zrodlo zweryfikowane przez GitHub API: repo istnieje, 17357 gwiazdek, licencja MIT.
+- KRYMINALISTYKA LUKI (Henio, raport .scratch/henio_luka_6.08.md, 07:15). Material ktory ISTNIEJE a NIE jest w rejestrach: (1) 284 KB pelnych glosow zalogi z 4 narad w /tmp (czego_brakuje, zaczep_hans, clawmem2, narada_clawmem) — PRZEPADNA przy reboocie, do uratowania; (2) ~70 nowych linii sladu operacyjnego w .scratch/hans/most.jsonl z 5.08 wieczor (Tailscale/router) — na trwalym dysku, ale poza gitem; (3) niezacommitowana zmiana tools/mcp_wybickiego.py (usuniety limit 2500 znakow na odczytach HA Wybickiego); (4) usuniety, niezacommitowany .scratch/_sonda_zenek_siec.txt.
+- WERYFIKACJA OBALILA JEDNA LUKE HENIA: zglosil reel 000098 jako 'nowa produkcja z dzis rana, waga wysoka'. NIEPRAWDA — pomiar Klaudka: status.json ts=2026-07-25, opublikowano.txt=25.07 (juz na FB), final mtime 25.07. To stary reel sprzed 12 dni, 000098 to najswiezszy katalog reeli. Zadnej nowej produkcji poza rejestrami NIE MA. Zasada 'autor nie sprawdza sam siebie' zadzialala — niezalezny pomiar wylapal blad prawej reki.
+- OBSERWACJA KRYTYCZNA DO KOORDYNACJI: w trakcie tej sesji Klaudka INNE OKNO/AGENT pisalo do tego samego repo — JAK_PISZEMY.md zmienil sie 3206 -> 6350 B miedzy moimi turami, git czysty (zacommitowane obok). Realne ryzyko wzajemnego nadpisywania pracy. Autor commita d3b02e8 do ustalenia.
+- BEZPIECZENSTWO — DWA JAWNE SEKRETY (wymiana = decyzja/robota Tomasza): klucze API FAL_KEY + ANTHROPIC_API_KEY jawnym tekstem w docker-compose.yml (od 10.07, D-0021); haslo routera jawnym tekstem w .scratch/hans/most.jsonl (dlatego most.jsonl NIE commitowac wprost, dopoki nie oczyszczony).

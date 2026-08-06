@@ -581,3 +581,22 @@ ZMIERZONE PRZED ZAMKNIECIEM (HA Dzialka, N150):
 - encje niedostepne: 377 (baseline byl 488) — spadek o 111. Urzadzenia wracaly falami zgodnie z przewidywaniem.
 POZOSTAJE NIEZBADANE (nie jako watek, jako obserwacja): co skladа sie na te 377 — czy to glownie bateryjne Zigbee czekajace na pierwszy ruch, czy cos realnie martwego. Do sprawdzenia, gdy Tomasz uzna za potrzebne.
 Tomasz: 'Ten watek uwazam za zalatwiony.'
+
+
+==============================================================================
+## SESJA 06.08.2026 08:17 CEST
+==============================================================================
+
+5.08.2026 — CALY DZIEN NADRABIANY (dziennik HA stal na 4.08 09:22, zaleglosc 2.0 dnia; nadrobione 6.08 przez Klaudka).
+
+NOWA INSTALACJA — HA WYBICKIEGO (mieszkanie Sosnowiec, ul. Wybickiego):
+- Uruchomiony 5.08 (D-0055). Tailscale: host homeassistant, 100.67.61.100. Lacznik: sosnowiec.157-90-155-155.sslip.io.
+- SSH + terminal wlaczone (D-0056), polecenie Tomasza: 'Instaluj terminal i SSH na Wybickiego'.
+- ZABEZPIECZENIE GAZOWE NAPRAWIONE (D-0057): automatyzacja 'Wykrycie gazu zamkniecie zaworu' wisiala/nie dzialala — naprawiona.
+- Trasy Tailscale zatwierdzone (D-0064), uklad koncowy (D-0065). Klaudek robil to STEROJAC TELEFONEM Tomasza. Zasada Tomasza: 'Wszedzie siegaj' + 'Dzialka to priorytet'.
+
+TUYA — ZOSTAWIC JAK JEST (D-0058). Tomasz: 'Musze ogarnac sam te wszystkie urzadzenia'. Nie ruszamy.
+
+ROUTER NA DZIALCE — NIE DOTYKAC (D-0066, D-0067). Tomasz dosadnie: 'Zostaw router na dzialce w spokoju!!'. Zakaz bezterminowy. Kolizja sieci (nakladajace sie podsieci) ZOSTAJE nierozwiazana — swiadomie, na zyczenie Tomasza.
+
+STAN DZIALKA (obserwacja przeniesiona z 4.08, niezamknieta): 377 encji niedostepnych (baseline 488). Do sprawdzenia gdy Tomasz uzna — czy to bateryjne Zigbee czekajace na pierwszy ruch, czy cos realnie martwego.
