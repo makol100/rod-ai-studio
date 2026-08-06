@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 06.08.2026 06:17.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 06.08.2026 22:56.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 06.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-06 08:09:15 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 06.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-07 00:51:23 CEST |
 | `JAK_PISZEMY.md` | 06.08 | 6K | JAK PISZEMY — DZIESIEC REGUL (przyjete 5.08.2026, uzupelnione 6.08.2026) |
 | `NAUKI.md` | 05.08 | 19K | NAUKI — lekcje z produkcji (destylat) |
 | `HA_WYBICKIEGO.md` | 05.08 | 8K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
