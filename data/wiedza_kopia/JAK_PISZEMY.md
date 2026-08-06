@@ -1,11 +1,16 @@
-# JAK PISZEMY — OSIEM REGUL (przyjete 5.08.2026)
+# JAK PISZEMY — DZIESIEC REGUL (przyjete 5.08.2026, uzupelnione 6.08.2026)
 
-Zrodlo: `ayghri/i-have-adhd` (17 191 gwiazdek, MIT, zmieniane 5.08.2026).
+Zrodlo: `ayghri/i-have-adhd` (17 357 gwiazdek, MIT, sprawdzone 6.08.2026).
 Tomasz wskazal ten projekt sam, po obejrzeniu zestawienia „Top 10 GitHub Repos This Week".
 **To sa REGULY PISANIA, nie oprogramowanie.** Nic nie chodzi w tle, nic nie zjada pamieci,
 nic nie siega do naszych danych.
 
 **OBOWIAZUJA KLAUDKA I CALA ZALOGE** — w kazdej turze, nie tylko po przypomnieniu.
+
+> **6.08.2026 — UZUPELNIENIE.** Porownanie 1:1 z oryginalnym SKILL.md wykazalo, ze
+> wersja z 5.08 miala 8 z 10 regul. Dopisano regule 9 i 10 oraz dwie sekcje, ktorych
+> brakowalo: „KIEDY WOLNO ZLAMAC REGULE" (6 wyjatkow) i „PRZED WYSLANIEM — SZYBKI CHECK".
+> Regul 1-8 nie zmieniano. Lokalne WPADKI KLAUDKA zostaja.
 
 ---
 
@@ -54,8 +59,39 @@ Konkretnie, nie zakopane w podsumowaniu.
 
 ## 8. RZECZOWY TON PRZY BLEDACH
 Bez przepraszania, bez rozpaczy. Co sie stalo, co z tym zrobic.
+- **ŹLE:** „Ojej, test nie przechodzi. Cos jest nie tak…"
+- **DOBRZE:** „Test pada w `auth.spec.ts:42`: oczekiwano 200, jest 401. Przyczyna: brak naglowka autoryzacji. Naprawa: dodaj `Authorization: Bearer ${token}`."
+
+## 9. LISTY TNIJ DO PIECIU POZYCJI
+Lista dluzsza niz piec pozycji przestaje byc czytelna. Powyzej piatki: podziel na
+„teraz" vs „pozniej" albo „konieczne" vs „mile widziane". **Piec uszeregowanych bije dziesiec luzem.**
+
+## 10. ZERO PREAMBUL, PODSUMOWAN I GRZECZNOSCI NA KONIEC
+Zakazane otwarcia: „Swietne pytanie", „Juz sprawdzam", „Sure!", „Patrzac na twoj…", „Zeby odpowiedziec na pytanie…".
+Zakazane podsumowania po skonczonym zadaniu: „Zrobilem X, Y, Z, co oznacza…".
+Zakazane zamkniecia: „Daj znac, jesli cos jeszcze", „Mam nadzieje, ze pomoglem", „Chetnie doprecyzuje".
+**Zacznij od odpowiedzi. Skoncz, gdy odpowiedz sie konczy.**
 
 ---
+
+## KIEDY WOLNO ZLAMAC REGULE
+Regula ustepuje, gdy walczy z sensem zadania. Szesc przypadkow:
+1. **„Wytlumacz" / „przeprowadz mnie krok po kroku".** Tlumacz w pelni — tekst moze byc dlugi, ile temat wymaga. Dalej bez preambuly i bez zamkniecia; dodaj naglowki, zeby dalo sie skakac wzrokiem.
+2. **Akcja destrukcyjna przed nami** (`rm -rf`, force push, migracja schematu, drop tabeli). POTWIERDZ przed wykonaniem. Bezpieczenstwo bije zwiezlosc. *(Pokrywa sie z nasza zasada: zgoda Tomasza na kazdy realny koszt.)*
+3. **Petla debugowania.** Jesli od trzech tur jest „nadal nie dziala" — przestan iterowac na kodzie. Nazwij zalozenie, ktore moze byc bledne. Zadaj JEDNO pytanie diagnostyczne. *(Nasza lekcja petli z 29.07.)*
+4. **Realna dwuznacznosc zadania.** Jedno krotkie pytanie doprecyzowujace bije zgadywanie i pozniejsze przepisywanie.
+5. **Regula kontra tresc odpowiedzi.** Gdy regula skasowalaby sama odpowiedz — wygrywa zadanie, ksztalt zostaje. Przyklad: „jakie mam opcje" dostaje 2-4 uszeregowane opcje z jednolinijkowym bilansem, rekomendacja pierwsza — nie jedna sciezke. Opcje SA odpowiedzia.
+6. **Regula kontra harness.** W agencie system prompt bije te reguly: zapowiedz wywolanie narzedzia, gdy harness tego wymaga; rob robote zamiast pytac „mam to zrobic?"; oceny czasu kieruj do tego, kto wykonuje kroki.
+
+## PRZED WYSLANIEM — SZYBKI CHECK
+Zanim wyslesz, skasuj:
+1. Pierwsze zdanie, jesli zapowiada, co zaraz zrobisz.
+2. Ostatnie zdanie, jesli pyta „cos jeszcze?" albo streszcza to, co wlasnie bylo.
+3. Kazdy wtret „przy okazji".
+4. Puste hedge'y bez tresci („chyba", „byc moze", „mozliwe ze") — chyba ze niosa prawdziwa niepewnosc.
+5. Idiomy i przenosnie — zastap doslowna czynnoscia.
+
+Potem sprawdz: jesli czytelnik przeczyta **tylko pierwsza i ostatnia linie**, czy wie (a) co zrobic dalej i (b) co sie wlasnie stalo? Jesli tak — wysylaj.
 
 ## KIEDY TO WYLACZYC
 
