@@ -178,6 +178,44 @@ class PamiecStanTest(unittest.TestCase):
             self.assertIn("Krok Zenka", zenek_graph)
             self.assertNotIn("Krok Klaudka", zenek_graph)
 
+    def test_aktualizuj_status_zachowuje_pozostale_pola(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            workspace = Path(temporary_directory)
+            source = workspace / "dowod.txt"
+            source.write_text("dowod\n", encoding="utf-8")
+
+            self.run_stan(
+                workspace,
+                "dodaj",
+                "--opis",
+                "Trwa implementacja",
+                "--status",
+                "w_toku",
+                "--zrodlo",
+                source.name,
+            )
+            registry_path = workspace / ".scratch" / "stan" / "klaudek" / "rejestr.jsonl"
+            before = json.loads(registry_path.read_text(encoding="utf-8"))
+
+            updated = self.run_stan(
+                workspace,
+                "aktualizuj",
+                "--agent",
+                "klaudek",
+                "--node_id",
+                "n001",
+                "--status",
+                "zrobione",
+            )
+            after = json.loads(registry_path.read_text(encoding="utf-8"))
+
+            self.assertEqual(b"n001\n", updated.stdout)
+            self.assertEqual("zrobione", after["status"])
+            self.assertEqual(
+                {key: value for key, value in before.items() if key != "status"},
+                {key: value for key, value in after.items() if key != "status"},
+            )
+
     def test_zrodlo_most_drill_down_wycina_wskazany_fragment(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             workspace = Path(temporary_directory)
