@@ -8,6 +8,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -207,6 +208,50 @@ def command_add(args: argparse.Namespace) -> None:
     print(node_id)
 
 
+def command_update(args: argparse.Namespace) -> None:
+    if args.status is None and args.opis is None:
+        raise StanError("aktualizuj wymaga --status i/lub --opis")
+
+    state_dir, _, registry = agent_paths(args.agent)
+    nodes = load_nodes(args.agent)
+    updated = False
+    for node in nodes:
+        if node["node_id"] != args.node_id:
+            continue
+        if args.status is not None:
+            node["status"] = args.status
+        if args.opis is not None:
+            node["opis"] = args.opis
+        updated = True
+        break
+
+    if not updated:
+        warn(f"nieznany node_id: {args.node_id}")
+        return
+
+    state_dir.mkdir(parents=True, exist_ok=True)
+    temporary_path: str | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=state_dir,
+            prefix="rejestr.",
+            suffix=".tmp",
+            delete=False,
+        ) as temporary_file:
+            temporary_path = temporary_file.name
+            for node in nodes:
+                temporary_file.write(
+                    json.dumps(node, ensure_ascii=False, separators=(",", ":")) + "\n"
+                )
+        os.replace(temporary_path, registry)
+    finally:
+        if temporary_path is not None and os.path.exists(temporary_path):
+            os.unlink(temporary_path)
+    print(args.node_id)
+
+
 def command_graph(args: argparse.Namespace) -> None:
     state_dir, _, _ = agent_paths(args.agent)
     graph_path = state_dir / "graf.md"
@@ -274,6 +319,12 @@ def parser() -> argparse.ArgumentParser:
     add.add_argument("--zaleznosci")
     sources.add_argument("--tresc-z-stdin", action="store_true")
     add.set_defaults(handler=command_add)
+    update = commands.add_parser("aktualizuj")
+    update.add_argument("--agent", default=argparse.SUPPRESS, help="przestrzen stanu agenta")
+    update.add_argument("--node_id", required=True)
+    update.add_argument("--status", choices=STATUSES)
+    update.add_argument("--opis")
+    update.set_defaults(handler=command_update)
     graph = commands.add_parser("graf")
     graph.add_argument("--agent", default=argparse.SUPPRESS, help="przestrzen stanu agenta")
     graph.set_defaults(handler=command_graph)

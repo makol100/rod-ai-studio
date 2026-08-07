@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 07.08.2026 10:09.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 07.08.2026 12:19.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 07.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-07 11:59:29 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 07.08 | 2K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-07 14:01:30 CEST |
 | `JAK_PISZEMY.md` | 06.08 | 6K | JAK PISZEMY — DZIESIEC REGUL (przyjete 5.08.2026, uzupelnione 6.08.2026) |
 | `NAUKI.md` | 05.08 | 19K | NAUKI — lekcje z produkcji (destylat) |
 | `HA_WYBICKIEGO.md` | 05.08 | 8K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
@@ -53,7 +53,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 277K | 06.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 279K | 07.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 49K | 06.08 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
