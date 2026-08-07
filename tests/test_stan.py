@@ -216,6 +216,38 @@ class PamiecStanTest(unittest.TestCase):
                 {key: value for key, value in after.items() if key != "status"},
             )
 
+    def test_pokaz_regeneruje_graf_po_aktualizacji_statusu(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            workspace = Path(temporary_directory)
+            source = workspace / "dowod.txt"
+            source.write_text("dowod\n", encoding="utf-8")
+
+            self.run_stan(
+                workspace,
+                "dodaj",
+                "--opis",
+                "Status ma byc aktualny",
+                "--status",
+                "w_toku",
+                "--zrodlo",
+                source.name,
+            )
+            self.run_stan(
+                workspace,
+                "aktualizuj",
+                "--node_id",
+                "n001",
+                "--status",
+                "zrobione",
+            )
+
+            shown = self.run_stan(workspace, "pokaz").stdout.decode("utf-8")
+
+            self.assertIn("n001 | zrobione | Status ma byc aktualny", shown)
+            self.assertNotIn("n001 | w_toku | Status ma byc aktualny", shown)
+            graph_path = workspace / ".scratch" / "stan" / "klaudek" / "graf.md"
+            self.assertEqual(shown, graph_path.read_text(encoding="utf-8"))
+
     def test_zrodlo_most_drill_down_wycina_wskazany_fragment(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             workspace = Path(temporary_directory)

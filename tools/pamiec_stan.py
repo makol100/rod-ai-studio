@@ -252,10 +252,10 @@ def command_update(args: argparse.Namespace) -> None:
     print(args.node_id)
 
 
-def command_graph(args: argparse.Namespace) -> None:
-    state_dir, _, _ = agent_paths(args.agent)
+def regenerate_graph(agent: str) -> Path:
+    state_dir, _, _ = agent_paths(agent)
     graph_path = state_dir / "graf.md"
-    nodes = load_nodes(args.agent)
+    nodes = load_nodes(agent)
     missing = validate_sources(nodes)
     if missing:
         for node in nodes:
@@ -265,15 +265,17 @@ def command_graph(args: argparse.Namespace) -> None:
     graph = capped_graph(nodes)
     state_dir.mkdir(parents=True, exist_ok=True)
     graph_path.write_text(graph, encoding="utf-8")
+    return graph_path
+
+
+def command_graph(args: argparse.Namespace) -> None:
+    graph_path = regenerate_graph(args.agent)
     print(graph_path.relative_to(ROOT))
 
 
 def command_show(args: argparse.Namespace) -> None:
-    state_dir, _, _ = agent_paths(args.agent)
-    graph_path = state_dir / "graf.md"
     if not args.node_id:
-        if not graph_path.is_file():
-            raise StanError("graf.md nie istnieje; uruchom najpierw: graf")
+        graph_path = regenerate_graph(args.agent)
         sys.stdout.write(graph_path.read_text(encoding="utf-8"))
         return
     nodes = {node["node_id"]: node for node in load_nodes(args.agent)}
