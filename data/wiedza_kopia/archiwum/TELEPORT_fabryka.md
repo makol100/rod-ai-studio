@@ -2833,3 +2833,10 @@ SESJA 6-7.08: (1) ROUTER SOSNOWCA przenumerowany 192.168.0.1->192.168.50.1 (Toma
 ==============================================================================
 
 DZIALKA NAPRAWIONA (7.08): router 192.168.0.1 niedosiegalny z VPS mimo trasy Tailscale approved. Przyczyna: snat_subnet_routes=FALSE na add-onie Tailscale Dzialki (Dom i Sosnowiec maja TRUE) - bez SNAT ruch z tailnetu nie wracal z LAN. Naprawa: ha_manage_addon (connector HA DZIALKA) options snat_subnet_routes=true + restart add-onu. Po restarcie router .0.1 PING OK + HTTP 200. WSZYSTKIE 3 LOKACJE GOTOWE: Dzialka .0.1, Sosnowiec .50.1, Dom .68.1. NIE dotykano routera Dzialki (D-0067) - zmiana tylko w add-onie Tailscale HA. Uwaga: Dzialka ma accept_routes=false/accept_dns=false (Dom/Sosnowiec true) - nie widzi tras innych lokacji; pelne site-to-site wymagaloby wlaczenia.
+
+
+==============================================================================
+## SESJA 07.08.2026 14:29 CEST
+==============================================================================
+
+DZIALKA site-to-site (7.08): wlaczono accept_routes=true + accept_dns=true na add-onie Tailscale Dzialki (byly false; Dom/Sosnowiec maja true) + restart. Po restarcie Dzialka nadal dosiegalna z VPS (node OK, router .0.1 PING + HTTP 200, accept_dns nie zepsul). Wszystkie 3 lokacje maja teraz spojna konfiguracje Tailscale (snat+accept_routes+accept_dns=true) = pelne site-to-site. Router Dzialki NIE dotykany (D-0067).
