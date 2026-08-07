@@ -17,6 +17,8 @@ ROOT = Path.cwd()
 STATUSES = ("zrobione", "w_toku", "bloker")
 GRAPH_CAP = 4000
 AGENT_PATTERN = re.compile(r"^[A-Za-z0-9_-]+$")
+LINE_RANGE_PATTERN = re.compile(r"^(\d+):(\d+)$")
+MOST_SOURCE = ".scratch/hans/most.jsonl"
 
 
 class StanError(Exception):
@@ -50,8 +52,59 @@ def source_path(source: str) -> Path:
     return path if path.is_absolute() else ROOT / path
 
 
+def most_fragment(range_spec: str) -> tuple[bytes, str | None]:
+    path = source_path(MOST_SOURCE)
+    if not path.is_file():
+        return b"", f"most nie istnieje: {MOST_SOURCE}"
+    lines = path.read_bytes().splitlines(keepends=True)
+    line_match = LINE_RANGE_PATTERN.fullmatch(range_spec)
+    if line_match:
+        start, end = map(int, line_match.groups())
+        if start < 1 or end < start or end > len(lines):
+            return b"", f"zakres linii {range_spec} nie istnieje w {MOST_SOURCE}"
+        return b"".join(lines[start - 1 : end]), None
+    if ".." not in range_spec:
+        return b"", f"bledny zakres mostu: {range_spec}"
+    start_text, end_text = range_spec.split("..", 1)
+    try:
+        start = datetime.fromisoformat(start_text)
+        end = datetime.fromisoformat(end_text)
+    except ValueError:
+        return b"", f"bledny zakres czasu mostu: {range_spec}"
+    if end < start:
+        return b"", f"odwrocony zakres czasu mostu: {range_spec}"
+    selected = []
+    for number, raw_line in enumerate(lines, 1):
+        try:
+            timestamp = datetime.fromisoformat(json.loads(raw_line)["ts"])
+        except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+            continue
+        try:
+            in_range = start <= timestamp <= end
+        except TypeError:
+            return b"", f"niezgodne strefy czasowe zakresu i mostu: {range_spec}"
+        if in_range:
+            selected.append(raw_line)
+    if not selected:
+        return b"", f"zakres czasu {range_spec} jest pusty w {MOST_SOURCE}"
+    return b"".join(selected), None
+
+
+def source_warning(node: dict) -> str | None:
+    if "zrodlo_most" in node:
+        _, warning = most_fragment(node["zrodlo_most"])
+        return warning
+    if not source_path(node["zrodlo"]).is_file():
+        return f'brak pliku zrodlowego: {node["zrodlo"]}'
+    return None
+
+
 def validate_sources(nodes: list[dict]) -> list[str]:
-    return [node["node_id"] for node in nodes if not source_path(node["zrodlo"]).is_file()]
+    return [node["node_id"] for node in nodes if source_warning(node)]
+
+
+def warn(message: str) -> None:
+    print(f"OSTRZEZENIE: {message}", file=sys.stderr)
 
 
 def mermaid_label(text: str) -> str:
@@ -117,15 +170,20 @@ def command_add(args: argparse.Namespace) -> None:
     node_id = f"n{next_number:03d}"
 
     state_dir.mkdir(parents=True, exist_ok=True)
+    source_range = None
     if args.tresc_z_stdin:
         refs_dir.mkdir(parents=True, exist_ok=True)
         raw = sys.stdin.buffer.read()
         path = refs_dir / f"{node_id}.md"
         path.write_bytes(raw)
         source = path.relative_to(ROOT).as_posix()
+    elif args.zrodlo_most:
+        source = MOST_SOURCE
+        source_range = args.zrodlo_most
+        _, warning = most_fragment(source_range)
+        if warning:
+            warn(warning)
     else:
-        if not args.zrodlo:
-            raise StanError("podaj --zrodlo albo --tresc-z-stdin")
         path = source_path(args.zrodlo)
         if not path.is_file():
             raise StanError(f"zrodlo nie istnieje: {args.zrodlo}")
@@ -142,6 +200,8 @@ def command_add(args: argparse.Namespace) -> None:
         "zrodlo": source,
         "zaleznosci": dependencies,
     }
+    if source_range is not None:
+        node["zrodlo_most"] = source_range
     with registry.open("a", encoding="utf-8") as registry_file:
         registry_file.write(json.dumps(node, ensure_ascii=False, separators=(",", ":")) + "\n")
     print(node_id)
@@ -153,7 +213,10 @@ def command_graph(args: argparse.Namespace) -> None:
     nodes = load_nodes(args.agent)
     missing = validate_sources(nodes)
     if missing:
-        raise StanError(f"brak pliku zrodlowego dla: {','.join(missing)}")
+        for node in nodes:
+            warning = source_warning(node)
+            if warning:
+                warn(f'{node["node_id"]}: {warning}')
     graph = capped_graph(nodes)
     state_dir.mkdir(parents=True, exist_ok=True)
     graph_path.write_text(graph, encoding="utf-8")
@@ -171,7 +234,14 @@ def command_show(args: argparse.Namespace) -> None:
     nodes = {node["node_id"]: node for node in load_nodes(args.agent)}
     if args.node_id not in nodes:
         raise StanError(f"nieznany node_id: {args.node_id}")
-    path = source_path(nodes[args.node_id]["zrodlo"])
+    node = nodes[args.node_id]
+    if "zrodlo_most" in node:
+        fragment, warning = most_fragment(node["zrodlo_most"])
+        if warning:
+            warn(f'{args.node_id}: {warning}')
+        sys.stdout.buffer.write(fragment)
+        return
+    path = source_path(node["zrodlo"])
     if not path.is_file():
         raise StanError(f"brak pliku zrodlowego dla: {args.node_id}")
     sys.stdout.buffer.write(path.read_bytes())
@@ -198,9 +268,11 @@ def parser() -> argparse.ArgumentParser:
     add.add_argument("--agent", default=argparse.SUPPRESS, help="przestrzen stanu agenta")
     add.add_argument("--opis", required=True)
     add.add_argument("--status", choices=STATUSES, required=True)
-    add.add_argument("--zrodlo")
+    sources = add.add_mutually_exclusive_group(required=True)
+    sources.add_argument("--zrodlo")
+    sources.add_argument("--zrodlo-most")
     add.add_argument("--zaleznosci")
-    add.add_argument("--tresc-z-stdin", action="store_true")
+    sources.add_argument("--tresc-z-stdin", action="store_true")
     add.set_defaults(handler=command_add)
     graph = commands.add_parser("graf")
     graph.add_argument("--agent", default=argparse.SUPPRESS, help="przestrzen stanu agenta")
