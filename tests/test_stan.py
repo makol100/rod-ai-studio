@@ -178,6 +178,53 @@ class PamiecStanTest(unittest.TestCase):
             self.assertIn("Krok Zenka", zenek_graph)
             self.assertNotIn("Krok Klaudka", zenek_graph)
 
+    def test_zrodlo_most_drill_down_wycina_wskazany_fragment(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            workspace = Path(temporary_directory)
+            most = workspace / ".scratch" / "hans" / "most.jsonl"
+            most.parent.mkdir(parents=True)
+            lines = [
+                b'{"ts":"2026-08-06T10:00:00","podglad":"pierwszy"}\n',
+                b'{"ts":"2026-08-06T10:01:00","podglad":"drugi"}\n',
+                b'{"ts":"2026-08-06T10:02:00","podglad":"trzeci"}\n',
+                b'{"ts":"2026-08-06T10:03:00","podglad":"czwarty"}\n',
+            ]
+            most.write_bytes(b"".join(lines))
+
+            added = self.run_stan(
+                workspace,
+                "dodaj",
+                "--opis",
+                "Dowod z mostu",
+                "--status",
+                "w_toku",
+                "--zrodlo-most",
+                "2:3",
+            )
+            self.assertEqual(b"n001\n", added.stdout)
+            registry_path = workspace / ".scratch" / "stan" / "klaudek" / "rejestr.jsonl"
+            node = json.loads(registry_path.read_text(encoding="utf-8"))
+            self.assertEqual(".scratch/hans/most.jsonl", node["zrodlo"])
+            self.assertEqual("2:3", node["zrodlo_most"])
+
+            drill_down = self.run_stan(workspace, "pokaz", "--node_id", "n001")
+            self.assertEqual(b"".join(lines[1:3]), drill_down.stdout)
+            self.assertEqual(b"", drill_down.stderr)
+
+            by_time = self.run_stan(
+                workspace,
+                "dodaj",
+                "--opis",
+                "Dowod z mostu po czasie",
+                "--status",
+                "zrobione",
+                "--zrodlo-most",
+                "2026-08-06T10:01:00..2026-08-06T10:02:00",
+            )
+            self.assertEqual(b"n002\n", by_time.stdout)
+            time_drill_down = self.run_stan(workspace, "pokaz", "--node_id", "n002")
+            self.assertEqual(b"".join(lines[1:3]), time_drill_down.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()
