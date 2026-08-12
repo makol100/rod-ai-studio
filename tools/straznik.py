@@ -12,8 +12,8 @@ Werdykt: PASS / WARN / FAIL per strażnik + zbiorczy. Kod wyjścia 0=PASS, 1=FAI
 import argparse, json, re, subprocess, sys, tempfile
 from pathlib import Path
 
-def _run(cmd):
-    return subprocess.run(cmd, capture_output=True, text=True)
+def _run(cmd, cwd=None):
+    return subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
 
 def _klatki(plik, n, katalog):
     """Wyciąga n klatek równomiernie; zwraca listę ścieżek."""
@@ -219,9 +219,9 @@ def straznik_ust(plik):
         return {"status": "POMINIĘTY", "detale": "ETAP 3: brak torch"}
     with tempfile.TemporaryDirectory() as td:
         r1 = _run([sys.executable, str(syncdir / "run_pipeline.py"),
-                   "--videofile", str(plik), "--reference", "qc", "--data_dir", td])
+                   "--videofile", str(plik), "--reference", "qc", "--data_dir", td], cwd=str(syncdir))
         r2 = _run([sys.executable, str(syncdir / "run_syncnet.py"),
-                   "--videofile", str(plik), "--reference", "qc", "--data_dir", td])
+                   "--videofile", str(plik), "--reference", "qc", "--data_dir", td], cwd=str(syncdir))
         wyj = r2.stdout + r2.stderr + r1.stderr
     m_c = re.search(r"Confidence:\s*([\d.]+)", wyj)
     m_o = re.search(r"AV offset:\s*(-?\d+)", wyj)

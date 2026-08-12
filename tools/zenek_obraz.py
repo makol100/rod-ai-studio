@@ -17,9 +17,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 API = "https://generativelanguage.googleapis.com/v1beta"
+# MARTWE NA NASZYM KONCIE (usuniete 12.08.2026 po tescie): imagen-4.0-fast-generate-001
+# -> API 404 "no longer available to new users". Nie przywracac bez ponownego testu.
 MODELE = {
-    "imagen-4.0-fast": ("imagen-4.0-fast-generate-001", 0.02, "predict"),
-    "imagen-4.0-fast-generate-001": ("imagen-4.0-fast-generate-001", 0.02, "predict"),
     "gemini-3.1-flash-image": ("gemini-3.1-flash-image", 0.067, "generateContent"),
     "nano-banana-pro": ("nano-banana-pro-preview", 0.134, "generateContent"),
     "nano-banana-pro-preview": ("nano-banana-pro-preview", 0.134, "generateContent"),
