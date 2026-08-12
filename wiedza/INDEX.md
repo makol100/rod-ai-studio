@@ -1,17 +1,26 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 07.08.2026 12:30.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 12.08.2026 10:41.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (37), od najswiezszego
+## Pliki wiedzy (45), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 07.08 | 2K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-07 14:01:30 CEST |
+| `PRZEGLAD_WARSZTATU_2026-08-12.md` | 12.08 | 4K | PRZEGLAD WARSZTATU ZALOGI (12.08.2026) — "czego CI brakuje do produkcji" |
+| `GENEROWANIE_OBRAZU.md` | 12.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
+| `DECYZJE_OPENCLAW.md` | 12.08 | 4K | DECYZJA TOMASZA (2026-08-12): OpenClaw WDROZYC — pilotaz proaktywnosci 24/7 |
+| `BRIEF_DLA_KLAUDKA.md` | 12.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-12 12:24:54 CEST |
+| `BANK_PROMPTOW.md` | 12.08 | 1K | BANK PROMPTOW-ZWYCIEZCOW (dekret 23.07 pkt 3, wdrozony 12.08 dekretem "Wszystko") |
+| `PILOT_MOST_PLAN.md` | 12.08 | 2K | PILOT MOSTU MIEDZYSESYJNEGO — PLAN v2 (po opiniach zalogi, 12.08.2026) |
+| `MOST_MIEDZYSESYJNY.md` | 12.08 | 2K | MOST MIEDZYSESYJNY CLAUDE CODE — ZWERYFIKOWANY 12.08.2026 |
+| `WYSZUKIWARKI.md` | 11.08 | 1K | NIEZALEZNE WYSZUKIWARKI ZALOGI (nie przez Klaudka, nie Gemini) |
+| `WYSZUKIWARKA.md` | 11.08 | 1K | NIEZALEZNA WYSZUKIWARKA ZALOGI - SearXNG na VPS |
+| `MOST_WEB.md` | 11.08 | 1K | MOST WEB — internet dla ZENKA i HENIA PRZEZ KLAUDKA (nie Gemini) |
 | `JAK_PISZEMY.md` | 06.08 | 6K | JAK PISZEMY — DZIESIEC REGUL (przyjete 5.08.2026, uzupelnione 6.08.2026) |
 | `NAUKI.md` | 05.08 | 19K | NAUKI — lekcje z produkcji (destylat) |
 | `HA_WYBICKIEGO.md` | 05.08 | 8K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
@@ -29,7 +38,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `PROCEDURY.md` | 04.08 | 3K | PROCEDURY — jak się robi |
 | `HANS_AGENT.md` | 03.08 | 6K | HANS — AGENT SPECJALNY |
 | `KONTROLA_KLAUDKA.md` | 03.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
-| `GENEROWANIE_OBRAZU.md` | 01.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `ZALOGA_LIMITY.md` | 30.07 | 4K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
 | `KONEKTOR_DZIALKA.md` | 29.07 | 2K | KONEKTOR HA DZIAŁKA — NAPRAWIONY 29.07.2026 |
 | `START_SESJI_CLAUDE_CODE.md` | 29.07 | 2K | START SESJI CLAUDE CODE — co ładuje się automatycznie (29.07.2026) |
@@ -53,7 +61,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 280K | 07.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 2K | 12.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 49K | 06.08 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
