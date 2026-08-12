@@ -73,7 +73,7 @@ def droga_cli(zadanie: str, limit_s: int, model: str = "") -> tuple:
     powody = []
     for m in do_proby:
         try:
-            w = subprocess.run(["gemini", "--yolo", "-m", m, "-p", zadanie], cwd=REPO, env=srodowisko,
+            w = subprocess.run(["gemini", "--yolo", "--skip-trust", "-m", m, "-p", zadanie], cwd=REPO, env=srodowisko,
                                capture_output=True, text=True, timeout=na_model)
         except subprocess.TimeoutExpired:
             powody.append(f"{m}: przekroczony czas {na_model}s")

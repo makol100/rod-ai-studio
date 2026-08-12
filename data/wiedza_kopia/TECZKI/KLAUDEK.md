@@ -187,3 +187,8 @@ Tym razem z tą różnicą, że Klaudek nie tylko nie zaktualizował starego zap
 nowy fałszywy** i podał go Tomaszowi jako podstawę decyzji.
 
 Sprostowane: D-0017, notatnik Genka założony i sprawdzony jego własnym zapisem.
+
+## 9.08.2026 — Sosnowiec MQTT: solo + strata SSH
+BŁĄD 1 (proceduralny): caly watek diagnozy Zigbee/MQTT Sosnowca (100.67.61.100) ciagnalem SOLO, bez zwolania zalogi — zlamalem "DRUZYNA ZAWSZE". Tomasz przypomnial "Masz grupe?". Zwolac Zenka+Henia od razu przy kazdym trudnym problemie.
+BŁĄD 2 (techniczny, kosztowny): przelaczajac SSH z core_ssh na Advanced SSH, zatrzymalem core_ssh ZANIM potwierdzilem ze Advanced SSH przejal port 22. Advanced SSH nie re-bindowal 22 (nohup w kontenerze core_ssh ginie przy stopie) — STRACILEM caly SSH do Sosnowca, Tomasz musial recznie uruchomic core_ssh w UI. Lekcja: NIGDY nie stopowac jedynego kanalu dostepu przed potwierdzeniem dzialajacego drugiego; przelaczanie host_network SSH addonow = chicken-egg (Zenek+Henio potwierdzili: bezpiecznie tylko konsola hosta albo Ingress).
+DOBRE: diagnoza trafna (siec 192.168.0->50.x, stary broker 192.168.0.107, Z2M bierze adres z Supervisor MQTT service nie z pliku) — Zenek+Henio potwierdzili, Zenek dodal hipoteze zakleszczonego starego wpisu MQTT service w prywatnych danych Supervisora (poprawka "remove stale registration" dopiero 5.08).

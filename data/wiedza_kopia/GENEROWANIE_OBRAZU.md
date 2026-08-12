@@ -43,3 +43,8 @@ NIE używać domyślnie — jest droższa i to osobne konto.
   (dekret Tomasza „najwyższy WOLNY dla nas model"), patrz `tools/genek.py`
 - Dobowy limit Tier 1 na `gemini-3.1-pro`: 250 zapytań, wyczerpany 30.07 o 17:50
 - Ceny sprawdzone 01.08.2026 w sieci; **ceny się zmieniają — przy dużym wydatku sprawdzić ponownie**
+
+## KOREKTA 12.08.2026 (testy za zgoda Tomasza, ~$0.09)
+- imagen-4.0-fast-generate-001: MARTWY dla naszego konta — API 404 "no longer available to new users" (migracja na Interactions API). USUNAC z drog.
+- gemini-3.1-flash-image: POTWIERDZONY testem — generateContent+inlineData, obraz.png 924KB JPEG OK, $0.067. NAJTANSZA DZIALAJACA droga (kanon bez zmian).
+- Klient Zenka: tools/zenek_obraz.py (bramka --zaplac; --lista darmowa).
