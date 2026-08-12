@@ -34,3 +34,13 @@ D. Genek: staly odczyt kanonow/kart stylu (dysk read-only dla jego sciezki) + ba
 
 ## TORCH/SYNCNET — USTALENIE (12.08)
 Torch NIE wymaga instalacji: kontener fabryka-api ma 2.13.0+cpu, venv Henia 2.13.0+cu130. tools/syncnet_python/run_syncnet.py JEST i kontener widzi go przez bind pod ta sama sciezka. Droga usta_sync w pipeline Wiadomosci: docker exec fabryka-api ./venv/bin/python /root/rod-ai-studio/tools/syncnet_python/run_syncnet.py <mp4>. Zenek wpina adapter przy odbiorze.
+
+## ODBIOR WARSZTATU A+B (12.08, wieczor) — ZAMKNIETY
+- NAPRAWA STRAZNIKA UST (Klaudek): raportowany przez Zenka "brak torcha" byl BLEDNA diagnoza. Torch jest w kontenerze. Prawdziwa przyczyna: straznik_ust uruchamial syncnet z ZLEGO katalogu roboczego -> syncnet nie znajdowal wag i milczal -> status wiecznie POMINIETY. Poprawka: cwd=str(syncdir) w obu wywolaniach (_run przyjmuje teraz cwd). DOWOD PO POPRAWCE: PASS, confidence 6.639, av_offset 1 (awatar_stanislaw_powitanie_v3_pro.mp4, uruchomione w kontenerze fabryka-api).
+- KONTROLA ZALOGI NA ROWNYCH PRAWACH (Henio wlasnym launcherem, Genek z --material; Zenek jako autor NIE ocenial sam siebie):
+  * Bramka kosztowa zenek_obraz.py: SZCZELNA — zgodnie oba glosy (Genek wskazal wczesny return, linie 105-106). Bez --zaplac zadnego platnego zadania.
+  * pipeline_wiadomosci.py: flaga --test-offline PRZEPUSZCZA eksport mimo POMINIETEJ kontroli ust (Henio: linie 58-60, "nie bug, swiadome obejscie, ale plik fizycznie powstaje"). Do pamietania przy produkcji.
+  * Zadnej sciezki do wydania pieniedzy bez zgody Tomasza — potwierdzone niezaleznie przez obu.
+- SPRZATNIETE: imagen-4.0-fast usuniety z MODELE w zenek_obraz.py (martwy 404), z komentarzem ostrzegawczym.
+- DECYZJA TOMASZA 12.08: GLOS IZABELI ZOSTAJE KANONICZNY (ElevenLabs v3 przez fal.ai, voice Charlotte) — nie schodzimy na darmowy edge-tts mimo kosztu; glos to znak rozpoznawczy postaci.
+- OTWARTE (czeka na Tomasza): pierwszy platny odcinek Izabeli przez nowy pipeline — wymaga adaptera platnego TTS+awatara, dzis --zaplac twardo STOP.
