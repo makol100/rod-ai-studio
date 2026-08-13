@@ -1,0 +1,90 @@
+## POTWIERDZONE
+
+### P1. Najlepsza droga: D — integracja Hikvision podłączona do NVR `192.168.3.110`
+
+Jedna integracja NVR powinna:
+
+- automatycznie wykryć 4 kanały i utworzyć 4 encje `camera`;
+- pobierać obraz przez RTSP;
+- utworzyć `binary_sensor` dla ruchu i innych zdarzeń.
+
+Obecna dokumentacja HA podaje wprost, że integracja Hikvision obsługuje kamery i NVR-y, tworzy encje kamer RTSP, automatycznie wykrywa kanały NVR oraz parsuje strumień zdarzeń. To daje obraz i detekcję w jednej drodze. [Home Assistant — Hikvision](https://www.home-assistant.io/integrations/hikvision/)
+
+ONVIF odrzucam: pomiar `/onvif/device_service = 404` nie dowodzi definitywnie wyłączenia każdej implementacji ONVIF, ale nie daje podstaw do wybrania tej drogi. Integracja ONVIF potrzebuje działającej usługi urządzenia i używa PullPoint/webhooków do zdarzeń. [Home Assistant — ONVIF](https://www.home-assistant.io/integrations/onvif/)
+
+Warunki działania zdarzeń Hikvision:
+
+1. W kamerach/NVR musi być zaznaczone `Notify the surveillance center`.
+2. Użytkownik musi mieć uprawnienie `Remote: Notify Surveillance Center/Trigger Alarm Output`.
+3. `WEB Authentication` musi być ustawione na `digest/basic`; przy NVR dokumentacja każe sprawdzić to również na każdej kamerze.
+
+Źródło: [Home Assistant — Hikvision, wymagania zdarzeń](https://www.home-assistant.io/integrations/hikvision/)
+
+### P2. Ścieżki RTSP
+
+Tak:
+
+- `101` — kanał 1, main stream;
+- `102` — kanał 1, sub-stream.
+
+Producent podaje przykład `/Streaming/channels/101` jako main pierwszego kanału i `/102` jako sub pierwszego kanału. [Hikvision — RTSP and HTTP URLs](https://www.hikvision.com/content/dam/hikvision/ca/bulletin/technical-bulletin/technical-article/tb_rtsp_and_http_urls_120915us.pdf)
+
+Dla wielokanałowego urządzenia schemat jest następujący:
+
+- `101/102` — kanał 1 main/sub;
+- `201/202` — kanał 2 main/sub;
+- `301/302` — kanał 3 main/sub;
+- `401/402` — kanał 4 main/sub.
+
+Dokument Hikvision wyjaśnia, że pierwsza część numeru wskazuje kanał/sensor, a ostatnia cyfra rodzaj strumienia: `1` main, `2` sub. [Hikvision — ścieżki RTSP i HTTP](https://www.hikvision.com/content/dam/hikvision/de/quick-start-guide/RTSP_und_HTTP_Pfade_fuer_Bilder_und_Videostreams_bei_IP-Kameras.pdf)
+
+Czy dokładnie ten NVR udostępnia aktywne `101/201/301/401`: **NIE WIEM** — bez loginu nie wykonano `DESCRIBE` na tych adresach.
+
+### P3. Detekcja ruchu bez ONVIF
+
+Tak — przez własny strumień zdarzeń Hikvision/ISAPI. Integracja Hikvision HA parsuje go bez ONVIF i wystawia zdarzenia jako `binary_sensor`. Obsługiwane są między innymi:
+
+- motion;
+- line crossing;
+- field detection;
+- tamper detection;
+- PIR oraz scene change.
+
+Dla NVR nazwa sensora zawiera numer kanału, np. `binary_sensor.home_motion_1`. Integracja ma klasę IoT `Local Push`. [Home Assistant — Hikvision, binary sensors](https://www.home-assistant.io/integrations/hikvision/)
+
+Hikvision potwierdza, że ISAPI obejmuje odbiór zdarzeń i jest przeznaczone dla urządzeń dostępnych w LAN lub sieci prywatnej. [Hikvision Open Capabilities — ISAPI](https://tpp.hikvision.com/tpp/OpenCapabilities)
+
+Czy modele `FG092`, `FQ921` i NVR `.110` rzeczywiście zwrócą ruch przez `alertStream`: **NIE WIEM** — `401 Digest` potwierdza istnienie ISAPI, ale bez uwierzytelnienia nie sprawdzono treści strumienia ani konfiguracji detekcji.
+
+### P4. CPU i łącze
+
+Samo przekazywanie RTSP przez go2rtc bez transkodowania powinno kosztować niewiele CPU, ponieważ go2rtc może przekazać istniejący H.264/H.265. Transkodowanie przez FFmpeg — szczególnie H.265→H.264, zmiana rozdzielczości lub nakładanie tekstu — zwiększa użycie CPU; dokumentacja ostrzega, że operacje FFmpeg mogą zwiększać je znacząco nawet z akceleracją sprzętową. [go2rtc — dokumentacja](https://github.com/AlexxIT/go2rtc), [go2rtc — FFmpeg](https://github.com/AlexxIT/go2rtc/blob/master/internal/ffmpeg/README.md)
+
+Rekomenduję:
+
+1. Do stałego podglądu używać sub-streamów `102/202/302/402`, najlepiej H.264.
+2. Main stream `101/201/301/401` otwierać do pełnego podglądu, zdjęcia lub nagrania.
+3. Nie włączać `preload` dla 4 main-streamów.
+4. Unikać transkodowania, dopóki kodek działa w klientach HA.
+
+Dokładnego obciążenia nie da się podać bez bitrate’u i parametrów kamer. Dla czterech jednocześnie aktywnych strumieni ruch wejściowy do HA wynosi w przybliżeniu:
+
+`4 × bitrate pojedynczego strumienia`
+
+Przykład obliczeniowy, nie pomiar: przy `4 Mb/s` na kamerę byłoby `16 Mb/s`. Faktyczny bitrate, kodek, FPS, rozdzielczość i CPU HA: **NIE WIEM**.
+
+## HIPOTEZY
+
+- Integracja Hikvision skierowana na NVR jest korzystniejsza od czterech osobnych wpisów kamer, bo ogranicza konfigurację do jednego urządzenia, a dokumentacja HA przewiduje automatyczne wykrywanie kanałów i zdarzeń NVR.
+- Jeśli integracja nie rozpozna konkretnego HiLook/NVR, istniejący go2rtc + encje FFmpeg pozostaje technicznie uzasadnioną drogą obrazu, ale nie zapewni sam detekcji ruchu.
+
+## NIE WIEM
+
+- Czy login do NVR ma wymagane uprawnienia zdarzeń.
+- Czy ruch jest włączony i ustawiony na powiadamianie centrum.
+- Czy NVR przekazuje zdarzenia wszystkich 4 kamer.
+- Jakie są rzeczywiste kodeki i bitrate’y main/sub-streamów.
+
+**Konkretna rzecz do zrobienia:** Tomasz przekazuje login i hasło do NVR `.110`; pierwszym testem powinno być uwierzytelnione sprawdzenie kanałów RTSP oraz strumienia zdarzeń ISAPI, bez zmiany konfiguracji.
+
+— Zenek

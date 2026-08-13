@@ -1,0 +1,98 @@
+=== 1. KONFIG (token zamaskowany) ===
+{
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "token": "***MASKED***"
+    }
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.7.1-2",
+    "lastTouchedAt": "2026-08-12T06:00:40.399Z"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "ollama/qwen2.5vl:7b"
+      },
+      "models": {
+        "ollama/qwen2.5vl:7b": {}
+      },
+      "sandbox": {
+        "mode": "all",
+        "backend": "podman"
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://127.0.0.1:11434",
+        "models": [
+          {
+            "id": "qwen2.5vl:7b",
+            "name": "qwen2.5vl:7b"
+          }
+        ]
+      }
+    }
+  },
+  "tools": {
+    "byProvider": {
+      "ollama/qwen2.5vl:7b": {
+        "deny": [
+          "group:web",
+          "browser"
+        ]
+      }
+    },
+    "exec": {
+      "host": "gateway",
+      "security": "allowlist",
+      "ask": "on-miss"
+    }
+  }
+}
+=== 2. PROBA BEZ TOKENA (dowod auth; oczekiwane odrzucenie) ===
+HTTP bez tokena: 200
+HTTP bez tokena (rpc): 200
+=== 3. NASLUCH ===
+LISTEN 0      511                     127.0.0.1:18789      0.0.0.0:*    users:(("node",pid=1143231,fd=33))                       
+LISTEN 0      511                         [::1]:18789         [::]:*    users:(("node",pid=1143231,fd=34))                       
+=== 4. MODELS STATUS ===
+Config        : ~/.openclaw/openclaw.json
+Agent dir     : ~/.openclaw/agents/main/agent
+Default       : ollama/qwen2.5vl:7b
+Fallbacks (0) : -
+Image model   : -
+Image fallbacks (0): -
+Aliases (0)   : -
+Configured models (1): ollama/qwen2.5vl:7b
+
+Auth overview
+Auth store    : ~/.openclaw/agents/main/agent/openclaw-agent.sqlite
+Shell env     : off
+Providers w/ OAuth/tokens (0): -
+
+=== 5. EXEC-POLICY SHOW ===
+│ tools.exec │ host=gateway (tools.   │ security=allowlist (~/.openclaw/exec-        │ security=allowlist\nask=on-miss │
+│            │ exec.                  │ approvals.json defaults.security)\nask=on-   │                                 │
+│            │ host)\nsecurity=allowl │ miss (~/.openclaw/exec-approvals.json        │                                 │
+│            │ ist (tools.exec.       │ defaults.ask)\naskFallback=deny (~/.         │                                 │
+│            │ security)\nask=on-     │ openclaw/exec-approvals.json defaults.       │                                 │
+│            │ miss (tools.exec.ask)  │ askFallback)                                 │                                 │
+=== 6. CHANNELS ===
+Checking channel status…
+Gateway reachable.
+
+Tip: https://docs.openclaw.ai/cli#status adds gateway health probes to status output (requires a reachable gateway).
+=== 7. HEALTH/HEARTBEAT ===
+Gateway event loop: ok max=23ms p99=22ms util=0.032 cpu=0.042
+Agents: main (default)
+Heartbeat interval: 30m (main)
+Session store (main): /home/openclaw/.openclaw/agents/main/sessions/sessions.json (1 entries)
+=== 8. PRAWA PLIKOW ===
+drwx------ 9 openclaw openclaw 4096 Aug 12 06:00 /home/openclaw/.openclaw
+-rw------- 1 openclaw openclaw  976 Aug 12 06:00 /home/openclaw/.openclaw/openclaw.json
+=== 9. AUDYT SUMMARY ===
+Summary: 0 critical · 1 warn · 2 info

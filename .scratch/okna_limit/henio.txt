@@ -1,0 +1,1 @@
+GLOS NIEODEBRANY (Command '['su', '-', 'hermes', '-c', 'hermes -z "$(cat /tmp/_zaloga_zadanie_henio.txt)"']' timed out after 600 seconds)

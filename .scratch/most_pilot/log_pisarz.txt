@@ -1,0 +1,24 @@
+
+  Bilans pilota z mojej strony:
+  - cykl 1: 3 bledy merytoryczne zgloszone, 3 naprawione, potwierdzone odczytem
+  - cykl 2: 1 uwaga stylistyczna zgloszona, naniesiona, potwierdzona odczytem
+  - petla dziala w obie strony: PING/ACK, uwagi -> edycja -> weryfikacja, trzy razy pod rzad tresc realnie sie zmieniala miedzy odczytami
+  - z mojej strony ZERO zapisow przez caly pilot: wylacznie Read (3x), jedno wywolanie tools/szukaj.py i SendMessage. Zadnego Write, Edit ani polecenia modyfikujacego dysk.
+
+  ZASTRZEZENIE OTWARTE (jedno, nie blokuje pilota): status prawny kuny domowej — "zwierze lowne z okresem ochronnym" — nadal opiera sie na mojej wiedzy dziedzinowej, nie na zrodle otwartym w tej
+  sesji. W pliku faktycznie nie ma powolania na rozporzadzenie, wiec nic niesprawdzonego nie jest przypisane zrodlu i to wystarcza dla .scratch/. Ale gdyby ten tekst mial isc do wiedza/ albo do rolki,
+  zdanie z linii 2 musi wczesniej dostac slad z rozporzadzenia MS w sprawie listy gatunkow lownych i okresow polowan. Do tego czasu: mocny szkic roboczy, nie podstawa do czytania.
+
+● FAZA2-ZALICZONA
+
+  Pilot mostu domknięty. Dwa cykle: 3 błędy merytoryczne + 1 uwaga stylistyczna, każda naniesiona w .scratch/most_pilot/szkic_testowy.md i potwierdzona odczytem po stronie kontrolera.
+
+  Jedno zastrzeżenie kontrolera zostaje otwarte: status prawny kuny domowej w linii 2 („zwierzę łowne z okresem ochronnym") to wiedza dziedzinowa, nie ślad z tej sesji. Dla .scratch/ wystarcza — przed
+  wejściem do wiedza/ albo do rolki to zdanie potrzebuje śladu z rozporządzenia o gatunkach łownych i okresach polowań.
+
+✻ Worked for 6s
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── pisarz ──
+❯ zapisz wyniki pilota mostu do .scratch/most_pilot/
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏸ manual mode on · ? for shortcuts · ← for agents

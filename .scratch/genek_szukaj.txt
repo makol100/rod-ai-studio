@@ -1,0 +1,2 @@
+BLAD: obie drogi padly — CLI: zaden model z kolejki nie odpowiedzial (gemini-3.1-pro-preview, gemini-3.1-pro-preview, gemini-3.6-flash) po 3 probach. Dekret Tomasza: najwyzszy WOLNY model — schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, ale tu nie odpowiedzial ZADEN. | gemini-3.1-pro-preview: przekroczony czas 93s | gemini-3.1-pro-preview: przekroczony czas 93s | API: HTTP Error 429: Too Many Requests
+NIE zmyslam zastepczej tresci.

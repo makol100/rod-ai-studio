@@ -1,0 +1,79 @@
+# NARADA ZAŁOGI: ocena 17 porad optymalizacji pracy z Claude Code
+
+Jesteś członkiem trzyosobowej załogi AI fabryki rolek ROD (Klaudek=Claude prowadzi, Zenek=Codex i Genek=Gemini pracownicy, Tomasz=człowiek DECYDUJE o wszystkim). Tomasz przyniósł dokument z 17 poradami optymalizacji pracy z Claude Code (pełna treść poniżej, po sekcji KONTEKST). Twoje zadanie: oceń KAŻDY punkt pod kątem NASZEJ fabryki i wydaj rekomendację.
+
+## KONTEKST FABRYKI (stan faktyczny)
+- Środowisko: VPS Hetzner (/root/rod-ai-studio), produkcja rolek wideo dla ogrodu działkowego ROD (TTS ElevenLabs, awatar Kling przez fal.ai, montaż ffmpeg). Pierwszy odcinek serwisu WD_0001 właśnie ukończony (koszt $3.28, zamrożony przed publikacją).
+- Klaudek NIE pracuje w Claude Code CLI — pracuje w aplikacji Claude na telefonie Tomasza, z VPS połączony przez MCP (narzędzia read/write/execute). Na VPS istnieje też stanowisko Claude Code z pluginem codex (/route), obecnie wygaszone dekretem "jedno stanowisko".
+- Zenek = `codex exec` (tło, nohup), Genek = `gemini -m gemini-3-flash-preview` (multimodalny — oczy i uszy załogi, płatny Tier 1).
+- KONSTYTUCJA ZAŁOGI (nadrzędna): (a) każdy wydatek pieniędzy wymaga WYRAŹNEJ zgody Tomasza — nigdy auto; (b) weryfikacja-nie-halucynacja: nic nie jest "zrobione" bez sprawdzenia; (c) dokumenty/logi czytać W CAŁOŚCI; (d) najnowsze słowo Tomasza przebija każdy dokument; (e) Zenek i Genek są strażnikami kosztów; (f) domyślnie szukamy NAJTAŃSZEJ drogi, chyba że droższa daje 100% pewności.
+
+## CO JUŻ MAMY (oceń uczciwie, czy dana porada to nie duplikat)
+- Załoga 3 modeli z niezależną weryfikacją krzyżową (→ porada 7).
+- wiedza/DECYZJE_AWATAR.md (dekrety Tomasza verbatim) + wiedza/NAUKI_SERII.md (nauki z błędów) → ślad audytowy i "gotchas" (→ porady 11, 13).
+- Bramki jakości A–F w produkcji z werdyktami ZDAŁ/OBLAŁ (tekst+TTS, spec+koszt przed generacją, orientacja, redakcja wizualna Genka, dźwięk LUFS, technika pliku) (→ porada 14).
+- Strefy ludzkiej walidacji: Tomasz zatwierdza scenariusz, koszt i publikację; AI robi środek (→ porada 16).
+- Goniec w tle (_goniec.sh: pętla pull→montaż→flaga) — zalążek pętli orkiestracji (→ porada 15).
+- Powtarzalne skrypty-wzorce: _tts_*.py, _kling_*_submit/pull.py, _montaz.sh — kod robi czarną robotę (→ porada 10).
+- Osobne katalogi per odcinek: data/wiadomosci/NNNN-nazwa/ (→ porada 9).
+- Genek flash = tańszy model do weryfikacji (→ porada 8).
+
+## TWOJE ZADANIE
+Dla KAŻDEGO punktu 1–17 wydaj werdykt jednym z: [MAMY] / [WDROŻYĆ] / [CZĘŚCIOWO — dopracować] / [NIE DOTYCZY nas] / [SPRZECZNE z konstytucją] + 1–2 zdania uzasadnienia. Przy [WDROŻYĆ] i [CZĘŚCIOWO]: konkretny pomysł JAK u nas (nazwa pliku/mechanizmu), szacowany koszt (tokeny/pieniądze/czas Tomasza) i ryzyko.
+Na końcu podaj:
+- TOP 3 punkty do wdrożenia od zaraz (najtaniej, największy zysk),
+- 1 punkt, który odradzasz i dlaczego,
+- czy któryś punkt koliduje z konstytucją załogi (szczególnie przyjrzyj się poradzie 3 o auto-approve).
+Pisz po polsku, zwięźle, konkretnie. Bez lania wody. NIE wykonuj żadnych komend ani zmian w plikach — to narada, nie robota.
+
+## DOKUMENT TOMASZA — 17 PORAD (czytaj w całości):
+1. Wzbogać umiejętności Claude'a o funkcję "ask user question" (zapytaj użytkownika)
+Aby uniknąć otrzymywania wielu pytań w jednym bloku tekstu, dodaj komendę "ask user question" do swoich umiejętności w Claude. Dzięki temu asystent będzie zadawał Ci pytania po kolei, w idealnie sformatowany sposób, co ułatwi udzielanie na nie odpowiedzi [1]. Możesz również uruchomić odpowiedni prompt, aby wykonać audyt swojego systemu i stworzyć listę umiejętności, do których warto to dodać [1].
+
+2. Dostosuj komendę inicjującą (/init)
+Zamiast korzystać z domyślnej komendy /init, stwórz własne, zindywidualizowane polecenia inicjujące (np. /init next.js micro app lub /initclient OS) . Wdrożysz to poprzez przeanalizowanie swoich najczęstszych zadań i stworzenie szablonów, które automatycznie ustawią środowisko i przepływ pracy pod Twoje konkretne potrzeby i projekty [2, 3].
+
+3. Usprawnij automatyczne zatwierdzanie (auto approve)
+Claude często wstrzymuje pracę, prosząc o pozwolenie na różne akcje. Zmień domyślne ustawienie na tryb "auto approve" . Aby wdrożyć to skutecznie, w swoim oknie rozmowy użyj promptu aktualizującego ustawienia, aby system nie prosił o zgodę na akcje, które już wcześniej zostały zatwierdzone, lub użyj polecenia /f fewer permissions [3, 4].
+
+4. Skonfiguruj przypomnienia startowe z logiką dni tygodnia
+Możesz wykorzystać akcję "session start" (start sesji), która uruchamia się po otwarciu Claude Code w terminalu. Skonfiguruj ją tak, aby w zależności od dnia tygodnia wyświetlała Ci określone powiadomienia (np. w piątki może przypominać o konieczności przeglądu i optymalizacji systemu) [4, 5].
+
+5. Używaj zamiany mowy na tekst ze słownikiem mapowania (remapping glossary)
+Dyktowanie tekstu znacznie przyspiesza pracę, ale narzędzia mogą błędnie interpretować niektóre specyficzne słowa (np. ze względu na akcent). Wdrożenie polega na stworzeniu w narzędziu do dyktowania (np. Hex lub Whisper Flow) słownika kluczowych zwrotów, który automatycznie poprawi najczęściej przekręcane wyrazy na te właściwe [5, 6].
+
+6. Zrozum pasek statusu, aby ograniczyć zużycie tokenów
+Na bieżąco kontroluj model, stopień wysiłku (effort) oraz zużycie kontekstu na pasku statusu (w aplikacji lub za pomocą komendy /status line w terminalu) [7]. Jeśli zaczyna brakować Ci tokenów, przejdź na słabszy model, a gdy zapełnienie kontekstu osiągnie 60%, użyj poleceń /compact (kompresja) lub /clear (wyczyszczenie) , aby go odświeżyć [7].
+
+7. Uruchamiaj sub-agentów równolegle
+Zamiast wykonywać zadania jedno po drugim w jednym wątku, zlecaj zadania równolegle. Podaj polecenie uruchomienia kilku "sub agentów" (np. jeden szuka informacji na YouTube, drugi w Google). Ponieważ sub-agenci nie dzielą ze sobą kontekstu, doskonale nadają się do niezależnych zadań oraz do obiektywnej weryfikacji pracy innych agentów (co eliminuje błędy związane z tzw. uprzedzeniami AI) [8, 9].
+
+8. Wykorzystuj tańsze modele, tam gdzie to możliwe
+Nie każde zadanie wymaga najinteligentniejszego i najdroższego modelu. Skonfiguruj konkretne umiejętności tak, aby domyślnie używały mniejszych modeli (np. modelu Haiku do prostej weryfikacji źródeł) [9-11]. Możesz dodatkowo wyłączyć przekazywanie poprzedniego kontekstu do nowych wątków (ustawiając context 4), aby zaoszczędzić jeszcze więcej tokenów [10, 11].
+
+9. Zastosuj wielowątkowość dla różnych projektów
+Zamiast trzymać wszystko w jednym miejscu, dziel pracę na unikalne sesje i pamiętaj o ich odpowiednim nazywaniu [12]. Ponadto trzymaj odrębne projekty w osobnych folderach na komputerze, co ułatwi Ci przełączanie się między zadaniami i da pewność, że Claude ma dostęp tylko do właściwego kontekstu [12, 13].
+
+10. Osadzaj skrypty wewnątrz umiejętności Claude'a
+Podziel pracę w każdej umiejętności na "ocenę" i "powtarzalne czynności". Wdrożenie polega na tym, by poprosić AI o napisanie skryptu (kodu programu) do najczęstszych, powtarzalnych działań (np. pobierania komentarzy). Skrypt zostanie osadzony w umiejętności i wykona czarną robotę, oszczędzając tokeny, a Claude posłuży już tylko do zadań wymagających osądu [13, 14].
+
+11. Dodawaj listę wyjątków (gotchas) do swoich umiejętności
+Żadna umiejętność nie jest idealna od razu. W miarę jej używania dopisuj bezpośrednio do kodu danej umiejętności listę "gotchas" – czyli zbiór instrukcji, czego AI ma "nie robić" bazując na błędach i kłopotliwych przypadkach, na które wcześniej natrafiłeś [15, 16].
+
+12. Poproś Claude'a o przeprowadzenie z Tobą wywiadu
+Wykorzystaj tzw. tryb planowania (plan mode). Zanim zaczniesz działać, nakaż AI przeprowadzenie z Tobą wywiadu ("interview me") , aby wykryć ewentualne luki w Twojej wiedzy. Aby pójść o krok dalej, użyj komendy "grill me" (przemagluj mnie) , aby Claude poddał Twoją strategię surowej krytyce, szukał w niej dziur i zmuszał Cię do pogłębionej refleksji [16, 17].
+
+13. Stwórz historię przepływów pracy jako ślad audytowy (audit trail)
+Każda działająca automatyzacja powinna mieć plik z logami, do którego zapisuje co zrobiła, co zostało naprawione i jakie problemy wciąż powracają. Wdróż nawyk, w którym raz w tygodniu Claude przeszukuje tę historię z poleceniem: "które powtarzające się problemy warto rozwiązać?" [17].
+
+14. Dodaj weryfikację do swoich umiejętności (skill-driven verification)
+Nie kończ umiejętności (np. pisania w określonym tonie) na samej instrukcji działania. Zaktualizuj swoje skrypty dodając na ich końcu jasny krok walidacji. Claude ma wydać końcowy, konkretny werdykt czy ostateczny rezultat "zdał", czy "oblał" postawione kryteria jakości [17, 18].
+
+15. Zbuduj pętle orkiestracji (orchestration loops)
+Zamiast pisać kolejne prompty, twórz systemy pracujące w pętli, dopóki nie zostanie osiągnięty cel. Skonstruuj pętlę z czterech bloków: wyzwalacza, umiejętności wykonawczej, weryfikacji celu (werdykt z porady 14) oraz pamięci tego, co działo się w poprzednich krokach [19, 20]. Pamiętaj, by na początku testować pętle w "trybie treningowym", w którym ręcznie akceptujesz każdy krok, aby nie narazić się na szybkie spalenie tokenów przez błędy [20].
+
+16. Automatyzuj "od środka", a nie "od końca do końca"
+Wystrzegaj się 100% automatyzacji procesów bez kontroli. Wdrożenie wymaga zidentyfikowania "stref ludzkiej walidacji" – kluczowych etapów, na których błąd maszyny byłby bardzo kosztowny [21, 22]. Twój przepływ pracy powinien wyglądać tak: Ty diagnozujesz problem i delegujesz zadanie, Claude odwala 95% pracy "w środku", a na koniec to Ty ponownie wkraczasz, aby ostatecznie ocenić efekt pracy przed jego upublicznieniem [21, 22].
+
+17. "Stay desperate always" (Zawsze bądź zdesperowany/Zawsze chciej więcej)
+Nie traktuj rozwoju narzędzi AI jako wyścigu, który w pewnym momencie się zatrzymuje, i przestań myśleć, że na coś jest "za późno" lub "już wystarczy". Wdrożenie to psychologiczne przyjęcie postawy ciągłego ucznia – miej świadomość, że w dziedzinie AI nic nie jest Ci dane na zawsze i wszystkie umiejętności trzeba ciągle szlifować i udoskonalać [22].

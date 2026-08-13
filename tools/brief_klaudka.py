@@ -99,6 +99,23 @@ def stan_produkcji(d):
     return "STOP OBOWIAZUJE"
 
 
+def graf_stanu():
+    """Zwraca graf krotkotrwaly Klaudka albo pusty tekst, gdy jest niedostepny."""
+    try:
+        wynik = subprocess.run(
+            ["python3", str(REPO / "tools/pamiec_stan.py"), "pokaz", "--agent", "klaudek"],
+            cwd=REPO,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    if not wynik:
+        return ""
+    return re.sub(r"^# STAN\s*", "", wynik, count=1).strip()
+
+
 def main():
     wpisy = wczytaj_decyzje()
     aktywne = obowiazujace(wpisy)
@@ -106,6 +123,7 @@ def main():
         raise RuntimeError("brak obowiązujących decyzji")
     ostatnia = aktywne[-1]
     stop = temat(wpisy, "produkcja")
+    graf = graf_stanu()
     hans = temat(wpisy, "hans")
     genek = temat(wpisy, "genek")
     kierownik = temat(wpisy, "kierownik")
@@ -144,8 +162,11 @@ def main():
     ]
     if len(linie) != 11 or any("\n" in linia for linia in linie):
         raise RuntimeError("brief nie ma dokładnie jedenastu pojedynczych linii")
+    tresc = "\n".join(linie) + "\n"
+    if graf:
+        tresc += f"\n# STAN (graf krotkotrwaly)\n\n{graf}\n"
     tmp = CEL.with_suffix(".md.tmp")
-    tmp.write_text("\n".join(linie) + "\n", encoding="utf-8")
+    tmp.write_text(tresc, encoding="utf-8")
     os.replace(tmp, CEL)
     print(f"[brief] zapisano {CEL}: 9 linii")
 

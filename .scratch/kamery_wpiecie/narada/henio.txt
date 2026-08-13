@@ -1,0 +1,73 @@
+Henio — werdykt po pomiarach z tej doby (VPS → 192.168.3.x przez Tailscale, ISAPI digest z /root/.sekrety/wartosci.env, hasła nie cytuję).
+
+ODPOWIEDŹ NAJKRÓCEJ
+P1 (miniatura): wygrywa opcja (c), którą przeoczyliście — ISAPI /picture. Kamera sama robi JPEG z H.265. Zmierzone: HTTP 200, 173 150 B, JPEG 1280x720 z .111 kanał 102. NVR .110 daje 82 430 B, 704x576. Zero zmian na sprzęcie, zero transkodowania, zero obciążenia N150. go2rtc /api/frame.jpeg pada (0 B), bo go2rtc nie dekoduje H.265 — ale nie musicie z niego robić klatki.
+P4 (kuny) — KRYTYCZNE: nagrywarka NIE NAGRYWA. Wszystkie 4 tory mają Enable=false. Nie ma archiwum do wyciągnięcia.
+
+POTWIERDZONE (ze śladem)
+
+1. Kodek substreamu kamer — 3 pliki ISAPI (.111/.112/.114, kanał 102) identyczne: videoCodecType=H.265, 640x360, VBR, vbrUpperCap=128, constantBitRate=128, maxFrameRate=800 (8 fps), keyFrameInterval=4000 (4 s), H265Profile=Main. Zgodne z zadaniem.
+
+2. NVR: model NVR-4CH-5MP, firmware V4.76.010 build 240109, producent hikvision (HiLook to podmarka), 4 kanały. Dysk hdd1 SATA capacity=953 194 MB (~930 GB), freeSpace=0, status ok, workMode=quota.
+
+3. Nagrywanie WYŁĄCZONE: /ISAPI/ContentMgmt/record/tracks → tory 101/201/301/401 wszystkie Enable=false. To jest sedno P4 — nie ma zapisów, bo nic nie jest nagrywane.
+
+4. Snapshot działa mimo H.265 (pomiar): kamera .111 → 173 150 B JPEG 1280x720; NVR .110 → 82 430 B JPEG 704x576. To obala tezę "przy H.265 klatka JPEG nie powstaje" — nie powstaje W go2rtc, ale powstaje W kamerze.
+
+5. go2rtc (a889bffc_go2rtc, API 1984 z VPS): 4 strumienie Xiaomi + 3 dodane przez Klaudka: rod_brama=101, rod_kamera2=201, rod_kamera4=401. Klaudek wpiął MAINSTREAM (101/201/401), nie substream.
+
+6. Hasło wyciekło TRZECI raz: /root/skrzynka/surowe_aktualizacje.jsonl zawiera /sekret KAMERY_PASS=... w plaintekście (log Telegramu). Nie cytuję treści — to do zabezpieczenia (usunąć/wyczyścić plik i obrócić hasło).
+
+ODPOWIEDZI NA PYTANIA
+
+P1 — MINIATURA (najtańsze+najpewniejsze): (c) ISAPI snapshot.
+- Encja camera w HA z still_image_url = http://<kamera>/ISAPI/Streaming/channels/102/picture (digest auth w URL z loginem; hasło trzymać w secrets.yaml, nie wklejać).
+- Dlaczego nie (a) zmiana kodeka jako rozwiązanie MINIATURY: zbędne — snapshot już działa. Dlaczego nie (b) transkodowanie: 11 kamer H.265→H.264 na Intel N150 to stałe obciążenie CPU za coś, co kamera daje za darmo.
+- Konkret: dla miniatury zostawić H.265, użyć /ISAPI/Streaming/channels/102/picture.
+
+P1/LIVE — osobno: do podglądu NA ŻYWO H.265 nie wystarczy (Chrome 151 na Fold7 zagra H.264 natywnie przez go2rtc MSE/WebRTC; HEVC w WebRTC niepewne). Tu zasadna jest zmiana kodeka substreamu na H.264 — ale to dotyczy LIVE (P3), nie miniatury.
+
+P2 — USTAWIENIA SUBSTRUMIENIU (na żywo, po zmianie na H.264):
+- Rozdzielczość: zostać 640x360. Na karcie ~400 px szerokości to w zupełności starcza; 720p w gridzie 8–11 kart to czysta strata pasma.
+- FPS: 8 → 15 (maxFrameRate=1500). 8 fps daje widoczne szarpanie; 15 fps = płynny podgląd.
+- Bitrate: vbrUpperCap 128 → 512 kbps (videoQualityControlType zostaje VBR).
+- Rachunek pasma: 1 kamera ≈ 0,5 Mbps (VBR, realnie mniej). 8 kamer na żywo = 4 Mbps, 11 = 5,5 Mbps. Przy lazy load (P3) realnie idzie 1–4 strumienie naraz = 0,5–2 Mbps.
+- NIE WIEM: przepustowości łącza działki nie zmierzę zdalnie bez obciążenia go. Jeśli LTE — 5,5 Mbps może być na granicy; wtedy FPS 10 (1000) i cap 384 kbps daje ~3 Mbps przy 8 kamerach.
+
+P3 — JAK WPIĄĆ W HA:
+- Platforma: integracja go2rtc (dodatek już stoi, host_network, API 1984) — tworzy encje camera z live (WebRTC/MSE), gra w Chrome 151 bez klika. Dla miniatury generic camera z still_image_url ISAPI /picture, albo go2rtc+still. go2rtc to jedyna droga dająca "streamuje jak wejdę w okno" bez zewnętrznego serwera.
+- advanced-camera-card: live_provider=go2rtc; NIE ustawiać preload dla wszystkich — włączyć lazy_load (live startuje, gdy karta wchodzi w widok/hover). Miniatura (ISAPI snapshot) renderuje się dla wszystkich kart od razu i jest tania.
+- 11 kamer na żywo naraz: NIE rozsądne (5,5 Mbps + dekodowanie 11 strumieni na telefonie). Rozsądne: miniatury wszystkie, live tylko widoczne/kliknięte.
+
+P4 — NAGRANIA I KUNY (droga do materiału):
+- Najpierw WŁĄCZYĆ nagrywanie (decyzja Tomasza, sprzęt jego): PUT /ISAPI/ContentMgmt/record/tracks/{101,201,301,401} z Enable=true. Dziś Enable=false — nie ma czego szukać.
+- Pobieranie po włączeniu: ISAPI /ISAPI/ContentMgmt/search (PUT XML CMSearchDescription) → lista segmentów, potem /ISAPI/ContentMgmt/download (POST downloadRequest z downloadURL). Mój test search zwrócił badXmlContent "two root tags" — mój błąd XML (dwa root-tagi), do poprawienia; nie testowałem download.
+- Alternatywa prostsza do podglądu: RTSP playback rtsp://.../Streaming/tracks/101?starttime=...&endtime=... (odtworzenie, nie plik).
+- Ile tego może być: przy 4 kanałach 720p H.265 ~3 Mbps main → ~5,4 GB/h → ~130 GB/dobę → 930 GB ≈ ~7 dni. Ale to hipoteza — zależy od bitrate main i trybu (CMR/częściowy).
+- Archiwum dziś: 0 (nagrywanie wyłączone). freeSpace=0 przy pustym nagrywaniu wymaga wyjaśnienia — możliwe, że dysk był pełny przed wyłączeniem, albo quota nie przydzielona. Nie rozstrzygam bez dalszych pomiarów.
+- Odsiew do kun: godziny nocne (20:00–06:00), kanał 401 "Rog"/"Wejście" i 101 — tam gdzie ruch zwierząt. Ale to już po włączeniu nagrywania.
+
+P5 — RYZYKA (5) + koszt:
+1. Zmiana kodeka substreamu a nagrywanie NVR — zapobieganie: zmieniać TYLKO substream (102), nie mainstream (101); nagrywanie i tak wyłączone, więc nic nie zepsuję. [O]
+2. Pasmo Tailscale/łącze działki — zapobieganie: lazy load, substream 512 kbps, nie 11 na raz. [O]
+3. Obciążenie N150 transkodowaniem — zapobieganie: NIE transkodować; H.264 w substreamie = passthrough, ~0 CPU. [O]
+4. Watchdog dodatku go2rtc=FALSE — zapobieganie: włączyć protection_mode/watchdog; inaczej po crashu dodatek nie wstanie i podgląd umiera bez meldunku. [O]
+5. Blokada konta HiLook po nieudanych logowaniach — zapobieganie: hasło tylko z /root/.sekrety, jeden wspólny skrypt, zero zgadywania; .113 zwraca 401 (inne hasło albo blokada) — nie dobijać próbami. [O]
+Koszt: 0 zł. Wszystko na istniejącym sprzęcie (dysk już w NVR, go2rtc już zainstalowany, ISAPI bez opłat). Brak płatnych API. Koszt = czas załogi.
+
+P6 — KOLEJNOŚĆ:
+1. [O] Wyczyścić /root/skrzynka/surowe_aktualizacje.jsonl z hasła + rozważyć obrót hasła kamer.
+2. [O] Włączyć watchdog dodatku go2rtc.
+3. [O] Usunąć 3 wpisy Klaudka (mainstream) i dodać substreamy 102/202/402 do go2rtc.
+4. [O] Zmienić substream kamer na H.264 przez ISAPI PUT (videoCodecType=H.264, maxFrameRate=1500, vbrUpperCap=512) — .111/.112/.114.
+5. [O] Dodać encje camera (still_image_url ISAPI /picture) + karty w widoku "kamery" z lazy load.
+6. [O] Włączyć nagrywanie NVR (Enable=true na torach) — warunek dla kun. [N] — nadpisuje najstarsze, gdy dysk się zapełni; decyzja Tomasza.
+
+NIE WIEM
+- Przepustowość łącza działki (nie da się zmierzyć zdalnie bez obciążenia).
+- Dlaczego freeSpace=0 przy wyłączonym nagrywaniu (nie rozstrzygam bez dalszych pomiarów dysku).
+- Stan kamery .113 (401 ISAPI) — czy zablokowana, czy inne hasło.
+
+DRUGA SPRAWA (osobno): hasło kamer jest w plaintekście w /root/skrzynka/surowe_aktualizacje.jsonl — to trzeci wyciek dziś. Proponuję obrót hasła i wyczyszczenie pliku, zanim cokolwiek innego.
+
+— Henio

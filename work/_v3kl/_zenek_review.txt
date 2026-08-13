@@ -1,0 +1,7 @@
+1. Naprawa wygląda logicznie, ale bramki nie zastępują końcowego obejrzenia i odsłuchu całego mastera w pełnej rozdzielczości. Przed oddaniem sprawdziłbym szczególnie: orientację i kadr każdej przebitki, pojedyncze klatki na wszystkich granicach slotów (9/16/21/27/32/39/45 s), brak mignięć lub prześwitu, czytelność napisów oraz synchronizację, ciągłość i długość audio. Warto też potwierdzić, że każda przebitka faktycznie wypełnia 1080x1920 — sam overlay nie skaluje ani nie dopełnia obrazu.
+
+2. `-noautorotate` wyłącza interpretację metadanych obrotu dla każdego wejścia. To dobra gwarda dla obecnych, już znormalizowanych plików, ale plik z prawidłowym tagiem rotacji i nienormalizowanymi pikselami zostałby użyty bokiem; filtry widziałyby jego surowy układ i wymiary. Dlatego nie należy traktować tej opcji jako zamiennika kontroli/normalizacji nowych źródeł.
+
+3. Nie widzę powodu do dodatkowych wydatków. FFmpeg i obecne bramki wystarczą; potrzebna jest tylko bezkosztowa kontrola manualna na docelowym telefonie/komputerze i ewentualnie odtworzenie pliku po pobraniu. Płacić warto dopiero, jeśli wyjdzie konkretny problem, którego nie da się poprawić tym pipeline’em.
+
+4. ZATWIERDZAM v3 do pokazania szefowi, warunkowo po jednym pełnym seansie kontrolnym obrazu i dźwięku oraz szybkim sprawdzeniu klatek granicznych. Z przedstawionych wyników nie wynika żadna blokująca wada.

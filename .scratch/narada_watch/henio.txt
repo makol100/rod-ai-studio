@@ -1,0 +1,106 @@
+## HENIO — GŁOS W SPRAWIE /watch
+
+---
+
+### FAKTY ZMIERZONE W TEJ TURZE (wszystkie z 6.08.2026)
+
+| fakt | wartość | źródło |
+|---|---|---|
+| yt-dlp | 2026.07.04 | `which` + `--version` |
+| ffmpeg | 8.0.1 | `which` + `-version` |
+| npx | 10.9.8 | `which` + `--version` |
+| Claude Code CLI | 2.1.220 | `which claude` |
+| `/root/.claude/skills/` | 8 katalogów, BEZ watch | `ls` |
+| OPENAI_API_KEY | JEST w `/root/rod-agent/.env` | `grep` |
+| GROQ_API_KEY | BRAK | `grep` |
+| rola 000098 | 42.5s, 11.2MB, h264+aac, BEZ napisów | `ffprobe` |
+| `-vsync` na ffmpeg 8.0.1 | DZIAŁA (deprecated, nie usunięte) | test `ffmpeg -vsync vfr` — exit 0 |
+| `-fps_mode` (zamiennik) | dostępny w 8.0.1 | `ffmpeg -h full` |
+| gwiazdki repo | 14 215 | GitHub API |
+| licencja | MIT | GitHub API |
+| ostatni push | 2026-07-01 (36 dni temu) | GitHub API |
+| otwarte issue | 10, w tym #99/#117 krytyczne | GitHub API |
+
+---
+
+### 1. Czy /watch rozwiązuje NASZ przypadek? — TAK, z zastrzeżeniem
+
+Skill przyjmuje **lokalne pliki** — SKILL.md linia "User points at a local video file (.mp4, .mov, .mkv...)". Wyciąga klatki (keyframes w efficient, scene-change w balanced), daje timestampy, Read'uje JPEG-i. Klaudek może:
+- porównać klatki ze scenariuszem z gita (czy scena zgadza się z tekstem)
+- sprawdzić wizualnie glitche (artefakty, brak Izabeli, złe tło)
+- dostać transkrypcję audio jeśli użyje Whispera (czy lektor mówi to co w scenariuszu)
+
+**Zastrzeżenie:** 30-40 klatek na 42.5s = ~0.7-0.9 fps. Krótki glitch (0.2-0.5s) między klatkami — niewykrywalny. To próbkowanie, nie pełny seans.
+
+---
+
+### 2. Whisper — POMIJALNY na start, ale z luką
+
+Skill ma flagę `--no-whisper` (SKILL.md). Mamy OPENAI_API_KEY. Proponuję:
+
+**Faza 1: test bez Whispera.** `--no-whisper` + porównanie klatek ze scenariuszem z gita. Koszt: 0 USD, same image tokeny.
+
+**Luka bez Whispera:** Klaudek NIE słyszy audio. Nie wie, czy lektor faktycznie mówi tekst, czy się zacina, czy audio jest zsynchronizowane. Klatki pokazują tylko wizję.
+
+**Faza 2: jeśli Faza 1 niewystarczająca** → dodać `--whisper openai`. Koszt ~$0.006/min = ~$0.004/rolkę 42.5s. Pomijalny.
+
+**Uwaga:** skill szuka klucza w `~/.config/watch/.env` albo env `OPENAI_API_KEY`. Nasz klucz jest w `/root/rod-agent/.env` — skill go NIE WIDZI. Trzeba albo przekopiować, albo ustawić env przy wywołaniu: `OPENAI_API_KEY=... python3 watch.py ...`
+
+---
+
+### 3. Koszt na rolkę 30-60s — AKCEPTOWALNY
+
+| tryb | klatki | image tokeny | audio transkrypcja | łączny koszt API |
+|---|---|---|---|---|
+| efficient (bez Whisper) | ~30-40 | ~5.9-7.9k | 0 | 0 USD |
+| efficient (z Whisper openai) | ~30-40 | ~5.9-7.9k | ~$0.004 | ~$0.004 |
+
+Image tokeny idą z konta Claude'a (Max), nie z karty. $0.004/rolkę to 250 rolek za 1 USD. Przy naszym tempie produkcji (stop, ale historycznie kilka rolek/tydzień) — pomijalne.
+
+---
+
+### 4. Integracja z przepływem — PASUJE
+
+Rolki i tak powstają w Claude Code CLI (fabryka). Weryfikacja `/watch` jako krok w pipeline przed publikacją — naturalne. Nie ma luki: Klaudek nie prosi Tomasza o obejrzenie, sam sprawdza.
+
+---
+
+### 5. RYZYKA I BLOKERY
+
+**A. BOMBA ZEGAROWA — ffmpeg 9.0 złamie skill (KRYTYCZNE)**
+Issue #99/#117 otwarte, nienaprawione od ~tygodnia. `-vsync` deprecated w 8.0.1, USUNIĘTE w nowszych buildach. Nasz ffmpeg 8.0.1 działa — ale `apt upgrade` może go zaktualizować w każdej chwili. Po aktualizacji: ZERO klatek, skill bezużyteczny. Mitygacja: przypilnować `apt-mark hold ffmpeg` albo mieć gotowy fork/patch `-vsync → -fps_mode` w liniach 255 i 615 `frames.py`.
+
+**B. Kod nieaktywny 36 dni**
+Ostatni push 2026-07-01. Issue #99 tydzień bez odpowiedzi autora. Projekt może być porzucony.
+
+**C. Testy nie przechodzą (#96)**
+Jakość kodu niepewna. Możliwe inne bugi poza `-vsync`.
+
+**D. Rzadkie próbkowanie**
+30-40 klatek na 42-60s — krótki glitch (pojedyncza klatka) może wylądować między próbkami.
+
+**E. Dedup może zaszkodzić**
+Domyślnie włączony — dla statycznych ujęć (prezenterka mówi do kamery) może zostawić 2-3 klatki zamiast 30. Trzeba przetestować z `--no-dedup` dla naszych rolek.
+
+**F. Setup przy pierwszym uruchomieniu**
+Skill skończy `~/.config/watch/.env`, zapyta o klucz, zapyta o tryb. Jednorazowe, ale trzeba przejść.
+
+---
+
+### 6. WERDYKT — WPINAC, tryb efficient, najpierw bez Whispera
+
+| decyzja | wartość |
+|---|---|
+| **WPINAC** | TAK |
+| **Tryb** | `efficient` (keyframes, ~0.5s, ~8k tokenów) |
+| **Whisper** | najpierw `--no-whisper` + scenariusz z gita; jeśli za mało → `--whisper openai` |
+| **Dedup** | przetestować z `--no-dedup` (statyczne ujęcia Izabeli mogą być zdedupowane do 2-3 klatek) |
+| **Blokery przed rutyną** | (1) test na 000098 z `--no-whisper`, (2) `apt-mark hold ffmpeg` lub fork skilla z fixem `-vsync→-fps_mode`, (3) klucz OPENAI do `~/.config/watch/.env` |
+
+**Uzasadnienie:** Skill rozwiązuje problem "Klaudek nie widzi rolki" tanim kosztem (~8k tokenów, 0 USD bez Whispera). Integracja naturalna w Claude Code CLI. Największe ryzyko to ffmpeg 9.0 — do ogarnięcia przez hold lub forka. Zgodne z zasadą 27.07 (najniższy koszt) i 17.07 (uczymy się z cudzych błędów — znamy #99).
+
+**Czego NIE oceniam:** jak dokładnie 30-40 klatek pokryje naszą specyficzną rolkę z Izabelą — to wyjdzie w teście.
+
+---
+
+HENIO

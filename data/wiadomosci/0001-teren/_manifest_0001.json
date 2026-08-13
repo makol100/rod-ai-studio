@@ -1,0 +1,85 @@
+{
+  "odcinek": "WD_0001_teren",
+  "data_produkcji": "2026-07-27",
+  "wydarzenie": "Zagospodarowanie wspólnego terenu przy domu działkowca (karczowanie 22-23.07.2026)",
+  "tekst": "scenariusz_0001_v2.txt (785 znaków, zatwierdzony przez Tomasza)",
+  "tts": {
+    "endpoint": "fal-ai/elevenlabs/tts/eleven-v3",
+    "voice": "Daniel",
+    "language_code": "pl",
+    "stability": 0.4,
+    "similarity_boost": 0.75,
+    "speed": 1.0,
+    "output_format": "mp3_44100_128",
+    "duration_s": 57.0,
+    "weryfikacja": "whisper slowo-w-slowo + ucho Genka (wykarczowanych OK)"
+  },
+  "kling": {
+    "endpoint": "fal-ai/kling-video/ai-avatar/v2/standard",
+    "rid_suffix": "4329732b4c54",
+    "karta": "karta_stanislaw_CANON.png",
+    "karta_sha256": "3fb0473388cbc022dd9a43c0d24b6086c65557716699e9dc58dc51d69aec8de0",
+    "prompt": "kanoniczny (calm, eye contact)",
+    "koszt_usd": 3.2
+  },
+  "przebitki_chronologia_v6_FINAL": [
+    {"slot": "9-16s",  "fragment": "frag_p1 (STARY, autorotate)",  "zrodlo": "20260722_094249 @26", "tresc_wg_Genka": "POV z gory: noga w chodaku obok pniaka, zielen — PROSTO (3 klatki smk)"},
+    {"slot": "16-21s", "fragment": "frag_p2 (STARY, autorotate)",  "zrodlo": "20260722_094249 @10", "tresc_wg_Genka": "POV z gory: stopy na zachwaszczonej ziemi, pniaki — PROSTO (3 klatki smk)"},
+    {"slot": "21-27s", "fragment": "frag_p3_v5 (transpose=2 + blur-fill)", "zrodlo": "VID-20260723-WA0001 @6 (17:07)", "tresc_wg_Genka": "koparka pracuje, pas poziomy w pionie z rozmytym tlem — PROSTO", "uwaga": "zrodlo WhatsApp mialo obrocenie WYPALONE W PIKSELACH (pion 1072x1920 bez taga, tresc lezala) — wyprostowane transpose=2"},
+    {"slot": "27-32s", "fragment": "frag_p4_v3 (swieze ciecie)", "zrodlo": "VID-20260723-WA0005 @2 (19:41)", "tresc_wg_Genka": "ogrodzenie panelowe, przekopana ziemia, drzewa — PROSTO"},
+    {"slot": "32-39s", "fragment": "frag_p5_v2", "zrodlo": "VID-20260723-WA0005 @14 (19:41)", "tresc_wg_Genka": "wykop przez siatke — PROSTO (wymiana ze slupa WA0007 na dekret Tomasza 28.07)"},
+    {"slot": "39-45s", "fragment": "frag_p6 (STARY, autorotate)", "zrodlo": "20260722_093926 @56", "tresc_wg_Genka": "FINAL: sterta galezi, niebo, slup energetyczny — PROSTO (operator @56s trzymal telefon pionowo, stare ciecie bylo prawidlowe)"}
+  ],
+  "master": {
+    "plik": "WD_0001_teren_master.mp4",
+    "duration_s": 57.87,
+    "wymiary": "1080x1920",
+    "fps": 30,
+    "lufs_zmierzone": "-16.5",
+    "md5": "21b82c23576500e71f0a895935a9c135",
+    "status": "v1 WADLIWA (3 przebitki lezaly)"
+  },
+  "bramki": "A(tekst+TTS) B(spec+SHA) C(normalizacja) D(Genek: PUBLIKOWALNE po 2 poprawkach: font 72/44, final @56) F(ffprobe+null-decode OK)",
+  "koszt_total_usd": 3.28,
+  "uwaga_dlugosc": "57.87s — Tomasz zatwierdzil tekst ~57s w meldunku (kanon ~60-90 z tylda)",
+  "v2": {
+    "plik": "WD_0001_teren_master_v2.mp4",
+    "data": "2026-07-28",
+    "md5": "d2199905af765d436e44f9045156abbb",
+    "status": "WADLIWA — patrz naprawy_28_07_wieczor",
+    "powod": "3 przebitki lezaly + wymiana p5 (slup) na dekret Tomasza",
+    "bramki_SPROSTOWANIE": {
+      "orientacja_okiem_klaudka": "FALSZYWIE ZALICZONA — ocena mozaik na malych kaflach ekranu Folda (75-160px) nie wykrywa orientacji; nauka: kafle >=400px",
+      "seans_genek_v2": "FALSZYWY 10/10 — log pokazal read_file >20MB fail; raport z parametrow promptu, nie z seansu"
+    },
+    "koszt_naprawy": "twarde $0"
+  },
+  "naprawy_28_07_wieczor": {
+    "reklamacja": "Tomasz: screenshoty 111113 (v1@11 lezace zarosla) i 183025 (v2@23 lezaca koparka)",
+    "diagnoza_3_awarie": [
+      "AWARIA 1 (v2): fragmenty blur-fill z -noautorotate ODZIEDZICZYLY tag displaymatrix rot=-90 Samsunga (kopiowanie metadanych mimo prostych pikseli); montaz zastosowal tag: obrot do 1920x1080, overlay od (0,0) przykryl tylko gore, dol = goly Stanislaw. Zdejmowanie taga: ffmpeg -display_rotation 0 -i in -c copy out (dziala); -metadata:s:v rotate=0 NIE dziala.",
+      "AWARIA 2 (v1+v2 slot 21-27): zrodlo WhatsApp WA0001 pionowe 1072x1920 BEZ taga, ale tresc z obroceniem WYPALONYM W PIKSELACH przez nadawce. Falszywe zalozenie 'WhatsApp pion natywny = prosto'. Naprawa: transpose=2 + blur-fill (frag_p3_v5).",
+      "AWARIA 3 (v2 slot 39-45 final): operator @56s zrodla 093926 trzymal telefon PIONOWO (vidstab: powrot z poziomu ~50-62s), wiec STARE ciecie autorotate frag_p6 bylo prawidlowe, a blur-fill p6_v2 wprowadzil lezaca tresc."
+    ],
+    "kaskada_wersji": {
+      "v3": {"md5": "79c4c94040024cf470200a901af6fa65", "status": "WADLIWA (final obrocony po remuxie p6_v2b + WA0001 wypalone niewykryte)"},
+      "v4": {"md5": "ba6fa066eb4e5359aad27a269c799785", "status": "WADLIWA (final naprawiony starym frag_p6, ale WA0001 @24 wciaz obrocona)"},
+      "v5": {"md5": "96a0f56a63e3bc8ce1c16b4796b22d14", "status": "WADLIWA (p3 naprawione transpose, ale pas ostry blur-filli p1/p2_v2b mial tresc LEZACA — wykryte sklejka A/B Genka)"}
+    },
+    "rozstrzygniecie_p1_p2": "Sklejka A/B (Genek, metoda jednego zalacznika): stary frag_p1 PROSTO / p1_v2b LEZY; stary frag_p2 PROSTO / p2_v2b LEZY — ta sama scena, blur-fille v2b obrocone. Stare ciecia autorotate byly dobre. Potwierdzenie 3 klatkami start/srodek/koniec (p1p2_smk.png): wszystkie PROSTO."
+  },
+  "v6_FINAL_KANDYDAT": {
+    "plik": "WD_0001_teren_master_v6.mp4",
+    "data": "2026-07-28 18:17",
+    "md5": "3b66ca04d9b7bc323130efcdb6dd8878",
+    "duration_s": 57.87,
+    "rot": "BRAK",
+    "sklad": "STARE frag_p1/p2/p6 (autorotate, pion prosty) + frag_p3_v5 (transpose-fix WA0001) + frag_p4_v3 + frag_p5_v2; montaz z -noautorotate na KAZDYM wejsciu; audio z v1 (c:a copy)",
+    "skrypt": "_montaz_v6.sh",
+    "bramki_automaty": "21/21 OK (work/_v3kl/_automaty_v6.txt): B przeswit 8/8 (sloty 0.308-0.588, Stanislaw 0.984), C zgodnosc slotow 6/6 (0.979-0.988), D ciecia graniczne 7/7 (0.323-0.469, zero zamrozen)",
+    "bramki_oko_genek": "sloty_v6.png 8/8 PROSTO; seans _seans_v6_480.mp4 z dowodem wczytania: 10/10 PUBLIKOWAC TAK (_genek_seans_v6.txt)",
+    "panel": "WD_0001_teren_master_v6.mp4 + WD_0001_v6_mozaika_DUZA.png (md5 zgodne z katalogiem)",
+    "status": "OCZEKUJE NA AKCEPTACJE TOMASZA (jego oko = bramka ostateczna)",
+    "koszt_napraw_28_07": "twarde $0 (ffmpeg VPS); kontrole Genka lacznie kilka-kilkanascie centow"
+  }
+}

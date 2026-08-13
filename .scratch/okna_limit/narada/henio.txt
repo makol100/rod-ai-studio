@@ -1,0 +1,78 @@
+Mam komplet materiału. Składam werdykt.
+
+---
+
+# HENIO — ZLECENIE KONTROLNE (blokady okien, 13.08)
+
+Przeczytałem w całości: TELEPORT_fabryka.md (sesje 12–13.08), wiedza/DECYZJE_OPENCLAW.md, .scratch/okna_limit/*, .scratch/kamery_hilook/*, .scratch/kamery_hilook_2/*, .scratch/hilook_user/*, .scratch/hik_srt_20260812/*, .scratch/hikvision-ha/*, .scratch/narada_obejscie/*, .scratch/narada_izolacja/*, .scratch/narada_v1/*, .scratch/narada_kamery/*, tools/hilook_wczytaj.sh, tools/hilook_test.sh, tools/fotopulapka.py, tools/publikuj_zart.py, tools/pakiet.py, .gitignore. Dodatkowo przegrepowałem repo pod kątem sekretów.
+
+---
+
+## P1 — CZY COŚ PRZECZY TEZIE: NIE PRZECZY
+
+W zapisach NIE MA ani jednego dowodu, że którakolwiek z 8 blokad nastąpiła BEZ wklejania danych logowania. Ale teza w części „wszystkie 8" jest NIEPOTWIERDZONA, nie obalona — bo przyczynę ustalono tylko dla JEDNEJ próbki.
+
+Ślady:
+- Próbka 7 — POTWIERDZA tezę: TELEPORT_fabryka.md:52 „okno padlo przy WPISYWANIU HASLA DO KAMER".
+- Mechanizm „wklejanie logowania wywala okno" — .scratch/kamery_hilook_2/zadanie.md:26 „zdarzyło się już 3-4 razy".
+- Próbki 1–6 — przyczyna NIEUSTALONA. TELEPORT_fabryka.md:45 wymienia tylko kandydatów oznaczonych „NIEPOTWIERDZONE" (wątek kun, wulgarność, ADB, fotopułapka).
+- Próbka 8 — TELEPORT_fabryka.md:66 wprost: „NIEZWERYFIKOWANE w tej turze: czy probka nr 8 tez byla przy hasle/loginie".
+- Sam komunikat „Chat paused — safety filters" mamy z JEDNEGO zrzutu (TELEPORT_fabryka.md:45). Czy wszystkie 8 okien dostało IDENTYCZNY komunikat — w zapisach NIE MA.
+
+Werdykt: NIE PRZECZY, ale „wszystkie 8" to nadal hipoteza z 1 potwierdzonym punktem na 8.
+
+---
+
+## P2 — CZEGO BRAKUJE (i skąd to wziąć BEZ pytania o hasło)
+
+Brakuje trzech rzeczy:
+1. Rekordu „temat okna w momencie zatrzymania" dla próbek 1–6 i 8 (mamy tylko dla nr 7).
+2. Zrzutu komunikatu blokady dla każdej z 8 osobno (żeby rozróżnić safety-filter od limitu użycia/długości — mamy jeden zrzut).
+3. Znaczników czasu każdej blokady do skorelowania z tym, co się działo.
+
+Skąd wziąć BEZ hasła:
+- Tomasz otwiera claude.ai → lista rozmów/zatrzymane czaty → dla każdego podaje TYLKO jedno słowo o temacie ostatniej wiadomości („kamery"/„kuny"/„ADB"/„fotopułapka"), nie hasło.
+- Zrzut ekranu komunikatu każdego zatrzymanego okna — komunikat hasła nie zawiera.
+- Odczyt Ustawienia → Usage (termin resetu limitu tygodniowego) — domyka wątek „limit" jako drugorzędny, też bez hasła.
+- Przycisk „Give feedback" w komunikacie (kanał do Anthropic, TELEPORT_fabryka.md:45) — może wrócić kategorią przyczyny.
+
+Z VPS nic nie wydobędziemy — pomiar 13.08 06:00 (TELEPORT_fabryka.md:38) pokazał zero ruchu claude-cli, blokady dzieją się po stronie claude.ai.
+
+---
+
+## P3 — GŁOS W SPRAWIE PULI MAX: A
+
+Uzasadnienie: dekret Tomasza „Claude ma robić robotę" stoi, a jedyny udowodniony powód zmiany — „VPS zjada pulę i blokuje okna" — upadł 13.08 (blokady to safety filter przy wklejaniu haseł, nie limit użycia), więc przełączenie primary na gpt-5.5 okien nie naprawi, a niesie ryzyko jakościowe, którego Zenek sam nie potrafi wykluczyć („NIE WIEM, czy zachowa pełną jakość", okna_limit/zenek.txt:60).
+
+Największe ryzyko A: niepotwierdzone ryzyko, że VPS realnie zjada tygodniowy limit Maxa i skraca czas pracy okien Tomasza — ale to wymaga pomiaru `/status`, nie domysłu, i nie tłumaczy żadnej z 8 blokad.
+
+— HENIO (rekomendacja, nie zmiana; zmienić może tylko Tomasz)
+
+---
+
+## P4 — MIEJSCA, GDZIE SEKRET MOŻE TRAFIĆ DO OKNA CZATU
+
+Realne (wymagają poprawki):
+
+1. TELEPORT_HA.md:486 (+ duplikat data/wiedza_kopia/archiwum/TELEPORT_HA.md:486) — hasło MQTT (zmienna `password`, broker `esp_jacuzzi`) zapisane jawnym tekstem w pliku, który jest w repo PUBLICZNYM (wiedza/ARCHITEKTURA.md:12). Poprawka: zamienić na placeholder i wyczyścić wartość z pliku oraz z historii git.
+
+2. .scratch/narada_obejscie/zenek.txt (surowy output Codexa, ~linie 143/150) — hasło Mi Home = hasło routera zapisane jawnym tekstem (`password=...`, „Haslo Mi Home=..."). Poprawka: zamienić wartość na `<USUNIETE>`, jak już zrobiono w .scratch/zadanie_kamery_izolacja.md:10.
+
+3. tools/publikuj_zart.py:15 — `assert tok.startswith('EAA'), 'token FB nieprawidlowy'` — gdy token jest zły, Python wypisze W PEŁNI wartość tokenu FB w AssertionError do stderr → czatu. Poprawka: `assert tok.startswith('EAA'), f'token FB nieprawidlowy (dlugosc {len(tok)} znakow)'`.
+
+4. tools/publikuj_zart.py:13 — fallback do `/root/rod-ai-studio/fb_page_token` w ROOT repo (publiczne), a .gitignore NIE zawiera `fb_page_token` (wyklucza tylko `data/.secrets/`). Poprawka: usunąć fallback do root, trzymać token wyłącznie w `data/.secrets/`, dopisać `fb_page_token` do .gitignore.
+
+5. tools/hilook_wczytaj.sh:45 — `echo "  uzytkownik: $USER"` drukuje NAZWĘ UŻYTKOWNIKA (login) do wyjścia, które idzie do czatu. Poprawka: `echo "  uzytkownik: ustawiony (dlugosc ${#USER} znakow)"` — bez wartości.
+
+Czytają sekrety, ale ich NIE drukują (sprawdziłem, niskie ryzyko — zostawiam jako wzorzec poprawny):
+- tools/hilook_test.sh:23 — hasło do curl-config w /dev/shm (nie argv/ps), drukuje tylko kod HTTP i model. DOBRY wzorzec.
+- tools/pakiet.py:45 — `printenv FAL_KEY`, klucz tylko w nagłówku HTTP, zwraca samo saldo. Poprawka opcjonalna: `del klucz` po użyciu.
+- tools/fotopulapka.py:12 — token HA z `/root/.ha_dzialka_token`, tylko w nagłówku.
+- tools/hans.py:398–413, tools/dzwonek.py:34–48, tools/hans_ucho.py:146–148 — tokeny Telegram z .env, tylko w URL.
+- tools/genek.py:60, tools/szukaj_net.py:48, tools/audyt_meldunku.py:79 — GEMINI_API_KEY, tylko w URL.
+
+Nie drukowałem żadnej wartości sekretu. Nie wykonywałem żadnych prób logowania do HiLook (D-0072). Nie czytałem zawartości /root/.sekrety ani /root/.hilook_cred (wyłącznie nazwy plików/ścieżek z teleportu).
+
+— HENIO
+
+[exit=0 proba=1]

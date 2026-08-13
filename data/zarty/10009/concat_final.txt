@@ -1,0 +1,4 @@
+file '/root/rod-ai-studio/data/zarty/10009/n_intro_a.mp4'
+file '/root/rod-ai-studio/data/zarty/10009/z_werblem.mp4'
+file '/root/rod-ai-studio/data/zarty/10009/n_outro_a.mp4'
+file '/root/rod-ai-studio/data/zarty/10009/n_plansza_ai.mp4'

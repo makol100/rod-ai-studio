@@ -1,0 +1,336 @@
+{
+ "task_id": "zaloga",
+ "start_utc": "2026-08-12T15:48:22.968974+00:00",
+ "start_tomasz": "2026-08-12 17:48:22 CEST",
+ "typ": "badanie",
+ "wymagane_glosy": [
+  "klaudek",
+  "zenek",
+  "genek",
+  "henio"
+ ],
+ "zrodla_wiedzy": [
+  {
+   "path": "wiedza/AKTYWA_SERII.md",
+   "sha256": "3461da04cae53ae4de3e413ac511419ac666c94998239bf77cc45d3dd2a09919"
+  },
+  {
+   "path": "wiedza/ARCHITEKTURA.md",
+   "sha256": "067e4860010e444106cbd44d2f5f661c2decc4aaaa0627f3af6c00b5bbfa8b63"
+  },
+  {
+   "path": "wiedza/BANK_PROMPTOW.md",
+   "sha256": "58a55750fcabde039ed5f23679b481253f1f9739da6bffcb4732d9d0595973c6"
+  },
+  {
+   "path": "wiedza/BRIEF_DLA_KLAUDKA.md",
+   "sha256": "19aa3e9d065269eb7e88c2098be0c630d72b368af504ac9a9a9e3f5c2d8e9427"
+  },
+  {
+   "path": "wiedza/CENA_BLEDOW.md",
+   "sha256": "4dfb8ef54b1b356c002477bfb9f8558f6d123b95cb836ed5f317eb840a502096"
+  },
+  {
+   "path": "wiedza/CLAWMEM_ROZPOZNANIE.md",
+   "sha256": "186dd6ecb698fd3d437ab4482e1b54566520c83826cf6c5f52ab3780ed4239c8"
+  },
+  {
+   "path": "wiedza/CZOLOWKA_WIADOMOSCI.md",
+   "sha256": "32a812ce5b7df17ec72759cb0369f4d06428697d5138bf01f77ea8e70f938bf6"
+  },
+  {
+   "path": "wiedza/DECYZJE_0007_bramka_oka.md",
+   "sha256": "48f679a96fbad821e3e46c5aed0281cb851fbf21198691588006edea970f14f5"
+  },
+  {
+   "path": "wiedza/DECYZJE_CLAUDE_CODE.md",
+   "sha256": "98567513e2986200e25e9b663955bae038be1c9d61ef76b67c873846bc633a80"
+  },
+  {
+   "path": "wiedza/DECYZJE_KUNY.md",
+   "sha256": "5613877acdb9a34e657d106e9645559d656272a81ab778e8e96529b254cd340c"
+  },
+  {
+   "path": "wiedza/DECYZJE_OPENCLAW.md",
+   "sha256": "8c0684d13e4ec1d8c65cbd06aca0163e7259506a8b66bbb249f7898d3acef974"
+  },
+  {
+   "path": "wiedza/DECYZJE_SERIA_HUMOR.md",
+   "sha256": "c828a7946c054234d2ac702c196af25da61b8a1150d50561c0dd918a44a2e5be"
+  },
+  {
+   "path": "wiedza/DROGA_ROLKA_HUMOR.md",
+   "sha256": "d9629e57d3dea56bf84acb54bdbdfdb2e4d7f642630f752d4d06825f45d2c540"
+  },
+  {
+   "path": "wiedza/EGO_LITE_DO_WROCENIA.md",
+   "sha256": "659ebf0ef69cd5f69e6d1a66afcd54f1abfc71fa0575c18a86fb05949304512a"
+  },
+  {
+   "path": "wiedza/EGO_LITE_ROZPOZNANIE.md",
+   "sha256": "6e40525548e8052d34fc79ccc6321d9c70005a2184e5ab3cad578a67a00af41e"
+  },
+  {
+   "path": "wiedza/FILM_OPUS5_WNIOSEK.md",
+   "sha256": "6797894085bdb7759eb28d8755b09abedd61b001713422bcc81a025af9cb6c7a"
+  },
+  {
+   "path": "wiedza/GDZIE_SIE_ZAPISUJE.md",
+   "sha256": "3b900c86805ce113ac22114d793ed1a3af8f76644087682b98a52b43adbcf226"
+  },
+  {
+   "path": "wiedza/GENEROWANIE_OBRAZU.md",
+   "sha256": "d17db1b08c9dc0df36f9b2790225c2b4cb86f89fa2bdcab9a3518ec1e340d774"
+  },
+  {
+   "path": "wiedza/HANS_AGENT.md",
+   "sha256": "5304020edfb78efb49d6dc57dd89755d92c79f82ff447846b9a67654165921d6"
+  },
+  {
+   "path": "wiedza/HA_WYBICKIEGO.md",
+   "sha256": "f926212582fcecc8856882d7e1e0dae5fca9a92181cc0c6f57a805b306be0d29"
+  },
+  {
+   "path": "wiedza/INDEX.md",
+   "sha256": "bdf3a64fd32b7f3ce12383b81250db02839ae6592edc9608b9a64733f4eb0fc9"
+  },
+  {
+   "path": "wiedza/IZABELA_KANON_0.1.md",
+   "sha256": "4d36c041c91e6df0fb5fc3f72d686f52c26381e200fcebcc725d7170a3b6662a"
+  },
+  {
+   "path": "wiedza/JAK_PISZEMY.md",
+   "sha256": "7d88f9eb104f9e4e10f4885934bfe133105b1a531f2989522c4f937f9824e736"
+  },
+  {
+   "path": "wiedza/KONEKTOR_DZIALKA.md",
+   "sha256": "a588c8d466bd1db6f5a28413de3dd39aedf70013e3222bcd0f437712eae15082"
+  },
+  {
+   "path": "wiedza/KONTROLA_KLAUDKA.md",
+   "sha256": "38c41e7ece465f334d6b95d3e527c2ae00c369f3fcb9f5b6186b119bbfdac075"
+  },
+  {
+   "path": "wiedza/LISTA_PRACOWNIKOW.md",
+   "sha256": "38b65b65d97f81858cf55d2a85857c6011553ea74b2344b0745baad04f4c3c48"
+  },
+  {
+   "path": "wiedza/MOST_MIEDZYSESYJNY.md",
+   "sha256": "b3801e6eeb7f19f28ae0217c5e24521d0ff0e584e9817747b612e831bde469f2"
+  },
+  {
+   "path": "wiedza/MOST_WEB.md",
+   "sha256": "b09c6dc192ae07137d7e337fd4a55a8edd3918ae7fe83f389aaae95032f1dbe8"
+  },
+  {
+   "path": "wiedza/NAUKI.md",
+   "sha256": "54ef7ba5e2b55f24631f891aed30814ff3525a2901fd9443f3a28e079ccded0b"
+  },
+  {
+   "path": "wiedza/NAUKI_SERII.md",
+   "sha256": "ecdd988dea704e132cb4462c130c85b520b557532a658f258af76859119d8ce3"
+  },
+  {
+   "path": "wiedza/PAMIEC_INFRASTRUKTURA.md",
+   "sha256": "6ff135c1e8c4a195eeae0eebcebff3a689e9601f3de04592a4c4221b4a7a8097"
+  },
+  {
+   "path": "wiedza/PATROLE_HENIA.md",
+   "sha256": "34b982b37faa1e45da6921a4997a10f6b11fbf11749a023acf9502950c81962f"
+  },
+  {
+   "path": "wiedza/PILOT_MOST_PLAN.md",
+   "sha256": "3eb5a22ebc257c7c9ff4a4971c907396e2acea88a3d999c41b9b684e2b4b7ee5"
+  },
+  {
+   "path": "wiedza/PROCEDURY.md",
+   "sha256": "566fd02de57b60d69d2dcb24dbfd326895b3f4180c59a4e01755fed47e59e10b"
+  },
+  {
+   "path": "wiedza/PROMPTY_WZORCE.md",
+   "sha256": "5ab8ef805c6c7bcc492db2feb28e64816c7f5e6e9da89c2f6c4399b0d3127dd4"
+  },
+  {
+   "path": "wiedza/PRZEGLAD_WARSZTATU_2026-08-12.md",
+   "sha256": "e1c7ae88fdf7d10a85cc70ee14746de35fe52ba7338f44aa109a2e7a887186d0"
+  },
+  {
+   "path": "wiedza/SETUP_CLAUDE_CODE.md",
+   "sha256": "7b2c051e150b297ec2f44a5e54d593595589c22cb52c99ca360af41273fd4e98"
+  },
+  {
+   "path": "wiedza/SLOWA_TOMASZA.md",
+   "sha256": "065a74c88dc981bbf92fdec496f12db9fe845d49170fb980e73a296c823783e4"
+  },
+  {
+   "path": "wiedza/STANISLAW_CANON_1.0.md",
+   "sha256": "842fcc2ef76b8cc8ab1569791e26034607c028d03cb5d35e58ac63575c4b46c1"
+  },
+  {
+   "path": "wiedza/START.md",
+   "sha256": "4a3ef6b8a1c384e185a244ca92c0f30d78831b4b0ba9fba0ea37d1638507a335"
+  },
+  {
+   "path": "wiedza/START_SESJI_CLAUDE_CODE.md",
+   "sha256": "4ce9879d7d137a89abd9b2eee22a7dec35ebb6a0d4f0bb5d1477e857aa5e96d4"
+  },
+  {
+   "path": "wiedza/STYL.md",
+   "sha256": "b28255517cf402b5f4d490b974600ad093d3b2d2c44dadb6d0754dd6d20399f0"
+  },
+  {
+   "path": "wiedza/TEST_ZALOGI_29_07.md",
+   "sha256": "eaa7ec847f08b3c0b1b208b7eec778517ecc8a8e081c4581589eb5e25f09b18f"
+  },
+  {
+   "path": "wiedza/WYSZUKIWARKA.md",
+   "sha256": "e785f42d99a2512b83e8953666d6c489de9bbb2c5579ef318c826b867a39db13"
+  },
+  {
+   "path": "wiedza/WYSZUKIWARKI.md",
+   "sha256": "60cf02e487bb9816709f7421bf60fb62480217a652b3cb8c95838bb89d38f3a1"
+  },
+  {
+   "path": "wiedza/ZACZEP_W_MOSCIE.md",
+   "sha256": "918065632d43c6bb7d3ddc70e5b9f5e6a0c85ea1bde6dac4de4400218c004f00"
+  },
+  {
+   "path": "wiedza/ZALOGA_LIMITY.md",
+   "sha256": "80694550864ca2dbc4ebb069ec46fa2006d894b0d794b903bbca645f206311db"
+  },
+  {
+   "path": "wiedza/pomiary/POMIAR_30_07_tier1_straznik.md",
+   "sha256": "214b5906ad8c5a2014395a470692aaf4c252b6f690968c6829431963dc2564b5"
+  },
+  {
+   "path": "wiedza/archiwum/ANALIZA_10_REPO.md",
+   "sha256": "c2d4997c66ae16dab6c8aab66aefa1f17020d797987f451eb9f799c8a46caaef"
+  },
+  {
+   "path": "wiedza/archiwum/ARCHIWUM_DROGA_HUMOR_v1.md",
+   "sha256": "f0667eb1e582ffade31d0e7eb02fa4764245b52ff6916d6e32588e258cf085fd"
+  },
+  {
+   "path": "wiedza/archiwum/BIBLIA_STANISLAWA.md",
+   "sha256": "319a5b19c6a27b1486c2031db67e2c9cd72120b1f4cbb8b54245db6de6b85ae7"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_000098.md",
+   "sha256": "52dc6dbec564190071c4d19b912671e5799291c2db670e755fc1bf902d4b6da0"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_0008_ruview_dzialka.md",
+   "sha256": "f5b230fabb9e3bad09d33f6391f5c20223811f54c62b4aca11acd268ec589ead"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_10004.md",
+   "sha256": "f55dec3f131b24f0ff006a44337559d4a958ae5fa1dadce52e1db2abf5e102a8"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_10005_slimak.md",
+   "sha256": "5e62ca0f23ad5f6aa2ae94b6cd08078f7c8ffb49484585970477afaa7fff4a03"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_10006_afera.md",
+   "sha256": "d687eba3beb9214fa06b8aabb209e308447301755da382b176994aa0b30dc3a3"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_10007_jablko.md",
+   "sha256": "b5a814bdec21b974bb1fd53590f2623613006310bb2fbdb5b4bbe3b0570143bb"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_10008_kontrola.md",
+   "sha256": "43c079172ba8e3240dff84eca26665d5130275c48c6f08df90e8d33c708567fd"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_10009.md",
+   "sha256": "8bae94e616d4711b1c409aa1bad7bb319b3ee94377fba3a6cf7e06d49721d28c"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_10010.md",
+   "sha256": "a7bf3087b97c3996304123c49f57fd4ad6903360e249fb696c514dcdd1570004"
+  },
+  {
+   "path": "wiedza/archiwum/DECYZJE_AWATAR.md",
+   "sha256": "2923c08b0cf1364ebf9d1a8fe9461b2e6fb3f246688b31340aeba13f695468e0"
+  },
+  {
+   "path": "wiedza/archiwum/KANON_10009.md",
+   "sha256": "84fbef8ab9a68a69928048c8c01c80701751e19bd1c352b25c769e07c74ce894"
+  },
+  {
+   "path": "wiedza/archiwum/LEKCJA_0009_henik_konfabulacja.md",
+   "sha256": "86896fe836ced9df039e7ce58fc2b89767c4868f92d575dc4cf4aabbd73ed1a4"
+  },
+  {
+   "path": "wiedza/archiwum/PARAGRAFY_HENIA_ZNIESIONE.md",
+   "sha256": "e10c74f97ae5adbbc79e38302ef57937f9354f3a946bc52562b626bb9310c69a"
+  },
+  {
+   "path": "wiedza/archiwum/PILOTAZ_RUVIEW.md",
+   "sha256": "06176ae4aa78079f73b86dcbc0cc1359e2df3ba892dc8a0b5ca0368359f6b233"
+  },
+  {
+   "path": "wiedza/archiwum/POMIAR_WD0001_KASKADA.md",
+   "sha256": "2e50497eedf5d2b28c5538a8269a1e5b83398b7ca7d51baacd56ff7509954524"
+  },
+  {
+   "path": "wiedza/archiwum/PORADNIK_17_CLAUDE_CODE.md",
+   "sha256": "9e0c581d741a1295b67b23a61b3225a847f48b393fbe5da8bfe32205a1e6dee7"
+  },
+  {
+   "path": "wiedza/archiwum/PRZEKAZANIE_2026-07-26_10010.md",
+   "sha256": "9c552af9db57f8e87233377c150f55a077775a546fcc51a35698a71585c35ddb"
+  },
+  {
+   "path": "wiedza/archiwum/SKILLE_WYBOR.md",
+   "sha256": "b86c43f9a9d848beb9b8ffe29069857155dc0205a28c8d4f9fdc1583fe3dddba"
+  },
+  {
+   "path": "wiedza/TECZKI/GENEK.md",
+   "sha256": "8fc6dc6a33afdce2fd55684b3e114e0a220443581d3dc01fe323b5e7d070d5e4"
+  },
+  {
+   "path": "wiedza/TECZKI/HENIO.md",
+   "sha256": "3a52b1baa001af7899452fc724b805d32e6c3ff1b1a94f560c04213b148fa9be"
+  },
+  {
+   "path": "wiedza/TECZKI/KLAUDEK.md",
+   "sha256": "ca1498e372ef702220b46d1eb45749129bc21f54b0acf736e87291bcde1c9715"
+  },
+  {
+   "path": "wiedza/TECZKI/ZASADY.md",
+   "sha256": "be4f7726c4e5bfe12f8f034cc03ec09617f07c0411bbd1185b404908fd8edd8b"
+  },
+  {
+   "path": "wiedza/TECZKI/ZENEK.md",
+   "sha256": "27c18282adbedcd327b6b7293c5672b55078a77f184a550ce6caafd43e98d858"
+  },
+  {
+   "path": "wiedza/srodowiska/_wzorzec.md",
+   "sha256": "ab1836b9085fdcde6259b98130ed7f1b213a8facb2f40a2d782e99da3aa81c55"
+  },
+  {
+   "path": "wiedza/srodowiska/genek.md",
+   "sha256": "cd77aed0ba692d30f47426ab895e4439546bfb9fc240657609032a708d792e3b"
+  },
+  {
+   "path": "wiedza/srodowiska/henio.md",
+   "sha256": "eea8615d88b7b7e8188391f67ab1ba379bf1ff20709146f8c71b77b017eedc0f"
+  },
+  {
+   "path": "wiedza/srodowiska/klaudek.md",
+   "sha256": "20d6fc61f97ab16338a8467b1a3b73d2dce75ef67cede980c021052bb54ef474"
+  },
+  {
+   "path": "wiedza/srodowiska/zenek.md",
+   "sha256": "de8aaab2c2b88963b4997438b9bac7eb8426603834ee2f299fa82a1c7fa9663a"
+  },
+  {
+   "path": "wiedza/przeglady/MARTWE_TUYA_5.08.md",
+   "sha256": "c6f27f645b9187474c321746f1345e09bfde294bfb5acb8a49e8b56e4636d1d9"
+  }
+ ],
+ "plik_zadania": ".scratch/hik_srt_20260812/zadanie.md",
+ "tresc_zadania": "KONTROLA NIEZALEZNA. Hik-Connect login i lista urządzeń online działają, lecz trzy udostępnione kamery kończą próbę klatki błędem: \"ezviz: SRT data session did not start within 15s\". Fork: /root/go2rtc-hik, pkg/ezviz. Ustal na podstawie kodu i źródeł: dokładny etap awarii; czy shared account ma prawo P2P live view; czy potrzebny verification code/parametr/kanał/region; czy kod obsługuje relay/TCP/inny UDP; jedna najbezpieczniejsza próba teraz. Oddziel potwierdzone od hipotez, podaj ślady/URL. Nie modyfikuj kodu ani usług.\n"
+}

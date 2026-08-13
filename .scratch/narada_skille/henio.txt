@@ -1,0 +1,59 @@
+Mam już wszystkie dane. Oto mój głos.
+
+---
+
+## HENIO — WERDYKT: GitHub Trending #124, ocena kandydatów
+
+### POTWIERDZONE (ślady)
+
+**fogsight** (`fogsightai/fogsight`, Python 3.10+, MIT):
+- szukaj_net (5 źródeł): "wprowadź temat, a Fogsight dostarczy kompletną animację narracyjną z dwujęzyczną narracją i kinową oprawą wizualną", "LLM napędza cały proces — od scenariusza po elementy wizualne i ruch"
+- 15 otwartych issues w repo, wymaga klucza Gemini, lokalnie lub web
+- **Format: animacja z konceptu.** Nie ma kontroli nad prezenterką, nie produkuje formatu "Izabela w studiu + wiadomości". To inny gatunek.
+
+**claude-video / watch skill** (kilka wariantów: bsisduck/video-analyzer-skill, oxbshw/watch-skill):
+- szukaj_net (6 źródeł): "wyodrębnia klatki, wykrywa zmiany scen, transkrybuje dźwięk", "v2: 40x szybsza, inteligentny wybór scen, deduplikacja klatek"
+- Działa przez yt-dlp → klatki → whisper FALLBACK. Yt-dlp na VPS dostaje blokadę od YouTube.
+- Nasze `oczy_uszy.py` (zmierzone 29.07 i 30.07): Gemini przez fileUri, NATIVE video understanding (klatki + audio), omija blokadę botów. Tryby: `--co transkrypcja`, `--co opis` (klatki z czasami), `--co oba`, `--pytanie`. Działało od ręki. (Źródło: `/root/rod-ai-studio/tools/oczy_uszy.py`, linie 1-31)
+
+**im-not-ai** (`epoko77-ai/im-not-ai`, v2.3.0):
+- szukaj_net (6 źródeł): "specjalnie dostosowany do języka koreańskiego", "jeśli tekst nie jest w języku koreańskim, narzędzie wyświetli komunikat '한국어 텍스트만 처리 가능' i zakończy działanie"
+- 10 kategorii, >60 podwzorców "AI tell", klasyfikacja S1/S2/S3
+- **Kod jest bezużyteczny dla polskiego.** Wartością jest koncept.
+
+### HIPOTEZY (wnioski własne)
+
+**1. fogsight → ODRZUCIĆ**
+Nasz pipeline (scenariusz → TTS → obrazy → ffmpeg → publikacja) to kontrolowany, deterministyczny proces z konkretną prezenterką (Izabela), konkretnym studiem i formatem "Wiadomości Działkowe". fogsight generuje animacje "z chmury" — nie da się w niego wpiąć naszej prezenterki, studia ani formatu. To byłby zupełnie nowy produkt, nie uzupełnienie. Poza tym 15 otwartych issues przy ~3000 gwiazdkach to sygnał niedojrzałości.
+
+**2. claude-video → ZBĘDNE**
+Mamy `oczy_uszy.py`, które działa lepiej dla naszego przypadku:
+- Omija blokadę YouTube (fileUri — Google pobiera po swojej stronie)
+- Gemini natywnie rozumie wideo (widzi klatki i słyszy audio jednocześnie)
+- Obsługuje YouTube, pliki lokalne mp4/mp3/jpg
+- Tryb `--co oba` daje transkrypcję + opis obrazu z czasami — czyli to samo, co /watch
+- claude-video: yt-dlp na VPS = blokada. Whisper to fallback, nie przewaga.
+- Jedyna przewaga /watch (deduplikacja klatek, deiktyczne celowanie gestami) dotyczy długich filmów — nasze rolki są krótkie. Nieprzydatne.
+
+**3. im-not-ai → KOD BEZUŻYTECZNY, KONCEPT WARTOŚCIOWY**
+Kod działa tylko po koreańsku — zero użyteczności. Ale IDEA jest trafiona: zbudowanie taksonomii "AI tell" dla polskiego i wpięcie jej jako skill kontroli tekstu przed publikacją. Mamy już zasady pisania (JAK_PISZEMY, reguły 1-10) — koncept dałoby się rozszerzyć o katalog polskich fraz-zdradzaczy AI ("podsumowując", "ma to istotne implikacje", "w dzisiejszych czasach", nadużywanie bezosobowych konstrukcji, mechaniczne paralelizmy). To byłby NOWY, WŁASNY skill — nie port kodu.
+
+**4. Reszta 24 repo — odsiane słusznie**
+Przejrzałem listę odsianych — wszystkie rzeczywiście nie mają związku z fabryką (reverse engineering, gry, skanery XSS, kursy, NixOS, przeglądarki zdjęć, proxy CN, CUDA). Nie zgłaszam żadnego do odwieszenia. Jedyna wątpliwość: `awesome-newsletters` — ale to tylko lista newsletterów, nie narzędzie. Nieprzydatne.
+
+### NIE WIEM
+
+- Czy w filmie #124 było coś więcej wartościowego poza tymi trzema — nie mam transkrypcji tego konkretnego filmu. Transkrypcja na dysku (`transkrypcja_film10.txt`) jest z filmu #10 (29.07), nie z #124 — sprawdzone: zero wystąpień "fogsight", "claude-video", "im-not-ai" (grep, exit code 1).
+
+---
+
+### WERDYKT KOŃCOWY
+
+| kandydat | werdykt | uzasadnienie |
+|---|---|---|
+| **fogsight** | ❌ NIE | nie nasz format (animacja z chmury vs Izabela w studiu) |
+| **claude-video** | ❌ NIE | mamy lepsze (`oczy_uszy.py` przez Gemini natywnie, omija blokadę YouTube) |
+| **im-not-ai** | 🟡 KONCEPT TAK, KOD NIE | adaptować ideę "anty-AI-tell" na polski jako własny skill kontroli tekstu |
+| **reszta 24** | ❌ słusznie odsiane | brak związku z fabryką/HA/pamięcią |
+
+**Rekomendacja:** z całego filmu #124 do fabryki wchodzi dokładnie JEDNA rzecz — koncept "im-not-ai" jako inspiracja do własnego skilla anty-AI-tell dla tekstów polskich. Reszta to szum.

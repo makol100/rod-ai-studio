@@ -1,0 +1,21 @@
+POTWIERDZONE
+
+1) AUTH: WYKAZANE. Test funkcjonalny rozróżnia poświadczenia: ze złym tokenem klient dostał „unauthorized: gateway token mismatch” i zamknięcie gateway kodem 1008; z poprawnym tokenem dostał „Gateway event loop: ok” oraz status agenta i heartbeat. Odpowiedź „Not Found” bez tokena dotyczy nieistniejącej ścieżki HTTP i nie obala wyniku uwierzytelnionego protokołu gateway.
+
+4) ROOTLESS: WYKAZANY w przedstawionej paczce wynikiem „rootless=true”. „w-kontenerze-uid=0” jest zgodne z rootem wewnątrz przestrzeni użytkownika kontenera i nie obala rootless hosta.
+
+WARN trusted_proxies: NIE JEST ISTOTNYM BRAKIEM W OBECNEJ KONFIGURACJI. Audyt stawia warunek „If you expose the Control UI through a reverse proxy” i podaje alternatywę „or keep the Control UI local-only”. Gateway nasłuchuje wyłącznie na 127.0.0.1 i ::1, a założenie oceny mówi, że reverse proxy nie ma. Ostrzeżenie stanie się istotne dopiero przy wystawieniu UI przez reverse proxy; wtedy trzeba skonfigurować trustedProxies.
+
+Pozostałe wcześniej sprawdzone warunki nadal mają ślady w dowody.txt: jeden lokalny model Ollama bez fallbacków i providerów z tokenami, web i browser zabronione dla tego modelu, sandbox mode=all/backend=podman, exec allowlist/on-miss z askFallback=deny, brak skonfigurowanych kanałów, heartbeat 30m, prawa 700/600, audyt 0 critical. Dwa wpisy INFO opisują stan i nie są błędami audytu.
+
+HIPOTEZY
+
+Brak.
+
+NIE WIEM
+
+Z samego tekstowego wyciągu nie da się odtworzyć poleceń, które wygenerowały „rootless=true”, ani potwierdzić przyszłej konfiguracji po ewentualnym dodaniu reverse proxy. Nie są to braki obecnego, przedstawionego re-audytu.
+
+WERDYKT KOŃCOWY: POTWIERDZAM cały pilotaż w zakresie przedstawionych warunków i dowodów. Poprzednie braki 1 i 4 zostały usunięte dowodowo; trusted_proxies nie blokuje konfiguracji local-only bez reverse proxy.
+
+— Zenek

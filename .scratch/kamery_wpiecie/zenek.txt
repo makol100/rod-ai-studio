@@ -1,0 +1,184 @@
+## POTWIERDZONE
+
+### P1. Miniatura i kodek
+
+Najpewniejszy wariant to:
+
+1. Przełączyć wyłącznie substreamy kamer na H.264.
+2. Zachować główne strumienie H.265 dla nagrywania.
+3. Dodać w go2rtc kodek MJPEG tylko do wykonywania miniaturek.
+
+Samo H.264 nie gwarantuje JPEG. Dokumentacja go2rtc mówi, że `/api/frame.jpeg` wymaga źródła MJPEG; zalecany układ łączy oryginalny strumień z `ffmpeg:nazwa#video=mjpeg`. [Dokumentacja go2rtc MJPEG](https://github.com/AlexxIT/go2rtc/blob/master/internal/mjpeg/README.md).
+
+Konkretna zmiana w kopii XML kanału `102`:
+
+```xml
+<Video>
+  <enabled>true</enabled>
+  <videoInputChannelID>1</videoInputChannelID>
+  <videoCodecType>H.264</videoCodecType>
+  <videoResolutionWidth>640</videoResolutionWidth>
+  <videoResolutionHeight>360</videoResolutionHeight>
+  <videoQualityControlType>VBR</videoQualityControlType>
+  <constantBitRate>256</constantBitRate>
+  <vbrUpperCap>256</vbrUpperCap>
+  <vbrLowerCap>64</vbrLowerCap>
+  <maxFrameRate>1000</maxFrameRate>
+  <GovLength>20</GovLength>
+</Video>
+```
+
+Pola istnieją w rzeczywistym XML: `videoCodecType`, rozdzielczość, VBR, bitrate, FPS i GOP — [/root/skrzynka/isapi_backup/192.168.3.111_102.xml:37](/root/skrzynka/isapi_backup/192.168.3.111_102.xml:37). Przed PUT trzeba pobrać `/ISAPI/Streaming/channels/102/capabilities`; NIE WIEM, czy wszystkie trzy egzemplarze zaakceptują dokładnie H.264, 10 fps i GOP 20 bez potwierdzenia capabilities.
+
+Konkretna konstrukcja go2rtc, bez prawdziwych danych logowania:
+
+```yaml
+streams:
+  rod_brama_sd:
+    - rtsp://<UŻYTKOWNIK>:<HASŁO>@<NVR>/Streaming/Channels/102
+    - ffmpeg:rod_brama_sd#video=mjpeg
+
+  rod_kamera2_sd:
+    - rtsp://<UŻYTKOWNIK>:<HASŁO>@<NVR>/Streaming/Channels/202
+    - ffmpeg:rod_kamera2_sd#video=mjpeg
+
+  rod_kamera4_sd:
+    - rtsp://<UŻYTKOWNIK>:<HASŁO>@<NVR>/Streaming/Channels/402
+    - ffmpeg:rod_kamera4_sd#video=mjpeg
+```
+
+MJPEG powinien być uruchamiany tylko dla miniaturek, a nie jako właściwy strumień na żywo. Istniejące wpisy `101/201/401` warto zostawić jako HD na żądanie, ale nie ładować wszystkich stale.
+
+### P2. Parametry substreamu
+
+Rekomenduję początkowo:
+
+- 640×360,
+- 10 fps,
+- H.264,
+- VBR z limitem 256 kb/s,
+- minimum 64 kb/s,
+- GOP 20, czyli klatka kluczowa co 2 sekundy.
+
+Dla 11 strumieni limit obrazu wynosi `11 × 256 = 2816 kb/s`. Po doliczeniu 25% narzutu to około `3,52 Mb/s`. Dla trzech nowych kamer będzie to około `0,96 Mb/s` z narzutem.
+
+Nie zwiększałbym teraz rozdzielczości. W kaflu 11-kamerowego gridu 640×360 jest wystarczające, natomiast podgląd szczegółowy powinien przełączać się na istniejący main stream. Wsparcie innej rozdzielczości musi rozstrzygnąć wynik `channels/102/capabilities`.
+
+### P3. Wpięcie do HA
+
+Dla wymaganych encji `camera.*` proponuję oficjalną integrację Generic Camera:
+
+- `Still Image URL`: endpoint `/api/frame.jpeg?src=rod_brama_sd`,
+- `Stream Source`: lokalny RTSP go2rtc dla `rod_brama_sd`,
+- analogicznie dla pozostałych dwóch kamer.
+
+Generic Camera oficjalnie obsługuje osobne adresy obrazu i strumienia, a HA wystawia obraz przez własny proxy. [Dokumentacja HA Generic Camera](https://www.home-assistant.io/integrations/generic).
+
+Karta może również łączyć się bezpośrednio z nazwą strumienia go2rtc, nawet bez encji, ale nie spełniałoby to wymagania posiadania encji `camera.*`. [Przykład advanced-camera-card](https://github.com/dermotduffy/advanced-camera-card/blob/main/docs/examples.md).
+
+Konfiguracja każdej nowej karty:
+
+```yaml
+type: custom:advanced-camera-card
+cameras:
+  - camera_entity: camera.rod_brama
+    live_provider: go2rtc
+    go2rtc:
+      stream: rod_brama_sd
+view:
+  default: live
+live:
+  preload: false
+  lazy_load: true
+  auto_play:
+    - selected
+    - visible
+  auto_pause:
+    - hidden
+  lazy_unload:
+    - hidden
+```
+
+`preload: false` oznacza brak transmisji przed wejściem do widoku. `auto_play: [selected, visible]` uruchamia obraz po pokazaniu karty. `lazy_load` dotyczy przede wszystkim kamer w obrębie karuzeli; przy 11 osobnych, jednocześnie widocznych kartach wszystkie mogą zostać uruchomione. [Dokumentacja live](https://github.com/dermotduffy/advanced-camera-card/blob/main/docs/configuration/live.md).
+
+11 substreamów po 256 kb/s jest pasmowo możliwe według powyższego budżetu, ale rozsądniejszy układ to:
+
+- na wejściu automatycznie 6 kamer widocznych na ekranie,
+- pozostałe po przewinięciu,
+- main stream tylko po wejściu w pełny ekran.
+
+NIE WIEM, czy obecna wersja dashboardu rzeczywiście usuwa z DOM karty poza ekranem; trzeba to zmierzyć liczbą aktywnych konsumentów w go2rtc.
+
+### P4. Nagrania i kuny
+
+Droga oficjalna:
+
+1. `POST /ISAPI/ContentMgmt/search` z `trackIDList`, zakresem czasu, `maxResults` i pozycją wyniku.
+2. Z odpowiedzi pobrać `startTime`, `endTime`, `trackID`, wielkość oraz `playbackURI`.
+3. Przekazać zwrócony `playbackURI` do `GET /ISAPI/ContentMgmt/download`.
+4. Kontynuować stronicowanie, dopóki odpowiedź ma status `MORE`.
+
+Hikvision dokumentuje wyszukanie, otrzymanie `playbackURI`, a następnie pobranie przez `/ISAPI/ContentMgmt/download`. [Przewodnik integracyjny Hikvision](https://www.hikvisioneurope.com/eu/portal/portal/Technology%20Partner%20Program/02-Solutioins%20of%20Hikvision%20product%20integration/Face%20Recognition%20NVR%20Integration%20Solution.pdf). SDK Hikvision podaje limit 40 wyników na odpowiedź i konieczność zmiany pozycji przy statusie `MORE`. [HCWebSDK Hikvision](https://open.hikvision.com/fileserver/resourcedocsonline/HCWebSDK3.3.0%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97_20230420134609.pdf).
+
+Pierwsze wyszukiwanie:
+
+- kanały 101, 201 i 401,
+- każda noc osobno,
+- godziny 20:00–06:00 czasu lokalnego,
+- najpierw ostatnie 7 nocy,
+- pobierać najpierw wykaz segmentów i ich rozmiary, nie całe archiwum.
+
+Ile danych i jak daleko sięga archiwum: NIE WIEM. Brakuje pojemności dysku, trybu nagrywania, bitrate głównych strumieni i daty najstarszego segmentu. Rozstrzygną to:
+
+- `GET /ISAPI/ContentMgmt/Storage`,
+- wyszukanie najstarszego dostępnego dnia,
+- suma pól `size` zwróconych przez search.
+
+RTSP playback jest dobrą drogą do krótkiego odtworzenia wskazanego przedziału; do masowego, kontrolowanego pobierania wybrałbym search + download.
+
+### P5. Ryzyka i koszt
+
+1. Zmiana złego kanału może wpłynąć na nagrywanie. Zapobieganie: zmieniać tylko `102` na kamerach, zachować XML i po zmianie sprawdzić main stream oraz najnowsze nagranie NVR.
+
+2. Jednoczesne 11 transmisji może przeciążyć uplink. Zapobieganie: limit 256 kb/s, brak preloadu, pomiar aktywnych konsumentów i pasma przed uruchomieniem wszystkich.
+
+3. Transkodowanie 11 strumieni obciąży N150. Zapobieganie: H.264 bez transkodowania dla live; MJPEG tylko do miniaturek; trzy kamery wdrażać kolejno.
+
+4. `watchdog=false` pozostawi monitoring martwy po awarii dodatku. Zapobieganie: po stabilnym teście włączyć watchdog i wykonać jeden kontrolowany restart dodatku.
+
+5. Błędne logowania mogą czasowo zablokować konto. Zapobieganie: zero zgadywania, jedna zweryfikowana para danych, Digest, brak drukowania URL-i i odpowiedzi `/api/streams?src=`.
+
+Koszt oprogramowania i konfiguracji: `0 zł`. Dodatkowy sprzęt: `0 zł`. Koszt energii MJPEG i dokładny koszt transferu: NIE WIEM — brak pomiaru poboru oraz warunków łącza.
+
+### P6. Kolejność
+
+1. [O] Odczytać capabilities `102` z każdej dostępnej kamery i zachować obecne XML poza czatem.
+2. [O] Zmienić tylko kamerę `.111`: H.264, 640×360, 10 fps, VBR 256 kb/s, GOP 20.
+3. [O] Sprawdzić RTSP `102`, JPEG, main stream `101` oraz nowe nagranie NVR.
+4. [O] Powtórzyć zmianę dla `.112` i `.114`, pojedynczo.
+5. [O] Dodać do go2rtc trzy strumienie SD wraz z producentem MJPEG; istniejące HD pozostawić jako podgląd szczegółowy.
+6. [O] Utworzyć trzy encje Generic Camera i trzy karty w istniejącym widoku `kamery`.
+7. [O] Ustawić `default: live`, `preload: false`, automatyczne odtwarzanie widocznych kart i rozładowanie po ukryciu.
+8. [O] Zmierzyć trzy, następnie sześć i na końcu 11 transmisji: pasmo, CPU, pamięć i liczbę konsumentów.
+9. [O] Włączyć watchdog dodatku po udanym restarcie kontrolnym.
+10. [O] Wyszukać siedem ostatnich nocy w NVR i pobrać najpierw indeks segmentów.
+
+Kroków [N] nie proponuję. Reset urządzenia, formatowanie dysku, usuwanie nagrań ani zmiana main streamu nie są potrzebne.
+
+## HIPOTEZY I ROZBIEŻNOŚCI
+
+- Mój wcześniejszy głos i głos Henia w `.scratch/go2rtc_hilook/` zakładały H.264 na substreamie na podstawie katalogu. Aktualny pomiar `ffprobe` i XML obala to: substream jest H.265. Tamtego wniosku nie wolno używać.
+- H.265 powinien działać na Chrome 151, ponieważ go2rtc podaje WebRTC HEVC od Chrome 136, ale nie zastępuje to testu konkretnego profilu i połączenia. [Tabela go2rtc](https://github.com/AlexxIT/go2rtc).
+- Najmniej ryzykowny jest H.264 na substreamie plus MJPEG tylko dla miniaturek; ostatecznie rozstrzyga Tomasz.
+
+## NIE WIEM
+
+- Czy firmware trzech kamer zaakceptuje wszystkie proponowane wartości przed odczytem capabilities.
+- Jaka jest rzeczywista przepustowość uplinku działki i obciążenie N150 przy 11 odbiorcach.
+- Pojemność, retencja i najstarsza data nagrań NVR.
+- Czy nagrania są ciągłe, ruchowe czy mieszane.
+- Czy kamera `.113` odpowiada kanałowi `Rog`; nie należy próbować jej logowania.
+
+Pierwsza konkretna czynność: odczytać bez zmiany `/ISAPI/Streaming/channels/102/capabilities` z `.111`, `.112` i `.114`.
+
+— Zenek

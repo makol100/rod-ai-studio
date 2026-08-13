@@ -1,0 +1,32 @@
+GLOS NIEODEBRANY (dwukrotnie tryb awaryjny — Genek nie mial dostepu do dysku, czyli NIE mial rownych szans; ponizej jego odpowiedz bez dostepu, do wgladu)
+
+[GENEK — TRYB AWARYJNY: bez dostepu do dysku, tylko doklejony material; droga 1 padla: CLI: zaden model z kolejki nie odpowiedzial (gemini-3.1-pro-preview, gemini-3.1-pro-preview, gemini-3.6-flash) po 3 probach. Dekret Tomasza: najwyzszy WOLNY model — schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, ale tu nie odpowiedzial ZADEN. | gemini-3.1-pro-preview: YOLO mode is enabled. All tool calls will be automatically approved.
+W | gemini-3.1-pro-preview: YOLO mode is enabled. All tool calls will be automatically approved.
+W]
+
+Zenek musi oprzeć wykonanie produkcji na innym członku załogi w następujących przypadkach:
+
+1.  **Rolki humor Veo (generowanie klipów Veo 3.1 Fast image-to-video):**
+    *   **Fakt ze śladem:** W `wiedza/ARCHITEKTURA.md` (linia 100) jest informacja, że klipy Veo 3.1 Fast image-to-video (fal.ai, $0.10/s bez audio, 8s/klip, 9:16) są częścią pipeline'u Fabryki Żartów. Zenek ma dostęp do internetu (`wiedza/srodowiska/zenek.md`, linia 5), ale nie ma własnego narzędzia do generowania obrazów/filmów.
+    *   **Hipoteza:** Generowaniem obrazów i filmów zajmuje się Genek (`wiedza/GENEROWANIE_OBRAZU.md`, linia 10: "droga główna to Genek, `gemini-3.1-flash-image`"). Fal.ai jest tylko zapasowo, przy awarii Genka. Zenek nie ma uprawnień ani narzędzi do bezpośredniego korzystania z fal.ai do generowania klipów wideo.
+    *   **Wniosek:** Zenek musi polegać na Genku (lub ewentualnie na Klaudku, który może uruchomić fal.ai jako fallback) do generowania klipów Veo.
+
+2.  **Rolki foto Bielik (generowanie obrazów):**
+    *   **Fakt ze śladem:** Bielik-11B v3 Q8_0 (Ollama, lokalny) jest modelem do polskiego tekstu (`wiedza/ARCHITEKTURA.md`, linia 31). Generowaniem obrazów zajmuje się Genek (`wiedza/GENEROWANIE_OBRAZU.md`, linia 10: "droga główna to Genek, `gemini-3.1-flash-image`").
+    *   **Wniosek:** Zenek nie ma własnego narzędzia do generowania obrazów. Musi polegać na Genku.
+
+3.  **Filmy 16:9 (generowanie obrazów/wideo):**
+    *   **Fakt ze śladem:** Zenek ma dostęp do internetu i może oglądać filmy (`wiedza/srodowiska/zenek.md`, linia 5 i 19). Jednak nie ma własnego narzędzia do generowania obrazów/wideo.
+    *   **Wniosek:** Zenek musi polegać na Genku do generowania jakichkolwiek materiałów wideo.
+
+4.  **Wiadomości Działkowe z Izabelą (generowanie postaci Izabeli, tła studia, składanie wideo):**
+    *   **Fakt ze śladem:**
+        *   Generowanie postaci Izabeli (`IZABELA_CANON_v2.png`) odbywa się za pomocą `tools/gen_izabela_v2.py` i modelu `gemini-3.1-flash-image` (`wiedza/IZABELA_KANON_0.1.md`, linia 209), który jest narzędziem Genka.
+        *   Generowanie pustego tła studia (`TLO_STUDIO_PUSTE_CANON.png`) odbywa się za pomocą `tools/gen_studio_puste.py` i kosztuje ~0,067 USD (`wiedza/IZABELA_KANON_0.1.md`, linia 174). To również wskazuje na Genka jako wykonawcę.
+        *   Składanie studia Izabeli (`tools/zloz_studio_izabeli.py`) jest wykonywane kodem (`wiedza/IZABELA_KANON_0.1.md`, linia 177). Zenek ma dostęp do poleceń (`wiedza/srodowiska/zenek.md`, linia 5), więc teoretycznie mógłby uruchomić ten skrypt, ale wymaga to wcześniejszego wygenerowania komponentów przez Genka.
+        *   Kanon głosu Izabeli to Charlotte z fal-ai/elevenlabs/tts/eleven-v3 (`wiedza/IZABELA_KANON_0.1.md`, linia 90). Zenek nie ma własnego narzędzia do generowania głosu.
+    *   **Wniosek:** Zenek musi polegać na Genku do generowania obrazów Izabeli i tła studia, a także na innym agencie (prawdopodobnie Klaudku, który ma dostęp do klucza API Tomasza dla Claude'a, lub Genku, jeśli ma bezpośredni dostęp do fal.ai) do generowania głosu Izabeli.
+
+**Jedna konkretna rzecz do zrobienia:** Zaktualizować teczkę Zenka o informację, że nie posiada własnych narzędzi do generowania obrazów, wideo i głosu, i musi polegać na Genku (lub Klaudku w przypadku fal.ai).
+
+GENEK

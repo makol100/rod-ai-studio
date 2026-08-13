@@ -1,0 +1,6 @@
+FINALNY werdykt OpenClaw. Oceń wyłącznie na podstawie dowody.txt, dowody2.txt i poprzedniego werdyktu:
+1. Czy auth jest teraz funkcjonalnie wykazany przez zły token kontra poprawny token?
+2. Czy rootless Podman jest wykazany?
+3. Czy warn gateway.trusted_proxies_missing jest istotnym brakiem przy gateway.bind=loopback i Control UI local-only bez reverse proxy?
+4. Czy cały pilotaż przechodzi re-audyt, czy zostają konkretne braki?
+Podaj POTWIERDZONE / HIPOTEZY / NIE WIEM, cytuj dokładne ślady i podpisz opinię.

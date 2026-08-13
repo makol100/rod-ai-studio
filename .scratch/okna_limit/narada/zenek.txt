@@ -1,0 +1,84 @@
+## 1. P1 — POTWIERDZONE, z zastrzeżeniem
+
+Praca VPS przez `claude-cli` zużywa tę samą pulę Maxa co okna Tomasza:
+
+- `journalctl` zwrócił dziś **24 uruchomienia** `provider=claude-cli`.
+- `/root/.claude/.credentials.json` jest dowiązaniem do `/home/openclaw/.claude/.credentials.json`, więc root i OpenClaw korzystają z tego samego logowania.
+- Anthropic podaje wprost, że aktywność w Claude, Claude Code i Claude Desktop liczy się do wspólnego limitu. [`Use Claude Code with your Pro or Max plan`](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan), [`How do usage and length limits work?`](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)
+
+Zatem **Molty/Hans oraz Claude Code roota obciążają pulę dostępną oknom Tomasza i mogą doprowadzać do ich blokady**.
+
+Nie da się jednak potwierdzić, że VPS był jedyną przyczyną konkretnej blokady. Limit zużywają również okna Claude Tomasza, Desktop i inne działania na tym koncie. Max ma także osobny limit ogólny i tygodniowy limit Sonnet. [`What is the Max plan?`](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)
+
+## 2. P2 — najtaniej wariant B
+
+**Najtańszy koszt dodatkowy: B — 0 USD, dopóki praca mieści się w użyciu zawartym w ChatGPT Plus.**
+
+Dokładna proponowana zmiana:
+
+```json
+"agents": {
+  "defaults": {
+    "model": {
+      "primary": "openai/gpt-5.5"
+    }
+  }
+}
+```
+
+Zmienia się wyłącznie:
+
+```diff
+- "primary": "anthropic/claude-sonnet-5"
++ "primary": "openai/gpt-5.5"
+```
+
+Heartbeat pozostaje `ollama/qwen2.5vl:7b`. Claude powinien zostać usunięty również z automatycznych fallbacków, jeżeli wymaganie „tylko na jawne życzenie Tomasza” ma być twarde; aktualnej pełnej listy fallbacków nie odczytałem z powodu odmowy dostępu do pliku, więc dokładnej poprawki tej listy **NIE WIEM**.
+
+Porównanie:
+
+- **A:** 0 USD dodatkowo, ale nie zdejmuje żadnego obciążenia z Maxa.
+- **B:** 0 USD dodatkowo do limitu Plus i całkowicie zdejmuje automatyczny ruch z Maxa.
+- **C:** ogranicza, lecz nie usuwa zużycia Maxa. **NIE WIEM**, czy OpenClaw ma natywny licznik dzienny dla `claude-cli`; nie znalazłem potwierdzenia takiej opcji.
+- **D:** zdejmuje ruch z Maxa, ale tworzy koszt API.
+
+Koszt D dla podanego przebiegu Sonnet 5:
+
+- 916 214 tokenów zapisu cache × $2,50/M przy cache 5-minutowym,
+- 71 517 wyjściowych × $10/M,
+- 252 zwykłych wejściowych × $2/M,
+
+czyli około **$3,01/dzień bez cache-read**. Przy zapisie cache jednogodzinnym byłoby około **$4,38/dzień**. Po doliczeniu 8 776 291 odczytów cache po $0,20/M: około **$4,76–$6,14/dzień**. Są to ceny promocyjne Sonnet 5 obowiązujące do 31 sierpnia 2026; potem stawki rosną. [`Claude prompt caching prices`](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
+
+Samo „988 tys. tokenów” nie wystarcza do jednego dokładnego kosztu — cena zależy od rodzaju tokenów i czasu cache.
+
+## 3. P3 — TAK, wariant B ma ryzyka
+
+- **Limit Plus:** GPT-5.5 korzysta z limitowanej puli agentowej współdzielonej m.in. z Codexem i ChatGPT Work. Po wyczerpaniu trzeba czekać albo kupić kredyty. [`Using Codex with your ChatGPT plan`](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan%25252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252528.csv)
+- **Możliwy koszt:** jeżeli Tomasz kupi kredyty lub włączy automatyczne doładowanie, ruch ponad pakiet stanie się płatny. [`Using Credits for Flexible Usage`](https://help.openai.com/en/articles/12642688)
+- **Zużycie:** GPT-5.5 kosztuje w rozliczeniu Codexa 125 kredytów/M wejścia, 12,5/M cache i 750/M wyjścia; typowe zadanie to 5–45 kredytów. [`Codex rate card`](https://help.openai.com/en/articles/20001106)
+- **Jakość i funkcje:** lokalny test potwierdził jedynie odpowiedź „SUBSKRYPCJA-DZIAŁA”. Nie ma porównania jakości GPT-5.5 z Sonnet 5 w zadaniach Hansa ani testu wszystkich narzędzi OpenClaw. **NIE WIEM**, czy zachowa pełną jakość i wszystkie zachowania obecnego runtime.
+
+## 4. P4 — procentu zużytego przez VPS nie da się wyliczyć z plików JSONL
+
+Komenda do sprawdzenia całej pozostałej puli konta:
+
+```bash
+claude
+```
+
+a następnie w sesji:
+
+```text
+/status
+```
+
+Anthropic oficjalnie wskazuje `/status` jako licznik pozostałej alokacji. Ustawienia konta → **Usage** pokazują również termin resetu limitu tygodniowego.
+
+Nie ma potwierdzonej komendy, która pokaże: „VPS zużył dziś X%”. `/status` pokazuje stan wspólnego konta, natomiast JSONL pokazują lokalne tokeny. Anthropic nie publikuje przelicznika tokenów lokalnych na procent limitu Maxa, a część użycia Tomasza zachodzi poza VPS. Dlatego dokładnego procentu **NIE WIEM**.
+
+**HIPOTEZA:** udział VPS można mierzyć operacyjnie od następnego resetu: zapisać `/status`, zatrzymać ruch `claude-cli` na ustalony okres, ponownie wykonać `/status` i porównać z okresem kontrolnym. Nie da to jednak dokładnego rozdzielenia, jeśli Tomasz równocześnie używa Claude.
+
+**Konkretna decyzja dla Tomasza:** wybrać A, B, C albo D; bez jego wyraźnego słowa konfiguracja pozostaje w wariancie A.
+
+— Zenek

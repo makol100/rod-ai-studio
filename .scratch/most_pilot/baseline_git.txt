@@ -1,0 +1,117 @@
+ D .scratch/_sonda_zenek_siec.txt
+ M .scratch/_zrobione_ok
+ M .scratch/decyzje_tomasza.jsonl
+ M .scratch/hans/dziennik.jsonl
+ M .scratch/hans/glosy.jsonl
+ M .scratch/hans/limit.jsonl
+ M .scratch/hans/most.jsonl
+ M .scratch/hans/oczy.jsonl
+ M .scratch/hans/ucho_awarie.jsonl
+ M TELEPORT_HA.md
+ M TELEPORT_fabryka.md
+ M tools/brief_klaudka.py
+ M tools/mcp_wybickiego.py
+ M wiedza/BRIEF_DLA_KLAUDKA.md
+ M wiedza/TECZKI/KLAUDEK.md
+?? .scratch/OBSERWACJA_druga_sesja.md
+?? .scratch/OPERACJA_router_sosnowiec.md
+?? .scratch/genek_fora.txt
+?? .scratch/genek_szukaj.txt
+?? .scratch/henio_analiza_kuny.md
+?? .scratch/henio_darmo.md
+?? .scratch/henio_kontrola.md
+?? .scratch/henio_kontrola2.md
+?? .scratch/henio_krzyz.md
+?? .scratch/henio_krzyz2.md
+?? .scratch/henio_kuny2.md
+?? .scratch/henio_luka_6.08.md
+?? .scratch/henio_openclaw.md
+?? .scratch/henio_pulapki.md
+?? .scratch/henio_www.md
+?? .scratch/henio_zadanie_kuny.md
+?? .scratch/kontrola-kuny/
+?? .scratch/kuny-auto-produkty/
+?? .scratch/kuny-olej-krewetkowy/
+?? .scratch/kuny_fora.md
+?? .scratch/kuny_research.md
+?? .scratch/kuny_szukaj.md
+?? .scratch/most_pilot/
+?? .scratch/most_pilot_projekt.md
+?? .scratch/narada_izolacja/
+?? .scratch/narada_kamery/
+?? .scratch/narada_obejscie/
+?? .scratch/narada_skille/
+?? .scratch/narada_tencentdb/
+?? .scratch/narada_v1/
+?? .scratch/narada_watch/
+?? .scratch/openclaw_dowody/
+?? .scratch/proaktywnosc-24-7/
+?? .scratch/repo20_opinia.md
+?? .scratch/research-kuna-zywolapka/
+?? .scratch/research-kuny-glosy/
+?? .scratch/research_kuny_henio_20260811.md
+?? .scratch/sosnowiec-mqtt/
+?? .scratch/sosnowiec_mqtt.md
+?? .scratch/sosnowiec_mqtt2.md
+?? .scratch/spec_pamiec_stan.md
+?? .scratch/stan/
+?? .scratch/transkrypcja_film2.md
+?? .scratch/transkrypcja_genek.md
+?? .scratch/transkrypcja_yt.md
+?? .scratch/watch-ocena/
+?? .scratch/zadanie_claude_video.md
+?? .scratch/zadanie_kamery_izolacja.md
+?? .scratch/zadanie_kamery_xiaomi.md
+?? .scratch/zadanie_obejscie.md
+?? .scratch/zadanie_skille.md
+?? .scratch/zadanie_stan_ekosystem.md
+?? .scratch/zadanie_tencentdb.md
+?? .scratch/zadanie_v1_token.md
+?? .scratch/zaloga_luka1/
+?? .scratch/zenek_fora.txt
+?? .scratch/zenek_reczny.txt
+?? .scratch/zenek_scenariusz.txt
+?? .scratch/zlecenie_luka1_kontrola.md
+?? .vendor/
+?? archiwum/
+?? archiwum_historii/
+?? assets/audio/kandydaci/
+?? assets/zarty/karty/bohater_noc_v1_zdryfowany.jpg
+?? assets/zarty/karty/bohater_noc_v2_proba.jpg
+?? assets/zarty/karty/bohater_zmierzch.jpg
+?? assets/zarty/karty/crop_baza.jpg
+?? assets/zarty/karty/crop_karta.jpg
+?? assets/zarty/karty/crop_noc.jpg
+?? assets/zarty/karty/janusz_zmierzch.jpg
+?? data/_narada_17/
+?? data/awatar/_gen_izabela.py
+?? data/awatar/_izabela_v1_resp.json
+?? data/awatar/_izabela_v2_resp.json
+?? data/awatar/_omni_test_resp.json
+?? data/awatar/izabela_v1.png
+?? data/awatar/izabela_v2.png
+?? data/transkrypcja_film10.txt
+?? data/upload/
+?? data/wiadomosci/0000-premiera/CZOLOWKA.mp4
+?? data/wiadomosci/0000-premiera/CZOLOWKA_KANON.mp4
+?? data/wiadomosci/0000-premiera/CZOLOWKA_Z_SYGNALEM.mp4
+?? data/wiadomosci/0000-premiera/CZOLOWKA_v2.mp4
+?? data/wiadomosci/0001-teren/
+?? data/zarty/10009/
+?? fix_test_hans.py
+?? fix_test_hans2.py
+?? fix_zaloga.py
+?? scenariusze/
+?? test_script.py
+?? tools/most_kolejka.py
+?? tools/most_web.py
+?? tools/szukaj_web.py
+?? tools/szukaj_www.py
+?? transkrypcja_film10.txt
+?? wiedza/DECYZJE_OPENCLAW.md
+?? wiedza/MOST_MIEDZYSESYJNY.md
+?? wiedza/MOST_WEB.md
+?? wiedza/PILOT_MOST_PLAN.md
+?? wiedza/WYSZUKIWARKA.md
+?? wiedza/WYSZUKIWARKI.md
+?? work/

@@ -1,0 +1,7 @@
+1) Metoda poprawnie neutralizuje awarię metadanych, ale ma zasadniczą dziurę: remux i `-noautorotate` nie naprawiają treści zapisanej bokiem. Świeże cięcia p3 i p4 są geometrycznie pionowe, lecz ich obraz jest obrócony o 90°.
+
+2) B/C/D wystarczają do wykluczenia powrotu awarii A w badanych klatkach (pokrycie, zgodność fragmentu, brak taga), ale nie orientacji treści ani błędu między próbkami. Dodałbym kilka klatek z każdego slotu (początek/środek/koniec) do obowiązkowej kontroli wzrokowej oraz test pokrycia w całym przedziale, nie tylko w jednym punkcie.
+
+3) Tak. WhatsApp może mieć pionowe wymiary i brak taga, a mimo to zawierać bokiem zapisane piksele. Potwierdzenie: master v3 @23 s (p3) i @29 s (p4) leży.
+
+4) NIE ZATWIERDZAM — p3 i p4 są obrócone treściowo o 90°. Trzeba obrócić piksele właściwym `transpose`, ponownie złożyć master i obejrzeć klatki ze wszystkich sześciu slotów.

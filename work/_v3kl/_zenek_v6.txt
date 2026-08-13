@@ -1,0 +1,9 @@
+1) Tak. Skład v6 usuwa trzy rozpoznane przyczyny obrotu, a bramki 21/21, kontrola 8/8 i pełny seans 10/10 wystarczają do przedstawienia Tomaszowi. Brak istotnych braków.
+
+2) Ryzyka resztkowe: ostateczna ocena estetyczna należy do Tomasza; automaty nie zastępują odbioru na jego urządzeniu/platformie. Drobny błąd identyfikacyjny: skrypt v6 kończy komunikatem „MONTAZ-V5-OK” — poprawić dla porządku, bez wpływu na plik wynikowy.
+
+3) Bez zastrzeżeń, jeśli meldunek rozdzieli koszt twardy napraw ($0) od marginalnego kosztu użycia Genka („centy”); nie nazywać całkowitego kosztu literalnie zerowym.
+
+Werdykt: ZATWIERDZAM — przedstawić Tomaszowi do akceptacji.
+
+Zenek

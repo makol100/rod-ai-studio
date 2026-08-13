@@ -1,0 +1,137 @@
+Mam komplet. Odpowiadam na P1–P6, głos Henia.
+
+---
+
+**Najpierw odpowiedź na Twoje „noce po godzinach najlepiej?":** nie trzeba nic robić w nocy na żywo. Nagranie jest ciągłe 24/7 i leży na dysku NVR — kuny szukamy w ZAPISACH nocnych (okna 21:00–05:00) o dowolnej porze dnia. „Inny sposób" to właśnie to: wyciągamy wycinki z archiwum, a nie czatujemy pod kamerą po ciemku.
+
+---
+
+## P1 — PŁASKI ROZKŁAD: co naprawdę zwraca NVR
+
+**ODPOWIEDŹ:** najpewniej zwraca SEGMENTY/pliki nagrania ciągłego, nie pojedyncze detekcje ruchu. To da się rozstrzygnąć jednym pomiarem: zmierzyć CZAS TRWANIA każdego trafienia (endTime−startTime). Bloki nagrania ciągłego mają stałą długość; prawdziwe zdarzenia ruchu — zmienną.
+
+POTWIERDZONE (źródła przez szukaj_net, adresy niżej):
+- `//recordType.meta.std-cgi.com/motion` = deskryptor wyszukujący segmenty nagrane W TRYBIE „nagrywanie po ruchu" (use-ip.co.uk). U Ciebie zwraca NO MATCHES — i to jest SPÓJNE, bo masz zapis ciągły (28 bloków CMR), nie „nagrywanie po ruchu". Ten deskryptor nie ma czego znaleźć.
+- NVR Hikvision dzieli zapis ciągły na „pakiety": domyślnie co ~30 min albo po 1 GB, konfigurowalne 1–300 min (use-ip.co.uk / reddit).
+
+HIPOTEZA (niepotwierdzona źródłem, oznaczam): `//metadata.ps.hikvision.com/motionDetection` zwraca bloki nagrania z flagą metadanych ruchu — czyli przy czułej detekcji (drzewa, deszcz, IR) flaguje dużo bloków, stąd rozkład płaski. Płaskość bierze się stąd, że patrzysz na BLOKI, nie na zdarzenia.
+
+**KONKRETNE ZAPYTANIE ROZSTRZYGAJĄCE (dwa pomiary, oba read-only):**
+1. To samo zapytanie BEZ metadataDescriptor (czysty spis segmentów) vs Z metadataDescriptor. Porównaj LICZBĘ trafień i ich granice czasowe.
+2. Dla każdego trafienia policz `endTime − startTime`. Jeśli wszystkie ≈ ta sama wartość (np. 1800 s) → to bloki, nie ruch.
+
+```
+POST /ISAPI/ContentMgmt/search
+<?xml version="1.0" encoding="UTF-8"?>
+<CMSearchDescription>
+  <searchID>henio-p1-20260813</searchID>
+  <trackList><trackID>101</trackID></trackList>
+  <timeSpanList><timeSpan>
+    <startTime>2026-08-06T00:00:00Z</startTime>
+    <endTime>2026-08-13T00:00:00Z</endTime>
+  </timeSpan></timeSpanList>
+  <maxResults>100</maxResults>
+  <searchResultPostion>0</searchResultPostion>
+</CMSearchDescription>
+```
+Odpowiedź zwraca `<searchMatchItem>` z `<startTime>`, `<endTime>`, `<playbackURI>`. Różnica czasów = rozstrzygnięcie.
+
+DODATKOWO (spójność liczb w zleceniu): „129 zdarzeń/7 dni" ≈ 18/dobę, a „5–9 w każdej godzinie doby" daje się pogodzić tylko jako histogram godzin (suma po 7 dniach), nie „co godzinę przez całą dobę". To warte doprecyzowania przy pomiarze — flaguję, nie uzgadniam.
+
+---
+
+## P2 — JAK ŚCIĄGNĄĆ FRAGMENT
+
+**ODPOWIEDŹ:** wycinek 30 s — TAK, ale NIE przez `ContentMgmt/download`. Są dwie drogi.
+
+**A) `ContentMgmt/download` = tylko CAŁY plik/blok.**
+POTWIERDZONE (hikvisioneurope.com / ipcamtalk): pobierasz plik znaleziony w search; „rozmiaru pobieranego pliku NIE można zmienić modyfikując czas startu/końca" — leci cały blok (~30 min = ~691 MB przy Twoim bitrate).
+
+Postać:
+```
+POST /ISAPI/ContentMgmt/download
+<downloadRequest><playbackURI>rtsp://192.168.3.110/Streaming/tracks/101?starttime=...&endtime=...&name=...&size=...</playbackURI></downloadRequest>
+```
+(playbackURI bierzesz 1:1 z wyniku search). Wyjście: plik H.264 — na nowszych fw zwykle .mp4; jeśli wyjdzie .ps/.264, remux: `ffmpeg -i in.ps -c copy out.mp4` (bez transkodowania).
+
+**B) RTSP playback = dokładny wycinek 30 s.** To jest właściwa droga do kuny:
+```
+ffmpeg -rtsp_transport tcp \
+  -i "rtsp://<USER>:<HASLO>@192.168.3.110:554/Streaming/tracks/101?starttime=20260810T030000Z&endtime=20260810T030030Z" \
+  -c copy -t 30 /sciezka/wycinek.mp4
+```
+Wyjście: przemuxowany H.264 .mp4 (~11,5 MB / 30 s), bez rekompresji. `<USER>:<HASLO>` NIGDY nie wpisuję jawnie — biorę z `/root/.hilook_cred` (wzorzec `tools/hilook_test.sh`: curl -K config z /dev/shm, hasło nie trafia do argv ani do czatu). Godziny w URL są UTC — pilnować strefy (lekcja NAUKI 5.08).
+
+---
+
+## P3 — ILE TEGO JEST
+
+POTWIERDZONE LICZBY (arytmetyka z Twojego 3072 kbps):
+
+- 3072 kbps = 384 KB/s.
+- **Doba / kanał = 33,18 GB** (dziesiętnie; ~30,9 GiB). Obliczenie: 384 000 B/s × 86 400 s = 33 177 600 000 B.
+- **Wycinek 30 s = 11,52 MB** (~11 MiB). 60 s = 23,04 MB.
+- **Blok 30 min = 691 MB.** Noc 8 h (jeden kanał) = 11,06 GB.
+
+Co realnie przejdzie przez Tailscale: NIE WIEM — nie mam zmierzonego uplinku działki (w PAMIEC_INFRASTRUKTURA jest tylko Speed Test Deco E4 z DOMU w Austrii, nie z działki). Wzór: czas = rozmiar / przepustowość efektywna. 30 s wycinek (11,5 MB) przy 5 Mbps = ~18 s; przy 20 Mbps = ~4,6 s. **Jedna doba całości (33 GB) przez słaby uplink = godziny** — dlatego nie ściągamy całych bloków/dób, tylko 30-sekundowe wycinki RTSP. 50 wycinków = ~575 MB łącznie — to się mieści.
+
+Pierwszy krok pomiarowy (read-only, za darmo): ściągnąć JEDEN wycinek 30 s i zmierzyć czas → z tego wyjdzie realna przepustowość.
+
+---
+
+## P4 — JAK SZUKAĆ KUNY, żeby Genek dostał dziesiątki wycinków, nie setki godzin
+
+**ODPOWIEDŹ:** sito dwustopniowe. Najpierw KLATKI (tanie), dopiero potem WIDEO (drogie) — i tylko na potwierdzenie.
+
+POTWIERDZONE (google.dev): Gemini tokenizuje wideo jako 1 klatka/s × 258 tokenów/klatkę + ~32 tok./s audio ≈ ~300 tok./s. Twoja lekcja to potwierdza: 58 s = 15 254 tokeny (oczy_uszy.py, linie 25–27). Czyli:
+- **1 KLATKA = ~258 tokenów.** WIDEO 30 s = ~8–9 tys. tokenów. KLATKA jest ~30× tańsza od wideo.
+
+Przepis:
+1. Zawęzić do nocy (21:00–05:00) — kuna nocna; kanały 1 (brama), 2, 4 (kanał 3 „Rog" martwy 0×0).
+2. Ustalić prawdziwe okna ruchu (P1) — albo z metadanych NVR, albo własnym detektorem pikseli po ściągnięciu nocy (wzorzec `tools/fotopulapka.py`: diff klatek, prog ~0.9%).
+3. **Tier 1 (Genek, KLATKI):** na szczycie ruchu wyciąć 2–3 klatki JPEG (ffmpeg -ss) i zapytać „czy w kadrze jest zwierzę / kuna?" — wzorzec `tools/bramka_oka.py` (pojedyncza klatka, pełna rozdzielczość). ~258 tokenów/klatkę.
+4. **Tier 2 (Genek, WIDEO):** tylko dla klatek z podejrzeniem zwierzęcia — ściągnąć 30 s i puścić całość.
+
+Efekt: Genek ogląda wideo TYLKO tam, gdzie klatka już coś pokazała. Zamiast setek godzin — dziesiątki 30-sekundowych wycinków.
+
+---
+
+## P5 — RYZYKA (max 5) i KOSZT W ZŁ
+
+**Koszt pobierania: 0 zł.** Własna infrastruktura (Tailscale, flat działki). Koszt realny to czas i pasmo, nie gotówka — liczby w P3.
+
+**Koszt oglądania przez Genka** (kurs NBP 13.08.2026: 1 USD = 3,7362 zł; cena wejścia gemini-2.5-flash = 0,30 USD/1M tokenów — metacto/typingmind):
+- 1 klatka (~258 tok.) ≈ 0,0003 zł — zaniedbywalne; 1000 klatek ≈ 0,4 zł.
+- 1 wycinek 30 s (~8,7 tys. tok.) ≈ 0,010 zł (~1 grosz).
+- 58 s (15 254 tok.) ≈ 0,017 zł.
+- 100 wycinków × 30 s ≈ 1 zł. 200 ≈ 2 zł.
+
+Wniosek: pieniądze NIE są ograniczeniem. Ograniczeniem jest LIMIT ZAPYTAŃ/DOBĘ Genka (teczka GENEK: 250/dobę na 3.1-pro; limity flash — NIE WIEM) i L4 (padnięcie wszystkich kanałów). Dlatego sito klatkowe (1 klatka = 1 zapytanie) zamiast wideo (1 wideo = 1 zapytanie, ale 30× droższe tokenowo).
+
+UWAGA: ceny się zmieniają (zasada z GENEROWANIE_OBRAZU) — przy dużym wydatku sprawdzić ponownie. Ceny modelu gemini-3.6-flash (głównego w oczy_uszy.py) NIE WIEM.
+
+**Ryzyka (5):**
+1. **Wyciek hasła do czatu** (dziś 2×). Zapobieganie: poświadczenia tylko z `/root/.hilook_cred`, curl/ffmpeg bez hasła w argv (config z /dev/shm), nigdy nie drukować nagłówka Authorization ani URL z user:pass.
+2. **Zapchanie uplinku działki** przez całe bloki (691 MB). Zapobieganie: tylko wycinki 30 s RTSP; najpierw zmierzyć przepustowość; ewentualnie `--limit-rate` / poza godzinami szczytu.
+3. **Spalenie limitu Genka** wysyłaniem wideo zamiast klatek. Zapobieganie: twardo sito klatkowe (Tier 1) przed wideo (Tier 2).
+4. **Błędna interpretacja „zdarzeń"** (P1) → przeszukanie złych okien. Zapobieganie: pomiar długości trafień PRZED jakimkolwiek masowym pobieraniem.
+5. **Utrata najstarszych nocy** (retencja 30 dni nadpisuje). Zapobieganie: ch1/ch4 zaczynają się 2026-07-23 → najstarsze noce zjadą ok. 22–23.08, czyli ~9–10 dni buforu. Kanał 2 od 08-04. Przeszukiwać najstarsze najpierw, nie ruszać konfiguracji zapisu.
+
+---
+
+## P6 — KOLEJNOŚĆ KROKÓW
+
+1. **[O]** Pomiary P1 (search z/bez deskryptora + długość trafień). Czysto read-only, 0 zł. → rozstrzyga, co zwraca NVR.
+2. **[O]** Jeden wycinek 30 s RTSP na próbę (format + czas = przepustowość). 0 zł, 11,5 MB.
+3. **[O]** Lista okien: noce 21:00–05:00, najpierw najstarsze (ch1/ch4 od 07-23), potem ch2.
+4. **[O]** Tier 1 — klatki ze szczytu ruchu → Genek ocenia klatki (grosze).
+5. **[O]** Tier 2 — Genek ogląda 30 s wideo tylko przy podejrzeniu (grosze).
+6. **[N — TYLKO Tomasz]** jakakolwiek zmiana konfiguracji NVR (np. włączenie nagrywania po ruchu dla czystszego indeksu na przyszłość). Nie domyślnie, nie bez zgody — to jedyny krok nieodwracalny (może urwać ciągłą bazę).
+
+Uwaga czasowa [N z upływem czasu]: nagrania nadpisują się same — im później, tym mniej nocy (DECYZJE_KUNY, 12.08).
+
+---
+
+**Jedna konkretna rzecz do zrobienia teraz:** puść pomiar z P6-krok-1 (jedno `POST /ISAPI/ContentMgmt/search` z i bez `<metadataDescriptor>` dla tracka 101, przedział 7 dni, policz długość każdego trafienia) — od tego zależy, czy „zdarzenia" to bloki, i dopiero wtedy decydujesz, czy potrzebny własny detektor ruchu. Rozstrzygasz Ty.
+
+— Henio

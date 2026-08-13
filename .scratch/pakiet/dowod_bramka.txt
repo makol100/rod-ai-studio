@@ -1,0 +1,40 @@
+DOWOD — poprawka bramki ukonczenia (13.08, decyzja Tomasza "poprawic bramke").
+WADA: tools/zrobione.py wolal zaloge przez zaloga.py BEZ parametru --kto, a zaloga.py
+domyslnie wola tylko zenka i henia (dekret 4.08 o oszczedzaniu Genka). Petla oceniajaca
+glosy iterowala jednak po ("zenek","genek","henio") — wiec Genek, ktorego bramka NIGDY
+nie zapraszala, zawsze wychodzil jako "GLOS NIEODEBRANY", a brak glosu liczy sie jako
+sprzeciw. Skutek: KAZDA praca bez grafiki konczyla sie werdyktem ODRZUCONE.
+Objaw z boju: skrzynka Telegrama 13.08 — test zielony, Zenek POTWIERDZAM, Henio POTWIERDZAM,
+werdykt mimo to ODRZUCONE, commit zablokowany przez hook.
+POPRAWKA: bramka pyta DOKLADNIE tych, ktorych wola. Domyslnie zenek+henio; Genek dochodzi
+automatycznie, gdy wsrod dowodow jest obraz albo wideo (.jpg/.png/.webp/.gif/.mp4/.mov/.mkv/.avi),
+albo na zadanie przez flage --z-genkiem. Lista trafia teraz do zaloga.py jako --kto.
+TEST DOBORU OSOB (wykonany):
+  dowody kodowe (.py,.txt)  -> ['zenek','henio']
+  dowody z obrazem (.jpg)   -> ['zenek','henio','genek']
+  dowody z wideo (.mp4)     -> ['zenek','henio','genek']
+  wymuszenie --z-genkiem    -> ['zenek','henio','genek']
+CZEGO POPRAWKA NIE ZMIENIA: brak glosu nadal NIE jest zgoda; glos starszy niz 1800 s nadal
+odrzucany; "tryb awaryjny" nadal nie liczy sie jako glos; jedno BRAK SLADU nadal blokuje.
+Kopia przed zmiana: tools/zrobione.py.bak-13.08
+
+--- UZUPELNIENIE PO UWADZE ZENKA (BRAK SLADU, 13.08) ---
+Zenek: "logika doboru nie jest testowana, dowod tylko opisuje wade bez surowego sladu".
+NAPRAWIONE: logika wydzielona z pytaj_zaloge do osobnej funkcji zrobione.dobierz_zaloge(),
+zeby dala sie wywolac i przetestowac. Do petli testowej tools/test_skrzynka.py dopisane
+cztery przypadki T13-T16, ktore ta funkcje wywoluja i porownuja wynik:
+  T13 dowody kodowe (.py,.txt)     -> ['zenek','henio']              (Genka NIE MA)
+  T14 dowod z obrazem (.jpg)       -> ['zenek','henio','genek']
+  T15 dowod z wideo (.MP4)         -> ['zenek','henio','genek']      (takze wielkie litery)
+  T16 flaga --z-genkiem na .txt    -> ['zenek','henio','genek']
+SUROWY SLAD WYKONANIA testu: .scratch/pakiet/slad_testu_bramki.txt (17 przypadkow zielonych).
+
+UZUPELNIENIE PO UWADZE ZENKA (bramka 19:48, "BRAK SLADU — logika doboru nie jest testowana"):
+Logika doboru byla zaszyta wewnatrz pytaj_zaloge i nie dalo sie jej wywolac osobno.
+WYDZIELONA do funkcji tools/zrobione.py::dobierz_zaloge(dowody, z_genkiem=False)
+i objeta petla testowa tools/test_skrzynka.py, przypadki T13-T16:
+  T13 dowody kodowe (.py,.txt)      -> ['zenek','henio']              ZIELONY
+  T14 dowod z obrazem (.jpg)        -> ['zenek','henio','genek']      ZIELONY
+  T15 dowod z wideo (.MP4, wielkie) -> ['zenek','henio','genek']      ZIELONY
+  T16 flaga z_genkiem=True na .txt  -> ['zenek','henio','genek']      ZIELONY
+Cala petla: 21 przypadkow, wszystkie zielone.

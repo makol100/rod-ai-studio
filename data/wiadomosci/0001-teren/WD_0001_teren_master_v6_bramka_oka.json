@@ -1,0 +1,93 @@
+{
+ "video": "WD_0001_teren_master_v6.mp4",
+ "model": "gemini-2.5-flash",
+ "kiedy": "2026-07-28 20:36:43",
+ "zasada": "fail-closed; pelna rozdzielczosc; prompt bez opisu tresci",
+ "klatki": [
+  {
+   "opis": "Starszy mężczyzna w zielonej kamizelce siedzi przy stole, pisząc w zeszycie, obok niego stoi szklanka herbaty, a w tle widać okno z widokiem na ogród oraz półkę z trofeami i słoikami.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany, ostry i nie zawiera żadnych artefaktów renderu.",
+   "_faza": "ok",
+   "_jpeg_bytes": 380653,
+   "t": 1.5
+  },
+  {
+   "opis": "Widać nogę osoby w czarnych spodniach i czarnym klapku, stojącą na pniu drzewa, otoczoną zieloną roślinnością i suchą trawą.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany i nie zawiera żadnych artefaktów.",
+   "_faza": "ok",
+   "_jpeg_bytes": 505053,
+   "t": 12.5
+  },
+  {
+   "opis": "Widać stopę w czarnym klapku na tle ziemi pokrytej suchymi liśćmi i trawą.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany i nie zawiera żadnych poważnych artefaktów.",
+   "_faza": "ok",
+   "_jpeg_bytes": 800770,
+   "t": 18.5
+  },
+  {
+   "opis": "Widać małą koparkę na placu budowy, otoczoną zielenią i budynkami w tle.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany, a rozmyte pasy u góry i dołu są dopuszczalnym zabiegiem montażowym.",
+   "_faza": "ok",
+   "_jpeg_bytes": 213899,
+   "t": 24.0
+  },
+  {
+   "opis": "W kadrze widać ogrodzony teren z ziemią i roślinnością, a w tle drzewa i zachmurzone niebo z liniami energetycznymi.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany i nie zawiera żadnych poważnych artefaktów renderowania.",
+   "_faza": "ok",
+   "_jpeg_bytes": 268119,
+   "t": 29.5
+  },
+  {
+   "opis": "Widać ziemię z kamieniami, korzeniami i resztkami roślinności, oglądaną przez siatkę ogrodzeniową.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany i nie zawiera żadnych poważnych artefaktów renderu.",
+   "_faza": "ok",
+   "_jpeg_bytes": 643070,
+   "t": 35.5
+  },
+  {
+   "opis": "Na obrazie widać duży stos ściętych gałęzi i liści na tle zielonej trawy, drzew i błękitnego nieba z kilkoma chmurami, a także linie energetyczne.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany i nie zawiera żadnych widocznych artefaktów.",
+   "_faza": "ok",
+   "_jpeg_bytes": 453888,
+   "t": 42.0
+  },
+  {
+   "opis": "Starszy mężczyzna w swetrze siedzi przy biurku, pisząc w notatniku, z kubkiem herbaty i czasopismem na stole, a w tle widać okno z widokiem na ogród oraz półki z trofeami i słoikami.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany i nie zawiera żadnych widocznych artefaktów renderowania.",
+   "_faza": "ok",
+   "_jpeg_bytes": 358249,
+   "t": 50.0
+  }
+ ],
+ "podsumowanie": {
+  "klatek": 8,
+  "fail": 0,
+  "werdykt": "OK"
+ }
+}

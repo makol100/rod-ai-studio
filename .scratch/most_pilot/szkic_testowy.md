@@ -1,0 +1,4 @@
+# SZKIC TESTOWY (pilot mostu) — celowo z wadami
+Kuna domowa to w Polsce zwierze lowne z okresem ochronnym — ploszyc i wygradzac wolno, zabijac nie.
+Podstawa jest bariera mechaniczna: uszczelnienie otworow powyzej 5 cm, kolnierze i blacha na rynnach oraz przewodach, do tego usuniecie zapachowych znacznikow. Urzadzenia elektroniczne wylacznie jako dodatek i tylko ze zmienna czestotliwoscia albo losowym cyklem — ultradzwiek o stalej czestotliwosci przestaje dzialac po kilku nocach, bo kuna sie do niego przyzwyczaja.
+Test gazety liczy sie na noce, nie na dni: papier zostaje w otworze przez co najmniej 3-5 kolejnych nocy i dopiero nienaruszony przez caly ten czas jest dowodem, ze zwierze wyszlo. Otwor zamyka sie dopiero po potwierdzeniu, ze wnetrze jest puste — nigdy w sezonie odchowu mlodych (wiosna-lato), bo grozi to zamurowaniem kuny z mlodymi w srodku.

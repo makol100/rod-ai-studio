@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//root/rod-ai-studio/**)",
+      "Bash(python3 tools/szukaj.py kuna)"
+    ]
+  }
+}

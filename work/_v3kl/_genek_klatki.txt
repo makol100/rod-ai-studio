@@ -1,0 +1,12 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+t=5: Starszy pan siedzi przy biurku | ORIENTACJA: prosto | PEŁNY EKRAN: tak
+t=12: Widok na buty na ziemi | ORIENTACJA: obrócona | PEŁNY EKRAN: nie (rozmyty materiał pod spodem)
+t=18: Stopa idąca po suchej ziemi | ORIENTACJA: obrócona | PEŁNY EKRAN: nie (rozmyty materiał pod spodem)
+t=24: Mała koparka pracująca na boku | ORIENTACJA: obrócona | PEŁNY EKRAN: tak
+t=29: Ogród widoczny zza czarnego płotu | ORIENTACJA: prosto | PEŁNY EKRAN: tak
+t=35: Głęboki wykop w ciemnej ziemi | ORIENTACJA: prosto | PEŁNY EKRAN: tak
+t=42: Krajobraz z niebiem na boku | ORIENTACJA: obrócona | PEŁNY EKRAN: nie (rozmyty materiał pod spodem)
+t=48: Starszy pan pisze w zeszycie | ORIENTACJA: prosto | PEŁNY EKRAN: tak
+
+WERDYKT ORIENTACJI: wszystkie proste NIE
+EXIT=0

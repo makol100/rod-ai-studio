@@ -1,0 +1,48 @@
+Badanie wykonane. Zero zmian w repo — tylko odczyt i wyszukiwarka (`tools/szukaj_net.py`, 6 zapytań, bez `--zapis`). Każde twierdzenie niżej ma źródło z tej tury.
+
+---
+
+P1 — REKOMENDACJA: D (integracja hikvision, config-flow), jako integracja GŁÓWNA, skierowana najpierw na NVR .110.
+
+Dlaczego:
+1. ONVIF jest WYŁĄCZONY (404), a ISAPI WŁĄCZONY (401 Digest, realm obecny). Integracja hikvision mówi ISAPI — to jedyna integracja HA pasująca do protokołu, który faktycznie działa na tych kamerach. B odpada z automatu.
+2. Daje OBRAZ (encja camera, live view po RTSP) ORAZ detekcję ruchu (binary_sensor) w JEDNYM config-flow. A (go2rtc+ffmpeg) daje TYLKO obraz — nie zamyka luki, której Tomasz nie ma na Xiaomi/Tuya.
+3. Skierowana na NVR .110 = jeden wpis, 4 kanały, automatyczne wykrycie kanałów (to korzyść opcji C, bez osobnej integracji). Wariant odporniejszy: 4 wpisy bezpośrednio na .111–.114 (kamery są na LAN, HTTP 200 — nie za switch'em PoE NVR, więc dostęp bezpośredni działa).
+4. HiLook potwierdzony jako działający z integracją hikvision (RTSP + binary_sensor).
+
+Plan-B dla samego obrazu, gdyby ISAPI na tanich HiLookach zawiodło: A (go2rtc już chodzi, wzorzec Xiaomi sprawdzony od 8.08). Nie rekomenduję go jako głównego, bo nie daje detekcji ruchu.
+Źródła: home-assistant.io (dok. integracji hikvision: encja camera po RTSP, binary_sensor zdarzeń, obsługa NVR z numeracją kanałów); go2rtc.org (źródła RTSP/Hikvision).
+
+P2 — POTWIERDZONE. Format: `rtsp://user:pass@IP:554/Streaming/Channels/<kanał><strumień>`.
+Pierwsza cyfra = numer kanału, dwie ostatnie = typ strumienia (x01 main, x02 sub):
+- Kamera 1: main 101, sub 102
+- Kamera 2: main 201, sub 202
+- Kamera 3: main 301, sub 302
+- Kamera 4: main 401, sub 402
+Czyli TAK — dla NVR numeracja kanałów to 101/201/301/401 (main) i 102/202/302/402 (sub).
+Źródła: hikvision.com, use-ip.co.uk (format URL RTSP HiLook/Hikvision).
+
+P3 — POTWIERDZONE, tak. Da się wyciągnąć detekcję ruchu BEZ ONVIF, na 2 sposoby:
+1. Integracja hikvision (core HA) tworzy binary_sensor zdarzeń: ruch (VMD), przekroczenie linii, wtargnięcie, sabotaż — przez strumień zdarzeń ISAPI, nie ONVIF. Warunki: konto kamery musi mieć uprawnienie "Remote: Notify Surveillance Center / Trigger Alarm Output", w ustawieniach kamery dla każdego typu zdarzenia (Event → Linkage Action) włączone "Notify Surveillance Center", a WEB Authentication = digest/basic. Potwierdzone działanie przy ONVIF OFF + ISAPI ON, oraz na HiLookach.
+2. Niskopoziomowo: `/ISAPI/Event/notification/alertStream` (długotrwałe połączenie HTTP + Digest) — to jest mechanizm, który ta integracja obsługuje za Ciebie.
+Źródła: home-assistant.io (dok. integracji hikvision — binary_sensor, wymogi uprawnień i auth).
+
+P4 — Ryzyka POTWIERDZONE co do liczb, HIPOTEZA co do obciążenia CPU (nie mam modelu hosta ani obecnego loadu Działki):
+- Main stream: 2MP H.264 ~4 Mbps; 8MP H.265 ~6–8 Mbps; 4K do ~11 Mbps. → 4 kamery main = 16–44 Mbps po LAN i duże obciążenie CPU przy transkodowaniu do przeglądarki.
+- Sub stream 640×480: ~300 kbps typowo (poniżej 100 kbps w bezruchu). → 4 kamery ~1,2 Mbps, pomijalne.
+- H.265 w przeglądarce: Chrome/Firefox NIE dekodują natywnie; Safari/Android/iOS tak. Podgląd w przeglądarce = H.264, albo transkodowanie H.265→H.264 (go2rtc `#video=h264` lub `exec:ffmpeg`), które DODAJE CPU.
+Rekomendacja: sub-stream (H.264) do podglądu i detekcji — 4×~300 kbps, blisko zera CPU gdy go2rtc podaje H.264 bez transkodowania (jak obecne Xiaomi, stan idle). Main-stream tylko na żądanie: pełny ekran, zrzut/montaż, fotopułapka.
+Źródła: securitywholesalers.com.au + use-ip.co.uk (bitrate main/sub); home-assistant.io (H.265 a przeglądarki); go2rtc.org (transkodowanie).
+
+---
+
+NIE WIEM (nie da się ustalić bez loginu / z materiału):
+- Czy TE konkretne budżetowe HiLooki (firmware FG092/FQ921) eksponują zdarzenia VMD przez ISAPI w pełnym zakresie — do weryfikacji zaraz po otrzymaniu loginu.
+- Dokładne modele kamer, rozdzielczość/bitrate/fps skonfigurowane w kamerach (realmy to ID firmware, nie model).
+- Model hosta HAOS Działki i jego obecny load — stąd nie podaję "doda X% CPU", tylko mechanikę i pasmo.
+
+JEDYNA BLOKADA: brak loginu i hasła do kamer/NVR. Wszystkie drogi (RTSP, ISAPI, integracja hikvision) wymagają poświadczeń — bez nich nic nie odpali. To już eskalowane do Tomasza.
+
+Jedna rzecz do zrobienia: gdy Tomasz poda login/hasło, pierwszy krok to próba `http://192.168.3.110/ISAPI/Event/notification/alertStream` z Digest auth — odpowie 200/200-Multipart = detekcja ruchu po ISAPI działa i można odpalać integrację hikvision (P1).
+
+— Henio

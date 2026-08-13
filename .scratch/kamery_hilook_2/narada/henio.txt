@@ -1,0 +1,63 @@
+Badanie zakończone. Zero zmian w repo, zero prób logowania — tylko odczyt plików i pomiary stanu. Każde twierdzenie niżej ma ślad z tej tury.
+
+────────────────────────────────────────
+
+P1 — HIPOTEZA (b): wszystkie urządzenia mają JEDNO wspólne hasło (najpewniej login admin + to samo hasło na 4 kamerach i NVR). To wniosek, nie pomiar.
+
+Dlaczego (b), a nie (a):
+- Kamery .111–.114 mają własne IP w LAN 192.168.3.0/24 i są osiągalne bezpośrednio (ISAPI 401 Digest, RTSP 554) — ślad: TELEPORT_HA.md linia 609, 616. W klasycznym plug&play przez wewnętrzny switch PoE NVR kamery dostałyby adresy z wewnętrznej puli NVR (192.168.254.x) i byłyby NIEdostępne bezpośrednio z LAN. Tu siedzą bezpośrednio w LAN → to nie jest plug&play przez PoE NVR.
+- „NVR sam podjął obraz po podaniu hasła kamery" = NVR ma w konfiguracji kanałów zapisane IP kamer + pasujące hasło. Gdy hasło kamery zgadza się z zapisanym w NVR, obraz wraca bez dodatkowej akcji. Spójne z (b).
+
+Pomiar rozstrzygający, gdy dostaniemy hasło (konkretne wywołania ISAPI):
+1. GET http://192.168.3.110/ISAPI/ContentMgmt/InputProxy/channels (Digest) → lista 4 kanałów: IP każdej kamery, protokół (HIKVISION/ONVIF/RTSP), tryb. IP = .111–.114 + manual/HIKVISION = (b). IP = 192.168.254.x + plug&play = (a).
+2. GET http://192.168.3.111/ISAPI/System/deviceInfo (Digest) TYM SAMYM hasłem co NVR → 200 = wspólne hasło, (b) potwierdzone; 401 mimo poprawnego hasła NVR = kamera ma inne hasło (wtedy (a)).
+
+────────────────────────────────────────
+
+P2 — NIE. Fakt nie zmienia protokołu: ONVIF nadal 404, ISAPI nadal jedyna działająca droga (401 Digest) — a integracja hikvision mówi właśnie ISAPI. Fakt tylko upraszcza (jedna para poświadczeń).
+Cel: NVR .110, kanały 101/201/301/401. NVR daje pewniejszą detekcję ruchu (agreguje zdarzenia 4 kanałów w jeden strumień → binary_sensor.home_motion_1..4) i mniej punktów awarii (1 wpis, 1 para haseł, 1 host zamiast 4). Argument za 4 kamerami osobno (redundancja, gdy NVR padnie) jest słabszy — NVR i tak jest centralnym punktem monitoringu.
+
+────────────────────────────────────────
+
+P3 — Jedna droga: go2rtc na HA Działka (addon, host_network, wzorzec Xiaomi z 8.08).
+Przeciw VPS (go2rtc-hik):
+- ślad: trasa VPS → 192.168.3.0/24 idzie PRZEZ homeassistant-1 (TELEPORT_HA.md linia 609). HA Działka ma najkrótszą drogę do kamer; VPS ciągnąłby strumień tunelem Tailscale tam i z powrotem (kamera→HA→VPS→znów HA do wyświetlenia) = podwójny hop, opóźnienie.
+- punkt awarii: Tailscale/Internet. Tunel padnie → monitoring pada, mimo że kamery i HA są lokalnie obok siebie.
+- go2rtc-hik na VPS ma PUSTY config (cfg bez plików — pomiar tej tury) i jest zbudowany 12.08 15:25 jako narzędzie, nie wdrożenie; proces chodzi, ale bez żadnego strumienia.
+- utrzymanie: monitoring ma żyć na Działce, nie na VPS Henia.
+
+────────────────────────────────────────
+
+P4 — Kolejność (O = odwracalne, N = nieodwracalne):
+1. [O, VPS] Poczekać, aż hasło trafi do /root/rod-ai-studio/data/upload. Teraz go tam NIE ma — pomiar tej tury: katalog zawiera tylko 0001-korzenie, 0001-teren, podglad. Po wgraniu przenieść do /root/.hilook_cred (perm 600) i usunąć z data/upload (dufs serwuje ten katalog publicznie).
+2. [O, VPS] tools/hilook_test.sh — jedna próba Digest GET /ISAPI/System/deviceInfo na .110–.114. Ustala, czy hasło pasuje i do których. Bez zmian na sprzęcie.
+3. [O, odczyt] Rozstrzygnięcie P1: GET /ISAPI/ContentMgmt/InputProxy/channels na .110 + GET /ISAPI/System/deviceInfo na jednej kamerze tym samym hasłem.
+4. [O, odczyt] Test detekcji: GET http://192.168.3.110/ISAPI/Event/notification/alertStream — 200/multipart = zdarzenia ruchu idą.
+5. [O, HA] Dodać integrację hikvision w HA Działka → host 192.168.3.110, port 80, user + hasło. Odwracalne (usunięcie integracji przywraca stan).
+6. [O, HA] Sprawdzić 4× encję camera + binary_sensor ruchu.
+7. [O, HA, opcjonalnie] go2rtc addon (host_network) dla sub-streamów 102/202/302/402.
+
+Krok trwały na NVR (N — wymaga OSOBNEJ zgody Tomasza):
+- Jeśli krok 4 pokaże, że zdarzenia NIE idą → trzeba w NVR/kamerze włączyć „Notify Surveillance Center" + uprawnienie konta „Remote: Notify Surveillance Center" (wymóg z dokumentacji HA, ślad: .scratch/kamery_hilook/zenek.txt linie 15–19). To trwała zmiana na NVR/kamerach → zgoda.
+- Włączenie ONVIF (plan B) → trwała zmiana → zgoda.
+- Router: NIGDY, zero kroków (zakaz D-0066/D-0067 + 192.168.3.1 to router dostawcy).
+
+────────────────────────────────────────
+
+P5 — Koszt i ryzyka:
+- Koszt: 0 zł. Integracja hikvision (core HA), go2rtc, ISAPI — wszystko darmowe, bez płatnych API.
+- Blokada konta po nieudanych próbach: NVR-y HiLook/Hikvision mają „illegal login lock" (po kilku błędach, zwykle 5–7, blokada IP na ~30 min). Obejście: zero zgadywania, jedna próba na IP, tylko z pliku hasła (hilook_test.sh już tak działa — ślad linie 26–37).
+- Utrata dostępu: NIE zmieniamy żadnego hasła ani ustawień kont. Obejście: używać istniejącego admin/hasło.
+- Limit sesji RTSP NVR: tańsze HiLook mają niski limit równoległych sesji strumieniowych. Obejście: go2rtc agreguje do 1 sesji per strumień i rozdziela do wielu klientów; nie pull'ować main-streamów per karta HA.
+- Wyciek hasła przez dufs: data/upload jest serwowany publicznie. Obejście: po odebraniu natychmiast przenieść do /root/.hilook_cred (600) i usunąć z upload.
+
+────────────────────────────────────────
+
+NIE WIEM:
+- Czy hasło jest już na VPS: plik /root/.hilook_cred istnieje (26 B, root, perm 600, utworzony 12.08 20:25), ale jest nieczytelny dla hermes (Permission denied), a data/upload nie zawiera nowego pliku. Stanu gotowości nie ustaliłem bez czytania treści — nie czytam haseł.
+- Czy login do NVR ma uprawnienia zdarzeń (warunek detekcji) — do sprawdzenia w kroku 4.
+- Czy TE konkretne HiLooki (FG092/FQ921) faktycznie zwrócą ruch przez alertStream — z rundy 1 nadal NIE WIEM, do weryfikacji po loginie.
+
+Jedna rzecz do zrobienia: gdy Tomasz wgra hasło do data/upload, krok 1 (przeniesienie do .hilook_cred + usunięcie z upload) i krok 2 (hilook_test.sh) to pierwsze dwie akcje — obie bez dotykania NVR, kamer i routera.
+
+— Henio

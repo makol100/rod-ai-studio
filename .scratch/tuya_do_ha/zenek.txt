@@ -1,0 +1,144 @@
+## POTWIERDZONE
+
+### P1. Realne drogi do HA Działka
+
+1. **Natywna integracja Tuya w HA**
+
+   - Włączyć `switch.security_camera_motion_alarm`, wywołać prawdziwą detekcję i obserwować encje oraz magistralę zdarzeń HA.
+   - Zależy od kamery, internetu i chmury Tuya; telefon niepotrzebny.
+   - Restart telefonu: przeżyje. Brak Wi‑Fi/internetu kamery: nie. Restart HA: po ponownym połączeniu powinien działać, ale zachowanie tej kamery trzeba zmierzyć.
+   - Obecnie przełącznik jest `off`; nie ma encji człowieka. Samo włączenie nie gwarantuje powstania nowej encji. Integracja Tuya jest klasy `Cloud Push` i obsługuje platformę `Event`, lecz zakres zależy od modelu urządzenia. [Dokumentacja HA Tuya](https://www.home-assistant.io/integrations/tuya/)
+
+2. **HA Companion – `last_notification`**
+
+   - Android Companion czyta powiadomienie SmartLife, a HA reaguje na pakiet `com.tuya.smartlife` oraz treść/tytuł.
+   - Zależy od telefonu, uprawnienia dostępu do powiadomień, listy dozwolonych pakietów i połączenia telefonu z HA.
+   - Restart telefonu: powinien wrócić po uruchomieniu usług, ale dla Fold7 NIE WIEM bez testu. Bez Wi‑Fi może użyć transmisji komórkowej; obecny odczyt Fold7 pokazuje jednak `mobile_data: off`. Bez żadnego internetu zdarzenie nie dotrze. Restart HA może zgubić zdarzenie przypadające dokładnie na przerwę.
+   - Pomiar HA wykazał: Fold7 `SM-F966B` nie ma encji `last_notification` — REST zwrócił HTTP 404. Istniejąca `sensor.sm_f926b_last_notification` należy do starego urządzenia, ma stan `unknown` i dane aplikacji z 2024 roku.
+   - Oficjalna dokumentacja potwierdza czujnik, dostęp do powiadomień i Allow List pakietów. [Czujniki Companion](https://companion.home-assistant.io/docs/core/sensors/)
+
+3. **Android Remote Control MCP odpytywany z VPS**
+
+   - Proces na VPS cyklicznie wywołuje `android_notification_list`, zapamiętuje ostatni znacznik/identyfikator i wysyła zdarzenie przez REST do HA.
+   - Zależy od telefonu, działającej usługi MCP, Tailscale i VPS. Nie potrzebuje Companion.
+   - Restart telefonu: NIE WIEM, czy MCP uruchamia się automatycznie. Brak Wi‑Fi: zadziała tylko, jeśli telefon ma inną łączność z tailnetem. Restart HA: kolejka na VPS może pozwolić ponowić wysłanie, ale trzeba ją świadomie zaprojektować.
+   - Narzędzie i `/root/tel.sh` są dostępne. Polling musi mieć deduplikację; samo porównywanie treści nie wystarczy.
+
+4. **Lokalny listener Android → bezpośrednio HA**
+
+   - Tasker, Automate albo osobna aplikacja z `NotificationListenerService` filtruje SmartLife i wywołuje REST/webhook HA przez Tailscale.
+   - Zależy od telefonu, uprawnień, pracy aplikacji w tle i sieci; VPS może być zbędny.
+   - Restart telefonu: zależy od autostartu i polityki Samsunga — NIE WIEM przed testem. Brak sieci oznacza opóźnienie albo utratę bez lokalnej kolejki. Restart HA wymaga kolejki/retry po stronie telefonu.
+   - To osobna droga od MCP: zdarzeniowa, bez pollingu, ale wymaga kolejnej aplikacji lub własnego kodu.
+
+5. **Tuya IoT Cloud – subskrypcja zdarzeń**
+
+   - Projekt Tuya Cloud odbiera komunikaty alarmowe kamery; konsument na VPS filtruje `ALARM_PERSON_DETECTION` i wysyła zdarzenie do HA.
+   - Zależy od kamery, internetu, chmury Tuya, projektu/deweloperskich uprawnień i VPS; telefon niepotrzebny.
+   - Restart telefonu: bez znaczenia. Brak internetu kamery: nie działa. Restart HA można obsłużyć kolejką i ponawianiem na VPS.
+   - Tuya oficjalnie dokumentuje alarm `alarm_info_report`, w tym `ALARM_PERSON_DETECTION`, oraz odbiór przez usługę wiadomości/Pulsar. [Zdarzenia kamer Tuya](https://developer.tuya.com/en/docs/cloud/camera-open-capabilities?id=Kbxdoa8zjorhj), [Tuya Pulsar](https://developer.tuya.com/en/docs/iot/pulsar-msg-optimization?id=Kfne1xuv88hs2)
+
+6. **Scena SmartLife**
+
+   - Scena może zmienić urządzenie wystawione w HA, a zmiana jego stanu byłaby wyzwalaczem automatyzacji.
+   - Natywna integracja HA importuje sceny SmartLife, ale dokumentacja nie potwierdza dowolnego webhooka jako akcji sceny.
+   - Czy ta konkretna kamera oferuje „human detected” jako warunek sceny: **NIE WIEM**. Czy SmartLife potrafi bezpośrednio wywołać webhook HA: **NIE WIEM**.
+   - Zależności i odporność byłyby podobne do Tuya Cloud: telefon po konfiguracji zbędny, ale potrzebne kamera–internet–Tuya–HA.
+
+7. **Własna lokalna detekcja osoby**
+
+   - Strumień lub cykliczne klatki trafiają do detektora klasy `person`; wynik jest publikowany do HA przez MQTT/REST albo integrację detektora.
+   - Telefon i chmura Tuya nie są potrzebne, jeżeli dostępny jest lokalny strumień. Internet również nie jest potrzebny w obrębie działki.
+   - Restart telefonu: bez znaczenia. Restart HA: detektor może działać dalej; krótkie zdarzenia wymagają kolejki MQTT/ponowienia. Brak sieci lokalnej kamery: nie działa.
+   - Obejmuje Tuya i Xiaomi, ale trzeba najpierw potwierdzić działający strumień Tuya oraz wydajność sprzętu. Różnica pikseli nie jest tu wystarczającym detektorem osoby.
+
+8. **Lokalne zdarzenia kamery: ONVIF/RTSP metadata/vendor API**
+
+   - HA lub proces na VPS nasłuchuje zdarzenia bezpośrednio z kamery.
+   - Telefon i chmura byłyby zbędne; potrzebna tylko sieć lokalna.
+   - Dla modelu „Security Camera” obsługa ONVIF, profilu zdarzeń albo lokalnego API jest **NIE WIEM**. To realna klasa rozwiązania, ale jeszcze niepotwierdzona dla tego sprzętu.
+
+### P2. Rekomendacja
+
+1. **Na teraz:** najpierw krótki test natywnej Tuya — włączenie `motion_alarm`, jedna kontrolowana detekcja i obserwacja zdarzeń HA. To najmniejsza liczba nowych elementów. Nie nazywam tego wdrożeniem ani pewnym rozwiązaniem.
+
+2. **Jeżeli test natywny nie przejdzie:** najszybszym obejściem jest włączenie `last_notification` na Fold7 i dodanie SmartLife do Allow List. Obecnie ta droga nie jest gotowa, bo encji Fold7 nie ma.
+
+3. **Docelowo:** lokalna detekcja klasy `person` dla wszystkich kamer, pod warunkiem pozytywnego testu strumieni i sprzętu. Usuwa zależność od telefonu oraz treści angielskiego powiadomienia. Jako ścieżkę zapasową dla samej Tuya wybrałbym Tuya Cloud Pulsar na VPS.
+
+### P3. Koszty
+
+| Droga | Zł/miesiąc | Sprzęt, bateria, transfer |
+|---|---:|---|
+| Natywna Tuya w HA | NIE WIEM | Śladowe CPU HA; transfer zdarzeń mały, dokładnej liczby NIE WIEM |
+| Companion `last_notification` | NIE WIEM | Małe obciążenie telefonu; dokładnego wpływu na baterię i transfer NIE WIEM |
+| Polling MCP z VPS | NIE WIEM | CPU VPS mały; częste budzenie telefonu/Tailscale może zużywać baterię; wartości NIE WIEM |
+| Listener Android → HA | NIE WIEM | Zdarzeniowy, więc prawdopodobnie lżejszy od pollingu; pomiaru brak |
+| Tuya IoT/Pulsar | NIE WIEM | Małe CPU VPS; cena i limity projektu Tuya dla tego konta NIE WIEM |
+| Scena SmartLife | NIE WIEM | Małe obciążenie; dostępność i ewentualna usługa pośrednia NIE WIEM |
+| Lokalna AI `person` | NIE WIEM | Największe CPU/GPU i transfer LAN; nie znam parametrów hosta ani liczby klatek |
+| ONVIF/vendor event | NIE WIEM | Małe CPU i transfer lokalny; obsługa kamery NIE WIEM |
+
+Nie podaję `0 zł`, ponieważ nie sprawdzono planu Tuya, licencji wybranego listenera ani kosztu energii istniejących maszyn.
+
+### P4. Ryzyka — maksymalnie 5
+
+1. **Telefon wyłączony lub poza zasięgiem:** odpadają Companion, MCP i listener Android. Natywna Tuya, Tuya Cloud oraz lokalna AI mogą działać bez niego.
+
+2. **Ujawnienie danych:** nie wolno wystawiać MCP ani webhooka HA publicznie. Najbezpieczniej ograniczyć je do Tailscale. Tuya Cloud przekazuje zdarzenia i potencjalnie identyfikatory/obrazy przez chmurę Tuya.
+
+3. **Fałszywe alarmy:** każda droga kopiująca SmartLife skopiuje również błędy detektora kamery. Lokalna AI także może się mylić. Potrzebne są deduplikacja, czas wygaszania i limit alarmów; bez testu kosiarki oraz nocy nie wolno włączać głośnych akcji.
+
+4. **Duplikaty i stare powiadomienia:** polling może ponownie wysłać tę samą notyfikację po restarcie. Filtr musi obejmować pakiet, tytuł, treść, znacznik czasu i trwały zapis ostatnio obsłużonego zdarzenia.
+
+5. **Cicha awaria:** zmiana tekstu SmartLife, odebrane uprawnienie Androida, ubita aplikacja w tle albo zmiana API Tuya może zatrzymać most bez widocznego błędu. Potrzebny będzie osobny sygnał „ostatnie poprawne zdarzenie/heartbeat”.
+
+### P5. Co zmierzyć przed budową
+
+1. **Fold7 i Companion**
+
+   - HA: `GET /api/states/sensor.sm_f966b_last_notification` — obecnie HTTP 404.
+   - Telefon: Companion → `Settings → Companion app → Manage sensors → Last notification`; sprawdzić włączenie, uprawnienie Notification access i Allow List zawierającą `com.tuya.smartlife`.
+   - Po kontrolnym powiadomieniu ponowić REST i sprawdzić stan oraz atrybuty pakietu, tytułu i treści.
+
+2. **Natywna Tuya**
+
+   - Przed i po kontrolowanym włączeniu odczytać:
+     `GET /api/states/switch.security_camera_motion_alarm`
+   - W HA otworzyć `Developer Tools → Events`, nasłuchiwać `*`, wywołać jedną detekcję i zapisać wszystkie nowe zdarzenia/encje.
+   - Następnie przeładować integrację Tuya i ponownie pobrać `/api/states`, filtrując `security_camera`.
+
+3. **MCP po restarcie i bez Wi‑Fi**
+
+   - `systemctl` tu nie wystarczy: zrestartować telefon, a następnie z VPS wykonać `/root/tel.sh tools/list '{}'`.
+   - Wyłączyć wyłącznie Wi‑Fi, pozostawić transmisję komórkową, sprawdzić adres Tailscale i wykonać `android_notification_list`.
+   - Zmierzyć opóźnienie: czas SmartLife minus czas odczytu na VPS.
+
+4. **Tuya Cloud i scena**
+
+   - W API Explorer sprawdzić, czy urządzenie raportuje `alarm_info_report` oraz `ALARM_PERSON_DETECTION`.
+   - W SmartLife sprawdzić listę warunków sceny dla tej kamery i listę możliwych akcji. Brak pozycji „human detected” lub wywołania pośredniego zamyka tę drogę.
+
+5. **Lokalna AI/ONVIF**
+
+   - Potwierdzić adres strumienia Tuya i każdej Xiaomi przez `ffprobe`.
+   - Zmierzyć na docelowym hoście wykorzystanie CPU, pamięci i liczbę przetwarzanych klatek podczas jednej kamery, potem wszystkich.
+   - Wykonać zestaw kontrolny: człowiek, pusta scena, owad przy obiektywie, światło, kosiarka; policzyć trafienia prawdziwe, fałszywe i pominięcia.
+
+## HIPOTEZY
+
+- Natywna Tuya może nie przekazać rozpoznania człowieka nawet po włączeniu `motion_alarm`; push SmartLife już wystąpił przy stanie przełącznika `off`, więc nazwa przełącznika może nie odpowiadać mechanizmowi powiadomień AI.
+- Listener zdarzeniowy Android powinien być stabilniejszy energetycznie od odpytywania MCP, ale nie zostało to zmierzone.
+- Lokalna AI będzie najbardziej niezależna długoterminowo, lecz dopiero test wydajności rozstrzygnie, czy obecny sprzęt ją udźwignie.
+
+## NIE WIEM
+
+- Czy `motion_alarm` ujawni zdarzenie człowieka w tej wersji integracji.
+- Czy SmartLife udostępnia alarm człowieka jako warunek sceny i webhook jako akcję.
+- Czy MCP oraz Companion Fold7 uruchamiają się niezawodnie po restarcie.
+- Jakie są miesięczne koszty Tuya Cloud i energii lokalnej AI.
+- Czy kamera obsługuje lokalne ONVIF events albo API alarmowe.
+
+**Jedna rzecz do zrobienia:** kontrolowany test `switch.security_camera_motion_alarm` z równoczesnym nasłuchem wszystkich zdarzeń HA — dopiero po zgodzie Tomasza.
+
+— **Zenek**

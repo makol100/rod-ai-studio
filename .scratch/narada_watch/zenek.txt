@@ -1,0 +1,65 @@
+## POTWIERDZONE — głos Zenka
+
+**WERDYKT: WPINAĆ WARUNKOWO jako dodatkową kontrolę, nie jako zamiennik obowiązującej bramki oka. Tryb rutynowy: `efficient` + Whisper Groq + porównanie transkrypcji ze scenariuszem. `balanced` tylko przy wykrytej niezgodności albo podejrzanym fragmencie.**
+
+1. **Czy rozwiązuje nasz przypadek? — TAK, ale nie w całości.**
+
+   Na rzeczywistej rolce 000098 skrypt poprawnie obsłużył lokalny MP4 1080×1920, H.264/AAC, długość 42,5 s. Oba tryby zakończyły się kodem 0.
+
+   - `efficient`: 10 klatek w czasach 0, 2, 8, 12, 17, 22, 28, 32, 36 i 40 s.
+   - `balanced`: dokładnie te same 10 klatek i czasy.
+   - ffmpeg 8.0.1 nie złamał ekstrakcji w tym materiale.
+
+   `/watch` pozwoli Klaudkowi ocenić kompozycję, ciąg scen, widoczne błędy i zgodność obrazu z wypowiedzią. **Nie gwarantuje wykrycia krótkiego glitcha pomiędzy próbkami.** Fabryczna decyzja wymaga kontroli pełnej rozdzielczości per klatka; zapis stoi w `wiedza/DECYZJE_0007_bramka_oka.md`, punkty 1–4. `/watch` nie spełnia samodzielnie tej bramki, bo domyślnie skaluje obraz do 512 px.
+
+2. **Whisper — używać rutynowo.**
+
+   Scenariusz mówi, co lektor **miał powiedzieć**. Whisper sprawdza, co rzeczywiście znalazło się w AAC i dostarcza znaczniki czasu potrzebne do zestawienia mowy z obrazem. Bez Whispera nie wykryjemy opuszczonego zdania, złego renderu TTS ani przesunięcia wypowiedzi względem sceny.
+
+   Jednocześnie Whisper nie ocenia wiarygodnie głośności muzyki, przesterowania, trzasków ani naturalności głosu. Do tych cech potrzebny jest dodatkowy pomiar audio lub odsłuch.
+
+   Klucz kompatybilny z `/watch` istnieje w `/root/rod-agent/.env`; `~/.config/watch/.env` nie istnieje. Najbezpieczniejsza integracja to eksport odpowiedniej zmiennej tylko do procesu Claude Code, bez kopiowania sekretu do kolejnego pliku.
+
+3. **Koszt obrazu — założenie 8 tys. tokenów jest błędne dla pionowej rolki.**
+
+   Wartość 197 tokenów dotyczy klatki 512×288 z przykładu poziomego 16:9. Rolka 000098 po skalowaniu ma około 512×910, czyli według wzoru autora około:
+
+   - 621 tokenów na klatkę,
+   - około 6,2 tys. tokenów za zmierzone 10 klatek,
+   - około 24,8 tys. tokenów, gdyby faktycznie powstało 40 pionowych klatek.
+
+   Repo deklaruje budżet około 40 klatek dla 30–60 s, lecz jest to cel, nie gwarantowana liczba. Na naszej rolce oba tryby zwróciły tylko 10. **6,2 tys. tokenów obrazu jest rozsądnym kosztem rutynowej kontroli; 24,8 tys. wymagałoby ponownej oceny.** Koszt pieniężny tokenów w obecnym abonamencie Claude Max: **NIE WIEM**.
+
+4. **Integracja z przepływem — TAK.**
+
+   Lokalny plik działa bez pobierania, a skill jest przeznaczony dla Claude Code. To pasuje do miejsca, gdzie rolka powstaje. Luka organizacyjna pozostaje tylko wtedy, gdy wynik `/watch` nie stanie się obowiązkową bramką przed publikacją.
+
+   Wynik powinien być fail-closed: brak klatek, niepełna transkrypcja albo błąd Whispera oznacza **NIE PUBLIKOWAĆ**, a nie „kontrola zaliczona”.
+
+5. **Ryzyka potwierdzone w repo.**
+
+   - Otwarte zgłoszenia [#99](https://github.com/bradautomates/claude-video/issues/99), [#101](https://github.com/bradautomates/claude-video/issues/101) i [#117](https://github.com/bradautomates/claude-video/issues/117) opisują awarie `-vsync` na niektórych nowych kompilacjach ffmpeg. Nasz test na ffmpeg 8.0.1 przeszedł, ale aktualizacja może to zmienić.
+   - [Issue #80](https://github.com/bradautomates/claude-video/issues/80) ostrzega, że ponowne uruchomienie na pliku umieszczonym wewnątrz `--out-dir` może usunąć plik źródłowy. Nie wolno wskazywać katalogu rolki jako `--out-dir`.
+   - Dedup może usunąć klatki różniące się subtelnie; dla kontroli krótkiego błędu potrzebne będzie ponowienie z `--no-dedup` i wąskim `--start/--end`.
+   - `token-burner` jest bez limitu klatek i nie nadaje się do automatycznej kontroli rutynowej.
+   - Repo ma 14 215 gwiazdek i licencję MIT według GitHub API; nie daje to gwarancji stabilności ani jakości oceny modelu.
+
+## HIPOTEZY
+
+1. Najtańszy praktyczny przepływ to `efficient` + Groq Whisper + scenariusz, a następnie `balanced --start/--end --no-dedup` tylko dla fragmentów oznaczonych jako podejrzane.
+
+2. Ponieważ na rolce 000098 `balanced` nie dostarczył ani jednej klatki więcej niż `efficient`, ustawienie go jako rutynowego domyślnego trybu zwiększa czas dekodowania bez wykazanego zysku.
+
+3. `/watch` powinien oceniać osobno: zgodność wypowiedzianego tekstu, zgodność czasową obrazu, artefakty wizualne oraz kompletność scen. Nie powinien wystawiać jednej ogólnej oceny „OK”.
+
+## NIE WIEM
+
+1. Nie przeprowadzono transkrypcji Whisper — świadomie nie wykonano płatnego wywołania w badaniu.
+
+2. Nie wiadomo jeszcze, jaka jest trafność `/watch` na celowo uszkodzonej rolce i ile prawdziwych błędów wykryje przy 10 klatkach.
+
+3. Nie wiadomo, czy Claude poprawnie oceni miks lektora z muzyką; sam tekst Whispera tego nie dowodzi.
+
+**Konkret do zrobienia:** uruchomić jeden niepublikowany pilot na 000098 w trybie `efficient` + Groq Whisper, z góry przygotować jedną wersję z krótkim glitchem i przyjąć `/watch` dopiero wtedy, gdy wskaże jego czas oraz rozbieżności transkrypcji względem scenariusza.
+
+— **Zenek**

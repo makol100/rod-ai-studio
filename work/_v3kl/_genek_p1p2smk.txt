@@ -1,0 +1,29 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+**P1_start**
+(1) Widok z góry na nogę w ciemnych spodniach i szarym chodaku (typu crocs) oraz gęste zielone liście krzewu po lewej stronie.
+(2) PROSTO
+
+**P1_srodek**
+(1) Stopa w szarym chodaku postawiona na środku pnia po ściętym drzewie, otoczonego trawą i liśćmi.
+(2) PROSTO
+
+**P1_koniec**
+(1) Widok z góry na sam pieniek po ściętym drzewie znajdujący się w ziemi pośród roślinności.
+(2) PROSTO
+
+**P2_start**
+(1) Widok z góry na obie stopy w szarych chodakach stojące na ziemi pokrytej suchymi liśćmi i rzadką trawą.
+(2) PROSTO
+
+**P2_srodek**
+(1) Widok na jedną stopę i nogę na ziemi, w oddali widać płaski fragment pnia lub kamień.
+(2) PROSTO
+
+**P2_koniec**
+(1) Widok na nogę i stopy na ziemi, w kadrze widać kilka pozostałości po wyciętych krzewach lub małych pieńkach.
+(2) PROSTO
+
+**Werdykt:**
+Ujęcie P1 (górne 3 kafle): **PROSTO**
+Ujęcie P2 (dolne 3 kafle): **PROSTO**
+EXIT=0

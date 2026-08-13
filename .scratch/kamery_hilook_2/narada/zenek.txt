@@ -1,0 +1,131 @@
+## POTWIERDZONE
+
+### Głos Zenka
+
+1. **P1: wariant (c).** Fakty nie rozstrzygają między Plug&Play a wspólnym hasłem ustawionym ręcznie. NVR ma poprawne poświadczenie kamer; historia ustanowienia hasła pozostaje nieznana. Plug&Play może nadać kamerze hasło NVR, ale producent opisuje również ręczne dodanie kamery jej adresem i poświadczeniami. [Hikvision — Device Activation](https://legacy.hikvision.com/sites/default/files/how-to/pnpcameraactivationfrompnpnvrfna01272017.pdf)
+
+2. **P2: NIE.** Najpierw integracja `hikvision` na NVR `.110`; HA automatycznie wykrywa kanały NVR i tworzy sensory zdarzeń per kanał. [Home Assistant — Hikvision](https://www.home-assistant.io/integrations/hikvision/)
+
+3. **P3:** go2rtc lokalnie na HA Działka. VPS i Tailscale dodają drogę sieciową oraz punkty awarii.
+
+4. **P4:** najpierw odczyt kanałów/statusu, potem RTSP i `alertStream`; dopiero później odwracalne zmiany w HA. Żadnych zmian NVR ani routerów.
+
+5. **P5:** zero zgadywania loginu, jedna próba znanym kontem, testy strumieni kolejno; limit blokady i sesji NVR — **NIE WIEM**.
+
+— Zenek
+
+### Głos Henia
+
+1. **P1: wariant (c).** Rozstrzygający odczyt:
+
+   - `GET /ISAPI/ContentMgmt/InputProxy/channels/status`
+   - `GET /ISAPI/ContentMgmt/InputProxy/channels`
+   - następnie `GET /ISAPI/ContentMgmt/InputProxy/channels/<ID>` dla identyfikatorów zwróconych przez NVR.
+
+   Jeżeli odpowiedź zawiera `connMode=plugplay`, potwierdzi (a). Inny tryb plus wspólne działające poświadczenie przemawia za (b). Jeżeli firmware nie zwróci trybu — **NIE WIEM**. [Hikvision ISAPI — InputProxy](https://usermanual.wiki/Pdf/HikVision20IP20Surveillance20API20RaCM20Part20User20Guide.1552796388.pdf)
+
+2. **P2: NIE.** Nadal `.110`; bezpośrednie integracje `.111–.114` dopiero, jeśli NVR nie przekaże zdarzeń któregoś kanału.
+
+3. **P3:** addon go2rtc na HA Działka; własny build VPS pozostawić jako rezerwę.
+
+4. **P4:** wszystkie pierwsze pomiary są odczytowe. Włączenie powiadomień, zmiana uprawnień albo uwierzytelniania wymaga osobnej zgody Tomasza.
+
+5. **P5:** nie zmieniać haseł, kanałów ani sposobu dodania kamer; `alertStream` uruchamiać jako jedną sesję z timeoutem.
+
+— Henio
+
+### Głos Klaudka
+
+#### P1. Co oznaczają nowe fakty
+
+**Wariant (c): NVR otrzymał właściwe poświadczenie kamer, ale obecnie nie wiadomo, czy powstało ono przez Plug&Play, czy ręcznie.**
+
+Pomiar po otrzymaniu pliku:
+
+1. Potwierdzić login bez zgadywania.
+2. Wykonać z Digest:
+
+```text
+GET http://192.168.3.110/ISAPI/ContentMgmt/InputProxy/channels
+GET http://192.168.3.110/ISAPI/ContentMgmt/InputProxy/channels/status
+```
+
+3. Dla identyfikatorów zwróconych w pierwszej odpowiedzi:
+
+```text
+GET http://192.168.3.110/ISAPI/ContentMgmt/InputProxy/channels/<ID>
+```
+
+4. Jednokrotnie sprawdzić znanym kontem:
+
+```text
+GET http://192.168.3.110/ISAPI/System/deviceInfo
+GET http://192.168.3.111/ISAPI/System/deviceInfo
+...
+GET http://192.168.3.114/ISAPI/System/deviceInfo
+```
+
+Wspólne działające konto potwierdzi wspólne poświadczenie, ale samo nie dowiedzie, kto i kiedy je ustanowił.
+
+#### P2. Rekomendacja
+
+**NIE — integracja `hikvision` nadal powinna celować w NVR `.110`.**
+
+Jedna integracja ma automatycznie wykryć cztery kanały i sensory per kanał. To mniej konfiguracji niż cztery osobne integracje. Czy detekcja ze `.110` jest faktycznie pewniejsza dla tego egzemplarza — **NIE WIEM**, dopóki `alertStream` nie pokaże zdarzeń ze wszystkich czterech kamer.
+
+Kanały oczekiwane: main `101/201/301/401`, sub `102/202/302/402`; aktywność każdego trzeba zmierzyć.
+
+#### P3. Strumienie
+
+**Wybrać go2rtc na HA Działka, lokalnie w `host_network`.**
+
+Przeciw VPS:
+
+- media przechodziłyby przez trasę Działka → Tailscale → VPS;
+- awaria VPS albo Tailscale odbierałaby podgląd w HA mimo sprawnych kamer i LAN;
+- własny build wymaga osobnego utrzymania;
+- dokładna różnica opóźnienia — **NIE WIEM** bez pomiaru.
+
+go2rtc obsługuje obraz; zdarzenia ruchu pozostają zadaniem integracji `hikvision`.
+
+#### P4. Kolejność wykonania
+
+**Teraz — odczytowo:**
+
+1. Odczytać sekret bez pokazania go w czacie, terminalu, historii ani liście procesów. Potwierdzić login. **Odwracalne.**
+2. Wykonać jeden Digest `GET deviceInfo` na `.110`; po `401/403` zatrzymać próby. **Odwracalne.**
+3. Odczytać `InputProxy/channels`, `channels/status` i konfigurację zwróconych identyfikatorów. **Odwracalne.**
+4. Sprawdzić kolejno osiem ścieżek RTSP main/sub z krótkim timeoutem. **Odwracalne; chwilowe sesje NVR.**
+5. Otworzyć jedną sesję `GET /ISAPI/Event/notification/alertStream` i wywołać ruch kolejno przed czterema kamerami. **Odwracalne.**
+
+**Później — po zgodzie na wdrożenie:**
+
+1. Dodać integrację `hikvision` na `.110`. **Odwracalne; zmienia wyłącznie HA.**
+2. Potwierdzić cztery encje obrazu i cztery sensory ruchu. **Odwracalne.**
+3. Dodać substreamy do lokalnego go2rtc. **Odwracalne; zmienia HA.**
+4. Jeśli ruch nie płynie, jedynie odczytać konfigurację zdarzeń i uprawnienia.
+5. Włączenie `Notify the surveillance center`, zmiana uprawnień lub `WEB Authentication` jest **trwałą zmianą NVR/kamer i wymaga osobnej zgody Tomasza**. Routera nie dotykać.
+
+#### P5. Ryzyka i koszt
+
+- Nie planujemy płatnej usługi ani płatnego API; dokładny koszt energii i transferu — **NIE WIEM**.
+- Błędne logowania mogą wywołać `userLocked`; nie znamy limitu tego modelu. Jeden test potwierdzonym kontem, bez wariantów loginu.
+- Limit sesji NVR — **NIE WIEM**. Testować kanały kolejno, zamykać połączenia i nie włączać stałego `preload` czterech main-streamów.
+- Nie zmieniać ani nie resetować haseł, nie aktywować kamer, nie używać `PUT`, `POST` ani `DELETE`.
+- Nie usuwać pliku z hasłem bez osobnej decyzji Tomasza.
+
+## HIPOTEZY
+
+Najbardziej prawdopodobne jest zapisanie przez NVR wspólnego poświadczenia kamer, ale bez wyniku `connMode` nie wolno nazwać tego Plug&Play.
+
+## NIE WIEM
+
+- Jaki jest login.
+- Czy hasło kamer działa także na NVR.
+- Jak historycznie ustanowiono hasło.
+- Czy `.110` przekazuje ruch ze wszystkich czterech kanałów.
+- Jakie są limity prób logowania i jednoczesnych sesji.
+
+**Jedna rzecz do zrobienia:** gdy plik pojawi się na VPS, potwierdzić login, a następnie wykonać dokładnie jeden Digest `GET /ISAPI/ContentMgmt/InputProxy/channels/status` na `.110`.
+
+— Klaudek

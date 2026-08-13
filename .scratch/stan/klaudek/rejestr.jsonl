@@ -1,0 +1,6 @@
+{"node_id":"n001","ts":"2026-08-07T10:49","opis":"Router Sosnowca przenumerowany 192.168.0.1 -> 192.168.50.1, trasa Tailscale 192.168.50.0/24 zatwierdzona i dziala","status":"zrobione","zrodlo":".scratch/OPERACJA_router_sosnowiec.md","zaleznosci":[]}
+{"node_id":"n002","ts":"2026-08-07T10:49","opis":"Transkrypcje YouTube przez oczy_uszy.py (Gemini fileUri omija blokade botow na VPS)","status":"zrobione","zrodlo":".scratch/transkrypcja_genek.md","zaleznosci":[]}
+{"node_id":"n003","ts":"2026-08-07T10:49","opis":"STAN zbudowany: pamiec_stan.py rdzen + wariant3 + luka1 (--zrodlo-most), commit 3383d06","status":"zrobione","zrodlo":".scratch/spec_pamiec_stan.md","zaleznosci":[]}
+{"node_id":"n004","ts":"2026-08-07T10:49","opis":"Wdrozenie STAN do protokolu startu + pamieci Klaudka","status":"zrobione","zrodlo":".scratch/spec_pamiec_stan.md","zaleznosci":["n003"]}
+{"node_id":"n005","ts":"2026-08-07T12:18","opis":"Dzialka naprawiona: snat_subnet_routes false->true na Tailscale add-onie, router .0.1 dosiegalny. 3 HA gotowe","status":"zrobione","zrodlo":"TELEPORT_fabryka.md","zaleznosci":[]}
+{"node_id":"n006","ts":"2026-08-07T12:29","opis":"Dzialka site-to-site: accept_routes+accept_dns false->true + restart, nadal dosiegalna. 3 lokacje spojne, pelne site-to-site","status":"zrobione","zrodlo":"TELEPORT_fabryka.md","zaleznosci":[]}

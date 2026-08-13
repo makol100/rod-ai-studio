@@ -70,7 +70,7 @@ def main():
     w = odp.get("result", {})
     for c in w.get("content", []):
         if c.get("type") == "text":
-            print(c["text"][:2500])
+            print(c["text"])
     if odp.get("error"):
         print("BLAD:", json.dumps(odp["error"])[:400])
 

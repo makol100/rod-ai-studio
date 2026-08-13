@@ -1,0 +1,6 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+PROSTO: A
+
+A: Niebo jest na górze, a słupy i drzewa trzymają pion względem krawędzi klatki.
+B: Zawartość jest obrócona o 90 stopni, przez co niebo znajduje się po lewej stronie, a horyzont jest pionowy.
+EXIT=0

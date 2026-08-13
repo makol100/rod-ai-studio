@@ -1,0 +1,2129 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: none
+reasoning summaries: none
+session id: 019fd774-1f40-7bd2-8c78-828c5016eb5c
+--------
+user
+# ZADANIE KONTROLNE DLA ZALOGI (Zenek + Henio) — ocena skilla /watch (bradautomates/claude-video)
+
+Rozstrzygacie jedno: WPINAC czy NIE w fabryke, i w jakim trybie. Kazdy podpisany glos + uzasadnienie. Rozbieznosc zostaje widoczna. Decyduje Tomasz.
+
+## KONTEKST FABRYKI (pelny — nie macie pamieci, wiec czytajcie)
+rod-ai-studio generuje AI rolki wideo (prezenterka Izabela, seria "Wiadomosci Dzialkowe"), publikuje na Facebooku ROD Wozniki. Gotowe rolki lokalnie: data/reels/<id>/video/final_with_music.mp4, krotkie ~30-60s, z lektorem (audio AAC) + muzyka. Scenariusz kazdej rolki (tekst lektora, plan scen) JEST zapisany w repo/gicie przy produkcji.
+PROBLEM: weryfikacja jakosci gotowej rolki. Zasada nadrzedna Tomasza (samokontrola): "nie kaz mi ogladac, daj wynik i decyzje" — Klaudek NIE moze prosic Tomasza o obejrzenie. Dzis Klaudek nie umie sam obejrzec rolki (widzi tylko pliki i logi, nie obraz/dzwiek).
+Srodowisko wykonawcze: Claude Code na VPS. Skille zyja w /root/.claude/skills/ i odpalaja sie w Claude Code CLI (fabryka) — NIE w biezacej rozmowie Tomasza z Klaudkiem (tam rzadzi pamiec).
+
+## CO OCENIAMY: skill /watch (claude-video, ~14200 gwiazdek, MIT)
+Daje agentowi realne "obejrzenie" wideo: yt-dlp pobiera napisy/wideo -> ffmpeg wyciaga klatki (keyframes w trybie 'efficient', scene-change w 'balanced'/'token-burner') -> transkrypcja (napisy zrodla za darmo; Whisper API fallback GDY BRAK napisow: GROQ whisper-large-v3 tanszy albo OpenAI) -> agent Read'uje klatki jako obrazy JPEG + dostaje transkrypcje z timestampami -> odpowiada widzac klatki i slyszac audio.
+Instalacja: Claude Code plugin (`/plugin marketplace add bradautomates/claude-video` + `/plugin install watch@claude-video`) albo `npx skills add bradautomates/claude-video -g` (instaluje do ~/.claude/skills, ~/.codex/skills).
+Tryby --detail i koszt (z README, pomiar na 49min wideo): 
+- transcript: 0 klatek, same napisy, ~4.5s, ~0 image tokenow (ale wymaga NAPISOW w zrodle).
+- efficient: keyframes, ~0.5s, ~9.8k image tok.
+- balanced: scene-change, ~21s, ~19.7k tok.
+- token-burner: uncapped.
+Budzet klatek auto: <=30s ~30 klatek, 30-60s ~40 klatek. Klatka 512px ≈ 197 image tokenow. Whisper audio ~480kB/min.
+
+## TWARDE FAKTY ZE SRODOWISKA (zmierzone przez Klaudka 6.08)
+- yt-dlp 2026.07.04: JEST na VPS. ffmpeg 8.0.1: JEST. python3, npx: JEST. => skill ruszy na klatkach OD RAZU, zero instalacji zaleznosci.
+- Klucz Whisper (GROQ/OPENAI): BRAK nigdzie na VPS.
+- Nasza rolka (data/reels/000098 final .mp4): strumienie h264 (video) + aac (audio), BEZ napisow osadzonych. => tryb 'transcript' (same napisy) NIE zadziala na naszych rolkach; transkrypcja audio wymaga Whispera (klucz+koszt) ALBO pomijamy transkrypcje i uzywamy scenariusza z gita (mamy go).
+
+## PYTANIA ROZSTRZYGALNE (odpowiedz TAK/NIE + jak)
+1. Czy /watch realnie rozwiazuje NASZ przypadek: Klaudek SAM oglada lokalna rolke 30-60s (klatki) i ocenia jakosc (czy lektor pasuje do obrazu, czy nie ma glitchy, czy trzyma sie scenariusza)?
+2. Whisper: konieczny czy pomijalny? Skoro znamy tekst lektora ze scenariusza w gicie, czy wystarczy tryb 'efficient'/'balanced' (same klatki) + porownanie z tekstem z gita — bez placenia za Whisper i bez kolejnego sekretu na VPS?
+3. Koszt na jedna rolke 30-60s w trybie 'efficient' (~40 klatek x ~197 tok ≈ 8k image tok, bez Whisper) — akceptowalny do RUTYNOWEJ weryfikacji kazdej rolki przed publikacja?
+4. Integracja z przeplywem: weryfikacja przez /watch dziala w Claude Code CLI (fabryka), nie w rozmowie Tomasz<->Klaudek. Czy to pasuje (rolki i tak powstaja w fabryce/Claude Code), czy jest luka?
+5. RYZYKA/BLOKERY: cokolwiek co moze ugryzc (np. token-burner wysadza kontekst, dedup, jakosc oceny z 40 klatek na 60s rolke, licencja, aktualizacje pluginu).
+6. WERDYKT: wpinac czy nie. Jesli tak — ktory tryb (transcript odpada) i czy z Whisper czy bez.
+
+Zasada 27.07: domyslnie najnizszy koszt; wyjatek tylko gdy droga pewna w 100%. Zasada 17.07: uczyc sie z cudzych bledow — jesli w repo/issues widac znane pulapki, wskazac.
+
+## KOREKTA 6.08 (Tomasz: "Jest whisper")
+Klucz Whisper JEST — w /root/rod-agent/.env (poza rod-ai-studio, dlatego pierwszy grep przeoczyl). ALE skill /watch szuka klucza w ~/.config/watch/.env albo env GROQ_API_KEY/OPENAI_API_KEY — integracja wymaga WSKAZANIA klucza skillowi (kopia lub eksport env), nie jest od razu widoczny.
+Pytanie 2 stoi inaczej: skoro Whisper DOSTEPNY, czy uzywac go do transkrypcji audio rolki (pelny obraz: obraz+dzwiek), czy wystarczy scenariusz z gita + klatki (taniej, zero zaleznosci od API)? Rekomendujcie z uzasadnieniem.
+codex
+Najpierw ustawiam ocenę według lokalnych zasad fabryki: czytam `wiedza/START.md`, wyszukuję zapisy o `/watch`, Whisperze i kontroli, a następnie uruchomię wymagane głosy załogi. Zweryfikuję też sam projekt `bradautomates/claude-video` i jego issues, bo pytanie wymaga oceny znanych pułapek.
+exec
+/bin/bash -lc "sed -n '1,260p' wiedza/START.md && python3 tools/szukaj.py watch whisper kontrola && sed -n '1,240p' docs/agents/issue-tracker.md" in /root/rod-ai-studio
+ succeeded in 176ms:
+SZUKANE: watch, whisper, kontrola
+TRAFIENIA: 142 w 40 plikach (przeszukano 90)
+
+### /root/rod-ai-studio/TELEPORT_fabryka.md  (44 trafien)
+      85: 5. `_produce_media()`: audio (edge-tts, darmowe) → prompty obrazów (`generate_image_prompts`, llama3.1:8b, darmowe) → obrazy (fal.ai FLUX-1/dev, **KOSZTOWNE**) → napisy (fal.ai Whisper, **KOSZTOWNE**)
+      91: 3. **Zastosuj** (`POST /napraw-zastosuj {reel_id, nowy_scenariusz, zaakceptowane_sceny}`): scala stary+nowy wg zaznaczonych numerów, regeneruje CHIRURGICZNIE tylko zaakceptowane sceny (obraz: fal.ai, 
+     291: DODATKOWY bug znaleziony i naprawiony przy tej okazji: licznik slow do porownania (transcribe_scene) zle liczyl samodzielne znaki interpunkcyjne (np. "-") jako osobne "slowo" - w mowie nie maja odpowi
+     369: ### WAZNA ZASADA USTALONA DZIS: kontrola kosztow
+     386: 1. **Błąd wymowy "altanka"**: Whisper transkrybował "w Twojej altance" jako "Altans" - ustalone że to prawdopodobnie wada wymowy samego glosu edge-tts (nie halucynacja Whisper), bo tekst zrodlowy byl 
+     394: Wszystkie te poprawki (poza transkrypcja Whisper, na ktora Tomasz dal stala zgode bez pytania - patrz pamiec #18) byly darmowe - edycja tekstu + lokalny edge-tts + lokalny ffmpeg, zero fal.ai.
+   ... jeszcze 38 trafien w tym pliku
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10010.md  (12 trafien)
+      24: 2026-07-26 | [KANAREK k04 — wynik] | technika PASS, napisy-widmo PASS, język PASS (whisper medium: kwestia Tomka + "Józek!" z offu — Veo DAŁO głos Józka), tożsamość FAIL (0.19-0.22 vs bohater_noc). AN
+      41: 2026-07-26 | [kanarek2 — wynik i dowody] | Technika/napisy/język PASS, PISK JEST (whisper medium: kwestia + "Józek!" 2.3-3.1s), tożsamość FORMALNY FAIL (1 klatka kl_09 sim 0.2; w pierwszym kanarku był
+      42: 2026-07-26 | "A piskliwy głos Józka???? Zapomniałeś już" | TOMASZ MA RACJĘ — pomiar na oknie słowa (whisper word-timestamps 2.48-2.90s): Tomek 230 Hz, "Józek!" 235 Hz = TEN SAM zwykły męski głos, ŻADN
+      45: 2026-07-26 | [naprawy przed batchem] | (1) preflight.py: kontrola twarzy mówcy zasadnie POMIJANA dla klipów niemych (--bez-dialogu) i mówców zza kadru bez karty (JOZEK) — luka narzędzia wykryta przez 
+      47: 2026-07-26 | [strażnik batchu — wyniki] | k02, k03, k05 PASS CZYSTY (k03 po świeżym kadrze przeszedł!); k01 PASS Z UWAGĄ (plan szeroki = mała twarz, zgodne z zamysłem zasadzki); k06 FAIL tożsamość (0.
+      49: 2026-07-26 | "Wszystko jest zjebane" (werdykt po obejrzeniu 5 klipów batchu) | CAŁOŚCIOWY ODRZUT — bez wskazania konkretu; zamiast trzeci raz pytać, Claude robi PEŁNĄ diagnostykę własną ($0): transkry
+   ... jeszcze 6 trafien w tym pliku
+
+### /root/TELEPORT_HA.md  (11 trafien)
+      26: - **OctoPrint** — drukarka 3D pod kontrolą OctoPrint widoczna jako camera+button entities ("OctoPrint Camera", "OctoPrint Stop Job") — NOWY szczegół, nie był wcześniej odnotowany.
+      54: Nowy Intel N150 mini-PC (16GB RAM, z AliExpress, już w Polsce). Kolejność: (1) ściągnij oba backupy ze starego serwera "Nuki" na telefon/Google Drive **[KRYTYCZNE, zrób najpierw]** — `Migracja_N150_PE
+     148: klucz szyfrowania/emergency kit!) → Tailscale addon (boot+watchdog) → stary
+     224: MariaDB, MusicAssistant, Whisper, Piper, VSCode, FileEditor, SSH=core_ssh.
+     226: - TODO otwarte: watchdog addonu Tailscale (ha_get_addon slug=... boot/watchdog),
+     229: zywych i rosnie). Tailscale addon: boot=auto watchdog=True — CHECKLIST
+   ... jeszcze 5 trafien w tym pliku
+
+### /root/rod-ai-studio/wiedza/DROGA_ROLKA_HUMOR.md  (6 trafien)
+      43: - Finalne pliki ocenia się natywnie (upload Tomasza do czatu); moja samokontrola: most git
+     114: tools/straznik.py: JĘZYK LEKTORA (whisper auto-detect, PASS tylko pl — zmierzone:
+     116: lektora) / techniczny / OCR napisów-widmo / scenariusz (whisper vs kwestia) /
+     124: Cięcia po transkrypcji whisper; napisy własne ASS (KOLORY_ASS); puenta kończy odcinek.
+     153: = WARN, segmenty whispera za końcem pliku (halucynacje na ciszy) ignorowane.
+     157: gen4.py/pull4.py (submit+poll, wzorzec aktualny), sluch.py (whisper).
+
+### /root/rod-ai-studio/wiedza/NAUKI_SERII.md  (6 trafien)
+       2: 2026-07-25 (#10009) | NAPISY W ROLKACH: nigdy nie łamać kwestii sztywną liczbą słów — dzielić PO INTERPUNKCJI (.,?!…) z limitem ~6 słów, ogarki doklejać do sąsiada, a koniec każdej linii docinać do st
+       5: (2) BRAK KONTROLI "CO SŁYCHAĆ vs KANON" — kanarek/strażnik per klip sprawdza technikę, napisy-widmo, język, tożsamość; NIE porównuje transkrypcji z kwestią kanonu. Whisper wyłożył rozjazdy na stół prz
+       7: WNIOSEK: dopisać MONTAŻ do DROGA_ROLKA_HUMOR jako etap z bramkami: (a) wzorzec = ostatni zaakceptowany montaz.py, odstępstwa tylko za zgodą Tomasza; (b) obowiązkowe porównanie whisper vs kanon per kli
+       8: 2026-07-25 (#10009) | KONTROLA "CO SŁYCHAĆ vs KANON": whisper `small` MYLI krótkie słowa ("Bierz"->"Wiesz") i inaczej dzieli fonetycznie identyczne ciągi ("spod Grójca"->"z Podgrójca"). Do porównania 
+      11: 2026-07-26 | KONTROLA SALDA PRZED KAŻDYM ETAPEM PŁATNYM, nie tylko w preflighcie klipu: fal przy ujemnym saldzie odmawia już na UPLOADZIE referencji (403 z /storage/auth/token) — objaw wygląda na błąd
+      38: 2026-07-26 | LEKCJA (kalibracja bramki KTO-MÓWI): pomiar rozwarcia ust NIE odróżnia mowy od twarzy zamarłej z OTWARTYMI ustami (oba dają stały gap ~0.15, wariancja ~0.02); werdykt 'mówi/niemy' musi łą
+
+### /root/.claude/skills/kontrola/SKILL.md  (5 trafien)
+       2: name: kontrola
+       3: description: Kontrola wzajemna przed meldunkiem — każde twierdzenie dostaje ŚLAD (narzędzie, które je wyprodukowało w tej sesji) albo NIE PADA WCALE, a twierdzenia kolegów i oceny cudzej pracy przecho
+       6: # Kontrola
+       8: Załoga fabryki (Klaudek, Zenek, Genek, Henik) przy braku faktu produkuje zdanie brzmiące jak fakt. Pewny ton nie ma związku z prawdą — u nikogo, łącznie z tym, kto właśnie czyta te słowa. Ta kontrola 
+      27: Twierdzenie cudzego autorstwa (Zenek, Genek, Henik) oraz własna ocena cudzej pracy idą do kontroli krzyżowej: drugi wykonawca dostaje SUROWY materiał i jedno pytanie — czy to twierdzenie wynika z tego
+
+### /root/rod-ai-studio/wiedza/START.md  (5 trafien)
+      64: | **Zenek** (Codex) | rozumowanie, kod, kontrola wniosków | sam nie widzi ani nie slyszy — wola `tools/oczy_uszy.py` | kontrola rozumowania, praca w repo |
+      73: Kierowanie NIE oznacza bycia ponad kontrolą: meldunek Klaudka podlega tej samej weryfikacji
+      94: | `tools/kontrola_krzyzowa.py` | jeden wykonawca sprawdza twierdzenie drugiego przy surowym materiale |
+      96: | `tools/bramka_oka.py` | fail-closed kontrola wizualna produkcji przed pokazaniem Tomaszowi |
+     102: Skille w `/root/.claude/skills/`: `/kontrola` (nasza), `/research`, `/diagnosing-bugs`,
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_AWATAR.md  (5 trafien)
+       5: 2026-07-27 | [POMIAR ROZSTRZYGNĄŁ TEST AKCENTU] | Wariant A (ukraińskie modele Piper mykyta/oleksa/ukrainian_tts czytają polski tekst) = BEŁKOT wg whisper ('Dobiej wajk se. Puj aj dymeskaj dizajlka') 
+       6: 2026-07-27 | "Nieeeeee. Czego nie rozumiesz ma być najlepiej inny" | KOREKTA: kandydat darkman+ortografia ODRZUCONY — naleciałość ma siedzieć w BARWIE I MELODII głosu (prawdziwy wschodni zaśpiew), nie
+      17: 2026-07-27 | [STANISŁAW OŻYWIONY] | Tekst powitalny Genka (553 zn, kanon w data/awatar/powitanie_stanislaw.txt) -> TTS Daniel (~0.055 USD, 40.28s, whisper słowo w słowo) -> czysta baza oddechu 40.3s -
+      22: 2026-07-27 | [INCYDENT KOORDYNACJI #2 + STANISŁAW ŻYJE] | Po decyzji C: drugie stanowisko (tmux claw, sterowane z telefonu Tomasza) wygenerowało Avatar PRO o 12:41 (raw + montaż z czołówką stanislaw_p
+      51: 2026-07-27 | [WD_0001 WYPRODUKOWANE — pierwsze Wiadomości Działkowe] | Pełny cykl załogi RAZEM: chronologia z metadanych (22.07 rano dokumentacja / 23.07 popołudnie-zmierzch praca), Genek 2×wizja (15+
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10007_jablko.md  (4 trafien)
+      32: jedyny FAIL = kontrola twarzy ŚRODOWISKOWO (brak cv2 na hoście) — wykonana
+      38: JĘZYK whisper: ['pl']; scenariusz 7/8 słów (różnica tylko "Nooo"→"No" w zapisie);
+      76: kontrola co przy k02); tożsamość twarzy domknięta w kontenerze produkcyjnym:
+     112: kontrola gęstości krawędzi <60) → remontaż v2 (jump-cuty do mowy, grade po
+
+### /root/.claude/skills/diagnosing-bugs/SKILL.md  (3 trafien)
+      64: Run the loop. Watch it go red — the bug appears.
+     119: 2. Watch it fail.
+     121: 4. Watch it pass.
+
+### /root/rod-ai-studio/wiedza/KONTROLA_KLAUDKA.md  (3 trafien)
+       1: # KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA
+       3: Wdrożona 2 sierpnia 2026 na polecenie Tomasza: *„Kontrola Klaudiusza tylko i wyłącznie —
+      63: Udawanie, że da się to wymusić technicznie, byłoby pozorną kontrolą. Nie ma jej.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10009.md  (3 trafien)
+      18: 2026-07-25 | [montaż] | FINAL 69.95s/74.7MB: trimy wg whisper (+0.45s), k04b cięty po PIERWSZYM "kosmos" (5.52s+0.35 — Veo zdublowało "w kosmos", echo wycięte za darmo), ASS 9 linii (hook kanonu na k0
+      21: 2026-07-25 | [NAPRAWA v2, koszt $0] | (1) NAPISY: 9 wiszących bloków -> 33 frazy zsynchronizowane ze słowem mówionym (timingi word-level Whisper, tekst kanonu podstawiony proporcjonalnie — metoda z pi
+      23: 2026-07-25 | "Możesz to zrobić na vps bez kosztowo. Robiłeś tak już. Więc dowiedz się jak to robiłeś" | RESEARCH W SECOND BRAIN + WERYFIKACJA: (a) metoda bezkosztowa jest zapisana — remontaż $0 z 1000
+
+### /root/rod-ai-studio/wiedza/ARCHITEKTURA.md  (2 trafien)
+      30: - **Whisper** — napisy; autoryzowany bez pytania (znany tekst podstawiany, gdy liczba słów się zgadza)
+      44: edge-tts → napisy Whisper → render (concat_parts_with_music: sceny + ducking muzyki
+
+### /root/rod-ai-studio/wiedza/CENA_BLEDOW.md  (2 trafien)
+      38: ## CO ZŁAPAŁA KONTROLA PRZY OKAZJI TEGO POMIARU
+      44: Dopisana kontrola arytmetyki tabel. Pierwsza wersja liczyła wszystkie kwoty w dokumencie (także
+
+### /root/rod-ai-studio/wiedza/NAUKI.md  (2 trafien)
+      75: - **Weryfikacja wideo = min. 8 klatek/klip** (ffmpeg select+tile 4x2) + transkrypcja Whisper. 1–3 klatki NIE wykrywają błędów przestrzeni i ruchu (2× wpadka). A i tak ruch może dać inną interpretację 
+      79: - **Cięcie po puencie:** whisper chunks / silencedetect → `-t koniec_mowy+0.5s` per part. Bez cięć żart tonie w martwych sekundach (było 3.5 s gapienia po puencie). Pipeline NADPISUJE final → ręczny m
+
+### /root/rod-ai-studio/wiedza/PAMIEC_INFRASTRUKTURA.md  (2 trafien)
+      38: - Tailscale: node homeassistant-1, 100.115.112.5, tail0109d4.ts.net; „Start on boot" i Watchdog ON
+     112: - Mini-PC N150 (16 GB, AliExpress) do migracji HA Działka ze starego serwera „Nuki". Kopie na starym: Migracja_N150_PELNA_DB_20260622 (z MariaDB, główna) i Migracja_N150_20260622 (lekka). KRYTYCZNE: ś
+
+### /root/rod-ai-studio/wiedza/START_SESJI_CLAUDE_CODE.md  (2 trafien)
+      25: wykonane), `writing-great-skills` (materiał referencyjny, użyty raz przy pisaniu `/kontrola`),
+      28: Aktywne: `code-review`, `diagnosing-bugs`, `handoff`, `kontrola`, `research`, `route`.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10008_kontrola.md  (2 trafien)
+       1: # DECYZJE — #10008 "Kontrola zza płotu"
+       2: - 23.07 | "Kontrola za płotu" (wybór z banku 5 scenariuszy) | KANON verbatim
+
+### /root/rod-ai-studio/wiedza/archiwum/PORADNIK_17_CLAUDE_CODE.md  (2 trafien)
+      13: 5. **Dyktowanie ze słownikiem mapowania** — narzędzie mowa→tekst (Hex/Whisper Flow) ze słownikiem poprawiającym najczęściej przekręcane słowa.
+      15: 6. **Kontrola paska statusu / tokenów** — pilnować modelu, effort i zużycia kontekstu; przy ~60% kontekstu /compact lub /clear; przy braku tokenów przejść na słabszy model.
+
+### /root/rod-ai-studio/AGENTS.md  (1 trafien)
+      36: Procedura: skill `/kontrola`. Kontrola krzyżowa: `tools/kontrola_krzyzowa.py`.
+
+### /root/rod-ai-studio/wiedza/DECYZJE_SERIA_HUMOR.md  (1 trafien)
+     167: 2026-07-25 | Tomasz wkleił "Scenariusz 6: Infiltracja, czyli kontrola u prezesa" (duet, biuro zarządu, donos za młotek 09:55), po czym: "Nie to. Czekaj" | WSTRZYMANE — niczego nie produkować, nie nume
+
+### /root/rod-ai-studio/wiedza/HANS_AGENT.md  (1 trafien)
+     109: byłoby pozorną kontrolą.
+
+### /root/rod-ai-studio/wiedza/INDEX.md  (1 trafien)
+      31: | `KONTROLA_KLAUDKA.md` | 03.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
+
+### /root/rod-ai-studio/wiedza/LISTA_PRACOWNIKOW.md  (1 trafien)
+       7: **Nie jest ponad kontrolą:** nikt nie zatwierdza własnej roboty, ma najgrubszą teczkę błędów w załodze.
+
+### /root/rod-ai-studio/wiedza/PROCEDURY.md  (1 trafien)
+      13: 4. `make_subtitles(folder)` (Whisper, bez pytania) → `render_video(folder)` (muzyka wmiksowana w środku)
+
+### /root/rod-ai-studio/wiedza/SETUP_CLAUDE_CODE.md  (1 trafien)
+      24: | code-review, diagnosing-bugs, kontrola, research, route | razem **1410 znaków ≈ 352 tokeny** na zadanie |
+
+### /root/rod-ai-studio/wiedza/SLOWA_TOMASZA.md  (1 trafien)
+     100: > „Kontrola Klaudiusza tylko i wyłącznie — rozpisać na kontrolę Klaudiusza, żeby nie zapominał.
+
+### /root/rod-ai-studio/wiedza/STANISLAW_CANON_1.0.md  (1 trafien)
+      57: - Kling nie ma seeda → identycznego RUCHU nie da się wymusić; dlatego BRAMKA JAKOŚCI przed publikacją: kontrola twarzy (VLM/oko) + odsłuch; odchył = ponowny render.
+
+### /root/rod-ai-studio/wiedza/TECZKI/GENEK.md  (1 trafien)
+      68: **31.07, kontrola bramki ukończenia (godz. ~16:44) — NIEUSPRAWIEDLIWIONA.**
+
+### /root/rod-ai-studio/wiedza/TECZKI/KLAUDEK.md  (1 trafien)
+     109: Skutek: Zenek i Henio zostali policzeni jako nieobecni w trzech kontrolach, choć obaj działali —
+
+### /root/rod-ai-studio/wiedza/TEST_ZALOGI_29_07.md  (1 trafien)
+      31: w wiarygodne źródło w ciągu jednego dnia. Kontrola wzajemna wykryła błąd autora zapisu — czyli działa też
+
+### /root/rod-ai-studio/wiedza/archiwum/ARCHIWUM_DROGA_HUMOR_v1.md  (1 trafien)
+      20: 6. MONTAŻ — cięcia po transkrypcji whisper; puenta kończy odcinek (koda tylko gdy puenta
+
+### /root/rod-ai-studio/wiedza/archiwum/BIBLIA_STANISLAWA.md  (1 trafien)
+      63: - C) = B + kontrola twarzy i odsłuch przed publikacją; odchył → ponowny render.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_000098.md  (1 trafien)
+       5: 2026-07-25 07:03 | [tap Tomasza w panelu: POST /reel-checkpoint/000098/zatwierdz] | równoległe zatwierdzenie z telefonu uruchomiło pełną produkcję STAREJ wersji: 8x NB Pro text2img BEZ referencji ($1.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_0008_ruview_dzialka.md  (1 trafien)
+      21: - Zawieszony ESP32 = brak obecności do następnej wizyty → OBOWIĄZKOWO gniazdko sterowane (Zigbee) do zdalnego power-cycle + automatyzacja watchdog.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10006_afera.md  (1 trafien)
+      22: "montaz start" z 16:01 martwy (zero procesów ffmpeg/whisper, zero plików
+
+### /root/rod-ai-studio/wiedza/archiwum/PARAGRAFY_HENIA_ZNIESIONE.md  (1 trafien)
+     148: python3 tools/oczy_uszy.py "https://www.youtube.com/watch?v=..." --co transkrypcja
+
+### /root/rod-ai-studio/wiedza/archiwum/PILOTAZ_RUVIEW.md  (1 trafien)
+      48: 1. GNIAZDKO ZIGBEE DO RESETU — ESP32-S3 obowiązkowo na gniazdku sterowanym + automatyzacja watchdog (brak danych z węzła > X min => power-cycle). Precedens: gniazdko "Zasilanie Esp32 Garaż" zasila węz
+
+### /root/rod-ai-studio/wiedza/archiwum/PRZEKAZANIE_2026-07-26_10010.md  (1 trafien)
+      26: - DŹWIĘK: wszystkie kwestie VERBATIM zgodne z kanonem (whisper medium), pisk Józka
+
+### /root/rod-ai-studio/wiedza/archiwum/SKILLE_WYBOR.md  (1 trafien)
+      15: 4. **code-review** — niezależna kontrola zmian przed produkcją.
+
+Pelna tresc najbogatszego pliku: dodaj --pelne
+# Issue tracker: Local Markdown
+
+Issues and specs (you may know a spec as a PRD) for this repo live as markdown files in `.scratch/`.
+
+## Conventions
+
+- One feature per directory: `.scratch/<feature-slug>/`
+- The spec is `.scratch/<feature-slug>/spec.md`
+- Implementation issues are one file per ticket at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` — never a single combined tickets file
+- Triage state is recorded as a `Status:` line near the top of each issue file (see `triage-labels.md` for the role strings)
+- Comments and conversation history append to the bottom of the file under a `## Comments` heading
+
+## When a skill says "publish to the issue tracker"
+
+Create a new file under `.scratch/<feature-slug>/` (creating the directory if needed).
+
+## When a skill says "fetch the relevant ticket"
+
+Read the file at the referenced path. The user will normally pass the path or the issue number directly.
+
+## Wayfinding operations
+
+Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
+
+- **Map**: `.scratch/<effort>/map.md` — the Notes / Decisions-so-far / Fog body.
+- **Child ticket**: `.scratch/<effort>/issues/NN-<slug>.md`, numbered from `01`, with the question in the body. A `Type:` line records the ticket type (`research`/`prototype`/`grilling`/`task`); a `Status:` line records `claimed`/`resolved`.
+- **Blocking**: a `Blocked by: NN, NN` line near the top. A ticket is unblocked when every file it lists is `resolved`.
+- **Frontier**: scan `.scratch/<effort>/issues/` for files that are open, unblocked, and unclaimed; first by number wins.
+- **Claim**: set `Status: claimed` and save before any work.
+- **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then append a context pointer (gist + link) to the map's Decisions-so-far in `map.md`.
+
+## Uwaga dla tego repozytorium (rod-ai-studio)
+
+Wybrano wariant **local markdown**, mimo że `origin` wskazuje na GitHub
+(`git@github.com:makol100/rod-ai-studio.git`). Powód: `gh` CLI nie jest
+zainstalowany na tym serwerze, a praca nigdy nie była prowadzona przez GitHub
+Issues — historia decyzji i lekcji żyje w plikach markdown i commitach.
+
+Rozdział ról, żeby nie mieszać dwóch różnych rzeczy:
+
+- `.scratch/<feature>/` — **bieżąca robota**: specyfikacje i tickety opisane wyżej.
+- `wiedza/` — **pamięć trwała fabryki**: decyzje (`DECYZJE_*.md`), lekcje
+  (`LEKCJA_*.md`), analizy i przekazania. Tego katalogu skille nie traktują jak
+  issue trackera i nie zapisują tam ticketów.
+
+codex
+Lokalna wiedza już daje ważny punkt kontrolny: fabryka ma zapisane minimum „8 klatek na klip + Whisper”, a nie dowód, że 40 klatek z `/watch` wystarczy do pełnej oceny ruchu i dźwięku. Teraz rozsyłam identyczny surowy materiał do załogi i równolegle sprawdzam upstream README/issues; werdykt oddzieli to, co potwierdzone, od rekomendacji pilotażowej.
+exec
+/bin/bash -lc "sed -n '1,240p' /root/.claude/skills/kontrola/SKILL.md && sed -n '1,180p' wiedza/NAUKI.md && python3 tools/zaloga.py --help" in /root/rod-ai-studio
+ succeeded in 115ms:
+usage: zaloga.py [-h] --zadanie ZADANIE [--material MATERIAL] [--kto KTO]
+                 [--katalog KATALOG] [--wykonanie] [--mimo-braku]
+
+options:
+  -h, --help           show this help message and exit
+  --zadanie ZADANIE    plik z trescia zadania
+  --material MATERIAL  pliki zrodlowe po przecinku (trafiaja do Genka)
+  --kto KTO            domyslnie zenek,henio — Genek oszczedzany na
+                       oczy/uszy/grafike (dekret 4.08)
+  --katalog KATALOG
+  --wykonanie          zlecenie WYKONAWCZE: zaloga ma zapisac pliki na dysk
+                       (domyslnie: badanie)
+  --mimo-braku         rusz mimo nierownych szans (swiadoma decyzja, wypisana
+                       w meldunku)
+
+apply patch
+patch: completed
+/root/rod-ai-studio/.scratch/watch-ocena/zadanie.md
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+exec
+/bin/bash -lc 'python3 tools/zaloga.py --zadanie .scratch/watch-ocena/zadanie.md --kto zenek,henio --katalog .scratch/watch-ocena/glosy' in /root/rod-ai-studio
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+web search: 
+web search: site:github.com/bradautomates/claude-video README watch detail efficient balanced token-burner ...
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+codex
+Upstream ujawnił rozbieżność, której nie wolno pominąć: bieżący README GitHuba pokazuje około 1,5 tys. gwiazdek i interfejs `--max-frames/--fps/--no-whisper`, nie opisane tryby `efficient/balanced/token-burner`. Sprawdzam teraz kod, tagi i dwa otwarte issues bezpośrednio z repo/API — możliwe, że materiał wejściowy miesza wersje albo inny projekt. Skill `/kontrola` wymaga, by tę rozbieżność rozstrzygnąć narzędziem przed werdyktem.
+exec
+/bin/bash -lc 'tmp_watch=$(mktemp -d /tmp/watch-review.XXXXXX); git clone -q --depth 1 https://github.com/bradautomates/claude-video.git "$tmp_watch/repo"; git -C "$tmp_watch/repo" rev-parse HEAD; sed -n '"'1,260p' \""'$tmp_watch/repo/SKILL.md"; sed -n '"'1,280p' \""'$tmp_watch/repo/scripts/frames.py"; sed -n '"'1,260p' \""'$tmp_watch/repo/scripts/transcribe.py"; curl -sS https://api.github.com/repos/bradautomates/claude-video | python3 -c '"'import json,sys; d=json.load(sys.stdin); print({k:d.get(k) for k in [\"stargazers_count\",\"open_issues_count\",\"license\",\"pushed_at\",\"default_branch\"]})'; curl -sS 'https://api.github.com/repos/bradautomates/claude-video/issues?state=all&per_page=100' | python3 -c 'import json,sys; a=json.load(sys.stdin); [print(x[\"number\"], x[\"state\"], x[\"title\"], x[\"html_url\"]) for x in a if \"pull_request\" not in x]'" in /root/rod-ai-studio
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+ succeeded in 1596ms:
+83da59fa78c3eee9e20f515fe75c438bb5166efd
+sed: can't read /tmp/watch-review.W7Vi2L/repo/SKILL.md: No such file or directory
+sed: can't read /tmp/watch-review.W7Vi2L/repo/scripts/frames.py: No such file or directory
+sed: can't read /tmp/watch-review.W7Vi2L/repo/scripts/transcribe.py: No such file or directory
+{'stargazers_count': 14217, 'open_issues_count': 89, 'license': {'key': 'mit', 'name': 'MIT License', 'spdx_id': 'MIT', 'url': 'https://api.github.com/licenses/mit', 'node_id': 'MDc6TGljZW5zZTEz'}, 'pushed_at': '2026-07-01T01:26:49Z', 'default_branch': 'main'}
+117 open ffmpeg 9.0 removes -vsync, breaking scene/keyframe extraction (Unrecognized option 'vsync') https://github.com/bradautomates/claude-video/issues/117
+109 open UnicodeEncodeError on Windows: report output crashes on cp1252 console (→ arrow) https://github.com/bradautomates/claude-video/issues/109
+108 open Windows: UnicodeDecodeError in subprocess output breaks /watch on any non-ASCII ffmpeg output https://github.com/bradautomates/claude-video/issues/108
+107 open Windows: secrets permission check always warns (st_mode does not reflect NTFS ACLs) https://github.com/bradautomates/claude-video/issues/107
+101 open ffmpeg frame extraction fails on builds without -vsync ("Unrecognized option 'vsync'") https://github.com/bradautomates/claude-video/issues/101
+99 open frames.py: `-vsync` was removed from modern ffmpeg — both frame paths fail, zero frames extracted https://github.com/bradautomates/claude-video/issues/99
+98 open Мои https://github.com/bradautomates/claude-video/issues/98
+96 open Test suite cannot pass on a developer machine: real user config leaks in, and 3 tests are POSIX-only https://github.com/bradautomates/claude-video/issues/96
+93 open macOS: frames never extract — brew's yt-dlp has no impersonation targets (403 on video, captions still work) https://github.com/bradautomates/claude-video/issues/93
+83 open Youtube is not reachable https://github.com/bradautomates/claude-video/issues/83
+80 open watch.py wipes a pre-existing source file when it lives inside --out-dir (breaks the documented local-file re-run flow) https://github.com/bradautomates/claude-video/issues/80
+67 open Two Windows findings: setup.py --check passes but YouTube fails without deno/curl_cffi, and focused mode crashes on cp1252 consoles https://github.com/bradautomates/claude-video/issues/67
+66 closed [Wish] Can I use this tool to fix the machine-transcription (mishear)? https://github.com/bradautomates/claude-video/issues/66
+61 closed Windows: UnicodeEncodeError on report print (cp1252) + prompt-injection hardening for transcript https://github.com/bradautomates/claude-video/issues/61
+56 closed /watch v2 - is this it? https://github.com/bradautomates/claude-video/issues/56
+54 open AskVLM https://github.com/bradautomates/claude-video/issues/54
+51 open watch.py crashes on Windows when a video title contains emoji/non-cp1252 chars https://github.com/bradautomates/claude-video/issues/51
+48 open Browser Session Cookie needed https://github.com/bradautomates/claude-video/issues/48
+47 open SessionStart permission check false-positives on Windows when bash isn't Git-Bash/MSYS https://github.com/bradautomates/claude-video/issues/47
+44 closed Sandboxed environments (network allowlist) block both download and Whisper fallback with unclear error https://github.com/bradautomates/claude-video/issues/44
+43 closed No network error message https://github.com/bradautomates/claude-video/issues/43
+38 closed Claude ve Video https://github.com/bradautomates/claude-video/issues/38
+37 open Sub-second / fast-action clips: 2 fps hard cap yields 1–2 frames, no all-frames mode https://github.com/bradautomates/claude-video/issues/37
+31 open Fork notification: pheistman/claude-watch — multi-provider transcription + transcript-first pipeline https://github.com/bradautomates/claude-video/issues/31
+29 closed Feature: Add SenseVoice/FunASR as alternative transcription backend https://github.com/bradautomates/claude-video/issues/29
+25 closed Support for longer videos and additional flag --json https://github.com/bradautomates/claude-video/issues/25
+23 closed Can't run this on Claude AI https://github.com/bradautomates/claude-video/issues/23
+20 closed The Skill doesn't work on Claude Web. https://github.com/bradautomates/claude-video/issues/20
+
+exec
+/bin/bash -lc 'repo_path=$(find /tmp -maxdepth 2 -type d -path '"'/tmp/watch-review.*/repo' | tail -1); printf '%s\\n' \""'$repo_path"; rg --files "$repo_path" | sed -n '"'1,160p'; git -C \""'$repo_path" log -1 --format='"'%H %ad %s' --date=iso" in /root/rod-ai-studio
+ succeeded in 0ms:
+/tmp/watch-review.W7Vi2L/repo
+/tmp/watch-review.W7Vi2L/repo/README.md
+/tmp/watch-review.W7Vi2L/repo/CLAUDE.md
+/tmp/watch-review.W7Vi2L/repo/AGENTS.md
+/tmp/watch-review.W7Vi2L/repo/CHANGELOG.md
+/tmp/watch-review.W7Vi2L/repo/dev-sync.sh
+/tmp/watch-review.W7Vi2L/repo/LICENSE
+/tmp/watch-review.W7Vi2L/repo/tests/conftest.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_config.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_dedup.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_download.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_fixtures.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_frames.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_setup.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_timestamps.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_watch.py
+/tmp/watch-review.W7Vi2L/repo/tests/test_whisper.py
+/tmp/watch-review.W7Vi2L/repo/hooks/hooks.json
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/build-skill.sh
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/download.py
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/transcribe.py
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py
+/tmp/watch-review.W7Vi2L/repo/hooks/scripts/check-setup.sh
+83da59fa78c3eee9e20f515fe75c438bb5166efd 2026-06-30 17:20:07 +1000 Fix WATCH_DETAIL silently falling back to default
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+exec
+/bin/bash -lc 'repo_path=$(find /tmp -maxdepth 2 -type d -path '"'/tmp/watch-review.*/repo' | tail -1); sed -n '1,260p' \""'$repo_path/skills/watch/SKILL.md"; sed -n '"'1,300p' \""'$repo_path/skills/watch/scripts/frames.py"; sed -n '"'1,260p' \""'$repo_path/skills/watch/scripts/transcribe.py"; rg -n "detail|efficient|balanced|token-burner|vsync|dedup|scene|keyframe|whisper|OPENAI|GROQ" "$repo_path/README.md" "$repo_path/skills/watch" | sed -n '"'1,260p'" in /root/rod-ai-studio
+ succeeded in 0ms:
+---
+name: watch
+version: "0.2.0"
+description: Watch a video (URL or local path). Downloads with yt-dlp, extracts auto-scaled frames with ffmpeg, pulls the transcript from captions (or Whisper API fallback), and hands the result to Claude so it can answer questions about what's in the video.
+argument-hint: "<video-url-or-path> [question]"
+allowed-tools: Bash, Read, AskUserQuestion
+homepage: https://github.com/bradautomates/claude-video
+repository: https://github.com/bradautomates/claude-video
+author: bradautomates
+license: MIT
+user-invocable: true
+---
+
+# /watch
+
+You don't have a video input; this skill gives you one. A Python script gets captions first, optionally downloads the video, extracts frames as JPEGs (scene-aware, or fast keyframes at `efficient` detail), gets a timestamped transcript (native captions first, then Whisper API as fallback), and prints frame paths. You then `Read` each frame path to see the images and combine them with the transcript to answer the user.
+
+## Resolve `SKILL_DIR` (do this before any command)
+
+Every `python3 ...` command below runs a bundled script under `SKILL_DIR/scripts/`. Set `SKILL_DIR` to the **absolute path of the directory containing THIS SKILL.md you just Read** — your harness told you that path in the Read result. The scripts are always a direct sibling of this file (`SKILL_DIR/scripts/watch.py`), in every install layout:
+
+```
+Read ~/.claude/plugins/cache/claude-video/watch/<ver>/skills/watch/SKILL.md → SKILL_DIR=…/skills/watch
+Read ~/.codex/skills/watch/SKILL.md                                          → SKILL_DIR=~/.codex/skills/watch
+Read ~/.agents/skills/watch/SKILL.md                                         → SKILL_DIR=~/.agents/skills/watch
+```
+
+Substitute that literal path for `${SKILL_DIR}` in every command. This works on every harness (Claude Code, Codex, Cursor, Gemini CLI, …) without relying on any harness-specific environment variable. Guard once at the start of a run:
+
+```bash
+SKILL_DIR="<absolute path of the directory containing the SKILL.md you Read>"
+if [ ! -f "$SKILL_DIR/scripts/watch.py" ]; then
+  echo "ERROR: scripts/watch.py not found under SKILL_DIR=$SKILL_DIR" >&2
+  echo "Re-check the directory of the SKILL.md you Read and substitute it as SKILL_DIR." >&2
+  exit 1
+fi
+```
+
+## Step 0 — Setup preflight (runs every `/watch` invocation, silent on success)
+
+**Python interpreter:** every `python3 ...` command in this skill is for macOS/Linux. On **Windows**, substitute `python` — the `python3` command on Windows is the Microsoft Store stub and will not run the script.
+
+On the first `/watch` invocation in a session, use structured preflight so you can detect first-run setup:
+
+```bash
+python3 "${SKILL_DIR}/scripts/setup.py" --json
+```
+
+Branch on two fields:
+
+- **`can_proceed: true` and `first_run: false`** → setup is already done (the user may have deliberately skipped a Whisper key — that's allowed). Proceed to Step 1 without comment.
+- **`first_run: true`** → genuine first-time setup. Do these in order:
+  1. If `missing_binaries` is non-empty, run the installer first (it auto-installs on macOS / prints commands elsewhere — see below) and confirm the binaries land. **Do not skip this and jump to preferences.**
+  2. Run the installer once more if needed so it scaffolds `~/.config/watch/.env` (it only writes the template when the file is absent, so let it create the file *before* you write any values into it).
+  3. Encourage a Whisper API key and ask the watch-preference questions below, then write the selected values into `~/.config/watch/.env` and set `SETUP_COMPLETE=true`.
+- **`can_proceed: false` and `first_run: false`** → setup was finished before but the environment regressed (e.g. `missing_binaries` after an OS change). Run the installer to remediate, then proceed. Don't re-ask preferences.
+
+A missing Whisper key is *encouraged to fix, not required*: on a genuine first run `status` will read `needs_key` even when binaries are present — that's your cue to encourage a key, not a blocker.
+
+On follow-up `/watch` calls in the same session, use the silent check:
+
+```bash
+python3 "${SKILL_DIR}/scripts/setup.py" --check
+```
+
+This is a <100ms lookup. Exit 0 means /watch can run — this **includes a user who finished setup without a Whisper key** (keyless is allowed). On exit 0 the script emits **nothing** — proceed to Step 1 without comment. **Do NOT announce "setup is complete" to the user** — they don't need a status message on every turn. The only acceptable user-visible output from Step 0 is when remediation is required.
+
+On non-zero exit, follow the table:
+
+| Exit | Meaning | Action |
+|------|---------|--------|
+| `2` | Missing binaries (`ffmpeg` / `ffprobe` / `yt-dlp`) | Run installer |
+| `3` | Genuine first run with no Whisper API key | Run installer to scaffold `.env`, then encourage a key (the user may decline — proceed with `--no-whisper`) |
+| `4` | Both missing | Run installer, then encourage a key |
+
+Exit `3` only fires before the user has completed setup. Once `SETUP_COMPLETE=true` is written, a keyless install returns exit 0 and is never nagged again.
+
+The installer is idempotent — safe to re-run:
+
+```bash
+python3 "${SKILL_DIR}/scripts/setup.py"
+```
+
+On macOS with Homebrew, it auto-installs `ffmpeg` and `yt-dlp`. On Linux/Windows, it prints the exact install commands for the user to run. It scaffolds `~/.config/watch/.env` with commented placeholders and default watch settings at `0600` perms.
+
+**If an API key is still missing after install:** use `AskUserQuestion` to ask the user whether they have a Groq API key (preferred — cheaper, faster) or an OpenAI key. Then write it into `~/.config/watch/.env` — set the matching `GROQ_API_KEY=...` or `OPENAI_API_KEY=...` line. If they don't want to set up Whisper, proceed with `--no-whisper` and tell them videos without native captions will come back frames-only.
+
+**First-run watch preference:** after the installer has scaffolded `~/.config/watch/.env`, use `AskUserQuestion` to ask one question:
+
+- Default detail (one dial). Present these as `AskUserQuestion` options in this exact order — lightest to heaviest — and keep `(recommended)` on `balanced` even though it is not first (do **not** reorder to put the recommended option first):
+  - `transcript` — no frames at all, transcript only (skips video download when captions exist).
+  - `efficient` — fast keyframe pass (cap 50).
+  - `balanced` (recommended) — scene-aware frames (cap 100, default).
+  - `token-burner` — scene-aware, uncapped (maximum fidelity; high token cost).
+
+Write the answer directly into `~/.config/watch/.env` by setting the bare key on its own line — **no trailing inline comment** (a `# note` after the value can break parsing):
+
+```bash
+WATCH_DETAIL=balanced
+```
+
+Use the user's selected value. If they skip the question, keep the recommended default. Once dependencies, the API-key choice, and this preference are handled, write or update `SETUP_COMPLETE=true` in the same file. Do not ask this preference question again when `SETUP_COMPLETE=true`.
+
+**Structured mode (optional):** `python3 "${SKILL_DIR}/scripts/setup.py" --json` emits `{status, can_proceed, first_run, setup_complete, missing_binaries, whisper_backend, has_api_key, config_file, watch_detail, platform}` where `status` is one of `ready | needs_install | needs_key | needs_install_and_key`. `status` describes the *ideal* state (a key is encouraged, so a keyless first run reads `needs_key`); `can_proceed` is the operational gate (binaries present AND a key is set OR setup was already completed). Branch on `can_proceed`/`first_run` to decide whether to run; use `status` to decide what to encourage.
+
+Within a single session, you can skip Step 0 on follow-up `/watch` calls — once `--check` returned 0, nothing about the environment changes between turns.
+
+## When to use
+
+- User pastes a video URL (YouTube, Vimeo, X, TikTok, Twitch clip, most yt-dlp-supported sites) and asks about it.
+- User points at a local video file (`.mp4`, `.mov`, `.mkv`, `.webm`, etc.) and asks about it.
+- User types `/watch <url-or-path> [question]`.
+
+## Recommended limits
+
+- **Best accuracy: videos under 10 minutes.** Frame coverage scales inversely with duration.
+- **Universal rate cap: 2 fps.** The script never samples faster than 2 fps, even when a budget or `--fps` would imply more.
+- **The frame ceiling is set by the detail mode** (`WATCH_DETAIL` in `~/.config/watch/.env`, or `--detail`), not a single global cap:
+  - `transcript` → no frames
+  - `efficient` → up to **50** (keyframes)
+  - `balanced` (default) → up to **100** (scene-aware)
+  - `token-burner` → **uncapped** (scene-aware; a soft warning prints past 250 frames)
+  - `--max-frames N` overrides whichever cap the mode would otherwise use.
+- **Full-video frame budget by duration.** Token cost grows with frame count, so the script targets a budget by duration. This budget sets the fps and the uniform-sampling fallback; scene-aware selection can fill up to the detail cap above, whichever is lower:
+  - ≤30s → ~12-30 frames
+  - 30s-1min → ~40 frames
+  - 1-3min → ~60 frames
+  - 3-10min → ~80 frames
+  - \>10min → up to the detail cap, sparsely spaced (warning printed)
+- If the user hands you a long video, consider asking whether they want a specific section before burning tokens on a sparse scan.
+
+## How to invoke
+
+**Step 1 — parse the user input.** Separate the video source (URL or path) from any question the user asked. Example: `/watch https://youtu.be/abc what language is this in?` → source = `https://youtu.be/abc`, question = `what language is this in?`.
+
+**Step 2 — run the watch script.** Pass the source verbatim. Do not shell-escape it yourself beyond normal quoting:
+
+```bash
+python3 "${SKILL_DIR}/scripts/watch.py" "<source>"
+```
+
+Optional flags:
+- `--detail transcript|efficient|balanced|token-burner` — fidelity/speed dial. `transcript` = no frames (transcript only, skips video download when captions exist); `efficient` = fast keyframes (cap 50); `balanced` = scene-aware frames (cap 100); `token-burner` = scene-aware, uncapped.
+- `--start T` / `--end T` — focus on a section. Accepts `SS`, `MM:SS`, or `HH:MM:SS`. When either is set, fps auto-scales denser (see "Focusing on a section" below).
+- `--timestamps T1,T2,…` — grab a frame at each of these absolute timestamps (`SS`, `MM:SS`, or `HH:MM:SS`). Use this after reading the transcript to capture deictic moments the presenter flags ("look here", "as you can see", "notice this") that visual selection alone may miss. See "Transcript-cue frames" below.
+- `--max-frames N` — override the preset cap for tighter token budget (e.g. `--max-frames 40`)
+- `--resolution W` — change frame width in px (default 512; bump to 1024 only if the user needs to read on-screen text)
+- `--fps F` — override auto-fps (clamped to 2 fps max)
+- `--out-dir DIR` — keep working files somewhere specific (default: an auto-generated tmp dir)
+- `--whisper groq|openai` — force a specific Whisper backend (default: prefer Groq if both keys exist)
+- `--no-whisper` — disable the Whisper fallback entirely (frames-only if no captions)
+- `--no-dedup` — keep near-duplicate frames. By default a frame-delta pass drops frames that are visually near-identical to the previous kept one (held slides, static screen recordings, paused video) so the frame budget goes to distinct content; the report's **Frames** line notes how many were dropped. Pass this only if the user needs every sampled frame (e.g. judging subtle frame-to-frame motion).
+
+### Focusing on a section (higher frame rate)
+
+When the user asks about a specific moment — "what happens at the 2 minute mark?", "zoom into 0:45 to 1:00", "the first 10 seconds" — pass `--start` and/or `--end`. The script switches to focused-mode budgets, which are denser than full-video budgets (still capped at 2 fps, and still bounded by the detail-mode cap — the counts below assume the default `balanced` cap of 100; `efficient` tops out at 50):
+
+- ≤5s → 2 fps (up to 10 frames)
+- 5-15s → 2 fps (up to 30 frames)
+- 15-30s → ~2 fps (up to 60 frames)
+- 30-60s → ~1.3 fps (up to 80 frames)
+- 60-180s → ~0.6 fps (100 frames, capped)
+
+Focused mode is the right call for:
+- Any moment/range the user names explicitly ("around 2:30", "the intro", "the last 30 seconds").
+- Any video longer than ~10 minutes where the user's question is about a specific part — running focused on the relevant section is far more useful than a sparse scan of the whole thing.
+- Re-runs after a full scan didn't have enough detail in some region.
+
+Transcript is auto-filtered to the same range. Frame timestamps are absolute (real video timeline, not offset-from-start).
+
+Examples:
+```bash
+# Last 10 seconds of a 1 minute video
+python3 "${SKILL_DIR}/scripts/watch.py" video.mp4 --start 50 --end 60
+
+# Zoom into 2:15 → 2:45 at 2 fps (60 frames)
+python3 "${SKILL_DIR}/scripts/watch.py" "$URL" --start 2:15 --end 2:45 --fps 2
+
+# From 1h12m to the end of the video
+python3 "${SKILL_DIR}/scripts/watch.py" "$URL" --start 1:12:00
+```
+
+**Step 3 — Read every frame path the script lists.** The Read tool renders JPEGs directly as images for you. Read all frames in a single message (parallel tool calls) so you see them together. The frames are in chronological order with a `t=MM:SS` timestamp so you can align them to the transcript.
+
+**Step 4 — answer the user.** You now have two streams of evidence:
+- **Frames** — what's on screen at each timestamp
+- **Transcript** — what's said at each timestamp. The report's header shows the source (`captions` = yt-dlp pulled native subs; `whisper (groq)` or `whisper (openai)` = transcribed by API).
+
+If the user asked a specific question, answer it directly citing timestamps. If they didn't ask anything, summarize what happens in the video — structure, key moments, notable visuals, spoken content.
+
+This holds for `transcript` detail too: even with no frames, produce a **summary** like the other modes — do not paste the full transcript into chat. Synthesize structure, key moments, and spoken content with timestamps; quote only the lines that matter. Offer the raw transcript only if the user explicitly asks for it.
+
+**Step 5 — clean up.** The script prints a working directory at the end. If the user isn't going to ask follow-ups about this video, delete it with `rm -rf <dir>`. If they might, leave it in place.
+
+## Detail and frames
+
+Default behavior comes from `~/.config/watch/.env`:
+
+- `WATCH_DETAIL=transcript|efficient|balanced|token-burner` (default: `balanced`)
+
+At `transcript` detail, captions are enough to return a report without downloading video. If captions are missing, the script downloads audio only and tries Whisper. If no transcript can be produced, it reports the limitation clearly; re-run with `--detail balanced` for frames.
+
+At `efficient` detail, the script downloads the video and extracts **keyframes only** (`ffmpeg -skip_frame nokey`) — a near-instant pass that lands frames on scene cuts. If a clip has fewer than 4 keyframes it falls back to uniform sampling.
+
+At `balanced` / `token-burner` detail, the script extracts **scene-aware** frames: ffmpeg scene-change selection first, falling back to uniform sampling only when the video is effectively static. `balanced` caps at 100 frames; `token-burner` is uncapped. Frame report lines include both timestamp and selection reason. Extracted images are clamped to a maximum 1998px height for Claude Read compatibility.
+
+## Transcript-cue frames
+
+Visual frame selection (scene/keyframe) can miss the moments a presenter explicitly flags — "look here", "as you can see", "notice this", "watch what happens" — because pointing at a slide is often a *low* visual change. `--timestamps` lets you force a frame at those exact moments. **You** decide which moments matter, by reading the transcript:
+
+1. Run once at `--detail transcript` (or any detail) to get the timestamped transcript.
+2. Scan it for deictic cues — phrases where the speaker directs attention to something on screen. This is a judgment call (ignore rhetorical "look, the point is…"); that's why it's done by you, not a regex.
+3. Re-run with `--timestamps 4:32,7:10,9:55` (absolute source times). For a URL, point the second run at the **downloaded local file** in the work dir so it doesn't re-download.
+
+Behavior:
+- **Additive by default.** Cue frames (`reason=transcript-cue`) are merged into whatever `--detail` already selected, in chronological order.
+- **Pinned and counted first.** Cue frames are reserved against the frame cap before the detail engine runs, so they're never evicted by even-sampling.
+- **Honors focus mode.** With `--start/--end`, any cue timestamp outside the window is dropped (reported in the summary). Coordinates are always absolute source time.
+- **Cue-only frames.** `--detail transcript --timestamps …` skips scene/keyframe sampling and returns *only* the cue frames (it will download the video to do so, since frames need pixels).
+
+## Transcription
+
+The script gets a timestamped transcript in one of two ways:
+
+1. **Native captions (free, preferred).** yt-dlp pulls manual or auto-generated subtitles from the source platform if available.
+2. **Whisper API fallback.** If no captions came back (or the source is a local file), the script extracts audio (`ffmpeg -vn -ac 1 -ar 16000 -b:a 64k`, ~0.5 MB/min) and uploads it to whichever Whisper API has a key configured:
+   - **Groq** — `whisper-large-v3`. Preferred default: cheaper, faster. Get a key at console.groq.com/keys.
+   - **OpenAI** — `whisper-1`. Fallback. Get a key at platform.openai.com/api-keys.
+
+Both keys live in `~/.config/watch/.env`. The script prefers Groq when both are set; override with `--whisper openai` to force OpenAI. Use `--no-whisper` to skip the fallback entirely.
+
+## Failure modes and handling
+
+- **Setup preflight failed** → run `python3 "${SKILL_DIR}/scripts/setup.py"` (auto-installs ffmpeg/yt-dlp via brew on macOS, scaffolds the `.env`). For API key, ask the user via `AskUserQuestion` and write it to `~/.config/watch/.env`.
+- **No transcript available** → captions missing AND (no Whisper key OR Whisper API failed). Script prints a hint pointing to setup. Proceed frames-only and tell the user.
+- **Long video warning printed** → acknowledge it in your answer. Offer to re-run focused on a specific section via `--start`/`--end` rather than a sparse full-video scan.
+- **Download fails** → yt-dlp's error goes to stderr. If it's a login-required or region-locked video, tell the user plainly; do not keep retrying.
+- **Whisper request fails** → the error is printed to stderr (likely: invalid key or rate limit). Audio over the API's 25 MB upload cap is split into chunks and transcribed automatically, so length alone won't fail it; if some chunks fail the transcript is partial and the dropped chunks are noted on stderr. The report will say "none available" only if every chunk fails. You can retry with `--whisper openai` if Groq failed (or vice versa).
+
+## Token efficiency
+
+This skill burns tokens primarily on frames. Order of magnitude:
+- 80 frames at 512px wide is roughly 50-80k image tokens depending on aspect ratio.
+- The transcript is cheap (a few thousand tokens at most for a 10-minute video).
+- Bumping `--resolution` to 1024 roughly quadruples the image tokens per frame. Only do it when necessary.
+
+If you already watched a video this session and the user asks a follow-up, do **not** re-run the script — you already have the frames and transcript in context. Just answer from what you have.
+
+## Security & Permissions
+
+**What this skill does:**
+- Runs `yt-dlp` locally to download the video and pull native captions when the source supports them (public data; the request goes directly to whatever host the URL points at)
+- Runs `ffmpeg` / `ffprobe` locally to extract frames as JPEGs and, when Whisper is needed, a mono 16 kHz audio clip
+- Sends the extracted audio clip to Groq's Whisper API (`api.groq.com/openai/v1/audio/transcriptions`) when `GROQ_API_KEY` is set (preferred — cheaper, faster)
+- Sends the extracted audio clip to OpenAI's audio transcription API (`api.openai.com/v1/audio/transcriptions`) when `OPENAI_API_KEY` is set and Groq is not, or when `--whisper openai` is forced
+- Writes the downloaded video, frames, audio, and an intermediate transcript to a working directory under the system temp dir (or `--out-dir` if specified) so Claude can `Read` them
+- Reads / creates `~/.config/watch/.env` (mode `0600`) to store the Whisper API key(s) and a `SETUP_COMPLETE` marker. As a fallback, also reads `.env` in the current working directory
+
+**What this skill does NOT do:**
+- Does not upload the video itself to any API — only the extracted audio goes out, and only when native captions are missing AND Whisper is not disabled with `--no-whisper`
+#!/usr/bin/env python3
+"""Probe video metadata and extract frames at an auto-scaled fps.
+
+Auto-fps targets a frame budget, not a fixed rate. Token cost scales with frame
+count, so budget-by-duration keeps short videos dense and long videos capped.
+When a user-specified range is passed, focused-mode budgets denser (they are
+zooming in for detail).
+"""
+from __future__ import annotations
+
+import json
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+MAX_FPS = 2.0
+SCENE_THRESHOLD = 0.20
+# Keep scene-detection results once we have at least this many distinct shots.
+# Below this the video is effectively static (screen recording, talking head),
+# so we fall back to uniform sampling. Matching the reference fork's behaviour,
+# this is a low floor — NOT the frame budget — so normal videos with cuts use
+# the (single-pass) scene engine instead of paying for a wasted second decode.
+SCENE_MIN_FRAMES = 8
+# Below this many decoded keyframes a clip is too sparse for keyframe coverage
+# (very short or oddly encoded), so the cheap tier falls back to uniform.
+KEYFRAME_MIN = 4
+MAX_READ_DIMENSION = 1998
+# Frame-delta dedup: downscale each frame to a DEDUP_THUMB x DEDUP_THUMB
+# grayscale thumbnail and treat two frames as near-identical when their mean
+# per-pixel difference (0-255) is at or below DEDUP_THRESHOLD. Conservative on
+# purpose: only collapses frames that are visually the same shot, so a code diff
+# / scrolling terminal / slide-gaining-a-bullet survives. Unlike a within-frame
+# perceptual hash, this distinguishes flat frames (solid slides, fades) by luma.
+DEDUP_THUMB = 16
+DEDUP_THRESHOLD = 2.0
+SHOWINFO_TS_RE = re.compile(r"pts_time:([0-9.]+)")
+
+
+def _scale_filter(resolution: int) -> str:
+    return (
+        f"scale=w='min({resolution},iw)':h='min({MAX_READ_DIMENSION},ih)':"
+        "force_original_aspect_ratio=decrease:force_divisible_by=2"
+    )
+
+
+def _clamp_fps(fps: float, duration_seconds: float, max_frames: int) -> tuple[float, int]:
+    fps = min(fps, MAX_FPS)
+    target = min(max_frames, max(1, int(round(fps * duration_seconds))))
+    return fps, target
+
+
+def parse_time(value: str | float | int | None) -> float | None:
+    """Parse SS, MM:SS, or HH:MM:SS (with optional .ms) into seconds."""
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    s = str(value).strip()
+    if not s:
+        return None
+    parts = s.split(":")
+    try:
+        if len(parts) == 1:
+            return float(parts[0])
+        if len(parts) == 2:
+            return int(parts[0]) * 60 + float(parts[1])
+        if len(parts) == 3:
+            return int(parts[0]) * 3600 + int(parts[1]) * 60 + float(parts[2])
+    except ValueError:
+        pass
+    raise SystemExit(f"Cannot parse time value: {value!r} (expected SS, MM:SS, or HH:MM:SS)")
+
+
+def format_time(seconds: float) -> str:
+    total = int(round(seconds))
+    hours, rem = divmod(total, 3600)
+    minutes, sec = divmod(rem, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{sec:02d}"
+    return f"{minutes:02d}:{sec:02d}"
+
+
+def get_metadata(video_path: str) -> dict:
+    if shutil.which("ffprobe") is None:
+        raise SystemExit("ffprobe is not installed. Install with: brew install ffmpeg")
+
+    result = subprocess.run(
+        [
+            "ffprobe",
+            "-v", "quiet",
+            "-print_format", "json",
+            "-show_format",
+            "-show_streams",
+            str(Path(video_path).resolve()),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise SystemExit(f"ffprobe failed: {result.stderr.strip()}")
+
+    data = json.loads(result.stdout or "{}")
+    streams = data.get("streams", [])
+    fmt = data.get("format", {})
+    video_stream = next((s for s in streams if s.get("codec_type") == "video"), {})
+    audio_stream = next((s for s in streams if s.get("codec_type") == "audio"), None)
+
+    duration = float(fmt.get("duration") or video_stream.get("duration") or 0)
+    return {
+        "duration_seconds": duration,
+        "width": video_stream.get("width"),
+        "height": video_stream.get("height"),
+        "codec": video_stream.get("codec_name"),
+        "size_bytes": int(fmt.get("size") or 0),
+        "has_audio": audio_stream is not None,
+    }
+
+
+def auto_fps(duration_seconds: float, max_frames: int = 100) -> tuple[float, int]:
+    """Pick fps that targets a sensible frame budget for full-video scans."""
+    if duration_seconds <= 0:
+        return 1.0, 1
+
+    if duration_seconds <= 30:
+        target = min(max_frames, max(12, int(round(duration_seconds))))
+    elif duration_seconds <= 60:
+        target = min(max_frames, 40)
+    elif duration_seconds <= 180:  # 3 min
+        target = min(max_frames, 60)
+    elif duration_seconds <= 600:  # 10 min
+        target = min(max_frames, 80)
+    else:
+        target = max_frames
+
+    return _clamp_fps(target / duration_seconds, duration_seconds, max_frames)
+
+
+def auto_fps_focus(duration_seconds: float, max_frames: int = 100) -> tuple[float, int]:
+    """Denser budget for user-specified ranges — they are zooming in for detail."""
+    if duration_seconds <= 0:
+        return min(MAX_FPS, 2.0), 2
+
+    if duration_seconds <= 5:
+        target = min(max_frames, max(10, int(round(duration_seconds * 6))))
+    elif duration_seconds <= 15:
+        target = min(max_frames, max(30, int(round(duration_seconds * 4))))
+    elif duration_seconds <= 30:
+        target = min(max_frames, 60)
+    elif duration_seconds <= 60:
+        target = min(max_frames, 80)
+    elif duration_seconds <= 180:
+        target = max_frames
+    else:
+        target = max_frames
+
+    return _clamp_fps(target / duration_seconds, duration_seconds, max_frames)
+
+
+def extract(
+    video_path: str,
+    out_dir: Path,
+    fps: float,
+    resolution: int = 512,
+    max_frames: int = 100,
+    start_seconds: float | None = None,
+    end_seconds: float | None = None,
+) -> list[dict]:
+    if shutil.which("ffmpeg") is None:
+        raise SystemExit("ffmpeg is not installed. Install with: brew install ffmpeg")
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for existing in out_dir.glob("frame_*.jpg"):
+        existing.unlink()
+
+    output_pattern = str(out_dir / "frame_%04d.jpg")
+    cmd: list[str] = [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel", "error",
+        "-y",
+    ]
+
+    # -ss before -i = fast seek (keyframe-snap, good enough for preview frames).
+    if start_seconds is not None:
+        cmd += ["-ss", f"{start_seconds:.3f}"]
+    if end_seconds is not None:
+        cmd += ["-to", f"{end_seconds:.3f}"]
+
+    cmd += [
+        "-i", str(Path(video_path).resolve()),
+        "-vf", f"fps={fps},{_scale_filter(resolution)}",
+        "-frames:v", str(max_frames),
+        "-q:v", "4",
+        output_pattern,
+    ]
+
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        raise SystemExit(f"ffmpeg frame extraction failed: {result.stderr.strip()}")
+
+    offset = start_seconds or 0.0
+    frames = sorted(out_dir.glob("frame_*.jpg"))
+    return [
+        {
+            "index": i,
+            "timestamp_seconds": round(offset + (i / fps if fps > 0 else 0.0), 2),
+            "path": str(p),
+            "reason": "uniform",
+        }
+        for i, p in enumerate(frames)
+    ]
+
+
+def extract_scene_candidates(
+    video_path: str,
+    out_dir: Path,
+    resolution: int = 512,
+    max_frames: int | None = 100,
+    start_seconds: float | None = None,
+    end_seconds: float | None = None,
+    threshold: float = SCENE_THRESHOLD,
+) -> list[dict]:
+    """Extract first frame plus ffmpeg scene-change frames.
+
+    When ``max_frames`` is set, ``-frames:v`` lets ffmpeg stop decoding once it
+    has emitted that many frames (early exit) and avoids writing extras that we
+    would only delete afterwards. ``None`` (uncapped "complete" detail) keeps
+    every detected shot, as the user explicitly opted in.
+    """
+    if shutil.which("ffmpeg") is None:
+        raise SystemExit("ffmpeg is not installed. Install with: brew install ffmpeg")
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for existing in out_dir.glob("frame_*.jpg"):
+        existing.unlink()
+
+    output_pattern = str(out_dir / "frame_%04d.jpg")
+    cmd: list[str] = [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel", "info",
+        "-y",
+    ]
+    if start_seconds is not None:
+        cmd += ["-ss", f"{start_seconds:.3f}"]
+    if end_seconds is not None:
+        cmd += ["-to", f"{end_seconds:.3f}"]
+
+    vf = f"select='eq(n\\,0)+gt(scene\\,{threshold})',{_scale_filter(resolution)},showinfo"
+    cmd += [
+        "-i", str(Path(video_path).resolve()),
+        "-vf", vf,
+        "-vsync", "vfr",
+    ]
+    if max_frames is not None:
+        cmd += ["-frames:v", str(max_frames)]
+    cmd += [
+        "-q:v", "4",
+        output_pattern,
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        raise SystemExit(f"ffmpeg scene extraction failed: {result.stderr.strip()}")
+
+    offset = start_seconds or 0.0
+    timestamps = [round(offset + float(match.group(1)), 2) for match in SHOWINFO_TS_RE.finditer(result.stderr)]
+    frames = sorted(out_dir.glob("frame_*.jpg"))
+    out: list[dict] = []
+    for i, path in enumerate(frames):
+        ts = timestamps[i] if i < len(timestamps) else offset
+        out.append({
+            "index": i,
+            "timestamp_seconds": ts,
+            "path": str(path),
+            "reason": "first-frame" if i == 0 else "scene-change",
+        })
+    return out
+
+
+def _even_indices(count: int, n: int) -> list[int]:
+    """Indices of ``n`` evenly-spaced items out of ``count`` (first + last kept).
+
+    ``n >= count`` returns every index; ``n == 1`` returns just the first.
+    """
+    if n >= count:
+        return list(range(count))
+    if n <= 1:
+        return [0]
+    return [round(i * (count - 1) / (n - 1)) for i in range(n)]
+
+
+def parse_timestamps(value: str | None) -> list[float]:
+    """Parse a comma-separated list of times (SS, MM:SS, HH:MM:SS) into a
+    sorted, de-duplicated list of seconds. Empty/blank tokens are skipped;
+    an unparseable token raises (via :func:`parse_time`)."""
+    if not value:
+        return []
+#!/usr/bin/env python3
+"""Parse a WebVTT subtitle file into a clean, timestamped transcript.
+
+YouTube auto-subs emit rolling-duplicate cues (each line appears 2-3 times as it
+scrolls). We dedupe consecutive identical cues and merge their time ranges.
+"""
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+
+TS_RE = re.compile(
+    r"(\d{2}):(\d{2}):(\d{2})[.,](\d{3})\s+-->\s+(\d{2}):(\d{2}):(\d{2})[.,](\d{3})"
+)
+TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _to_seconds(h: str, m: str, s: str, ms: str) -> float:
+    return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000.0
+
+
+def parse_vtt(path: str) -> list[dict]:
+    text = Path(path).read_text(encoding="utf-8", errors="ignore")
+    lines = text.splitlines()
+
+    segments: list[dict] = []
+    i = 0
+    while i < len(lines):
+        match = TS_RE.match(lines[i])
+        if not match:
+            i += 1
+            continue
+
+        start = _to_seconds(*match.groups()[:4])
+        end = _to_seconds(*match.groups()[4:])
+        i += 1
+
+        cue_lines: list[str] = []
+        while i < len(lines) and lines[i].strip():
+            cleaned = TAG_RE.sub("", lines[i]).strip()
+            if cleaned:
+                cue_lines.append(cleaned)
+            i += 1
+
+        cue_text = " ".join(cue_lines).strip()
+        if cue_text:
+            segments.append({"start": round(start, 2), "end": round(end, 2), "text": cue_text})
+        i += 1
+
+    return _dedupe(segments)
+
+
+def _dedupe(segments: list[dict]) -> list[dict]:
+    """Collapse rolling duplicates common in YouTube auto-subs."""
+    out: list[dict] = []
+    for seg in segments:
+        if out and seg["text"] == out[-1]["text"]:
+            out[-1]["end"] = seg["end"]
+            continue
+        if out and seg["text"].startswith(out[-1]["text"] + " "):
+            out[-1]["text"] = seg["text"]
+            out[-1]["end"] = seg["end"]
+            continue
+        out.append(seg)
+    return out
+
+
+def filter_range(
+    segments: list[dict],
+    start_seconds: float | None,
+    end_seconds: float | None,
+) -> list[dict]:
+    """Return segments whose time range overlaps [start, end]."""
+    if start_seconds is None and end_seconds is None:
+        return segments
+    lo = start_seconds if start_seconds is not None else float("-inf")
+    hi = end_seconds if end_seconds is not None else float("inf")
+    return [seg for seg in segments if seg["end"] >= lo and seg["start"] <= hi]
+
+
+def format_transcript(segments: list[dict]) -> str:
+    lines = []
+    for seg in segments:
+        start = int(seg["start"])
+        stamp = f"[{start // 60:02d}:{start % 60:02d}]"
+        lines.append(f"{stamp} {seg['text']}")
+    return "\n".join(lines)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("usage: transcribe.py <vtt-path>", file=sys.stderr)
+        raise SystemExit(2)
+    print(format_transcript(parse_vtt(sys.argv[1])))
+/tmp/watch-review.W7Vi2L/repo/README.md:25:With Claude Video `/watch` you can paste a URL or a local path, ask a question, and Claude fetches captions first, downloads only what it needs, extracts frames (scene-aware, or fast keyframes at `efficient` detail), pulls a timestamped transcript (free captions when available, Whisper API as fallback), and `Read`s every frame as an image. By the time it answers, it has *seen* the video and *heard* the audio.
+/tmp/watch-review.W7Vi2L/repo/README.md:46:2. **`yt-dlp` checks captions first.** At `transcript` detail, captioned URLs return without downloading video. Otherwise, or when Whisper needs audio, it downloads only what the run needs.
+/tmp/watch-review.W7Vi2L/repo/README.md:47:3. **`ffmpeg` extracts frames at the chosen detail.** `efficient` decodes keyframes only (near-instant); `balanced`/`token-burner` prefer scene-change frames and fall back to the duration-aware uniform sampler when they under-produce. JPEGs are 512px wide by default and clamped to 1998px tall for Claude Read compatibility.
+/tmp/watch-review.W7Vi2L/repo/README.md:48:4. **The transcript comes from one of two places.** First try: `yt-dlp` pulls native captions (manual or auto-generated) from the source. Free, instant, accurate-ish. Fallback: extract a mono 16 kHz 64 kbps mp3 audio clip (~480 kB/min) and ship it to Whisper — Groq's `whisper-large-v3` (preferred — cheaper and faster) or OpenAI's `whisper-1`.
+/tmp/watch-review.W7Vi2L/repo/README.md:63:| > 10 min | 100 frames (capped modes) | "Sparse scan" warning — re-run focused, or `--detail token-burner` for full uncapped coverage |
+/tmp/watch-review.W7Vi2L/repo/README.md:67:## Frame deduplication
+/tmp/watch-review.W7Vi2L/repo/README.md:69:Frame selection — keyframes (`efficient`), scene-change detection (`balanced`/`token-burner`), or the uniform sampler it falls back to — can still surface near-identical frames: a screen recording that holds one slide for 90 seconds produces a dozen, each billed as a separate image. A dedup pass drops them before frames reach Claude. It runs by default on every frame mode (`--no-dedup` turns it off):
+/tmp/watch-review.W7Vi2L/repo/README.md:74:4. The frame-budget cap applies *after* dedup, so the budget is spent on distinct frames.
+/tmp/watch-review.W7Vi2L/repo/README.md:82:The `--detail` dial trades speed and token cost for visual fidelity. Numbers below are from a real run against a **49:08** YouTube video (1280×720, English auto-captions) — a long, mostly-static screen recording, the case that stresses the caps hardest. Extraction times are local CPU against a pre-downloaded copy; the one-time download was **~37 s** / 76 MB, shared by the three frame modes.
+/tmp/watch-review.W7Vi2L/repo/README.md:87:| `efficient` | keyframe (`-skip_frame nokey`) | 50 | 50 | **~0.5 s** | 0:00 → 49:04 (full) | **~9.8k** |
+/tmp/watch-review.W7Vi2L/repo/README.md:88:| `balanced` | scene-change | 100 | 100 | **~20.9 s** | 0:00 → 48:38 (full) | **~19.7k** |
+/tmp/watch-review.W7Vi2L/repo/README.md:89:| `token-burner` | scene-change | 116 | uncapped | **~21.0 s** | 0:00 → 48:38 (full) | **~22.8k** |
+/tmp/watch-review.W7Vi2L/repo/README.md:92:- **One sampling rule across frame modes.** Each detects all candidates across the full range, then even-samples (first + last always kept) down to its cap. The modes differ only in candidate *source* (keyframes vs. scene cuts) and cap, never in how coverage is spread — so the last frame always lands at the end, not partway through.
+/tmp/watch-review.W7Vi2L/repo/README.md:93:- **`efficient` is the speed tier** (~0.5 s) — it only reconstructs keyframes, so it's ~40× faster than the scene modes, which decode every frame to find cuts. It can also return *more* frames than `balanced` on low-motion footage (keyframes outnumber scene cuts); "efficient" means fast extraction, not fewer frames.
+/tmp/watch-review.W7Vi2L/repo/README.md:94:- **`token-burner` only diverges from `balanced` past the cap.** This clip had 116 cuts, so `balanced` sampled 100 and `token-burner` kept all 116. On high-motion video with hundreds of cuts, `token-burner` keeps everything (and trips the >250-frame token warning) while `balanced` thins to 100.
+/tmp/watch-review.W7Vi2L/repo/README.md:160:- **API key** — scaffolds `~/.config/watch/.env` (mode `0600`) with commented placeholders for `GROQ_API_KEY` (preferred) and `OPENAI_API_KEY`.
+/tmp/watch-review.W7Vi2L/repo/README.md:171:| Whisper fallback (preferred) | [Groq API key](https://console.groq.com/keys) — `whisper-large-v3` | Cheap, fast |
+/tmp/watch-review.W7Vi2L/repo/README.md:172:| Whisper fallback (alt) | [OpenAI API key](https://platform.openai.com/api-keys) — `whisper-1` | Standard pricing |
+/tmp/watch-review.W7Vi2L/repo/README.md:173:| Disable Whisper entirely | `--no-whisper` | Free, frames-only when no captions |
+/tmp/watch-review.W7Vi2L/repo/README.md:193:- `--detail transcript|efficient|balanced|token-burner` — fidelity/speed dial. `transcript` skips frames (transcript only); `efficient` uses fast keyframes (cap 50); `balanced` uses scene-aware frames (cap 100); `token-burner` is scene-aware and uncapped.
+/tmp/watch-review.W7Vi2L/repo/README.md:194:- `--timestamps T1,T2,…` — grab a frame at each absolute timestamp (`SS`/`MM:SS`/`HH:MM:SS`). Claude reads the transcript first, then targets the moments the presenter flags ("look here", "as you can see"). Added on top of the detail frames (reserved against the cap); out-of-window cues are dropped in focus mode; with `--detail transcript` these become the only frames.
+/tmp/watch-review.W7Vi2L/repo/README.md:198:- `--whisper groq|openai` — force a specific Whisper backend.
+/tmp/watch-review.W7Vi2L/repo/README.md:199:- `--no-whisper` — disable transcription entirely; frames only.
+/tmp/watch-review.W7Vi2L/repo/README.md:200:- `--no-dedup` — keep near-duplicate frames. By default a frame-delta pass drops frames that are visually near-identical to the one before them (held slides, static screen recordings, paused video), so the frame budget is spent on distinct content; this flag turns that off.
+/tmp/watch-review.W7Vi2L/repo/README.md:205:- **Long-video accuracy depends on the detail mode.** On the capped modes (`efficient`, default `balanced`) coverage thins out past ~10 minutes — the frame cap spreads across the whole clip, so the script prints a "sparse scan" warning and you're better off re-running focused with `--start`/`--end`. `token-burner` lifts the cap and keeps *every* scene-change frame across the full video, so it stays complete on longer clips at the cost of more image tokens. The 10-minute mark is guidance for the capped modes, not a hard ceiling.
+/tmp/watch-review.W7Vi2L/repo/README.md:206:- **Detail is one dial.** Defaults are balanced: scene-aware frames, 2 fps max, 100-frame cap. Use `--detail efficient` for a fast 50-frame keyframe pass, or `--detail token-burner` for uncapped scene candidates. Set `WATCH_DETAIL` in `~/.config/watch/.env` to change the default.
+/tmp/watch-review.W7Vi2L/repo/README.md:218:│       ├── transcribe.py         # VTT parsing + dedupe + Whisper orchestration
+/tmp/watch-review.W7Vi2L/repo/README.md:219:│       ├── whisper.py            # Groq / OpenAI clients (pure stdlib)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:16:You don't have a video input; this skill gives you one. A Python script gets captions first, optionally downloads the video, extracts frames as JPEGs (scene-aware, or fast keyframes at `efficient` detail), gets a timestamped transcript (native captions first, then Whisper API as fallback), and prints frame paths. You then `Read` each frame path to see the images and combine them with the transcript to answer the user.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:73:| `3` | Genuine first run with no Whisper API key | Run installer to scaffold `.env`, then encourage a key (the user may decline — proceed with `--no-whisper`) |
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:86:**If an API key is still missing after install:** use `AskUserQuestion` to ask the user whether they have a Groq API key (preferred — cheaper, faster) or an OpenAI key. Then write it into `~/.config/watch/.env` — set the matching `GROQ_API_KEY=...` or `OPENAI_API_KEY=...` line. If they don't want to set up Whisper, proceed with `--no-whisper` and tell them videos without native captions will come back frames-only.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:90:- Default detail (one dial). Present these as `AskUserQuestion` options in this exact order — lightest to heaviest — and keep `(recommended)` on `balanced` even though it is not first (do **not** reorder to put the recommended option first):
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:92:  - `efficient` — fast keyframe pass (cap 50).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:93:  - `balanced` (recommended) — scene-aware frames (cap 100, default).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:94:  - `token-burner` — scene-aware, uncapped (maximum fidelity; high token cost).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:99:WATCH_DETAIL=balanced
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:104:**Structured mode (optional):** `python3 "${SKILL_DIR}/scripts/setup.py" --json` emits `{status, can_proceed, first_run, setup_complete, missing_binaries, whisper_backend, has_api_key, config_file, watch_detail, platform}` where `status` is one of `ready | needs_install | needs_key | needs_install_and_key`. `status` describes the *ideal* state (a key is encouraged, so a keyless first run reads `needs_key`); `can_proceed` is the operational gate (binaries present AND a key is set OR setup was already completed). Branch on `can_proceed`/`first_run` to decide whether to run; use `status` to decide what to encourage.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:118:- **The frame ceiling is set by the detail mode** (`WATCH_DETAIL` in `~/.config/watch/.env`, or `--detail`), not a single global cap:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:120:  - `efficient` → up to **50** (keyframes)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:121:  - `balanced` (default) → up to **100** (scene-aware)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:122:  - `token-burner` → **uncapped** (scene-aware; a soft warning prints past 250 frames)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:124:- **Full-video frame budget by duration.** Token cost grows with frame count, so the script targets a budget by duration. This budget sets the fps and the uniform-sampling fallback; scene-aware selection can fill up to the detail cap above, whichever is lower:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:129:  - \>10min → up to the detail cap, sparsely spaced (warning printed)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:143:- `--detail transcript|efficient|balanced|token-burner` — fidelity/speed dial. `transcript` = no frames (transcript only, skips video download when captions exist); `efficient` = fast keyframes (cap 50); `balanced` = scene-aware frames (cap 100); `token-burner` = scene-aware, uncapped.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:150:- `--whisper groq|openai` — force a specific Whisper backend (default: prefer Groq if both keys exist)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:151:- `--no-whisper` — disable the Whisper fallback entirely (frames-only if no captions)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:152:- `--no-dedup` — keep near-duplicate frames. By default a frame-delta pass drops frames that are visually near-identical to the previous kept one (held slides, static screen recordings, paused video) so the frame budget goes to distinct content; the report's **Frames** line notes how many were dropped. Pass this only if the user needs every sampled frame (e.g. judging subtle frame-to-frame motion).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:156:When the user asks about a specific moment — "what happens at the 2 minute mark?", "zoom into 0:45 to 1:00", "the first 10 seconds" — pass `--start` and/or `--end`. The script switches to focused-mode budgets, which are denser than full-video budgets (still capped at 2 fps, and still bounded by the detail-mode cap — the counts below assume the default `balanced` cap of 100; `efficient` tops out at 50):
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:167:- Re-runs after a full scan didn't have enough detail in some region.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:187:- **Transcript** — what's said at each timestamp. The report's header shows the source (`captions` = yt-dlp pulled native subs; `whisper (groq)` or `whisper (openai)` = transcribed by API).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:191:This holds for `transcript` detail too: even with no frames, produce a **summary** like the other modes — do not paste the full transcript into chat. Synthesize structure, key moments, and spoken content with timestamps; quote only the lines that matter. Offer the raw transcript only if the user explicitly asks for it.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:199:- `WATCH_DETAIL=transcript|efficient|balanced|token-burner` (default: `balanced`)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:201:At `transcript` detail, captions are enough to return a report without downloading video. If captions are missing, the script downloads audio only and tries Whisper. If no transcript can be produced, it reports the limitation clearly; re-run with `--detail balanced` for frames.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:203:At `efficient` detail, the script downloads the video and extracts **keyframes only** (`ffmpeg -skip_frame nokey`) — a near-instant pass that lands frames on scene cuts. If a clip has fewer than 4 keyframes it falls back to uniform sampling.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:205:At `balanced` / `token-burner` detail, the script extracts **scene-aware** frames: ffmpeg scene-change selection first, falling back to uniform sampling only when the video is effectively static. `balanced` caps at 100 frames; `token-burner` is uncapped. Frame report lines include both timestamp and selection reason. Extracted images are clamped to a maximum 1998px height for Claude Read compatibility.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:209:Visual frame selection (scene/keyframe) can miss the moments a presenter explicitly flags — "look here", "as you can see", "notice this", "watch what happens" — because pointing at a slide is often a *low* visual change. `--timestamps` lets you force a frame at those exact moments. **You** decide which moments matter, by reading the transcript:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:211:1. Run once at `--detail transcript` (or any detail) to get the timestamped transcript.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:216:- **Additive by default.** Cue frames (`reason=transcript-cue`) are merged into whatever `--detail` already selected, in chronological order.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:217:- **Pinned and counted first.** Cue frames are reserved against the frame cap before the detail engine runs, so they're never evicted by even-sampling.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:219:- **Cue-only frames.** `--detail transcript --timestamps …` skips scene/keyframe sampling and returns *only* the cue frames (it will download the video to do so, since frames need pixels).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:227:   - **Groq** — `whisper-large-v3`. Preferred default: cheaper, faster. Get a key at console.groq.com/keys.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:228:   - **OpenAI** — `whisper-1`. Fallback. Get a key at platform.openai.com/api-keys.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:230:Both keys live in `~/.config/watch/.env`. The script prefers Groq when both are set; override with `--whisper openai` to force OpenAI. Use `--no-whisper` to skip the fallback entirely.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:238:- **Whisper request fails** → the error is printed to stderr (likely: invalid key or rate limit). Audio over the API's 25 MB upload cap is split into chunks and transcribed automatically, so length alone won't fail it; if some chunks fail the transcript is partial and the dropped chunks are noted on stderr. The report will say "none available" only if every chunk fails. You can retry with `--whisper openai` if Groq failed (or vice versa).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:254:- Sends the extracted audio clip to Groq's Whisper API (`api.groq.com/openai/v1/audio/transcriptions`) when `GROQ_API_KEY` is set (preferred — cheaper, faster)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:255:- Sends the extracted audio clip to OpenAI's audio transcription API (`api.openai.com/v1/audio/transcriptions`) when `OPENAI_API_KEY` is set and Groq is not, or when `--whisper openai` is forced
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:260:- Does not upload the video itself to any API — only the extracted audio goes out, and only when native captions are missing AND Whisper is not disabled with `--no-whisper`
+/tmp/watch-review.W7Vi2L/repo/skills/watch/SKILL.md:266:**Bundled scripts:** `scripts/watch.py` (entry point), `scripts/download.py` (yt-dlp wrapper), `scripts/frames.py` (ffmpeg frame extraction), `scripts/transcribe.py` (caption selection + Whisper orchestration), `scripts/whisper.py` (Groq / OpenAI clients), `scripts/setup.py` (preflight + installer)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:12:DEFAULT_DETAIL = "balanced"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:14:DETAILS = {"transcript", "efficient", "balanced", "token-burner"}
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:37:            # unquoted value. Without this, `WATCH_DETAIL=balanced  # note`
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:38:            # parses as "balanced  # note", fails validation, and silently
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:51:    detail = (
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:56:    if detail not in DETAILS:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:57:        detail = DEFAULT_DETAIL
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:60:        "detail": detail,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:65:def frame_cap(detail: str) -> int | None:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:66:    if detail == "efficient":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:68:    if detail == "balanced":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:70:    if detail == "token-burner":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/config.py:72:    if detail == "transcript":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:43:# Groq is preferred: it runs whisper-large-v3 at a fraction of OpenAI's price
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:52:GROQ_API_KEY=
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:53:OPENAI_API_KEY=
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:56:# Allowed values: transcript | efficient | balanced | token-burner
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:58:# WATCH_DETAIL=balanced
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:117:    if _read_env_key("GROQ_API_KEY"):
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:119:    if _read_env_key("OPENAI_API_KEY"):
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:251:        "whisper_backend": backend,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:254:        "watch_detail": cfg["detail"],
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:279:        parts.append("no Whisper API key (GROQ_API_KEY or OPENAI_API_KEY)")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:337:        print(f"[setup] ready. whisper backend: {backend}")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:346:    print("    GROQ_API_KEY=...    (preferred — cheaper, faster; get one at console.groq.com/keys)")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py:347:    print("    OPENAI_API_KEY=...  (fallback; get one at platform.openai.com/api-keys)")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/transcribe.py:5:scrolls). We dedupe consecutive identical cues and merge their time ranges.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/transcribe.py:52:    return _dedupe(segments)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/transcribe.py:55:def _dedupe(segments: list[dict]) -> list[dict]:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:20:from frames import MAX_FPS, auto_fps, auto_fps_focus, extract_at_timestamps, extract_keyframes, extract_scene_or_uniform, format_time, get_metadata, merge_frames, parse_time, parse_timestamps  # noqa: E402
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:22:from whisper import load_api_key, transcribe_video  # noqa: E402
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:35:        "--detail",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:36:        choices=["transcript", "efficient", "balanced", "token-burner"],
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:38:        help="Fidelity/speed dial: transcript (no frames), efficient (fast keyframes, cap 50), "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:39:             "balanced (scene, cap 100), token-burner (scene, uncapped).",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:46:             "e.g. transcript-flagged 'look here' moments. Added on top of the detail frames "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:47:             "(reserved against the cap); with --detail transcript these become the only frames.",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:53:        "--no-whisper",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:58:        "--whisper",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:64:        "--no-dedup",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:72:    detail = args.detail or str(config["detail"])
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:73:    configured_cap = frame_cap(detail)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:111:    audio_only = detail == "transcript" and not cue_timestamps
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:112:    if detail == "transcript" and transcript_segments and not cue_timestamps:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:177:    # the detail engine never evicts the moments the user explicitly asked for.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:195:    detail_budget = max_frames if max_frames is None else max(0, max_frames - len(cue_frames))
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:196:    if detail != "transcript" and video_path and detail_budget != 0:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:197:        cap_label = "unlimited" if detail_budget is None else str(detail_budget)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:198:        engine_label = "keyframes" if detail == "efficient" else "scene-aware frames"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:204:        if detail == "efficient":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:205:            frames, frame_meta = extract_keyframes(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:209:                max_frames=detail_budget,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:212:                dedup=not args.no_dedup,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:214:        else:  # balanced, token-burner
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:215:            frames, frame_meta = extract_scene_or_uniform(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:221:                max_frames=detail_budget,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:224:                dedup=not args.no_dedup,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:239:    if not transcript_segments and not args.no_whisper and video_path and meta.get("has_audio"):
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:240:        backend, api_key = load_api_key(args.whisper)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:251:                transcript_source = f"whisper ({used_backend})"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:253:                print(f"[watch] whisper fallback failed: {exc}", file=sys.stderr)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:256:                f"--whisper {args.whisper} was set but the matching API key is missing"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:257:                if args.whisper else
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:287:    print(f"- **Detail:** {detail}")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:288:    detail_count = frame_meta.get("selected_count", 0)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:289:    if detail != "transcript":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:290:        cap_label = "unlimited" if detail_budget is None else str(detail_budget)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:291:        engine = frame_meta.get("engine", "scene")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:293:        deduped = frame_meta.get("deduped_count", 0)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:294:        dedup_note = f", {deduped} near-duplicate{'s' if deduped != 1 else ''} dropped" if deduped else ""
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:296:            f"- **Frames:** {detail_count} selected from {frame_meta.get('candidate_count', detail_count)} "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:297:            f"candidates ({engine}{fallback}{dedup_note}, {range_mode} range, budget {target}, cap {cap_label})"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:300:        print("- **Frames:** skipped (transcript detail)")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:319:    if detail == "token-burner" and len(frames) > 250:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:322:            f"> **Warning:** token-burner detail selected {len(frames)} frames. "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:326:    if not focused and full_duration > 600 and detail not in ("transcript", "token-burner"):
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:331:            f"under `{detail}` detail — its cap spreads thin across the full clip. For better results, "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:333:            "`--detail token-burner` to keep every scene-change frame across the whole video."
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:368:    elif detail == "transcript":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:370:            "_No transcript available at transcript detail. Captions were missing and Whisper was "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:372:            "`--detail balanced` for frames._"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/watch.py:381:            "(no API key set, or `--no-whisper` was used). "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:29:GROQ_ENDPOINT = "https://api.groq.com/openai/v1/audio/transcriptions"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:30:GROQ_MODEL = "whisper-large-v3"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:32:OPENAI_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:33:OPENAI_MODEL = "whisper-1"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:35:# Both Groq's free tier and OpenAI whisper-1 cap uploads at 25 MB. We target a
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:98:    candidates = (("GROQ_API_KEY", "groq"), ("OPENAI_API_KEY", "openai"))
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:237:def _post_whisper(endpoint: str, api_key: str, model: str, audio_path: Path) -> dict:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:256:    last_detail = ""
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:264:            detail = _read_error_body(exc)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:265:            last_exc, last_detail = exc, detail
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:269:                raise SystemExit(f"Whisper request failed: {exc}{detail}")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:274:                    raise SystemExit(f"Whisper request failed: {exc}{detail}")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:281:                    f"[watch] whisper HTTP {exc.code} — retrying in {delay:.1f}s "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:288:            last_exc, last_detail = exc, ""
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:292:                    f"[watch] whisper network error ({type(exc).__name__}: {exc}) — "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:305:        f"Whisper request failed after {MAX_ATTEMPTS} attempts: {last_exc}{last_detail}"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:406:        response = _post_whisper(GROQ_ENDPOINT, api_key, GROQ_MODEL, audio_path)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:408:        response = _post_whisper(OPENAI_ENDPOINT, api_key, OPENAI_MODEL, audio_path)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:410:        raise SystemExit(f"Unknown whisper backend: {backend}")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:432:            "No Whisper API key available. Set GROQ_API_KEY (preferred) or OPENAI_API_KEY "
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/whisper.py:470:        print("usage: whisper.py <video-path> [<audio-out.mp3>] [--backend groq|openai]", file=sys.stderr)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:7:zooming in for detail).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:21:# Keep scene-detection results once we have at least this many distinct shots.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:25:# the (single-pass) scene engine instead of paying for a wasted second decode.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:27:# Below this many decoded keyframes a clip is too sparse for keyframe coverage
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:31:# Frame-delta dedup: downscale each frame to a DEDUP_THUMB x DEDUP_THUMB
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:142:    """Denser budget for user-specified ranges — they are zooming in for detail."""
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:186:    # -ss before -i = fast seek (keyframe-snap, good enough for preview frames).
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:217:def extract_scene_candidates(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:226:    """Extract first frame plus ffmpeg scene-change frames.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:230:    would only delete afterwards. ``None`` (uncapped "complete" detail) keeps
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:252:    vf = f"select='eq(n\\,0)+gt(scene\\,{threshold})',{_scale_filter(resolution)},showinfo"
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:256:        "-vsync", "vfr",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:266:        raise SystemExit(f"ffmpeg scene extraction failed: {result.stderr.strip()}")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:278:            "reason": "first-frame" if i == 0 else "scene-change",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:337:    so they sit alongside detail-engine ``frame_*.jpg`` output without either
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:397:    Shared by every capped engine so all detail modes sample the same way:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:431:    returns ``[]`` so the caller skips dedup rather than breaking extraction.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:463:def dedupe_perceptual(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:476:    return _dedupe_by_deltas(candidates, thumbs, threshold)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:479:def _dedupe_by_deltas(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:510:def extract_scene_or_uniform(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:519:    dedup: bool = True,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:521:    """Prefer scene selection, falling back to uniform only when the video is
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:525:    frames are dropped (:func:`dedupe_perceptual`, unless ``dedup`` is False),
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:527:    :func:`_even_sample`, exactly like the keyframe engine. This costs a full
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:533:    scene_frames = extract_scene_candidates(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:541:    scene_count = len(scene_frames)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:542:    if scene_count >= SCENE_MIN_FRAMES:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:543:        deduped, n_dropped = dedupe_perceptual(scene_frames) if dedup else (scene_frames, 0)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:544:        cap = len(deduped) if max_frames is None else max_frames
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:545:        selected = _even_sample(deduped, cap)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:547:            "engine": "scene",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:548:            "candidate_count": scene_count,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:549:            "deduped_count": n_dropped,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:565:    if dedup:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:566:        frames, n_dropped = dedupe_perceptual(frames)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:569:        "candidate_count": scene_count,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:570:        "deduped_count": n_dropped,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:576:def extract_keyframes(
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:583:    dedup: bool = True,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:585:    """Decode only keyframes (I-frames) — the cheap, near-instant tier.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:587:    ``-skip_frame nokey`` makes ffmpeg reconstruct only keyframes, skipping all
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:588:    P/B frames. Encoders emit keyframes at scene cuts, so these already
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:590:    (:func:`dedupe_perceptual`, unless ``dedup`` is False); over-cap →
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:591:    even-sample first→last; too few keyframes → uniform fallback.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:615:        "-vsync", "vfr",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:621:        raise SystemExit(f"ffmpeg keyframe extraction failed: {result.stderr.strip()}")
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:633:            "reason": "keyframe",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:636:    # Too few keyframes → uniform fallback over the same range.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:660:        if dedup:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:661:            frames_out, n_dropped = dedupe_perceptual(frames_out)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:665:            "deduped_count": n_dropped,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:671:    # last always kept). ``max_frames is None`` (uncapped) keeps every keyframe.
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:673:    deduped, n_dropped = dedupe_perceptual(candidates) if dedup else (candidates, 0)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:674:    cap = len(deduped) if max_frames is None else max_frames
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:675:    selected = _even_sample(deduped, cap)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:677:        "engine": "keyframe",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:679:        "deduped_count": n_dropped,
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:689:            "[--max-frames N] [--start T] [--end T] [--no-dedup]",
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:703:    dedup = True
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:716:        elif args[i] == "--no-dedup":
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:717:            dedup = False; i += 1
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:747:    deduped_count = 0
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:748:    if dedup:
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:749:        frames, deduped_count = dedupe_perceptual(frames)
+/tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/frames.py:753:            "deduped_count": deduped_count, "frames": frames,
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+exec
+/bin/bash -lc 'repo_path=$(find /tmp -maxdepth 2 -type d -path '"'/tmp/watch-review.*/repo' | tail -1); video=data/reels/000098/video/final_with_music.mp4; test -f \""'$video" && ffprobe -v error -show_entries format=duration:stream=codec_name,codec_type -of compact "$video"; python3 "$repo_path/skills/watch/scripts/watch.py" "$video" --detail efficient --no-whisper --out-dir /tmp/watch-000098-efficient' in /root/rod-ai-studio
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+ succeeded in 934ms:
+stream|codec_name=h264|codec_type=video
+stream|codec_name=aac|codec_type=audio
+format|duration=42.509000
+[watch] working dir: /tmp/watch-000098-efficient
+[watch] using local file…
+[watch] extracting keyframes over full 42.5s (target 40, cap 50)…
+
+# watch: video report
+
+- **Source:** data/reels/000098/video/final_with_music.mp4
+- **Title:** final_with_music.mp4
+- **Duration:** 00:43 (42.5s)
+- **Resolution:** 1080x1920 (h264)
+- **Detail:** efficient
+- **Frames:** 10 selected from 10 candidates (keyframe, full range, budget 40, cap 50)
+- **Frame size:** max 512px wide, max 1998px tall
+- **Transcript:** none available
+
+## Frames
+
+Frames live at: `/tmp/watch-000098-efficient/frames`
+
+**Read each frame path below with the Read tool to view the image.** Frames are in chronological order; `t=MM:SS` is the absolute timestamp in the source video.
+
+- `/tmp/watch-000098-efficient/frames/frame_0001.jpg` (t=00:00, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0002.jpg` (t=00:02, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0003.jpg` (t=00:08, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0004.jpg` (t=00:12, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0005.jpg` (t=00:17, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0006.jpg` (t=00:22, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0007.jpg` (t=00:28, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0008.jpg` (t=00:32, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0009.jpg` (t=00:36, reason=keyframe)
+- `/tmp/watch-000098-efficient/frames/frame_0010.jpg` (t=00:40, reason=keyframe)
+
+## Transcript
+
+_No transcript available — proceed with frames only. Captions were missing and the Whisper fallback was unavailable (no API key set, or `--no-whisper` was used). Run `python3 /tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py` to enable Whisper, then re-run._
+
+---
+_Work dir: `/tmp/watch-000098-efficient` — delete when done._
+
+exec
+/bin/bash -lc 'repo_path=$(find /tmp -maxdepth 2 -type d -path '"'/tmp/watch-review.*/repo' | tail -1); python3 \""'$repo_path/skills/watch/scripts/watch.py" data/reels/000098/video/final_with_music.mp4 --detail balanced --no-whisper --out-dir /tmp/watch-000098-balanced; python3 -m pytest -q "$repo_path/tests"' in /root/rod-ai-studio
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+ exited 1 in 1248ms:
+[watch] working dir: /tmp/watch-000098-balanced
+[watch] using local file…
+[watch] extracting scene-aware frames over full 42.5s (target 40, cap 100)…
+
+# watch: video report
+
+- **Source:** data/reels/000098/video/final_with_music.mp4
+- **Title:** final_with_music.mp4
+- **Duration:** 00:43 (42.5s)
+- **Resolution:** 1080x1920 (h264)
+- **Detail:** balanced
+- **Frames:** 10 selected from 10 candidates (scene, full range, budget 40, cap 100)
+- **Frame size:** max 512px wide, max 1998px tall
+- **Transcript:** none available
+
+## Frames
+
+Frames live at: `/tmp/watch-000098-balanced/frames`
+
+**Read each frame path below with the Read tool to view the image.** Frames are in chronological order; `t=MM:SS` is the absolute timestamp in the source video.
+
+- `/tmp/watch-000098-balanced/frames/frame_0001.jpg` (t=00:00, reason=first-frame)
+- `/tmp/watch-000098-balanced/frames/frame_0002.jpg` (t=00:02, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0003.jpg` (t=00:08, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0004.jpg` (t=00:12, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0005.jpg` (t=00:17, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0006.jpg` (t=00:22, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0007.jpg` (t=00:28, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0008.jpg` (t=00:32, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0009.jpg` (t=00:36, reason=scene-change)
+- `/tmp/watch-000098-balanced/frames/frame_0010.jpg` (t=00:40, reason=scene-change)
+
+## Transcript
+
+_No transcript available — proceed with frames only. Captions were missing and the Whisper fallback was unavailable (no API key set, or `--no-whisper` was used). Run `python3 /tmp/watch-review.W7Vi2L/repo/skills/watch/scripts/setup.py` to enable Whisper, then re-run._
+
+---
+_Work dir: `/tmp/watch-000098-balanced` — delete when done._
+/usr/bin/python3: No module named pytest
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+codex
+Test na realnej rolce `000098` zmienia ocenę kosztu i pokrycia: oba tryby, `efficient` i `balanced`, wybrały tylko 10 klatek z 42,5 s — nie deklarowane „około 40”. Powód jest w algorytmie: 40 to budżet/cel, ale przy 10 keyframe’ach lub scene-change’ach narzędzie nie dopełnia wyniku próbkami równomiernymi, jeśli uznało detekcję scen za wystarczającą. To jest realna luka dla kontroli glitchy i ruchu; czekam jeszcze na niezależne głosy Zenka i Henia.
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+exec
+/bin/bash -lc "find .scratch/watch-ocena -maxdepth 3 -type f -printf '%p %s bytes\\n'; ps -eo pid,etime,cmd | rg '[z]aloga.py|[h]ermes -z|[g]emini|[c]odex' | sed -n '1,80p'" in /root/rod-ai-studio
+ succeeded in 0ms:
+.scratch/watch-ocena/glosy/manifest.json 11379 bytes
+.scratch/watch-ocena/zadanie.md 1625 bytes
+      1       00:00 bwrap --new-session --die-with-parent --ro-bind / / --dev /dev --bind /tmp /tmp --perms 555 --tmpfs /tmp/.git --remount-ro /tmp/.git --perms 555 --tmpfs /tmp/.agents --remount-ro /tmp/.agents --perms 555 --tmpfs /tmp/.codex --remount-ro /tmp/.codex --bind /root/rod-ai-studio /root/rod-ai-studio --ro-bind /root/rod-ai-studio/.git /root/rod-ai-studio/.git --perms 555 --tmpfs /root/rod-ai-studio/.agents --remount-ro /root/rod-ai-studio/.agents --perms 555 --tmpfs /root/rod-ai-studio/.codex --remount-ro /root/rod-ai-studio/.codex --unshare-user --unshare-pid --proc /proc --argv0 codex-linux-sandbox -- /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex --sandbox-policy-cwd /root/rod-ai-studio --command-cwd /root/rod-ai-studio --permission-profile {"type":"managed","file_system":{"type":"restricted","entries":[{"path":{"type":"special","value":{"kind":"root"}},"access":"read"},{"path":{"type":"path","path":"/root/rod-ai-studio"},"access":"write"},{"path":{"type":"special","value":{"kind":"slash_tmp"}},"access":"write"},{"path":{"type":"special","value":{"kind":"tmpdir"}},"access":"write"},{"path":{"type":"path","path":"/root/rod-ai-studio/.git"},"access":"read"},{"path":{"type":"path","path":"/root/rod-ai-studio/.agents"},"access":"read"},{"path":{"type":"path","path":"/root/rod-ai-studio/.codex"},"access":"read"}]},"network":"enabled"} --apply-seccomp-then-exec -- /bin/bash -c __CODEX_SNAPSHOT_OVERRIDE_SET_0="${CODEX_PERMISSION_PROFILE+x}" __CODEX_SNAPSHOT_OVERRIDE_0="${CODEX_PERMISSION_PROFILE-}" __CODEX_SNAPSHOT_OVERRIDE_SET_1="${CODEX_THREAD_ID+x}" __CODEX_SNAPSHOT_OVERRIDE_1="${CODEX_THREAD_ID-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_0="${ALL_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_0="${ALL_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_1="${BUNDLE_HTTPS_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_1="${BUNDLE_HTTPS_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_2="${BUNDLE_HTTP_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_2="${BUNDLE_HTTP_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_3="${BUNDLE_NO_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_3="${BUNDLE_NO_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_4="${BUNDLE_SSL_CA_CERT+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_4="${BUNDLE_SSL_CA_CERT-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_5="${CODEX_CA_CERTIFICATE+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_5="${CODEX_CA_CERTIFICATE-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_6="${CODEX_NETWORK_ALLOW_LOCAL_BINDING+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_6="${CODEX_NETWORK_ALLOW_LOCAL_BINDING-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_7="${CODEX_NETWORK_PROXY_ACTIVE+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_7="${CODEX_NETWORK_PROXY_ACTIVE-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_8="${CODEX_NETWORK_PROXY_ATTRIBUTION+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_8="${CODEX_NETWORK_PROXY_ATTRIBUTION-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_9="${CODEX_NETWORK_PROXY_BROKERED_CREDENTIALS+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_9="${CODEX_NETWORK_PROXY_BROKERED_CREDENTIALS-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_10="${CODEX_NETWORK_PROXY_CREDENTIAL_BROKER_ACTIVE+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_10="${CODEX_NETWORK_PROXY_CREDENTIAL_BROKER_ACTIVE-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_11="${CURL_CA_BUNDLE+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_11="${CURL_CA_BUNDLE-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_12="${DOCKER_HTTPS_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_12="${DOCKER_HTTPS_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_13="${DOCKER_HTTP_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_13="${DOCKER_HTTP_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_14="${ELECTRON_GET_USE_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_14="${ELECTRON_GET_USE_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_15="${FTP_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_15="${FTP_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_16="${GIT_SSL_CAINFO+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_16="${GIT_SSL_CAINFO-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_17="${HTTPS_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_17="${HTTPS_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_18="${HTTP_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_18="${HTTP_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_19="${NODE_EXTRA_CA_CERTS+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_19="${NODE_EXTRA_CA_CERTS-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_20="${NODE_USE_ENV_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_20="${NODE_USE_ENV_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_21="${NO_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_21="${NO_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_22="${NPM_CONFIG_CAFILE+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_22="${NPM_CONFIG_CAFILE-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_23="${NPM_CONFIG_HTTPS_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_23="${NPM_CONFIG_HTTPS_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_24="${NPM_CONFIG_HTTP_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_24="${NPM_CONFIG_HTTP_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_25="${NPM_CONFIG_NOPROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_25="${NPM_CONFIG_NOPROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_26="${NPM_CONFIG_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_26="${NPM_CONFIG_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_27="${PIP_CERT+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_27="${PIP_CERT-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_28="${PIP_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_28="${PIP_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_29="${REQUESTS_CA_BUNDLE+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_29="${REQUESTS_CA_BUNDLE-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_30="${SSL_CERT_FILE+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_30="${SSL_CERT_FILE-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_31="${WSS_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_31="${WSS_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_32="${WS_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_32="${WS_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_33="${YARN_HTTPS_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_33="${YARN_HTTPS_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_34="${YARN_HTTP_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_34="${YARN_HTTP_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_35="${YARN_NO_PROXY+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_35="${YARN_NO_PROXY-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_36="${all_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_36="${all_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_37="${ftp_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_37="${ftp_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_38="${http_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_38="${http_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_39="${https_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_39="${https_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_40="${no_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_40="${no_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_41="${npm_config_cafile+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_41="${npm_config_cafile-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_42="${npm_config_http_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_42="${npm_config_http_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_43="${npm_config_https_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_43="${npm_config_https_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_44="${npm_config_noproxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_44="${npm_config_noproxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_45="${npm_config_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_45="${npm_config_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_46="${ws_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_46="${ws_proxy-}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_47="${wss_proxy+x}" __CODEX_SNAPSHOT_PROXY_OVERRIDE_47="${wss_proxy-}" __CODEX_SNAPSHOT_PROXY_ENV_SET="${CODEX_NETWORK_PROXY_ACTIVE+x}"  if . '/root/.codex/shell_snapshots/019fd774-1f40-7bd2-8c78-828c5016eb5c.1786026139467871922.sh' >/dev/null 2>&1; then :; fi  if [ -n "${__CODEX_SNAPSHOT_OVERRIDE_SET_0}" ]; then export CODEX_PERMISSION_PROFILE="${__CODEX_SNAPSHOT_OVERRIDE_0}"; else unset CODEX_PERMISSION_PROFILE; fi if [ -n "${__CODEX_SNAPSHOT_OVERRIDE_SET_1}" ]; then export CODEX_THREAD_ID="${__CODEX_SNAPSHOT_OVERRIDE_1}"; else unset CODEX_THREAD_ID; fi if [ -n "$__CODEX_SNAPSHOT_PROXY_ENV_SET" ] || [ -n "${CODEX_NETWORK_PROXY_ACTIVE+x}" ]; then if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_0}" ]; then export ALL_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_0}"; else unset ALL_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_1}" ]; then export BUNDLE_HTTPS_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_1}"; else unset BUNDLE_HTTPS_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_2}" ]; then export BUNDLE_HTTP_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_2}"; else unset BUNDLE_HTTP_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_3}" ]; then export BUNDLE_NO_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_3}"; else unset BUNDLE_NO_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_4}" ]; then export BUNDLE_SSL_CA_CERT="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_4}"; else unset BUNDLE_SSL_CA_CERT; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_5}" ]; then export CODEX_CA_CERTIFICATE="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_5}"; else unset CODEX_CA_CERTIFICATE; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_6}" ]; then export CODEX_NETWORK_ALLOW_LOCAL_BINDING="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_6}"; else unset CODEX_NETWORK_ALLOW_LOCAL_BINDING; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_7}" ]; then export CODEX_NETWORK_PROXY_ACTIVE="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_7}"; else unset CODEX_NETWORK_PROXY_ACTIVE; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_8}" ]; then export CODEX_NETWORK_PROXY_ATTRIBUTION="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_8}"; else unset CODEX_NETWORK_PROXY_ATTRIBUTION; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_9}" ]; then export CODEX_NETWORK_PROXY_BROKERED_CREDENTIALS="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_9}"; else unset CODEX_NETWORK_PROXY_BROKERED_CREDENTIALS; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_10}" ]; then export CODEX_NETWORK_PROXY_CREDENTIAL_BROKER_ACTIVE="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_10}"; else unset CODEX_NETWORK_PROXY_CREDENTIAL_BROKER_ACTIVE; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_11}" ]; then export CURL_CA_BUNDLE="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_11}"; else unset CURL_CA_BUNDLE; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_12}" ]; then export DOCKER_HTTPS_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_12}"; else unset DOCKER_HTTPS_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_13}" ]; then export DOCKER_HTTP_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_13}"; else unset DOCKER_HTTP_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_14}" ]; then export ELECTRON_GET_USE_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_14}"; else unset ELECTRON_GET_USE_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_15}" ]; then export FTP_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_15}"; else unset FTP_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_16}" ]; then export GIT_SSL_CAINFO="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_16}"; else unset GIT_SSL_CAINFO; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_17}" ]; then export HTTPS_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_17}"; else unset HTTPS_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_18}" ]; then export HTTP_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_18}"; else unset HTTP_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_19}" ]; then export NODE_EXTRA_CA_CERTS="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_19}"; else unset NODE_EXTRA_CA_CERTS; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_20}" ]; then export NODE_USE_ENV_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_20}"; else unset NODE_USE_ENV_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_21}" ]; then export NO_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_21}"; else unset NO_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_22}" ]; then export NPM_CONFIG_CAFILE="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_22}"; else unset NPM_CONFIG_CAFILE; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_23}" ]; then export NPM_CONFIG_HTTPS_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_23}"; else unset NPM_CONFIG_HTTPS_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_24}" ]; then export NPM_CONFIG_HTTP_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_24}"; else unset NPM_CONFIG_HTTP_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_25}" ]; then export NPM_CONFIG_NOPROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_25}"; else unset NPM_CONFIG_NOPROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_26}" ]; then export NPM_CONFIG_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_26}"; else unset NPM_CONFIG_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_27}" ]; then export PIP_CERT="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_27}"; else unset PIP_CERT; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_28}" ]; then export PIP_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_28}"; else unset PIP_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_29}" ]; then export REQUESTS_CA_BUNDLE="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_29}"; else unset REQUESTS_CA_BUNDLE; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_30}" ]; then export SSL_CERT_FILE="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_30}"; else unset SSL_CERT_FILE; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_31}" ]; then export WSS_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_31}"; else unset WSS_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_32}" ]; then export WS_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_32}"; else unset WS_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_33}" ]; then export YARN_HTTPS_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_33}"; else unset YARN_HTTPS_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_34}" ]; then export YARN_HTTP_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_34}"; else unset YARN_HTTP_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_35}" ]; then export YARN_NO_PROXY="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_35}"; else unset YARN_NO_PROXY; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_36}" ]; then export all_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_36}"; else unset all_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_37}" ]; then export ftp_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_37}"; else unset ftp_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_38}" ]; then export http_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_38}"; else unset http_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_39}" ]; then export https_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_39}"; else unset https_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_40}" ]; then export no_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_40}"; else unset no_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_41}" ]; then export npm_config_cafile="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_41}"; else unset npm_config_cafile; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_42}" ]; then export npm_config_http_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_42}"; else unset npm_config_http_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_43}" ]; then export npm_config_https_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_43}"; else unset npm_config_https_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_44}" ]; then export npm_config_noproxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_44}"; else unset npm_config_noproxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_45}" ]; then export npm_config_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_45}"; else unset npm_config_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_46}" ]; then export ws_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_46}"; else unset ws_proxy; fi if [ -n "${__CODEX_SNAPSHOT_PROXY_OVERRIDE_SET_47}" ]; then export wss_proxy="${__CODEX_SNAPSHOT_PROXY_OVERRIDE_47}"; else unset wss_proxy; fi fi if [ -n "${PATH:-}" ]; then export PATH='/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path':"$PATH"; else export PATH='/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path'; fi  exec '/bin/bash' -c 'find .scratch/watch-ocena -maxdepth 3 -type f -printf '"'"'%p %s bytes\n'"'"'; ps -eo pid,etime,cmd | rg '"'"'[z]aloga.py|[h]ermes -z|[g]emini|[c]odex'"'"' | sed -n '"'"'1,80p'"'"''
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+exec
+/bin/bash -lc "sed -n '1,260p' .scratch/watch-ocena/glosy/manifest.json; python3 tools/zaloga.py --zadanie .scratch/watch-ocena/zadanie.md --kto zenek,henio --katalog .scratch/watch-ocena/glosy2" in /root/rod-ai-studio
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+
+diff --git a/.scratch/watch-ocena/zadanie.md b/.scratch/watch-ocena/zadanie.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d75ff4689e5e26505a4fc5816ba4795c2530d9
+--- /dev/null
++++ b/.scratch/watch-ocena/zadanie.md
+@@ -0,0 +1,22 @@
++# Ocena skilla /watch — zadanie kontrolne
++
++Rozstrzygnij: WPINAĆ czy NIE do fabryki rolek i w jakim trybie. Daj podpisany głos i odpowiedz TAK/NIE + jak na sześć punktów.
++
++## Surowe fakty wejściowe od Tomasza
++
++- Lokalne rolki 30–60 s, H.264 + AAC, bez osadzonych napisów; scenariusz lektora jest w repo.
++- VPS ma yt-dlp 2026.07.04, ffmpeg 8.0.1, Python i npx.
++- Klucz Whisper jest w `/root/rod-agent/.env`, ale `/watch` oczekuje `~/.config/watch/.env` albo zmiennej `GROQ_API_KEY`/`OPENAI_API_KEY`.
++- Opisany mechanizm `/watch`: ffmpeg wyciąga klatki, agent czyta JPEG; transkrypcja z napisów lub Whisper. Tryby: transcript, efficient, balanced, token-burner.
++- Dla 30–60 s opisany budżet efficient to około 40 klatek; transcript odpada bez napisów, o ile nie użyje się Whispera.
++
++## Pytania
++
++1. Czy rozwiązuje przypadek samodzielnej oceny obrazu, zgodności obrazu z lektorem, glitchy i scenariusza?
++2. Whisper używać rutynowo czy pominąć na rzecz tekstu z repo? Uwzględnij, że scenariusz nie dowodzi faktycznie wyrenderowanego audio.
++3. Czy efficient (~40 klatek / około 8k image-tokenów według opisu wejściowego) jest akceptowalny rutynowo?
++4. Czy praca w Claude Code CLI pasuje do pipeline'u, czy zostawia lukę?
++5. Ryzyka/blokery, szczególnie próbkowanie ruchu, deduplikacja, token-burner, sekrety, licencja i aktualizacje oraz znane upstream issues.
++6. Werdykt: WPINAĆ/NIE; tryb; Whisper tak/nie; czy najpierw pilot.
++
++Oddziel fakty wynikające z materiału od opinii. Nie zakładaj, że marketing README jest dowodem jakości. Jeśli nie zweryfikujesz upstream/issues, napisz NIE WIEM.
+

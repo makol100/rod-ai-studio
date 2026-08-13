@@ -1,0 +1,165 @@
+## POTWIERDZONE
+
+### P1. „Zdarzenia” trzeba najpierw odróżnić od bloków nagrania
+
+1. Płaski rozkład sam nie rozstrzyga. NVR może zwracać prawdziwy indeks detekcji, detekcje fałszywe albo zwykłe segmenty ciągłego zapisu. W obecnym materiale zapisano to jako „NIEROZSTRZYGNIĘTE” ([TELEPORT_fabryka.md](/root/rod-ai-studio/TELEPORT_fabryka.md:206)).
+
+2. Pomiar rozstrzygający: wykonać dwa identyczne `POST /ISAPI/ContentMgmt/search`, zmieniając wyłącznie obecność `metadataDescriptor`. Przykładowe ciało dla kanału 101 i jednej godziny:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<CMSearchDescription>
+  <searchID>11111111-2222-3333-4444-555555555555</searchID>
+  <trackIDList>
+    <trackID>101</trackID>
+  </trackIDList>
+  <timeSpanList>
+    <timeSpan>
+      <startTime>2026-08-12T01:00:00Z</startTime>
+      <endTime>2026-08-12T02:00:00Z</endTime>
+    </timeSpan>
+  </timeSpanList>
+  <maxResults>100</maxResults>
+  <searchResultPostion>0</searchResultPostion>
+  <metadataList>
+    <metadataDescriptor>//metadata.ps.hikvision.com/motionDetection</metadataDescriptor>
+  </metadataList>
+</CMSearchDescription>
+```
+
+Drugie zapytanie: dokładnie to samo bez całego `metadataList`. Dla każdego wyniku policzyć:
+
+```text
+czas = endTime - startTime
+```
+
+oraz porównać `startTime`, `endTime` i `playbackURI`.
+
+3. Interpretacja pomiaru:
+
+- identyczne wyniki w obu zapytaniach oraz regularne, wielominutowe długości → descriptor jest ignorowany albo zwracane są segmenty;
+- bez descriptor długie bloki, z descriptor krótkie i nieregularne przedziały → indeks ruchu rzeczywiście filtruje;
+- krótkie wyniki, lecz podobne liczebnie przez całą dobę → prawdziwy indeks detekcji, ale prawdopodobnie dużo fałszywych alarmów.
+
+Hikvision pokazuje, że wynik wyszukiwania zawiera `startTime`, `endTime`, `playbackURI` i typ nagrania w `metadataDescriptor`; status `MORE` wymaga dalszych stron. [Oficjalny HCWebSDK, strony 15–16](https://open.hikvision.com/fileserver/resourcedocsonline/HCWebSDK3.3.0%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97_20230420134609.pdf).
+
+### P2. Najpewniejsza udokumentowana droga do wycinka: RTSP według czasu
+
+1. `playbackURI` zwrócony przez wyszukiwanie ma postać:
+
+```text
+rtsp://NVR/Streaming/tracks/101/?starttime=YYYYMMDDThhmmssZ&endtime=YYYYMMDDThhmmssZ&name=...&size=...
+```
+
+Producent dokumentuje, że URI zawiera początek, koniec, nazwę i rozmiar oraz służy do pobierania nagrania. Ten sam podręcznik potwierdza odtwarzanie według dokładnego początku i końca. [Oficjalny HCWebSDK, strony 15–18](https://open.hikvision.com/fileserver/resourcedocsonline/HCWebSDK3.3.0%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%9C%E5%8D%97_20230420134609.pdf).
+
+2. Dla 30 sekund należy zbudować przedział, np.:
+
+```text
+starttime=20260812T010015Z
+endtime=20260812T010045Z
+```
+
+i odebrać go klientem RTSP po TCP. Poświadczenia muszą być pobrane z bezpiecznego pliku lub magazynu sekretów — nie wpisane do komendy, logu ani URI.
+
+3. RTSP zwraca strumień, nie gotowy plik MP4. `ffmpeg` może wykonać bezstratne przepakowanie H.264:
+
+```text
+-wejście: playbackURI przez RTSP/TCP
+-map 0:v:0 -c:v copy -an
+-wyjście: clip.mp4
+```
+
+Udokumentowane odtwarzanie według czasu oznacza, że nie trzeba pobierać całego znalezionego bloku. Granica może przesunąć się do wcześniejszej klatki kluczowej; dokładność tego egzemplarza wymaga pomiaru pliku przez `ffprobe`.
+
+4. Działającej składni `/ISAPI/ContentMgmt/download` dla firmware V4.76.010 **NIE WIEM** — nie została wykonana na tym NVR, a badanie zabrania pobierania. Nie potwierdzam też, czy urządzenie zwraca przez ten endpoint PS, MP4 czy własny kontener.
+
+### P3. Ilość danych
+
+Pomiar rachunkowy dla stałych `3072 kb/s`:
+
+- sekunda: `3072 × 1000 / 8 = 384 000 B`;
+- 30 sekund: `11 520 000 B` = **11,52 MB**;
+- godzina: **1,3824 GB**;
+- doba na kanał: **33,1776 GB**, czyli **30,90 GiB**;
+- trzy czynne kanały na dobę: **99,53 GB**.
+
+Czas pobrania jednego wycinka 30 s, bez narzutu:
+
+| Dostępny upload działki | Czas pobrania 11,52 MB |
+|---:|---:|
+| 1 Mb/s | 92,2 s |
+| 2 Mb/s | 46,1 s |
+| 5 Mb/s | 18,4 s |
+| 10 Mb/s | 9,2 s |
+| 20 Mb/s | 4,6 s |
+
+Bez pomiaru rzeczywistego uploadu **NIE WIEM**, która pozycja odpowiada działce. Bezpieczna propozycja: limit pobierania **1 Mb/s**, jedna operacja naraz. Wtedy 50 wycinków zajmie około **77 minut** i **576 MB**, ale nie przekroczy 1 Mb/s.
+
+### P4. Odsiewanie materiału
+
+1. Zacząć od **178 nocnych wskazań** z ostatnich siedmiu dni, nie od całych nocy: `55 + 65 + 58 = 178` ([TELEPORT_fabryka.md](/root/rod-ai-studio/TELEPORT_fabryka.md:206)).
+
+2. Po P1 pozostawić tylko krótkie, nieregularne wskazania. Dla każdego pobrać docelowo 30 s: 10 s przed początkiem i 20 s po nim.
+
+3. Bez Genka wykonać lokalny, bezpłatny odsiew klatek:
+
+- próbka 2–4 fps;
+- różnica sąsiednich klatek po pomniejszeniu;
+- odrzucenie zmiany obejmującej większość obrazu — światło, deszcz, przełączenie IR;
+- odrzucenie obiektu stale przy samej kamerze — pajęczyna/owad;
+- premiowanie małego, przemieszczającego się obszaru w ROI dachu, ogrodzenia i kabli.
+
+4. Wysłać Genkowi najpierw **10 klipów kalibracyjnych**, nie cały pakiet. Google podaje około 300 tokenów na sekundę przy standardowej rozdzielczości i około 100 przy niskiej; analizuje obraz domyślnie przy 1 fps, co może przeoczyć szybki ruch. [Dokumentacja Gemini Video Understanding](https://ai.google.dev/gemini-api/docs/video-understanding?hl=en).
+
+5. Po kalibracji przekazać najwyżej **30–50 klipów po 30 s**. To około:
+
+- 30 klipów: 15 minut, około **270 000 tokenów wejścia**;
+- 50 klipów: 25 minut, około **450 000 tokenów wejścia**.
+
+### P5. Ryzyka i koszt
+
+1. **Descriptor nie filtruje.** Zapobieganie: porównanie dwóch zapytań i długości przed pobieraniem.
+
+2. **Przepełnienie uploadu działki.** Zapobieganie: jedna kolejka, limit 1 Mb/s, przerwanie przy wzroście opóźnień.
+
+3. **Krótki wycinek zacznie się od złej klatki kluczowej.** Zapobieganie: pobierać 10 s zapasu przed zdarzeniem i mierzyć wynik `ffprobe`.
+
+4. **Kuna przemknie między klatkami analizowanymi przez Gemini.** Zapobieganie: lokalny odsiew 2–4 fps, a Genkowi dawać krótki klip obejmujący cały ruch; Google ostrzega, że próbkowanie 1 fps może pomijać szybkie zdarzenia.
+
+5. **Koszt i fałszywe wyniki Genka.** Zapobieganie: 10 klipów kalibracyjnych, potem tylko ranking lokalny; wynik „kuna” potwierdzać drugim oglądem klipu.
+
+Koszt:
+
+- pobieranie przez własny VPS/Tailscale: **0 zł opłaty za API**; koszt energii i abonamentu łącza jest już ponoszony, jego części przypisanej temu transferowi **NIE WIEM**;
+- przy darmowym limicie Gemini: **0 zł**, dopóki limit jest dostępny;
+- samo wejście 30 klipów po 30 s przy `gemini-3.1-flash-lite`, cenie 0,25 USD/1 mln tokenów, kosztuje około **0,25 zł**; 50 klipów około **0,42 zł**. Obliczenie używa kursu NBP **3,7362 zł/USD** z 13.08.2026 i nie obejmuje tokenów odpowiedzi;
+- całkowitego kosztu oglądania **NIE WIEM**, dopóki nie zostaną ustalone model, liczba tokenów odpowiedzi i faktyczny tryb rozliczenia. Cennik modeli jest zmienny. [Cennik Google](https://ai.google.dev/gemini-api/docs/pricing).
+
+## HIPOTEZY
+
+1. Najbardziej prawdopodobne są rzeczywiste, lecz fałszywe detekcje ruchu — owady, IR, deszcz lub roślinność — ale sam płaski histogram tego nie dowodzi.
+
+2. Lokalny filtr obszaru i wielkości obiektu powinien zejść ze 178 nocnych wskazań do dziesiątek. Skuteczność na tych kamerach jest **niezmierzona**.
+
+3. Do szukania małej, szybkiej kuny standardowa rozdzielczość analizy będzie bezpieczniejsza niż `media_resolution=low`; to zalecenie do próby kalibracyjnej, nie wynik pomiaru na nagraniach.
+
+## NIE WIEM
+
+- Czy `/ISAPI/ContentMgmt/download` działa na firmware V4.76.010 i jakie dokładnie przyjmuje ciało.
+- Jaki surowy kontener zwraca ten endpoint.
+- Czy RTSP zwróci dokładnie 30,0 s, czy rozszerzy początek do klatki kluczowej.
+- Jakie jest rzeczywiste pasmo wysyłania działki.
+- Ile wskazań przejdzie lokalny odsiew i ile z nich pokaże kunę.
+
+## P6. Kolejność do decyzji Tomasza
+
+1. **[O]** Wykonać dwa odczytowe wyszukania jednej godziny — z descriptor i bez — oraz porównać liczbę, czasy i długości wyników.
+2. **[O]** Odczytać `playbackURI` jednego wyniku i sprawdzić jego deklarowany przedział oraz rozmiar; niczego jeszcze nie pobierać.
+3. **[O]** Po zgodzie Tomasza pobrać jeden 30-sekundowy wycinek RTSP z limitem 1 Mb/s i sprawdzić go `ffprobe`.
+4. **[O]** Po poprawnym pilocie pobrać 10 nocnych klipów i wykonać lokalny odsiew.
+5. **[O]** Przekazać Genkowi 10 klipów kalibracyjnych; dopiero po wyniku wybrać następne 20–40.
+
+**Jedna rzecz do zrobienia:** Tomasz rozstrzyga, czy wolno wykonać krok 1 — porównawcze, czysto odczytowe wyszukanie jednej godziny na tracku 101.
+
+— **Zenek**

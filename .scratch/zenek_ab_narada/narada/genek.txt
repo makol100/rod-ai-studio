@@ -1,0 +1,55 @@
+GLOS NIEODEBRANY (dwukrotnie tryb awaryjny — Genek nie mial dostepu do dysku, czyli NIE mial rownych szans; ponizej jego odpowiedz bez dostepu, do wgladu)
+
+[GENEK — TRYB AWARYJNY: bez dostepu do dysku, tylko doklejony material; droga 1 padla: CLI: zaden model z kolejki nie odpowiedzial (gemini-3.1-pro-preview, gemini-3.1-pro-preview, gemini-3.6-flash) po 3 probach. Dekret Tomasza: najwyzszy WOLNY model — schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, ale tu nie odpowiedzial ZADEN. | gemini-3.1-pro-preview: YOLO mode is enabled. All tool calls will be automatically approved.
+W | gemini-3.1-pro-preview: YOLO mode is enabled. All tool calls will be automatically approved.
+W]
+
+1.  **Istniejące komponenty do ponownego użycia:**
+
+    *   **Klient Gemini Image:**
+        *   `gemini-3.1-flash-image` jako model do generowania obrazów (wiedza/GENEROWANIE_OBRAZU.md, linia 2).
+        *   `tools/genek.py` (wiedza/GENEROWANIE_OBRAZU.md, linia 6) - Genek ma kolejkę modeli tekstowych, ale jest też jedynym, który widzi, słyszy i rysuje, co sugeruje, że jego narzędzia są związane z generowaniem obrazów.
+    *   **`models.list`:**
+        *   Nie ma bezpośredniego pliku `models.list` w dostarczonej wiedzy. Jednak `wiedza/GENEROWANIE_OBRAZU.md` (linia 5-6) wspomina o modelach tekstowych Genka: `gemini-3.1-pro-preview` i `gemini-3.6-flash`.
+    *   **Orkiestracja "Film 16:9":**
+        *   Wiedza/FILM_OPUS5_WNIOSEK.md - zawiera informacje o kanale i długości filmu (~7 min). Może to być punkt wyjścia do scenariusza.
+        *   Wiedza/PROMPTY_WZORCE.md - "Tu lądują prompty klipów, które" - sugeruje istnienie gotowych promptów do generowania klipów.
+        *   Wiedza/STYL.md - zawiera wytyczne dotyczące struktury sceny ("SCENA 1 = HACZYK").
+    *   **Orkiestracja "Wiadomości Izabeli":**
+        *   Wiedza/IZABELA_KANON_0.1.md - "Izabela" — po naradzie całej załogi nad nową postacią prowadzącą. To jest kanon postaci.
+        *   Wiedza/CZOLOWKA_WIADOMOSCI.md - "Zatwierdzona przez Tomasza 4.08.2026 20:2x." - istnieje zatwierdzona czołówka wiadomości.
+        *   Wiedza/PROMPTY_WZORCE.md - jak wyżej, mogą zawierać prompty do segmentów wiadomości.
+
+2.  **Ryzyka przypadkowego kosztu:**
+
+    *   **Płatne generacje:** Tomasz wyraźnie zakazał płatnych generacji. Ryzyko wynika z użycia modeli, które nie są w darmowym poziomie API lub przekroczenia limitów.
+        *   `gemini-3.1-pro` ma dobowy limit Tier 1 na 250 zapytań, wyczerpany 30.07 o 17:50 (wiedza/GENEROWANIE_OBRAZU.md, linia 8-9). Użycie tego modelu bez sprawdzenia salda/limitu może generować koszty.
+        *   `Nano Banana Pro NIE jest dostępny w darmowym poziomie API` (wiedza/GENEROWANIE_OBRAZU.md, linia 3). Próba użycia tego modelu spowoduje koszt.
+        *   `Ceny sprawdzone 01.08.2026 w sieci; ceny się zmieniają — przy dużym wydatku sprawdzić ponownie` (wiedza/GENEROWANIE_OBRAZU.md, linia 10-11). Brak ponownego sprawdzenia cen przed dużym wydatkiem to ryzyko.
+    *   **Brak flagi `--zaplac`:** Brak wymuszenia flagi `--zaplac` dla płatnych operacji. `wiedza/NAUKI_SERII.md` (linia 2) mówi: "każdy skrypt wykonujący PŁATNE operacje MUSI mieć flagę `--zaplac`". Jeśli klient Gemini Image nie będzie miał tej flagi, a zostanie użyty do płatnej operacji, może to wygenerować koszt.
+    *   **Brak dry-runu:** Brak dry-runu przed faktyczną generacją może prowadzić do niepotrzebnych kosztów, jeśli wynik jest niezadowalający lub błędny.
+    *   **Błędy Klaudka:** `wiedza/KONTROLA_KLAUDKA.md` (linia 14) wskazuje, że Henio usuwa 8 z 18 udokumentowanych błędów Klaudka, a Zenek zatrzymuje 5 z 5 jego wzorców. Błędy Klaudka (np. strzelanie z pamięci, nieczytanie komunikatów o błędach, nie sprawdzanie wyników) mogą prowadzić do marnowania tokenów i generowania kosztów.
+
+3.  **Minimalne kryteria testów offline:**
+
+    *   **Sprawdzenie dostępności modeli:** Przed każdą próbą generacji, należy sprawdzić, czy model jest dostępny i czy jest w darmowym poziomie.
+        *   `istnienie usługi/modelu | czy adres odpowiada, zanim wpiszę go do kanonu` (wiedza/KONTROLA_KLAUDKA.md, linia 28).
+    *   **Weryfikacja promptów:** Użycie istniejących promptów z `wiedza/PROMPTY_WZORCE.md` i `wiedza/BANK_PROMPTOW.md` (jeśli dostępne) i ich walidacja pod kątem zgodności z wymaganiami (np. proporcje 16:9 dla filmu).
+    *   **Dry-run:** Symulacja generacji bez faktycznego wywołania płatnego API, aby sprawdzić poprawność promptu i parametrów.
+    *   **Sprawdzenie salda/limitów:** Przed każdą operacją, która potencjalnie może generować koszty, należy sprawdzić saldo konta i dostępne limity.
+        *   `stan / saldo | saldo konta przed każdym twierdzeniem o środkach i przed wydatkiem` (wiedza/KONTROLA_KLAUDKA.md, linia 26).
+    *   **Weryfikacja formatu wyjściowego:** Sprawdzenie, czy wygenerowany obraz/wideo ma oczekiwane proporcje (np. 16:9) i inne wymagane cechy.
+
+4.  **Luki:**
+
+    *   **Brak definicji "bezpiecznego klienta Gemini Image":** Nie ma szczegółowej definicji, co dokładnie oznacza "bezpieczny klient Gemini Image" poza wymogiem flagi `--zaplac`, darmowego `models.list` i dry-runu. Brak jest specyfikacji, jak ten klient ma być zaimplementowany, jakie ma mieć mechanizmy kontroli kosztów poza wspomnianymi flagami.
+    *   **Brak konkretnego `models.list`:** W dostarczonej wiedzy nie ma pliku o nazwie `models.list`. Jest jedynie wzmianka o modelach tekstowych Genka (`gemini-3.1-pro-preview`, `gemini-3.6-flash`) i modelu do obrazów (`gemini-3.1-flash-image`). Nie jest jasne, czy `models.list` ma być listą dostępnych modeli, czy listą modeli dozwolonych do użycia w trybie darmowym.
+    *   **Brak definicji "dry-run":** Nie ma szczegółowej definicji, jak ma działać "dry-run" dla generacji obrazów. Czy ma to być symulacja, czy wywołanie API z parametrem `dry_run=True` (jeśli API to wspiera), czy coś innego.
+    *   **Brak konkretnych promptów dla "Film 16:9" i "Wiadomości Izabeli":** Chociaż wspomniano o `wiedza/PROMPTY_WZORCE.md` i `wiedza/BANK_PROMPTOW.md`, nie ma bezpośrednich promptów dla tych konkretnych orkiestracji w dostarczonej wiedzy. Należałoby je stworzyć lub odnaleźć w repozytorium.
+    *   **Brak informacji o narzędziach do orkiestracji:** Nie ma informacji o tym, jak orkiestracje (film 16:9, Wiadomości Izabeli) mają być zbudowane technicznie, poza tym, że mają być "jednokomendowe" i oparte na istniejącym kodzie. Brak wskazania konkretnych skryptów lub narzędzi do łączenia komponentów.
+    *   **Brak mechanizmu egzekwowania "zakazu płatnych generacji":** Poza flagą `--zaplac` i kontrolą salda, nie ma mechanizmu, który *automatycznie* zablokowałby płatną generację, jeśli flaga nie zostanie użyta lub limit zostanie przekroczony. `wiedza/KONTROLA_KLAUDKA.md` (linia 48-51) wyraźnie stwierdza: "Żaden skrypt nie zablokuje wiadomości Klaudka do Tomasza. Meldunek idzie oknem rozmowy, nie przez dysk. Ta lista działa więc na dwóch nogach: 1. Klaudek sam ją stosuje — i to jest jego uczciwość, nie mechanizm; 2. załoga i Tomasz wyłapują pominięcia po fakcie — sprawdziany wyżej to umożliwiają."
+
+**Jedna konkretna rzecz do zrobienia:**
+Zdefiniować szczegółowo, jak ma działać "dry-run" dla generacji obrazów w kliencie Gemini Image, włączając w to, czy API Gemini wspiera taki tryb, czy też należy zaimplementować symulację po stronie klienta.
+
+GENEK

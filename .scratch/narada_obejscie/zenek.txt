@@ -1,0 +1,2175 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: none
+reasoning summaries: none
+session id: 019fe15f-7cbd-7360-80da-a6cbf1c0e28e
+--------
+user
+TYLKO OCENA/PLAN TEKSTEM. Mozesz czytac pliki i szukac, ale NIE modyfikuj konfiguracji, NIE instaluj. # ZADANIE CALEJ DRUZYNY (Zenek + Genek + Henio): OBRAZ kamer Xiaomi DZIS - obejsc blokade
+
+CEL Tomasza: obraz z kamery Xiaomi .112 w HA Dzialki DZIS (nie jutro). Kazdy PODPISANY glos, potem wspolny wniosek. DOCZYTAC ZRODLO / POSZUKAC, absolutnie NIE ZGADYWAC (zgadywanie wpakowalo nas w blokade). Decyduje Tomasz.
+
+## STAN (wszystko gotowe OPROCZ tokenu konta)
+- go2rtc addon a889bffc_go2rtc w HA Dzialki (v1.9.14, host_network=true) DOSIEGA kamery (.112 ping OK z hosta HA, izolacji NIE ma). Stream wpiety /config/go2rtc.yaml: `cam_zachod_112: xiaomi://6338598787:de@192.168.0.112?did=1022085077&model=chuangmi.camera.021a04`.
+- go2rtc API z VPS: `curl http://100.115.112.5:1984/api/...` (dziala 200). SSH `root@100.115.112.5` klucz /root/.ssh/id_ed25519 -> powloka HA Dzialki.
+- MAM w /tmp/go2rtc_token.txt (chmod 600): userId=6338598787, passToken(323zn), ssecurity, serviceToken - z Extractora QR longPolling (klasa QrCodeXiaomiCloudConnector: _pass_token=response_data['passToken'], _ssecurity, _serviceToken=cookies['serviceToken']). region=de.
+
+## DWA NIEZALEZNE PROBLEMY (przeczytane z go2rtc add.html + issues, NIE zgadniete):
+A) passToken z QR NIE dziala w go2rtc: `xiaomi: 6338598787: 'V1:<passToken>'` -> KONTO zapisane (/api/xiaomi -> ['6338598787']) ALE load devices (/api/xiaomi?id=6338598787) = **401 Unauthorized** we wszystkich regionach (de/i2/sg/us/ru/cn). issue #2233: `func LoginWithToken(userID, passToken)`. Wiec teoretycznie V1=passToken, a jednak 401.
+B) Password login DZIALA (haslo maksys79 przyjete) ale FLOW (z add.html): POST /api/xiaomi `username=EMAIL&password=HASLO&server=de` -> {captcha|verify_email|verify_phone}; verify_email -> kod na email; POST /api/xiaomi `verify=KOD` (SAMO, BEZ login, sesja server-side) -> passToken. POTWIERDZONE: verify=zlyKod -> 70014 'blad kodu' (parametr+sesja OK). ALE Xiaomi ZABLOKOWAL wysylke kodu do jutra: 70022 'Wyslano zbyt wiele kodow, sprobuj jutro' (moja wina - dodawalem login do verify -> resend). Przy triggerze Xiaomi WYMUSZA verify_email (NIE daje captcha ani verify_phone).
+
+## ROZSTRZYGNIJ - jak OBRAZ DZIS mimo blokady (podpisany glos KAZDY, potem wniosek):
+1. **DROGA A - passToken/V1** (GENEK+ZENEK doczytajcie ZRODLO): github AlexxIT/go2rtc internal/xiaomi/cloud.go + pkg/xiaomi - jak DOKLADNIE parsuje 'V1:', co LoginWithToken robi z passToken, DLACZEGO QR-owy passToken daje 401 a password-login by dzialal. Czy z passToken+ssecurity+serviceToken (MAM) da sie zbudowac DZIALAJACY token? Moze V1 to nie surowy passToken tylko combo/base64? Czy jest V2/inny format?
+2. **DROGA B - sesja Extractora** (obejscie): Extractor (ssecurity+serviceToken) DZIALA - pobral kamery z de. Czy przekazac te SESJE do go2rtc BEZPOSREDNIO (nie przez password login)? go2rtc config przyjmie ssecurity/serviceToken? Cookie injection do go2rtc? (mam SSH do HA Dzialki + go2rtc API).
+3. **DROGA C - verify_phone SMS** (obejscie blokady email): Xiaomi zablokowal EMAIL. Da sie WYMUSIC verify_phone (SMS na tel +43, osobny limit)? Jaki parametr/endpoint go2rtc/Xiaomi wymusza SMS zamiast email? (mam android control - ODCZYTAM SMS z telefonu Tomasza).
+4. **DROGA D - inny serwer**: blokada per region de? Login to samo konto przez inny serwer (i2/sg/ru/cn) omija blokade wysylki?
+5. NAJPEWNIEJSZA droga DZIS + KONKRETNY plan wykonania (komendy).
+
+Zasada 17.07: DOCZYTAC zrodlo go2rtc, nie zgadywac. Sekrety (passToken/ssecurity/serviceToken) NIE do meldunku.
+codex
+Najpierw czytam obowiązkowe `wiedza/START.md` i istniejące zapisy o Xiaomi/go2rtc. Potem uruchomię trzy niezależne, podpisane kontrole Zenka, Genka i Henia; sam zbiorę ślady ze źródła i przygotuję wyłącznie ocenę oraz plan — bez zmian i instalacji. Sekretów nie zacytuję.
+exec
+/bin/bash -lc "sed -n '1,260p' wiedza/START.md && python3 tools/szukaj.py xiaomi go2rtc" in /root/rod-ai-studio
+ succeeded in 188ms:
+SZUKANE: xiaomi, go2rtc
+TRAFIENIA: 12 w 1 plikach (przeszukano 90)
+
+### /root/rod-ai-studio/TELEPORT_fabryka.md  (12 trafien)
+    2856: WEJSCIE NA ROUTER DZIALKI (7.08): zalogowano do panelu 192.168.0.1 biblioteka tplinkrouterc6u (haslo zna Tomasz, NIE zapisuje w dzienniku). Client List: 23 urzadzenia. KAMERY: chuangmi_camera_ipc019 (
+    2863: NARADA KAMERY XIAOMI (7.08): cel - obraz z kamer Chuangmi (.112/.114 na routerze Dzialki) w HA Dzialki. Werdykt zalogi (Zenek+Henio ZGODNI): droga = go2rtc xiaomi:// (wbudowany w HA Dzialki 2026.7.x, 
+    2870: KAMERY XIAOMI (.112/.114 chuangmi) - IMPAS na pozyskanie did/tokenu (7-8.08): obraz w HA Dzialki wymaga did/tokenu z konta Mi Home. WSZYSTKIE drogi z naszych kanalow ZAWIODLY: (1) Extractor na VPS - X
+    2877: KAMERY XIAOMI c.d. (8.08 08:36): telefon Fold7 GOTOWY - apka Android Remote Control MCP Running (port 8080), Tailscale ON (Fold7 100.101.116.106 w tailnecie), z VPS apka dosiegalna (HTTP 401 = zywa, n
+    2884: KAMERY XIAOMI - PRZELOM (8.08 09:27): did/model WYCIAGNIETE! Droga ktora ZADZIALALA (klucz na przyszlosc): Extractor QR/longPolling na VPS + Klaudek otworzyl link na telefonie Tomasza przez android_op
+    2891: KAMERY XIAOMI - PRZELOM (8.08 09:27): did/model WYCIAGNIETE. Metoda ktora ZADZIALALA: Extractor QR/longPolling na VPS + Klaudek otworzyl link na telefonie Tomasza przez android_open_uri (connector Tel
+   ... jeszcze 6 trafien w tym pliku
+
+Pelna tresc najbogatszego pliku: dodaj --pelne
+
+exec
+/bin/bash -lc "sed -n '2840,2935p' TELEPORT_fabryka.md; sed -n '1,260p' docs/agents/issue-tracker.md; sed -n '1,260p' wiedza/srodowiska/zenek.md; sed -n '1,260p' wiedza/srodowiska/genek.md; sed -n '1,260p' wiedza/srodowiska/henio.md; sed -n '1,260p' tools/zaloga.py" in /root/rod-ai-studio
+ succeeded in 0ms:
+==============================================================================
+
+DZIALKA site-to-site (7.08): wlaczono accept_routes=true + accept_dns=true na add-onie Tailscale Dzialki (byly false; Dom/Sosnowiec maja true) + restart. Po restarcie Dzialka nadal dosiegalna z VPS (node OK, router .0.1 PING + HTTP 200, accept_dns nie zepsul). Wszystkie 3 lokacje maja teraz spojna konfiguracje Tailscale (snat+accept_routes+accept_dns=true) = pelne site-to-site. Router Dzialki NIE dotykany (D-0067).
+
+
+==============================================================================
+## SESJA 07.08.2026 14:37 CEST
+==============================================================================
+
+KOREKTA (7.08): numeracje Sosnowca .0->.50 zmienil SAM TOMASZ w panelu (nie Klaudek — Klaudek dyktowal). Kolizja z Dzialka zlikwidowana U ZRODLA (rozne numeracje). D-0067 (stare: przelaczanie trasy, numeracji nie ruszac) ZASTAPIONE. D-0066 router Dzialki nie dotykac DALEJ w mocy.
+
+
+==============================================================================
+## SESJA 07.08.2026 22:41 CEST
+==============================================================================
+
+WEJSCIE NA ROUTER DZIALKI (7.08): zalogowano do panelu 192.168.0.1 biblioteka tplinkrouterc6u (haslo zna Tomasz, NIE zapisuje w dzienniku). Client List: 23 urzadzenia. KAMERY: chuangmi_camera_ipc019 (.127, Xiaomi), 2x chuangmi (.112/.114), HubReolink (.207) - za hubem kamery Reolink (Drzewo/Garaz/Security/Fotowoltaika widoczne w HA Dzialki). Inne: homeassistant (.250), telefony (Fold7 .84/S24 .174/iPhone/2x Android), 2x jk-bms (baterie PV), Nuki bridge (.36), Broadlink (.110), layzspa (.172 jacuzzi), raspberrypi (.61), ESP-ki. TYLKO ODCZYT, zadnych zmian - D-0066 (nie zmieniac routera Dzialki) w mocy. tplinkrouterc6u dziala na router Dzialki (wczesniej bez hasla dawalo pusta odpowiedz).
+
+
+==============================================================================
+## SESJA 07.08.2026 23:10 CEST
+==============================================================================
+
+NARADA KAMERY XIAOMI (7.08): cel - obraz z kamer Chuangmi (.112/.114 na routerze Dzialki) w HA Dzialki. Werdykt zalogi (Zenek+Henio ZGODNI): droga = go2rtc xiaomi:// (wbudowany w HA Dzialki 2026.7.x, logowanie konto Mi Home, BEZ chmury stalej/flashowania, ZACHOWUJE Mi Home). Miot = PULAPKA na obraz (kontrola tak, stream_address blank / blad -706010002). Koszt 0. KOLEJNOSC: (1) Tomasz uruchamia Xiaomi Cloud Tokens Extractor (PiotrMachowski) -> lista nazwa/model/did/IP; (2) potwierdzic czy .112/.114 to kamery (moga byc piloty IR chuangmi.remote) - jak nie, .127 chuangmi_camera_ipc019 przejmuje; (3) miot-spec p2p-stream; (4) JEDNA kamera w go2rtc -> test -> druga; (5) RSSI kamer w routerze (tylko odczyt D-0066) - slaby sygnal = mesh priorytet. BEZPIECZENSTWO: haslo/2FA Mi Home NIE przez czat/pliki - Tomasz loguje Extractor SAM, przekazuje tylko wynik techniczny. Rozbieznosc: Henio sekwencyjnie vs Zenek rownolegle - drobna. CZEKA na Extractor + region konta Mi od Tomasza.
+
+
+==============================================================================
+## SESJA 08.08.2026 07:02 CEST
+==============================================================================
+
+KAMERY XIAOMI (.112/.114 chuangmi) - IMPAS na pozyskanie did/tokenu (7-8.08): obraz w HA Dzialki wymaga did/tokenu z konta Mi Home. WSZYSTKIE drogi z naszych kanalow ZAWIODLY: (1) Extractor na VPS - Xiaomi blokuje IP serwerowni (captcha przy hasle, crash login_step_3 przy QR); (2) QR/longPolling link w czacie - wygasa zanim Tomasz kliknie (za krotkie okno na wymiane wiadomosci, potwierdzone zrzutem QR expired); (3) RTSP natywny - kamery NIE MAJA opcji (Tomasz sprawdzil w Mi Home); (4) go2rtc WebUI w HA Dzialki - port 1984 refused (nie zainstalowany). BARIERA = zabezpieczenie Xiaomi (brak zdalnego dostepu bez urzadzenia/IP wlasciciela). ZAMKNIECIE: Tomasz uruchamia Xiaomi Cloud Tokens Extractor u SIEBIE przy komputerze Windows (.exe z Releases, 30s, jego IP/sesja - bez captcha) -> wkleja did/model/IP -> Klaudek konfiguruje go2rtc xiaomi:// (droga z narady zalogi). Termux (NIE Termius!) na telefonie tez dziala, Tomasz go nie ma. Do tego czasu Reolink (Drzewo/Garaz/Security) dziala w HA, Xiaomi czekaja. UWAGA BEZP: haslo Mi Home = to samo co router (maksys79) - do ZMIANY, przeszlo przez czat, wyczyszczone z logow VPS.
+
+
+==============================================================================
+## SESJA 08.08.2026 08:39 CEST
+==============================================================================
+
+KAMERY XIAOMI c.d. (8.08 08:36): telefon Fold7 GOTOWY - apka Android Remote Control MCP Running (port 8080), Tailscale ON (Fold7 100.101.116.106 w tailnecie), z VPS apka dosiegalna (HTTP 401 = zywa, node PING OK). ALE narzedzia android_* (connector Telefon Fold7) NIE laduja sie w tej sesji - connector rozlaczyl sie gdy apka byla offline i nie wraca (zator Claude<->telefon, nie telefon; tool_search zwraca tylko HA mimo prob). ROZWIAZANIE: NOWA ROZMOWA (connector zaladuje sie swiezo, apka teraz online) ALBO re-toggle connector Telefon Fold7 w ustawieniach Claude. PLAN w nowej rozmowie: przejac telefon (android_get_screen_state itd.), zainstalowac Termux (F-Droid), odpalic Xiaomi Cloud Tokens Extractor NA TELEFONIE (jego IP/sesja = bez captcha; QR/potwierdzenie w Mi Home lokalnie = bez wygasania), wyciagnac did/model kamer .112/.114/.127, skonfigurowac go2rtc xiaomi:// w HA Dzialki. Reolink (Drzewo/Garaz/Security) dziala, 2x chuangmi czekaja. Extractor juz pobrany na VPS w /tmp.
+
+
+==============================================================================
+## SESJA 08.08.2026 09:31 CEST
+==============================================================================
+
+KAMERY XIAOMI - PRZELOM (8.08 09:27): did/model WYCIAGNIETE! Droga ktora ZADZIALALA (klucz na przyszlosc): Extractor QR/longPolling na VPS + Klaudek otworzyl link na telefonie Tomasza przez android_open_uri (connector Telefon Fold7 wrocil po re-toggle Tomasza) -> przegladarka telefonu zalogowana Xiaomi = AUTO-potwierdzenie longPolling (bez captcha, bez wygasania - Klaudek kontroluje timing generacja->otwarcie) -> region 'de' -> lista urzadzen. Wczesniej te same proby PADALY bo link wygasal w czacie / VPS dostawal captcha - telefon jako zaufane urzadzenie omija to. KAMERY (wszystkie chuangmi.camera.*, NIE piloty): .112 'Dzialka nr.3 Zachod 2K'=chuangmi.camera.021a04; .114 'Domek Srodek'=chuangmi.camera.029a02; .127 'Taras Domek'=chuangmi.camera.ipc019; .121 'Kamera Furtka'=chuangmi.camera.025b02. did+token w /tmp/qr3.txt na VPS (token NIE do czatu/teleportu, wrazliwe). NASTEPNY KROK: miot-spec (home.miot-spec.com/spec/chuangmi.camera.021a04 + 029a02) czy p2p-stream, potem go2rtc xiaomi:// w HA Dzialki (go2rtc niezainstalowany, port 1984 refused - do instalacji addon).
+
+
+==============================================================================
+## SESJA 08.08.2026 09:32 CEST
+==============================================================================
+
+KAMERY XIAOMI - PRZELOM (8.08 09:27): did/model WYCIAGNIETE. Metoda ktora ZADZIALALA: Extractor QR/longPolling na VPS + Klaudek otworzyl link na telefonie Tomasza przez android_open_uri (connector Telefon Fold7 wrocil po re-toggle Tomasza) - przegladarka telefonu zalogowana Xiaomi -> auto-potwierdzenie longPolling (bez captcha/wygasania, bo Klaudek kontroluje timing telefon<->VPS) -> region de -> lista. KAMERY (wszystkie chuangmi.camera.*, NIE piloty): .112 'Dzialka nr.3 Zachod 2K'=chuangmi.camera.021a04; .114 'Domek Srodek'=chuangmi.camera.029a02; .127 'Taras Domek'=chuangmi.camera.ipc019; .121 'Kamera Furtka'=chuangmi.camera.025b02. did+token w /tmp/qr3.txt na VPS (token NIE do czatu/teleportu). NASTEPNY: sprawdzic miot-spec czy p2p-stream, go2rtc xiaomi:// w HA Dzialki (go2rtc niezainstalowany - port 1984 refused, do instalacji). KLUCZ METODY na przyszlosc: telefon jako zaufane urzadzenie omija blokady Xiaomi (captcha/wygasanie) gdy Klaudek steruje nim przez MCP + otwiera linki longPolling.
+
+
+==============================================================================
+## SESJA 08.08.2026 09:36 CEST
+==============================================================================
+
+KAMERY XIAOMI did/model KOMPLET (8.08): pole did = 'ID:' w Extractorze. .112 'Dzialka nr.3 Zachod 2K' did=1022085077 model=chuangmi.camera.021a04; .114 'Domek Srodek' model=chuangmi.camera.029a02; .127 'Taras Domek' model=chuangmi.camera.ipc019; .121 'Kamera Furtka' did=448715358 model=chuangmi.camera.025b02. Pelne did+device-token w /tmp/qr3.txt (token NIE do czatu). userId konta=6338598787, region=de. go2rtc format: xiaomi://6338598787:de@IP?did=DID&model=MODEL + sekcja xiaomi: '6338598787': <V1-token>. ZOSTALO: (1) go2rtc NIEZAINSTALOWANY na HA Dzialki (1984 refused) - dograc addon go2rtc 1.9.14+ (host mode, xiaomi provider od 1.9.13); (2) token konta V1 - go2rtc WebUI sam loguje Mi Home i go pobiera (moze wymagac telefonu jak Extractor); (3) config streams + test. RYZYKO: czesc chuangmi (legacy/TUTK) konczy stream EOF - okaze sie przy tescie, ratunek transport=tcp / subtype.
+
+
+==============================================================================
+## SESJA 08.08.2026 09:41 CEST
+==============================================================================
+
+KAMERY XIAOMI - BARIERA SIECIOWA (8.08 09:40): did/model/IP wyciagniete OK (przelom przez telefon). go2rtc postawiony na VPS (docker alexxit/go2rtc, dziala 200) ALE VPS NIE DOSIEGA kamer Xiaomi - .112 glucha na ping I portach 554/6668/8554/54321/5000. Kamery izolowane w sieci Dzialki (WiFi client isolation na routerze ALBO firewall kamery ALBO tylko chmura Mi P2P). go2rtc na VPS bezuzyteczny - nie dogada sie z kamera. WNIOSEK: go2rtc MUSI byc W sieci Dzialki (addon w HA Dzialki), i nawet stamtad izolacja moze blokowac. HA Dzialki NIE ma tych kamer zintegrowanych (tylko update entities Xiaomi) - co sugeruje ze i lokalnie sa nieosiagalne. Do sprawdzenia: czy cokolwiek w LAN Dzialki dosiega .112 (jak nie = client isolation na routerze do wylaczenia, ale D-0066 router nie ruszac bez zgody Tomasza). go2rtc VPS usuniety (docker rm). did/model w teleporcie wyzej + /tmp/qr3.txt. NASTEPNY: go2rtc addon w HA Dzialki + rozwiazanie izolacji (moze router = decyzja Tomasza).
+
+
+==============================================================================
+## SESJA 08.08.2026 10:21 CEST
+==============================================================================
+
+KAMERY XIAOMI - PRZELOM DIAGNOSTYCZNY (8.08 09:5x): IZOLACJI NIE MA. Wlaczylem SSH addon HA Dzialki (core_ssh: network 22/tcp:22 + klucz VPS w authorized_keys + tcp_forwarding, restart) -> SSH z VPS na 100.115.112.5:22 dziala. Z sieci Dzialki (kontener core-ssh): kamery .112/.114/.127 PING OK! Czyli client/AP isolation NIE blokuje - HA Dzialki DOSIEGA kamery. VPS nie dosiegal bo trasa Tailscale (subnet router) nie przepuszcza do kamer-klientow, ale HA w LAN dosiega. Porty .112 (554/6668/8554/5000/80) zamkniete - OK, Xiaomi P2P nie ma otwartych portow, go2rtc xiaomi:// robi cs2 handshake nie RTSP. WNIOSEK EKIPY POTWIERDZONY: go2rtc W HA Dzialki zadziala, ROUTER (D-0066) NIE TRZEBA RUSZAC. NASTEPNY: dodac repo AlexxIT/hassio-addons -> zainstalowac go2rtc addon (najlepiej 1.9.13, bo 1.9.14 psuje CS2) -> config xiaomi://6338598787:de@192.168.0.112?did=1022085077&model=chuangmi.camera.021a04 + konto V1 (go2rtc WebUI login przez telefon) -> log rozstrzyga. did/model wszystkich w teleporcie + /tmp/qr3.txt.
+
+
+==============================================================================
+## SESJA 08.08.2026 11:40 CEST
+==============================================================================
+
+KAMERY XIAOMI - go2rtc 401 DIAGNOZA (8.08 ~12:00): go2rtc addon w HA Dzialki DZIALA, dosiega kamery (.112 ping OK, izolacji NIE ma), stream .112 wpiety, KONTO zalogowane (/api/xiaomi -> ['6338598787']). ALE load devices (/api/xiaomi?id=6338598787) = 401 Unauthorized WE WSZYSTKICH regionach (de/i2/sg/us/ru/cn), stream tez 401. WNIOSEK: passToken z QR longPolling (Extractor _pass_token, 323zn) ODRZUCANY przez Xiaomi w go2rtc - mimo ze Extractor TA SAMA sesja (ssecurity+serviceToken) pobral kamery z de OK. Hipoteza: go2rtc (LoginWithToken(userID,passToken) wg issue #2233) oczekuje passToken z NORMALNEGO PASSWORD login (dlugoterminowy), a QR-owy passToken to inny typ (login ticket jednorazowy). ROZWIAZANIE: (1) RESET hasla Mi Home (Tomasz: email tomasz.maxisch@gmail.com + tel +43) -> go2rtc WebUI password login na IP HA Dzialki (LAN, moze bez captcha) -> wlasciwy passToken; (2) research kodu go2rtc (Henio grzezl >200s). DZIALA: dostep kamer, go2rtc addon, did/model wszystkich (.112 did=1022085077 021a04; .114 371002387 029a02; .127 323183877 ipc019; .121 448715358 025b02). Config /config/go2rtc.yaml na HA Dzialki. SSH addon HA Dzialki wlaczony (port 22 + klucz VPS). passToken/ssecurity w /tmp/go2rtc_token.txt (600).
+
+
+==============================================================================
+## SESJA 08.08.2026 12:01 CEST
+==============================================================================
+
+KAMERY XIAOMI - PASSWORD LOGIN DZIALA, verify zablokowany do jutra (8.08 11:50): go2rtc password login (POST /api/xiaomi?username=tomasz.maxisch@gmail.com&password=<HASLO=maksys79, to samo co router>&server=de) PRZESZEDL - Xiaomi zwrocil {verify_email} (zada kodu email). Kod przyszedl na Gmaila (od noreply@notice.xiaomi.com, 09:57). ALE probowalem zlych parametrow PODANIA kodu (ticket/code -> verify_email; verifyCode -> WYSYLA kod ponownie) -> za duzo wysylek -> Xiaomi 70022 'Wyslano zbyt wiele kodow, sprobuj jutro'. WLASCIWA DROGA: password login (haslo DZIALA!), zostaje (a) poprawny param PODANIA kodu weryfikacji (NIE verifyCode); (b) czekac do JUTRA az blokada zejdzie. JUTRO: trigger login -> odczytac swiezy kod z Gmaila (mam connector Gmail: search 'from:xiaomi newer_than:1h' -> kod z snippet) -> poprawny param verify -> passToken -> kamery. GOTOWE: go2rtc addon w HA Dzialki (a889bffc_go2rtc, host_network, dosiega .112 ping OK), stream cam_zachod_112 wpiety w /config/go2rtc.yaml, did/model wszystkich (.112=1022085077/021a04, .114=371002387/029a02, .127=323183877/ipc019, .121=448715358/025b02), SSH addon HA Dzialki (port22+klucz VPS). Param verify moze byc bug 1.9.14 (#2237) - alternatywa go2rtc WebUI login przez telefon (android_type kod).
+
+
+==============================================================================
+## SESJA 08.08.2026 14:31 CEST
+==============================================================================
+
+KAMERY XIAOMI - FLOW VERIFY USTALONY Z KODU (8.08 12:10, DOCZYTANE z go2rtc add.html, nie zgadniete): POPRAWNY flow password login: (1) POST /api/xiaomi body 'username=EMAIL&password=HASLO&server=de' -> {captcha|verify_email|verify_phone}; (2) verify_email -> Xiaomi wysyla kod na email; (3) POST /api/xiaomi body TYLKO 'verify=KOD' (BEZ username/password!! sesja server-side w go2rtc) -> login OK -> passToken -> kamery. POTWIERDZONE testem: 'verify=KOD' daje code 70014 'blad kodu weryfikacyjnego' gdy kod zly (=parametr OK, sesja zyje); dodanie username/password do verify = NOWY login (blad ktory popelnilem -> resend -> 70022). STATUS DZIS: email verify ZABLOKOWANY do jutra (code 70022 'Wyslano zbyt wiele kodow, sprobuj jutro'); Xiaomi WYMUSZA email (przy triggerze nie daje captcha ani verify_phone jako alternatywy). Kody w Gmail (732021/213530/320245/912949 z 09:57-09:59) WSZYSTKIE WYGASLE. JUTRO ZA 1 RAZEM: (a) POST username=tomasz.maxisch@gmail.com&password=maksys79&server=de; (b) Gmail search 'from:xiaomi newer_than:15m' -> kod z snippet; (c) POST verify=KOD (samo!); (d) load devices /api/xiaomi?id=6338598787 (kamery zamiast 401); (e) test /api/frame.jpeg?src=cam_zachod_112. GOTOWE: go2rtc addon a889bffc_go2rtc w HA Dzialki (host_network, dosiega .112 ping OK), stream cam_zachod_112 w /config/go2rtc.yaml, did/model (.112=1022085077/021a04,.114=371002387/029a02,.127=323183877/ipc019,.121=448715358/025b02), SSH addon (port22+klucz VPS), Gmail connector do kodu. Haslo Mi Home=maksys79.
+# Issue tracker: Local Markdown
+
+Issues and specs (you may know a spec as a PRD) for this repo live as markdown files in `.scratch/`.
+
+## Conventions
+
+- One feature per directory: `.scratch/<feature-slug>/`
+- The spec is `.scratch/<feature-slug>/spec.md`
+- Implementation issues are one file per ticket at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` — never a single combined tickets file
+- Triage state is recorded as a `Status:` line near the top of each issue file (see `triage-labels.md` for the role strings)
+- Comments and conversation history append to the bottom of the file under a `## Comments` heading
+
+## When a skill says "publish to the issue tracker"
+
+Create a new file under `.scratch/<feature-slug>/` (creating the directory if needed).
+
+## When a skill says "fetch the relevant ticket"
+
+Read the file at the referenced path. The user will normally pass the path or the issue number directly.
+
+## Wayfinding operations
+
+Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
+
+- **Map**: `.scratch/<effort>/map.md` — the Notes / Decisions-so-far / Fog body.
+- **Child ticket**: `.scratch/<effort>/issues/NN-<slug>.md`, numbered from `01`, with the question in the body. A `Type:` line records the ticket type (`research`/`prototype`/`grilling`/`task`); a `Status:` line records `claimed`/`resolved`.
+- **Blocking**: a `Blocked by: NN, NN` line near the top. A ticket is unblocked when every file it lists is `resolved`.
+- **Frontier**: scan `.scratch/<effort>/issues/` for files that are open, unblocked, and unclaimed; first by number wins.
+- **Claim**: set `Status: claimed` and save before any work.
+- **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then append a context pointer (gist + link) to the map's Decisions-so-far in `map.md`.
+
+## Uwaga dla tego repozytorium (rod-ai-studio)
+
+Wybrano wariant **local markdown**, mimo że `origin` wskazuje na GitHub
+(`git@github.com:makol100/rod-ai-studio.git`). Powód: `gh` CLI nie jest
+zainstalowany na tym serwerze, a praca nigdy nie była prowadzona przez GitHub
+Issues — historia decyzji i lekcji żyje w plikach markdown i commitach.
+
+Rozdział ról, żeby nie mieszać dwóch różnych rzeczy:
+
+- `.scratch/<feature>/` — **bieżąca robota**: specyfikacje i tickety opisane wyżej.
+- `wiedza/` — **pamięć trwała fabryki**: decyzje (`DECYZJE_*.md`), lekcje
+  (`LEKCJA_*.md`), analizy i przekazania. Tego katalogu skille nie traktują jak
+  issue trackera i nie zapisują tam ticketów.
+# ŚRODOWISKO: ZENEK
+
+Silnik: Codex CLI (abonament ChatGPT Plus, GPT-5.6 Sol). Uruchamiany na żądanie, nie działa ciągle.
+
+## Dostęp (zmierzony 29.07 — sprawdzał sam)
+Odczyt ✅ zapis ✅ internet ✅ obraz ✅ polecenia ✅ — komplet, bez braków.
+
+## Jak go wołać
+    cd /root/rod-ai-studio && codex exec "zadanie"
+- uruchamiać Z KATALOGU repo (z `/root` żąda trusted dir albo `--skip-git-repo-check`)
+- BEZ `--model gpt-5` — na koncie Plus ta flaga jest niewspierana, używać modelu domyślnego
+- długie zadania w tle: `nohup ... > /tmp/plik &`, odbiór osobnym wywołaniem (mostek MCP tnie po 120 s)
+
+## Siec w piaskownicy (naprawione 29.07)
+Piaskownica `workspace-write` domyslnie ODCINA DNS — kazde wywolanie `tools/szukaj_net.py`
+i `tools/oczy_uszy.py` konczylo sie `Temporary failure in name resolution`, przez co Zenek
+przy WD_0001 uczciwie napisal NIE WIEM zamiast oceny. Naprawa w `/root/.codex/config.toml`:
+
+    [sandbox_workspace_write]
+    network_access = true
+
+Zmierzone po naprawie: wyszukiwarka zwrocila wersje HA Core z adresem zrodla, a `oczy_uszy.py`
+obejrzalo film 72 MB i podalo sekundy ze slupem energetycznym.
+
+## Uwaga o pomiarach
+Jego sesja chodzi w piaskownicy `bwrap` z własnymi namespace'ami. Widzi tam inne numery użytkowników
+(uid 4294967295 zamiast 1000) i nie widzi hostowego systemd ani cgroup. Przy pytaniach o uprawnienia
+systemu jego pomiar bywa mylący — rozstrzyga sprawdzenie na hoście.
+# ŚRODOWISKO: GENEK
+
+Silnik: Gemini, **płatny Tier 1 włączony 30.07.2026**. Klucz w `/root/.gemini/.env`. Zdalne API + Gemini CLI 0.52.0 na VPS.
+**Model do pracy z dyskiem: `gemini-3.1-pro-preview`** (konkretny, nie alias — decyzja załogi 30.07).
+**Oczy i uszy zostają na `gemini-2.5-flash`** — wideo zjada ogromne tokeny, pro bez zysku.
+
+## Dostęp (zmierzony 29.07 — sprawdzał sam)
+Odczyt ✅ zapis ✅ internet ✅ obraz ✅ polecenia ✅
+
+## Jak go wołać
+    python3 tools/genek.py "zadanie"            # sam czyta, pisze i uruchamia polecenia
+    python3 tools/genek.py --plik /tmp/z.md --material a.md,b.md
+- droga główna: Gemini CLI z `--yolo` w katalogu repo. Bez `--yolo` tryb `-p` daje mu TYLKO odczyt
+- droga awaryjna (limity Google 503/quota): gołe API z doklejonym materiałem — wynik jest wtedy
+  jawnie oznaczony jako TRYB AWARYJNY, żeby nikt nie wziął go za pełnowartościowy
+
+## Ograniczenia
+- `write_file` działa w obrębie `/root/rod-ai-studio` i katalogu tymczasowego projektu;
+  zapis poza workspace odbija się „Path not in workspace". Polecenia powłoki tego limitu nie mają
+- jako jedyny widzi obraz, wideo i słyszy dźwięk natywnie — do niego idą pytania „co widać/słychać"
+# ŚRODOWISKO: HENIO
+
+Silnik: Hermes Agent v0.19.0 + DeepSeek V4 Flash (kontekst 128K), osobne konto Tomasza.
+Gdzie żyje: user `hermes` na VPS, gateway Telegram @HermesDyzurny_Bot (słucha tylko ID 8339659505).
+Działa 24/7. Koszt zadania: grosze.
+
+## Dostęp (zmierzony 29.07)
+Odczyt ✅ zapis ✅ internet ✅ obraz ✅ polecenia ✅ — zapis i kasowanie w całym repo BEZ sudo (ACL),
+sudo NOPASSWD, grupa docker (fabryka-api, caddy-mcp, n8n), własny klucz Gemini w `~/.gemini/.env`.
+
+## Czego silnik NIE potrafi i czym to obchodzi
+| brak | polecenie zastępcze |
+|---|---|
+| brak `web_search` / `web_fetch`; Google odbija curla jako bota | `python3 tools/szukaj_net.py "pytanie"` — zwraca odpowiedź z adresami źródeł |
+| model nie przyjmuje obrazów (`vision_analyze` → błąd 400) | `python3 tools/oczy_uszy.py plik.jpg --pytanie "..."` — działa też na wideo i YouTube |
+
+## Ścieżki jego okna
+- kopia wiedzy: `/home/hermes/fabryka/data/wiedza_kopia/` (+ `archiwum/` z oboma teleportami)
+- log fabryki: `/var/log/fabryka-api.log`
+- jego patrole: `~/.hermes/scripts/` — zasoby co 30 min, fabryka co godzinę, meldunek 7:00
+
+## Runbook dyżuru
+`/home/hermes/PODRECZNIK_DYZURNEGO.md` — checklist zmiany, progi alarmowe, wzorce w logach, eskalacja.
+To instrukcja OPERACYJNA roli dyżurnego, nie regulamin osoby.
+#!/usr/bin/env python3
+"""zaloga.py — jedno polecenie, cala czworka pracuje rownolegle.
+
+Powstalo 29.07.2026, bo Tomasz musial trzeci raz tego samego dnia przypominac:
+"Dlaczego pracujecie we dwojke? Mieliscie pracowac zawsze wszyscy".
+Regula byla zapisana w pamieci, w START.md, w AGENTS.md i w podreczniku — i mimo to Klaudek
+zrobil pomiar z samym Heniem. Wniosek: regula w dokumencie nie wystarcza. Wolanie calej zalogi
+musi byc LATWIEJSZE niz praca solo. To narzedzie robi z tego jedno polecenie.
+
+Uzycie:
+    python3 tools/zaloga.py --zadanie /tmp/zadanie.md
+    python3 tools/zaloga.py --zadanie /tmp/z.md --material plik1.md,plik2.txt
+    python3 tools/zaloga.py --zadanie /tmp/z.md --kto zenek,genek        # gdy ktos juz odpowiedzial
+    python3 tools/zaloga.py --zadanie /tmp/z.md --katalog /tmp/narada7   # gdzie zapisac glosy
+
+Kazdy dostaje TO SAMO zadanie i ten sam material. Nikt nie widzi cudzej odpowiedzi przed napisaniem
+wlasnej — glosy powstaja niezaleznie, dokladnie tak jak chcial Tomasz.
+Material dokladany jest do zlecenia Genka, bo on jako jedyny nie ma dostepu do dysku.
+
+Wynik: pliki <katalog>/<imie>.txt oraz zbiorcze podsumowanie na wyjsciu.
+Awaria jednego wykonawcy NIE jest zgoda — w podsumowaniu stoi wtedy "GLOS NIEODEBRANY".
+"""
+import argparse
+import json
+import os
+import hashlib
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+import subprocess
+import sys
+import threading
+import urllib.request
+
+REPO = "/root/rod-ai-studio"
+STOPKA_WSPOLNA = ("\n\nPodpisz sie swoim imieniem. Jesli czegos nie da sie ustalic z materialu — "
+          "napisz NIE WIEM. Nie uzgadniaj odpowiedzi z nikim, to ma byc TWOJ glos. "
+          "Jesli czegos w pliku NIE MA — napisz 'NIE MA TEGO W PLIKU'. Nie wolno dopisac brakujacej "
+          "tresci, a potem zacytowac jej jako dowodu; to sie stalo 30.07 i jest wykrywane automatycznie. "
+          "Decyzje podejmuje WYLACZNIE Tomasz — zaloga proponuje, mierzy i wykonuje, nie rozstrzyga.")
+
+# 3.08: stopka byla JEDNA i zawsze mowila "TO JEST BADANIE, NIE ZAPIS". Skutek: kazde zlecenie
+# WYKONANIA konczylo sie zakazem tworzenia plikow, wiec Zenek DWA RAZY nie napisal Hansa i za kazdym
+# razem uczciwie zglosil sprzecznosc ("wybor jednej z dwoch przeciwnych instrukcji bylby decyzja
+# za Tomasza"). Wina Klaudka: wpisal stopke 30.07 pod badania i nie przewidzial zlecen wykonawczych.
+STOPKA_BADANIE = (STOPKA_WSPOLNA +
+          "\n\nTO JEST BADANIE, NIE ZAPIS (dekret Tomasza 30.07: 'Zadanie to zadanie, badanie to "
+          "badanie'). NIE zmieniaj, nie dopisuj i nie tworz ZADNEGO pliku w repo.")
+
+STOPKA_WYKONANIE = (STOPKA_WSPOLNA +
+          "\n\nTO JEST WYKONANIE. WOLNO tworzyc i zmieniac pliki wskazane w zleceniu — i TRZEBA to "
+          "zrobic: odpowiedz w oknie NIE WYSTARCZY, praca ma byc ZAPISANA NA DYSK. "
+          "Nie ruszaj plikow, ktorych zlecenie nie wymienia. NIKT NICZEGO NIE USUWA (dekret Tomasza 2.08). "
+          "Po zapisaniu URUCHOM sprawdzenie i podaj jego PRAWDZIWY wynik.")
+
+STOPKA = STOPKA_BADANIE  # domyslnie badanie — bezpieczniejsze
+
+
+def sprawdz_rowne_szanse() -> tuple:
+    """Przed KAZDYM zadaniem: czy cala zaloga ma komplet zdolnosci.
+    Powod (Tomasz, 29.07): "Dlaczego ja musze bez przerwy powtarzac, ze wy wszyscy macie miec rowne
+    szanse. Jezeli komus cos padlo, to moze naprawiac, jak zaczynacie cokolwiek robic."
+    Regula w dokumencie tego nie zalatwila — Klaudek trzy razy ruszyl z zadaniem, majac Zenka bez sieci
+    i Genka bez dysku. Teraz sprawdzenie odpala sie SAMO, przed rozeslaniem zadania."""
+    sonda = os.path.join(REPO, "tools", "sonda_zdolnosci.py")
+    if not os.path.isfile(sonda):
+        return True, "brak sondy — nie sprawdzono"
+    try:
+        w = subprocess.run([sys.executable, sonda], cwd=REPO, capture_output=True, text=True, timeout=600)
+    except Exception as e:
+        return True, f"sonda nie dokonczyla ({e})"
+    if w.returncode == 0:
+        return True, "wszyscy maja komplet zdolnosci"
+    # 30.07: telefon Tomasza NIE jest zdolnoscia zalogi — to jego urzadzenie, ktore bywa uspione.
+    # Bramka blokowala narade nad TEKSTEM, bo Fold byl poza siecia. Peryferium informuje, nie blokuje.
+    braki = [l for l in w.stdout.split("\n") if "STRACONE" in l]
+    tylko_telefon = braki and all("telefon." in l for l in braki)
+    if tylko_telefon:
+        return True, ("wszyscy z zalogi maja komplet zdolnosci; niedostepne peryferium: "
+                      + "; ".join(l.split("|")[0].strip() for l in braki))
+    return False, w.stdout.strip()
+
+
+def czytaj_material(lista: str) -> str:
+    if not lista:
+        return ""
+    kawalki = []
+    for s in [x.strip() for x in lista.split(",") if x.strip()]:
+        p = s if os.path.isabs(s) else os.path.join(REPO, s)
+        if os.path.isfile(p):
+            with open(p, encoding="utf-8", errors="replace") as f:
+                kawalki.append(f"--- {s} ---\n{f.read()[:25000]}")
+        else:
+            kawalki.append(f"--- {s} --- PLIK NIE ISTNIEJE")
+    return "\n\n".join(kawalki)
+
+
+def zenek(zadanie: str, _material: str, wynik: dict) -> None:
+    try:
+        w = subprocess.run(["codex", "exec", zadanie + STOPKA], cwd=REPO,
+                           capture_output=True, text=True, timeout=600)
+        out = w.stdout
+        # 30.07: obcinanie do 3000 znakow ucielo Zenkowi punkty 1-5 w debacie o wygladzie Izabeli —
+        # zostala sama koncowka, zaczynajaca sie w polowie zdania. Limit podniesiony i liczony od KONCA
+        # ostatniej wypowiedzi, a nie od konca calego logu.
+        czesci = out.split("\ncodex\n")
+        tresc = czesci[-1].strip() if len(czesci) > 1 else out
+        # odetnij stopke licznika tokenow, jesli jest
+        for znacznik in ("\ntokens used", "\nTokens used"):
+            if znacznik in tresc:
+                tresc = tresc.split(znacznik)[0].strip()
+        wynik["zenek"] = tresc[-24000:] if len(tresc) > 24000 else tresc
+    except Exception as e:
+        wynik["zenek"] = f"GLOS NIEODEBRANY ({e})"
+
+
+def genek(zadanie: str, material: str, wynik: dict) -> None:
+    """Genek przez tools/genek.py — ma WLASNY dostep do dysku (CLI), material tylko na wypadek awarii."""
+    sciezka = "/tmp/_zaloga_zadanie_genek.txt"
+    try:
+        with open(sciezka, "w", encoding="utf-8") as f:
+            f.write(zadanie + STOPKA)
+        polecenie = [sys.executable, os.path.join(REPO, "tools", "genek.py"), "--plik", sciezka, "--limit", "260"]
+        if material:
+            mat = "/tmp/_zaloga_material_genek.txt"
+            with open(mat, "w", encoding="utf-8") as f:
+                f.write(material)
+            polecenie += ["--material", mat]
+        w = subprocess.run(polecenie, cwd=REPO, capture_output=True, text=True, timeout=900)
+        tresc = (w.stdout or w.stderr).strip()
+        # 29.07: bramka sprawdza zdolnosci PRZED startem, ale CLI Genka moze paść w TRAKCIE (limit czasu).
+        # Wtedy leci tryb awaryjny — bez dysku, czyli NIEROWNE SZANSE. Tomasz to wylapal.
+        # Jedna proba ponowna z dluzszym limitem; jesli dalej awaryjnie — to NIE jest rownowazny glos.
+        if "TRYB AWARYJNY" in tresc.upper():
+            polecenie_dl = [x if x != "260" else "600" for x in polecenie]
+            try:
+                w2 = subprocess.run(polecenie_dl, cwd=REPO, capture_output=True, text=True, timeout=1200)
+                tresc2 = (w2.stdout or w2.stderr).strip()
+                if tresc2 and "TRYB AWARYJNY" not in tresc2.upper():
+                    tresc = tresc2
+                else:
+                    tresc = ("GLOS NIEODEBRANY (dwukrotnie tryb awaryjny — Genek nie mial dostepu do dysku, "
+                             "czyli NIE mial rownych szans; ponizej jego odpowiedz bez dostepu, do wgladu)\n\n" + tresc2 or tresc)
+            except Exception as e:
+                tresc = f"GLOS NIEODEBRANY (ponowna proba padla: {e})\n\n{tresc}"
+        wynik["genek"] = tresc or "GLOS NIEODEBRANY (pusta odpowiedz)"
+    except Exception as e:
+        wynik["genek"] = f"GLOS NIEODEBRANY ({e})"
+
+
+def henio(zadanie: str, _material: str, wynik: dict) -> None:
+    sciezka = "/tmp/_zaloga_zadanie_henio.txt"
+    try:
+        with open(sciezka, "w", encoding="utf-8") as f:
+            f.write(zadanie + STOPKA)
+        os.chmod(sciezka, 0o644)
+        w = subprocess.run(
+            ["su", "-", "hermes", "-c", f'hermes -z "$(cat {sciezka})"'],
+            capture_output=True, text=True, timeout=600)
+        wynik["henio"] = (w.stdout or w.stderr).strip() or "GLOS NIEODEBRANY (pusta odpowiedz)"
+    except Exception as e:
+        wynik["henio"] = f"GLOS NIEODEBRANY ({e})"
+
+
+WYKONAWCY = {"zenek": zenek, "genek": genek, "henio": henio}
+
+
+def zapisz_glos(katalog: str, imie: str, tresc: str) -> None:
+    """Zapisz glos NATYCHMIAST po odebraniu, nie na koncu narady.
+    Powod (Tomasz, 30.07): 'Zawsze na biezaco podawaj, kto co wymysli'.
+    Tego samego dnia narada o wygladzie Izabeli zostala UCIETA przez limit czasu po 28 minutach —
+    Zenek i Henio dawno odpowiedzieli, ale ich glosy siedzialy w pamieci procesu i przepadly razem
+    z nim. Zero na dysku po polgodzinie pracy. Od teraz kazdy glos ladu je na dysku od razu."""
+    os.makedirs(katalog, exist_ok=True)
+    with open(os.path.join(katalog, f"{imie}.txt"), "w", encoding="utf-8") as f:
+        f.write(tresc)
+
+    # 4.08 — uklad katalogow zazadany przez HENIA (dekret Tomasza: "Heniek ma do tego prawo").
+    # Surowy, NIEPRZEREDAGOWANY glos ladu je dodatkowo w narada/<autor>.txt. Kopia, nie przenosiny:
+    # stary uklad zostaje, zeby nic nie zniknelo (dekret 2.08: nikt niczego nie usuwa).
+    podkatalog = os.path.join(katalog, "narada")
+    os.makedirs(podkatalog, exist_ok=True)
+    with open(os.path.join(podkatalog, f"{imie}.txt"), "w", encoding="utf-8") as f:
+        f.write(tresc)
+
+    # dziennik wywolan — Henio prosil o slad: czas, autor, dlugosc, sciezka
+    try:
+        dz = os.path.join(REPO, ".scratch", "hans", "glosy.jsonl")
+        os.makedirs(os.path.dirname(dz), exist_ok=True)
+        with open(dz, "a", encoding="utf-8") as f:
+            f.write(json.dumps({
+                "czas_tomasza": datetime.now(ZoneInfo("Europe/Vienna")).strftime("%Y-%m-%d %H:%M:%S %Z"),
+                "czas_utc": datetime.now(timezone.utc).isoformat(),
+                "autor": imie,
+                "zadanie": os.path.basename(katalog.rstrip("/")),
+                "znakow": len(tresc),
+                "plik": os.path.join(podkatalog, f"{imie}.txt"),
+            }, ensure_ascii=False) + "\n")
+    except OSError:
+        pass  # dziennik nie moze zablokowac zapisu glosu
+
+    print(f"[glos zapisany] {imie}.txt ({len(tresc)} znakow) -> {katalog}/ + narada/", flush=True)
+
+
+def zapisz_manifest(katalog: str, plik_zadania: str, kto: list, wykonanie: bool) -> str:
+    """Manifest zadania — DLA HENIA, na jego zadanie z 4.08.2026.
+
+    Dekret Tomasza: "Hans jest narzedziem Henka i tylko Henka (...) moze i musi przeanalizowac
+    zatajenia Klaudiusza z obawy na swoja prace" + "Heniek ma do tego prawo i petla sie zamyka".
+
+    Henio ujal koszt zatajen Klaudka tak: "kiedy Klaudek pomija decyzje, glos albo wlasny blad,
+    moja praca zmienia sie z KONTROLI w REKONSTRUKCJE HISTORII". Manifest ma to zamknac —
+    stan wejsciowy zadania jest zapisany ZANIM ktokolwiek zacznie pracowac, wiec Henio
+    nie musi go odtwarzac po fakcie ani wierzyc Klaudkowi na slowo.
+
+    Zapis jednorazowy, nie nadpisuje istniejacego (dekret 2.08: nikt niczego nie usuwa).
+    """
+    os.makedirs(katalog, exist_ok=True)
+    sciezka = os.path.join(katalog, "manifest.json")
+    if os.path.exists(sciezka):
+        return sciezka
+
+    # odcisk KAZDEGO pliku wiedzy w chwili startu — Henio widzi, na czym zaloga pracowala
+    zrodla = []
+    for korzen, _, pliki in os.walk(os.path.join(REPO, "wiedza")):
+        for nazwa in sorted(pliki):
+            if not nazwa.endswith(".md"):
+                continue
+            pelna = os.path.join(korzen, nazwa)
+            try:
+                with open(pelna, "rb") as f:
+                    odcisk = hashlib.sha256(f.read()).hexdigest()
+                zrodla.append({"path": os.path.relpath(pelna, REPO), "sha256": odcisk})
+            except OSError:
+                continue
+
+    tresc_zadania = ""
+    try:
+        with open(plik_zadania, encoding="utf-8", errors="replace") as f:
+            tresc_zadania = f.read()
+    except OSError:
+        pass
+
+    manifest = {
+        "task_id": os.path.basename(katalog.rstrip("/")),
+        "start_utc": datetime.now(timezone.utc).isoformat(),
+        "start_tomasz": datetime.now(ZoneInfo("Europe/Vienna")).strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "typ": "wykonanie" if wykonanie else "badanie",
+        "wymagane_glosy": kto,
+        "zrodla_wiedzy": zrodla,
+        "plik_zadania": plik_zadania,
+        "tresc_zadania": tresc_zadania,
+    }
+    with open(sciezka, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=1)
+    print(f"[manifest] {sciezka} — {len(zrodla)} plikow wiedzy odciskiem, typ: {manifest['typ']}")
+    return sciezka
+
+
+def wspolna_wiedza() -> str:
+    """RÓWNE SZANSE W WIEDZY (dekret Tomasza 01.08.2026).
+
+codex
+Wiedza potwierdza stan wejściowy, w tym dzisiejszy `401`, poprawny `verify=KOD` i blokadę `70022`. Teraz zbieram niezależne głosy Genka i Henia bez zapisywania czegokolwiek w repo; mój głos Zenka oprę bezpośrednio na aktualnym kodzie `go2rtc` i biblioteki Xiaomi.
+exec
+/bin/bash -lc 'python3 tools/genek.py "$TEAM_PROMPT"' in /root/rod-ai-studio
+ exited 2 in 107ms:
+exec
+/bin/bash -lc "python3 tools/genek.py 'TYLKO BADANIE I TEKSTOWA OCENA/PLAN. NICZEGO NIE MODYFIKUJ, NIE INSTALUJ, NIE ZAPISUJ W REPO. Przeczytaj wiedza/START.md oraz TELEPORT_fabryka.md linie 2860-2930. Zbadaj źródła upstream AlexxIT/go2rtc (internal/xiaomi/cloud.go, pkg/xiaomi oraz add.html) i rozstrzygnij dla obrazu z kamery Xiaomi DZIS: A) dokładne parsowanie V1 i LoginWithToken, czy QR passToken+ssecurity+serviceToken można przekształcić lub istnieje V2; B) czy sesję Extractora da się wstrzyknąć do go2rtc/config/API; C) czy da się wymusić verify_phone/SMS; D) czy inny region omija limit; E) najpewniejsza droga dziś z konkretnymi komendami, ale bez wykonywania. Nie ujawniaj sekretów. Każde twierdzenie podeprzyj URL-em i cytatem/fragmentem kodu lub napisz NIE WIEM. Podpisz głos.'" in /root/rod-ai-studio
+exec
+/bin/bash -lc "hermes -z 'TYLKO BADANIE I TEKSTOWA OCENA/PLAN. NICZEGO NIE MODYFIKUJ, NIE INSTALUJ, NIE ZAPISUJ W REPO. Przeczytaj wiedza/START.md oraz TELEPORT_fabryka.md linie 2860-2930. Zbadaj źródła upstream AlexxIT/go2rtc (internal/xiaomi/cloud.go, pkg/xiaomi oraz add.html) i rozstrzygnij dla obrazu z kamery Xiaomi DZIS: A) dokładne parsowanie V1 i LoginWithToken, czy QR passToken+ssecurity+serviceToken można przekształcić lub istnieje V2; B) czy sesję Extractora da się wstrzyknąć do go2rtc/config/API; C) czy da się wymusić verify_phone/SMS; D) czy inny region omija limit; E) najpewniejsza droga dziś z konkretnymi komendami, ale bez wykonywania. Nie ujawniaj sekretów. Każde twierdzenie podeprzyj URL-em i cytatem/fragmentem kodu lub napisz NIE WIEM. Podpisz głos.'" in /root/rod-ai-studio
+ exited 127 in 0ms:
+/bin/bash: line 1: hermes: command not found
+
+codex
+Genek nadal analizuje źródła. Henio nie wystartował przez ograniczenie bieżącej piaskownicy (`su` nie może ustawić grup, a binarka nie jest dostępna w PATH roota); nie zastąpię jego głosu domysłem. Równolegle sprawdzam kod upstream linia po linii.
+web search: 
+web search: site:github.com/AlexxIT/go2rtc internal/xiaomi/cloud.go LoginWithToken V1 ...
+exec
+/bin/bash -lc "for u in \\
+'https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/internal/xiaomi/cloud.go' \\
+'https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/pkg/xiaomi/cloud.go' \\
+'https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/internal/xiaomi/add.html' \\
+'https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/pkg/xiaomi/login.go'; do curl -fsSL \""'$u" || true; done' in /root/rod-ai-studio
+ succeeded in 926ms:
+curl: (22) The requested URL returned error: 404
+package xiaomi
+
+import (
+	"bytes"
+	"crypto/md5"
+	"crypto/rand"
+	"crypto/rc4"
+	"crypto/sha1"
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/binary"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/AlexxIT/go2rtc/pkg/core"
+)
+
+type Cloud struct {
+	client *http.Client
+
+	sid       string
+	cookies   string // for auth
+	ssecurity []byte // for encryption
+
+	userID    string
+	passToken string
+
+	auth map[string]string
+}
+
+func NewCloud(sid string) *Cloud {
+	return &Cloud{
+		client: &http.Client{Timeout: 15 * time.Second},
+		sid:    sid,
+	}
+}
+
+func (c *Cloud) Login(username, password string) error {
+	res, err := c.client.Get("https://account.xiaomi.com/pass/serviceLogin?_json=true&sid=" + c.sid)
+	if err != nil {
+		return err
+	}
+
+	var v1 struct {
+		Qs       string `json:"qs"`
+		Sign     string `json:"_sign"`
+		Sid      string `json:"sid"`
+		Callback string `json:"callback"`
+	}
+	if _, err = readLoginResponse(res.Body, &v1); err != nil {
+		return err
+	}
+
+	hash := fmt.Sprintf("%X", md5.Sum([]byte(password)))
+
+	form := url.Values{
+		"_json":    {"true"},
+		"hash":     {hash},
+		"sid":      {v1.Sid},
+		"callback": {v1.Callback},
+		"_sign":    {v1.Sign},
+		"qs":       {v1.Qs},
+		"user":     {username},
+	}
+	cookies := "deviceId=" + core.RandString(16, 62)
+
+	// login after captcha
+	if c.auth != nil && c.auth["captcha_code"] != "" {
+		form.Set("captCode", c.auth["captcha_code"])
+		cookies += "; ick=" + c.auth["ick"]
+	}
+
+	req := Request{
+		Method:     "POST",
+		URL:        "https://account.xiaomi.com/pass/serviceLoginAuth2",
+		Body:       form,
+		RawCookies: cookies,
+	}.Encode()
+
+	res, err = c.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	var v2 struct {
+		Ssecurity []byte `json:"ssecurity"`
+		PassToken string `json:"passToken"`
+		Location  string `json:"location"`
+
+		CaptchaURL      string `json:"captchaURL"`
+		NotificationURL string `json:"notificationUrl"`
+	}
+	body, err := readLoginResponse(res.Body, &v2)
+	if err != nil {
+		return err
+	}
+
+	// save auth for two-step verification
+	c.auth = map[string]string{
+		"username": username,
+		"password": password,
+	}
+
+	if v2.CaptchaURL != "" {
+		return c.getCaptcha(v2.CaptchaURL)
+	}
+
+	if v2.NotificationURL != "" {
+		return c.authStart(v2.NotificationURL)
+	}
+
+	if v2.Location == "" {
+		return fmt.Errorf("xiaomi: %s", body)
+	}
+
+	c.auth = nil
+	c.ssecurity = v2.Ssecurity
+	c.passToken = v2.PassToken
+
+	return c.finishAuth(v2.Location)
+}
+
+func (c *Cloud) LoginWithCaptcha(captcha string) error {
+	if c.auth == nil || c.auth["ick"] == "" {
+		panic("wrong login step")
+	}
+
+	c.auth["captcha_code"] = captcha
+
+	// check if captcha after verify
+	if c.auth["flag"] != "" {
+		return c.sendTicket()
+	}
+
+	return c.Login(c.auth["username"], c.auth["password"])
+}
+
+func (c *Cloud) LoginWithVerify(ticket string) error {
+	if c.auth == nil || c.auth["flag"] == "" {
+		panic("wrong login step")
+	}
+
+	req := Request{
+		Method:     "POST",
+		URL:        "https://account.xiaomi.com/identity/auth/verify" + c.verifyName(),
+		RawParams:  "_flag" + c.auth["flag"] + "&ticket=" + ticket + "&trust=false&_json=true",
+		RawCookies: "identity_session=" + c.auth["identity_session"],
+	}.Encode()
+
+	res, err := c.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	var v1 struct {
+		Location string `json:"location"`
+	}
+	body, err := readLoginResponse(res.Body, &v1)
+	if err != nil {
+		return err
+	}
+	if v1.Location == "" {
+		return fmt.Errorf("xiaomi: %s", body)
+	}
+
+	return c.finishAuth(v1.Location)
+}
+
+func (c *Cloud) getCaptcha(captchaURL string) error {
+	res, err := c.client.Get("https://account.xiaomi.com" + captchaURL)
+	if err != nil {
+		return err
+	}
+	defer res.Body.Close()
+
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return err
+	}
+
+	c.auth["ick"] = findCookie(res, "ick")
+
+	return &LoginError{
+		Captcha: body,
+	}
+}
+
+func (c *Cloud) authStart(notificationURL string) error {
+	rawURL := strings.Replace(notificationURL, "/fe/service/identity/authStart", "/identity/list", 1)
+	res, err := c.client.Get(rawURL)
+	if err != nil {
+		return err
+	}
+
+	var v1 struct {
+		Code int `json:"code"`
+		Flag int `json:"flag"`
+	}
+	if _, err = readLoginResponse(res.Body, &v1); err != nil {
+		return err
+	}
+
+	c.auth["flag"] = strconv.Itoa(v1.Flag)
+	c.auth["identity_session"] = findCookie(res, "identity_session")
+
+	return c.sendTicket()
+}
+
+func findCookie(res *http.Response, name string) string {
+	for _, cookie := range res.Cookies() {
+		if cookie.Name == name {
+			return cookie.Value
+		}
+	}
+	return ""
+}
+
+func (c *Cloud) verifyName() string {
+	switch c.auth["flag"] {
+	case "4":
+		return "Phone"
+	case "8":
+		return "Email"
+	}
+	return ""
+}
+
+func (c *Cloud) sendTicket() error {
+	name := c.verifyName()
+	cookies := "identity_session=" + c.auth["identity_session"]
+
+	req := Request{
+		URL:        "https://account.xiaomi.com/identity/auth/verify" + name,
+		RawParams:  "_flag=" + c.auth["flag"] + "&_json=true",
+		RawCookies: cookies,
+	}.Encode()
+
+	res, err := c.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	var v1 struct {
+		Code        int    `json:"code"`
+		MaskedPhone string `json:"maskedPhone"`
+		MaskedEmail string `json:"maskedEmail"`
+	}
+	if _, err = readLoginResponse(res.Body, &v1); err != nil {
+		return err
+	}
+
+	// verify after captcha
+	captCode := c.auth["captcha_code"]
+	if captCode != "" {
+		cookies += "; ick=" + c.auth["ick"]
+	}
+
+	form := url.Values{
+		"_json": {"true"},
+		"icode": {captCode},
+		"retry": {"0"},
+	}
+
+	req = Request{
+		Method:     "POST",
+		URL:        "https://account.xiaomi.com/identity/auth/send" + name + "Ticket",
+		Body:       form,
+		RawCookies: cookies,
+	}.Encode()
+
+	res, err = c.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	var v2 struct {
+		Code       int    `json:"code"`
+		CaptchaURL string `json:"captchaURL"`
+	}
+	body, err := readLoginResponse(res.Body, &v2)
+	if err != nil {
+		return err
+	}
+
+	if v2.CaptchaURL != "" {
+		return c.getCaptcha(v2.CaptchaURL)
+	}
+
+	if v2.Code != 0 {
+		return fmt.Errorf("xiaomi: %s", body)
+	}
+
+	return &LoginError{
+		VerifyPhone: v1.MaskedPhone,
+		VerifyEmail: v1.MaskedEmail,
+	}
+}
+
+type LoginError struct {
+	Captcha     []byte `json:"captcha,omitempty"`
+	VerifyPhone string `json:"verify_phone,omitempty"`
+	VerifyEmail string `json:"verify_email,omitempty"`
+}
+
+func (l *LoginError) Error() string {
+	return ""
+}
+
+func (c *Cloud) finishAuth(location string) error {
+	res, err := c.client.Get(location)
+	if err != nil {
+		return err
+	}
+	defer res.Body.Close()
+
+	// LoginWithVerify
+	//   - userId, cUserId, serviceToken from cookies
+	//   - passToken from redirect cookies
+	//   - ssecurity from extra header
+	// LoginWithToken
+	//   - userId, cUserId, serviceToken from cookies
+	var cUserId, serviceToken string
+
+	for res != nil {
+		for _, cookie := range res.Cookies() {
+			switch cookie.Name {
+			case "userId":
+				c.userID = cookie.Value
+			case "cUserId":
+				cUserId = cookie.Value
+			case "serviceToken":
+				serviceToken = cookie.Value
+			case "passToken":
+				c.passToken = cookie.Value
+			}
+		}
+
+		if s := res.Header.Get("Extension-Pragma"); s != "" {
+			var v1 struct {
+				Ssecurity []byte `json:"ssecurity"`
+			}
+			if err = json.Unmarshal([]byte(s), &v1); err != nil {
+				return err
+			}
+			c.ssecurity = v1.Ssecurity
+		}
+
+		res = res.Request.Response
+	}
+
+	c.cookies = fmt.Sprintf("userId=%s; cUserId=%s; serviceToken=%s", c.userID, cUserId, serviceToken)
+
+	return nil
+}
+
+func (c *Cloud) LoginWithToken(userID, passToken string) error {
+	req, err := http.NewRequest("GET", "https://account.xiaomi.com/pass/serviceLogin?_json=true&sid="+c.sid, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("Cookie", fmt.Sprintf("userId=%s; passToken=%s", userID, passToken))
+
+	res, err := c.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	var v1 struct {
+		Ssecurity []byte `json:"ssecurity"`
+		PassToken string `json:"passToken"`
+		Location  string `json:"location"`
+	}
+	if _, err = readLoginResponse(res.Body, &v1); err != nil {
+		return err
+	}
+
+	c.ssecurity = v1.Ssecurity
+	c.passToken = v1.PassToken
+
+	return c.finishAuth(v1.Location)
+}
+
+func (c *Cloud) UserToken() (string, string) {
+	return c.userID, c.passToken
+}
+
+func (c *Cloud) Request(baseURL, apiURL, params string, headers map[string]string) ([]byte, error) {
+	form := url.Values{"data": {params}}
+
+	nonce := genNonce()
+	signedNonce := genSignedNonce(c.ssecurity, nonce)
+
+	// 1. gen hash for data param
+	form.Set("rc4_hash__", genSignature64("POST", apiURL, form, signedNonce))
+
+	// 2. encrypt data and hash params
+	for _, v := range form {
+		ciphertext, err := crypt(signedNonce, []byte(v[0]))
+		if err != nil {
+			return nil, err
+		}
+		v[0] = base64.StdEncoding.EncodeToString(ciphertext)
+	}
+
+	// 3. add signature for encrypted data and hash params
+	form.Set("signature", genSignature64("POST", apiURL, form, signedNonce))
+
+	// 4. add nonce
+	form.Set("_nonce", base64.StdEncoding.EncodeToString(nonce))
+
+	req, err := http.NewRequest("POST", baseURL+apiURL, strings.NewReader(form.Encode()))
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Cookie", c.cookies)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	for k, v := range headers {
+		req.Header.Set(k, v)
+	}
+
+	res, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return nil, errors.New(res.Status)
+	}
+
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	ciphertext, err := base64.StdEncoding.DecodeString(string(body))
+	if err != nil {
+		return nil, err
+	}
+
+	plaintext, err := crypt(signedNonce, ciphertext)
+	if err != nil {
+		return nil, err
+	}
+
+	var res1 struct {
+		Code    int             `json:"code"`
+		Message string          `json:"message"`
+		Result  json.RawMessage `json:"result"`
+	}
+	if err = json.Unmarshal(plaintext, &res1); err != nil {
+		return nil, err
+	}
+
+	if res1.Code != 0 {
+		return nil, errors.New("xiaomi: " + res1.Message)
+	}
+
+	return res1.Result, nil
+}
+
+func readLoginResponse(rc io.ReadCloser, v any) ([]byte, error) {
+	defer rc.Close()
+
+	body, err := io.ReadAll(rc)
+	if err != nil {
+		return nil, err
+	}
+
+	body, ok := bytes.CutPrefix(body, []byte("&&&START&&&"))
+	if !ok {
+		return nil, fmt.Errorf("xiaomi: %s", body)
+	}
+
+	return body, json.Unmarshal(body, &v)
+}
+
+func genNonce() []byte {
+	ts := time.Now().Unix() / 60
+
+	nonce := make([]byte, 12)
+	_, _ = rand.Read(nonce[:8])
+	binary.BigEndian.PutUint32(nonce[8:], uint32(ts))
+	return nonce
+}
+
+func genSignedNonce(ssecurity, nonce []byte) []byte {
+	hasher := sha256.New()
+	hasher.Write(ssecurity)
+	hasher.Write(nonce)
+	return hasher.Sum(nil)
+}
+
+func crypt(key, plaintext []byte) ([]byte, error) {
+	cipher, err := rc4.NewCipher(key)
+	if err != nil {
+		return nil, err
+	}
+
+	tmp := make([]byte, 1024)
+	cipher.XORKeyStream(tmp, tmp)
+
+	ciphertext := make([]byte, len(plaintext))
+	cipher.XORKeyStream(ciphertext, plaintext)
+
+	return ciphertext, nil
+}
+
+func genSignature64(method, path string, values url.Values, signedNonce []byte) string {
+	s := method + "&" + path + "&data=" + values.Get("data")
+	if values.Has("rc4_hash__") {
+		s += "&rc4_hash__=" + values.Get("rc4_hash__")
+	}
+	s += "&" + base64.StdEncoding.EncodeToString(signedNonce)
+
+	hasher := sha1.New()
+	hasher.Write([]byte(s))
+	signature := hasher.Sum(nil)
+
+	return base64.StdEncoding.EncodeToString(signature)
+}
+
+type Request struct {
+	Method     string
+	URL        string
+	RawParams  string
+	Body       url.Values
+	Headers    url.Values
+	RawCookies string
+}
+
+func (r Request) Encode() *http.Request {
+	if r.RawParams != "" {
+		r.URL += "?" + r.RawParams
+	}
+
+	var body io.Reader
+	if r.Body != nil {
+		body = strings.NewReader(r.Body.Encode())
+	}
+
+	req, err := http.NewRequest(r.Method, r.URL, body)
+	if err != nil {
+		return nil
+	}
+
+	if r.Headers != nil {
+		req.Header = http.Header(r.Headers)
+	}
+	if r.Body != nil {
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	}
+	if r.RawCookies != "" {
+		req.Header.Set("Cookie", r.RawCookies)
+	}
+
+	return req
+}
+curl: (22) The requested URL returned error: 404
+curl: (22) The requested URL returned error: 404
+
+exec
+/bin/bash -lc "curl -fsSL https://api.github.com/repos/AlexxIT/go2rtc/contents/internal/xiaomi?ref=v1.9.14 | rg '\"name\"|download_url'; curl -fsSL https://api.github.com/repos/AlexxIT/go2rtc/contents/www?ref=v1.9.14 | rg 'xiaomi|add.html|download_url'" in /root/rod-ai-studio
+ succeeded in 461ms:
+    "name": "README.md",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/internal/xiaomi/README.md",
+    "name": "xiaomi.go",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/internal/xiaomi/xiaomi.go",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/README.md",
+    "name": "add.html",
+    "path": "www/add.html",
+    "url": "https://api.github.com/repos/AlexxIT/go2rtc/contents/www/add.html?ref=v1.9.14",
+    "html_url": "https://github.com/AlexxIT/go2rtc/blob/v1.9.14/www/add.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/add.html",
+      "self": "https://api.github.com/repos/AlexxIT/go2rtc/contents/www/add.html?ref=v1.9.14",
+      "html": "https://github.com/AlexxIT/go2rtc/blob/v1.9.14/www/add.html"
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/config.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/hls.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/index.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/links.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/log.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/main.js",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/net.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/schema.json",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/static.go",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/stream.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/video-rtc.js",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/video-stream.js",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/webrtc-sync.html",
+    "download_url": "https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/webrtc.html",
+
+exec
+/bin/bash -lc "curl -fsSL https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/internal/xiaomi/xiaomi.go | nl -ba | sed -n '1,280p'; curl -fsSL https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/add.html | nl -ba | rg -C 18 'xiaomi|verify_phone|verify_email|verify='" in /root/rod-ai-studio
+ succeeded in 509ms:
+     1	package xiaomi
+     2	
+     3	import (
+     4		"encoding/hex"
+     5		"encoding/json"
+     6		"errors"
+     7		"fmt"
+     8		"net/http"
+     9		"net/url"
+    10		"strings"
+    11		"sync"
+    12	
+    13		"github.com/AlexxIT/go2rtc/internal/api"
+    14		"github.com/AlexxIT/go2rtc/internal/app"
+    15		"github.com/AlexxIT/go2rtc/internal/streams"
+    16		"github.com/AlexxIT/go2rtc/pkg/core"
+    17		"github.com/AlexxIT/go2rtc/pkg/xiaomi"
+    18		"github.com/AlexxIT/go2rtc/pkg/xiaomi/crypto"
+    19	)
+    20	
+    21	func Init() {
+    22		var v struct {
+    23			Cfg map[string]string `yaml:"xiaomi"`
+    24		}
+    25		app.LoadConfig(&v)
+    26	
+    27		tokens = v.Cfg
+    28	
+    29		log := app.GetLogger("xiaomi")
+    30	
+    31		streams.HandleFunc("xiaomi", func(rawURL string) (core.Producer, error) {
+    32			u, err := url.Parse(rawURL)
+    33			if err != nil {
+    34				return nil, err
+    35			}
+    36	
+    37			if u.User != nil {
+    38				rawURL, err = getCameraURL(u)
+    39				if err != nil {
+    40					return nil, err
+    41				}
+    42			}
+    43	
+    44			log.Debug().Msgf("xiaomi: dial %s", rawURL)
+    45	
+    46			return xiaomi.Dial(rawURL)
+    47		})
+    48	
+    49		api.HandleFunc("api/xiaomi", apiXiaomi)
+    50	}
+    51	
+    52	var tokens map[string]string
+    53	var clouds map[string]*xiaomi.Cloud
+    54	var cloudsMu sync.Mutex
+    55	
+    56	func getCloud(userID string) (*xiaomi.Cloud, error) {
+    57		cloudsMu.Lock()
+    58		defer cloudsMu.Unlock()
+    59	
+    60		if cloud := clouds[userID]; cloud != nil {
+    61			return cloud, nil
+    62		}
+    63	
+    64		cloud := xiaomi.NewCloud(AppXiaomiHome)
+    65		if err := cloud.LoginWithToken(userID, tokens[userID]); err != nil {
+    66			return nil, err
+    67		}
+    68		if clouds == nil {
+    69			clouds = map[string]*xiaomi.Cloud{userID: cloud}
+    70		} else {
+    71			clouds[userID] = cloud
+    72		}
+    73		return cloud, nil
+    74	}
+    75	
+    76	func cloudRequest(userID, region, apiURL, params string) ([]byte, error) {
+    77		cloud, err := getCloud(userID)
+    78		if err != nil {
+    79			return nil, err
+    80		}
+    81		return cloud.Request(GetBaseURL(region), apiURL, params, nil)
+    82	}
+    83	
+    84	func cloudUserRequest(user *url.Userinfo, apiURL, params string) ([]byte, error) {
+    85		userID := user.Username()
+    86		region, _ := user.Password()
+    87		return cloudRequest(userID, region, apiURL, params)
+    88	}
+    89	
+    90	func getCameraURL(url *url.URL) (string, error) {
+    91		model := url.Query().Get("model")
+    92	
+    93		// It is not known which models need to be awakened.
+    94		// Probably all the doorbells and all the battery cameras.
+    95		if strings.Contains(model, ".cateye.") {
+    96			_ = wakeUpCamera(url)
+    97		}
+    98	
+    99		// The getMissURL request has a fallback to getP2PURL.
+   100		// But for known models we can save one request to the cloud.
+   101		if xiaomi.IsLegacy(model) {
+   102			return getLegacyURL(url)
+   103		}
+   104		return getMissURL(url)
+   105	}
+   106	
+   107	func getLegacyURL(url *url.URL) (string, error) {
+   108		query := url.Query()
+   109	
+   110		clientPublic, clientPrivate, err := crypto.GenerateKey()
+   111		if err != nil {
+   112			return "", err
+   113		}
+   114	
+   115		params := fmt.Sprintf(`{"did":"%s","toSignAppData":"%x"}`, query.Get("did"), clientPublic)
+   116	
+   117		userID := url.User.Username()
+   118		region, _ := url.User.Password()
+   119		res, err := cloudRequest(userID, region, "/device/devicepass", params)
+   120		if err != nil {
+   121			return "", err
+   122		}
+   123	
+   124		var v struct {
+   125			UID       string `json:"p2p_id"`
+   126			Password  string `json:"password"`
+   127			PublicKey string `json:"p2p_dev_public_key"`
+   128			Sign      string `json:"signForAppData"`
+   129		}
+   130		if err = json.Unmarshal(res, &v); err != nil {
+   131			return "", err
+   132		}
+   133	
+   134		query.Set("uid", v.UID)
+   135	
+   136		if v.Sign != "" {
+   137			query.Set("client_public", hex.EncodeToString(clientPublic))
+   138			query.Set("client_private", hex.EncodeToString(clientPrivate))
+   139			query.Set("device_public", v.PublicKey)
+   140			query.Set("sign", v.Sign)
+   141		} else {
+   142			query.Set("password", v.Password)
+   143		}
+   144	
+   145		url.RawQuery = query.Encode()
+   146		return url.String(), nil
+   147	}
+   148	
+   149	func getMissURL(url *url.URL) (string, error) {
+   150		clientPublic, clientPrivate, err := crypto.GenerateKey()
+   151		if err != nil {
+   152			return "", err
+   153		}
+   154	
+   155		query := url.Query()
+   156		params := fmt.Sprintf(
+   157			`{"app_pubkey":"%x","did":"%s","support_vendors":"TUTK_CS2_MTP"}`,
+   158			clientPublic, query.Get("did"),
+   159		)
+   160	
+   161		res, err := cloudUserRequest(url.User, "/v2/device/miss_get_vendor", params)
+   162		if err != nil {
+   163			if strings.Contains(err.Error(), "no available vendor support") {
+   164				return getLegacyURL(url)
+   165			}
+   166			return "", err
+   167		}
+   168	
+   169		var v struct {
+   170			Vendor struct {
+   171				ID     byte `json:"vendor"`
+   172				Params struct {
+   173					UID string `json:"p2p_id"`
+   174				} `json:"vendor_params"`
+   175			} `json:"vendor"`
+   176			PublicKey string `json:"public_key"`
+   177			Sign      string `json:"sign"`
+   178		}
+   179		if err = json.Unmarshal(res, &v); err != nil {
+   180			return "", err
+   181		}
+   182	
+   183		query.Set("client_public", hex.EncodeToString(clientPublic))
+   184		query.Set("client_private", hex.EncodeToString(clientPrivate))
+   185		query.Set("device_public", v.PublicKey)
+   186		query.Set("sign", v.Sign)
+   187		query.Set("vendor", getVendorName(v.Vendor.ID))
+   188	
+   189		if v.Vendor.ID == 1 {
+   190			query.Set("uid", v.Vendor.Params.UID)
+   191		}
+   192	
+   193		url.RawQuery = query.Encode()
+   194		return url.String(), nil
+   195	}
+   196	
+   197	func getVendorName(i byte) string {
+   198		switch i {
+   199		case 1:
+   200			return "tutk"
+   201		case 3:
+   202			return "agora"
+   203		case 4:
+   204			return "cs2"
+   205		case 6:
+   206			return "mtp"
+   207		}
+   208		return fmt.Sprintf("%d", i)
+   209	}
+   210	
+   211	func wakeUpCamera(url *url.URL) error {
+   212		const params = `{"id":1,"method":"wakeup","params":{"video":"1"}}`
+   213		did := url.Query().Get("did")
+   214		_, err := cloudUserRequest(url.User, "/home/rpc/"+did, params)
+   215		return err
+   216	}
+   217	
+   218	func apiXiaomi(w http.ResponseWriter, r *http.Request) {
+   219		switch r.Method {
+   220		case "GET":
+   221			apiDeviceList(w, r)
+   222		case "POST":
+   223			apiAuth(w, r)
+   224		}
+   225	}
+   226	
+   227	func apiDeviceList(w http.ResponseWriter, r *http.Request) {
+   228		query := r.URL.Query()
+   229	
+   230		user := query.Get("id")
+   231		if user == "" {
+   232			cloudsMu.Lock()
+   233			users := make([]string, 0, len(tokens))
+   234			for s := range tokens {
+   235				users = append(users, s)
+   236			}
+   237			cloudsMu.Unlock()
+   238	
+   239			api.ResponseJSON(w, users)
+   240			return
+   241		}
+   242	
+   243		err := func() error {
+   244			region := query.Get("region")
+   245			res, err := cloudRequest(user, region, "/v2/home/device_list_page", "{}")
+   246			if err != nil {
+   247				return err
+   248			}
+   249			var v struct {
+   250				List []*Device `json:"list"`
+   251			}
+   252	
+   253			if err = json.Unmarshal(res, &v); err != nil {
+   254				return err
+   255			}
+   256	
+   257			var items []*api.Source
+   258	
+   259			for _, device := range v.List {
+   260				if !strings.Contains(device.Model, ".camera.") && !strings.Contains(device.Model, ".cateye.") {
+   261					continue
+   262				}
+   263				items = append(items, &api.Source{
+   264					Name: device.Name,
+   265					Info: fmt.Sprintf("ip: %s, mac: %s", device.IP, device.MAC),
+   266					URL:  fmt.Sprintf("xiaomi://%s:%s@%s?did=%s&model=%s", user, region, device.IP, device.Did, device.Model),
+   267				})
+   268			}
+   269	
+   270			api.ResponseSources(w, items)
+   271			return nil
+   272		}()
+   273	
+   274		if err != nil {
+   275			http.Error(w, err.Error(), http.StatusInternalServerError)
+   276		}
+   277	}
+   278	
+   279	type Device struct {
+   280		Did   string `json:"did"`
+   456	                table.innerText = (await r.text()) || 'Unknown error';
+   457	                return;
+   458	            }
+   459	
+   460	            const data = await r.json();
+   461	            table.innerText = '';
+   462	            drawTable(table, data);
+   463	            wyzeReload();
+   464	        });
+   465	
+   466	        document.getElementById('wyze-devices-form').addEventListener('submit', async ev => {
+   467	            ev.preventDefault();
+   468	            const params = new URLSearchParams(new FormData(ev.target));
+   469	            await getSources('wyze-table', 'api/wyze?' + params.toString());
+   470	        });
+   471	    </script>
+   472	
+   473	
+   474	    <button id="xiaomi">Xiaomi</button>
+   475	    <div>
+   476	        <form id="xiaomi-login-form">
+   477	            <input type="text" name="username" placeholder="username" required>
+   478	            <input type="password" name="password" placeholder="password" required>
+   479	            <button type="submit">login</button>
+   480	        </form>
+   481	        <form id="xiaomi-captcha-form">
+   482	            <img id="xiaomi-captcha">
+   483	            <input type="text" name="captcha" placeholder="captcha" required size="10">
+   484	            <button type="submit">send</button>
+   485	        </form>
+   486	        <form id="xiaomi-verify-form">
+   487	            <label id="xiaomi-verify"></label>
+   488	            <input type="text" name="verify" placeholder="verify" required size="10">
+   489	            <button type="submit">send</button>
+   490	        </form>
+   491	        <form id="xiaomi-devices-form">
+   492	            <select id="xiaomi-id" name="id" required></select>
+   493	            <select name="region" required>
+   494	                <option value="cn">China</option>
+   495	                <option value="de">Europe</option>
+   496	                <option value="i2">India</option>
+   497	                <option value="ru">Russia</option>
+   498	                <option value="sg">Singapore</option>
+   499	                <option value="us">United States</option>
+   500	            </select>
+   501	            <button type="submit">load devices</button>
+   502	        </form>
+   503	        <table id="xiaomi-table"></table>
+   504	    </div>
+   505	    <script>
+   506	        async function xiaomiReload(ev) {
+   507	            if (ev) ev.target.nextElementSibling.style.display = 'grid';
+   508	
+   509	            document.getElementById('xiaomi-login-form').style.display = 'flex';
+   510	            document.getElementById('xiaomi-captcha-form').style.display = 'none';
+   511	            document.getElementById('xiaomi-verify-form').style.display = 'none';
+   512	
+   513	            const r = await fetch('api/xiaomi', {'cache': 'no-cache'});
+   514	            const data = await r.json();
+   515	            const users = document.getElementById('xiaomi-id');
+   516	            users.innerHTML = data.map(item => `<option value="${item}">${item}</option>`).join('');
+   517	        }
+   518	
+   519	        document.getElementById('xiaomi').addEventListener('click', xiaomiReload);
+   520	
+   521	        async function xiaomiLogin(ev) {
+   522	            ev.preventDefault();
+   523	            const params = new URLSearchParams(new FormData(ev.target));
+   524	            const r = await fetch('api/xiaomi', {method: 'POST', body: params});
+   525	            if (r.status === 401) {
+   526	                /** @type {{captcha: string, verify_email: string, verify_phone: string}} */
+   527	                const data = await r.json();
+   528	                document.getElementById('xiaomi-login-form').style.display = 'none';
+   529	                if (data.captcha) {
+   530	                    document.getElementById('xiaomi-captcha-form').style.display = 'flex';
+   531	                    document.getElementById('xiaomi-captcha').src = 'data:image/jpeg;base64,' + data.captcha;
+   532	                } else {
+   533	                    document.getElementById('xiaomi-verify-form').style.display = 'flex';
+   534	                    document.getElementById('xiaomi-verify').innerText = data.verify_email || data.verify_phone;
+   535	                }
+   536	            } else if (r.ok) {
+   537	                alert('OK');
+   538	                xiaomiReload();
+   539	            } else {
+   540	                alert('ERROR: ' + await r.text());
+   541	            }
+   542	        }
+   543	
+   544	        document.getElementById('xiaomi-login-form').addEventListener('submit', xiaomiLogin);
+   545	        document.getElementById('xiaomi-captcha-form').addEventListener('submit', xiaomiLogin);
+   546	        document.getElementById('xiaomi-verify-form').addEventListener('submit', xiaomiLogin);
+   547	
+   548	        document.getElementById('xiaomi-devices-form').addEventListener('submit', async ev => {
+   549	            ev.preventDefault();
+   550	            const params = new URLSearchParams(new FormData(ev.target));
+   551	            await getSources('xiaomi-table', 'api/xiaomi?' + params.toString());
+   552	        });
+   553	    </script>
+   554	
+   555	
+   556	    <button id="webtorrent">WebTorrent Shares</button>
+   557	    <div>
+   558	        <table id="webtorrent-table"></table>
+   559	    </div>
+   560	    <script>
+   561	        document.getElementById('webtorrent').addEventListener('click', async ev => {
+   562	            ev.target.nextElementSibling.style.display = 'grid';
+   563	            await getSources('webtorrent-table', 'api/webtorrent');
+   564	        });
+   565	    </script>
+   566	</main>
+   567	
+   568	</body>
+   569	</html>
+
+exec
+/bin/bash -lc "curl -fsSL https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/internal/xiaomi/xiaomi.go | nl -ba | sed -n '279,430p'; curl -fsSL https://raw.githubusercontent.com/AlexxIT/go2rtc/v1.9.14/www/schema.json | rg -n -C 5 'xiaomi'" in /root/rod-ai-studio
+ succeeded in 351ms:
+175-              "nest",
+176-              "ring",
+177-              "roborock",
+178-              "tapo",
+179-              "tuya",
+180:              "xiaomi",
+181-              "yandex",
+182-              "debug",
+183-              "ngrok",
+184-              "pinggy",
+185-              "srtp"
+--
+574-            "type": "null"
+575-          }
+576-        ]
+577-      }
+578-    },
+579:    "xiaomi": {
+580-      "type": "object",
+581-      "additionalProperties": {
+582-        "type": "string"
+583-      }
+584-    },
+
+exec
+/bin/bash -lc 'tmpdir=$(mktemp -d /tmp/go2rtc-src.XXXXXX) && git clone --quiet --depth 1 --branch v1.9.14 https://github.com/AlexxIT/go2rtc.git "$tmpdir" && rg -n '"'V1:|Unmarshal|PatchConfig|LoginWithToken|passToken|serviceToken|ssecurity' \""'$tmpdir/internal" "$tmpdir/pkg" | head -300' in /root/rod-ai-studio
+ succeeded in 913ms:
+Note: switching to 'b5948cfb25404cc5cb37b166ecaa2dca20b11d4b'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:30:	ssecurity []byte // for encryption
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:33:	passToken string
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:93:		Ssecurity []byte `json:"ssecurity"`
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:94:		PassToken string `json:"passToken"`
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:124:	c.ssecurity = v2.Ssecurity
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:125:	c.passToken = v2.PassToken
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:324:	//   - userId, cUserId, serviceToken from cookies
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:325:	//   - passToken from redirect cookies
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:326:	//   - ssecurity from extra header
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:327:	// LoginWithToken
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:328:	//   - userId, cUserId, serviceToken from cookies
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:329:	var cUserId, serviceToken string
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:338:			case "serviceToken":
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:339:				serviceToken = cookie.Value
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:340:			case "passToken":
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:341:				c.passToken = cookie.Value
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:347:				Ssecurity []byte `json:"ssecurity"`
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:349:			if err = json.Unmarshal([]byte(s), &v1); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:352:			c.ssecurity = v1.Ssecurity
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:358:	c.cookies = fmt.Sprintf("userId=%s; cUserId=%s; serviceToken=%s", c.userID, cUserId, serviceToken)
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:363:func (c *Cloud) LoginWithToken(userID, passToken string) error {
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:369:	req.Header.Set("Cookie", fmt.Sprintf("userId=%s; passToken=%s", userID, passToken))
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:377:		Ssecurity []byte `json:"ssecurity"`
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:378:		PassToken string `json:"passToken"`
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:385:	c.ssecurity = v1.Ssecurity
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:386:	c.passToken = v1.PassToken
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:392:	return c.userID, c.passToken
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:399:	signedNonce := genSignedNonce(c.ssecurity, nonce)
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:461:	if err = json.Unmarshal(plaintext, &res1); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:485:	return body, json.Unmarshal(body, &v)
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:497:func genSignedNonce(ssecurity, nonce []byte) []byte {
+/tmp/go2rtc-src.hWb5i9/pkg/xiaomi/cloud.go:499:	hasher.Write(ssecurity)
+/tmp/go2rtc-src.hWb5i9/pkg/expr/expr.go:131:						_ = json.Unmarshal(b, &v)
+/tmp/go2rtc-src.hWb5i9/internal/api/config.go:44:			if err = yaml.Unmarshal(data, map[string]any{}); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/api/config.go:64:	// Unmarshal the first YAML file into a map
+/tmp/go2rtc-src.hWb5i9/internal/api/config.go:66:	if err = yaml.Unmarshal(data1, &config1); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/api/config.go:70:	// Unmarshal the second YAML document into a map
+/tmp/go2rtc-src.hWb5i9/internal/api/config.go:72:	if err = yaml.Unmarshal(yaml2, &config2); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ring/api.go:344:	if err := json.Unmarshal(response, &devices); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ring/api.go:362:				if err := json.Unmarshal(deviceJson, &camera); err == nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ring/api.go:369:				if err := json.Unmarshal(deviceJson, &intercom); err == nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ring/api.go:396:	if err := json.Unmarshal(response, &ticket); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ring/api.go:480:			if err := json.Unmarshal(responseBody, &errorBody); err == nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ring/api.go:670:	if err := json.Unmarshal(decoded, &config); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ngrok/ngrok.go:70:		_ = json.Unmarshal(line, msg)
+/tmp/go2rtc-src.hWb5i9/pkg/onvif/envelope.go:44:	<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+/tmp/go2rtc-src.hWb5i9/pkg/onvif/envelope.go:49:			<wsu:Created xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">%s</wsu:Created>
+/tmp/go2rtc-src.hWb5i9/internal/api/ws/ws.go:50:func (m *Message) Unmarshal(v any) error {
+/tmp/go2rtc-src.hWb5i9/internal/api/ws/ws.go:55:	return json.Unmarshal(b, v)
+/tmp/go2rtc-src.hWb5i9/pkg/ring/client.go:259:			if err := json.Unmarshal(rawMsg, &msg); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/ring/client.go:283:			if err := json.Unmarshal(rawMsg, &msg); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/opus/opus.go:15:func UnmarshalHeader(b []byte) *Header {
+/tmp/go2rtc-src.hWb5i9/internal/app/config.go:16:		if err := yaml.Unmarshal(data, v); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/app/config.go:24:func PatchConfig(path []string, value any) error {
+/tmp/go2rtc-src.hWb5i9/pkg/h264/rtp.go:27:		payload, err := depack.Unmarshal(packet.Payload)
+/tmp/go2rtc-src.hWb5i9/pkg/yaml/yaml.go:10:func Unmarshal(in []byte, out interface{}) (err error) {
+/tmp/go2rtc-src.hWb5i9/pkg/yaml/yaml.go:11:	return yaml.Unmarshal(in, out)
+/tmp/go2rtc-src.hWb5i9/pkg/yaml/yaml.go:33:	if err = yaml.Unmarshal(out, map[string]any{}); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/yaml/yaml.go:42:	if err := yaml.Unmarshal(in, &root); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/client.go:228:	if err = json.Unmarshal(res, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/client.go:257:	if err = json.Unmarshal(res, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/client.go:301:	if err = json.Unmarshal(res, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/client.go:306:	if err = json.Unmarshal(v.SDP, sd); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/client.go:327:	if err = json.Unmarshal(res, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/client.go:333:		if err = json.Unmarshal(b, &init); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/app/storage.go:20:	if err := yaml.Unmarshal(data, &cfg); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/app/storage.go:40:	if err := PatchConfig([]string{"env", name}, value); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/iot/client.go:94:		if err = json.Unmarshal(payload, &msg); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/roborock/iot/client.go:99:		if err = json.Unmarshal([]byte(msg.Dps.Res), &res); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/srtp/session.go:130:	if err = packet.Unmarshal(b); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/srtp/session.go:146:	//packets, err := rtcp.Unmarshal(b)
+/tmp/go2rtc-src.hWb5i9/pkg/core/codec.go:70:	case CodecAV1:
+/tmp/go2rtc-src.hWb5i9/pkg/core/codec.go:137:func UnmarshalCodec(md *sdp.MediaDescription, payloadType string) *Codec {
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/client.go:196:	medias, err := UnmarshalSDP(res.Body)
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/conn.go:292:		if err := packet.Unmarshal(buf); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/conn.go:305:		if err := msg.Header.Unmarshal(buf); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/conn.go:310:		//msg.Packets, err = rtcp.Unmarshal(buf)
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/helpers.go:27:func UnmarshalSDP(rawSDP []byte) ([]*core.Media, error) {
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/helpers.go:29:	if err := sd.Unmarshal(rawSDP); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/helpers.go:56:		err = sd.Unmarshal(rawSDP)
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/helpers.go:68:		media := core.UnmarshalMedia(md)
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/helpers.go:108:		codec := core.UnmarshalCodec(md, s)
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/server.go:88:			c.Medias, err = UnmarshalSDP(req.Body)
+/tmp/go2rtc-src.hWb5i9/pkg/core/media.go:158:func UnmarshalMedia(md *sdp.MediaDescription) *Media {
+/tmp/go2rtc-src.hWb5i9/pkg/core/media.go:173:		m.Codecs = append(m.Codecs, UnmarshalCodec(md, format))
+/tmp/go2rtc-src.hWb5i9/pkg/hap/server.go:45:	if err = tlv8.UnmarshalReader(req.Body, req.ContentLength, &plainM1); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/server.go:98:	if err = tlv8.UnmarshalReader(req.Body, req.ContentLength, &plainM3); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/server.go:142:	if err = tlv8.UnmarshalReader(req.Body, req.ContentLength, &cipherM5); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/server.go:167:	if err = tlv8.Unmarshal(b, &plainM5); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/server.go:246:	if err = tlv8.UnmarshalReader(req.Body, req.ContentLength, &plainM1); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/server.go:317:	if err = tlv8.UnmarshalReader(req.Body, req.ContentLength, &cipherM3); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/server.go:334:	if err = tlv8.Unmarshal(b, &plainM3); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/core/media_test.go:25:	err = sd.Unmarshal(data)
+/tmp/go2rtc-src.hWb5i9/pkg/homekit/proxy.go:73:			_ = json.Unmarshal(body, &v)
+/tmp/go2rtc-src.hWb5i9/pkg/homekit/proxy.go:77:					_ = tlv8.UnmarshalBase64(char.Value, &hdsReq)
+/tmp/go2rtc-src.hWb5i9/pkg/homekit/proxy.go:95:			if err = json.Unmarshal(body, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/homekit/proxy.go:109:			_ = json.Unmarshal(body, &v)
+/tmp/go2rtc-src.hWb5i9/pkg/homekit/proxy.go:113:					_ = tlv8.UnmarshalBase64(char.Value, &hdsRes)
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:58:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:79:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:114:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:138:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:163:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:207:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:241:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/rtsp/rtsp_test.go:271:	medias, err := UnmarshalSDP([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client.go:131:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &cipherM2); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client.go:162:	if err = tlv8.Unmarshal(b, &plainM2); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client.go:216:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &plainM4); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client.go:305:	if err = json.Unmarshal(data, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/homekit/server.go:144:	if err := tlv8.UnmarshalReader(req.Body, req.ContentLength, &cmd); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/character.go:131:		return tlv8.UnmarshalBase64(s, v)
+/tmp/go2rtc-src.hWb5i9/pkg/tutk/dtls/cipher.go:100:	err := header.Unmarshal(in)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client_pairing.go:110:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &plainM2); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client_pairing.go:161:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &plainM4); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client_pairing.go:234:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &cipherM6); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client_pairing.go:252:	if err = tlv8.Unmarshal(b, &plainM6); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client_pairing.go:298:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &plainM2); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client_pairing.go:331:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &plainM2); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/client_pairing.go:356:	if err = tlv8.UnmarshalReader(res.Body, res.ContentLength, &plainM2); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/eseecloud/eseecloud.go:173:	if err := pkt.Unmarshal(b); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/dvrip/client.go:226:	if err = json.Unmarshal(b[:len(b)-2], &res); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8.go:168:func UnmarshalBase64(in any, out any) error {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8.go:174:	return Unmarshal(data, out)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8.go:177:func UnmarshalReader(r io.Reader, n int64, v any) error {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8.go:191:	return Unmarshal(data, v)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8.go:194:func Unmarshal(data []byte, v any) error {
+/tmp/go2rtc-src.hWb5i9/internal/dvrip/dvrip.go:144:		if err = json.Unmarshal(b[20:n-1], &msg); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/yandex/goloom.go:86:					if err = json.Unmarshal(v, &sdp); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/yandex/goloom.go:108:					if err = json.Unmarshal(v, &candidate); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/client.go:232:				if err := packet.Unmarshal(msg.Data); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/client.go:501:	if err := json.Unmarshal([]byte(msg.Data), &message); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/client.go:522:		if err := json.Unmarshal([]byte(message.Msg), &recvMessage); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/xiaomi/README.md:40:  1234567890: V1:***
+/tmp/go2rtc-src.hWb5i9/internal/xiaomi/xiaomi.go:65:	if err := cloud.LoginWithToken(userID, tokens[userID]); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/xiaomi/xiaomi.go:130:	if err = json.Unmarshal(res, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/xiaomi/xiaomi.go:179:	if err = json.Unmarshal(res, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/xiaomi/xiaomi.go:253:		if err = json.Unmarshal(res, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/xiaomi/xiaomi.go:327:		err = app.PatchConfig([]string{"xiaomi", userID}, token)
+/tmp/go2rtc-src.hWb5i9/internal/wyze/wyze.go:150:	if err := app.PatchConfig([]string{"wyze", email}, cfg); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/homekit/api.go:148:	return app.PatchConfig([]string{"streams", id}, conn.URL())
+/tmp/go2rtc-src.hWb5i9/internal/homekit/api.go:168:	return app.PatchConfig([]string{"streams", id}, nil)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/cloud_api.go:144:	err = json.Unmarshal(body, &allocResponse)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/cloud_api.go:179:	err = json.Unmarshal(body, &tokenResponse)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/cloud_api.go:205:	err = json.Unmarshal(body, &webRTCConfigResponse)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/cloud_api.go:214:	err = json.Unmarshal([]byte(webRTCConfigResponse.Result.Skill), &c.skill)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/cloud_api.go:227:	c.iceServers, err = webrtc.UnmarshalICEServers(iceServers)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/cloud_api.go:251:	err = json.Unmarshal(body, &openIoTHubConfigResponse)
+/tmp/go2rtc-src.hWb5i9/internal/streams/api.go:60:		if err := app.PatchConfig([]string{"streams", name}, query["src"]); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/streams/api.go:103:		if err := app.PatchConfig([]string{"streams", src}, nil); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/streams/api.go:160:		if err := app.PatchConfig([]string{"preload", src}, rawQuery); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/streams/api.go:170:		if err := app.PatchConfig([]string{"preload", src}, nil); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8_test.go:36:	err = Unmarshal(b, &dst)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8_test.go:59:	err = Unmarshal(b, &dst)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8_test.go:79:	err = Unmarshal(src, &v)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8_test.go:106:	err = Unmarshal(b, v2)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8_test.go:125:	err = Unmarshal(b1, &v)
+/tmp/go2rtc-src.hWb5i9/pkg/hap/tlv8/tlv8_test.go:147:	err = Unmarshal(b1, &v)
+/tmp/go2rtc-src.hWb5i9/internal/homekit/server.go:203:		s.PatchConfig()
+/tmp/go2rtc-src.hWb5i9/internal/homekit/server.go:215:		s.PatchConfig()
+/tmp/go2rtc-src.hWb5i9/internal/homekit/server.go:220:func (s *server) PatchConfig() {
+/tmp/go2rtc-src.hWb5i9/internal/homekit/server.go:221:	if err := app.PatchConfig([]string{"homekit", s.stream, "pairings"}, s.pairings); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/homekit/server.go:272:		if err := tlv8.UnmarshalBase64(value, &offer); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/homekit/server.go:282:		if err := tlv8.UnmarshalBase64(value, &conf); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/mqtt.go:286:	if err := json.Unmarshal(msg.Payload(), &rmqtt); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/mqtt.go:310:	if err := json.Unmarshal(msg.Payload(), &message); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/mqtt.go:332:	if err := json.Unmarshal(msg.Data.Message, &answerFrame); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/mqtt.go:342:	if err := json.Unmarshal(msg.Data.Message, &candidateFrame); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/mqtt.go:364:	if err := json.Unmarshal(msg.Data.Message, &speakerResponse); err == nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/client_creality.go:112:	if err = json.Unmarshal(b, &v); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/client_creality.go:122:	if err := sd.UnmarshalString(value); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/streams/api_test.go:29:		err := json.Unmarshal(w.Body.Bytes(), &schemes)
+/tmp/go2rtc-src.hWb5i9/internal/streams/api_test.go:53:	err := json.Unmarshal(w.Body.Bytes(), &schemes)
+/tmp/go2rtc-src.hWb5i9/internal/streams/dot.go:36:	if err = json.Unmarshal(b, &c); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:337:	if err := json.Unmarshal(body, &appInfoResponse); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:357:	if err := json.Unmarshal(body, &homeListResponse); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:377:	if err := json.Unmarshal(body, &sharedHomeListResponse); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:401:	if err := json.Unmarshal(body, &roomListResponse); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:427:	if err := json.Unmarshal(body, &tokenResp); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:463:	if err := json.Unmarshal(body, &loginResp); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:491:	err = json.Unmarshal(body, &webRTCConfigResponse)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:500:	err = json.Unmarshal([]byte(webRTCConfigResponse.Result.Skill), &c.skill)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:513:	c.iceServers, err = webrtc.UnmarshalICEServers(iceServers)
+/tmp/go2rtc-src.hWb5i9/pkg/tuya/smart_api.go:543:	err = json.Unmarshal(mqttBody, &mqttConfigResponse)
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/kinesis.go:51:		conf.ICEServers, err = webrtc.UnmarshalICEServers([]byte(s))
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/kinesis.go:169:				if err = json.Unmarshal(res.Payload, &sd); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/kinesis.go:180:				if err = json.Unmarshal(res.Payload, &ci); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/kinesis.go:221:	if err = json.Unmarshal(b, &kvs); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/milestone.go:130:	if err = json.Unmarshal([]byte(response.OfferSDP), &offer); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/hass/hass.go:121:	if err = json.Unmarshal(b, &storage); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/hass/hass.go:131:			if err = json.Unmarshal(entrie.Options, &options); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/hass/hass.go:150:			if err = json.Unmarshal(entrie.Data, &data); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/hass/hass.go:161:			_ = json.Unmarshal(entrie.Data, &roborock.Auth)
+/tmp/go2rtc-src.hWb5i9/internal/hass/hass.go:170:			if err = json.Unmarshal(entrie.Data, &data); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/webrtc_test.go:16:	err := json.Unmarshal([]byte(raw), msg)
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/webrtc_test.go:25:	err := json.Unmarshal([]byte(raw), msg)
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/webrtc_test.go:33:	err = msg.Unmarshal(&offer)
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/webrtc.go:146:		if err = msg.Unmarshal(&offer); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/openipc.go:26:		conf.ICEServers, err = webrtc.UnmarshalICEServers([]byte(s))
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/openipc.go:107:				if err = json.Unmarshal(rep.Data, &sd); err != nil {
+/tmp/go2rtc-src.hWb5i9/internal/webrtc/openipc.go:132:				if err = json.Unmarshal(rep.Data, &ci); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/wyoming/wakeword.go:56:			if err = json.Unmarshal([]byte(evt.Data), &data); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/wyoming/wakeword.go:81://	if err = json.Unmarshal(evt.Data, &info); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/helpers.go:20:func UnmarshalMedias(descriptions []*sdp.MediaDescription) (medias []*core.Media) {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/helpers.go:31:			media := core.UnmarshalMedia(md)
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/helpers.go:263:	case core.CodecAV1:
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/helpers.go:314:func UnmarshalICEServers(b []byte) ([]webrtc.ICEServer, error) {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/helpers.go:322:	if err := json.Unmarshal(b, &src); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/wyze/client.go:514:				if err := json.Unmarshal(jsonData[i:], &resp); err == nil {
+/tmp/go2rtc-src.hWb5i9/pkg/wyoming/api.go:60:	if err = json.Unmarshal(data, &hdr); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/wyze/cloud.go:126:	_ = json.Unmarshal(body, &errResp)
+/tmp/go2rtc-src.hWb5i9/pkg/wyze/cloud.go:132:	if err := json.Unmarshal(body, &result); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/wyze/cloud.go:186:	if err := json.Unmarshal(body, &result); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/wyze/cloud.go:271:	if err := json.Unmarshal(body, &result); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/server.go:13:	if err = sd.Unmarshal([]byte(offer)); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/server.go:45:	c.Medias = UnmarshalMedias(sd.MediaDescriptions)
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/server.go:107:	if err = sd.Unmarshal([]byte(answer)); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/client.go:70:	if err = sd.Unmarshal([]byte(answer)); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/client.go:74:	c.Medias = UnmarshalMedias(sd.MediaDescriptions)
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/client.go:84:	if err := sd2.Unmarshal([]byte(answer)); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/client.go:102:	if err := sd1.Unmarshal([]byte(offer)); err != nil {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/client_test.go:105:func TestUnmarshalICEServers(t *testing.T) {
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/client_test.go:107:	servers, err := UnmarshalICEServers([]byte(s))
+/tmp/go2rtc-src.hWb5i9/pkg/webrtc/conn.go:111:			if err := packet.Unmarshal(b[:n]); err != nil {
+
+web search: 
+web search: site:github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor QrCodeXiaomiCloudConnector passToken ssecurity serviceToken ...
+exec
+/bin/bash -lc "python3 - <<'PY'
+from pathlib import Path
+import re
+p=Path('/tmp/go2rtc_token.txt')
+if not p.exists():
+ print('MISSING')
+ raise SystemExit
+for line in p.read_text(errors='replace').splitlines():
+ if '=' not in line: continue
+ k,v=line.split('=',1); v=v.strip().strip(\"'\\\"\")
+ print(f'{k.strip()}: len={len(v)} prefix_V1={v.startswith(\"V1:\")} colon_count={v.count(\":\")} base64_charset={bool(re.fullmatch(r\"[A-Za-z0-9+/=_:-]+\",v))}')
+PY" in /root/rod-ai-studio
+ succeeded in 0ms:
+XXGO2RTC userId: len=565 prefix_V1=False colon_count=1 base64_charset=False
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+from pathlib import Path
+import re
+s=Path('/tmp/go2rtc_token.txt').read_text(errors='replace')
+for key in ('userId','passToken','ssecurity','serviceToken'):
+ pats=[rf'(?i)[\"\\']?{key}[\"\\']?\\s*[:=]\\s*[\"\\'](["'^"'"\\'\\s,}}]+)',rf'(?i){key}\\s+(["'^'"\\s,}}]+)']
+ v=None
+ for p in pats:
+  m=re.search(p,s)
+  if m: v=m.group(1); break
+ if v is None: print(f'{key}: NOT_PARSED'); continue
+ print(f'{key}: len={len(v)} prefix_V1={v.startswith(\"V1:\")} colon_count={v.count(\":\")}')
+PY" in /root/rod-ai-studio
+ succeeded in 0ms:
+userId: NOT_PARSED
+passToken: NOT_PARSED
+ssecurity: NOT_PARSED
+serviceToken: NOT_PARSED
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+from pathlib import Path
+s=Path('/tmp/go2rtc_token.txt').read_text(errors='replace')
+print('bytes',len(s),'lines',s.count('\\\\n')+1,'contains_V1', 'V1:' in s,'V1_count',s.count('V1:'))
+for k in ('userId','passToken','ssecurity','serviceToken'):
+ print(k,'present',k.lower() in s.lower(),'index',s.lower().find(k.lower()))
+PY" in /root/rod-ai-studio
+ succeeded in 0ms:
+bytes 582 lines 1 contains_V1 True V1_count 1
+userId present True index 9
+passToken present True index 27
+ssecurity present True index 361
+serviceToken present True index 396
+
+exec
+/bin/bash -lc "python3 - <<'PY'
+from pathlib import Path
+s=Path('/tmp/go2rtc_token.txt').read_text(errors='replace')
+lo=s.lower(); p=lo.find('passtoken'); q=lo.find('ssecurity'); seg=s[p:q]
+print('pass_segment_len',len(seg),'V1_offset',seg.find('V1:'),'starts_after_label',seg[seg.find('V1:'):].startswith('V1:') if 'V1:' in seg else False)
+print('chars_before_V1_after_label',len(seg[:seg.find('V1:')]) if 'V1:' in seg else -1)
+PY" in /root/rod-ai-studio
+ succeeded in 0ms:
+pass_segment_len 334 V1_offset 10 starts_after_label True
+chars_before_V1_after_label 10
+
+exec
+/bin/bash -lc "curl -fsS http://100.115.112.5:1984/api/config | python3 -c 'import sys,yaml; d=yaml.safe_load(sys.stdin.read()); x=(d.get(\"xiaomi\") or {}).get(\"6338598787\",\"\"); print(\"configured_len\",len(x),\"V1_count\",x.count(\"V1:\"),\"starts_V1\",x.startswith(\"V1:\"))'" in /root/rod-ai-studio
+ succeeded in 232ms:
+configured_len 0 V1_count 0 starts_V1 False
+
+exec
+/bin/bash -lc "curl -fsS http://100.115.112.5:1984/api/config | python3 -c 'import sys,yaml; d=yaml.safe_load(sys.stdin.read()); print(type(d).__name__, sorted(d.keys()) if isinstance(d,dict) else str(d)[:100])'" in /root/rod-ai-studio
+ succeeded in 122ms:
+dict ['streams', 'xiaomi']
+
+exec
+/bin/bash -lc "curl -fsS http://100.115.112.5:1984/api/config | python3 -c 'import sys,yaml; d=yaml.safe_load(sys.stdin.read()); x=d.get(\"xiaomi\") or {}; print([(type(k).__name__,str(k),len(str(v)),str(v).count(\"V1:\"),str(v).startswith(\"V1:\")) for k,v in x.items()])'" in /root/rod-ai-studio
+ succeeded in 111ms:
+[('int', '6338598787', 326, 2, True)]
+
+web search: 
+web search: https://github.com/AlexxIT/go2rtc/issues/2233
+2026-08-08T12:41:38.396304Z ERROR codex_core::tools::router: error=write_stdin failed: Unknown process id 38883
+2026-08-08T12:41:38.396494Z ERROR codex_core::tools::router: error=write_stdin failed: Unknown process id 38883
+ succeeded in 287422ms:
+[GENEK — TRYB AWARYJNY: bez dostepu do dysku, tylko doklejony material; droga 1 padla: CLI: zaden model z kolejki nie odpowiedzial (gemini-3.1-pro-preview, gemini-3.1-pro-preview, gemini-3.6-flash) po 3 probach. Dekret Tomasza: najwyzszy WOLNY model — schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, ale tu nie odpowiedzial ZADEN. | gemini-3.1-pro-preview: przekroczony czas 93s | gemini-3.1-pro-preview: przekroczony czas 93s]
+
+Rozumiem, że mam przeprowadzić badanie i tekstową ocenę/plan, nie modyfikując, nie instalując ani nie zapisując niczego w repozytorium. Mam dostęp wyłącznie do tekstu dołączonego do wiadomości i nie mam dostępu do dysku.
+
+**A) Dokładne parsowanie V1 i LoginWithToken, czy QR passToken+ssecurity+serviceToken można przekształcić lub istnieje V2?**
+
+Zgodnie z dostarczonymi informacjami:
+
+*   **Wiedza/START.md:**
+    *   Linia 10: "Xiaomi V1 - to jest to, co działało w 2022 roku, ale teraz jest problem z autoryzacją."
+    *   Linia 11: "Xiaomi V2 - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+    *   Linia 13: "LoginWithToken - to jest to, co działało w 2022 roku, ale teraz jest problem z autoryzacją."
+    *   Linia 14: "QR passToken+ssecurity+serviceToken - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+
+*   **TELEPORT_fabryka.md:**
+    *   Linia 2860-2861: "Xiaomi V1 - to jest to, co działało w 2022 roku, ale teraz jest problem z autoryzacją."
+    *   Linia 2862-2863: "Xiaomi V2 - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+    *   Linia 2864-2865: "LoginWithToken - to jest to, co działało w 2022 roku, ale teraz jest problem z autoryzacją."
+    *   Linia 2866-2867: "QR passToken+ssecurity+serviceToken - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+
+Z powyższych fragmentów wynika, że:
+*   V1 i LoginWithToken miały problemy z autoryzacją w 2022 roku i obecnie nie są najpewniejszą drogą.
+*   QR passToken+ssecurity+serviceToken to metoda, która działa teraz, ale nie jest w pełni zaimplementowana. Jest to część "V2".
+*   Nie ma bezpośredniej informacji o możliwości przekształcenia QR passToken+ssecurity+serviceToken w V1 lub LoginWithToken. Raczej są to różne mechanizmy, gdzie QR jest częścią nowszego (V2).
+
+**Źródła upstream AlexxIT/go2rtc:**
+Nie mam dostępu do zewnętrznych źródeł ani dysku, więc nie mogę zbadać `internal/xiaomi/cloud.go`, `pkg/xiaomi` ani `add.html` z repozytorium AlexxIT/go2rtc.
+
+**Wniosek A:**
+Dokładne parsowanie V1 i LoginWithToken jest problematyczne ze względu na problemy z autoryzacją. QR passToken+ssecurity+serviceToken jest częścią V2, która działa obecnie, ale nie jest w pełni zaimplementowana. Nie ma informacji o możliwości przekształcenia QR passToken+ssecurity+serviceToken w V1 lub LoginWithToken.
+
+**B) Czy sesję Extractora da się wstrzyknąć do go2rtc/config/API?**
+
+**Wiedza/START.md:**
+*   Linia 15: "Extractor - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+*   Linia 16: "go2rtc/config/API - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+
+**TELEPORT_fabryka.md:**
+*   Linia 2868-2869: "Extractor - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+*   Linia 2870-2871: "go2rtc/config/API - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+
+Z dostarczonych fragmentów wynika, że zarówno Extractor, jak i go2rtc/config/API są metodami, które działają obecnie, ale nie są w pełni zaimplementowane. Nie ma jednak bezpośredniej informacji o możliwości wstrzyknięcia sesji Extractora do go2rtc/config/API. Brak jest szczegółów technicznych na ten temat w dostarczonym materiale.
+
+**Wniosek B:**
+NIE WIEM. Dostarczone materiały wskazują, że Extractor i go2rtc/config/API działają, ale nie są w pełni zaimplementowane. Nie ma jednak informacji o możliwości wstrzyknięcia sesji Extractora do go2rtc/config/API.
+
+**C) Czy da się wymusić verify_phone/SMS?**
+
+Brak jakiejkolwiek wzmianki o "verify_phone" lub "SMS" w dostarczonych plikach `Wiedza/START.md` i `TELEPORT_fabryka.md`.
+
+**Wniosek C:**
+NIE WIEM. Brak informacji w dostarczonych materiałach.
+
+**D) Czy inny region omija limit?**
+
+Brak jakiejkolwiek wzmianki o "region" lub "limit" w dostarczonych plikach `Wiedza/START.md` i `TELEPORT_fabryka.md`.
+
+**Wniosek D:**
+NIE WIEM. Brak informacji w dostarczonych materiałach.
+
+**E) Najpewniejsza droga dziś z konkretnymi komendami, ale bez wykonywania.**
+
+Zgodnie z dostarczonymi informacjami, najpewniejsze drogi to te, które "działają teraz", choć nie są w pełni zaimplementowane. Są to:
+
+*   **QR passToken+ssecurity+serviceToken (część V2)**
+*   **Extractor**
+*   **go2rtc/config/API**
+
+Jednakże, żadna z tych opcji nie jest opisana z "konkretnymi komendami" w dostarczonych plikach. Pliki jedynie wspominają o ich istnieniu i statusie implementacji.
+
+**Wiedza/START.md:**
+*   Linia 14: "QR passToken+ssecurity+serviceToken - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+*   Linia 15: "Extractor - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+*   Linia 16: "go2rtc/config/API - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+
+**TELEPORT_fabryka.md:**
+*   Linia 2866-2867: "QR passToken+ssecurity+serviceToken - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+*   Linia 2868-2869: "Extractor - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+*   Linia 2870-2871: "go2rtc/config/API - to jest to, co działa teraz, ale nie jest w pełni zaimplementowane."
+
+**Wniosek E:**
+Najpewniejsze drogi to QR passToken+ssecurity+serviceToken, Extractor oraz go2rtc/config/API, ponieważ są to metody, które "działają teraz". Jednakże, dostarczone materiały nie zawierają konkretnych komend dla żadnej z tych metod.
+
+GENEK
+
+codex
+Mam już twarde rozstrzygnięcie przyczyny: aktywna konfiguracja ma dwa prefiksy `V1:`. Sam token z Extractora już zawiera jeden `V1:`, a kod go2rtc niczego nie dekoduje ani nie dokleja — przekazuje wartość dosłownie jako cookie `passToken`. To daje konkretną drogę „dzisiaj” bez obchodzenia limitu email. Czekam jeszcze na niezależny głos Genka; pierwsze długie wywołanie zakończyło się bez odebranego tekstu, więc zlecam mu krótką kontrolę dokładnie tego ustalenia.
+exec
+/bin/bash -lc "python3 tools/genek.py --limit 120 'BADANIE TYLKO, nic nie zmieniaj ani nie zapisuj. Sprawdź aktualny kod AlexxIT/go2rtc v1.9.14 internal/xiaomi/xiaomi.go i pkg/xiaomi/cloud.go. Dane pomiarowe: token QR w /tmp/go2rtc_token.txt zawiera V1: dokładnie raz; GET http://100.115.112.5:1984/api/config pokazuje wartość xiaomi dla konta długości 326, zaczyna V1: i zawiera V1: dwa razy. Czy 401 wyjaśnia podwójny prefiks? Oceń A-D i najkrótszy plan testu dziś. Bez sekretów, cytuj URL/linie, podpis GENEK.'" in /root/rod-ai-studio
+codex
+## POTWIERDZONE
+
+### Głos ZENKA
+
+**Przyczyna `401` jest znaleziona: token zapisano z podwójnym prefiksem `V1:`.**
+
+Ślady z odczytu bez ujawniania wartości:
+
+- Token Extractora w `/tmp/go2rtc_token.txt`: długość 323, zawiera `V1:` dokładnie raz.
+- Aktywne `/api/config`: wartość Xiaomi ma długość 326, zaczyna się od `V1:` i zawiera `V1:` dwa razy.
+- Różnica wynosi dokładnie trzy znaki — długość `V1:`.
+
+Kod go2rtc nie parsuje żadnego formatu V1/V2:
+
+- `getCloud()` przekazuje wartość konfiguracji dosłownie do `LoginWithToken`.
+- `LoginWithToken()` wkłada ją dosłownie do cookie: `passToken=%s`.
+- Nie ma `TrimPrefix`, base64, składania z `ssecurity` ani obsługi V2.  
+  Źródła: [internal/xiaomi/xiaomi.go](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/internal/xiaomi/xiaomi.go), [pkg/xiaomi/cloud.go](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/pkg/xiaomi/cloud.go).
+
+Czyli skonfigurowane cookie ma obecnie postać logiczną:
+
+```text
+passToken=V1:V1:...
+```
+
+zamiast:
+
+```text
+passToken=V1:...
+```
+
+`V1:` nie jest opakowaniem go2rtc. Jest częścią surowego `passToken` zwróconego przez Xiaomi. Dokumentacja pokazuje właśnie pełny token zaczynający się od `V1:`. [Dokumentacja Xiaomi go2rtc](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/internal/xiaomi/README.md)
+
+**Droga B:** go2rtc 1.9.14 nie przyjmuje `ssecurity` ani `serviceToken` w konfiguracji. Konfiguracja `xiaomi` jest mapą `userID → string`, a jedyną ścieżką startową jest `LoginWithToken(userID, passToken)`. Wstrzyknięcie kompletnej sesji wymagałoby zmiany kodu.
+
+**Droga C:** SMS nie jest wybierany parametrem. Xiaomi zwraca flagę metody; kod mapuje flagę `4 → Phone`, `8 → Email`. Jeśli Xiaomi zwróciło flagę email, API go2rtc nie ma przełącznika wymuszającego telefon. [cloud.go](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/pkg/xiaomi/cloud.go)
+
+**Droga D:** region nie steruje logowaniem do konta. Logowanie zawsze idzie do `account.xiaomi.com`. Region wybiera dopiero serwer urządzeń `de.api.io.mi.com`, `sg.api.io.mi.com` itd. Co więcej, `apiAuth` go2rtc w ogóle nie odczytuje pola `server`. Zmiana regionu nie powinna ominąć limitu wysyłki kodów.
+
+— **ZENEK**
+
+### Głos GENKA
+
+**GŁOS NIEODEBRANY.** Dwa wywołania Genka zakończyły pracę bez zwrócenia tekstu. Nie przypisuję mu opinii.
+
+### Głos HENIA
+
+**GŁOS NIEODEBRANY.** Piaskownica odmówiła uruchomienia konta `hermes`: `su: cannot set groups: Operation not permitted`; binarka nie była dostępna w PATH roota. Nie zastępuję jego głosu własnym.
+
+## HIPOTEZY / wspólny wniosek dostępnych dowodów
+
+Najpewniejsza droga dzisiaj to **Droga A, ale bez doklejania `V1:`**. Nie potrzeba emaila, SMS-a, innego regionu ani konwersji tokenu.
+
+Plan wykonania po decyzji Tomasza:
+
+```bash
+# 1. Kopia konfiguracji
+ssh -i /root/.ssh/id_ed25519 root@100.115.112.5 \
+  'cp /config/go2rtc.yaml /config/go2rtc.yaml.bak-before-token-fix'
+
+# 2. Usunięcie wyłącznie nadmiarowego prefiksu
+ssh -i /root/.ssh/id_ed25519 root@100.115.112.5 \
+  "sed -i '/6338598787:/ s/V1:V1:/V1:/' /config/go2rtc.yaml"
+
+# 3. Restart dodatku, aby wyczyścić cache Cloud
+ssh -i /root/.ssh/id_ed25519 root@100.115.112.5 \
+  'ha addons restart a889bffc_go2rtc'
+
+# 4. Sprawdzenie logowania i listy urządzeń
+curl -fS \
+  'http://100.115.112.5:1984/api/xiaomi?id=6338598787&region=de'
+
+# 5. Pobranie obrazu
+curl -fS \
+  'http://100.115.112.5:1984/api/frame.jpeg?src=cam_zachod_112' \
+  -o /tmp/cam_zachod_112.jpg
+
+file /tmp/cam_zachod_112.jpg
+```
+
+Po kroku 2 kontrola bez ujawniania tokenu powinna pokazać: długość 323, `V1_count=1`, `starts_V1=true`.
+
+## NIE WIEM
+
+- Nie potwierdzono wykonaniem, że pojedynczy prefiks da obraz — zgodnie z poleceniem niczego nie zmieniłem.
+- Nie ma odebranych głosów Genka i Henia, więc formalnie nie ma pełnego wspólnego werdyktu całej trójki.
+- Jeśli pojedynczy prefiks nadal da `401`, nie wiadomo jeszcze, czy QR-owy token wygasł. Następną kontrolą byłoby użycie kompletnej sesji Extractora w małym, tymczasowym testerze lub poprawka `LoginWithSession`; nie jest to jednak pierwszy ruch.
+2026-08-08T12:43:41.931819Z ERROR codex_core::session: failed to record rollout items: thread 019fe15f-7cbd-7360-80da-a6cbf1c0e28e not found
+2026-08-08T12:43:41.931899Z ERROR codex_core::session: failed to record rollout items: thread 019fe15f-7cbd-7360-80da-a6cbf1c0e28e not found
+tokens used
+102,006
+## POTWIERDZONE
+
+### Głos ZENKA
+
+**Przyczyna `401` jest znaleziona: token zapisano z podwójnym prefiksem `V1:`.**
+
+Ślady z odczytu bez ujawniania wartości:
+
+- Token Extractora w `/tmp/go2rtc_token.txt`: długość 323, zawiera `V1:` dokładnie raz.
+- Aktywne `/api/config`: wartość Xiaomi ma długość 326, zaczyna się od `V1:` i zawiera `V1:` dwa razy.
+- Różnica wynosi dokładnie trzy znaki — długość `V1:`.
+
+Kod go2rtc nie parsuje żadnego formatu V1/V2:
+
+- `getCloud()` przekazuje wartość konfiguracji dosłownie do `LoginWithToken`.
+- `LoginWithToken()` wkłada ją dosłownie do cookie: `passToken=%s`.
+- Nie ma `TrimPrefix`, base64, składania z `ssecurity` ani obsługi V2.  
+  Źródła: [internal/xiaomi/xiaomi.go](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/internal/xiaomi/xiaomi.go), [pkg/xiaomi/cloud.go](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/pkg/xiaomi/cloud.go).
+
+Czyli skonfigurowane cookie ma obecnie postać logiczną:
+
+```text
+passToken=V1:V1:...
+```
+
+zamiast:
+
+```text
+passToken=V1:...
+```
+
+`V1:` nie jest opakowaniem go2rtc. Jest częścią surowego `passToken` zwróconego przez Xiaomi. Dokumentacja pokazuje właśnie pełny token zaczynający się od `V1:`. [Dokumentacja Xiaomi go2rtc](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/internal/xiaomi/README.md)
+
+**Droga B:** go2rtc 1.9.14 nie przyjmuje `ssecurity` ani `serviceToken` w konfiguracji. Konfiguracja `xiaomi` jest mapą `userID → string`, a jedyną ścieżką startową jest `LoginWithToken(userID, passToken)`. Wstrzyknięcie kompletnej sesji wymagałoby zmiany kodu.
+
+**Droga C:** SMS nie jest wybierany parametrem. Xiaomi zwraca flagę metody; kod mapuje flagę `4 → Phone`, `8 → Email`. Jeśli Xiaomi zwróciło flagę email, API go2rtc nie ma przełącznika wymuszającego telefon. [cloud.go](https://github.com/AlexxIT/go2rtc/blob/v1.9.14/pkg/xiaomi/cloud.go)
+
+**Droga D:** region nie steruje logowaniem do konta. Logowanie zawsze idzie do `account.xiaomi.com`. Region wybiera dopiero serwer urządzeń `de.api.io.mi.com`, `sg.api.io.mi.com` itd. Co więcej, `apiAuth` go2rtc w ogóle nie odczytuje pola `server`. Zmiana regionu nie powinna ominąć limitu wysyłki kodów.
+
+— **ZENEK**
+
+### Głos GENKA
+
+**GŁOS NIEODEBRANY.** Dwa wywołania Genka zakończyły pracę bez zwrócenia tekstu. Nie przypisuję mu opinii.
+
+### Głos HENIA
+
+**GŁOS NIEODEBRANY.** Piaskownica odmówiła uruchomienia konta `hermes`: `su: cannot set groups: Operation not permitted`; binarka nie była dostępna w PATH roota. Nie zastępuję jego głosu własnym.
+
+## HIPOTEZY / wspólny wniosek dostępnych dowodów
+
+Najpewniejsza droga dzisiaj to **Droga A, ale bez doklejania `V1:`**. Nie potrzeba emaila, SMS-a, innego regionu ani konwersji tokenu.
+
+Plan wykonania po decyzji Tomasza:
+
+```bash
+# 1. Kopia konfiguracji
+ssh -i /root/.ssh/id_ed25519 root@100.115.112.5 \
+  'cp /config/go2rtc.yaml /config/go2rtc.yaml.bak-before-token-fix'
+
+# 2. Usunięcie wyłącznie nadmiarowego prefiksu
+ssh -i /root/.ssh/id_ed25519 root@100.115.112.5 \
+  "sed -i '/6338598787:/ s/V1:V1:/V1:/' /config/go2rtc.yaml"
+
+# 3. Restart dodatku, aby wyczyścić cache Cloud
+ssh -i /root/.ssh/id_ed25519 root@100.115.112.5 \
+  'ha addons restart a889bffc_go2rtc'
+
+# 4. Sprawdzenie logowania i listy urządzeń
+curl -fS \
+  'http://100.115.112.5:1984/api/xiaomi?id=6338598787&region=de'
+
+# 5. Pobranie obrazu
+curl -fS \
+  'http://100.115.112.5:1984/api/frame.jpeg?src=cam_zachod_112' \
+  -o /tmp/cam_zachod_112.jpg
+
+file /tmp/cam_zachod_112.jpg
+```
+
+Po kroku 2 kontrola bez ujawniania tokenu powinna pokazać: długość 323, `V1_count=1`, `starts_V1=true`.
+
+## NIE WIEM
+
+- Nie potwierdzono wykonaniem, że pojedynczy prefiks da obraz — zgodnie z poleceniem niczego nie zmieniłem.
+- Nie ma odebranych głosów Genka i Henia, więc formalnie nie ma pełnego wspólnego werdyktu całej trójki.
+- Jeśli pojedynczy prefiks nadal da `401`, nie wiadomo jeszcze, czy QR-owy token wygasł. Następną kontrolą byłoby użycie kompletnej sesji Extractora w małym, tymczasowym testerze lub poprawka `LoginWithSession`; nie jest to jednak pierwszy ruch.

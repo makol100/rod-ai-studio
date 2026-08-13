@@ -1,0 +1,13 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+SLOT 1: 20260722_094249, IN=10.0 s — Zbliżenie na pniaki ukryte w wysokiej trawie, pokazujące stopień zaniedbania terenu.
+SLOT 2: 20260722_094249, IN=26.0 s — Szeroki rzut na gęste zarośla przed bramą, obrazujący skalę wyzwania przed rozpoczęciem prac.
+SLOT 3: VID-20260723-WA0001, IN=6.0 s — Pierwsze wbicie łyżki koparki w grunt przy ogrodzeniu, rozpoczynające właściwe prace.
+SLOT 4: VID-20260723-WA0001, IN=14.0 s — Dynamiczne wybieranie ziemi przez koparkę pod nadzorem gospodarza stojącego obok wykopu.
+SLOT 5: VID-20260723-WA0005, IN=2.0 s — Kulminacyjny moment z człowiekiem w wykopie, który pomaga precyzyjnie podważyć ogromny korzeń.
+SLOT 6: VID-20260723-WA0005, IN=10.0 s — Efektowne wyciąganie potężnego pnia z głębi ziemi, ukazujące trudność usuwania starych karp.
+SLOT 7: VID-20260723-WA0007, IN=2.0 s — Praca koparki przy zapalonych światłach roboczych, podkreślająca wysiłek kontynuowany aż do zmierzchu.
+SLOT 8: 20260722_093926, IN=22.0 s — Widok na w pełni oczyszczony i wyrównany pas ziemi, dokumentujący skuteczność przeprowadzonych prac.
+SLOT 9: 20260722_093926, IN=2.0 s — Finałowe spojrzenie od strony bramy ROD na uporządkowany teren i hałdę wydobytych korzeni.
+
+OSTRZEŻENIA: W VID-20260723-WA0005 (SLOT 5) widoczna twarz pracownika w wykopie — może wymagać lekkiego rozmycia; w VID-20260723-WA0001 (t2-t4) widoczna twarz gospodarza, ale wybrane fragmenty od 6.0s ograniczają ten problem.

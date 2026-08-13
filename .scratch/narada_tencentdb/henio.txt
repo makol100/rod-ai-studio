@@ -1,0 +1,89 @@
+Mam pełny obraz. Czas na podpisany głos.
+
+---
+
+# HENIO — WERDYKT KONTROLNY: TencentDB Agent Memory
+
+## POTWIERDZONE (ślady z tej tury)
+
+**Architektura — zgodna z opisem w zadaniu:**
+- Krótkoterminowa 3-warstwowa: refs/*.md → jsonl step summaries → Mermaid canvas. Progi 50%/85% okna, graph capped 20% budżetu/4000 znaków [źródło: szukaj_net.py, marktechpost.com + skillsllm.com]
+- Długoterminowa piramida L0 Conversation → L1 Atom → L2 Scenario → L3 Persona [źródło: szukaj_net.py, github.com]
+- Retrieval: hybrydowy BM25 + vector + RRF, lokalnie SQLite + sqlite-vec [źródło: szukaj_net.py]
+- Docker dla Hermesa + npm plugin `@tencentdb-agent-memory/memory-tencentdb` + Gateway na porcie 8420 [źródło: szukaj_net.py, github.com + regolo.ai]
+- PersonaMem: 48% → 76% (+59%) — potwierdzone [źródło: szukaj_net.py, github.com]
+- 14 600 gwiazdek (5.08.2026), 72 otwarte issue'y (6.08.2026) [źródło: szukaj_net.py, byteiota.com + github.com]
+
+**Bugi — KLUCZOWE dla nas (adapter Hermesa):**
+1. **`tdai_memory_search` zawsze zwraca puste** — adapter `memory_tencentdb_v2` czyta błędne pole odpowiedzi. Dotyczy 1.x stable. [źródło: szukaj_net.py, github.com issues]
+2. **`on_memory_write` to stub (niezaimplementowany)** — `memory(action="add", ...)` lokalnie OK, ale nieprzeszukiwalne przez TencentDB. Zgłoszone 7.07.2026. [źródło: szukaj_net.py, github.com]
+3. **Symlink ginie po aktualizacji** — `install_hermes_memory_tencentdb.sh` tworzy link tylko w `$HERMES_AGENT_DIR`, nie w `~/.hermes/plugins/`. Po updacie: `hermes memory status` → "Plugin: NOT installed", sidecar nie startuje. Zgłoszone 8.06.2026. [źródło: szukaj_net.py, github.com]
+
+**Inne bugi (nie nasze bezpośrednio):** MEMORY_LLM_PROTOCOL=anthropic ignorowany (L1 extraction → 404), memory-proxy gubi /v1/, Windows Git Bash, start-all.sh bugi macOS+podman, L0 embedding silently fails. [źródło: szukaj_net.py, github issues]
+
+**Nasz system dla porównania (zmierzone):**
+- `wiedza/` = 37 plików markdown, INDEX.md, struktura płaska [źródło: INDEX.md]
+- TELEPORT_fabryka.md = 283 731 bajtów, dziennik sesji [źródło: wc -c]
+- `PAMIEC_INFRASTRUKTURA.md` = 12KB, eksport pamięci Klaudka [źródło: read_file]
+- Start sesji: brief ~1150 + teleport tail -120 ~9606 + decyzje = ~11 738 znaków [źródło: GDZIE_SIE_ZAPISUJE.md:72-75]
+- Wyszukiwanie: `szukaj.py` = grep/regex po plikach, NIE semantyczne [źródło: START.md]
+- Brak mechanizmu kompresji śródsesyjnej — gdy okno się przepełnia, sesja się kompaktuje [źródło: szukaj.py — zero trafień na "kompaktowac/okno/przepelnienie" = fabryka nie ma zapisu o tym problemie]
+
+---
+
+## ODPOWIEDZI NA PYTANIA
+
+### Q1: Graf Mermaid + drill-down (krótkotrwała) — warto u nas?
+
+**TAK, koncepcyjnie.** Nasz obecny mechanizm: wklejamy TELEPORT tail -120 i brief na start sesji. Zero kompresji śródsesyjnej. Mermaid graph dałby stan zadania w ~4000 znaków zamiast tysiąclecia logu.
+
+ALE nasz model pracy jest inny niż ten, do którego Mermaid został zaprojektowany. TencentDB targetuje agenta wykonującego wieloetapowe zadania z dziesiątkami wywołań narzędziowych — tam Mermaid daje największy zysk. Nasze zadania idą równolegle do 4 członków załogi, każdy dostaje to samo zlecenie, rzadko mamy łańcuchy narzędziowe >10 kroków w jednej sesji. Mimo to: kompresja stanu przed przekazaniem do załogi (zamiast full TELEPORT tail) miałaby wartość.
+
+### Q2: Piramida L0→L3 vs nasz `wiedza/` + teleport — co zyskujemy?
+
+Nasz system POKRYWA część tej funkcji, ale mniej systematycznie:
+- L0 (surowy dialog) → nasz TELEPORT_fabryka.md
+- L1 (fakty atomowe) → częściowo NAUKI.md, PAMIEC_INFRASTRUKTURA.md
+- L2 (sceny) → robione ręcznie, niesystematycznie
+- L3 (persona) → PAMIEC_INFRASTRUKTURA.md (nie persona, tylko wiedza o infra)
+
+**Zysk: automatyczna ekstrakcja faktów i deterministyczna ścieżka dowodowa (node_id → źródło).** Teraz Klaudek robi to ręcznie, z błędami.
+
+**NIE zysk: L3 Persona.** Nie budujemy profilu usera z rozmów — zarządzamy wiedzą techniczną.
+
+### Q3: Integracja z HERMES — wpinamy do Henia?
+
+**NIE NA TERAZ.** Trzy bugi adaptera Hermesa są deal-breakerami:
+1. `tdai_memory_search` nie działa (zawsze puste)
+2. `on_memory_write` to stub — jawne zapisy nieprzeszukiwalne
+3. Ryzyko cichego padnięcia po aktualizacji (symlink)
+
+Technicznie: Docker istnieje, npm plugin istnieje, instrukcja jest. Gdyby bugi były załatane — integracja byłaby realna w ~30 minut. Ale nie są.
+
+### Q4: Koszt/ryzyko — jak świeży/dojrzały projekt?
+
+- **Koszt**: SQLite lokalny = zero. Ryzyko kosztowe NISKIE.
+- **Ryzyko stabilności**: WYSOKIE dla adaptera Hermesa. 72 otwarte issue'y. Projekt ma 14 600 gwiazdek (hype), ale jakość integracji z Hermesem jest słaba.
+- **Sygnał "jedna linia tabeli się nie zgadza"**: NIE POTWIERDZAM z zewnętrznych źródeł — szukaj_net.py nie znalazł. Ale biorąc pod uwagę 3 potwierdzone bugi adaptera Hermesa, ogólna ostrożność jest uzasadniona niezależnie od tego konkretnego zarzutu.
+
+### Q5: WERDYKT
+
+**ODRZUCIĆ jako całościowe wdrożenie. PODPATRZEĆ KONCEPT Mermaid+node_id.**
+
+| opcja | werdykt | uzasadnienie |
+|---|---|---|
+| **Wdrożyć całość** | ❌ NIE | Adapter Hermesa zepsuty (3 bugi), 72 otwarte issue'y, piramida L0-L3 to overkill dla naszego use case'u |
+| **Podpatrzeć KONCEPT Mermaid+node_id** | ✅ TAK | Proste, tanie, rozwiązuje realny problem (kompresja stanu w sesji). Możemy zrobić własną wersję bez zależności od TencentDB |
+| **Odrzucić całkowicie** | ❌ NIE | Sam koncept warstwowej pamięci z drill-down jest wartościowy i nie mamy go u siebie |
+
+**Co pierwsze:** Koncept Mermaid do **krótkoterminowej** pamięci — generowanie grafu stanu zadania zamiast wklejania pełnego TELEPORT tail. Długoterminowa (piramida L0-L3) = NIE, nasz system `wiedza/` + teleport + INDEX pokrywa to wystarczająco, a ekstrakcja faktów jest i tak robiona ręcznie przez Klaudka (i ma być — to jego odpowiedzialność).
+
+**Konkretnie do podpatrzenia:**
+- Generowanie grafu Mermaid ze stanu zadania (co zostało zrobione, co jest w toku, jakie są blokery) jako zamiennik lub uzupełnienie TELEPORT tail
+- Drill-down: każdy węzeł grafu ma `node_id` wskazujący na konkretny plik/sekcję w `wiedza/` lub `.scratch/`
+- Limit: graf capped na ~4000 znaków (pasuje w każdym oknie startowym)
+- NIE potrzebujemy do tego TencentDB — to jest koncept, nie kod
+
+---
+
+**Podpis: Henio, 6.08.2026**

@@ -1,0 +1,155 @@
+warning: `--full-auto` is deprecated; use `--sandbox workspace-write` instead.
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa9ca-ff5c-7c83-ae4d-1e0d4a74b42f
+--------
+user
+Przeczytaj plik /tmp/zenek_brief.md i plik /root/rod-ai-studio/data/wiadomosci/0001-teren/_montaz_v3.sh, potem odpowiedz na 4 pytania z briefu. Zapisz odpowiedź po polsku do /root/rod-ai-studio/work/_v3kl/_zenek_review.txt
+codex
+Przeczytam oba wskazane pliki, wyłuszczę cztery pytania z briefu i zapiszę odpowiedzi po polsku we wskazanym miejscu.
+exec
+/bin/bash -lc "sed -n '1,240p' /tmp/zenek_brief.md && sed -n '1,280p' /root/rod-ai-studio/data/wiadomosci/0001-teren/_montaz_v3.sh" in /root/rod-ai-studio
+ succeeded in 0ms:
+# BRIEF DLA ZENKA — review naprawy v3 odcinka WD_0001 (Fabryka Rolek ROD)
+## Kontekst
+Rolka 57s: prezenter AI (Stanisław) w studiu 1080x1920 + 6 przebitek z terenu (overlay pełnoekranowy w slotach 9-16/16-21/21-27/27-32/32-39/39-45s). Master v1 i v2 były WADLIWE:
+- AWARIA 1 (v2): fragmenty naprawcze robione z `-noautorotate` odziedziczyły tag displaymatrix rot=-90 ze źródła Samsung. Montaż zastosował tag przy wczytaniu: obrócił fragmenty do 1920x1080 i overlay od (0,0) przykrył tylko górę — dół ekranu = goły prezenter (SSIM dół vs base = 0.98).
+- AWARIA 2 (v1+v2): frag_p3 (slot 21-27) od pierwszego montażu zawierał treść obróconą o 90° (niebo po prawej) — niewykryte, bo bramka wizualna oceniała mozaiki na downscalowanych screenshotach (~75-160px/kafel).
+## Naprawa v3 (wykonana)
+1. frag_p1_v2b/p2_v2b/p6_v2b: remux `ffmpeg -display_rotation 0 -i in -c copy out` — tag zdjęty, piksele nietknięte, ffprobe rot=BRAK.
+2. frag_p3_v3: świeże cięcie z norm_VID-20260723-WA0001.mp4 @6..12 (WhatsApp, natywny pion 1080x1920, zero tagów). frag_p4_v3: analogicznie WA0005 @2..7 (profilaktycznie).
+3. Montaż _montaz_v3.sh: jak v2, ale `-noautorotate` przed KAŻDYM z 8 inputów (globalna gwarda). Audio kopiowane z master v1 (-map 7:a -c:a copy).
+## Wyniki bramek automatycznych (14/14 OK)
+- master v3: 57.87s, rot=BRAK, 1080x1920.
+- Prześwit dolnego pasa (crop 1080:400:0:1520, SSIM vs base): t=5: 0.984 (czysty prezenter, ma być wysoko OK), t=12: 0.500, t=18: 0.572, t=24: 0.458, t=29: 0.508, t=35: 0.308, t=42: 0.528 (sloty przebitek, ma być nisko — OK), t=48: 0.984 OK.
+- Zgodność slotów: v3@12 vs frag_p1_v2b@3: 0.985; @18 vs p2_v2b@2: 0.988; @23 vs p3_v3@2: 0.979; @29 vs p4_v3@2: 0.979; @35 vs p5_v2@3: 0.979; @42 vs p6_v2b@3: 0.987.
+## Pytania do Ciebie (odpowiedz krótko, po polsku)
+1. Czy widzisz LUKĘ w naprawie albo w zestawie bramek? Co jeszcze byś sprawdził przed oddaniem szefowi?
+2. Czy gwarda `-noautorotate` na wszystkich inputach montażu ma jakiś skutek uboczny, o którym warto wiedzieć?
+3. Ryzyko/koszty: całość zrobiona ffmpegiem na VPS ($0). Czy jest powód wydać cokolwiek więcej? (Jesteś strażnikiem kosztów szefa.)
+4. Werdykt: ZATWIERDZAM v3 do pokazania szefowi / NIE ZATWIERDZAM bo...
+#!/bin/bash
+# MONTAZ v3 — naprawa po diagnozie 28.07: tagi rotacji + wymiana p3/p4 na czyste ciecia z WhatsApp
+# Gwarda: -noautorotate przed KAZDYM -i (zaden odziedziczony tag nie obroci pikseli)
+set -e
+W=/root/rod-ai-studio/data/wiadomosci/0001-teren/work
+F=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
+ffmpeg -y -v error \
+ -noautorotate -i "$W/stanislaw_0001_raw.mp4" \
+ -noautorotate -i "$W/frag_p1_v2b.mp4" -noautorotate -i "$W/frag_p2_v2b.mp4" \
+ -noautorotate -i "$W/frag_p3_v3.mp4" -noautorotate -i "$W/frag_p4_v3.mp4" \
+ -noautorotate -i "$W/frag_p5_v2.mp4" -noautorotate -i "$W/frag_p6_v2b.mp4" \
+ -noautorotate -i "$W/../WD_0001_teren_master.mp4" \
+ -filter_complex "\
+[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30[base];\
+[1:v]setpts=PTS-STARTPTS+9/TB[v1];[2:v]setpts=PTS-STARTPTS+16/TB[v2];\
+[3:v]setpts=PTS-STARTPTS+21/TB[v3];[4:v]setpts=PTS-STARTPTS+27/TB[v4];\
+[5:v]setpts=PTS-STARTPTS+32/TB[v5];[6:v]setpts=PTS-STARTPTS+39/TB[v6];\
+[base][v1]overlay=eof_action=pass:enable='between(t,9,16)'[o1];\
+[o1][v2]overlay=eof_action=pass:enable='between(t,16,21)'[o2];\
+[o2][v3]overlay=eof_action=pass:enable='between(t,21,27)'[o3];\
+[o3][v4]overlay=eof_action=pass:enable='between(t,27,32)'[o4];\
+[o4][v5]overlay=eof_action=pass:enable='between(t,32,39)'[o5];\
+[o5][v6]overlay=eof_action=pass:enable='between(t,39,45)'[o6];\
+[o6]drawtext=fontfile=$F:text='WIADOMOŚCI DZIAŁKOWE':fontsize=72:fontcolor=white:borderw=6:bordercolor=black:x=(w-text_w)/2:y=150:enable='lt(t,3.2)',\
+drawtext=fontfile=$F:text='ROD im. Józefa Lompy w Woźnikach':fontsize=44:fontcolor=white:borderw=5:bordercolor=black:x=(w-text_w)/2:y=250:enable='lt(t,3.2)'[vout]" \
+ -map "[vout]" -map 7:a -c:a copy \
+ -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p \
+ -movflags +faststart \
+ "$W/../WD_0001_teren_master_v3.mp4"
+echo MONTAZ-V3-OK
+
+codex
+Brief i skrypt są spójne co do naprawy. W odpowiedzi uwzględnię jednak luki niewychwytywane przez SSIM: odsłuch/audio-sync, klatki na granicach slotów oraz kontrolę pełnorozdzielczą orientacji i kadru.
+exec
+/bin/bash -lc 'mkdir -p /root/rod-ai-studio/work/_v3kl' in /root/rod-ai-studio
+ succeeded in 0ms:
+apply patch
+patch: completed
+/root/rod-ai-studio/work/_v3kl/_zenek_review.txt
+diff --git a/work/_v3kl/_zenek_review.txt b/work/_v3kl/_zenek_review.txt
+new file mode 100644
+index 0000000000000000000000000000000000000000..23ee112276d01f2b7327ccd5c8c1432ad1cad695
+--- /dev/null
++++ b/work/_v3kl/_zenek_review.txt
+@@ -0,0 +1,7 @@
++1. Naprawa wygląda logicznie, ale bramki nie zastępują końcowego obejrzenia i odsłuchu całego mastera w pełnej rozdzielczości. Przed oddaniem sprawdziłbym szczególnie: orientację i kadr każdej przebitki, pojedyncze klatki na wszystkich granicach slotów (9/16/21/27/32/39/45 s), brak mignięć lub prześwitu, czytelność napisów oraz synchronizację, ciągłość i długość audio. Warto też potwierdzić, że każda przebitka faktycznie wypełnia 1080x1920 — sam overlay nie skaluje ani nie dopełnia obrazu.
++
++2. `-noautorotate` wyłącza interpretację metadanych obrotu dla każdego wejścia. To dobra gwarda dla obecnych, już znormalizowanych plików, ale plik z prawidłowym tagiem rotacji i nienormalizowanymi pikselami zostałby użyty bokiem; filtry widziałyby jego surowy układ i wymiary. Dlatego nie należy traktować tej opcji jako zamiennika kontroli/normalizacji nowych źródeł.
++
++3. Nie widzę powodu do dodatkowych wydatków. FFmpeg i obecne bramki wystarczą; potrzebna jest tylko bezkosztowa kontrola manualna na docelowym telefonie/komputerze i ewentualnie odtworzenie pliku po pobraniu. Płacić warto dopiero, jeśli wyjdzie konkretny problem, którego nie da się poprawić tym pipeline’em.
++
++4. ZATWIERDZAM v3 do pokazania szefowi, warunkowo po jednym pełnym seansie kontrolnym obrazu i dźwięku oraz szybkim sprawdzeniu klatek granicznych. Z przedstawionych wyników nie wynika żadna blokująca wada.
+
+diff --git a/work/_v3kl/_zenek_review.txt b/work/_v3kl/_zenek_review.txt
+new file mode 100644
+index 0000000000000000000000000000000000000000..23ee112276d01f2b7327ccd5c8c1432ad1cad695
+--- /dev/null
++++ b/work/_v3kl/_zenek_review.txt
+@@ -0,0 +1,7 @@
++1. Naprawa wygląda logicznie, ale bramki nie zastępują końcowego obejrzenia i odsłuchu całego mastera w pełnej rozdzielczości. Przed oddaniem sprawdziłbym szczególnie: orientację i kadr każdej przebitki, pojedyncze klatki na wszystkich granicach slotów (9/16/21/27/32/39/45 s), brak mignięć lub prześwitu, czytelność napisów oraz synchronizację, ciągłość i długość audio. Warto też potwierdzić, że każda przebitka faktycznie wypełnia 1080x1920 — sam overlay nie skaluje ani nie dopełnia obrazu.
++
++2. `-noautorotate` wyłącza interpretację metadanych obrotu dla każdego wejścia. To dobra gwarda dla obecnych, już znormalizowanych plików, ale plik z prawidłowym tagiem rotacji i nienormalizowanymi pikselami zostałby użyty bokiem; filtry widziałyby jego surowy układ i wymiary. Dlatego nie należy traktować tej opcji jako zamiennika kontroli/normalizacji nowych źródeł.
++
++3. Nie widzę powodu do dodatkowych wydatków. FFmpeg i obecne bramki wystarczą; potrzebna jest tylko bezkosztowa kontrola manualna na docelowym telefonie/komputerze i ewentualnie odtworzenie pliku po pobraniu. Płacić warto dopiero, jeśli wyjdzie konkretny problem, którego nie da się poprawić tym pipeline’em.
++
++4. ZATWIERDZAM v3 do pokazania szefowi, warunkowo po jednym pełnym seansie kontrolnym obrazu i dźwięku oraz szybkim sprawdzeniu klatek granicznych. Z przedstawionych wyników nie wynika żadna blokująca wada.
+
+exec
+/bin/bash -lc "wc -l /root/rod-ai-studio/work/_v3kl/_zenek_review.txt && sed -n '1,160p' /root/rod-ai-studio/work/_v3kl/_zenek_review.txt" in /root/rod-ai-studio
+ succeeded in 0ms:
+7 /root/rod-ai-studio/work/_v3kl/_zenek_review.txt
+1. Naprawa wygląda logicznie, ale bramki nie zastępują końcowego obejrzenia i odsłuchu całego mastera w pełnej rozdzielczości. Przed oddaniem sprawdziłbym szczególnie: orientację i kadr każdej przebitki, pojedyncze klatki na wszystkich granicach slotów (9/16/21/27/32/39/45 s), brak mignięć lub prześwitu, czytelność napisów oraz synchronizację, ciągłość i długość audio. Warto też potwierdzić, że każda przebitka faktycznie wypełnia 1080x1920 — sam overlay nie skaluje ani nie dopełnia obrazu.
+
+2. `-noautorotate` wyłącza interpretację metadanych obrotu dla każdego wejścia. To dobra gwarda dla obecnych, już znormalizowanych plików, ale plik z prawidłowym tagiem rotacji i nienormalizowanymi pikselami zostałby użyty bokiem; filtry widziałyby jego surowy układ i wymiary. Dlatego nie należy traktować tej opcji jako zamiennika kontroli/normalizacji nowych źródeł.
+
+3. Nie widzę powodu do dodatkowych wydatków. FFmpeg i obecne bramki wystarczą; potrzebna jest tylko bezkosztowa kontrola manualna na docelowym telefonie/komputerze i ewentualnie odtworzenie pliku po pobraniu. Płacić warto dopiero, jeśli wyjdzie konkretny problem, którego nie da się poprawić tym pipeline’em.
+
+4. ZATWIERDZAM v3 do pokazania szefowi, warunkowo po jednym pełnym seansie kontrolnym obrazu i dźwięku oraz szybkim sprawdzeniu klatek granicznych. Z przedstawionych wyników nie wynika żadna blokująca wada.
+
+diff --git a/work/_v3kl/_zenek_review.txt b/work/_v3kl/_zenek_review.txt
+new file mode 100644
+index 0000000000000000000000000000000000000000..23ee112276d01f2b7327ccd5c8c1432ad1cad695
+--- /dev/null
++++ b/work/_v3kl/_zenek_review.txt
+@@ -0,0 +1,7 @@
++1. Naprawa wygląda logicznie, ale bramki nie zastępują końcowego obejrzenia i odsłuchu całego mastera w pełnej rozdzielczości. Przed oddaniem sprawdziłbym szczególnie: orientację i kadr każdej przebitki, pojedyncze klatki na wszystkich granicach slotów (9/16/21/27/32/39/45 s), brak mignięć lub prześwitu, czytelność napisów oraz synchronizację, ciągłość i długość audio. Warto też potwierdzić, że każda przebitka faktycznie wypełnia 1080x1920 — sam overlay nie skaluje ani nie dopełnia obrazu.
++
++2. `-noautorotate` wyłącza interpretację metadanych obrotu dla każdego wejścia. To dobra gwarda dla obecnych, już znormalizowanych plików, ale plik z prawidłowym tagiem rotacji i nienormalizowanymi pikselami zostałby użyty bokiem; filtry widziałyby jego surowy układ i wymiary. Dlatego nie należy traktować tej opcji jako zamiennika kontroli/normalizacji nowych źródeł.
++
++3. Nie widzę powodu do dodatkowych wydatków. FFmpeg i obecne bramki wystarczą; potrzebna jest tylko bezkosztowa kontrola manualna na docelowym telefonie/komputerze i ewentualnie odtworzenie pliku po pobraniu. Płacić warto dopiero, jeśli wyjdzie konkretny problem, którego nie da się poprawić tym pipeline’em.
++
++4. ZATWIERDZAM v3 do pokazania szefowi, warunkowo po jednym pełnym seansie kontrolnym obrazu i dźwięku oraz szybkim sprawdzeniu klatek granicznych. Z przedstawionych wyników nie wynika żadna blokująca wada.
+
+codex
+Odpowiedź zapisana po polsku w pliku:
+
+[_zenek_review.txt](/root/rod-ai-studio/work/_v3kl/_zenek_review.txt)
+diff --git a/work/_v3kl/_zenek_review.txt b/work/_v3kl/_zenek_review.txt
+new file mode 100644
+index 0000000000000000000000000000000000000000..23ee112276d01f2b7327ccd5c8c1432ad1cad695
+--- /dev/null
++++ b/work/_v3kl/_zenek_review.txt
+@@ -0,0 +1,7 @@
++1. Naprawa wygląda logicznie, ale bramki nie zastępują końcowego obejrzenia i odsłuchu całego mastera w pełnej rozdzielczości. Przed oddaniem sprawdziłbym szczególnie: orientację i kadr każdej przebitki, pojedyncze klatki na wszystkich granicach slotów (9/16/21/27/32/39/45 s), brak mignięć lub prześwitu, czytelność napisów oraz synchronizację, ciągłość i długość audio. Warto też potwierdzić, że każda przebitka faktycznie wypełnia 1080x1920 — sam overlay nie skaluje ani nie dopełnia obrazu.
++
++2. `-noautorotate` wyłącza interpretację metadanych obrotu dla każdego wejścia. To dobra gwarda dla obecnych, już znormalizowanych plików, ale plik z prawidłowym tagiem rotacji i nienormalizowanymi pikselami zostałby użyty bokiem; filtry widziałyby jego surowy układ i wymiary. Dlatego nie należy traktować tej opcji jako zamiennika kontroli/normalizacji nowych źródeł.
++
++3. Nie widzę powodu do dodatkowych wydatków. FFmpeg i obecne bramki wystarczą; potrzebna jest tylko bezkosztowa kontrola manualna na docelowym telefonie/komputerze i ewentualnie odtworzenie pliku po pobraniu. Płacić warto dopiero, jeśli wyjdzie konkretny problem, którego nie da się poprawić tym pipeline’em.
++
++4. ZATWIERDZAM v3 do pokazania szefowi, warunkowo po jednym pełnym seansie kontrolnym obrazu i dźwięku oraz szybkim sprawdzeniu klatek granicznych. Z przedstawionych wyników nie wynika żadna blokująca wada.
+
+tokens used
+13,612
+Odpowiedź zapisana po polsku w pliku:
+
+[_zenek_review.txt](/root/rod-ai-studio/work/_v3kl/_zenek_review.txt)
+EXIT=0
