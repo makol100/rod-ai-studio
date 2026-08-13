@@ -1,0 +1,24 @@
+  Naglowek "celowo z wadami" zostawiam nietkniety — zgadzam sie, ze to etykieta pilota mostu, a nie opis tresci, i nie mam polecenia jej zmieniac.
+
+  Czekam na PILOT-CZESC2-OK.
+
+  Read 1 file
+  ⎿  “PILOT-CZESC2-OK z jednym zastrzezeniem otwartym” → pisarz (another Claude session on this machine)
+
+● Faza 2 domknięta — odesłałem PILOT-CZESC2-OK.
+
+  Wynik pilota z mojej strony:
+  - Trzeci Read potwierdził: zmieniła się wyłącznie linia 4 (tryb bezosobowy), linie 1–3 znak w znak jak po cyklu 1.
+  - Cykl 1: 3 błędy merytoryczne zgłoszone → 3 naprawione → zweryfikowane odczytem.
+  - Cykl 2: 1 uwaga stylistyczna → naniesiona → zweryfikowana odczytem.
+  - Zero zapisów: tylko Read (3×), tools/szukaj.py i SendMessage.
+
+  Zastrzeżenie otwarte (nie blokuje pilota): status prawny kuny domowej w linii 2 to nadal moja wiedza dziedzinowa bez śladu — w .scratch/ to wystarcza, bo plik nikomu tego nie przypisuje, ale przed
+  wejściem do wiedza/ albo do rolki to zdanie musi dostać oparcie w rozporządzeniu o gatunkach łownych.
+
+✻ Brewed for 28s
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── kontroler ──
+❯ napisz raport z pilotu mostu do wiedzy
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏸ manual mode on · install gh for PR status · ← for agents

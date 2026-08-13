@@ -1,0 +1,14 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Analiza klatek z pliku `work/_v3kl/sloty_v6.png`:
+
+*   **t=5**: Starszy mężczyzna (Stanisław) siedzi przy biurku, pisze w zeszycie. Na stole herbata w szklance z koszyczkiem i gazeta "Działkowiec". **PROSTO**.
+*   **t=12**: Widok z góry (POV) na nogę w szarych spodniach i bucie typu "crocs" obok pniaka drzewa. **PROSTO**.
+*   **t=18**: Widok z góry na obie nogi w "crocsach" na zachwaszczonej ziemi. **PROSTO**.
+*   **t=24**: Trzy poziome pasy; środkowy pokazuje koparkę pracującą na działce (format panoramiczny wkomponowany w pion). **PROSTO**.
+*   **t=29**: Widok na ogród przez metalowe ogrodzenie (siatkę), widoczne rozmycie ruchu. **PROSTO**.
+*   **t=35**: Widok z góry przez siatkę ogrodzeniową na wykopaną dziurę w ziemi. **PROSTO**.
+*   **t=42**: Widok na stertę ściętych gałęzi, w tle niebo i słup linii energetycznej. **PROSTO**.
+*   **t=48**: Stanisław przy biurku, podobnie jak na pierwszej klatce, patrzy w stronę kamery. **PROSTO**.
+
+**Werdykt: WSZYSTKIE PROSTO.**
+EXIT=0

@@ -1,0 +1,105 @@
+Mam wszystko, czego potrzebuję. Sprawdziłem: dokumentację HA/go2rtc/Chrome/karty katalogowej Hikvision/blokad logowania (4+2 wyszukania internetowe w tej turze) oraz stan z repo (TELEPORT_HA.md, TELEPORT_fabryka.md, rundy 1–2 w .scratch, skrypty hilook). Odpowiadam.
+
+────────────────────────────────────────
+
+**P1 — Gdzie wpiąć i czy dwa go2rtc się gryzą.**
+
+Odpowiedź: strumienie HiLook idą do **DODATKU** go2rtc (a889bffc_go2rtc, 1.9.14), nie do wbudowanego. Konflikt portów: **NIE MA** — współistnieją.
+
+Ślady (wyszukiwanie szukaj_net.py, ta tura, źródła home-assistant.io / go2rtc.org):
+- Wbudowany go2rtc wszedł do rdzenia HA w **2024.11** i jest konfigurowany automatycznie (default_config). Żeby nie kolidować z dodatkiem, rdzeniowy go2rtc używa portów z prefiksem „1": API 1984→**11984**, WebRTC 8555→**18555**. Dodatek trzyma 1984/8555. Wcześniejszy konflikt portów z czasów 2024.11 został rozwiązany właśnie przez przesunięcie portów rdzenia.
+- Podział ról: plik `go2rtc.yaml` (sekcja `streams:`) to konfiguracja **dodatku** — tam definiuje się własne strumienie RTSP z poświadczeniami. `configuration.yaml` → `go2rtc:` (rdzeń) tylko włącza debug_ui albo wskazuje `url:` cudzej instancji; **nie definiuje pojedynczych strumieni**. Czyli RTSP HiLook z hasłem fizycznie nie ma gdzie wpiąć w rdzeń — jego miejsce to go2rtc.yaml dodatku.
+- Spójne ze stanem zadanym: dodatek ma już 4 strumienie Xiaomi, a `options={}` jest pusty — konfiguracja strumieni żyje w pliku go2rtc.yaml (standardowa ścieżka dodatku), nie w options. Wzorzec do powtórzenia zapisany w TELEPORT_HA.md:616 „go2rtc (addon, host_network) + platform ffmpeg, jak Xiaomi od 8.08".
+- Argument za dodatkiem a nie rdzeniem: dodatek ma `host_network=true` i N150 jest routerem podsieci 192.168.3.0/24 (TELEPORT_HA.md:609 „trasa przez homeassistant-1 = Działka"), więc dodatek sięga kamer bezpośrednio.
+
+NIE WIEM: dokładnej nazwy pliku go2rtc.yaml na tej instancji (nie czytałem /config) — potwierdzić Studio Code Server przed edycją.
+
+────────────────────────────────────────
+
+**P2 — H.265 i transkodowanie.**
+
+Odpowiedź: transkodowanie do H.264 **nie jest konieczne na telefonie Tomasza**, ale najtańsza i najpewniejsza droga to w ogóle nie ciągnąć H.265 — użyć SUBSTRUMIENI, które w tym modelu są H.264.
+
+Ślady:
+- Chrome Android **136+ (2025)** ma natywne H.265/HEVC w WebRTC (chromestatus.com, go2rtc.org). Telefon Tomasza to Samsung Galaxy Z Fold7 (TELEPORT_HA.md:128) — flagowiec ze sprzętowym dekoderem HEVC. Wniosek: main-streamy H.265 zagrają w Lovelace przez WebRTC bez transkodowania, o ile Chrome jest nowszy niż 136.
+- Karta katalogowa **DS-2CD1041G0-I/PL**: main stream = H.265 (Main Profile), **sub-stream = H.264** (1280×720 / 640×480 / 640×360). Źródło: hikvision.com (wyszukanie ta tura). Czyli kanały 102/202/402 są H.264 — NIE MIERZONE (zadanie mówi wprost „tego jeszcze NIE ZMIERZYLISMY"), ale datasheet to potwierdza.
+- VAAPI na N150: to zapas, nie potrzeba. Benchmarki społeczności (reddit, vajracast — nie spec producenta): N100 (wolniejszy od N150) robi 4–6 transkodów 4K, 2× 4K HEVC→1080p H264 przy 33% CPU, 5× 1080p HEVC→H264 przy 40% CPU. Trzy strumienie (1× 1440p + 2× 720p) to dla iGPU N150 margines. Dokładnego kosztu CPU dla TEGO zestawu nie podam — NIE MIERZONY.
+
+Wniosek, najtaniej → najdrożej:
+1. Grid na żywo = sub-streamy 102/202/402 (H.264) → zero transkodowania, zero CPU, gra wszędzie. To jest „tańsza droga" z pytania.
+2. Pełny ekran na żądanie = main 101/201/401 (H.265) → gra natywnie w Chrome Android 136+.
+3. Transkodowanie VAAPI = tylko gdyby jakiś klient nie umiał H.265.
+
+NIE WIEM: (a) dokładnej wersji Chrome na telefonie Tomasza, (b) czy /dev/dri jest w ogóle przepięte do dodatku go2rtc (VAAPI może wymagać dopięcia urządzenia — nie weryfikowane), (c) czy main-stream da się przełączyć na H.264 przez ISAPI — datasheet potwierdza H.265 na main, H.264 na sub, ale przełączalności main nie potwierdzam. A to i tak zbędne: sub-stream już jest H.264.
+
+────────────────────────────────────────
+
+**P3 — Nagrywarka czy kamery bezpośrednio.**
+
+Odpowiedź: **nagrywarka .110** (kanały 101/201/401). „Podwójne przejście" przez NVR jest lokalne (NVR stoi obok kamer na sieci ROD), więc kosztuje ~nic, a daje jeden host i jeden komplet poświadczeń.
+
+Ślady i argumenty:
+- Trasa VPS→192.168.3.0/24 idzie przez homeassistant-1 = N150 (TELEPORT_HA.md:609). Dla go2rtc na N150 oba warianty są lokalne — 600 km dotyczy TYLKO odcinka go2rtc→telefon Tomasza (Tailscale), a ten odcinek jest identyczny niezależnie od wyboru NVR/kamera. Wybór NVR-vs-kamera nie zmienia niezawodności „na 600 km"; zmienia ją liczba jednoczesnych strumieni pchanych przez Tailscale.
+- Za NVR: 1 wpis, 1 para poświadczeń (już działa — .110 HTTP 200), NVR i tak jest rejestratorem; offline kamery odpadają czysto (kanal 301 → 404, widzieliśmy).
+- Za kamerami bezpośrednio: redundancja, gdy NVR padnie/restartuje się. Wada: 3 hosty + 3 wpisy poświadczeń i nacisk na limit sesji RTSP samej kamery.
+- Limit sesji: budżetowe kamery Hikvision/HiLook ≈ **6 równoległych strumieni RTSP na kamerę**, a NVR już konsumuje po 2 (main+sub) na kamerę (reedsecurity.com, cctvtek.co.uk — wyszukanie ta tura). Ciągnięcie dodatkowo bezpośrednio z kamer zjada ten limit; z NVR tego problemu nie ma (ciągniemy z NVR, nie z kamery).
+
+Wada drogi przez NVR: NVR = pojedynczy punkt awarii (restart = padają wszystkie 3 strumienie naraz) + limit równoległych sesji NVR.
+
+NIE WIEM: dokładnego limitu równoległych sesji RTSP TEGO NVR (NVR-4CH-5MP) — nie mierzony. Ograniczenie: nie preloadować 6 strumieni naraz; grid z sub-streamów (3 sesje), main na żądanie.
+
+────────────────────────────────────────
+
+**P4 — .113 (401) i kanał 301 (404).**
+
+Odpowiedź: .113 i 301 to najpewniej TEN SAM problem — czwarta kamera („Rog") jest offline, a .113 odpowiada 401, bo ma inne hasło/stan niż pozostałe trzy. Rozstrzygnąć zdalnie **bez zgadywania haseł** częściowo się da — przez odczyt konfiguracji NVR, na którym mamy DZIAŁAJĄCE poświadczenia.
+
+Ślady:
+- .113 realm „IP Camera(FQ921)", pozostałe .111/.112/.114 realm „IP Camera(FG092)" (TELEPORT_HA.md:609, kamery_hilook_2 zadanie:18). Inny realm = inna rodzina/model urządzenia — spójne z „inne hasło".
+- Kanał 301 („Rog") = 404, a w apce HiLook widoczny OFFLINE (zadanie, fakty). Czyli sam NVR nie ma obrazu z kamery 4.
+- .113 NIE jest martwy na poziomie sieci — odpowiada HTTP 401 na ISAPI (zadanie). To wyklucza „wypięta z prądu/sieci" jako jedyną przyczynę; zostaje: inne hasło, inne konto, albo stan zablokowany.
+
+Zdalne kroki rozstrzygające (wszystkie odczytowe, poświadczeniami NVR .110):
+1. GET /ISAPI/ContentMgmt/InputProxy/channels na .110 → który IP i status ma kanał 3 (czy .113), connMode, czy NVR widzi kamerę.
+2. GET /ISAPI/ContentMgmt/InputProxy/channels/status → stan połączenia NVR↔kamera 4.
+3. NIE zgadywać hasła do .113. Zero prób. (Już 15 prób dziś — HiLook blokuje konto po **5 nieudanych** na ~**30 min**, reedsecurity.com, wyszukanie ta tura.)
+
+Co z tego wynika:
+- Jeśli NVR pokazuje kanał 3 z IP .113 i statusem „disconnected" → to nie hasło, tylko fizyka (kabel/zasilanie/PoE) → wymaga wizyty albo sprawdzenia na miejscu.
+- Jeśli NVR ma inny wpis hasła dla .113 → trzeba poświadczeń tej kamery od Tomasza (ta sama bezpieczna ścieżka plikiem), bez zgadywania.
+
+NIE WIEM: czy .113 ma inne hasło, czy jest w stanie blokady, czy problem sprzętowy — dopóki nie odczytam InputProxy/channels z .110. To jedyny bezpieczny krok zdalny.
+
+────────────────────────────────────────
+
+**P5 — Ryzyka i koszt (5 punktów).**
+
+1. **Blokada konta po nieudanych logowaniach** — 5 prób/30 min (reedsecurity). Już 15 prób dziś. Zapobieganie: zero zgadywania, logować się TYLKO poświadczeniami .110 (działają), do .113 wcale.
+2. **Limit równoległych sesji RTSP NVR/kamer** — budżetowe HiLook ≈ 6/kamerę, NVR konsumuje 2 na kamerę. Zapobieganie: grid z sub-streamów (3 sesje), main tylko na żądanie, bez stałego preloadu 6 strumieni.
+3. **Watchdog dodatku go2rtc = FALSE** (fakt z zadania). Jak go2rtc padnie, sam nie wstanie → monitoring ciemny, a Tomasz 600 km stąd. Zapobieganie: ustawić watchdog=true (zmiana TYLKO w HA, odwracalna, 0 zł).
+4. **auto_update = FALSE** (fakt). Starsza wersja 1.9.14 może mieć znane błędy WebRTC/HEVC. Zapobieganie: ręczny przegląd changelogu przed aktualizacją, nie auto — ale świadomie, nie przez zapomnienie.
+5. **Pasmo Tailscale (uplink Działki)** — 3 strumienie pełnoekranowe H.265 to realne obciążenie uplinku; z telefonu 600 km stąd to wąskie gardło, nie NVR. Zapobieganie: grid z sub-streamów H.264 (niższy bitrate), main na żądanie. Dokładnego bitrate nie znam — NIE MIERZONY (w zadaniu brak bitrate).
+
+Koszt: **0 zł.** go2rtc, integracje HA, ISAPI, Tailscale — wszystko darmowe, żadne płatne API, Frigate nie ma (brak Frigate+). Pieniędzy nic tu nie kosztuje.
+
+────────────────────────────────────────
+
+**P6 — Jedna rekomendacja, w krokach.**
+
+Najtańsza/najmniej ryzykowna droga = sub-streamy H.264 przez go2rtc addon + ffmpeg, bez dotykania NVR/kamer/routera. O = odwracalne, N = nieodwracalne.
+
+1. [O] Odczyt /config/go2rtc.yaml przez Studio Code Server (potwierdzić plik i sekcję streams z 4 wpisami Xiaomi). Zero zmian.
+2. [O] Dopisać 3 sub-streamy HiLook: kanały 102/202/402 (H.264) z NVR .110, poświadczenia URZĄDZENIA (nie kopiować do czatu). Edycja pliku go2rtc.yaml → restart dodatku. Odwracalne (usunięcie wpisów przywraca stan).
+3. [O] Weryfikacja: go2rtc /api/streams pokazuje 3 nowe strumienie jako H.264. Żadnych zmian na sprzęcie.
+4. [O] Encje camera w HA (platforma ffmpeg → strumień go2rtc, wzorzec Xiaomi TELEPORT_HA:616) + karta w Lovelace. Test na telefonie Tomasza.
+5. [O] Opcjonalnie: main-streamy 101/201/401 (H.265) jako osobne strumienie go2rtc na pełny ekran. Odwracalne.
+6. [O] watchdog=true dla dodatku go2rtc (naprawia ryzyko nr 3). Zmiana w HA, odwracalna.
+7. [O, odczyt] InputProxy/channels na .110 → diagnoza .113/kanału 301 (P4). Bez zmian.
+8. [N — wymaga OSOBNEJ zgody Tomasza] Cokolwiek trwałego na NVR/kamerach: włączenie „Notify Surveillance Center" pod detekcję ruchu, zmiana kodeka, włączenie ONVIF, zmiana haseł.
+9. [NIGDY] Router 192.168.3.1 (router dostawcy, zakaz) i router Działki (zakaz D-0066/D-0067).
+
+Krok nieodwracalny jest tylko jeden rodzaj: trwałe zmiany na NVR/kamerach (krok 8) — reszta to edycja HA, w pełni odwracalna.
+
+Jedna rzecz do zrobienia: odczytaj /config/go2rtc.yaml i potwierdź, że 4 strumienie Xiaomi siedzą tam (nie w options dodatku) — to warunek startu kroku 2.
+
+— Henio

@@ -56,8 +56,31 @@ def uruchom_test(sciezka: str) -> tuple:
     return w.returncode == 0, ostatnia
 
 
-def pytaj_zaloge(twierdzenie: str, dowody: str) -> tuple:
-    """Kontrola przez zaloge — Klaudek nie zatwierdza sam siebie."""
+OBRAZ_WIDEO = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".mp4", ".mov", ".mkv", ".avi")
+
+
+def dobierz_zaloge(dowody: str, z_genkiem: bool = False) -> list:
+    """Kto ma ocenic to zgloszenie. Wydzielone 13.08 na zadanie Zenka z bramki:
+    logika doboru byla zaszyta w pytaj_zaloge i nie dalo sie jej przetestowac."""
+    if z_genkiem:
+        return ["zenek", "henio", "genek"]
+    kto = ["zenek", "henio"]
+    if any(d.strip().lower().endswith(OBRAZ_WIDEO) for d in dowody.split(",")):
+        kto.append("genek")
+    return kto
+
+
+def pytaj_zaloge(twierdzenie: str, dowody: str, kto: list | None = None) -> tuple:
+    """Kontrola przez zaloge — Klaudek nie zatwierdza sam siebie.
+
+    13.08.2026, decyzja Tomasza "poprawic bramke": bramka WOLALA zenek+henio
+    (zaloga.py domyslnie oszczedza Genka wg dekretu 4.08), ale ODPYTYWALA takze
+    Genka — wiec kazda praca bez grafiki konczyla sie "GLOS NIEODEBRANY" i ODRZUCONE.
+    Bramka wymagala glosu kogos, kogo sama nie zapraszala. Od teraz: pytamy DOKLADNIE
+    tych, ktorych wolamy. Genek dochodzi TYLKO gdy w dowodach jest obraz albo wideo
+    (wtedy jego oczy sa do czegos potrzebne) albo gdy ktos poprosi jawnie."""
+    if kto is None:
+        kto = dobierz_zaloge(dowody)
     zadanie = f"""KONTROLA UKONCZENIA. Klaudek twierdzi, ze cos jest ZROBIONE i chce to oglosic Tomaszowi.
 
 TWIERDZENIE: {twierdzenie}
@@ -79,13 +102,13 @@ Nie oceniaj, czy pomysl jest dobry. Oceniaj TYLKO, czy dowod pokrywa twierdzenie
     try:
         w = subprocess.run(
             [sys.executable, os.path.join(REPO, "tools", "zaloga.py"),
-             "--zadanie", sciezka, "--katalog", katalog],
+             "--zadanie", sciezka, "--katalog", katalog, "--kto", ",".join(kto)],
             cwd=REPO, capture_output=True, text=True, timeout=900)
     except Exception as e:
         return False, [f"kontrola nie dokonczyla: {e}"]
     glosy, sprzeciw = [], False
     print(f"   (katalog kontroli: {katalog})")
-    for imie in ("zenek", "genek", "henio"):
+    for imie in kto:
         p = os.path.join(katalog, f"{imie}.txt")
         if not os.path.isfile(p):
             glosy.append(f"{imie}: GLOS NIEODEBRANY")
@@ -122,6 +145,8 @@ def main() -> int:
     p.add_argument("--dowod", required=True, help="pliki dowodowe po przecinku")
     p.add_argument("--test", default="", help="test, ktory MUSI byc zielony teraz")
     p.add_argument("--bez-zalogi", action="store_true", help="tylko sprawdzenia maszynowe")
+    p.add_argument("--z-genkiem", action="store_true",
+                   help="dolacz Genka do kontroli (domyslnie tylko gdy dowodem jest obraz/wideo)")
     a = p.parse_args()
 
     print(f"BRAMKA UKONCZENIA: {a.co}\n")
@@ -151,7 +176,7 @@ def main() -> int:
     if a.bez_zalogi:
         print("   pominieta na wyrazne zadanie")
     else:
-        zgoda, glosy = pytaj_zaloge(a.co, a.dowod)
+        zgoda, glosy = pytaj_zaloge(a.co, a.dowod, dobierz_zaloge(a.dowod, a.z_genkiem))
         for g in glosy:
             print(f"   {g}")
         if not zgoda:

@@ -1,0 +1,47 @@
+GLOS NIEODEBRANY (dwukrotnie tryb awaryjny — Genek nie mial dostepu do dysku, czyli NIE mial rownych szans; ponizej jego odpowiedz bez dostepu, do wgladu)
+
+[GENEK — TRYB AWARYJNY: bez dostepu do dysku, tylko doklejony material; droga 1 padla: CLI: zaden model z kolejki nie odpowiedzial (gemini-3.1-pro-preview, gemini-3.1-pro-preview, gemini-3.6-flash) po 3 probach. Dekret Tomasza: najwyzszy WOLNY model — schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, ale tu nie odpowiedzial ZADEN. | gemini-3.1-pro-preview: YOLO mode is enabled. All tool calls will be automatically approved.
+W | gemini-3.1-pro-preview: YOLO mode is enabled. All tool calls will be automatically approved.
+W]
+
+1.  **POTWIERDZONE:** Auth jest teraz funkcjonalnie wykazany przez zły token kontra poprawny token.
+    *   **Ślad:** `dowody2.txt`, sekcja "B. TEST FUNKCJONALNY AUTH: zly token vs dobry"
+    *   **Cytat:**
+        *   `-- ze ZLYM tokenem:`
+            `gateway connect failed: GatewayClientRequestError: unauthorized: gateway token mismatch (provide gateway auth token)`
+            `[openclaw] Could not start the CLI.`
+            `[openclaw] Reason: gateway closed (1008): unauthorized: gateway token mismatch (provide gateway auth token)`
+        *   `-- z POPRAWNYM tokenem (z configu):`
+            `Gateway event loop: ok max=32ms p99=21ms util=0.004 cpu=0.007`
+            `Agents: main (default)`
+            `Heartbeat interval: 30m (main)`
+    *   **Uzasadnienie:** Poprzedni werdykt Zenka wskazywał, że "bez tokena zarówno zwykłe żądanie, jak i RPC dostały HTTP 200, czyli nie zostały odrzucone." Nowe dowody (`dowody2.txt`, sekcja B) jasno pokazują, że próba ze złym tokenem kończy się błędem `unauthorized: gateway token mismatch`, a z poprawnym tokenem połączenie jest nawiązywane poprawnie. Oznacza to, że mechanizm autoryzacji działa i rozróżnia poprawne i niepoprawne tokeny.
+
+2.  **POTWIERDZONE:** Rootless Podman jest wykazany.
+    *   **Ślad:** `dowody2.txt`, sekcja "C. ROOTLESS DOWOD"
+    *   **Cytat:**
+        *   `rootless=true`
+        *   `w-kontenerze-uid=0`
+    *   **Uzasadnienie:** Poprzedni werdykt Zenka stwierdzał "W paczce nie ma wyniku testu potwierdzającego rootless Podman, więc tej części NIE WIEM." Nowy dowód (`dowody2.txt`, sekcja C) zawiera `rootless=true`, co bezpośrednio potwierdza działanie w trybie rootless. Dodatkowo `w-kontenerze-uid=0` wskazuje, że proces wewnątrz kontenera działa jako root, co jest typowe dla kontenerów rootless, gdzie mapowanie UID następuje na poziomie hosta.
+
+3.  **POTWIERDZONE:** `warn gateway.trusted_proxies_missing` jest istotnym brakiem przy `gateway.bind=loopback` i Control UI local-only bez reverse proxy.
+    *   **Ślad:** `dowody2.txt`, sekcja "D. AUDYT: szczegoly warn+info"
+    *   **Cytat:**
+        *   `WARN`
+        *   `gateway.trusted_proxies_missing Reverse proxy headers are not trusted`
+        *   `gateway.bind is loopback and gateway.trustedProxies is empty. If you expose the Control UI through a reverse proxy, configure trusted proxies so local-client checks cannot be spoofed.`
+        *   `Fix: Set gateway.trustedProxies to your proxy IPs or keep the Control UI local-only.`
+    *   **Uzasadnienie:** Ostrzeżenie jest istotne, ponieważ jasno wskazuje na potencjalne ryzyko spoofingu nagłówków w przypadku wystawienia Control UI przez reverse proxy bez odpowiedniej konfiguracji `trustedProxies`. Chociaż `gateway.bind` jest ustawione na `loopback` i Control UI jest `local-only`, co minimalizuje ryzyko w obecnej konfiguracji, ostrzeżenie jest ważne z perspektywy przyszłego skalowania lub zmiany architektury. System sam wskazuje, że należy albo skonfigurować zaufane proxy, albo *utrzymać* Control UI jako local-only, co oznacza, że jest to warunek, który należy świadomie utrzymać lub zmienić.
+
+4.  **NIE W CAŁOŚCI:** Cały pilotaż nie przechodzi re-audytu, ale konkretne braki zostały zredukowane.
+    *   **Uzasadnienie:**
+        *   **Poprawione braki:**
+            *   **Auth:** Poprzedni werdykt Zenka wskazywał na krytyczny brak autoryzacji (HTTP 200 bez tokena). Nowe dowody (`dowody2.txt`, sekcja B) jasno pokazują, że auth działa poprawnie, odrzucając złe tokeny i akceptując poprawne.
+            *   **Rootless Podman:** Poprzednio "NIE WIEM", teraz `rootless=true` (`dowody2.txt`, sekcja C) potwierdza działanie rootless.
+        *   **Pozostałe braki/uwagi:**
+            *   **Warn `gateway.trusted_proxies_missing`:** Nadal obecne i istotne, jak opisano w punkcie 3. Wskazuje na potencjalne ryzyko przy zmianie architektury.
+            *   **Audit Summary:** Nadal jest 1 warn i 2 info (`dowody.txt`, sekcja 9). Chociaż treść warn została wyjaśniona (punkt 3), treść 2 info nadal nie jest w pełni przeanalizowana w kontekście całości pilotażu. `dowody2.txt` sekcja D wyjaśnia `summary.attack_surface` i `tools.elevated`, `hooks.webhooks`, `hooks.internal`, `browser control`, `trust model`, `models.small_params`. Te informacje są istotne dla oceny bezpieczeństwa i konfiguracji, ale nie są "brakami" w sensie błędów, a raczej informacjami o stanie systemu.
+
+WERDYKT KOŃCOWY: Pilotaż nie przechodzi re-audytu w pełni ze względu na obecność ostrzeżenia `gateway.trusted_proxies_missing`, które, choć nie krytyczne w obecnej konfiguracji, wymaga świadomej decyzji o utrzymaniu statusu "local-only" lub konfiguracji zaufanych proxy. Jednakże, dwa kluczowe braki z poprzedniego audytu (funkcjonalność auth i potwierdzenie rootless Podman) zostały pomyślnie wykazane.
+
+GENEK

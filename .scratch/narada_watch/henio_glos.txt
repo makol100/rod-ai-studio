@@ -1,0 +1,77 @@
+Wszystkie dane zebrane. Teraz — zgodnie z procedurą — mój podpisany głos.
+
+---
+
+## GŁOS HENIA — ocena skilla /watch dla fabryki
+
+### POTWIERDZONE (ze śladem)
+
+**Źródła zewnętrzne (API GitHub 6.08.2026):**
+- Repo: `bradautomates/claude-video`, 14217 gwiazdek, MIT, 89 otwartych issue'ów, ostatnia aktualizacja: 06.08.2026
+- Tryb `efficient`: keyframes, ~0.5s, ~9800 image tokenów na 49-minutowe wideo (źródło: wyszukiwarka net + README)
+- Tryb `balanced`: scene-change, ~21s, ~19700 tokenów
+- Budżet klatek auto: ≤30s ~30 klatek, 30-60s ~40 klatek
+- Klatka 512px ≈ 197 image tokenów
+- Naprawiony w v0.7.16: dedup bug (usuwał akcję), non-UTF-8 metadata crash, wyciek 68GB plików pośrednich
+
+**Źródła z VPS (zmierzone teraz):**
+- yt-dlp 2026.07.04 ✓, ffmpeg 8.0.1 ✓, npx 10.9.8 ✓, python3 ✓
+- OPENAI_API_KEY w `/root/rod-agent/.env` — klucz Whisper dostępny
+- Rolka 000098: 1080x1920, h264+aac, 42.5s, 11.2MB, BEZ napisów osadzonych
+- Scenariusz: `/root/rod-ai-studio/data/reels/000098/article.md`, 27 linii, 3902 znaki — pełny tekst lektora
+- Skill NIE jest jeszcze w `/root/.claude/skills/`
+
+**Krytyczne issue'y z GitHub (otwarte):**
+- #116 (05.08.2026): "non-English videos silently yield no transcript" — `download.py` pyta YouTube tylko o `--sub-langs "en.*"`, dla filmów nieangielskich transkrypcja przepada cicho
+- #117 (06.08.2026): "ffmpeg 9.0 removes -vsync, breaking scene/keyframe extraction" — NASZ ffmpeg 8.0.1 NIE DOTKNIĘTY, ale przy upgrade'ie systemu — awaria murowana
+- #112 (03.08.2026): trwają prace nad lokalnym whisper.cpp (offline)
+
+### ODPOWIEDZI NA PYTANIA ROZSTRZYGALNE
+
+**1. Czy /watch rozwiązuje NASZ przypadek? — TAK, z ograniczeniem.**
+
+Klaudek dostanie ~40 klatek z 42.5-sekundowej rolki + opcjonalnie transkrypcję z timestampami. Może ocenić: czy obrazy pasują do tematu scenariusza, czy nie ma poważnych glitchy wizualnych (klatka czarna, artefakt), czy scena trzyma się planu.
+
+Ograniczenie: 40 klatek na 42.5s = ~1 klatka na sekundę. Przy 30fps to 1 z 30 klatek. Krótkie glitche (1-3 klatki = 33-100ms) będą NIEWIDOCZNE. /watch sprawdzi spójność tematyczną i duże błędy — nie zastąpi klatka-po-klatce.
+
+**2. Whisper — konieczny czy pomijalny? — POMIJALNY na start.**
+
+Scenariusz z gita (`article.md`) daje pełny tekst lektora. Klaudek może porównać klatki z tekstem scen po scenie BEZ transkrypcji audio. Whisper dodaje timestampy (synchronizację co do słowa), ale do podstawowej oceny "czy lektor pasuje do obrazu" scenariusz wystarcza.
+
+Koszt Whispera: ~$0.004/rolkę (42.5s audio, OpenAI). Pomijalny finansowo. ALE: dodaje zależność od API + ryzyko cichej awarii (#116 — może nie zwrócić transkrypcji dla polskiego audio).
+
+**Rekomendacja: wersja 1.0 BEZ Whispera (scenariusz z gita + klatki), Whisper jako opcja v2.0 jeśli testy v1.0 pokażą, że bez timestampów Klaudek nie łapie desynchronizacji.**
+
+**3. Koszt na rolkę 30-60s w trybie 'efficient' — AKCEPTOWALNY.**
+
+~40 klatek × 197 tok/klatkę ≈ 7880 image tokenów. Przy stawkach Claude ~$3/1M input → ~$0.024/rolkę. Przy 3-4 rolkach tygodniowo to grosze. Zasada 27.07 ("domyślnie najniższy koszt") spełniona — efficient to najtańszy tryb z klatkami.
+
+**4. Integracja z przepływem — PASUJE.**
+
+Rolki powstają w Claude Code CLI (tam jest pipeline: scenariusz → TTS → obrazy → ffmpeg). /watch odpala się w TYM SAMYM środowisku. Weryfikacja jako ostatni krok pipeline'u przed publikacją — Klaudek dostaje wynik i decyduje TAK/NIE, bez angażowania Tomasza. Zgodne z zasadą "nie każ mi oglądać, daj wynik i decyzję".
+
+**5. Ryzyka/blokery — TRZY ISTOTNE.**
+
+- **(A) ffmpeg 9.0 złamie /watch (#117):** obecny ffmpeg 8.0.1 działa. Przy `apt upgrade` — murowana awaria. Trzeba PRZYPILNOWAĆ (albo przytrzymać ffmpeg, albo mieć załatany skill).
+- **(B) cicha utrata transkrypcji dla polskiego (#116):** przy włączonym Whisperze, jeśli /watch najpierw szuka napisów i milknie — możemy nie wiedzieć, że transkrypcja nie powstała. Przy ścieżce BEZ Whispera — nie dotyczy.
+- **(C) 89 otwartych issue'ów:** projekt żywy i aktywnie łatany, ale też z dużą liczbą znanych problemów. Nie jest "dojrzały i stabilny" — jest "szybko rozwijany z bugami na bieżąco".
+
+**6. WERDYKT: WPINAĆ.**
+
+**Tryb: efficient, BEZ Whispera. Scenariusz z gita jako źródło tekstu.**
+
+Warunki:
+1. Instalować przez `npx skills add bradautomates/claude-video -g` (sprawdzona ścieżka)
+2. Pierwszy test na rolce 000098 (mamy scenariusz, wideo, obrazy — pełna referencja do porównania)
+3. NIE upgrade'ować ffmpeg przed załataniem #117 (albo sprawdzić czy nasz `-fps_mode` działa)
+4. Po 3-5 rolkach zweryfikowanych — decyzja czy dodawać Whispera
+5. Wpis do wiedzy dopiero po testach na prawdziwych rolkach (próg wejścia: "zadziałało i jest dobre")
+
+### NIE WIEM
+
+- Czy `efficient` na local file (nie URL/YouTube) działa tak samo — README mówi "any video", ale pomiary były na YouTube. Do sprawdzenia w teście.
+- Czy Klaudek (Claude Code) realnie wyciągnie wnioski z 40 klatek bez timestampów — to się okaże dopiero w teście.
+
+---
+
+**Henio, 6.08.2026** — GŁOS ODDANY.

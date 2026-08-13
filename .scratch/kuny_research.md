@@ -1,0 +1,9 @@
+ZLECENIE RESEARCH (dla Tomasza, REALNY problem, mieszka w Austrii k. Linz): KUNY (kuna domowa Martes foina / stone marten / Steinmarder) w ogrodzie - jak SKUTECZNIE zabezpieczyc (1) ALTANE/domek ogrodowy i (2) AUTO na parkingu. Kuny gryza kable/przewody pod maska (izolacja, weze, kable zaplonu), niszcza tlumienie, gniazduja na strychu/w altanie, znacza teren.
+
+WYMAGANIA TOMASZA (dokladne, cytuje): "Wszelakie bzdury z internetow typu fale dzwiekowe sierci i inne nie dzialaja. Doglebne szukanie. Wszyscy."
+1. TYLKO metody KTORE DZIALAJA - poparte dowodami, testami ADAC/warsztatow, doswiadczeniem praktykow, badaniami. 
+2. ODRZUCIC MITY z UZASADNIENIEM dlaczego NIE dzialaja: ultradzwieki/odstraszacze dzwiekowe (kuny sie przyzwyczajaja/habituacja), siersc psa/ludzka, zapachy (mydlo, naftalina, WC-kostki, kulki na mole), toaletowe triki. To ma byc pokazane jako NIESKUTECZNE z dowodem.
+3. DOGLEBNIE - nie powierzchownie. Zrodla: YouTube (testy praktyczne, warsztaty), artykuly ADAC/ogrodnicze, fora (motoryzacyjne, austriackie/niemieckie Steinmarder), badania.
+4. OSOBNO: ALTANA (bariery fizyczne, siatka/blacha na wejscia, uszczelnienie otworow >5cm, zabezpieczenie kalenicy/strychu, usuwanie gniazd/zapachu rewiru) i AUTO (oplot kabli twarda oslona/rurka karbowana, plotki elektryczne pod maska typu Marder-Schreck z elektrodami, siatka pod autem, mycie silnika z zapachu rewiru, garazowanie).
+
+Podaj KONKRETNE dzialajace rozwiazania (nazwy produktow, metody, jak wdrozyc, koszt rzedu wielkosci) ORAZ osobno liste MITOW z dowodem nieskutecznosci. Cytuj zrodla (nazwa/link). Genek: YouTube+google_search. Henio: fora+artykuly ADAC/austriackie. Zenek: ocena fizyczna dlaczego dana metoda dziala lub nie (habituacja na dzwiek, elektryka plotka, bariera fizyczna). NIE zgaduj - niepewne sprawdz albo zaznacz NIE WIEM.

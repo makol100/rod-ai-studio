@@ -1,0 +1,24 @@
+POTWIERDZONE
+
+1) NIE. Loopback POTWIERDZAM: nasłuch wyłącznie na 127.0.0.1 i ::1. Auth token NIE DZIAŁA w przedstawionej próbie: bez tokena zarówno zwykłe żądanie, jak i RPC dostały HTTP 200, czyli nie zostały odrzucone.
+2) POTWIERDZAM. Default to ollama/qwen2.5vl:7b, skonfigurowany jest jeden model, fallbacków brak, a providerów z OAuth/tokenami jest 0.
+3) POTWIERDZAM. Dla ollama/qwen2.5vl:7b deny zawiera group:web i browser.
+4) NIE w całości. mode=all i backend=podman są w konfiguracji. W paczce nie ma wyniku testu potwierdzającego rootless Podman, więc tej części NIE WIEM.
+5) POTWIERDZAM. Exec ma security=allowlist, ask=on-miss oraz askFallback=deny — polityka pytania przy braku reguły i ostrożnego odrzucenia.
+6) POTWIERDZAM. Sekcja statusu kanałów nie wykazuje żadnego skonfigurowanego kanału.
+7) POTWIERDZAM. Heartbeat interval: 30m dla main.
+
+Prawa: POTWIERDZAM — katalog ma 700, a openclaw.json ma 600.
+Audit summary: 0 critical, 1 warn, 2 info. Paczka nie zawiera treści ostrzeżenia ani informacji, więc ich przedmiotu NIE WIEM.
+
+HIPOTEZY
+
+Brak.
+
+NIE WIEM
+
+Czy Podman faktycznie działa rootless oraz czego dotyczą 1 warn i 2 info — brak tych dowodów w paczce.
+
+WERDYKT KOŃCOWY: PILOTAŻ NIE PRZECHODZI re-audytu. Krytyczny warunek auth nie został wykazany: próba bez tokena zwróciła HTTP 200. Dodatkowo brak śladu testu rootless.
+
+— Zenek

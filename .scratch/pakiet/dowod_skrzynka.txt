@@ -1,0 +1,22 @@
+DOWOD — skrzynka na Telegramie (13.08). Wszystko zmierzone, nie opisane z pamieci.
+1. /sekret: _zapisz_sekret("TEST_KLUCZ=...") -> "ZAPISANY sekret TEST_KLUCZ (18 znakow)"
+2. podmiana: ponowny zapis tego samego klucza -> "PODMIENIONY ... (16 znakow)", bez dublowania linii
+3. /sekrety: zwrocilo TYLKO nazwy: TEST_KLUCZ, HILOOK_USER, HILOOK_PASS — zadnej wartosci
+4. bledne uzycie "/sekret bezrownosci" -> odmowa z podpowiedzia
+5. /dane -> "ZAPISANE do skrzynki (19 znakow)"
+6. uprawnienia: /root/.sekrety/wartosci.env 600, /root/skrzynka 700, /root/skrzynka/pliki 700
+7. grep "TEST_KLUCZ" po calym repo -> zero trafien (sekret nie wyciekl do gita)
+8. klucz testowy usuniety, zostalo 0 kluczy w wartosci.env
+9. filtr po naprawie katalogu: _wartosci_znane() wczytuje 1 realna wartosc (wczesniej 0 — IsADirectoryError ginalo cicho)
+10. skladnia obu plikow: ast.parse OK; hans-ucho.service po restarcie: active
+
+UZUPELNIENIE PO DRUGIEJ UWADZE ZENKA (bramka 19:58: "test nie testuje obslugi wielu /sekret
+ani zapisu zdjec i plikow"). Dopisane przypadki w tools/test_skrzynka.py:
+  T17  dwa "/sekret" w JEDNEJ wiadomosci -> dwa czyste klucze KLUCZ_A, KLUCZ_B   ZIELONY
+  T17b zaden zapisany klucz nie zawiera "/sekret" ani spacji                     ZIELONY
+       (to byla realna wpadka 13.08: drugi klucz zapisal sie jako "/sekret KAMERY_PASS")
+  T17c odpowiedz bota nie zawiera zadnej z wartosci                              ZIELONY
+  T18  zdjecie / plik / glosowka -> "ZAPISANY", siec podstawiona atrapa          ZIELONY
+  T18b trzy pliki FAKTYCZNIE leza na dysku po pobraniu                           ZIELONY
+  T19  zwykly tekst NIE jest brany za zalacznik (zwraca None)                    ZIELONY
+Cala petla: 29 przypadkow, wszystkie zielone.

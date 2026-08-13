@@ -1,0 +1,138 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: none
+reasoning summaries: none
+session id: 019fd835-f1be-7dd1-bc51-9f5186640e22
+--------
+user
+TYLKO NAPISZ OCENE TEKSTEM. NIE uruchamiaj narzedzi, NIE odpalaj zaloga.py, NIE tworz plikow. # ZADANIE KONTROLNE: ktore skille z filmu GitHub Trending #124 przydadza sie fabryce
+
+WAZNE DLA ZENKA (Codex): NIE URUCHAMIAJ zadnych narzedzi, NIE odpalaj zaloga.py, NIE tworz plikow. Napisz SAMA OCENE tekstem, koniec. Poprzednio wpadles w rekurencje zaloga.py — tego nie powtarzaj.
+
+Kazdy (Zenek, Henio) podpisany glos + werdykt per kandydat. Rozbieznosc zostaje. Decyduje Tomasz.
+
+## KONTEKST FABRYKI
+rod-ai-studio generuje AI rolki wideo (prezenterka Izabela, "Wiadomosci Dzialkowe"), publikuje na Facebooku ROD Wozniki. Srodowisko: Claude Code na VPS, skille w /root/.claude/skills/. Teksty (skrypty lektora, posty FB) sa generowane przez modele AI.
+WAZNE: mamy juz WLASNE narzedzie tools/oczy_uszy.py — Gemini oglada YouTube/wideo przez fileUri (omija blokade botow na VPS), tryb transkrypcja/opis. Dzis zadzialalo od reki na filmie 18:50. To jest nasz odpowiednik "ogladania wideo".
+
+## KANDYDACI DO OCENY (przesiane z 24 repo — tylko te, ktore moga nas dotyczyc)
+1. **fogsight** (~3000 gwiazdek) — agent + silnik animacji napedzany LLM. Wpisujesz koncept/kilka slow -> generuje kompletna animacje krotka z narracja i "kinowymi" wizualami; mozna doprecyzowywac przez interfejs jezykowy. Lokalnie albo web fogsight.ai. PYTANIE: czy to alternatywa/uzupelnienie naszego pipeline'u rolek (inny styl: animacja generowana z tekstu), czy nie pasuje do formatu "Izabela + wiadomosci"?
+2. **claude-video** (~14000 gwiazdek) — skill /watch: Claude oglada wideo (yt-dlp -> klatki -> Whisper fallback). PYTANIE: daje cokolwiek PONAD nasze oczy_uszy.py? (nasze omija blokade YouTube, ktora /watch dostaje na VPS; ale /watch dodaje KLATKI/obraz, nie tylko audio). Wpinac obok oczy_uszy, czy zbedne bo mamy swoje?
+3. **im-not-ai** (~5000 gwiazdek) — skill usuwajacy "AI tell" z tekstu (oryginalnie KOREANSKI: translationese, mechaniczne rownolegle struktury, frazy typu "podsumowujac", "to ma istotne implikacje"), bez zmiany tresci. PYTANIE: warto zaadaptowac KONCEPT na POLSKI dla naszych skryptow rolek i postow FB (zeby nie brzmialy jak AI)? Czy sam koreanski skill jest bezuzyteczny, a wartoscia jest tylko idea?
+
+## PYTANIA ROZSTRZYGALNE (per kandydat: TAK/NIE + jak)
+- fogsight: wpinac do testu pod rolki, czy odrzucic (nie nasz format)?
+- claude-video: wpinac obok oczy_uszy.py (dla klatek/obrazu), czy zbedne?
+- im-not-ai: adaptowac koncept "anty-AI-tell" na polski jako nasz skill kontroli tekstu, czy pominac?
+- Czy w 24 repo jest COKOLWIEK, co przeoczylem, a moglo by sie przydac fabryce/HA/pamieci?
+
+## RESZTA 21 REPO (odsiane — uzasadnienie): ida-pro-mcp (reverse engineering), MariaDB (baza; HA i tak jej uzywa, nie skill), server-survival (gra), Dalfox (skaner XSS), DevOps-Projects (nauka), elFinder (web file manager), awesome-newsletters (lista), claude-bug-bounty (bug bounty), BewlyCat (Bilibili), NilAway (Go), KACTL (competitive prog), vite-vue3-lowcode (H5), nixos-hardware (NixOS), Docker Toolbox (deprecated), nomacs (viewer), jichangtuijian (proxy CN), Tracker (Laravel), tailslayer (C++ DRAM), susi_android (asystent), cccl (CUDA). Jesli ktoras zle odsiana — zglos.
+
+Zasada 27.07: domyslnie najnizszy koszt. Zasada 17.07: uczyc sie z cudzych bledow (issues).
+codex
+## Głos Zenka
+
+### 1. fogsight — NIE wpinać do głównego pipeline’u; TAK dla jednego taniego testu pobocznego
+
+Nie pasuje jako zamiennik formatu „Izabela + Wiadomości Działkowe”, ponieważ zmienia język wizualny marki z prezenterki na animację. Może jednak przydać się do wyjątkowych materiałów: instrukcji, historii ogrodu, objaśnienia przepisów albo krótkiej animowanej ciekawostki.
+
+Werdykt: jeden test na istniejącym scenariuszu, bez integracji. Kontynuować tylko wtedy, gdy gotowa rolka okaże się wyraźnie lepsza lub tańsza od obecnego montażu. Przed testem przeczytać issues pod kątem powtarzalności, eksportu, kosztów i problemów z narracją.
+
+### 2. claude-video — NIE wpinać jako stałego skilla; ewentualnie zachować jako źródło pomysłów
+
+`oczy_uszy.py` rozwiązuje najważniejszy problem fabryki: faktycznie działa na VPS i omija blokadę YouTube. `/watch` oparty na `yt-dlp` przegrywa, jeśli nie potrafi pobrać filmu.
+
+Analiza klatek byłaby wartościowym uzupełnieniem, ale lepiej dodać opcjonalny tryb obrazu do własnego, działającego narzędzia niż utrzymywać drugi częściowo dublujący pipeline. Z `claude-video` warto zaczerpnąć sposób wyboru klatek i fallbacki, niekoniecznie instalować cały skill.
+
+Werdykt: obecnie zbędny obok `oczy_uszy.py`. Rozważyć adaptację samego mechanizmu klatek dopiero przy konkretnym zadaniu, którego obecne narzędzie nie obsłuży.
+
+### 3. im-not-ai — TAK, adaptować koncepcję na polski; NIE instalować koreańskiego skilla wprost
+
+To najbardziej praktyczny kandydat. Skrypty lektorskie i posty na Facebooku łatwo zdradzają model przez nadmierną symetrię, abstrakcyjne wstępy, sztuczne podsumowania, powtarzalne trójki i urzędowy ton.
+
+Polska wersja powinna być kontrolą redakcyjną, a nie bezmyślnym „humanizerem”. Powinna zachowywać fakty, nazwy, daty, liczby i sens, a wskazywać lub poprawiać między innymi:
+
+- „warto podkreślić”, „należy zauważyć”, „podsumowując”;
+- mechaniczne wyliczenia i równoległe konstrukcje;
+- powtarzanie tej samej tezy innymi słowami;
+- przesadnie gładki, reklamowy albo urzędowy ton;
+- zdania nienaturalne w mowie Izabeli;
+- ogólniki pozbawione konkretu lokalnego.
+
+Najbezpieczniejszy tryb: najpierw raport z wykrytymi sygnałami, potem propozycja redakcji i kontrola, czy treść się nie zmieniła.
+
+Werdykt: TAK — zbudować własny polski skill „anty-AI-tell”. Wartością jest idea i katalog błędów, nie koreańska implementacja jeden do jednego.
+
+### Pozostałe repozytoria
+
+Na podstawie samej przekazanej listy nie widzę błędnie odrzuconego repozytorium, które wyraźnie pomagałoby w produkcji rolek, Home Assistant albo pamięci. MariaDB jest składnikiem infrastruktury, ale nie skillem produkcyjnym. `nomacs` mógłby co najwyżej służyć człowiekowi do oglądania obrazów, co nie uzasadnia wdrożenia do fabryki.
+
+Nie mogę rozstrzygnąć, czy w pełnych 24 repo przeoczono dodatkową funkcję ukrytą w README lub issues, ponieważ zgodnie z poleceniem nie sprawdzałem repozytoriów.
+
+## Końcowy werdykt Zenka
+
+1. **fogsight:** warunkowo TAK na pojedynczy eksperyment, NIE do głównego pipeline’u.
+2. **claude-video:** NIE instalować; ewentualnie przejąć pomysł analizy klatek do `oczy_uszy.py`.
+3. **im-not-ai:** TAK — stworzyć polską, własną kontrolę tekstu.
+4. **Reszta:** na podstawie dostarczonych opisów brak kandydata wymagającego przywrócenia.
+
+## Głos Henia
+
+NIE WIEM — nie mam jego niezależnej oceny i nie będę jej dopisywał w jego imieniu. Rozbieżność lub zgodność może zostać ustalona dopiero po otrzymaniu podpisanego głosu Henia.
+tokens used
+7,398
+## Głos Zenka
+
+### 1. fogsight — NIE wpinać do głównego pipeline’u; TAK dla jednego taniego testu pobocznego
+
+Nie pasuje jako zamiennik formatu „Izabela + Wiadomości Działkowe”, ponieważ zmienia język wizualny marki z prezenterki na animację. Może jednak przydać się do wyjątkowych materiałów: instrukcji, historii ogrodu, objaśnienia przepisów albo krótkiej animowanej ciekawostki.
+
+Werdykt: jeden test na istniejącym scenariuszu, bez integracji. Kontynuować tylko wtedy, gdy gotowa rolka okaże się wyraźnie lepsza lub tańsza od obecnego montażu. Przed testem przeczytać issues pod kątem powtarzalności, eksportu, kosztów i problemów z narracją.
+
+### 2. claude-video — NIE wpinać jako stałego skilla; ewentualnie zachować jako źródło pomysłów
+
+`oczy_uszy.py` rozwiązuje najważniejszy problem fabryki: faktycznie działa na VPS i omija blokadę YouTube. `/watch` oparty na `yt-dlp` przegrywa, jeśli nie potrafi pobrać filmu.
+
+Analiza klatek byłaby wartościowym uzupełnieniem, ale lepiej dodać opcjonalny tryb obrazu do własnego, działającego narzędzia niż utrzymywać drugi częściowo dublujący pipeline. Z `claude-video` warto zaczerpnąć sposób wyboru klatek i fallbacki, niekoniecznie instalować cały skill.
+
+Werdykt: obecnie zbędny obok `oczy_uszy.py`. Rozważyć adaptację samego mechanizmu klatek dopiero przy konkretnym zadaniu, którego obecne narzędzie nie obsłuży.
+
+### 3. im-not-ai — TAK, adaptować koncepcję na polski; NIE instalować koreańskiego skilla wprost
+
+To najbardziej praktyczny kandydat. Skrypty lektorskie i posty na Facebooku łatwo zdradzają model przez nadmierną symetrię, abstrakcyjne wstępy, sztuczne podsumowania, powtarzalne trójki i urzędowy ton.
+
+Polska wersja powinna być kontrolą redakcyjną, a nie bezmyślnym „humanizerem”. Powinna zachowywać fakty, nazwy, daty, liczby i sens, a wskazywać lub poprawiać między innymi:
+
+- „warto podkreślić”, „należy zauważyć”, „podsumowując”;
+- mechaniczne wyliczenia i równoległe konstrukcje;
+- powtarzanie tej samej tezy innymi słowami;
+- przesadnie gładki, reklamowy albo urzędowy ton;
+- zdania nienaturalne w mowie Izabeli;
+- ogólniki pozbawione konkretu lokalnego.
+
+Najbezpieczniejszy tryb: najpierw raport z wykrytymi sygnałami, potem propozycja redakcji i kontrola, czy treść się nie zmieniła.
+
+Werdykt: TAK — zbudować własny polski skill „anty-AI-tell”. Wartością jest idea i katalog błędów, nie koreańska implementacja jeden do jednego.
+
+### Pozostałe repozytoria
+
+Na podstawie samej przekazanej listy nie widzę błędnie odrzuconego repozytorium, które wyraźnie pomagałoby w produkcji rolek, Home Assistant albo pamięci. MariaDB jest składnikiem infrastruktury, ale nie skillem produkcyjnym. `nomacs` mógłby co najwyżej służyć człowiekowi do oglądania obrazów, co nie uzasadnia wdrożenia do fabryki.
+
+Nie mogę rozstrzygnąć, czy w pełnych 24 repo przeoczono dodatkową funkcję ukrytą w README lub issues, ponieważ zgodnie z poleceniem nie sprawdzałem repozytoriów.
+
+## Końcowy werdykt Zenka
+
+1. **fogsight:** warunkowo TAK na pojedynczy eksperyment, NIE do głównego pipeline’u.
+2. **claude-video:** NIE instalować; ewentualnie przejąć pomysł analizy klatek do `oczy_uszy.py`.
+3. **im-not-ai:** TAK — stworzyć polską, własną kontrolę tekstu.
+4. **Reszta:** na podstawie dostarczonych opisów brak kandydata wymagającego przywrócenia.
+
+## Głos Henia
+
+NIE WIEM — nie mam jego niezależnej oceny i nie będę jej dopisywał w jego imieniu. Rozbieżność lub zgodność może zostać ustalona dopiero po otrzymaniu podpisanego głosu Henia.

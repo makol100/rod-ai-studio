@@ -1,0 +1,83 @@
+Mam wszystko, czego potrzebuję — zweryfikowałem dostęp SSH do N150, topologię sieci, sprzęt, hwaccel i dekodery. Odpowiadam.
+
+---
+
+P1. PLAN MIELENIA JEDNEJ NOCY (kanał 4, track 401)
+
+ZMIERZONE TERAZ (ss h z VPS, read-only): dodatek SSH na N150 ma HOST-network — widzi enp2s0 192.168.0.250/24, tailscale0, docker0. NVR 192.168.3.110 jest z N150 OSIĄGALNY: ISAPI :80 → HTTP 401 w 9,5 ms (auth OK, tylko brak poświadczeń), RTSP :554 otwarty. Czyli czytanie nagrań LOKALNIE (przez router Działki, inter-VLAN 192.168.0↔192.168.3) działa. ffmpeg 8.1.2 + ffprobe + python3 + rsync są w kontenerze.
+
+Przebieg na jedną noc — dwie fazy:
+
+FAZA 1 (tania, bez zapisu wideo): dekoduj QSV, spuść do 8 fps, wytnij ROI, detekcja zmian sceny, zapisz LISTĘ czasów zdarzeń.
+
+  ffmpeg -hide_banner -nostdin \
+    -hwaccel qsv -hwaccel_output_format qsv \
+    -rtsp_transport tcp \
+    -i "rtsp://USER:PASS@192.168.3.110:554/Streaming/tracks/401?starttime=20260811T190000Z&endtime=20260812T030000Z" \
+    -vf "hwdownload,format=nv12,fps=8,crop=1280:400:0:320,select='gt(scene,0.02)',showinfo" \
+    -an -f null - 2> /share/kuny/ch4_20260811_events.txt
+
+  - USER:PASS NIGDY z palca — z pliku sekretów (wzor: źródło zmiennych env, hasło nie w argv/chat). 
+  - Godziny w URL są UTC (Z). Noc 21:00–05:00 CEST = 19:00–03:00 UTC.
+  - crop=1280:400:0:320 to DOMYŚLNY pas dolny (auta są na dole kadru, drzewa nad nimi). Współrzędne docelowe = bbox z Genka (P3).
+  - select gt(scene,0.02) liczy zmianę NA WYCIĘTYM ROI, nie na całym kadrze. showinfo wypisuje pts_time do stderr → plik z czasami zdarzeń.
+
+FAZA 2 (dopiero przy zdarzeniu): utnij 30 s wokół każdego czasu T (remux bez rekompresji):
+
+  ffmpeg -hide_banner -rtsp_transport tcp \
+    -i "rtsp://USER:PASS@192.168.3.110:554/Streaming/tracks/401?starttime=<T-15s>&endtime=<T+15s>" \
+    -c copy -an /share/kuny/ch4_<T>.mp4
+
+Dlaczego tak, nie inaczej: filtr `select gt(scene)` wbudowany i tani — ale jest GLOBALNY na swoim wejściu, stąd crop przed select robi z niego detektor ROI. Python na różnicy klatek daje więcej (rozmiar plamy, ruch, globalne-vs-lokalne) — to jest właśnie filtr P3, dokładany jako faza 3 na już zapisanych kandydatach, nie zamiast.
+
+P2. CZAS I CPU
+
+Fakty zmierzone teraz: i3-6006U (2 rdzenie fizyczne / 4 wątki, 2,0 GHz, Skylake 2015), 8 GB RAM (4,9 GB wolne), 416 GB wolnego dysku. h264_qsv i hevc_qsv obecne; renderD128 jest world-writable w kontenerze.
+
+- Dekodowanie programowe 720p20 H.264: ~10–20% JEDNEGO rdzenia (HIPOTEZA, niezmierzone — Skylake 2 GHz dekoduje 720p znacznie szybciej niż realtime). 
+- QSV (h264_qsv): dekodowanie idzie na iGPU HD 520, CPU ≈ 0%; na CPU zostają tylko crop+fps+scene na 720p@8fps ≈ <5% jednego rdzenia (HIPOTEZA).
+- WNIOSEK: używać QSV. HA (4 wątki, MariaDB/Z2M/ESPHome/go2rtc) nie odczuje mielenia jednego kanału. Dodatkowo: nice -n 19 i -threads 2 na ffmpeg, i mielić w DZIEŃ (HA na Działce jest nocą mniej obciążone? — NIE WIEM profilu; bezpieczniej: poza szczytem).
+- Czas ściany: zależny od tempa playbacku NVR. RTSP playback zwykle jedzie ~1× realtime → 8 h nocy = ~8 h mielenia (CPU przy tym ~10% jednego rdzenia z QSV, więc nie boli). Czy NVR pozwoli >1× (szybszy odczyt) — NIE WIEM, nie zmierzone. Równoległe okna (2–4 ffmpeg naraz, noc pocięta na kawałki) skróciłyby czas, ale limit sesji RTSP NVR jest niezmierzony.
+
+P3. ODSIEW POD KUNĘ
+
+- ROI: tak, warto. Bez klikania: (a) na start pas dolny kadru crop=1280:400:0:320; (b) docelowo JEDNA klatka dzienna z kamery 4 (ISAPI /picture — działa, zmierzone 173 KB JPEG) → Genek podaje pixelowy bbox dachów aut → hardcode crop=W:H:X:Y. Zero ręcznego klikania Tomasza.
+- Odrzucenie globalnych zmian (przełączenie IR, światła, reflektor): mierzyć zmianę OSOBNO poza ROI. Jeżeli cały kadr zmienia się naraz (IR/światło) → skip. Warunek: scena w ROI wysoka ORAZ scena poza ROI niska = lokalne.
+- Deszcz: krople = wiele rozproszonych zmian 1–2 px. Filtruj po minimalnym rozmiarze spójnej plamy — kuna na 720p z kilku metrów to plama ~200–3000 px (0,02–0,3% ROI). Deszcz odpada rozmiarem.
+- Pajęczyna/owad przy obiektywie: pajęczyna jest STATYCZNA (brak trwałego ruchu → odpada po "ruch ≥3 kolejne klatki"); owad blisko szkła = wielka rozmyta plama pokrywająca dużą część kadru → odpada górnym limitem rozmiaru.
+- Kołysanie gałęzi: gałęzie są NAD autami — trzymać ROI ciasno na dachach; kołysanie ma charakter okresowy (wolny) → wymóg przesunięcia centroidu plamy między klatkami odfiltruje "migotanie w miejscu".
+- Złapanie kuny: próbkowanie 8 fps (kuna przechodząca dach 2 m z prędkością 1–2 m/s = 1–2 s = 8–16 próbek — wystarczy), minimalna plama ~200 px, ruch ≥3 klatki (≥0,4 s), centroid się przemieszcza. To jest faza python po ffmpeg (mały skrypt, wzór tools/fotopulapka.py — diff klatek, prog ~0,9%).
+
+P4. CO NA VPS
+
+- Format: H.264 w MP4 (remux -c copy z playbacku, bez rekompresji), po 30 s (15 s przed + 15 s po zdarzeniu). 30 s = 11,52 MB (3072 kbps × 30 s).
+- Liczba/noc: 5–20 kandydatów po odsiewie (HIPOTEZA, niezmierzone — zależy ile nocy jest "cicha").
+- Łącznie: 20 × 11,52 MB = ~230 MB/noc; 5 kandydatów = ~58 MB. To są megabajty, nie 33 GB surowej nocy.
+- Transfer: rsync PO TAILSCALE, ściąganie z VPS (klucz /root/.ssh/id_ed25519 już działa na N150):
+
+  rsync -avz --bwlimit=1000 root@100.115.112.5:/share/kuny/ /root/kuny_kandydaci/
+
+  rsync jest w kontenerze (zmierzone). --bwlimit=1000 (KB/s) chroni uplink Działki. Po weryfikacji --remove-source-files. Katalog /share/kuny/ przetrwa restart dodatku (to współdzielony wolumen HAOS, zmierzone: /share zamontowany).
+
+P5. RYZYKA (5) + KOSZT
+
+1. Głód CPU dla HA → QSV dekodowanie + nice -n 19 + -threads 2 + mielenie poza szczytem. [zapobieganie]
+2. Zapełnienie dysku surowymi nocami (33 GB/noc/kanał) → NIGDY nie zapisywać całych nocy; tylko kandydaci (MB); pruning /share/kuny/ starszych niż 7 dni.
+3. ffmpeg w dodatku SSH nie przeżyje aktualizacji: przeżywa RESTART dodatku (zmierzone dziś — pakiet został po restarcie); czy przeżyje aktualizację HAOS — NIE WIEM. Zapobieganie na kampanię: przenieść do osobnego długożyjącego dodatku/obrazu Docker z Dockerfile (ffmpeg jako zależność, nie apk w locie).
+4. Zatkanie łącza/uplinku Działki przy transferze → tylko kandydaci (MB) + --bwlimit; nigdy 33 GB surowej nocy.
+5. Wyciek hasła (dziś już 3×) → poświadczenia wyłącznie z pliku, jeden skrypt-wrapper, hasło nigdy w argv ani w czacie.
+
+KOSZT: 0 zł opłat (własny sprzęt + LAN + Tailscale). Energia: N150 chodzi 24/7, dodatkowy CPU przy QSV marginalny — dokładnej kwoty NIE WIEM (nie zmierzone). Ogląd kandydatów przez Genka: grosze (~0,01 zł/klip 30 s), ale to dopiero po wysyłce.
+
+P6. KOLEJNOŚĆ KROKÓW (pierwszy najtańszy)
+
+1. [O] Próbka 5 minut mielenia z tracku 401 — zmierzyć realne tempo playbacku i %CPU (QSV vs programowo). 0 zł, read-only.
+2. [O] Klatka dzienna kamery 4 (ISAPI /picture) → Genek daje bbox dachów aut → finalny crop ROI.
+3. [O] Pierwsza pełna noc ch4 — NAJSTARSZA najpierw (archiwum od 23.07, retencja P30D → najstarsze noce zjadą ~22–23.08). Kandydaci → /share/kuny/.
+4. [O] rsync kandydatów → VPS, przegląd, kalibracja progu.
+5. [O] Rozszerzyć na ch2 (od 4.08). ch1 pomijam — brak aut (priorytet z briefu: ch4 > ch2 > ch1 odpada).
+6. [N — tylko Tomasz] jakakolwiek zmiana konfiguracji NVR (np. nagrywanie po ruchu). Teraz niepotrzebna.
+
+FLAGA (osobno): klucz hosta N150 się zmienił — ED25519 zamiast ECDSA (spójne z dzisiejszą przebudową dodatku SSH przez Klaudka). Łączyłem się throwaway known_hosts, nic w /root nie zmieniałem. Do odnotowania w konfiguracji dostępowej.
+
+— Henio

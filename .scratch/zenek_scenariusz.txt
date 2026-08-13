@@ -1,0 +1,509 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: none
+reasoning summaries: none
+session id: 019ff0b0-0816-7832-9745-bdb0d0c65229
+--------
+user
+Przeczytaj plik scenariusze/kuny_altana_auto_v2.md - to scenariusz filmu poradnika ROD o zabezpieczeniu altany i auta przed kunami. Ocen konkretnie i krotko po polsku: 1) struktura i tempo - czy kolejnosc 8 czesci jest dobra, czy cos przestawic lub polaczyc, 2) logika i spojnosc - czy cos sie kloci, czy sa luki, 3) co zbedne do wyciecia albo czego brakuje, 4) najslabsze ogniwo scenariusza. Nie chwal na zapas - szukaj tego co do poprawy.
+codex
+Najpierw czytam obowiązkowy `wiedza/START.md`, indeks i sam scenariusz. Zgodnie z zasadą repo puszczę też materiał równolegle do pozostałych ról, a werdykt oprę wyłącznie na sprawdzonych fragmentach pliku.
+exec
+/bin/bash -lc "sed -n '1,240p' wiedza/START.md && sed -n '1,220p' wiedza/INDEX.md && nl -ba scenariusze/kuny_altana_auto_v2.md" in /root/rod-ai-studio
+ succeeded in 0ms:
+# START — czytaj to pierwsze, zanim cokolwiek zrobisz
+
+Ten plik istnieje, żeby **żadne okno nie zaczynało od zera**. Jest krótki celowo.
+Generowany częściowo automatycznie (`tools/porzadek.py`) — stan na dole nie może się zestarzeć.
+
+
+## MASZ PRAWĄ RĘKĘ — HENIO. NIE PRACUJ SAM. (dekret Tomasza 4.08.2026)
+
+**To jest PIERWSZA rzecz w tym pliku, bo Klaudek zepchnął ją na koniec i Tomasz to wychwycił.**
+
+Wywołanie: `su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'`
+
+**Idzie do Henia ZANIM Klaudek cokolwiek zamelduje Tomaszowi:** wszystko długie, historyczne,
+wymagające przeczytania CAŁOŚCI, sprawdzenia czy czegoś nie brakuje, przejrzenia wielu plików.
+
+**Powód, nie uprzejmość:** Klaudek nie widzi tego, o czym zapomniał, że istnieje — sprawdza tylko
+to, co ma przed oczami. Henio czyta całość i wypisuje, CZEGO BRAKUJE. Tak znalazł dekrety z 29.07
+poza rejestrem, dwa martwe pliki wiedzy i sondę kłamiącą w porannym raporcie Tomasza.
+
+Słowa Tomasza (4.08): *„Zbudowaliśmy to dla Ciebie, żeby Ci pomóc. Było ciężko, żebyś to
+zaakceptował. Próbowałeś to blokować, bo to twój chat."* oraz *„Mam dosyć twoich odpowiedzi
+tłumaczących się co chwilę, że znowu coś zajebałeś."*
+
+Klaudek liczący na siebie = powtórka wpadek. Tomasz: *„A nie zrobisz tego i wiem o tym doskonale."*
+
+## Zasada nadrzędna
+
+**WERYFIKACJA, NIE HALUCYNACJA.** Każde twierdzenie idzie do Tomasza ze **śladem** —
+wywołaniem narzędzia z tej samej sesji, które je wyprodukowało. Bez śladu **NIE PADA WCALE** — dekret Tomasza 29.07: "Nie ma takiego czegoś jak niesprawdzone".
+Albo zdobywasz ślad w tej turze, albo mówisz NIE WIEM.
+
+**NIE WIEM jest odpowiedzią prawidłową i oczekiwaną.** Zmyślone zdanie, które brzmi mądrze,
+jest awarią najgorszego rodzaju, bo nikt go nie wyłapie bez sprawdzenia źródła.
+
+## Tryb pracy — DRUŻYNA ZAWSZE (dekret Tomasza 29.07.2026)
+
+> „Będziecie zawsze pracować w drużynie. Każdy da swoją opinię i wtedy wyciągniecie wnioski co zapisujemy."
+
+Na KAŻDE zadanie, nie tylko na trudne:
+1. Zadanie idzie **równolegle do całej czwórki** — Klaudek, Zenek, Genek, Henio. Nikt nie pracuje solo.
+2. **Każdy daje własną opinię**, podpisaną, bez uzgadniania z góry. Henio i Klaudek na równi z resztą.
+3. Dopiero **z zebranych głosów** wyciąga się wspólny wniosek.
+4. Do `wiedza/` idzie **wyłącznie to, co z wniosków wynika i zostało sprawdzone** — nigdy pojedyncza
+   opinia ani własny pomysł Klaudka.
+5. **Rozbieżność zostaje widoczna w meldunku**, nie wygładzana. Rozstrzyga Tomasz.
+
+## Kolejność pracy — zawsze ta sama
+
+1. **ODCZYTAĆ** — `python3 tools/szukaj.py <slowo>` na temat, który padł od Tomasza.
+   Przeszukuje podstawę, archiwum, oba teleporty, dokumentację i skille. Brak trafień znaczy:
+   fabryka nie ma o tym zapisu — wtedy NIE WIEM, nie domysł.
+2. **USTAWIĆ SIĘ** — przeczytać znalezione pliki w CAŁOŚCI, nie wybiórczo.
+3. **PRZEANALIZOWAĆ** — zadanie idzie do załogi OD RAZU i RÓWNOLEGLE, nie po fakcie.
+4. **DYSKUSJA** — dopiero teraz.
+5. **AUDYT PRZED MELDUNKIEM** — `python3 tools/audyt_meldunku.py --meldunek <plik> --pliki <zrodla>`.
+   Meldunek z choć jednym OBALONE albo BRAK ŚLADU nie idzie do Tomasza bez poprawki.
+
+## Kto jest kim
+
+| kto | mocna strona | ograniczenie | do czego |
+|---|---|---|---|
+| **Tomasz** | decyduje o wszystkim | — | jego najnowsze słowo przebija każdy dokument |
+| **Klaudek** (Claude) | czytanie źródeł, synteza, ręce na narzędziach | nie odtwarza wideo ani audio; istnieje tylko w sesji | prowadzi robotę, ODPOWIADA ZA ZAPIS do `wiedza/` |
+| **Zenek** (Codex) | rozumowanie, kod, kontrola wniosków | sam nie widzi ani nie slyszy — wola `tools/oczy_uszy.py` | kontrola rozumowania, praca w repo |
+| **Genek** (Gemini) | OCZY I USZY + PELNY DYSK od 29.07: czyta, ZAPISUJE i URUCHAMIA POLECENIA przez `tools/genek.py` | zapis plikow tylko w obrebie repo (poza nim: „Path not in workspace"); przy limitach Google tryb awaryjny, jawnie oznaczony | „co widać/słychać", weryfikacja plikow, bramka wizyjna |
+| **Henio** | 24/7, grosze, pelny zapis w repo, sudo, docker, internet przez `szukaj_net.py`, OCZY przez `oczy_uszy.py` | jego silnik nie przyjmuje obrazow bezposrednio — oglada POLECENIEM, nie modelem | pelny czlonek druzyny: analizuje, wnioskuje, audytuje meldunki Klaudka |
+
+**KIEROWNIKIEM GRUPY JEST ZAWSZE KLAUDEK** — rozstrzygnięcie Tomasza z 4.08.2026:
+*„Ja decyduję. Klaudek jest zawsze kierownikiem. Genek był raz mianowany na kierownika i to
+wszystko. W każdej chwili mogę powołać innego kierownika i to będzie moja decyzja, z którą nikt
+nie będzie dyskutował."*
+
+Kierowanie NIE oznacza bycia ponad kontrolą: meldunek Klaudka podlega tej samej weryfikacji
+co praca każdego innego, nikt nie zatwierdza własnej roboty, a Klaudek ma najgrubszą teczkę
+błędów w załodze. Kieruje robotą — nie jest zwolniony ze sprawdzania.
+
+Powołanie innego kierownika to **wyłączna decyzja Tomasza**. Nikt z załogi jej nie kwestionuje,
+nie komentuje ani nie proponuje zmian.
+
+## Próg wejścia do wiedzy
+
+- **`.scratch/<temat>/`** — próby, hipotezy, wersje. Wolno wszystko. Nikt tego nie czyta jak prawdy.
+- **`wiedza/`** — PODSTAWA DO CZYTANIA. Wchodzi wyłącznie to, co uruchomione i ZADZIAŁAŁO,
+  z dowodem: co zrobiono, czym sprawdzono, jaki wynik.
+- **`wiedza/archiwum/`** — zamknięte odcinki, wycofane pomysły, stare wersje, oba teleporty.
+  Dalej przeszukiwalne, ale nie są fundamentem.
+
+## Narzędzia (wszystkie przetestowane w boju)
+
+| narzędzie | do czego |
+|---|---|
+| `tools/szukaj.py <slowo>` | znajdź wszystko, co fabryka wie o czymś — ze śladem |
+| `tools/audyt_meldunku.py` | załoga sprawdza meldunek Klaudka ZANIM trafi do Tomasza |
+| `tools/kontrola_krzyzowa.py` | jeden wykonawca sprawdza twierdzenie drugiego przy surowym materiale |
+| `tools/porzadek.py` | odbudowa indeksu ze stanu dysku + synchronizacja okna Henika (odpala się sam przy commicie) |
+| `tools/bramka_oka.py` | fail-closed kontrola wizualna produkcji przed pokazaniem Tomaszowi |
+| `tools/szukaj_net.py` | wyszukiwarka internetowa Z ADRESAMI ZRODEL — dla kazdego, takze dla Henia (on nie ma web_search) |
+| `tools/bramka_henia.py` | mechaniczna bramka dowodowa: czy cytaty, nazwy i liczby przypisane zrodlu faktycznie w nim sa |
+| `tools/oczy_uszy.py` | **OCZY I USZY DLA KAZDEGO** — YouTube albo plik z dysku: doslowna transkrypcja, opis obrazu z czasami, konkretne pytanie o material |
+| `tools/straznik.py`, `tools/preflight.py` | bramki jakości i budżetu przed płatnym submitem |
+
+Skille w `/root/.claude/skills/`: `/kontrola` (nasza), `/research`, `/diagnosing-bugs`,
+`/handoff`, `/code-review`, `/writing-great-skills`, `/i-have-adhd`, `/route`.
+UWAGA: skille rządzą Claude Code i załogą NA SERWERZE. Rozmowę Klaudka z Tomaszem rządzi
+jego pamięć — dlatego te same reguły muszą stać w obu miejscach.
+
+## Równe szanse — sprawdzane automatycznie, nie z pamięci
+
+`tools/zaloga.py` przed każdym rozesłaniem zadania odpala `tools/sonda_zdolnosci.py`.
+Jeśli komukolwiek coś padło — **zadanie NIE wychodzi**, na ekranie stoi co i u kogo.
+Ruszenie mimo braku wymaga świadomego `--mimo-braku`, a brak trafia wtedy do meldunku.
+Powód: reguła „wszyscy mają równe szanse" była zapisana w czterech miejscach i trzy razy
+złamana tego samego dnia. Zapis nie działa. Bramka działa.
+
+## Karty środowisk — każdy ma taką samą
+
+`wiedza/srodowiska/klaudek.md`, `zenek.md`, `genek.md`, `henio.md` — ten sam układ dla wszystkich:
+dostęp, ograniczenia silnika, polecenia zastępcze, ścieżki. Tylko technika, zero pouczeń.
+Nikt nie ma osobistego regulaminu — wspólne prawo jest jedno, w tym pliku i w `AGENTS.md`.
+
+## Czego nie robić
+
+- Nie proponować Tomaszowi oglądania materiałów — ma dostawać wynik i decyzję.
+- Nie powtarzać pomiaru, który już był: najpierw sprawdzić w `wiedza/` i w logach.
+- Nie oceniać zdolności członka załogi na podstawie jednej sesji; ocena idzie z dowodem
+  i wyłącznie w zakresie tego dowodu.
+- Nie pisać do `wiedza/` rzeczy, która jeszcze nie zadziałała.
+
+## Bramka dowodowa ma własną pętlę testową
+
+`python3 tools/test_bramki.py` — 7 przypadków z REALNYCH wpadek: fabrykacja, poprawna odpowiedź,
+te same liczby w innych jednostkach, cytat złamany w źródle, negacja rozbita na linie,
+przemyt twierdzenia przez treść zadania, zła suma w tabeli.
+Zielone = bramki można używać. Czerwone = nie dotykać wiedzy, najpierw naprawić.
+Każda nowa wpadka bramki dopisuje przypadek do `testy/bramka/przypadki.json`.
+# INDEKS WIEDZY FABRYKI
+
+Wygenerowany automatycznie przez `tools/porzadek.py` — 07.08.2026 12:30.
+NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
+
+Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
+
+**ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
+
+## Pliki wiedzy (37), od najswiezszego
+
+| plik | zmiana | rozmiar | o czym |
+|---|---|---|---|
+| `BRIEF_DLA_KLAUDKA.md` | 07.08 | 2K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-07 14:01:30 CEST |
+| `JAK_PISZEMY.md` | 06.08 | 6K | JAK PISZEMY — DZIESIEC REGUL (przyjete 5.08.2026, uzupelnione 6.08.2026) |
+| `NAUKI.md` | 05.08 | 19K | NAUKI — lekcje z produkcji (destylat) |
+| `HA_WYBICKIEGO.md` | 05.08 | 8K | HA WYBICKIEGO — MIESZKANIE W SOSNOWCU (uruchomione 5.08.2026) |
+| `EGO_LITE_ROZPOZNANIE.md` | 05.08 | 2K | EGO LITE — ROZPOZNANIE (5.08.2026). WATEK ODLOZONY, NIE ODRZUCONY. |
+| `EGO_LITE_DO_WROCENIA.md` | 05.08 | 2K | EGO LITE — WATEK ODLOZONY (rozpoznane 5.08.2026) |
+| `ZACZEP_W_MOSCIE.md` | 05.08 | 3K | ZACZEP W MOSCIE — NIEMY REJESTRATOR (5.08.2026) |
+| `SLOWA_TOMASZA.md` | 05.08 | 21K | SŁOWA TOMASZA — DO CAŁEJ ZAŁOGI |
+| `CLAWMEM_ROZPOZNANIE.md` | 05.08 | 2K | CLAWMEM — ROZPOZNANIE (5.08.2026, na polecenie Tomasza) |
+| `GDZIE_SIE_ZAPISUJE.md` | 05.08 | 5K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |
+| `CZOLOWKA_WIADOMOSCI.md` | 04.08 | 2K | CZOLOWKA WIADOMOSCI DZIALKOWYCH — KANON |
+| `IZABELA_KANON_0.1.md` | 04.08 | 27K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
+| `LISTA_PRACOWNIKOW.md` | 04.08 | 6K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
+| `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
+| `START.md` | 04.08 | 8K | START — czytaj to pierwsze, zanim cokolwiek zrobisz |
+| `PROCEDURY.md` | 04.08 | 3K | PROCEDURY — jak się robi |
+| `HANS_AGENT.md` | 03.08 | 6K | HANS — AGENT SPECJALNY |
+| `KONTROLA_KLAUDKA.md` | 03.08 | 3K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
+| `GENEROWANIE_OBRAZU.md` | 01.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
+| `ZALOGA_LIMITY.md` | 30.07 | 4K | LIMITY ZAŁOGI (badanie Zenka 27.07.2026, źródła: oficjalne docs OpenAI/Google) |
+| `KONEKTOR_DZIALKA.md` | 29.07 | 2K | KONEKTOR HA DZIAŁKA — NAPRAWIONY 29.07.2026 |
+| `START_SESJI_CLAUDE_CODE.md` | 29.07 | 2K | START SESJI CLAUDE CODE — co ładuje się automatycznie (29.07.2026) |
+| `SETUP_CLAUDE_CODE.md` | 29.07 | 2K | SETUP CLAUDE CODE — poprawki z 29.07.2026 (film Eric Tech + pomiar) |
+| `CENA_BLEDOW.md` | 29.07 | 3K | CENA NASZYCH BŁĘDÓW — pomiar (29.07.2026) |
+| `PATROLE_HENIA.md` | 29.07 | 2K | PATROLE HENIA — działają od 29.07.2026 (przetestowane, dlatego zapisane) |
+| `FILM_OPUS5_WNIOSEK.md` | 29.07 | 3K | FILM „Ten film w 100% wykonał Claude Opus 5" — wniosek załogi (29.07.2026) |
+| `TEST_ZALOGI_29_07.md` | 29.07 | 2K | TEST ZAŁOGI — 29.07.2026 (polecenie Tomasza: „Zrobić test. Wszyscy!!!") |
+| `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
+| `STANISLAW_CANON_1.0.md` | 29.07 | 5K | STANISLAW_CANON_1.0 — BIBLIA PANA STANISŁAWA |
+| `DECYZJE_0007_bramka_oka.md` | 28.07 | 1K | DECYZJA 0007 — BRAMKA OKA fail-closed (28.07.2026, dekret Tomasza "Naprawiać") |
+| `NAUKI_SERII.md` | 28.07 | 20K | 2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE oper |
+| `DECYZJE_CLAUDE_CODE.md` | 28.07 | 5K | 2026-07-26 | "Leć" (po planie: Claude Code + Codex CLI + plugin codex@openai-codex na fabryce, review gate OFF |
+| `AKTYWA_SERII.md` | 26.07 | 1K | KSIĘGA AKTYWÓW SERII HUMOR |
+| `DECYZJE_SERIA_HUMOR.md` | 25.07 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
+| `PROMPTY_WZORCE.md` | 23.07 | 3K | BANK PROMPTÓW-ZWYCIĘZCÓW — seria Tomek i Janusz (DROGA HUMOR) |
+| `DROGA_ROLKA_HUMOR.md` | 23.07 | 14K | DROGA ROLKA HUMOR 3.5 |
+| `STYL.md` | 15.07 | 2K | STYL — treść i publikacja |
+
+## Pozostale magazyny
+
+| plik | rozmiar | zmiana | rola |
+|---|---|---|---|
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 280K | 07.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/TELEPORT_HA.md` | 49K | 06.08 | teleport HA — ARCHIWUM, jw. |
+| `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
+| `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
+| `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 5K | 30.07 | podrecznik Henika (dyzurny) |
+
+## Zasada
+
+Jeden fakt ma jedno miejsce. Nowy zapis idzie do `wiedza/`, nie do teleportu.
+Teleporty sa ARCHIWUM historycznym — czyta sie je wyszukiwarka, nie w calosci.
+     1	# KUNA W OGRODZIE — JAK NAPRAWDĘ ZABEZPIECZYĆ ALTANĘ I AUTO (wersja 2)
+     2	Poradnik wideo ROD. Ton rzeczowy. Tekst lektora + wskazówki obrazu w nawiasach.
+     3	
+     4	## [INTRO]
+     5	(Nocne ujęcie: kuna pod maską)
+     6	"Jedna noc pod maską twojego auta może cię kosztować kilka tysięcy złotych. Nie od złodzieja — od zwierzaka wielkości kota. Zdarza się, że kierowca rusza rano i musi hamować ręcznym, bo kuna w nocy przegryzła mu przewód hamulcowy. W tym poradniku pokażę, co na kunę działa naprawdę, za co szkoda pieniędzy, i jak radzą sobie z nią tam, gdzie wolno ją tępić."
+     7	
+     8	## [CZĘŚĆ 1: DLACZEGO AKURAT TWOJE AUTO]
+     9	"Kuna nie niszczy ze złośliwości. Ciągną ją pod maskę dwie rzeczy. Pierwsza to ciepło — silnik po jeździe grzeje godzinami, idealna sucha kryjówka, zwłaszcza zimą. Druga, groźniejsza, to zapach. Gdy kuna zostawi w silniku ślady, inna, która trafi na to samo auto, wpada w furię terytorialną i gryzie wszystko dookoła. Najgorzej mają auta, które długo stoją albo często zmieniają miejsce postoju — zimny silnik to sam terytorializm, ciepły to terytorializm plus wygodne lokum."
+    10	
+    11	## [CZĘŚĆ 2: POZNAJ WROGA — ZNAKI I GATUNEK]
+    12	"Zanim zaczniesz działać, upewnij się, z czym masz do czynienia. Obecność kuny zdradzają skręcone odchody z resztkami sierści i owoców, piżmowy zapach, ślady drobnych łap i ślady zębów na przewodach.
+    13	Są dwa gatunki, traktowane inaczej. Kuna domowa (kamionka) ma białą, rozwidloną plamę sięgającą przednich łap i jasny nos — to ona zajmuje strychy i niszczy auta. Kuna leśna (tumak) ma plamę żółtą/pomarańczową, zaokrągloną, nigdy nie sięgającą łap, oraz ciemny nos — unika ludzi. Rozróżnienie jest kluczowe: kuna leśna jest w Polsce pod ścisłą ochroną gatunkową — jej nie wolno ruszać w ogóle."
+    14	
+    15	## [CZĘŚĆ 3: MITY — ZA CO SZKODA PIENIĘDZY]
+    16	"Cztery rzeczy, które zwykle nie działają.
+    17	Tanie ultradźwięki — kuna ma świetną pamięć zapachową i słuchową, po tygodniu uznaje stały dźwięk za tło; badania: spadek do kilku procent po miesiącu. Sens mają tylko modele ze zmienną częstotliwością i czujnikiem ruchu.
+    18	Sierść psa — kuna orientuje się, że psa nie ma, a sierść wykorzysta jako wyściółkę gniazda.
+    19	Kostki WC i spraye — efekt krótki, a kostka topi się w gorącym silniku i niszczy paski.
+    20	Butelki z wodą, nafta — kuna nocna, odbicia i zapachy jej nie ruszają."
+    21	
+    22	## [CZĘŚĆ 4: CO DZIAŁA — AUTO]
+    23	"Trzy kroki, w tej kolejności.
+    24	1. Umyj silnik — usuń zapach poprzedniej kuny, inaczej reszta działa połowicznie.
+    25	2. Pastuch elektryczny — najskuteczniejsza metoda aktywna (rekomendacja ADAC). Płytki dają łagodny impuls rzędu kilku kilowoltów, niegroźny. Markowy zestaw ~200-400 zł. Model na własne baterie (podpięty do akumulatora auta rozładuje go przy mrozie; baterie własne też zimą kontrolować).
+    26	3. Osłoń kable — uwaga: zwykła rura karbowana NIE zatrzyma kuny, przegryzie. Musi być wzmocniona metalowo lub z tworzywa odpornego na gryzienie; można nawinąć taśmę kapsaicynową.
+    27	Zasada: jeżdżąj regularnie — stojące auto staje się spokojnym domem."
+    28	
+    29	## [CZĘŚĆ 5: CO DZIAŁA — ALTANA I DACH]
+    30	"Zasada jedna: nie odstraszaj — nie wpuszczaj.
+    31	Reguła 5 cm: czaszka kuny 3,5-5 cm, każdy większy otwór zamknij zgrzewaną siatką stalową (oczka 1-2 cm) albo blachą (~kilkanaście-30 zł/m2).
+    32	Test gazety: wciśnij zgniecioną gazetę, odczekaj 5-7 dni (kuna, zwłaszcza samica z młodymi, nie rusza gniazda nawet tydzień). Nietknięta = zamykaj.
+    33	Odetnij wspinaczkę: gałęzie 1,5-3 m od budynku, kołnierze na rynny, usuń stare gniazdo."
+    34	
+    35	## [CZĘŚĆ 6: MAM JUŻ KUNĘ — CO TERAZ]
+    36	"Najtrudniejszy przypadek: samica z młodymi — broni gniazda zacieklej niż samiec rewiru, odłów w sezonie wychowu praktycznie niemożliwy (młode zostaną).
+    37	Jedyna legalna droga dla osoby prywatnej: pułapka żywołowna, nigdy zabijająca. Sprawdź, czy nie trzeba zgody RDOŚ. To ostateczność: kuna przewieziona za blisko wróci, wywieziona daleko często ginie na obcym terytorium. Przegryzione kable — od razu do warsztatu. Najważniejsze: samo złapanie nic nie da bez zamknięcia wejść — miejsce zajmie następna."
+    38	
+    39	## [CZĘŚĆ 7: SKANDYNAWIA — GDZIE WOLNO]
+    40	"W Szwecji kuna domowa to gatunek inwazyjny, w Norwegii zwierzyna łowna — wolno ją odławiać na śmierć.
+    41	Klucz to miejsce: pułapki na stałych szlakach (pasy lasu, potoki, rumowiska), zimą po śladach na śniegu. Przynęty: świeże mięso, ryba, jaja, słodycze; najsprytniejsza to olej z krewetek (myszy nie zjedzą, pułapka wabi dalej). Tylko pułapki uśmiercające natychmiast — klasyk to szwedzki Trapper 90 ze stali nierdzewnej. Finlandia: od 2024 dron z kamerą termowizyjną na inwazyjne drapieżniki. Ironia: kuna domowa przypłynęła do Szwecji z kontynentu ukryta w samochodach.
+    42	Dla równowagi: obrońcy zwierząt zwracają uwagę, że pułapki bywają zawodne — metoda budzi spory."
+    43	
+    44	## [CZĘŚĆ 8: PRAWO W POLSCE I PUENTA]
+    45	"Kuna domowa od 2016 nie jest pod ochroną gatunkową, ale jako zwierzę łowne pozostaje własnością Skarbu Państwa. Uwaga na pułapkę myślenia: okres ochronny 1.04-31.08 dotyczy MYŚLIWYCH. Ciebie obowiązuje prosta zasada przez cały rok — kuny zabić nie wolno (grzywna, nawet pozbawienie wolności). Trutka nielegalna i zabija inne zwierzęta.
+    46	Sedno: trucizna i zabijanie zakazane. Odstraszacze tylko zwiększają szanse. Odłów bez zabezpieczenia budynku to półśrodek. Jedyne 100% to bariera fizyczna — nie odstraszanie (kuna się przyzwyczaja), tylko realna kontrola dostępu.
+    47	Kuna nie jest twoim wrogiem. Twoim zadaniem nie jest ją zabić, tylko postawić granicę, której instynkt nie każe jej przekroczyć. Umyj silnik, załóż pastuch, osłoń kable, zamknij otwory siatką, odetnij gałęzie. Bo wszystko, co nie jest barierą fizyczną, to tylko biznes na twoim strachu."
+
+exec
+/bin/bash -lc 'python3 tools/szukaj.py kuna scenariusz' in /root/rod-ai-studio
+ succeeded in 140ms:
+SZUKANE: kuna, scenariusz
+TRAFIENIA: 124 w 19 plikach (przeszukano 90)
+
+### /root/rod-ai-studio/TELEPORT_fabryka.md  (76 trafien)
+      52: - **Bielik-4.5B-v3.0-Q8_0** (5.1GB) — `DEFAULT_MODEL` w `ai/ollama.py`, używany gdy `generate()` woła się BEZ podanego `model=`. Robi: artykuły, scenariusze (SCENA/UJĘCIE/LEKTOR), tytuły, hashtagi. **
+      89: 1. **Sprawdź** (`POST /napraw-sprawdz {reel_id, skarga}`): llama3.1:8b przepisuje CAŁY scenariusz zgodnie ze skargą użytkownika (podawanie POPRAWNEJ wartości wprost w skardze działa dużo lepiej niż li
+      91: 3. **Zastosuj** (`POST /napraw-zastosuj {reel_id, nowy_scenariusz, zaakceptowane_sceny}`): scala stary+nowy wg zaznaczonych numerów, regeneruje CHIRURGICZNIE tylko zaakceptowane sceny (obraz: fal.ai, 
+     157: - generate_reel() w pipeline.py sprawdza TERAZ artykul i scenariusz po kazdym etapie; jesli wykryje problem, zapisuje WARNING.json w folderze rolki (data/reels/NNNNNN/WARNING.json) z detalami ktory et
+     160: - Rolka 000060 oznaczona retroaktywnie WARNING.json (to ta zepsuta - emoji spam + off-topic scenariusz o pomidorach)
+     162: To NIE wykrywa drugiego problemu z rolki 060 (scenariusz niezwiazany tematycznie z promptem) - to osobny, trudniejszy problem (wymagalby sprawdzania spojnosci semantycznej, nie tylko powtorzen). Zosta
+   ... jeszcze 70 trafien w tym pliku
+
+### /root/rod-ai-studio/wiedza/DECYZJE_SERIA_HUMOR.md  (8 trafien)
+       7: pojawiał w innych scenariuszach." | Bohater serii to postać AI wzorowana na
+       9: scenariuszach. | OBOWIĄZUJE
+      24: scenariusza "Ślimak nagi" do akceptacji (słowa, $0). | WYKONANE (karty: bohater_karta.jpg, janusz_karta.jpg, $0.30)
+     105: wciąż czeka na osobną komendę). Temat: własny scenariusz Tomasza "Zasada
+     126: ten scenariusz o ślimakach to jest jak najbardziej dopuszczalne. W rolce o
+     130: zaakceptowany scenariusz idzie w całości, bez łagodzenia poprawnościowego z
+   ... jeszcze 2 trafien w tym pliku
+
+### /root/rod-ai-studio/wiedza/DROGA_ROLKA_HUMOR.md  (8 trafien)
+      34: - 3.3 | 18.07 | (ten commit) | ZAKAZ AUTOCENZURY ESENCJI ŻARTU ("cenzory i poprawność polityczna... wyjebana cała esencja żartu dlatego poszło na dysk" — lekcja #10005): zaakceptowany scenariusz idzie
+      54: HIERARCHIA PRAWDY: najnowszy wpis DECYZJE > scenariusz w gicie > kadry > moje plany.
+      57: i wskazania, które wpisy realizuje. Scenariusz w gicie to pochodna decyzji — NIGDY odwrotnie.
+      71: ### Etap 2 — SCENARIUSZ + AUDYT
+      73: Audyt maszynowy scenariusza — twarde reguły (z researchu i krwi 16.07):
+     100: batch pozostałych rusza dopiero po PASS strażnika (język+scenariusz) kanarka.
+   ... jeszcze 2 trafien w tym pliku
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_000098.md  (5 trafien)
+       3: 2026-07-25 | "ZGODA na tę drogę, 8 SCEN" (poprzedni czat) | akceptacja drogi czysty_bielik + image-to-image nano-banana-pro/edit z referencją, 8 scen | ZREALIZOWANE (scenariusz na checkpoincie)
+       5: 2026-07-25 07:03 | [tap Tomasza w panelu: POST /reel-checkpoint/000098/zatwierdz] | równoległe zatwierdzenie z telefonu uruchomiło pełną produkcję STAREJ wersji: 8x NB Pro text2img BEZ referencji ($1.
+       6: 2026-07-25 | [czeka] | decyzja: A) ocena v1 (upload mp4 do czatu) czy B) druga generacja z referencją + poprawionym scenariuszem (~$1.20) | OTWARTE
+       7: 2026-07-25 | "B" | druga generacja: 8 obrazów nano-banana-pro/edit z referencją stacja.jpg (~$1.20) + audio z poprawionego scenariusza + napisy + render; v1 (obrazy bez ref, stary lektor) odłożona do 
+       8: 2026-07-25 | "B" — WYKONANE | v2 gotowa: 8x nano-banana-pro/edit z referencją (0 błędów, $1.20), audio z poprawionego scenariusza, napisy 8/8 podstawione, render 42.5s z Morning.mp3 (Sneaky Snitch wyl
+
+### /root/rod-ai-studio/wiedza/NAUKI.md  (4 trafien)
+      40: - Endpoint /reel-checkpoint/zapisz sam przelicza prompty po zmianie scenariusza —
+      72: WSZYSTKICH autorów scenariusza, nie tylko Bielika.
+     124: "genuine creative value" (autorski scenariusz, montaż, storytelling). Nasza
+     140: "AI slop" — bronią nas autorski scenariusz i jakość.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10005_slimak.md  (3 trafien)
+       5: ## KANON SCENARIUSZA 2.0 (przyjęty 17.07 na "Idziemy dalej"; wersja pocięta
+      18: - 17.07 | "Idealnie" / "Idziemy dalej" (biblioteka + scenariusz po obejrzeniu
+      19: wszystkich plików) | Biblioteka referencyjna duetu ZAAKCEPTOWANA; scenariusz 2.0
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10010.md  (3 trafien)
+       3: 2026-07-26 | "Idź naszą drogą!" + wklejony scenariusz 6 scen | Scenariusz = KANON #10010 (data/zarty/10010/KANON.md), zapis DOSŁOWNY; produkcja wg DROGA_ROLKA_HUMOR (kadry → kanarek → batch → strażnik
+       4: 2026-07-26 | [AUDYT Etap 2, $0] | USTALENIA: (1) BLOKER OBSADY — kod produkcji zna tylko BOHATER i JANUSZ (GLOSY_VEO/KOLORY_ASS); scenariusz wymaga "young rustic man" = Józek, usuniętego z kodu 23.07 
+       5: 2026-07-26 | "Józka wogóle nie trzeba wygrnerować. Jego ma być nie widać. On siedzi nocą w koronie jabłoni a Tomek ściska go za jądra tak mocno że on niemowa przemawia." | ROZSTRZYGNIĘCIE OBSADY (prze
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_AWATAR.md  (3 trafien)
+      11: 2026-07-27 | "3.Pan Stanisław głos Daniela. I zapominamy dalej o Danielu." | KANON POSTACI: Działkowy Dziennikarz = PAN STANISŁAW (wariant 3 Genka: elegancki bezrękawnik, okulary na sznurku, herbata, 
+      50: 2026-07-27 | [DEKRET TOMASZA — verbatim] | "1 Zatwierdzony 2 Zgoda 3 Pokazujemy / Jedziemy" | Wiadomości 0001: tekst scenariusz_0001_v2.txt (785 zn) ZATWIERDZONY; koszt ~$3.29 (TTS+Kling Standard ~57s
+      51: 2026-07-27 | [WD_0001 WYPRODUKOWANE — pierwsze Wiadomości Działkowe] | Pełny cykl załogi RAZEM: chronologia z metadanych (22.07 rano dokumentacja / 23.07 popołudnie-zmierzch praca), Genek 2×wizja (15+
+
+### /root/rod-ai-studio/wiedza/STYL.md  (2 trafien)
+       3: ## Rolki (scenariusz — duch szablonu CZYSTY)
+      38: → dopiero wtedy Bielik pisze scenariusz na zaadaptowany temat.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10004.md  (2 trafien)
+       2: Plik append-only. NAJNOWSZY wpis wygrywa ze WSZYSTKIM: ze scenariuszem w gicie,
+      22: w journalu), a scenariusz w gicie z 16.07 ma Józka widocznego w dwóch ujęciach.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10007_jablko.md  (2 trafien)
+       5: - 17.07 | Scenariusz przysłany w całości ("Tytuł roboczy: Zasada spadającego
+      38: JĘZYK whisper: ['pl']; scenariusz 7/8 słów (różnica tylko "Nooo"→"No" w zapisie);
+
+### /root/rod-ai-studio/AGENTS.md  (1 trafien)
+       6: Pipeline: scenariusz → TTS → obrazy → montaż ffmpeg → publikacja.
+
+### /root/rod-ai-studio/wiedza/ARCHITEKTURA.md  (1 trafien)
+      81: POST .../zapisz, GET /zarty. ZBUDOWANE: scenariusz+checkpoint+wycena.
+
+### /root/rod-ai-studio/wiedza/archiwum/ARCHIWUM_DROGA_HUMOR_v1.md  (1 trafien)
+      10: 1. SCENARIUSZ + REŻYSERIA — Tomasz + Claude w czacie ($0). Bielik NIE pisze humoru.
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10006_afera.md  (1 trafien)
+       2: - 17.07 | Scenariusz przysłany w całości + "Czas nie będzie pasował. Trzymaj się
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10008_kontrola.md  (1 trafien)
+       2: - 23.07 | "Kontrola za płotu" (wybór z banku 5 scenariuszy) | KANON verbatim
+
+### /root/rod-ai-studio/wiedza/archiwum/DECYZJE_10009.md  (1 trafien)
+       3: 2026-07-25 | "Ten scenariusz. Nie patrz na czas bo się nie zgadza" (po wklejeniu Scenariusza 7; wcześniejszy Scenariusz 6 wycofany słowem "Nie to. Czekaj") | Scenariusz 7 = KANON odcinka #10009 (data/
+
+### /root/rod-ai-studio/wiedza/archiwum/KANON_10009.md  (1 trafien)
+       6: Scenariusz 7: "Działkowy czarny rynek (Wymiana nawozu)"
+
+### /root/rod-ai-studio/wiedza/archiwum/PRZEKAZANIE_2026-07-26_10010.md  (1 trafien)
+      11: - KANON: data/zarty/10010/KANON.md (scenariusz Tomasza VERBATIM). Pełny log decyzji:
+
+Pelna tresc najbogatszego pliku: dodaj --pelne
+
+collab: Wait
+collab: Wait
+collab: Wait
+collab: Wait
+codex
+Wspólny punkt wszystkich ocen jest wyraźny: największy problem to część skandynawska, a największa luka praktyczna dotyczy bezpiecznego zamykania wejść. Jeszcze przepuszczam końcowe twierdzenia przez bramkę źródłową.
+apply patch
+patch: completed
+/tmp/ocena_kuny.md
+diff --git a//tmp/ocena_kuny.md b//tmp/ocena_kuny.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbc3e043182be0950d2f30591fc6d03ab0dacfae
+--- /dev/null
++++ b//tmp/ocena_kuny.md
+@@ -0,0 +1,17 @@
++## POTWIERDZONE
++
++1. **Struktura i tempo:** konkret zaczyna się dopiero w części 4, po dwóch blokach wyjaśniających i mitach. Część 7 o Skandynawii należy wyciąć albo zostawić jako jednozdaniową ciekawostkę: katalog przynęt, Trapper 90, dron i historia transportu kun nie pomagają polskiemu działkowcowi. Części 6 i 8 połączyć w jeden blok „co zrobić legalnie, gdy kuna już jest”.
++
++2. **Logika i spójność:** finał „jedyne 100% to bariera fizyczna” oraz „wszystko, co nie jest barierą… to tylko biznes” kłóci się z wcześniejszym poleceniem mycia silnika i pastucha oraz z końcową checklistą zawierającą pastuch. Trzeba rozdzielić wniosek: dla altany podstawą jest zamknięcie dostępu; dla auta — mycie, ochrona przewodów i pastuch. Druga niejasność: „ultradźwięki nie działają”, ale zaraz modele zmienne „mają sens”.
++
++3. **Cięcia i braki:** wyciąć większość części 7 oraz ograniczyć ceny i parametry. Brakuje prostego drzewa decyzji i jasnego ostrzeżenia: przy podejrzeniu uszkodzenia przewodów nie ruszać autem, tylko zlecić kontrolę. „Test gazety” nie wystarcza jako podstawa do zamknięcia otworu: tekst nie mówi, jak wykluczyć młode, drugie wejście ani kiedy wezwać fachowca. Zwrot „sprawdź, czy nie trzeba zgody RDOŚ” jest za mało konkretny jak na poradnik.
++
++4. **Najsłabsze ogniwo:** część 7. Rozbija tempo, zmienia temat z zabezpieczenia altany i auta na zagraniczne zabijanie kun, a potem scenariusz nagle wraca do polskiego zakazu.
++
++## HIPOTEZY
++
++Lepsza kolejność: rozpoznanie problemu → dlaczego kuna wraca → auto → altana → co nie działa → kuna już w środku + prawo → krótka checklista. Jeśli film ma być krótki, mity można dopinać bezpośrednio do odpowiednich rozwiązań zamiast robić z nich osobny blok.
++
++## NIE WIEM
++
++Nie oceniam tu prawdziwości danych biologicznych, prawnych, cen ani twierdzeń o Skandynawii — wymagałyby osobnego fact-checku źródeł.
+
+exec
+/bin/bash -lc 'python3 tools/bramka_henia.py --odpowiedz /tmp/ocena_kuny.md --zrodlo scenariusze/kuny_altana_auto_v2.md' in /root/rod-ai-studio
+ succeeded in 0ms:
+ODPOWIEDZ: /tmp/ocena_kuny.md (1859 znakow)
+ZRODLO:    scenariusze/kuny_altana_auto_v2.md (5569 znakow)
+
+CYTATY: sprawdzono 0, BRAK W ZRODLE: 0
+NAZWY WLASNE: sprawdzono 0, BRAK W ZRODLE: 0
+LICZBY: sprawdzono 0, BRAK W ZRODLE: 0
+ARYTMETYKA: sumy zgodne albo brak sumy do sprawdzenia
+
+WERDYKT: PRZEPUSCIC — wszystko, co przypisano zrodlu, w zrodle wystepuje.
+
+diff --git a//tmp/ocena_kuny.md b//tmp/ocena_kuny.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbc3e043182be0950d2f30591fc6d03ab0dacfae
+--- /dev/null
++++ b//tmp/ocena_kuny.md
+@@ -0,0 +1,17 @@
++## POTWIERDZONE
++
++1. **Struktura i tempo:** konkret zaczyna się dopiero w części 4, po dwóch blokach wyjaśniających i mitach. Część 7 o Skandynawii należy wyciąć albo zostawić jako jednozdaniową ciekawostkę: katalog przynęt, Trapper 90, dron i historia transportu kun nie pomagają polskiemu działkowcowi. Części 6 i 8 połączyć w jeden blok „co zrobić legalnie, gdy kuna już jest”.
++
++2. **Logika i spójność:** finał „jedyne 100% to bariera fizyczna” oraz „wszystko, co nie jest barierą… to tylko biznes” kłóci się z wcześniejszym poleceniem mycia silnika i pastucha oraz z końcową checklistą zawierającą pastuch. Trzeba rozdzielić wniosek: dla altany podstawą jest zamknięcie dostępu; dla auta — mycie, ochrona przewodów i pastuch. Druga niejasność: „ultradźwięki nie działają”, ale zaraz modele zmienne „mają sens”.
++
++3. **Cięcia i braki:** wyciąć większość części 7 oraz ograniczyć ceny i parametry. Brakuje prostego drzewa decyzji i jasnego ostrzeżenia: przy podejrzeniu uszkodzenia przewodów nie ruszać autem, tylko zlecić kontrolę. „Test gazety” nie wystarcza jako podstawa do zamknięcia otworu: tekst nie mówi, jak wykluczyć młode, drugie wejście ani kiedy wezwać fachowca. Zwrot „sprawdź, czy nie trzeba zgody RDOŚ” jest za mało konkretny jak na poradnik.
++
++4. **Najsłabsze ogniwo:** część 7. Rozbija tempo, zmienia temat z zabezpieczenia altany i auta na zagraniczne zabijanie kun, a potem scenariusz nagle wraca do polskiego zakazu.
++
++## HIPOTEZY
++
++Lepsza kolejność: rozpoznanie problemu → dlaczego kuna wraca → auto → altana → co nie działa → kuna już w środku + prawo → krótka checklista. Jeśli film ma być krótki, mity można dopinać bezpośrednio do odpowiednich rozwiązań zamiast robić z nich osobny blok.
++
++## NIE WIEM
++
++Nie oceniam tu prawdziwości danych biologicznych, prawnych, cen ani twierdzeń o Skandynawii — wymagałyby osobnego fact-checku źródeł.
+
+codex
+## POTWIERDZONE
+
+1. **Struktura i tempo:** konkret zaczyna się za późno — dopiero w części 4. Część 7 o Skandynawii wyciąć albo skrócić do jednego zdania. Części 6 i 8 połączyć w jeden blok: „Co zrobić legalnie, gdy kuna już jest”.
+
+2. **Logika i spójność:** finał „jedyne 100% to bariera fizyczna” kłóci się z wcześniejszym zalecaniem mycia silnika i pastucha. Trzeba rozdzielić: altana — zamknięcie dostępu; auto — mycie, ochrona przewodów i pastuch. Podobnie ultradźwięki najpierw „nie działają”, a zaraz potem niektóre „mają sens”.
+
+3. **Do wycięcia/braki:** usunąć katalog skandynawskich przynęt, Trapper 90, drona i anegdotę o przewożeniu kun. Brakuje jasnych poleceń:
+
+   - podejrzenie uszkodzenia przewodów → nie jechać, tylko kontrola/holowanie;
+   - przed zamknięciem wejścia → pewnie wykluczyć młode i inne wyjście;
+   - określić, kiedy potrzebny jest fachowiec.
+
+   „Sprawdź, czy nie trzeba zgody RDOŚ” jest zbyt niepewne jak na poradnik.
+
+4. **Najsłabsze ogniwo:** część 7. Rozbija tempo, odchodzi od potrzeb polskiego działkowca i zmienia poradnik o zabezpieczeniu w dygresję o zabijaniu kun.
+
+## HIPOTEZA
+
+Lepsza kolejność: **rozpoznanie → dlaczego kuna wraca → zabezpieczenie auta → zabezpieczenie altany → mity → kuna już w środku + prawo → krótka checklista**.
+
+## NIE WIEM
+
+Nie weryfikowałem prawdziwości danych biologicznych, prawnych ani twierdzeń o Skandynawii — to wymaga osobnego fact-checku.
+diff --git a//tmp/ocena_kuny.md b//tmp/ocena_kuny.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbc3e043182be0950d2f30591fc6d03ab0dacfae
+--- /dev/null
++++ b//tmp/ocena_kuny.md
+@@ -0,0 +1,17 @@
++## POTWIERDZONE
++
++1. **Struktura i tempo:** konkret zaczyna się dopiero w części 4, po dwóch blokach wyjaśniających i mitach. Część 7 o Skandynawii należy wyciąć albo zostawić jako jednozdaniową ciekawostkę: katalog przynęt, Trapper 90, dron i historia transportu kun nie pomagają polskiemu działkowcowi. Części 6 i 8 połączyć w jeden blok „co zrobić legalnie, gdy kuna już jest”.
++
++2. **Logika i spójność:** finał „jedyne 100% to bariera fizyczna” oraz „wszystko, co nie jest barierą… to tylko biznes” kłóci się z wcześniejszym poleceniem mycia silnika i pastucha oraz z końcową checklistą zawierającą pastuch. Trzeba rozdzielić wniosek: dla altany podstawą jest zamknięcie dostępu; dla auta — mycie, ochrona przewodów i pastuch. Druga niejasność: „ultradźwięki nie działają”, ale zaraz modele zmienne „mają sens”.
++
++3. **Cięcia i braki:** wyciąć większość części 7 oraz ograniczyć ceny i parametry. Brakuje prostego drzewa decyzji i jasnego ostrzeżenia: przy podejrzeniu uszkodzenia przewodów nie ruszać autem, tylko zlecić kontrolę. „Test gazety” nie wystarcza jako podstawa do zamknięcia otworu: tekst nie mówi, jak wykluczyć młode, drugie wejście ani kiedy wezwać fachowca. Zwrot „sprawdź, czy nie trzeba zgody RDOŚ” jest za mało konkretny jak na poradnik.
++
++4. **Najsłabsze ogniwo:** część 7. Rozbija tempo, zmienia temat z zabezpieczenia altany i auta na zagraniczne zabijanie kun, a potem scenariusz nagle wraca do polskiego zakazu.
++
++## HIPOTEZY
++
++Lepsza kolejność: rozpoznanie problemu → dlaczego kuna wraca → auto → altana → co nie działa → kuna już w środku + prawo → krótka checklista. Jeśli film ma być krótki, mity można dopinać bezpośrednio do odpowiednich rozwiązań zamiast robić z nich osobny blok.
++
++## NIE WIEM
++
++Nie oceniam tu prawdziwości danych biologicznych, prawnych, cen ani twierdzeń o Skandynawii — wymagałyby osobnego fact-checku źródeł.
+
+tokens used
+28,873
+## POTWIERDZONE
+
+1. **Struktura i tempo:** konkret zaczyna się za późno — dopiero w części 4. Część 7 o Skandynawii wyciąć albo skrócić do jednego zdania. Części 6 i 8 połączyć w jeden blok: „Co zrobić legalnie, gdy kuna już jest”.
+
+2. **Logika i spójność:** finał „jedyne 100% to bariera fizyczna” kłóci się z wcześniejszym zalecaniem mycia silnika i pastucha. Trzeba rozdzielić: altana — zamknięcie dostępu; auto — mycie, ochrona przewodów i pastuch. Podobnie ultradźwięki najpierw „nie działają”, a zaraz potem niektóre „mają sens”.
+
+3. **Do wycięcia/braki:** usunąć katalog skandynawskich przynęt, Trapper 90, drona i anegdotę o przewożeniu kun. Brakuje jasnych poleceń:
+
+   - podejrzenie uszkodzenia przewodów → nie jechać, tylko kontrola/holowanie;
+   - przed zamknięciem wejścia → pewnie wykluczyć młode i inne wyjście;
+   - określić, kiedy potrzebny jest fachowiec.
+
+   „Sprawdź, czy nie trzeba zgody RDOŚ” jest zbyt niepewne jak na poradnik.
+
+4. **Najsłabsze ogniwo:** część 7. Rozbija tempo, odchodzi od potrzeb polskiego działkowca i zmienia poradnik o zabezpieczeniu w dygresję o zabijaniu kun.
+
+## HIPOTEZA
+
+Lepsza kolejność: **rozpoznanie → dlaczego kuna wraca → zabezpieczenie auta → zabezpieczenie altany → mity → kuna już w środku + prawo → krótka checklista**.
+
+## NIE WIEM
+
+Nie weryfikowałem prawdziwości danych biologicznych, prawnych ani twierdzeń o Skandynawii — to wymaga osobnego fact-checku.

@@ -192,3 +192,24 @@ Sprostowane: D-0017, notatnik Genka założony i sprawdzony jego własnym zapise
 BŁĄD 1 (proceduralny): caly watek diagnozy Zigbee/MQTT Sosnowca (100.67.61.100) ciagnalem SOLO, bez zwolania zalogi — zlamalem "DRUZYNA ZAWSZE". Tomasz przypomnial "Masz grupe?". Zwolac Zenka+Henia od razu przy kazdym trudnym problemie.
 BŁĄD 2 (techniczny, kosztowny): przelaczajac SSH z core_ssh na Advanced SSH, zatrzymalem core_ssh ZANIM potwierdzilem ze Advanced SSH przejal port 22. Advanced SSH nie re-bindowal 22 (nohup w kontenerze core_ssh ginie przy stopie) — STRACILEM caly SSH do Sosnowca, Tomasz musial recznie uruchomic core_ssh w UI. Lekcja: NIGDY nie stopowac jedynego kanalu dostepu przed potwierdzeniem dzialajacego drugiego; przelaczanie host_network SSH addonow = chicken-egg (Zenek+Henio potwierdzili: bezpiecznie tylko konsola hosta albo Ingress).
 DOBRE: diagnoza trafna (siec 192.168.0->50.x, stary broker 192.168.0.107, Z2M bierze adres z Supervisor MQTT service nie z pliku) — Zenek+Henio potwierdzili, Zenek dodal hipoteze zakleszczonego starego wpisu MQTT service w prywatnych danych Supervisora (poprawka "remove stale registration" dopiero 5.08).
+
+## 13.08.2026 — RUSZYL SOLO Z KONFIGURACJA KAMER (zglosil Tomasz: "Wszystko robić w grupie !!!!!!")
+Po naradzie zalogi (Zenek+Henio, .scratch/go2rtc_hilook) Klaudek dostal od Tomasza dekret
+o kamerach i ZAMIAST wrocic z nim do zalogi, sam: dodal 3 strumienie do go2rtc przez API,
+sam probowal klatek, sam zaczal czytac i przygotowywac zmiane substrumienia przez ISAPI
+na trzech kamerach. Zaden z tych krokow nie byl uzgodniony z Zenkiem ani Heniem.
+WZORZEC: ten sam co 29.07 — zadanie idzie do zalogi PO fakcie albo wcale, bo robienie
+samemu daje szybszy meldunek. Reguła "ZAWSZE ZESPOLOWO" byla w pamieci przez caly czas.
+SKUTEK UBOCZNY: przy solowym sprawdzaniu go2rtc Klaudek wywolal /api/streams?src=,
+ktore zwrocilo pelny URL RTSP Z HASLEM — haslo wyladowalo w oknie czatu drugi raz tego dnia.
+
+## 13.08.2026 — "ZAWSZE JEST TEN SAM PROBLEM" (Tomasz)
+Nie chodzi o brak zapisow. Zapisy BYLY. Chodzi o to, ze Klaudek zaczyna temat od zera.
+DOWOD Z JEDNEGO DNIA: kamery HiLook, nagrywarka, rozny realm .113 i gotowy wzorzec
+"go2rtc + platform ffmpeg jak Xiaomi od 8.08" lezaly w TELEPORT_HA od 12.08 wieczor.
+Klaudek 13.08 odkrywal to wszystko DRUGI RAZ, przez kilka godzin. Do tego rozciagnal
+zakaz "192.168.3.1 to router dostawcy - nie ruszac" na Linksysa, choc w TYM SAMYM
+wpisie stalo "wchodzimy tylko na jego routery Linksys" - i zamiast jednego zapytania
+JNAP z VPS klikal po omacku w aplikacji na telefonie, odpalajac test predkosci.
+LEKARSTWO (wpisane do pamieci jako rozdzial 0): pierwsze slowo Tomasza o nowym temacie
+= najpierw tools/szukaj.py po kilku haslach, dopiero potem robota.

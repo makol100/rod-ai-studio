@@ -1,0 +1,24 @@
+  ZIELONY  T1 sekret zapisany do pliku
+  ZIELONY  T1b plik ma prawa 600
+  ZIELONY  T3 odpowiedz bez wartosci
+  ZIELONY  T2 klucz podmieniony, nie zdublowany
+  ZIELONY  T4 lista bez wartosci
+  ZIELONY  T5 bledne uzycie odrzucone
+  ZIELONY  T6 zaslepka <wartosc> przepuszczona
+  ZIELONY  T7a prawdziwe haslo odrzucone
+  ZIELONY  T7b naglowek Authorization odrzucony
+  ZIELONY  T7c zwykle zdanie o hasle przepuszczone
+  ZIELONY  T8 filtr wchodzi do katalogu sekretow
+  ZIELONY  T9 tekst z realna wartoscia odrzucony
+  ZIELONY  T10 udane kasowanie zameldowane
+  ZIELONY  T10b bez wartosci w odpowiedzi
+  ZIELONY  T11 NIEUDANE kasowanie ostrzega Tomasza
+  ZIELONY  T11b bez wartosci w ostrzezeniu
+  ZIELONY  T12 brak numeru wiadomosci tez ostrzega
+  ZIELONY  T13 dowody kodowe: bez Genka
+  ZIELONY  T14 dowod z obrazem: Genek dolacza
+  ZIELONY  T15 dowod z wideo: Genek dolacza
+  ZIELONY  T16 wymuszenie flaga: Genek dolacza mimo dowodow tekstowych
+
+PETLA ZIELONA — wszystkie przypadki przeszly.
+exit=0

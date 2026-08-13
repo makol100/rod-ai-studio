@@ -1,0 +1,94 @@
+## POTWIERDZONE
+
+### P1. Który go2rtc
+
+Strumienie HiLook proponuję wpiąć do istniejącego dodatku go2rtc 1.9.14, a Home Assistant skonfigurować jako klienta tej instancji przez opcję `go2rtc: url:`. Oficjalna integracja HA dopuszcza podłączenie własnego serwera go2rtc. [Dokumentacja Home Assistant](https://www.home-assistant.io/integrations/go2rtc)
+
+Dwie instancje mogą współistnieć bez konfliktu portów:
+
+- dodatek używa domyślnie API `1984`, RTSP `8554`, WebRTC TCP/UDP `8555`;
+- instancja zarządzana przez HA używa odpowiednio `11984`, `18554` i `18555`, ponieważ HA celowo dodaje prefiks `1`, aby uniknąć konfliktu. [Dokumentacja HA](https://www.home-assistant.io/integrations/go2rtc), [dokumentacja go2rtc](https://github.com/AlexxIT/go2rtc)
+
+Nie ma więc konfliktu bindów. Są natomiast dwie osobne konfiguracje, procesy, logi oraz osobne negocjacje WebRTC. HIPOTEZA: utrzymywanie tych samych kamer w obu instancjach nie daje korzyści i utrudnia diagnostykę.
+
+Ślad lokalny: materiał zadania podaje cztery działające strumienie Xiaomi w dodatku oraz jego `host_network=true`. Nie kopiuję ich adresów.
+
+### P2. H.265 na telefonie
+
+Nie należy od razu uruchamiać transkodowania. Aktualna dokumentacja go2rtc podaje obsługę WebRTC H.265 w Android Chrome od wersji 136. [Tabela zgodności go2rtc](https://github.com/AlexxIT/go2rtc#codecs-madness)
+
+NIE WIEM, jaką wersję Chrome ma telefon Tomasza i czy konkretny telefon ma działający dekoder HEVC dla tego profilu. Bez pomiaru nie można zagwarantować obrazu.
+
+Najtańsza ścieżka kodeka:
+
+1. Sprawdzić kanały `102`, `202`, `402` przez `ffprobe` — odwracalne i bez zmiany urządzeń.
+2. Jeżeli są H.264, używać ich do Lovelace bez transkodowania.
+3. Jeżeli są H.265, odczytać bieżące ustawienia ISAPI, a następnie ustawić substream na H.264. Model oficjalnie obsługuje na substreamie H.265, H.264 i MJPEG; na głównym także H.264/H.265. [Karta DS-2CD1041G0-I](https://assets.hikvision.com/prd/normal/all/doc/m000119340/DS-2CD1041G0-I_Datasheet_20240226.pdf)
+4. Transkodowanie VAAPI zostawić jako drogę awaryjną.
+
+NIE WIEM, ile CPU, energii i pamięci zajmą na N150 trzy równoczesne konwersje HEVC→H.264. Nie ma pomiaru tej konkretnej maszyny, rozdzielczości i konfiguracji sterownika. Sam opis dodatku nie jest benchmarkiem. go2rtc ma obrazy z obsługą sprzętowego transkodowania Intel, ale nie dowodzi to wydajności N150. [Dokumentacja kontenera go2rtc](https://github.com/AlexxIT/go2rtc/blob/master/docker/README.md)
+
+### P3. NVR czy bezpośrednio
+
+Na pierwszy etap proponuję NVR `.110`, ponieważ trzy wskazane źródła zostały już potwierdzone `ffprobe`. To jedyna z dwóch dróg mająca obecnie dowód działania.
+
+Porównanie:
+
+| Droga | Zaleta | Wada |
+|---|---|---|
+| NVR `101/201/401` | Jeden sprawdzony punkt konfiguracji; go2rtc nie otwiera dodatkowej sesji bezpośrednio na każdej kamerze | Restart lub awaria NVR odcina jednocześnie nagrywanie i podgląd HA |
+| Kamery `.111/.112/.114` | Podgląd HA może działać podczas restartu NVR | Powstaje dodatkowa sesja RTSP na każdej kamerze; bezpośrednie RTSP nie zostało jeszcze zmierzone |
+| Substream NVR `102/202/402` | Potencjalnie niższe pasmo i brak transkodowania | Kodek oraz dostępność nie zostały jeszcze zmierzone |
+
+„Podwójne przejście” przez NVR nie oznacza podwójnego transferu przez Tailscale: kamera→NVR jest ruchem w LAN, a do telefonu wychodzi strumień go2rtc. HIPOTEZA: może zwiększyć zależność i opóźnienie, ale NIE WIEM o ile — brak pomiaru.
+
+NIE WIEM, jaki jest limit równoczesnych sesji RTSP tych egzemplarzy. Karta produktu nie podaje takiego limitu.
+
+### P4. `.113` i kanał `301`
+
+`.113` nie jest „martwe” sieciowo: HTTP `401` oznacza, że serwer HTTP odpowiedział i odmówił uwierzytelnienia. Nie rozstrzyga, czy hasło jest inne, ani czy to właściwa kamera.
+
+Da się wykonać dalszą diagnostykę bez zgadywania:
+
+1. Z prawidłowymi danymi NVR odczytać status jego cyfrowych kanałów `InputProxyChannelStatusList`. Interfejs zwraca m.in. adres kamery i pole `online=true/false`. [Dokumentacja Hikvision](https://open.hikvision.com/fileserver/resourcedocsonline/Web3.2_%E6%8E%A7%E4%BB%B6%E5%BC%80%E5%8F%91%E5%8C%85%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97_20201102163345.pdf)
+2. Sprawdzić w zdalnym panelu Camera Management NVR dokładny komunikat kanału 3. Hikvision rozróżnia m.in. błędne dane logowania i brak kamery. [Instrukcja diagnostyczna Hikvision](https://www.hikvision.com/content/dam/hikvision/ca/how-to-document1/network-products/Unboxing-and-Tutorial-of-General-IP-System.pdf)
+3. Wykonać tylko nieautoryzowane testy identyfikacyjne: ping/ARP/porty/nagłówki HTTP. Nie wysyłają kolejnych haseł.
+4. Nie wykonywać kolejnej próby logowania do `.113`, dopóki Tomasz nie poda potwierdzonych danych albo nie zostanie użyta oficjalna procedura odzyskania.
+
+`301 = 404` potwierdza brak wskazanego zasobu RTSP w chwili testu. Sam kod 404 NIE rozstrzyga, czy przyczyną jest odłączona kamera, wyłączony kanał, czy konfiguracja NVR.
+
+### P5. Ryzyka i koszt
+
+1. **Telefon nie odtworzy HEVC.** Zapobieganie: najpierw test `102/202/402`, potem H.264 na substreamie; VAAPI dopiero na końcu. Koszt usługi: `0 zł`; koszt energii transkodowania — NIE WIEM.
+2. **Za duże pasmo przez Tailscale.** Kamera obsługuje bitrate od `32 Kb/s` do `8 Mb/s`; trzy strumienie mogą więc mieć bardzo różny koszt pasma. Zapobieganie: substream, ograniczony bitrate i tylko strumienie oglądane. [Karta kamery](https://assets.hikvision.com/prd/normal/all/doc/m000119340/DS-2CD1041G0-I_Datasheet_20240226.pdf)
+3. **Niestabilne WebRTC poza działką.** go2rtc wskazuje, że WebRTC może wymagać osiągalnego TCP/UDP `8555`, a wysokobitratowe 2K/4K źle znosi straty UDP. Zapobieganie: kandydat Tailscale/TCP oraz test z telefonu poza LAN. [Dokumentacja WebRTC go2rtc](https://github.com/AlexxIT/go2rtc/blob/master/internal/webrtc/README.md)
+4. **Dodatek nie wróci po awarii.** Materiał zadania potwierdza `watchdog=FALSE`. Zapobieganie: po stabilnym teście włączyć watchdog; `boot=auto` już jest. Koszt pieniężny: `0 zł`.
+5. **Zmiana kodeka zaszkodzi nagrywaniu NVR.** Zapobieganie: nie zmieniać głównego strumienia; najpierw użyć lub zmienić wyłącznie substream i sprawdzić, że nagrywanie nadal działa. Koszt pieniężny konfiguracji: `0 zł`; ewentualnego wzrostu energii NIE WIEM.
+
+### P6. Jedna rekomendacja
+
+1. **Tylko odczyt:** sprawdzić `102`, `202`, `402` przez `ffprobe` i zapisać kodek, rozdzielczość, FPS oraz bitrate. Całkowicie odwracalne.
+2. **Tylko konfiguracja go2rtc:** dodać trzy substreamy z NVR do istniejącego dodatku, bez transkodowania i bez ruszania Xiaomi. Odwracalne przez usunięcie nowych wpisów.
+3. **Konfiguracja HA:** wskazać oficjalnej integracji go2rtc istniejący dodatek jako `url` i utworzyć podgląd jednej kamery testowej. Odwracalne przez przywrócenie poprzedniej konfiguracji.
+4. **Test rzeczywisty:** sprawdzić jedną kamerę na telefonie przez Tailscale, następnie trzy równocześnie; obserwować procesor, pamięć, bitrate i log go2rtc. Bez zmiany urządzeń, odwracalne.
+5. **Tylko gdy test nie działa:** przełączyć wyłącznie substream na H.264 po wcześniejszym zapisaniu jego pełnej konfiguracji. Zmiana jest odwracalna, ale nie jest bezryzykowna; restart/reset/zmiana hasła kamery nie należy do tej ścieżki.
+
+## HIPOTEZY
+
+- Jedna jawnie używana instancja — istniejący dodatek — będzie prostsza w utrzymaniu niż dublowanie tych samych kamer w dodatku i procesie zarządzanym przez HA.
+- Substream H.264 z NVR będzie najmniej obciążającą drogą dla telefonu, N150 i łącza.
+- Po potwierdzeniu działania warto porównać jedną kamerę bezpośrednią z tym samym kanałem NVR, ale nie jako pierwszy etap.
+
+## NIE WIEM
+
+- Wersja Chrome i sprzętowa zgodność HEVC telefonu Tomasza.
+- Kodek, bitrate i dostępność `102/202/402`.
+- Obciążenie CPU oraz pobór energii N150 przy trzech transkodowaniach.
+- Limit sesji RTSP kamer i NVR.
+- Dokładna przyczyna `401` na `.113` oraz `404` na `301`.
+- Czy dodatek ma już poprawnych kandydatów WebRTC dla adresu Tailscale.
+- Bieżący bitrate łącznie i prędkość wysyłania łącza działkowego.
+
+**Konkretna rzecz teraz:** wykonać wyłącznie `ffprobe` TCP kanałów NVR `102`, `202` i `402`, bez zmiany konfiguracji i bez kolejnej próby hasła do `.113`.
+
+— **Zenek**

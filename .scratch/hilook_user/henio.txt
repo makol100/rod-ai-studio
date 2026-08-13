@@ -1,0 +1,43 @@
+P1. Domyślna NAZWA UŻYTKOWNIKA = "admin". To jedyne konto fabryczne.
+- NVR Hikvision/HiLook po 2015 r. jest w stanie "nieaktywny" — NIE MA fabrycznego hasła; użytkownik MUSI ustawić hasło dla konta "admin" przy pierwszej aktywacji (8–16 znaków, min. 2 kategorie: wielkie/małe/cyfry/znaki specjalne). Starsze (przed 2015, firmware <3.3.0) mają domyślne hasło admina 12345/123456.
+- Do logowania ISAPI/web po IP wymagany jest zestaw nazwa użytkownika + hasło URZĄDZENIA — domyślnie "admin".
+- Czy admin to jedyna opcja: sprzęt MOŻE mieć inne nazwy kont (operator/viewer, dodane przez admina), ale domyślną i jedyną z pełnymi uprawnieniami jest "admin". Nie ma innej nazwy fabrycznej. HIPOTEZA (bez twardego źródła): czy na HiLook da się zmienić nazwę samego konta "admin" — NIE WIEM; Hikvision zwykle pozwala tylko dodać nowych użytkowników.
+Źródła: https://enpinfo.hikvision.com/unzip/20200731103027_05278_doc/GUID-563A6802-6FFB-4F97-B4DD-BC1B9503C756.html ("Login for First Time for admin User")
+
+P2. Trzy różne rzeczy:
+(a) hasło konta Hik-Connect/HiLook Connect — logowanie do apki/platformy chmurowej (konto online, e-mail/telefon). Służy do zdalnego zarządzania przez chmurę.
+(b) hasło urządzenia (admin) — ustawiane przy aktywacji, do bezpośredniego dostępu po IP (przeglądarka web, ISAPI, SADP).
+(c) kod weryfikacyjny (verification code / encryption key) — do weryfikacji tożsamości i szyfrowania wideo/zdjęć przy dostępie przez chmurę Hik-Connect; domyślny wydrukowany na naklejce urządzenia.
+Do logowania ISAPI/web po IP działa TYLKO (b) nazwa użytkownika + hasło urządzenia.
+NIE działają: (a) hasło konta chmurowego — to nie jest credential urządzenia; (c) kod weryfikacyjny — nie jest loginem, służy do dodania urządzenia do chmury i do szyfrowania, nie do Digest auth ISAPI.
+Źródła: https://www.hik-connect.com/views/terms/helpIos/Hik%20Adding%20by%20Scanning%20QR%20Code.html ; https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-1B8E855A-9E43-4FB6-8804-68122E5CA7A9.html ; https://sipkosecurity.com/hikvision-password-reset-guide-2026-complete-step-by-step/
+
+P3. Ścieżka odczytu w apce (źródła = oficjalna pomoc Hik-Connect iOS; apka HiLook to jej uproszczony bliźniak, więc etykiety są analogiczne — dokładnych POLSKICH nazw przycisków HiLook 6.12.90 nie mam w materiale):
+1. Lista urządzeń: tryb kafelków — dotknij nazwę urządzenia ("Śmietnik"/"Brama"); tryb listy — przesuń nazwę w lewo, dotknij ikony ustawień. Alternatywnie: otwórz podgląd na żywo → ikona "..." → "Ustawienia".
+2. Ekran "Ustawienia urządzenia" (Device Settings) — tam przegląda/edytuje się podstawowe informacje urządzenia (nazwa/alias, model).
+3. Kod weryfikacyjny — w tym samym miejscu: "Zmień kod weryfikacyjny urządzenia" (to funkcja zmiany; pole kodu bywa tam widoczne).
+4. Adres IP — NIE jest pokazywany dla urządzenia dodanego przez chmurę. Widoczny tylko przy dodaniu lokalnym: Dodaj → Ręczne dodanie → typ "IP/Domain" → pole "Adres", albo w "Zdalnej konfiguracji" (sieć).
+5. Nazwa użytkownika urządzenia (admin) — apka jej NIE pokazuje. Apka łączy się z urządzeniem przez chmurę (konto Hik-Connect + kod weryfikacyjny), a nie przez konto lokalne urządzenia.
+NIE WIEM: czy apka HiLook 6.x pokazuje numer seryjny wprost w "Informacjach o urządzeniu" — nie potwierdziłem dla com.mcu.visionlook (w Hik-Connect jest w Device Settings, ale to inna apka).
+Źródła: https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-CE5038BD-96B6-4127-AB61-3A78C5A2646D.html ; https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-EB42AAE0-63B1-47A7-8136-C8608A2719AA.html ; https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-CCAAB08C-5C62-4262-A27B-EFF9697A6F5F.html ; https://supportusa.hikvision.com/support/solutions/articles/17000136433-how-to-check-find-device-serial-number ; https://isa.hik-proconnect.com/add_device_help/index.html
+
+P4. Procedury odzyskania, co zdalnie a co przy sprzęcie:
+1. Pytania bezpieczeństwa (jeśli skonfigurowane przy aktywacji) — reset przez stronę web logowania. Zdalnie MOŻLIWE, ale tylko jeśli wcześniej ustawione; NIE WIEM, czy Tomasz je ustawiał.
+2. SADP export XML (GUID): SADP na PC w tej samej sieci LAN → eksport pliku XML z GUID urządzenia → wysłanie do Hikvision/dystrybutora → plik zwrotny → import. Wymaga komputera w LAN (VPS jest w 192.168.3.x, więc z VPS teoretycznie ZDALNIE) + kontaktu ze wsparciem Hikvision.
+3. Reset hasła przez QR + zarezerwowany e-mail: na lokalnym GUI NVR (monitor + mysz przy urządzeniu) "Forgot Password" → QR → skan w apce → kod na e-mail → nowe hasło. Wymaga BYCIA PRZY SPRZĘCIE + wcześniej zarezerwowanego e-maila.
+4. GUID file recovery (pendrive USB) — wymaga BYCIA PRZY SPRZĘCIE.
+5. Reset przyciskiem na obudowie — wymaga BYCIA PRZY SPRZĘCIE (reset do fabrycznych, kasuje konfigurację).
+Zdalnie (bez fizycznego dostępu): tylko SADP export XML (przy dostępie do LAN + wsparcie Hikvision) i ewentualnie pytania bezpieczeństwa przez web, jeśli ustawione.
+Źródła: https://www.hikvision.com/content/dam/hikvision/en/support/faq/How-to-Reset-Password-on-SADP.pdf ; https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-8F8DD810-AFB4-4340-B5D9-E3563C60CC7B.html ; https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-528CA819-9509-4439-A58A-77AB1C1C35BC.html ; https://cctvsupply.us/en-us/blogs/tech-info/how-to-reset-hikvision-camera-password-via-sadp-tool-on-pc
+
+P5. Apka HiLook NIE odczytuje hasła urządzenia i domyślnie używa wyłącznie kanału chmurowego. Konkret:
+- Apka POTRAFI połączyć się lokalnie: Dodaj → Ręczne dodanie → typ "IP/Domain" → wpisuje się alias, adres IP, NAZWĘ UŻYTKOWNIKA i HASŁO URZĄDZENIA. Czyli lokalny dostęp po IP przez apkę istnieje, ale hasło trzeba znać i wpisać ręcznie.
+- Apka POTRAFI ZMIENIĆ hasło urządzenia (Ustawienia → Zdalna konfiguracja → "Zmień hasło"), ALE wymaga podania STARYCH danych ("Enter the old password of the device"). Odczytu/„podejrzenia" bieżącego hasła urządzenia apka NIE ma.
+- Urządzenia dodane po numerze seryjnym/kodzie weryfikacyjnym (u Tomasza: "Śmietnik", "Brama", oba "Szyfrowane") działają WYŁĄCZNIE kanałem chmurowym Hik-Connect — apka w tym trybie nie zna nazwy użytkownika ani hasła urządzenia.
+Źródła: https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-1B8E855A-9E43-4FB6-8804-68122E5CA7A9.html ; https://www.hik-connect.com/views/terms/newHelp/helpIos/GUID-CCAAB08C-5C62-4262-A27B-EFF9697A6F5F.html ; https://cctvguru.com.au/blogs/resources/reset-hilook-nvr-password
+
+Sedno dla Tomasza: to, co masz na telefonie, to hasło KONTA chmurowego + kod weryfikacyjny urządzeń — żadne z nich nie otworzy ISAPI/web po IP (stąd 401 na admin + hasło, jeśli próbowano hasłem konta chmury). Do dostępu lokalnego po IP potrzebne jest hasło URZĄDZENIA (admin), którego apka nie pokaże.
+
+Jedna rzecz do zrobienia: spisać NUMER SERYJNY NVR z naklejki na obudowie (nie z apki) — bez SN nie ruszy żadna oficjalna droga resetu przez wsparcie Hikvision (SADP XML ani QR+email).
+
+— Henio

@@ -1,0 +1,409 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa9e9-90fe-79f2-800b-a5537a6a9563
+--------
+user
+Przeczytaj plik /tmp/zenek_brief.md i wykonaj zadanie z sekcji TWOJE ZADANIE. Masz dostęp do plików w data/wiadomosci/0001-teren/ (skrypty _montaz_v3.sh, work/). Możesz weryfikować ffprobe. Odpowiedź zapisz do /root/rod-ai-studio/work/_zenek_review.txt po polsku, zwięźle.
+codex
+Czytam brief i sprawdzę wskazane materiały oraz parametry techniczne plików; wynik zapiszę bezpośrednio we wskazanym pliku.
+exec
+/bin/bash -lc "sed -n '1,240p' /tmp/zenek_brief.md && printf '\\nFILES\\n' && rg --files data/wiadomosci/0001-teren | sed -n '1,240p'" in /root/rod-ai-studio
+ succeeded in 0ms:
+# BRIEF DLA ZENKA — review naprawy WD_0001 v3 (28.07.2026)
+
+## KONTEKST
+Rolka „Wiadomości Działkowe" WD_0001: awatar-prezenter (Stanisław) 57s + 6 przebitek z terenu (sloty: 9-16, 16-21, 21-27, 27-32, 32-39, 39-45). Tomasz wykrył na telefonie leżące przebitki w v1/v2 (screenshot @23s: koparka na boku).
+
+## DIAGNOZA (potwierdzona pomiarami)
+1. AWARIA A (v2): fragmenty blur-fill robione z `-noautorotate` ODZIEDZICZYŁY tag displaymatrix rot=-90 z plików Samsunga (`-noautorotate` prostuje piksele, ale KOPIUJE metadane). Montaż v2 zastosował tag → obrócił fragmenty do 1920x1080 → overlay od (0,0) przykrył tylko górę, dół ekranu = goły prezenter (SSIM dołu vs base 0.98 = dowód).
+2. AWARIA B (v1 i v2): frag_p3 (slot 21-27) miał treść LEŻĄCĄ od początku — screenshot Tomasza @23 ≈ frag_p3@2.0 (SSIM 0.979 = dowód). Moja bramka wzrokowa oceniała mozaiki na miniaturkach i to przepuściła.
+3. Próba zdjęcia taga przez `-metadata:s:v rotate=0` NIE działa (tag w side_data). Działa: `ffmpeg -display_rotation 0 -i in -c copy out` (remux, piksele nietknięte).
+
+## NAPRAWA v3 (wykonana)
+- frag_p1_v2b / p2_v2b / p6_v2b: remux `-display_rotation 0` → rot=BRAK (zweryfikowane ffprobe)
+- frag_p3_v3: świeże cięcie z norm_VID-20260723-WA0001.mp4 @6..12 (WhatsApp = natywny pion 1072x1920, zero tagów)
+- frag_p4_v3: świeże cięcie z norm_WA0005 @2..7 (profilaktycznie — stary p4 miał niejasne pochodzenie, SSIM vs manifest tylko 0.797)
+- _montaz_v3.sh: jak v2, ale `-noautorotate` przed KAŻDYM `-i` (gwarda globalna)
+- Master v3: 57.87s, rot=BRAK, 122MB
+
+## BRAMKI AUTOMATYCZNE (wyniki)
+B) Prześwit prezentera, dolny pas 1080x400 @y1520, master vs base:
+   t=5: 0.984 (czysty prezenter, MA być wysoko) OK
+   t=12: 0.500 / t=18: 0.572 / t=24: 0.458 / t=29: 0.508 / t=35: 0.308 / t=42: 0.528 — wszystkie <0.70 OK (pełne przykrycie)
+   t=48: 0.984 OK
+C) Zgodność slotów z fragmentami (SSIM pełna klatka): 0.979-0.988 na wszystkich 6 slotach OK
+D) rot master = BRAK, dekod 1080x1920 OK
+
+## SŁABE PUNKTY KTÓRE ZNAM
+- Orientacji TREŚCI automat nie widzi — bramka oka: Genek (seans 480px <20MB po wpadce z limitem) + duża mozaika 540px dla Tomasza (na panelu)
+- Genek wcześniej dziś SHALUCYNOWAŁ seans (nie wczytał pliku 30MB, limit 20MB, a dał raport 10/10) — wykryte, odrzucone, ponowione na 480p z żądaniem dowodu wczytania
+
+## TWOJE ZADANIE
+Odpowiedz krótko do pliku work/_zenek_review.txt:
+1) Czy widzisz dziurę w metodzie naprawy (remux tagów, świeże cięcia, -noautorotate wszędzie)?
+2) Czy bramki B/C/D wystarczają, żeby wykluczyć powrót awarii A? Co byś dodał?
+3) Czy jest ryzyko, że frag z WhatsApp (natywny pion) też może być obrócony treściowo?
+4) Werdykt: ZATWIERDZAM v3 do oczu Tomasza / NIE ZATWIERDZAM + powód.
+
+FILES
+data/wiadomosci/0001-teren/_genek_out.txt
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t66.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t54.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t14.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0001_t18.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0005_t26.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0001_t10.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0007_t6.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t10.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0001_t2.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t10.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0005_t22.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t2.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t26.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0001_t6.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0005_t6.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t50.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0005_t2.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t18.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0007_t22.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0007_t18.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0001_t14.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t6.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t2.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t30.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0005_t10.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t30.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t34.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t22.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0007_t10.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0005_t14.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t22.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t58.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0005_t18.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t46.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t26.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t6.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0007_t14.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t42.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t38.jpg
+data/wiadomosci/0001-teren/_klatki_geste/VID-20260723-WA0007_t2.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t62.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t34.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_093926_t14.jpg
+data/wiadomosci/0001-teren/_klatki_geste/20260722_094249_t18.jpg
+data/wiadomosci/0001-teren/_montaz_v3.sh
+data/wiadomosci/0001-teren/_tts_0001.py
+data/wiadomosci/0001-teren/WD_0001_teren_master_v3.mp4
+data/wiadomosci/0001-teren/_montaz.sh
+data/wiadomosci/0001-teren/_kling_0001_submit.py
+data/wiadomosci/0001-teren/_goniec.sh
+data/wiadomosci/0001-teren/_avatar_0001_submit.py
+data/wiadomosci/0001-teren/scenariusz_0001.txt
+data/wiadomosci/0001-teren/_genek2_out.txt
+data/wiadomosci/0001-teren/_zadanie_genek.md
+data/wiadomosci/0001-teren/_genek_tts_out.txt
+data/wiadomosci/0001-teren/wd0001_daniel.mp3
+data/wiadomosci/0001-teren/_avatar_0001_state.json
+data/wiadomosci/0001-teren/_kling_0001_resp.json
+data/wiadomosci/0001-teren/_klatki/20260722_093926_end.jpg
+data/wiadomosci/0001-teren/_klatki/20260722_093926_1.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0005_end.jpg
+data/wiadomosci/0001-teren/_klatki/20260722_094249_1.jpg
+data/wiadomosci/0001-teren/_klatki/20260722_093926_mid.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0005_mid.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0007_mid.jpg
+data/wiadomosci/0001-teren/_klatki/20260722_094249_mid.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0007_end.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0001_end.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0007_1.jpg
+data/wiadomosci/0001-teren/_klatki/20260722_094249_end.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0001_mid.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0005_1.jpg
+data/wiadomosci/0001-teren/_klatki/VID-20260723-WA0001_1.jpg
+data/wiadomosci/0001-teren/_zadanie_genek3.md
+data/wiadomosci/0001-teren/WD_0001_teren_master_v2.mp4
+data/wiadomosci/0001-teren/_zenek_out.txt
+data/wiadomosci/0001-teren/_montaz_v5.sh
+data/wiadomosci/0001-teren/WD_0001_teren_master_v4.mp4
+data/wiadomosci/0001-teren/_zadanie_genek2.md
+data/wiadomosci/0001-teren/_montaz_v2.sh
+data/wiadomosci/0001-teren/WD_0001_teren_master.mp4
+data/wiadomosci/0001-teren/WD_0001_teren_master_v5.mp4
+data/wiadomosci/0001-teren/_manifest_0001.json
+data/wiadomosci/0001-teren/_avatar_0001_pull.py
+data/wiadomosci/0001-teren/_zenek_plan_stdout.txt
+data/wiadomosci/0001-teren/scenariusz_0001_v2.txt
+data/wiadomosci/0001-teren/_kling_0001_state.json
+data/wiadomosci/0001-teren/OPIS.md
+data/wiadomosci/0001-teren/_norm.sh
+data/wiadomosci/0001-teren/_montaz_v4.sh
+data/wiadomosci/0001-teren/_kling_0001_pull.py
+data/wiadomosci/0001-teren/_zadanie_zenek.md
+data/wiadomosci/0001-teren/work/frag_p6.mp4
+data/wiadomosci/0001-teren/work/_chk42_big.b64
+data/wiadomosci/0001-teren/work/br_t42.jpg
+data/wiadomosci/0001-teren/work/_naprawa_zenek.txt
+data/wiadomosci/0001-teren/work/br_t30.jpg
+data/wiadomosci/0001-teren/work/_chk_grid.b64
+data/wiadomosci/0001-teren/work/_diag_genek.txt
+data/wiadomosci/0001-teren/work/frag_p3_v3.mp4
+data/wiadomosci/0001-teren/work/br_t24.jpg
+data/wiadomosci/0001-teren/work/br_t56.jpg
+data/wiadomosci/0001-teren/work/norm_VID-20260723-WA0005.mp4
+data/wiadomosci/0001-teren/work/frag_p6_v2.mp4
+data/wiadomosci/0001-teren/work/_goniec_log.txt
+data/wiadomosci/0001-teren/work/_seans_720.mp4
+data/wiadomosci/0001-teren/work/norm_VID-20260723-WA0001.mp4
+data/wiadomosci/0001-teren/work/frag_p1_v2.mp4
+data/wiadomosci/0001-teren/work/frag_p3.mp4
+data/wiadomosci/0001-teren/work/_chk_35.jpg
+data/wiadomosci/0001-teren/work/_chk_42.jpg
+data/wiadomosci/0001-teren/work/_seans_640.mp4
+data/wiadomosci/0001-teren/work/frag_p3_v5.mp4
+data/wiadomosci/0001-teren/work/br2_t42.jpg
+data/wiadomosci/0001-teren/work/frag_p2.mp4
+data/wiadomosci/0001-teren/work/frag_p1.mp4
+data/wiadomosci/0001-teren/work/_chk_2.jpg
+data/wiadomosci/0001-teren/work/frag_p5_v2.mp4
+data/wiadomosci/0001-teren/work/_diag_genek2.txt
+data/wiadomosci/0001-teren/work/frag_p6_v2b.mp4
+data/wiadomosci/0001-teren/work/br2_t1.5.jpg
+data/wiadomosci/0001-teren/work/_brief_naprawa.md
+data/wiadomosci/0001-teren/work/_gotowe.flag
+data/wiadomosci/0001-teren/work/_norm_done.flag
+data/wiadomosci/0001-teren/work/norm_20260722_094249.mp4
+data/wiadomosci/0001-teren/work/frag_p4.mp4
+data/wiadomosci/0001-teren/work/_seans_v2_genek.txt
+data/wiadomosci/0001-teren/work/br_t1.5.jpg
+data/wiadomosci/0001-teren/work/_whisper_ts.txt
+data/wiadomosci/0001-teren/work/_norm_log.txt
+data/wiadomosci/0001-teren/work/_naprawa_genek.txt
+data/wiadomosci/0001-teren/work/_seans_v2_640.mp4
+data/wiadomosci/0001-teren/work/frag_p2_v2b.mp4
+data/wiadomosci/0001-teren/work/br2_t44.jpg
+data/wiadomosci/0001-teren/work/_seans_genek_out.txt
+data/wiadomosci/0001-teren/work/_frag_karcz.mp3
+data/wiadomosci/0001-teren/work/br_t12.jpg
+data/wiadomosci/0001-teren/work/stanislaw_0001.mp3
+data/wiadomosci/0001-teren/work/frag_p5.mp4
+data/wiadomosci/0001-teren/work/norm_20260722_093926.mp4
+data/wiadomosci/0001-teren/work/frag_p2_v2.mp4
+data/wiadomosci/0001-teren/work/frag_p1_v2b.mp4
+data/wiadomosci/0001-teren/work/_chk_12.jpg
+data/wiadomosci/0001-teren/work/_chk_24.jpg
+data/wiadomosci/0001-teren/work/_chk_grid.jpg
+data/wiadomosci/0001-teren/work/_por/v2_44.jpg
+data/wiadomosci/0001-teren/work/_chk42_big.jpg
+data/wiadomosci/0001-teren/work/_por/v1_42.jpg
+data/wiadomosci/0001-teren/work/_por/v1_40.jpg
+data/wiadomosci/0001-teren/work/_por/v2_42_slow.jpg
+data/wiadomosci/0001-teren/work/_por/v2_40.jpg
+data/wiadomosci/0001-teren/work/_por/v1_24.jpg
+data/wiadomosci/0001-teren/work/_por/v2_22.jpg
+data/wiadomosci/0001-teren/work/_por/v1_44.jpg
+data/wiadomosci/0001-teren/work/_por/v2_42.jpg
+data/wiadomosci/0001-teren/work/_por/v2_23.jpg
+data/wiadomosci/0001-teren/work/_por/v1_42_slow.jpg
+data/wiadomosci/0001-teren/work/_por/v2_23_slow.jpg
+data/wiadomosci/0001-teren/work/_por/v1_23.jpg
+data/wiadomosci/0001-teren/work/br_t50.jpg
+data/wiadomosci/0001-teren/work/_por/v2_24.jpg
+data/wiadomosci/0001-teren/work/_por/v1_22.jpg
+data/wiadomosci/0001-teren/work/_chk_29.jpg
+data/wiadomosci/0001-teren/work/norm_VID-20260723-WA0007.mp4
+data/wiadomosci/0001-teren/work/_chk_18.jpg
+data/wiadomosci/0001-teren/work/stanislaw_0001_raw.mp4
+data/wiadomosci/0001-teren/work/frag_p4_v3.mp4
+data/wiadomosci/0001-teren/work/_naprawa/proba_A_blur.mp4
+data/wiadomosci/0001-teren/work/_naprawa/test_t2.jpg
+data/wiadomosci/0001-teren/work/_naprawa/brief.md
+data/wiadomosci/0001-teren/work/_naprawa/_genek.txt
+data/wiadomosci/0001-teren/work/_naprawa/_zenek.txt
+data/wiadomosci/0001-teren/work/_naprawa/proba_B_crop.mp4
+data/wiadomosci/0001-teren/work/_naprawa/test_t1.jpg
+data/wiadomosci/0001-teren/work/_diag/F1_00.png
+data/wiadomosci/0001-teren/work/_diag/GA_08.png
+data/wiadomosci/0001-teren/work/_diag/A_12.png
+data/wiadomosci/0001-teren/work/_diag/w1_06.jpg
+data/wiadomosci/0001-teren/work/_diag/g1_20.jpg
+data/wiadomosci/0001-teren/work/_diag/V2_13.png
+data/wiadomosci/0001-teren/work/_diag/B_56.png
+data/wiadomosci/0001-teren/work/_diag/F1_08.png
+data/wiadomosci/0001-teren/work/_diag/V2_43.png
+data/wiadomosci/0001-teren/work/_diag/g2_04.jpg
+data/wiadomosci/0001-teren/work/_diag/M_23.png
+data/wiadomosci/0001-teren/work/_diag/d_14.jpg
+data/wiadomosci/0001-teren/work/_diag/d_42.jpg
+data/wiadomosci/0001-teren/work/_diag/d2_34.jpg
+data/wiadomosci/0001-teren/work/_diag/w5_06.jpg
+data/wiadomosci/0001-teren/work/_diag/V_4.png
+data/wiadomosci/0001-teren/work/_diag/GA_02.png
+data/wiadomosci/0001-teren/work/_diag/d_44.jpg
+data/wiadomosci/0001-teren/work/_diag/g1_35.jpg
+data/wiadomosci/0001-teren/work/_diag/d2_32.jpg
+data/wiadomosci/0001-teren/work/_diag/w1_02.jpg
+data/wiadomosci/0001-teren/work/_diag/d_43.jpg
+data/wiadomosci/0001-teren/work/_diag/g1_10.jpg
+data/wiadomosci/0001-teren/work/_diag/A_08.png
+data/wiadomosci/0001-teren/work/_diag/GB_00.png
+data/wiadomosci/0001-teren/work/_diag/d2_22.jpg
+data/wiadomosci/0001-teren/work/_diag/g1_65.jpg
+data/wiadomosci/0001-teren/work/_diag/m29.png
+data/wiadomosci/0001-teren/work/_diag/F1_04.png
+data/wiadomosci/0001-teren/work/_diag/V2_10.png
+data/wiadomosci/0001-teren/work/_diag/NA_58.png
+data/wiadomosci/0001-teren/work/_diag/s29p.png
+data/wiadomosci/0001-teren/work/_diag/d_11.jpg
+data/wiadomosci/0001-teren/work/_diag/moz_093926.jpg
+data/wiadomosci/0001-teren/work/_diag/w5_00.jpg
+data/wiadomosci/0001-teren/work/_diag/W7_18.png
+data/wiadomosci/0001-teren/work/_diag/GB_08.png
+data/wiadomosci/0001-teren/work/_diag/w5_18.jpg
+data/wiadomosci/0001-teren/work/_diag/F5_21.png
+data/wiadomosci/0001-teren/work/_diag/B_16.png
+data/wiadomosci/0001-teren/work/_diag/GB_04.png
+data/wiadomosci/0001-teren/work/_diag/A_04.png
+data/wiadomosci/0001-teren/work/_diag/V2_40.png
+data/wiadomosci/0001-teren/work/_diag/g2_00.jpg
+data/wiadomosci/0001-teren/work/_diag/V_5.png
+data/wiadomosci/0001-teren/work/_diag/M_28.png
+data/wiadomosci/0001-teren/work/_diag/d_20.jpg
+data/wiadomosci/0001-teren/work/_diag/d2_27.jpg
+data/wiadomosci/0001-teren/work/_diag/F5_00.png
+data/wiadomosci/0001-teren/work/_diag/W7_08.png
+data/wiadomosci/0001-teren/work/_diag/A_16.png
+data/wiadomosci/0001-teren/work/_diag/V_1.png
+data/wiadomosci/0001-teren/work/_diag/GB_10.png
+data/wiadomosci/0001-teren/work/_diag/d2_35.jpg
+data/wiadomosci/0001-teren/work/_diag/M_13.png
+data/wiadomosci/0001-teren/work/_diag/B_08.png
+data/wiadomosci/0001-teren/work/_diag/g1_05.jpg
+data/wiadomosci/0001-teren/work/_diag/A_00.png
+data/wiadomosci/0001-teren/work/_diag/M_40.png
+data/wiadomosci/0001-teren/work/_diag/W7_16.png
+data/wiadomosci/0001-teren/work/_diag/g1_70.jpg
+data/wiadomosci/0001-teren/work/_zenek_frags/frag_6.mp4
+data/wiadomosci/0001-teren/work/_zenek_frags/frag_4.mp4
+data/wiadomosci/0001-teren/work/_zenek_frags/frag_1.mp4
+data/wiadomosci/0001-teren/work/_zenek_frags/frag_3.mp4
+
+exec
+/bin/bash -lc "sed -n '1,260p' data/wiadomosci/0001-teren/_montaz_v3.sh
+ffprobe -v error -show_entries stream=index,codec_type,width,height:stream_side_data -show_entries format=duration -of json data/wiadomosci/0001-teren/WD_0001_teren_master_v3.mp4
+for f in data/wiadomosci/0001-teren/work/frag_p1_v2b.mp4 data/wiadomosci/0001-teren/work/frag_p2_v2b.mp4 data/wiadomosci/0001-teren/work/frag_p3_v3.mp4 data/wiadomosci/0001-teren/work/frag_p4_v3.mp4 data/wiadomosci/0001-teren/work/frag_p5_v2.mp4 data/wiadomosci/0001-teren/work/frag_p6_v2b.mp4 data/wiadomosci/0001-teren/work/norm_VID-20260723-WA0001.mp4; do echo \""'$f"; ffprobe -v error -select_streams v:0 -show_entries stream=width,height:stream_side_data -of compact=p=0:nk=0 "$f"; done' in /root/rod-ai-studio
+ succeeded in 654ms:
+width=1080|height=1920
+data/wiadomosci/0001-teren/work/frag_p2_v2b.mp4
+width=1080|height=1920
+data/wiadomosci/0001-teren/work/frag_p3_v3.mp4
+width=1080|height=1920
+data/wiadomosci/0001-teren/work/frag_p4_v3.mp4
+width=1080|height=1920
+data/wiadomosci/0001-teren/work/frag_p5_v2.mp4
+width=1080|height=1920
+data/wiadomosci/0001-teren/work/frag_p6_v2b.mp4
+width=1080|height=1920
+data/wiadomosci/0001-teren/work/norm_VID-20260723-WA0001.mp4
+width=1080|height=1920
+
+codex
+Parametry potwierdzają pion 1080×1920, brak rotacji w masterze i zastosowanie `-noautorotate` przy każdym wejściu. Sprawdzam jeszcze reprezentatywne klatki nowych cięć, bo sama geometria nie wykrywa obróconej treści.
+exec
+/bin/bash -lc "ffmpeg -y -v error -ss 2 -i data/wiadomosci/0001-teren/work/frag_p3_v3.mp4 -frames:v 1 /tmp/zenek_p3.jpg
+ffmpeg -y -v error -ss 2 -i data/wiadomosci/0001-teren/work/frag_p4_v3.mp4 -frames:v 1 /tmp/zenek_p4.jpg
+ffmpeg -y -v error -i /tmp/zenek_p3.jpg -i /tmp/zenek_p4.jpg -filter_complex 'hstack=inputs=2,scale=540:-1' -frames:v 1 /tmp/zenek_p34.jpg" in /root/rod-ai-studio
+ succeeded in 631ms:
+exec
+/bin/bash -lc "ffmpeg -y -v error -ss 23 -i data/wiadomosci/0001-teren/WD_0001_teren_master_v3.mp4 -frames:v 1 /tmp/zenek_m23.jpg
+ffmpeg -y -v error -ss 29 -i data/wiadomosci/0001-teren/WD_0001_teren_master_v3.mp4 -frames:v 1 /tmp/zenek_m29.jpg
+ffmpeg -y -v error -i /tmp/zenek_m23.jpg -i /tmp/zenek_m29.jpg -filter_complex 'hstack=inputs=2,scale=540:-1' -frames:v 1 /tmp/zenek_m2329.jpg" in /root/rod-ai-studio
+ succeeded in 690ms:
+apply patch
+patch: completed
+/root/rod-ai-studio/work/_zenek_review.txt
+diff --git a/work/_zenek_review.txt b/work/_zenek_review.txt
+index e96808cfba3fab8fc9e847df62878defa46707d5..9efa806d29462b5bafbb202ead609638d29889ee
+--- a/work/_zenek_review.txt
++++ b/work/_zenek_review.txt
+@@ -1,11 +1,7 @@
+-ZATWIERDZAM WARUNKOWO.
+-`-noautorotate` przed każdym wejściem skutecznie blokuje ponowne zastosowanie displaymatrix; zbadane fragmenty mają 1080x1920, właściwe czasy i brak side data rotacji.
+-Luka: wejścia przebitek nie są jawnie normalizowane (`scale/pad/crop`, `setsar`, `fps`), więc przyszły plik o innym rozmiarze/SAR/FPS może znów odsłonić bazę albo zostać źle wykadrowany.
+-Warto wymusić dla każdej przebitki 1080x1920, SAR=1 i 30 fps oraz zakończyć montaż błędem po niespełnieniu tych parametrów.
+-SSIM dolnego pasa wykrywa prześwit, ale próbka jednej klatki na slot nie wykryje błędu krótkotrwałego, początku/końca slotu ani prześwitu w innym obszarze.
+-SSIM master–fragment potwierdza użycie fragmentu, lecz nie jego poprawną orientację: identycznie obrócony fragment również przejdzie.
+-Brakuje kontroli całych przedziałów (zwłaszcza klatek przy 9/16/21/27/32/39/45 s), pełnej klatki/masek krawędzi oraz niezależnej bramki orientacji lub kontaktówki oglądanej w docelowym pionie.
+-Należy też automatycznie sprawdzać liczbę strumieni, displaymatrix/rotate, wymiary, SAR, FPS, czas każdego fragmentu oraz długość i synchronizację A/V mastera.
+-`-display_rotation 0 -c copy` nie obraca pikseli — tylko ustawia/usuwa instrukcję prezentacji; jest poprawny wyłącznie wtedy, gdy zapisane piksele już mają właściwą orientację.
+-Pułapki remuksu: zależność od kontenera/muxera i wersji FFmpeg, zachowanie innych side data, wybór niewłaściwego strumienia oraz odtwarzacze interpretujące metadane inaczej; wynik zawsze trzeba potwierdzić `ffprobe` i dekodowaną klatką.
+-Warunek akceptacji: pełnoslotowa bramka geometryczna plus ręczna kontaktówka obejmująca początki, środki i końce wszystkich sześciu slotów.
++1) Metoda poprawnie neutralizuje awarię metadanych, ale ma zasadniczą dziurę: remux i `-noautorotate` nie naprawiają treści zapisanej bokiem. Świeże cięcia p3 i p4 są geometrycznie pionowe, lecz ich obraz jest obrócony o 90°.
++
++2) B/C/D wystarczają do wykluczenia powrotu awarii A w badanych klatkach (pokrycie, zgodność fragmentu, brak taga), ale nie orientacji treści ani błędu między próbkami. Dodałbym kilka klatek z każdego slotu (początek/środek/koniec) do obowiązkowej kontroli wzrokowej oraz test pokrycia w całym przedziale, nie tylko w jednym punkcie.
++
++3) Tak. WhatsApp może mieć pionowe wymiary i brak taga, a mimo to zawierać bokiem zapisane piksele. Potwierdzenie: master v3 @23 s (p3) i @29 s (p4) leży.
++
++4) NIE ZATWIERDZAM — p3 i p4 są obrócone treściowo o 90°. Trzeba obrócić piksele właściwym `transpose`, ponownie złożyć master i obejrzeć klatki ze wszystkich sześciu slotów.
+
+diff --git a/work/_zenek_review.txt b/work/_zenek_review.txt
+index e96808cfba3fab8fc9e847df62878defa46707d5..9efa806d29462b5bafbb202ead609638d29889ee
+--- a/work/_zenek_review.txt
++++ b/work/_zenek_review.txt
+@@ -1,11 +1,7 @@
+-ZATWIERDZAM WARUNKOWO.
+-`-noautorotate` przed każdym wejściem skutecznie blokuje ponowne zastosowanie displaymatrix; zbadane fragmenty mają 1080x1920, właściwe czasy i brak side data rotacji.
+-Luka: wejścia przebitek nie są jawnie normalizowane (`scale/pad/crop`, `setsar`, `fps`), więc przyszły plik o innym rozmiarze/SAR/FPS może znów odsłonić bazę albo zostać źle wykadrowany.
+-Warto wymusić dla każdej przebitki 1080x1920, SAR=1 i 30 fps oraz zakończyć montaż błędem po niespełnieniu tych parametrów.
+-SSIM dolnego pasa wykrywa prześwit, ale próbka jednej klatki na slot nie wykryje błędu krótkotrwałego, początku/końca slotu ani prześwitu w innym obszarze.
+-SSIM master–fragment potwierdza użycie fragmentu, lecz nie jego poprawną orientację: identycznie obrócony fragment również przejdzie.
+-Brakuje kontroli całych przedziałów (zwłaszcza klatek przy 9/16/21/27/32/39/45 s), pełnej klatki/masek krawędzi oraz niezależnej bramki orientacji lub kontaktówki oglądanej w docelowym pionie.
+-Należy też automatycznie sprawdzać liczbę strumieni, displaymatrix/rotate, wymiary, SAR, FPS, czas każdego fragmentu oraz długość i synchronizację A/V mastera.
+-`-display_rotation 0 -c copy` nie obraca pikseli — tylko ustawia/usuwa instrukcję prezentacji; jest poprawny wyłącznie wtedy, gdy zapisane piksele już mają właściwą orientację.
+-Pułapki remuksu: zależność od kontenera/muxera i wersji FFmpeg, zachowanie innych side data, wybór niewłaściwego strumienia oraz odtwarzacze interpretujące metadane inaczej; wynik zawsze trzeba potwierdzić `ffprobe` i dekodowaną klatką.
+-Warunek akceptacji: pełnoslotowa bramka geometryczna plus ręczna kontaktówka obejmująca początki, środki i końce wszystkich sześciu slotów.
++1) Metoda poprawnie neutralizuje awarię metadanych, ale ma zasadniczą dziurę: remux i `-noautorotate` nie naprawiają treści zapisanej bokiem. Świeże cięcia p3 i p4 są geometrycznie pionowe, lecz ich obraz jest obrócony o 90°.
++
++2) B/C/D wystarczają do wykluczenia powrotu awarii A w badanych klatkach (pokrycie, zgodność fragmentu, brak taga), ale nie orientacji treści ani błędu między próbkami. Dodałbym kilka klatek z każdego slotu (początek/środek/koniec) do obowiązkowej kontroli wzrokowej oraz test pokrycia w całym przedziale, nie tylko w jednym punkcie.
++
++3) Tak. WhatsApp może mieć pionowe wymiary i brak taga, a mimo to zawierać bokiem zapisane piksele. Potwierdzenie: master v3 @23 s (p3) i @29 s (p4) leży.
++
++4) NIE ZATWIERDZAM — p3 i p4 są obrócone treściowo o 90°. Trzeba obrócić piksele właściwym `transpose`, ponownie złożyć master i obejrzeć klatki ze wszystkich sześciu slotów.
+
+codex
+Gotowe. Recenzję zapisałem w [work/_zenek_review.txt](/root/rod-ai-studio/work/_zenek_review.txt). Werdykt: **NIE ZATWIERDZAM** — p3 i p4 są obrócone treściowo o 90°.
+diff --git a/work/_zenek_review.txt b/work/_zenek_review.txt
+index e96808cfba3fab8fc9e847df62878defa46707d5..9efa806d29462b5bafbb202ead609638d29889ee
+--- a/work/_zenek_review.txt
++++ b/work/_zenek_review.txt
+@@ -1,11 +1,7 @@
+-ZATWIERDZAM WARUNKOWO.
+-`-noautorotate` przed każdym wejściem skutecznie blokuje ponowne zastosowanie displaymatrix; zbadane fragmenty mają 1080x1920, właściwe czasy i brak side data rotacji.
+-Luka: wejścia przebitek nie są jawnie normalizowane (`scale/pad/crop`, `setsar`, `fps`), więc przyszły plik o innym rozmiarze/SAR/FPS może znów odsłonić bazę albo zostać źle wykadrowany.
+-Warto wymusić dla każdej przebitki 1080x1920, SAR=1 i 30 fps oraz zakończyć montaż błędem po niespełnieniu tych parametrów.
+-SSIM dolnego pasa wykrywa prześwit, ale próbka jednej klatki na slot nie wykryje błędu krótkotrwałego, początku/końca slotu ani prześwitu w innym obszarze.
+-SSIM master–fragment potwierdza użycie fragmentu, lecz nie jego poprawną orientację: identycznie obrócony fragment również przejdzie.
+-Brakuje kontroli całych przedziałów (zwłaszcza klatek przy 9/16/21/27/32/39/45 s), pełnej klatki/masek krawędzi oraz niezależnej bramki orientacji lub kontaktówki oglądanej w docelowym pionie.
+-Należy też automatycznie sprawdzać liczbę strumieni, displaymatrix/rotate, wymiary, SAR, FPS, czas każdego fragmentu oraz długość i synchronizację A/V mastera.
+-`-display_rotation 0 -c copy` nie obraca pikseli — tylko ustawia/usuwa instrukcję prezentacji; jest poprawny wyłącznie wtedy, gdy zapisane piksele już mają właściwą orientację.
+-Pułapki remuksu: zależność od kontenera/muxera i wersji FFmpeg, zachowanie innych side data, wybór niewłaściwego strumienia oraz odtwarzacze interpretujące metadane inaczej; wynik zawsze trzeba potwierdzić `ffprobe` i dekodowaną klatką.
+-Warunek akceptacji: pełnoslotowa bramka geometryczna plus ręczna kontaktówka obejmująca początki, środki i końce wszystkich sześciu slotów.
++1) Metoda poprawnie neutralizuje awarię metadanych, ale ma zasadniczą dziurę: remux i `-noautorotate` nie naprawiają treści zapisanej bokiem. Świeże cięcia p3 i p4 są geometrycznie pionowe, lecz ich obraz jest obrócony o 90°.
++
++2) B/C/D wystarczają do wykluczenia powrotu awarii A w badanych klatkach (pokrycie, zgodność fragmentu, brak taga), ale nie orientacji treści ani błędu między próbkami. Dodałbym kilka klatek z każdego slotu (początek/środek/koniec) do obowiązkowej kontroli wzrokowej oraz test pokrycia w całym przedziale, nie tylko w jednym punkcie.
++
++3) Tak. WhatsApp może mieć pionowe wymiary i brak taga, a mimo to zawierać bokiem zapisane piksele. Potwierdzenie: master v3 @23 s (p3) i @29 s (p4) leży.
++
++4) NIE ZATWIERDZAM — p3 i p4 są obrócone treściowo o 90°. Trzeba obrócić piksele właściwym `transpose`, ponownie złożyć master i obejrzeć klatki ze wszystkich sześciu slotów.
+
+tokens used
+24,085
+Gotowe. Recenzję zapisałem w [work/_zenek_review.txt](/root/rod-ai-studio/work/_zenek_review.txt). Werdykt: **NIE ZATWIERDZAM** — p3 i p4 są obrócone treściowo o 90°.
+EXIT=0

@@ -1,0 +1,77 @@
+Mam oba głosy. Składam wspólny wniosek.
+
+---
+
+## WSPÓLNY WNIOSEK (Henio + Zenek)
+
+### ZGODA (oba głosy)
+
+**1. Droga główna: go2rtc xiaomi://**
+
+100% zgody. go2rtc jest wbudowany w HA Działki (2026.7.4 ≥ 2024.11), zero instalacji. Logowanie kontem Mi Home w WebUI go2rtc → auto-wykrywa kamery przez did. Bez stałej chmury, bez flashowania, zachowuje Mi Home.
+
+**Pułapka Miot — potwierdzona przez obu.** `hass-xiaomi-miot` (al-one) daje kontrolę (PTZ, motion detection), ale strumień to loteria: `stream_address blank`, błąd `-706010002`. **NIE używać Miot jako źródła obrazu.** Tylko pomocniczo do identyfikacji modelu i ew. kontroli PTZ.
+
+**3. Od Tomasza potrzebne:**
+
+| Co | Kto mówi | Do czego |
+|---|---|---|
+| Login + hasło do Mi Home | Obaj | Extractor — Tomasz uruchamia SAM (hasło nie leci przez czat) |
+| Region konta Mi (Chiny/Europa?) | Obaj | go2rtc WebUI (region = serwer logowania) |
+| Szybkie sprawdzenie w apce Mi Home | Zenek | Czy .112/.114 w ogóle pokazują obraz w apce? 30 sekund. |
+| Wynik Extractora: lista urządzeń (nazwa, model, did, IP) | Obaj | Bez tego nie ruszamy go2rtc |
+
+**4. Ryzyka — tabela wspólna:**
+
+| Ryzyko | Jak omijamy |
+|---|---|
+| .112/.114 to piloty IR (chuangmi.remote), nie kamery | Extractor rozstrzyga. Jeśli piloty → wykreślamy, .127 przejmuje jako główny cel |
+| Miot blank stream | Nie używamy Miot do obrazu — tylko go2rtc |
+| go2rtc nie obsłuży modelu | Sprawdzić miot-spec czy ma p2p-stream. Jak nie → Plan B: RTSP (po dokumentacji) |
+| RTSP wyłącza Mi Home | Nie włączać RTSP "na próbę" bez dokumentacji modelu |
+| Region konta nie ten | go2rtc WebUI ma wybór regionu: ru/de/us/sg — próbować |
+| Słaby sygnał WiFi kamer (mesh do przebudowy) | **Zenek:** po identyfikacji sprawdzić RSSI w routerze (tylko odczyt, D-0066). Jak słaby → mesh priorytetem przed dalszą konfiguracją |
+| HA nie widzi go2rtc | Działka 2026.7.4 ≥ 2024.11 — go2rtc jest wbudowany. Ewentualnie doinstalować z addon store (1 klik) |
+
+**5. Koszt: 0 zł.** go2rtc wbudowany, Extractor darmowy (GitHub PiotrMachowski). Żaden sprzęt, żadna chmura.
+
+**Jeśli .112/.114 to nie kamery:** .127 (chuangmi_camera_ipc019) przejmuje jako główny cel. Ta sama procedura.
+
+---
+
+### RÓŻNICA (do rozstrzygnięcia przez Tomasza)
+
+**Kolejność kroków:**
+
+| | Henio | Zenek |
+|---|---|---|
+| Krok 0 | Sekwencyjnie: NAJPIERW Extractor (potwierdza model+did), POTEM go2rtc | Równolegle: Extractor + Tomasz sprawdza w apce Mi Home czy .112/.114 to kamery |
+| Argument | Extractor DAJE model i did — bez tego nie skonfigurujesz go2rtc. Nie ma po co dotykać go2rtc przed poznaniem modelu. | Extractor i apka w 5 minut rozwiązują oba pytania naraz: "czy to kamery" ORAZ "did+model". Nie ma sensu robić tego sekwencyjnie — to tylko wydłuża. |
+| Dodatkowy punkt Zenka | — | Token NIE jest potrzebny do go2rtc xiaomi:// — wystarczy did+model+region. Mniej danych wrażliwych = bezpieczniej. |
+
+**W praktyce różnica jest niewielka:** obaj mówimy "Extractor to krok zero, bez niego nie ruszamy". Zenek dodaje sprawdzenie w apce (30 sekund), które może oszczędzić Extractora jeśli w apce widać że to piloty IR. Henio mówi: Extractor i tak będzie potrzebny (nawet dla .127), więc po co sprawdzać osobno.
+
+**Zenek dodał też punkt o WiFi/mesh:** sprawdzić RSSI kamer .112/.114 w routerze (tylko odczyt, D-0066). Jeśli sygnał słaby → problem mesh może być większym blokerem niż integracja. Henio tego nie poruszył — to trafna uwaga uzupełniająca.
+
+---
+
+### REKOMENDACJA WSPÓLNA (kolejność po uzgodnieniu)
+
+1. **Tomasz uruchamia Xiaomi Cloud Tokens Extractor** (5 min) → dostajemy listę: nazwa, model, did, IP dla wszystkich urządzeń Mi Home
+2. **Równolegle:** Tomasz sprawdza w apce Mi Home czy .112/.114 pokazują obraz (30 sekund)
+3. **Z listy Extractora:** ustalamy model .112/.114/.127 → sprawdzamy miot-spec czy mają p2p-stream
+4. **Jeśli to kamery z p2p-stream:** konfigurujemy JEDNĄ w go2rtc → test → potem drugą
+5. **Jeśli piloty IR:** .127 przejmuje jako główny cel
+6. **Sprawdzić RSSI** w routerze (tylko odczyt!) dla kamer — słaby sygnał = mesh priorytetem
+
+---
+
+**Ślad dla kluczowych ustaleń:**
+- HA Działka 2026.7.4: `/root/TELEPORT_HA.md:33` — "wersja HA 2026.7.1" (z 08.07; PAMIEC_INFRASTRUKTURA.md:37 mówi 2026.7.4)
+- go2rtc wbudowany od HA 2024.11: `szukaj_net.py "go2rtc Home Assistant addon install 2025"` → "go2rtc został wprowadzony w Home Assistant 2024.11 i jest częścią default_config"
+- Kamery Reolink już działają: `/root/TELEPORT_HA.md:41` — "Reolink: kamery Garaz, Garaz poludnie, Drzewo, HubReolink (NVR), Fotowoltaika"
+- ha_search "chuangmi" = 0 encji: `bash /tmp/hadz.sh ha_search '{"query":"chuangmi"}'` → `"entities":[],"entity_total_matches":0`
+- MAC 78-8B-2A = Chuangmi Technology: `/root/rod-ai-studio/TELEPORT_fabryka.md:2856`
+- Router Działki tylko odczyt D-0066: `/root/rod-ai-studio/TELEPORT_fabryka.md:2856`
+
+**Decyzja należy do Tomasza.** Rozbieżność: Henio (sekwencyjnie) vs Zenek (równolegle). Obaj zgodni: go2rtc xiaomi:// to droga, Extractor to próg.

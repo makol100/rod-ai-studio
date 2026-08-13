@@ -1,0 +1,30 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Oto analiza klatek z obrazu:
+
+**Analiza kafli:**
+
+*   **A (A_stary_p1):**
+    1. **Co widać:** Pień ściętego drzewa (karpa) otoczony gęstymi, zielonymi krzewami i chwastami. W prawym dolnym rogu widoczny fragment buta (szary chodak typu croc).
+    2. **Orientacja:** **PROSTO** (naturalny pion klatki).
+*   **B (B_p1_v2b):**
+    1. **Co widać:** Ten sam motyw co na kaflu A — pień drzewa i zielone krzewy. Obraz jest wykadrowany do poziomego paska w środku, z rozmytym tłem powyżej i poniżej.
+    2. **Orientacja:** **LEŻY** (zawartość jest obrócona o 90° w lewo względem oryginału).
+*   **C (C_stary_p2):**
+    1. **Co widać:** Widok z góry na grunt (ziemia, suche liście, resztki roślin). Widoczna noga w ciemnych spodniach roboczych i szarym chodaku, skierowana ku górze kadru.
+    2. **Orientacja:** **PROSTO**.
+*   **D (D_p2_v2b):**
+    1. **Co widać:** Ta sama scena co na kaflu C — noga w spodniach i but na tle ziemi. Podobnie jak w B, jest to poziomy pas z rozmyciem.
+    2. **Orientacja:** **LEŻY** (zawartość obrócona o 90° w prawo względem oryginału — but "celuje" w prawą stronę).
+*   **E (E_p4_v3):**
+    1. **Co widać:** Metalowe ogrodzenie panelowe (płot) na pierwszym planie, za nim pas świeżo przekopanej ziemi, a w tle zielone drzewa i krzewy pod jasnym niebem.
+    2. **Orientacja:** **PROSTO**.
+*   **F (F_zrodlo_WA0005):**
+    1. **Co widać:** Dokładnie ta sama scena co na kaflu E — ogrodzenie, ziemia i drzewa w tle.
+    2. **Orientacja:** **PROSTO**.
+
+**Odpowiedzi na pytania:**
+
+(3) **Czy A i B pokazują tę samą scenę/miejsce?** Tak. B to przetworzony (obrócony i wykadrowany) kadr ze zdjęcia A.
+(4) **Czy C i D pokazują tę samą scenę?** Tak. D to przetworzony kadr ze zdjęcia C.
+(5) **Czy E i F pokazują tę samą scenę?** Tak. Są to praktycznie identyczne ujęcia tego samego miejsca.
+EXIT=0

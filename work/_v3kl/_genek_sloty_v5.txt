@@ -1,0 +1,10 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+t=12: obrócona — But na trawie
+t=18: obrócona — Noga na ziemi
+t=24: prosto — Koparka na działce
+t=29: prosto — Płot oraz drzewa
+t=35: prosto — Dziura w ziemi
+t=42: prosto — Niebo i gałęzie
+
+WERDYKT: wszystkie proste NIE
+EXIT=0

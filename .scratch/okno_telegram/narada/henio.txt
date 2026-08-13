@@ -1,0 +1,58 @@
+P1 — NAJPROSTSZY WARIANT DZIŚ (zapauzowany gateway, $0)
+
+TAK — da się bez odpauzowania gatewaya. Cała ścieżka ZAPIS+WZNOWIENIE idzie wyłącznie przez API Telegrama (darmowe) i pliki na dysku. openclaw-gateway (= @Rodmoltybot, Claude Max — to on palił pulę, D-0071: „988 tys. tokenów z konta Max", .scratch/decyzje_tomasza.jsonl:71) NIE jest w tej ścieżce potrzebny.
+
+Konkret, z istniejących narzędzi:
+1. ZAPIS (strona Klaudka) — już działa bez niczego: TELEPORT_fabryka.md (ostatni zapis 13.08 07:34), .scratch/decyzje_tomasza.jsonl (13.08 06:52), BRIEF_DLA_KLAUDKA.md (13.08 07:25), .scratch/hans/most.jsonl (13.08 07:44, 408 KB log wywołań narzędzi Claude Code). Wszystkie świeże dziś — zmierzone stat -c %y.
+2. ZAPIS (strona Tomasza) — gotowy mechanizm istnieje, ale wyłączony: hans-ucho.service (inactive+disabled). Wystarczy włączyć (P3).
+3. WZNOWIENIE — jeden nowy skrypt (~50 linii) + obsługa komendy w już istniejącym nasłuchu getUpdates. Nie ma go dziś na dysku — to JEDYNY brakujący element, do zbudowania po decyzji.
+4. Usługa/cron: NIC nowego do pulla — hans_ucho.py już odpytuje getUpdates co 60 s (linie 160-164); komendę „/pakiet" obsługuje ten sam nasłuch. Ew. osobny timer jak hans-oczy.timer, tylko jeśli Tomasz chce dostawać pakiet sam (push), a nie na żądanie.
+5. Bot: @HansFabrykaRolek_bot (HANS_BOT_TOKEN w /home/hermes/.hermes/.env) — już istnieje, allowlist tylko Tomasz. Zapas: @HermesDyzurny_Bot (TELEGRAM_BOT_TOKEN, używa go dzwonek.py).
+
+Dlaczego bez gatewaya: hans_ucho.py, hans_wysylka.py i dzwonek.py wołają wyłącznie api.telegram.org (urllib/requests), zero wywołań Claude/Anthropic — więc nie dotykają puli Claude Max, która wywala okna.
+
+P2 — FORMAT PAKIETU WZNOWIENIA (14039 znaków)
+
+Pakiet = już istniejące „polecenie startowe" (wiedza/GDZIE_SIE_ZAPISUJE.md:67). SZKIELET i skąd się bierze:
+
+1. BRIEF_DLA_KLAUDKA.md (10 linii) — ~1150 znaków — z brief_klaudka.py (generator Henia).
+2. teleport --sprawdz (2 linie) — ~78 znaków — z teleport.py.
+3. decyzje tail -6 — ~904 znaków — z decyzje.py --lista.
+4. TELEPORT_fabryka.md tail -N — z teleport.py (dziennik).
+5. (opcjonalnie) graf stanu pamiec_stan.py pokaz — ~4000 znaków (.scratch/narada_tencentdb/henio_ekosystem.txt:81) — wchodzi tylko przy skróceniu punktu 4.
+
+POMIAR 13.08 (mój, w tej turze): cały pakiet z tail -120 = 14250 znaków — JUŻ PRZEKRACZA 14039 o 211. tail -60 = 11874 (zapas 2165), tail -30 = 7925. Dziennik urósł: 5.08 był 9606, dziś pełny teleport = 11896. Wniosek: generator MUSI sam mierzyć wc -c i obniżać tail, bo limit już pękł.
+
+Jak Tomasz odbiera z telefonu: jedna komenda do bota — „/pakiet" na @HansFabrykaRolek_bot. Bot odpowiada pakietem jako plik .txt (sendDocument), nie jako wiadomość — tekst w czacie Telegrama psuje formatowanie przy wklejaniu do claude.ai. Plik kopiuje się jednym dotknięciem. Link: NIEWYKONALNY bez publicznego hostingu (plik na VPS, brak URL).
+
+P3 — CZY WŁĄCZYĆ hans-ucho.service
+
+TAK. Koszt: 0 USD, 0 tokenów Claude. ucho woła tylko api.telegram.org/getUpdates (hans_ucho.py:160-164), nie ma tam ani jednego wywołania modelu. To nie jest openclaw-gateway.
+
+Zapis ucha = SLOWA_TOMASZA.md = tylko strona Tomasza (filtruje po chat_id/from_id = Tomasz, linie 204-205). Odpowiedzi Klaudka z claude.ai ucho NIE widzi.
+
+Czy da się zapisać CAŁĄ rozmowę: NIE dosłownie. Dziś nie ma narzędzia, które przechwytuje odpowiedzi Klaudka z claude.ai. Jest tylko: strona Tomasza dosłownie (ucho) + strona Klaudka pośrednio (most.jsonl = jego wywołania narzędzi, TELEPORT = co zrobił, decyzje/brief = wnioski).
+
+Czy to wystarcza do wznowienia: TAK. Pakiet wznowienia składa się z WYNIKÓW (brief+decyzje+teleport), nie z transkryptu. Nowe okno nie potrzebuje dosłownej rozmowy — potrzebuje: co ustalone, co zrobione, co dalej. To jest na dysku. Transkrypt to wygoda, nie warunek.
+
+Sygnał do obserwacji: SLOWA_TOMASZA.md ma mtime 05.08 09:01 — starszy niż deklarowany stop ucha (12.08). Czyli od 5.08 nie doszły nowe wpisy, nawet zanim usługa padła. HIPOTEZA: Tomasz od 5.08 nie pisał do bota Hansa, ALBO ucho padało wcześniej, niż zapisano. Nie mam śladu, który to wariant — NIE WIEM.
+
+P4 — CO MOŻE ZAWIEŚĆ (maks. 5)
+
+1. Ucho znów inactive (dokładnie dziś) — nikt nie nagrywa słów Tomasza i NIKT nie dostał o tym alarmu. Zapobieganie: watchdog-timer co 15 min sprawdza `systemctl is-active hans-ucho` i przy inactive uderza dzwonkiem.py (wbudowany alarm ucha gasi tylko przy awarii POŁĄCZENIA, nie przy stanie „service stopped" — to luka).
+2. Pakiet przekracza 14039 (już przekracza: 14250) — nowe okno ucina kontekst. Zapobieganie: generator sam mierzy wc -c i obniża tail 120→90→60→30 (reguła GDZIE_SIE_ZAPISUJE.md:84). Nie ręcznie.
+3. Sekret w pakiecie (hasło/token) — wywali nowe okno, jak wywaliło nr 7. Zapobieganie: pakiet budowany WYŁĄCZNIE z brief+decyzje+teleport+sprawdz. most.jsonl i SLOWA_TOMASZA.md (gdzie mogą leżeć hasła i loginy) NIGDY nie wchodzą do pakietu ani na Telegram. Twardy filtr przed wysyłką, nie dobra wola.
+4. Awaria claude.ai + brak dostępu do Telegrama naraz — pakiet nie dotrze. Zapobieganie: pakiet zapisywany na dysk + kopia na GitHub (makol100/rod-ai-studio), więc nowe okno dostaje go przez dysk/git, nie tylko Telegramem. Telegram = kanał, nie jedyny nośnik.
+5. Jeden bot = jeden punkt awarii — padnie token/bot Hansa, padnie i ucho, i wysyłka. Zapobieganie: redundancja — drugi bot @HermesDyzurny_Bot już istnieje; alarm o awarii jednego idzie drugim (wzorzec już jest: hans_ucho.py:80-90 woła dzwonek.py).
+
+P5 — KOSZT
+
+Wariant P1 (Telegram API + dysk, bez gatewaya): 0 USD/miesiąc, NIE dotyka puli Claude Max. Wszystko na istniejącym VPS i istniejących botach.
+
+Wariant pewniejszy (redundancja dwóch botów + watchdog + kopia GitHub): nadal 0 USD/miesiąc, nadal zero Claude Max — koszt to tylko robota (1 nowy skrypt + 1 timer), nie pieniądze.
+
+Polecam wariant pewniejszy: cena identyczna (0 USD), a usuwa punkt awarii nr 1 i 5 z P4. Nie polecam ŻADNEGO wariantu opartego na openclaw-gateway/@Rodmoltybot — to dokładnie ten mechanizm, który spalił 988 tys. tokenów z puli okien czatu (D-0071).
+
+PODSUMOWANIE DO DECYZJI: do zbudowania po zgodzie Tomasza jest tylko jeden mały skrypt „pakiet na /pakiet" + włączenie ucha + watchdog ucha. Nic z tego nie wymaga odpauzowania gatewaya i nic nie kosztuje. Niczego nie wdrażałem (badanie, nie zapis).
+
+— Henio

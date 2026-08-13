@@ -1,0 +1,3 @@
+Werdykt: TAK, wariant minimalny p4+p5. P5 tylko po kontroli słupa, orientacji i czytelności operatora; p4 sprawdzić pod kątem płynności wejścia/wyjścia z ujęcia. P3 zostawić bez zmian — trzeci podmieniany fragment zwiększa ryzyko bez wyraźnej potrzeby. Koszt $0: OK.
+
+Zenek

@@ -1,0 +1,10 @@
+MELDUNEK KLAUDKA 13.08 — ratunek kontekstu na Telegramie. Twierdzenia do sprawdzenia:
+1. Powstal tools/pakiet_wznowienia.py — generator pakietu wznowienia z plikow na dysku, zero wywolan modelu.
+2. Powstal tools/filtr_sekretow.py — filtr fail-closed; na tekscie z 'haslo: <wartosc>' i naglowkiem Authorization zwraca kod 1, na zwyklym tekscie zawierajacym samo slowo 'haslo' zwraca kod 0.
+3. Zbudowany pakiet ma 12487 znakow, czyli miesci sie w limicie 14039 (D-0047); stary reczny zestaw mial 14250.
+4. Pakiet zawiera 5 z 18 sesji teleportu, brief, decyzje i STAN; NIE zawiera most.jsonl ani SLOWA_TOMASZA.md.
+5. hans_ucho.py obsluguje komendy /pakiet i /wznow oraz odrzuca wiadomosci z sekretem zamiast zapisywac je do SLOWA_TOMASZA.md.
+6. hans-ucho.service jest active i enabled; dziala proces hans_ucho.py.
+7. Powstal watchdog hans-ucho-watchdog.timer, active, uruchamia sie co 15 minut.
+8. Wysylka pakietu na Telegram przez sendDocument zadziala: powod_wysylki='wyslane'.
+9. NIEZWERYFIKOWANE: czy komenda /pakiet wyslana z telefonu Tomasza faktycznie odpali generator — tego nie da sie sprawdzic bez Tomasza.

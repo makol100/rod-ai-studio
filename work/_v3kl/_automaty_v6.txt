@@ -1,0 +1,25 @@
+=== v6 BRAMKA B: przeswit (dol 1080x400 @y1520) ===
+t= 5 (STANISLAW): 0.984  OK
+t=12 (slot p1  ): 0.378  OK
+t=18 (slot p2  ): 0.375  OK
+t=24 (slot p3  ): 0.588  OK
+t=29 (slot p4  ): 0.508  OK
+t=35 (slot p5  ): 0.308  OK
+t=42 (slot p6  ): 0.361  OK
+t=48 (STANISLAW): 0.984  OK
+=== v6 BRAMKA C: zgodnosc slotow ===
+t=12 vs frag_p1@3.0: 0.982  OK
+t=18 vs frag_p2@2.0: 0.987  OK
+t=23 vs frag_p3_v5@2.0: 0.988  OK
+t=29 vs frag_p4_v3@2.0: 0.979  OK
+t=35 vs frag_p5_v2@3.0: 0.979  OK
+t=42 vs frag_p6@3.0: 0.987  OK
+=== v6 BRAMKA D: ciecia graniczne (t+0.2 vs t-0.5, <0.7=ciecie widoczne) ===
+granica t= 9: 0.323  OK
+granica t=16: 0.467  OK
+granica t=21: 0.365  OK
+granica t=27: 0.469  OK
+granica t=32: 0.338  OK
+granica t=39: 0.323  OK
+granica t=45: 0.355  OK
+WYNIK: WSZYSTKO OK

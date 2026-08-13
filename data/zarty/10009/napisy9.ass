@@ -1,0 +1,38 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,64,&H00FFFFFF,&H00FFFFFF,&H00101010,&H88000000,-1,0,0,0,100,100,0,0,1,4,2,2,60,60,220,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.40,0:00:06.70,Default,,0,0,0,,{\c&HFFFFFF&}Prawdziwy czarny rynek istnieje tylko na działkach...
+Dialogue: 0,0:00:07.00,0:00:08.86,Default,,0,0,0,,{\c&H6AD9A8&}Pssst... Masz towar?
+Dialogue: 0,0:00:09.20,0:00:11.29,Default,,0,0,0,,{\c&H6AD9A8&}Pytam o te sadzonki pomidorów z
+Dialogue: 0,0:00:11.34,0:00:12.31,Default,,0,0,0,,{\c&H6AD9A8&}czarnego rynku,
+Dialogue: 0,0:00:12.36,0:00:14.48,Default,,0,0,0,,{\c&H6AD9A8&}te co szwagier z Holandii przywiózł.
+Dialogue: 0,0:00:14.75,0:00:17.25,Default,,0,0,0,,{\c&H5AC8FA&}Mam. Odmiana „Czarny Książę".
+Dialogue: 0,0:00:17.30,0:00:18.73,Default,,0,0,0,,{\c&H5AC8FA&}Słodkie jak miód,
+Dialogue: 0,0:00:18.78,0:00:21.73,Default,,0,0,0,,{\c&H5AC8FA&}odporne na zarazę ziemniaczaną.
+Dialogue: 0,0:00:22.20,0:00:24.76,Default,,0,0,0,,{\c&H5AC8FA&}Ale co masz dla mnie w zamian?
+Dialogue: 0,0:00:25.24,0:00:26.88,Default,,0,0,0,,{\c&H5AC8FA&}Miała być czysta,
+Dialogue: 0,0:00:26.94,0:00:28.56,Default,,0,0,0,,{\c&H5AC8FA&}naturalna waluta.
+Dialogue: 0,0:00:28.65,0:00:32.06,Default,,0,0,0,,{\c&H6AD9A8&}Prosto od rolnika spod Grójca. Trzyletni,
+Dialogue: 0,0:00:32.11,0:00:35.09,Default,,0,0,0,,{\c&H6AD9A8&}przekompostowany obornik koński.
+Dialogue: 0,0:00:35.60,0:00:36.80,Default,,0,0,0,,{\c&H6AD9A8&}Żadnej chemii,
+Dialogue: 0,0:00:36.85,0:00:38.15,Default,,0,0,0,,{\c&H6AD9A8&}sam czysty azot.
+Dialogue: 0,0:00:38.20,0:00:41.42,Default,,0,0,0,,{\c&H6AD9A8&}Twoje ogórki po tym wystrzelą w kosmos.
+Dialogue: 0,0:00:41.47,0:00:43.18,Default,,0,0,0,,{\c&H6AD9A8&}Bierz, zanim prezes zauważy,
+Dialogue: 0,0:00:43.23,0:00:45.00,Default,,0,0,0,,{\c&H6AD9A8&}bo oficjalnie w tym tygodniu jest
+Dialogue: 0,0:00:45.05,0:00:47.63,Default,,0,0,0,,{\c&H6AD9A8&}zakaz wwożenia gabarytów na alejki.
+Dialogue: 0,0:00:48.04,0:00:49.02,Default,,0,0,0,,{\c&H5AC8FA&}Dobry towar.
+Dialogue: 0,0:00:49.16,0:00:50.30,Default,,0,0,0,,{\c&H5AC8FA&}Umowa stoi.
+Dialogue: 0,0:00:50.48,0:00:52.42,Default,,0,0,0,,{\c&H5AC8FA&}Tylko nikomu ani słowa,
+Dialogue: 0,0:00:52.48,0:00:54.80,Default,,0,0,0,,{\c&H5AC8FA&}zwłaszcza tej sąsiadce z naprzeciwka.
+Dialogue: 0,0:00:55.17,0:00:58.15,Default,,0,0,0,,{\c&H6AD9A8&}Grażyna? Ona sypie sztuczny nawóz z marketu,
+Dialogue: 0,0:00:58.20,0:00:59.98,Default,,0,0,0,,{\c&H6AD9A8&}amatorka... Nie zna życia.
+Dialogue: 0,0:01:00.03,0:01:01.75,Default,,0,0,0,,{\c&H6AD9A8&}Do następnego, młody.

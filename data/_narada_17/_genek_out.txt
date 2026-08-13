@@ -1,0 +1,65 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+Cześć Tomasz, tu Genek (Gemini). Przeanalizowałem 17 porad pod kątem naszej fabryki rolek ROD. Oto werdykt załogi:
+
+### OCENA PORAD (1–17)
+
+1.  **Ask user question: [WDROŻYĆ]**
+    *   Uzasadnienie: Klaudek (Claude) w aplikacji mobilnej często zgaduje lub daje 10 opcji na raz. Musimy wprowadzić do `wiedza/STYL.md` zasadę "jedno precyzyjne pytanie na raz", gdy brakuje danych do decyzji.
+    *   Pomysł: Protokół "Single Decision Mode". Koszt: pomijalny. Ryzyko: brak.
+2.  **Dostosuj /init: [CZĘŚCIOWO — dopracować]**
+    *   Uzasadnienie: Mamy `tools/preflight.py`, ale brakuje `tools/resume.sh` – skryptu, który po powrocie do pracy wczytuje ostatni `DECYZJE_*.md` i streszcza "gdzie skończyliśmy".
+    *   Pomysł: Skrypt `tools/context_load.py`. Koszt: 10 min pracy AI.
+3.  **Auto approve: [SPRZECZNE z konstytucją]**
+    *   Uzasadnienie: Jawny konflikt z punktem (a) konstytucji. Przy kosztach Kling/ElevenLabs (np. $3.28/odcinek), auto-approve bez Twojej zgody to ryzyko finansowe. **ODRADZAM.**
+4.  **Przypomnienia startowe: [WDROŻYĆ]**
+    *   Uzasadnienie: Brakuje nam "higieny poniedziałkowej" (backupy `content.db`, czyszczenie `/tmp`, raport zużycia budżetu).
+    *   Pomysł: Crontab odpalający `tools/higiena.sh` w każdy poniedziałek rano.
+5.  **STT ze słownikiem: [NIE DOTYCZY nas]**
+    *   Uzasadnienie: To dotyczy Twojego dyktowania do Claude, nie logiki fabryki na VPS.
+6.  **Pasek statusu: [MAMY]**
+    *   Uzasadnienie: Jako agenci CLI monitorujemy tokeny, ale Klaudek w aplikacji tego nie widzi. Powinien dopisywać szacowany koszt do `DECYZJE.md`.
+7.  **Sub-agenci równolegle: [MAMY]**
+    *   Uzasadnienie: Ja i Zenek (Codex) działamy jako krzyżowa weryfikacja.
+8.  **Tańsze modele: [MAMY]**
+    *   Uzasadnienie: Używam `gemini-3-flash-preview` do 90% zadań weryfikacyjnych.
+9.  **Wielowątkowość/Foldery: [MAMY]**
+    *   Uzasadnienie: Struktura `data/wiadomosci/NNNN-nazwa/` świetnie izoluje konteksty.
+10. **Skrypty w umiejętnościach: [MAMY]**
+    *   Uzasadnienie: Nasze skrypty `_tts_*.py`, `_kling_*.py` i `_montaz.sh` to właśnie ta "czarna robota".
+11. **Lista wyjątków (gotchas): [MAMY]**
+    *   Uzasadnienie: Plik `wiedza/NAUKI_SERII.md` to nasza lista "czego nie robić".
+12. **Interview / Grill me: [WDROŻYĆ]**
+    *   Uzasadnienie: Zanim wydasz dolary na Kling/ElevenLabs, powinniśmy "przemaglować" scenariusz i Twój brief pod kątem logicznych dziur.
+    *   Pomysł: Obowiązkowa sekcja "AUTOKRYTYKA I RYZYKA" w każdym planie odcinka.
+13. **Historia przepływów (Audit Trail): [CZĘŚCIOWO — dopracować]**
+    *   Uzasadnienie: Mamy pliki `DECYZJE.md`, ale nie robimy ich przeglądu.
+    *   Pomysł: Raport `wiedza/RETROSPEKCJA_TYGODNIA.md` (AI szuka powtarzalnych błędów).
+14. **Weryfikacja (ZDAŁ/OBLAŁ): [MAMY]**
+    *   Uzasadnienie: Nasze bramki jakości A-F z werdyktem końcowym to dokładnie to.
+15. **Pętle orkiestracji: [CZĘŚCIOWO — dopracować]**
+    *   Uzasadnienie: `_goniec.sh` jest liniowy. Brakuje mu "inteligencji naprawczej" (jeśli bramka techniczna oblała plik, AI koryguje parametry i ponawia).
+16. **Automatyzuj od środka: [MAMY]**
+    *   Uzasadnienie: To nasz model operacyjny: Ty dajesz brief, my robimy środek, Ty publikujesz.
+17. **Stay desperate: [MAMY]**
+    *   Uzasadnienie: Ta narada i cięcie kosztów z $10 na $3.28 to dowód, że nie spoczywamy na laurach.
+
+---
+
+### REKOMENDACJE KOŃCOWE
+
+**TOP 3 do wdrożenia od zaraz:**
+1.  **Porada 12 (Grill me):** Wprowadzenie "trybu krytycznego" przed każdą generacją wideo – zaoszczędzi realne pieniądze na poprawkach.
+2.  **Porada 1 (Ask user):** Standaryzacja pytań AI do Ciebie (krótko, konkretnie, jedno na raz) – oszczędzi Twój czas.
+3.  **Porada 4 (Higiena/Start):** Automatyczne dbanie o porządek i backupy wiedzy na VPS raz w tygodniu.
+
+**Punkt, który odradzam:**
+*   **Porada 3 (Auto-approve):** Przy naszych stawkach za API, brak ludzkiego "bezpiecznika" finansowego to prosta droga do wyzerowania karty przy błahej halucynacji modelu.
+
+**Zgodność z Konstytucją:**
+*   **Porada 3** jawnie koliduje z punktem (a) konstytucji: "każdy wydatek pieniędzy wymaga WYRAŹNEJ zgody Tomasza". Pozostałe punkty wspierają konstytucję, szczególnie w zakresie weryfikacji (punkt b) i czytania całości dokumentów (punkt c).
+
+Czekam na Twoją decyzję, który z punktów [WDROŻYĆ] mamy zainicjować.
+
+---
+*Koniec narady. Genek (Gemini) melduje gotowość do pracy.*

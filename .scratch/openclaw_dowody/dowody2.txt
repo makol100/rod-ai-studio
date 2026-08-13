@@ -1,0 +1,29 @@
+=== A. TRESC odpowiedzi bez tokena (nie sam kod) ===
+Not Found
+=== B. TEST FUNKCJONALNY AUTH: zly token vs dobry ===
+-- ze ZLYM tokenem:
+gateway connect failed: GatewayClientRequestError: unauthorized: gateway token mismatch (provide gateway auth token)
+[openclaw] Could not start the CLI.
+[openclaw] Reason: gateway closed (1008): unauthorized: gateway token mismatch (provide gateway auth token)
+-- z POPRAWNYM tokenem (z configu):
+Gateway event loop: ok max=32ms p99=21ms util=0.004 cpu=0.007
+Agents: main (default)
+Heartbeat interval: 30m (main)
+=== C. ROOTLESS DOWOD ===
+rootless=true
+w-kontenerze-uid=0
+=== D. AUDYT: szczegoly warn+info ===
+WARN
+gateway.trusted_proxies_missing Reverse proxy headers are not trusted
+  gateway.bind is loopback and gateway.trustedProxies is empty. If you expose the Control UI through a reverse proxy, configure trusted proxies so local-client checks cannot be spoofed.
+  Fix: Set gateway.trustedProxies to your proxy IPs or keep the Control UI local-only.
+
+INFO
+summary.attack_surface Attack surface summary
+  groups: open=0, allowlist=0
+tools.elevated: enabled
+hooks.webhooks: disabled
+hooks.internal: disabled
+browser control: enabled
+trust model: personal assistant (one trusted operator boundary), not hostile multi-tenant on one shared gateway
+models.small_params Small models require sandboxing and web tools disabled

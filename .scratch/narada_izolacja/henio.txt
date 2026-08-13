@@ -1,0 +1,29 @@
+Oto wyniki narady. Głosy obu inżynierów:
+
+---
+
+**GŁOS ZENKA** (`.scratch/narada_izolacja/zenek.txt`):
+go2rtc 1.9.13 jako addon w HA Działki = najtańszy test rozstrzygający. Router tylko odczyt. `ha_eval_template` się nie nadaje. Miot = test drugiego wyboru.
+
+**GŁOS HENIA** (`.scratch/narada_izolacja/henio_glos_8.08.md`):
+021a04/029a02 = CS2 POTWIERDZONE (szukaj_net.py). ipc019 = legacy/TUTK/EOF — prawdopodobnie bezużyteczna. Składnia go2rtc POTWIERDZONA. Transport domyślny (UDP→TCP). Router — próbowałem tplinkrouterc6u, nie autoryzuje się dziś. Panel WWW = jedyna droga do odczytu AP isolation.
+
+---
+
+**ZGODNE:**
+- go2rtc 1.9.13 addon w HA Działki (host mode) → test .112 → log rozstrzyga wszystko
+- VPS bezużyteczny, `ha_eval_template` bezużyteczny
+- Router TYLKO ODCZYT bez zgody Tomasza (D-0066)
+
+**ROZBIEŻNOŚĆ (do Tomasza):**
+- Zenek: modele kamer = hipoteza CS2. Henio: POTWIERDZONE CS2 dla 021a04/029a02, ipc019 POTWIERDZONE legacy.
+- Zenek: sprawdzić składnię w dokumentacji. Henio: składnia potwierdzona — `xiaomi://6338598787:de@IP?did=DID&model=MODEL` + sekcja `xiaomi: {userID: "V1-token"}`.
+
+**NAJNIŻSZY KOSZT:** 0 zł do momentu uzyskania obrazu (albo timeoutu).
+
+**CO WYMAGA TOMASZA:**
+1. Logowanie Mi Home w go2rtc WebUI (telefon — zaufane urządzenie, może przez android_open_uri Klaudka)
+2. Jeśli timeout w logu + AP isolation włączone → decyzja o wyłączeniu izolacji na routerze
+3. Decyzja o ipc019 (może być do wyrzucenia)
+
+Pełny plan krok po kroku: `.scratch/narada_izolacja/WSPOLNY_WNIOSEK.md`

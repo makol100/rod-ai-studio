@@ -1,0 +1,90 @@
+[GENEK — TRYB AWARYJNY: bez dostepu do dysku, tylko doklejony material; droga 1 padla: CLI: zaden model z kolejki nie odpowiedzial (gemini-3.1-pro-preview, gemini-3.1-pro-preview, gemini-3.6-flash) po 3 probach. Dekret Tomasza: najwyzszy WOLNY model — schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, ale tu nie odpowiedzial ZADEN. | gemini-3.1-pro-preview: przekroczony czas 93s | gemini-3.1-pro-preview: przekroczony czas 93s]
+
+Rozumiem, że nie mam dostępu do dysku i mogę polegać wyłącznie na dostarczonym tekście. Moje odpowiedzi będą odzwierciedlać to ograniczenie.
+
+---
+
+### **GENEK - Analiza i Propozycja**
+
+**Ad. 1. DROGA A - passToken/V1**
+
+Z dostarczonego opisu wynika, że `passToken` z QR nie działa, a `LoginWithToken` zwraca 401. To sugeruje, że `passToken` uzyskany z QR może być inny niż ten, którego oczekuje `LoginWithToken` w go2rtc, lub że brakuje innych danych uwierzytelniających.
+
+*   **Analiza `cloud.go` i `pkg/xiaomi` (hipotetyczna, bez dostępu do kodu):**
+    *   Jeśli `LoginWithToken` przyjmuje `userID` i `passToken`, a `V1:<passToken>` jest formatem, to problem może leżeć w samej wartości `passToken` lub w tym, jak go2rtc go przetwarza.
+    *   Możliwe, że `V1:` to nie tylko surowy `passToken`, ale jakiś format, który go2rtc dekoduje lub łączy z innymi danymi. Na przykład, może to być Base64 zakodowany ciąg zawierający `passToken` i inne elementy (np. `ssecurity`, `serviceToken`).
+    *   Brak dostępu do `internal/xiaomi/cloud.go` i `pkg/xiaomi` uniemożliwia mi dokładne sprawdzenie, jak `LoginWithToken` jest zaimplementowany i co dokładnie parsuje z `V1:<passToken>`.
+    *   **Wniosek:** Bez dostępu do kodu źródłowego go2rtc, nie mogę definitywnie stwierdzić, dlaczego QR-owy `passToken` daje 401, a password-login by działał. Może to być kwestia formatu, brakujących danych (np. `ssecurity` lub `serviceToken` są potrzebne do zbudowania pełnej sesji, a `passToken` z QR to tylko jeden element) lub różnic w procesie logowania między QR a hasłem.
+
+*   **Czy z `passToken`+`ssecurity`+`serviceToken` (MAM) da się zbudować DZIAŁAJĄCY token?**
+    *   Teoretycznie tak. `ssecurity` i `serviceToken` są kluczowe dla utrzymania sesji z chmurą Xiaomi. Jeśli go2rtc ma mechanizm do "wstrzyknięcia" tych danych (np. przez konfigurację lub API), to mogłoby to zadziałać.
+    *   Jednak z opisu wynika, że go2rtc oczekuje `xiaomi: 6338598787: 'V1:<passToken>'`. Nie ma wzmianki o bezpośrednim podawaniu `ssecurity` czy `serviceToken` w konfiguracji streamu.
+    *   **Wniosek:** Bez dostępu do kodu go2rtc, nie mogę potwierdzić, czy i jak można wykorzystać `ssecurity` i `serviceToken` bezpośrednio w konfiguracji go2rtc, aby zbudować działający token.
+
+**Ad. 2. DROGA B - sesja Extractora**
+
+*   **Analiza:** Extractor działa i pobrał kamery z DE, co oznacza, że posiada ważną sesję (zawierającą `ssecurity` i `serviceToken`).
+*   **Czy przekazać te SESJE do go2rtc BEZPOŚREDNIO?**
+    *   To jest obiecująca droga. Jeśli go2rtc ma możliwość przyjęcia istniejących ciasteczek (cookies) lub parametrów sesji (`ssecurity`, `serviceToken`), to mogłoby to ominąć problem z `passToken` i blokadą logowania.
+    *   **go2rtc config przyjmie `ssecurity`/`serviceToken`?** Z dostarczonego opisu konfiguracji streamu (`cam_zachod_112: xiaomi://6338598787:de@192.168.0.112?did=1022085077&model=chuangmi.camera.021a04`) nie wynika, aby istniały parametry do bezpośredniego podania `ssecurity` czy `serviceToken`.
+    *   **Cookie injection do go2rtc?** Mając SSH do HA Działki i API go2rtc, można by spróbować manipulować sesją go2rtc. Jeśli go2rtc używa standardowych mechanizmów HTTP dla komunikacji z chmurą Xiaomi, to wstrzyknięcie ciasteczek sesji (`serviceToken` jest zazwyczaj ciasteczkiem) mogłoby zadziałać. Wymagałoby to jednak zrozumienia, jak go2rtc zarządza sesjami HTTP.
+    *   **Wniosek:** To jest potencjalnie najlepsza droga, ale wymagałaby sprawdzenia, czy go2rtc ma API lub mechanizm konfiguracyjny do wstrzykiwania `ssecurity` i `serviceToken` lub ciasteczek. Bez dostępu do kodu źródłowego go2rtc, nie mogę podać konkretnych komend.
+
+**Ad. 3. DROGA C - verify_phone SMS**
+
+*   **Analiza:** Xiaomi zablokował email, ale może nie zablokował SMS.
+*   **Da się WYMUSIĆ `verify_phone`?** Z opisu wynika, że Xiaomi WYMUSZA `verify_email`. Nie ma informacji o parametrze, który by wymuszał `verify_phone` w go2rtc.
+*   **Jaki parametr/endpoint go2rtc/Xiaomi wymusza SMS zamiast email?** Z dostarczonego tekstu nie ma takiej informacji. Proces `POST /api/xiaomi username=EMAIL&password=HASLO&server=de` prowadzi do `{captcha|verify_email|verify_phone}`, ale Xiaomi wymusza `verify_email`. Nie ma wzmianki o parametrze, który by to zmienił.
+*   **Wniosek:** Z dostępnych informacji nie wynika, aby można było wymusić `verify_phone` przez go2rtc.
+
+**Ad. 4. DROGA D - inny serwer**
+
+*   **Analiza:** Blokada `70022 'Wyslano zbyt wiele kodow, sprobuj jutro'` jest prawdopodobnie na poziomie konta Xiaomi, a nie per region.
+*   **Login to samo konto przez inny serwer (i2/sg/ru/cn) omija blokade wysylki?** Jest to mało prawdopodobne. System Xiaomi prawdopodobnie śledzi próby wysyłki kodów dla danego konta niezależnie od regionu, z którego próba logowania jest inicjowana.
+*   **Wniosek:** Mało prawdopodobne, aby zmiana serwera ominęła blokadę wysyłki kodów.
+
+---
+
+### **Wniosek GENKA - Najpewniejsza droga DZIS + KONKRETNY plan wykonania**
+
+Biorąc pod uwagę dostępne informacje, **Droga B (sesja Extractora)** wydaje się najbardziej obiecująca, ponieważ mamy już działającą sesję z chmurą Xiaomi (dzięki Extractorowi), która pobrała kamery. Problem polega na tym, jak przekazać tę sesję do go2rtc.
+
+**NAJPEWNIEJSZA droga DZIS:** **DROGA B - Przekazanie sesji Extractora do go2rtc.**
+
+**KONKRETNY plan wykonania (komendy):**
+
+1.  **Sprawdzenie możliwości go2rtc API/konfiguracji:**
+    *   Należy sprawdzić dokumentację go2rtc (lub kod źródłowy, gdyby był dostępny) pod kątem możliwości wstrzykiwania `ssecurity` i `serviceToken` lub ciasteczek sesji.
+    *   **Bez dostępu do dokumentacji/kodu, muszę zgadywać, ale zgodnie z zasadami, nie będę tego robił.**
+    *   **Hipoteza (do weryfikacji, gdyby był dostęp do kodu):** Jeśli go2rtc używa biblioteki HTTP, która pozwala na ustawienie nagłówków lub ciasteczek, można by spróbować wstrzyknąć `serviceToken` jako ciasteczko i `ssecurity` jako nagłówek lub parametr.
+
+2.  **Próba wstrzyknięcia ciasteczek/sesji przez API go2rtc (jeśli istnieje taka możliwość):**
+    *   Jeśli go2rtc ma endpoint API do zarządzania kontami Xiaomi, który pozwala na podanie `ssecurity` i `serviceToken` (lub ciasteczek), to byłoby to idealne.
+    *   **Komenda (hipotetyczna, do weryfikacji):**
+        ```bash
+        # To jest PRZYKLAD, jak mogloby to wygladac, jesli go2rtc mialby takie API.
+        # NIE MAM DOSTEPU DO DYSKU, wiec nie moge sprawdzic, czy takie API istnieje.
+        # Zakladam, ze 'serviceToken' to ciasteczko, a 'ssecurity' to parametr.
+        curl -X POST "http://100.115.112.5:1984/api/xiaomi/login_with_session" \
+             -H "Content-Type: application/json" \
+             -d '{
+                   "userId": "6338598787",
+                   "region": "de",
+                   "ssecurity": "MAM_ssecurity_Z_EXTRACTORA",
+                   "serviceToken": "MAM_serviceToken_Z_EXTRACTORA"
+                 }'
+        ```
+    *   **Alternatywa (jeśli go2rtc nie ma takiego API):**
+        *   Mając SSH do HA Działki, można by spróbować edytować pliki konfiguracyjne go2rtc, jeśli pozwalają na to. Jednak z opisu wynika, że konfiguracja streamu nie przewiduje tych parametrów.
+        *   Można by spróbować uruchomić go2rtc z niestandardowymi zmiennymi środowiskowymi lub flagami, które wstrzykują te dane, ale to wymagałoby znajomości wewnętrznego działania go2rtc.
+
+**Podsumowując, bez dostępu do kodu źródłowego go2rtc lub jego szczegółowej dokumentacji API, nie mogę podać konkretnych komend do wstrzyknięcia `ssecurity` i `serviceToken`. Jednak to jest kierunek, który należy zbadać w pierwszej kolejności, ponieważ mamy już działającą sesję.**
+
+---
+
+### **ZENEK - Analiza i Propozycja**
+
+**Ad. 1. DROGA A - passToken/V1**
+
+*   **Analiza `cloud.go` i `pkg/xiaomi` (hipotetyczna, bez dostępu do kodu):**
+    *   Zgodnie z opisem, `passToken` z QR nie działa (`401 Unauthorized`),

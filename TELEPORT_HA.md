@@ -581,3 +581,99 @@ ZMIERZONE PRZED ZAMKNIECIEM (HA Dzialka, N150):
 - encje niedostepne: 377 (baseline byl 488) — spadek o 111. Urzadzenia wracaly falami zgodnie z przewidywaniem.
 POZOSTAJE NIEZBADANE (nie jako watek, jako obserwacja): co skladа sie na te 377 — czy to glownie bateryjne Zigbee czekajace na pierwszy ruch, czy cos realnie martwego. Do sprawdzenia, gdy Tomasz uzna za potrzebne.
 Tomasz: 'Ten watek uwazam za zalatwiony.'
+
+
+==============================================================================
+## SESJA 06.08.2026 08:17 CEST
+==============================================================================
+
+5.08.2026 — CALY DZIEN NADRABIANY (dziennik HA stal na 4.08 09:22, zaleglosc 2.0 dnia; nadrobione 6.08 przez Klaudka).
+
+NOWA INSTALACJA — HA WYBICKIEGO (mieszkanie Sosnowiec, ul. Wybickiego):
+- Uruchomiony 5.08 (D-0055). Tailscale: host homeassistant, 100.67.61.100. Lacznik: sosnowiec.157-90-155-155.sslip.io.
+- SSH + terminal wlaczone (D-0056), polecenie Tomasza: 'Instaluj terminal i SSH na Wybickiego'.
+- ZABEZPIECZENIE GAZOWE NAPRAWIONE (D-0057): automatyzacja 'Wykrycie gazu zamkniecie zaworu' wisiala/nie dzialala — naprawiona.
+- Trasy Tailscale zatwierdzone (D-0064), uklad koncowy (D-0065). Klaudek robil to STEROJAC TELEFONEM Tomasza. Zasada Tomasza: 'Wszedzie siegaj' + 'Dzialka to priorytet'.
+
+TUYA — ZOSTAWIC JAK JEST (D-0058). Tomasz: 'Musze ogarnac sam te wszystkie urzadzenia'. Nie ruszamy.
+
+ROUTER NA DZIALCE — NIE DOTYKAC (D-0066, D-0067). Tomasz dosadnie: 'Zostaw router na dzialce w spokoju!!'. Zakaz bezterminowy. Kolizja sieci (nakladajace sie podsieci) ZOSTAJE nierozwiazana — swiadomie, na zyczenie Tomasza.
+
+STAN DZIALKA (obserwacja przeniesiona z 4.08, niezamknieta): 377 encji niedostepnych (baseline 488). Do sprawdzenia gdy Tomasz uzna — czy to bateryjne Zigbee czekajace na pierwszy ruch, czy cos realnie martwego.
+
+
+==============================================================================
+## SESJA 12.08.2026 19:29 CEST
+==============================================================================
+
+12.08 SIEC/MONITORING: znaleziona nagrywarka i kamery HiLook w 192.168.3.0/24 (trasa przez homeassistant-1 = Dzialka). NVR 192.168.3.110 (nmap -sV: HikVision NVR or camera http config; /doc/page/login.asp; ISAPI 401 Digest realm=5048c9083c2853c12763f499; porty 80/554/8000, bez 443). Kamery: .111/.112/.114 realm 'IP Camera(FG092)', .113 realm 'IP Camera(FQ921)' - porty 80/443/554/8000. 192.168.1.0/24 przeskanowana tym samym profilem - pusta. Wczesniejszy zapis 'nagrywarka nieosiagalna z VPS' byl skutkiem skanowania tylko 0/50/68. KOREKTA TOMASZA: 192.168.3.1 to router DOSTAWCY (lighttpd) - nie ruszac; wchodzimy tylko na jego routery Linksys.
+
+
+==============================================================================
+## SESJA 12.08.2026 19:50 CEST
+==============================================================================
+
+12.08 wieczor: zadanie Tomasza 'Dokonczyc kamery w dzialkowcu czyli podpiac je do HA Dzialka' (Dom Dzialkowca ROD). POMIAR: NVR 192.168.3.110 + 4 kamery HiLook .111-.114 ZYWE i osiagalne z VPS przez Tailscale (HTTP 200, RTSP 554 otwarty, ISAPI 401 Digest; realmy: .110=5048c908..., .111/.112/.114=IP Camera(FG092), .113=IP Camera(FQ921)). /onvif/device_service = 404 na wszystkich piaciu => ONVIF najpewniej WYLACZONY w kamerach. HA Dzialka API 200; ma camera+ffmpeg+reolink+tuya, BRAK onvif/hikvision/generic. Wzorzec do powtorzenia: go2rtc (addon, host_network) + platform ffmpeg, jak Xiaomi od 8.08. BLOKADA: brak loginu/hasla do kamer i NVR — poproszony Tomasz. Zlecenie do Zenka+Henia: .scratch/kamery_hilook (droga podpiecia, sciezki RTSP, detekcja ruchu bez ONVIF, obciazenie).
+
+
+==============================================================================
+## SESJA 13.08.2026 13:49 CEST
+==============================================================================
+
+13.08.2026 13:5x CEST — KOREKTA ZAPISU, KTORY BYL NIEAKTUALNY. Tomasz: 'Zmienialismy to razem i wgrywalismy Home assistanta przez LAN sprawdz kurwa nie pierdol bzdur bo nie zmieniles tego w ogole w zapisach'. MA RACJE W DWOCH RZECZACH: (1) MIGRACJA SIE ODBYLA — HA Dzialka zostal wgrany na nowy mini-PC przez LAN, razem z Tomaszem. Moje dzisiejsze zdanie 'migracja nigdy sie nie odbyla albo nowy mini-PC nie jest tym, ktory pracuje' bylo BLEDNE. (2) ZAPISY NIE ZOSTALY ZAKTUALIZOWANE — linia 53 tego pliku do dzis mowi 'Migracja na N150 (PLANOWANA, jeszcze nie wykonana)'. To moj blad, ten sam co z 15,5-dniowym zapomnieniem TELEPORT_HA. CZEGO JEDNAK NIE ZMIENIA: sprzet, na ktorym Dzialka faktycznie pracuje, NIE JEST N150. Pomiar 13.08 przez ssh root@homeassistant-1 (klucz rod-ai-studio w authorized_keys dodatku Advanced SSH): procesor Intel Core i3-6006U @ 2.00GHz, 4 watki; RAM 8053788 kB czyli 8 GB, NIE 16 GB; dysk SSD 512 GB (sda 476.9G); plyta SKYBAY, product_name i sys_vendor = 'Default string'; HAOS 18.2, HA 2026.8.1; uptime 7 dni 5 h; /dev/dri/renderD128 obecne. TO SIE ZGADZA Z OSTRZEZENIEM, ktore sami zapisalismy przed zakupem: 'przy odbiorze sprawdzic N150 + 16GB + M.2/SATA SSD, NIE eMMC/i3-6100U'. Dostalismy maszyne z i3-6006U i 8 GB. Czy to pomylka sprzedawcy z AliExpress, czy HA wgralismy na inny box niz zamawiany N150 — NIE WIEM, tego z VPS nie rozstrzygne. DO ZROBIENIA: przestac nazywac te maszyne 'N150' we wszystkich zapisach i liczyc jej wydajnosc jak dwurdzeniowego Skylake'a z 2015, a nie jak N150.
+
+
+==============================================================================
+## SESJA 13.08.2026 13:56 CEST
+==============================================================================
+
+13.08.2026 14:0x CEST — NAZWA ROZSTRZYGNIETA PRZEZ TOMASZA: 'Nazywa sie N150 i chuj!!!!'. Serwer Dzialki nazywa sie N150 i tak ma byc pisany we wszystkich zapisach. Zmierzone parametry (i3-6006U, 4 watki, 8 GB RAM, SSD 512 GB, plyta INTEL SKYBAY, BIOS 5.12, HAOS 18.2, /dev/dri obecne, 416 GB wolnego) zostaja jako DANE DO LICZENIA WYDAJNOSCI przy planowaniu mielenia nagran — nie jako spor o nazwe. Klaudek zamyka temat.
+
+
+==============================================================================
+## SESJA 13.08.2026 14:35 CEST
+==============================================================================
+
+13.08.2026 14:4x CEST — NADROBIENIE DZIENNIKA HA. Tomasz: 'Second brain i teleport? Od kiedy pierdolisz zapisy'. MIAL RACJE, POMIAR TO POTWIERDZA: dzis TELEPORT_fabryka dostal 32 wpisy, a TELEPORT_HA tylko 2 (oba o nazwie serwera). Cala robota na HA DZIALKA — kamery HiLook, go2rtc, NVR, nagrania — poszla do dziennika FABRYKI zamiast tutaj. To ten sam blad, przed ktorym ostrzega moja wlasna pamiec ('TELEPORT_HA zapomniany 15,5 dnia'). NADRABIAM CALOSC DNIA W ZAKRESIE HA: (1) KAMERY HILOOK ODBLOKOWANE — poswiadczenia URZADZENIA (inne niz konto Hik-Connect) przyszly od Tomasza Telegramem; ISAPI 200 na .110 NVR-4CH-5MP fw V4.76.010, .111 'Kamera brama', .112 'KAMERA 2', .114 'Kamera4'; .113 nadal 401 — ZAKAZ dalszych prob (blokada po 5 nieudanych na 30 min, zrobiono juz ok. 15). Kanal 3 'Rog' martwy (RTSP 404, 0x0). (2) STRUMIENIE: main 101 hevc 1280x720 20fps, 201 hevc 2560x1440, 401 hevc 1280x720; sub 102/202/402 hevc 640x360 8fps 128 kb/s. NAGRANIA na NVR sa w H.264 ~3072 kb/s. (3) GO2RTC (dodatek a889bffc_go2rtc 1.9.14, API 1984 dosiegalne z VPS): dodane 3 strumienie rod_brama=101, rod_kamera2=201, rod_kamera4=401 — Klaudek wpial MAIN, a zaloga wskazala SUB; do poprawy. Watchdog dodatku nadal FALSE — do wlaczenia. (4) MINIATURY: go2rtc nie robi klatki z H.265 (frame.jpeg 0 bajtow), ale KAMERA robi — ISAPI /Streaming/channels/<kanal>/picture zwraca JPEG 82-173 KB (znalezisko Henia). To jest droga do miniatur w Lovelace bez transkodowania. (5) WIDOK DOCELOWY: dashboard 'lovelace' views[6] path=kamery, 8 kart custom:advanced-camera-card; z tego DZIALA 6, a fotowoltaika_wysoka_rozdzielczosc i garaz_wysoka_rozdzielczosc sa unavailable od 12.08 12:20 — przyczyne podal Tomasz: kamery WiFi bez nowych danych sieci po zmianie routera, do wpisania na miejscu. WiFi na dzialce Tomasz zglosil jako GOTOWE. (6) N150: ffmpeg 8.1.2 + ffprobe doinstalowane przez opcje packages dodatku Advanced SSH + restart; dekodery hevc/h264 w tym h264_qsv, hwaccels vaapi/qsv; przezylo restart dodatku, aktualizacji HAOS — NIE WIEM. Katalog /share/kuny z podkatalogami, skrypt /share/kuny/pobierz_noc.sh (700), poswiadczenia /share/kuny/cred/nvr.env (600) wgrane STDIN-em, nie w argumentach. (7) POBIERANIE PIERWSZEJ NOCY leci: noc 24/25.07 kanal 4, tempo ok. 908 kb/s, ffmpeg 0,6-0,9% CPU, load bez zmian, 416 GB wolnego. (8) PELNY KANON: wiedza/KUNY_MONITORING.md na VPS + /areas/kuny-monitoring.md w pamieci Klaudka.
+
+
+==============================================================================
+## SESJA 13.08.2026 15:20 CEST
+==============================================================================
+
+13.08.2026 15:2x CEST — KAMERY HILOOK DZIALAJA W HA DZIALKA. Potwierdzil Tomasz: 'Kamery w HA dzialaja'. CO ZOSTALO ZROBIONE: (1) do go2rtc dodane SUBSTRUMIENIE rod_brama_sub=102, rod_kamera2_sub=202, rod_kamera4_sub=402 (obok wczesniejszych main 101/201/401) — grid leci na substrumieniach, main zostaje na pelny ekran, zgodnie z zaleceniem Zenka i Henia; razem 10 strumieni w go2rtc; (2) WATCHDOG dodatku go2rtc WLACZONY (byl FALSE — po awarii dodatek nie wstawal sam, a Tomasz jest 600 km stad); (3) w /config/configuration.yaml dopisane trzy kamery platform ffmpeg wzorem istniejacych Xiaomi: 'ROD Brama', 'ROD Kamera 2', 'ROD Kamera 4', input rtsp://100.115.112.5:8554/<strumien> — BEZ hasla w konfiguracji HA, bo poswiadczenia trzyma go2rtc; kopia zapasowa /config/configuration.yaml.bak-13.08-kamery; (4) sprawdzenie konfiguracji przed restartem: valid; restart HA wykonany (encje YAML camera powstaja tylko po restarcie); (5) po restarcie encje ISTNIEJA i sa idle: camera.rod_brama, camera.rod_kamera_2, camera.rod_kamera_4; (6) trzy karty custom:advanced-camera-card dolozone NA KONIEC widoku views[6] path=kamery, kolejnosc rod_kamera_4 (priorytet — auta pod drzewami), rod_kamera_2, rod_brama; write_committed=true, post_write_verified=true. POBIERANIE NOCY 24/25.07 PRZETRWALO RESTART HA (ffmpeg chodzi w dodatku SSH, niezaleznie od core) — 393 MB w chwili restartu. UWAGA NA PRZYSZLOSC: podglad leci w H.265 640x360 8 fps; telefon Tomasza (Chrome 151) to odtwarza, ale jesli kafelek gdzies bedzie czarny — przelaczyc na main albo zmienic ustawienia kamery przez ISAPI (sprzet Tomasza, wolno).
+
+
+==============================================================================
+## SESJA 13.08.2026 15:24 CEST
+==============================================================================
+
+13.08.2026 15:3x CEST — KANAL 3 / KAMERA .113: PRZYCZYNA USTALONA, NIE ZGADNIETA. Tomasz postawil hipoteze: 'Albo nie dziala wogole albo zostala dolozona ponownie i brakuje tam hasla'. POMIAR ROZSTRZYGA NA KORZYSC DRUGIEJ. (1) NVR pytany o swoje kanaly cyfrowe (ISAPI /ContentMgmt/InputProxy/channels) mowi: kanal 1 = .111, kanal 2 = .114, kanal 3 = .113, kanal 4 = .112, wszystkie protokol HIKVISION, port 8000, uzytkownik admin. UWAGA: numeracja kanalow NVR NIE ODPOWIADA numeracji adresow — kanal 2 to .114 (Kamera4), a kanal 4 to .112 (KAMERA 2). (2) STAN POLACZENIA (/InputProxy/channels/status): kanaly 1,2,4 ONLINE=true 'connect'; KANAL 3 ONLINE=false, powod dokladnie: 'errorUserNameOrPasswd'. Czyli NVR probuje sie logowac i dostaje odmowe — to NIE jest zerwany kabel ani martwa kamera. (3) KAMERA .113 ZYJE: ping 3/3 pakiety, 0% strat, 30 ms; porty otwarte 80, 443, 554, 8000. (4) INNY MODEL NIZ POZOSTALE: naglowek WWW-Authenticate realm dla .113 to 'IP Camera(FQ921)', a dla .111/.112/.114 'IP Camera(FG092)'. Rozny realm = inna rodzina urzadzenia. WNIOSEK: kamera zostala DOLOZONA albo WYMIENIONA na inny model, ma wlasne haslo, ktorego nikt nie wpisal do NVR — dokladnie druga hipoteza Tomasza. ZERO prob logowania do .113 w tej turze (D-0072 respektowany). DROGI WYJSCIA: (a) jesli ktos zna haslo tej kamery — wpisac je w NVR (PUT InputProxy kanal 3), robota na 5 minut, zdalnie; (b) jesli nikt nie zna — reset: przycisk RESET na kamerze przy wizycie (darmowy, natychmiastowy) albo procedura wsparcia HiLook z plikiem resetujacym, ktora WYMAGA narzedzia SADP w tej samej sieci LAN (multicast, nie przejdzie przez Tailscale) — czyli i tak ktos musi byc fizycznie na dzialce.
+
+
+==============================================================================
+## SESJA 13.08.2026 15:59 CEST
+==============================================================================
+
+13.08.2026 15:4x CEST — .113: OBA HASLA SPRAWDZONE, ZADNE NIE PASUJE. Tomasz: 'Hasla dalem Ci dwa'. Faktycznie sa dwa komplety: A w /root/.sekrety/wartosci.env (login 5 znakow, haslo 14) i B w /root/.hilook_cred (login 5, haslo 10) — hasla ROZNE. POMIAR: po JEDNEJ probie kazdym kompletem na .113 (po wygasnieciu blokady, ponad 3 h od poprzedniej serii) — OBA HTTP 401. Komplet A otwiera NVR .110 i kamery .111/.112/.114; komplet B nie otwiera niczego (to zapewne stare haslo sprzed zmiany). WNIOSEK OSTATECZNY: .113 ma TRZECIE haslo, ktorego nie ma ani Tomasz, ani NVR. W polaczeniu z innym realm ('IP Camera(FQ921)' kontra 'IP Camera(FG092)') potwierdza sie, ze to inna kamera dolozona osobno. DO ZROBIENIA PRZY NAJBLIZSZEJ WIZYCIE NA DZIALCE (lista rosnie): (1) reset .113 przyciskiem na obudowie, potem ustawic haslo z kompletu A i adres 192.168.3.113, wpisac w NVR kanal 3; (2) kamery WiFi Fotowoltaika i Garaz — wpisac nowe dane sieci (unavailable od 12.08); (3) kanal 3 'Rog' — sprawdzic tez kabel/zasilanie, bo NVR pokazuje errorUserNameOrPasswd, ale dopiero po zalogowaniu bedzie wiadomo, czy kamera w ogole nadaje. Zgloszenie do wsparcia HiLook NIE przyspieszy — procedura resetu wymaga SADP w sieci LAN dzialki (multicast nie przejdzie przez Tailscale), czyli i tak kogos na miejscu.
+
+
+==============================================================================
+## SESJA 13.08.2026 19:14 CEST
+==============================================================================
+
+13.08.2026 19:1x CEST — LINKSYS: DROGA ZAPISANA. Tomasz: 'Robiles to przez taliscale' — potwierdzam, tak. Wejscie na router to JNAP API z VPS przez Tailscale (trase 192.168.3.0/24 oglasza homeassistant-1/N150): POST http://192.168.3.1/JNAP/ z naglowkiem X-JNAP-Action devicelist/GetDevices, BEZ autoryzacji. Router: Linksys WRT1900ACS, firmware 2.0.2.188405 z 2018, sieci ROD_Wozniki_2 i _5GHz, 147 wpisow urzadzen, 25 podlaczonych. NAZWY KAMER: .110 'Recodder', .111/.112/.114 pelne modele DS-2CD1041G0-I-PL z numerami seryjnymi i MAC 74:3F:C2 (Hikvision), .113 'RODZARZAD' z MAC D8:0F:99 — INNY producent karty sieciowej; nazwa RODZARZAD wystepuje tez pod .102 i .21, wiec to reczna etykieta w routerze, nie nazwa kamery. NIE PROBOWAC PRZEZ APLIKACJE LINKSYS: to WebView, mapa elementow rozjezdza sie z obrazem — 13.08 moje tapniecia odpalily test predkosci i fast.com zamiast listy urzadzen; przegladarka mobilna tez odpada (panel odrzuca). Procedura dopisana do wiedza/KUNY_MONITORING.md pkt 11 — wczesniej NIE BYLO jej nigdzie, dlatego Tomasz musial mi ja przypominac.
+
+
+==============================================================================
+## SESJA 13.08.2026 19:34 CEST
+==============================================================================
+
+13.08.2026 19:3x CEST — TOPOLOGIA SIECI ROD, KOREKTA OD TOMASZA: 'Sasiadow. Moj pierwszy to MR600 Maksys'. USTALONE: siec Linksysa (192.168.3.0/24) to WSPOLNA siec ROD, w ktora kazdy dzialkowiec wpial swoj router — stad kilkanascie obcych urzadzen. POMIAR (JNAP devicelist/GetDevices): 19 urzadzen sieciowych, 13 podlaczonych teraz, 6 w historii. Podlaczone: MiWiFi-R4A .26, Archer A8 .29, Archer A6 .40, Archer A6 .73, Archer AX1800 .117, D-Link DIR825 .124, Archer AX55Pro .152, RouterMR600Maksys .188, TL-WR844N .193, switche TL-SG105E .104 i TL-SG108E .45, Archer C6 bez adresu (169.254.138.97 = adres awaryjny, nie dostal DHCP). W historii: Archer C20, TL-WR841N, deco-E4R, dwa dlinkap. WLASNOSC: WSZYSTKIE POZA MR600 to sprzet SASIADOW — Tomasz potwierdzil wprost. JEGO PIERWSZY ROUTER NA DZIALCE TO 'RouterMR600Maksys' pod 192.168.3.188 (TP-Link MR600 = router LTE). Klaudek wczesniej zgadywal, ze jego jest Archer AX55 Pro .152 — to bylo ZALOZENIE z pamieci o meshu, NIE potwierdzone; wlascicielstwo .152 pozostaje NIEUSTALONE do slowa Tomasza. WNIOSEK O TOPOLOGII: Linksys nie widzi ZADNEGO adresu 192.168.0.x — sieci sa rozdzielne, kamery Tomasza (Xiaomi, Reolink .207, Tuya) siedza za jego wlasnym routerem jako siec w sieci; przejscie miedzy nimi istnieje TYLKO przez Tailscale na N150.
+
+
+==============================================================================
+## SESJA 13.08.2026 19:36 CEST
+==============================================================================
+
+13.08.2026 19:3x CEST — WLASNOSC ROUTEROW USTALONA, koniec zgadywania. Tomasz: 'AX55 pro to moj. Podpiety jako drugi po mr600'. TOMASZ MA W SIECI ROD DWA WLASNE URZADZENIA: (1) RouterMR600Maksys 192.168.3.188 — PIERWSZY, router LTE; (2) ArcherAX55Pro 192.168.3.152 — DRUGI, podpiety po MR600, to ten kupiony pod OneMesh. Wszystkie pozostale to SASIEDZI: MiWiFi-R4A .26, Archer A8 .29, Archer A6 .40, Archer A6 .73, Archer AX1800 .117, D-Link DIR825 .124, TL-WR844N .193, switche TL-SG105E .104 i TL-SG108E .45, Archer C6 bez DHCP (169.254.138.97) oraz w historii Archer C20, TL-WR841N, deco-E4R, dwa dlinkap. LANCUCH: Linksys WRT1900ACS (.1, wspolna siec ROD) -> MR600 Maksys (.188) -> AX55 Pro (.152) -> wlasna siec Tomasza 192.168.0.x (kamery Xiaomi, Reolink .207, jacuzzi .115, N150 .250). Linksys nie widzi ZADNEGO adresu 192.168.0.x. Zapisane tez w pamieci Klaudka /areas/wifi-mesh-dzialka.md. To zamyka pytanie, ktore wracalo przy kazdej pracy nad siecia dzialki.

@@ -1,0 +1,31 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Oto analiza pliku wideo `@work/_seans_v3_480.mp4`:
+
+0) **DOWÓD WCZYTANIA:**
+   - **~2s:** Prezenter (starszy mężczyzna w zielonej kamizelce) siedzi przy drewnianym biurku, na którym leży otwarty notes i stoi szklanka herbaty w metalowym koszyczku. Plan średni (od pasa w górę), w tle widać półki z segregatorami i słoikami oraz okno z widokiem na ogród.
+   - **~34s:** Zbliżenie (detal) na dół wykopu przy siatce ogrodzeniowej, widoczne są odsłonięte korzenie w ziemi.
+
+1) **ORIENTACJA (9-45s):**
+   - **21s:** Obraz obrócony na bok (koparka poziomo).
+   - **22s:** Obraz obrócony na bok (ludzie i koparka poziomo).
+   - **23s:** Obraz obrócony na bok (koparka poziomo).
+   - **24s:** Obraz obrócony na bok (człowiek poziomo).
+   - **25s:** Obraz obrócony na bok (ogrodzenie i koparka poziomo).
+   - **39s:** Obraz obrócony na bok (drzewa i teren poziomo).
+   - **40s:** Obraz obrócony na bok (drzewa i niebo poziomo).
+   - **41s:** Obraz obrócony na bok (teren poziomo).
+   - **42s:** Obraz obrócony na bok (teren poziomo).
+   - **43s:** Obraz obrócony na bok (teren poziomo).
+   - Pozostałe sekundy w tym przedziale są prosto.
+
+2) **PRZEŚWITUJĄCY PREZENTER / EKRAN DZIELONY (9-45s):**
+   - Nie widać prześwitującego prezentera ani ekranu dzielonego. Przebitki są pełnoekranowe (z czarnymi pasami góra/dół w przypadku ujęć poziomych).
+
+3) **ZAMROŻONE KLATKI / CZARNE WSTAWKI:**
+   - Brak całkowicie czarnych wstawek (poza pasami w ujęciach poziomych).
+   - Brak ewidentnie zamrożonych klatek (obraz jest ruchomy).
+
+4) **OCENA:**
+   - **2/10**
+   - **PUBLIKOWAĆ:** **NIE**. Liczne ujęcia są obrócone o 90 stopni (widz musiałby obracać telefon), co jest błędem montażowym dyskwalifikującym materiał do publikacji. Ujęcia poziome powinny być albo wykadrowane do pionu, albo pozostać poziome z "blur" w tle, a nie obrócone na bok.
+EXIT=0

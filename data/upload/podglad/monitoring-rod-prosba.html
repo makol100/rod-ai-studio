@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitoring ROD — czego potrzebujemy od właściciela nagrywarki</title>
+<style>
+ body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55;max-width:820px;margin:0 auto;padding:18px;color:#111}
+ h1{font-size:1.5rem;border-bottom:3px solid #1a6;padding-bottom:8px}
+ h2{font-size:1.2rem;margin-top:32px;background:#f0f7f3;padding:8px 12px;border-left:5px solid #1a6}
+ h3{font-size:1.02rem;margin-bottom:4px}
+ .box{border:2px solid #ddd;border-radius:8px;padding:12px 16px;margin:14px 0;background:#fafafa}
+ .msg{border:2px dashed #888;background:#fffdf0;padding:14px 16px;border-radius:8px;white-space:pre-wrap}
+ .warn{border-left:5px solid #c33;background:#fff5f5;padding:10px 14px;margin:14px 0}
+ ol li,ul li{margin-bottom:7px}
+ table{border-collapse:collapse;width:100%;margin-top:10px;font-size:.92rem}
+ td,th{border:1px solid #ccc;padding:6px 8px;text-align:left;vertical-align:top}
+ th{background:#f0f0f0}
+ code{background:#eee;padding:1px 5px;border-radius:3px;font-size:.92em}
+ .small{color:#555;font-size:.88rem}
+ @media print{h2{background:none}}
+</style>
+</head>
+<body>
+
+<h1>Monitoring ROD im. J. Lompy — czego potrzebujemy od właściciela nagrywarki</h1>
+<p class="small">Dokument roboczy · 13.08.2026 · dotyczy nagrywarki HiLook w Domu Działkowca i 4 kamer</p>
+
+<div class="box">
+<h3>Sytuacja w jednym zdaniu</h3>
+<p>Nagrywarka jest <b>udostępniona</b> Tomaszowi jako gościowi — widzi obraz na żywo i to wszystko.
+Nie ma żadnych powiadomień o ruchu i nie da się wpiąć kamer do systemu ROD, bo <b>uprawnienia gościa na to nie pozwalają</b>.
+Wszystko, czego brakuje, może odblokować <b>tylko właściciel konta</b>, na którym nagrywarka jest zarejestrowana.</p>
+</div>
+
+<div class="warn">
+<b>Czego NIE potrzebujemy — żeby nie było nieporozumień:</b>
+<ul>
+<li>NIE potrzebujemy hasła do jego konta Hik-Connect / HiLook.</li>
+<li>NIE potrzebujemy hasła do routera ani do internetu.</li>
+<li>NIE chcemy nic kasować, przestawiać ani przenosić. Nagrywarka zostaje jego, tam gdzie jest.</li>
+<li>NIE musi nic kupować. Wszystko jest do zrobienia w telefonie albo na miejscu, za darmo.</li>
+</ul>
+</div>
+
+<h2>KROK 1 (najważniejszy, 2 minuty w telefonie) — udostępnić z pełnymi uprawnieniami</h2>
+<p>Dziś udostępnienie ma najniższy poziom: tylko podgląd. Trzeba dołożyć resztę.</p>
+<ol>
+<li>Otwiera aplikację <b>HiLook</b> (albo Hik-Connect) na swoim telefonie.</li>
+<li>Wchodzi w nagrywarkę → <b>Ustawienia</b> (ikona trzech kropek / koła zębatego).</li>
+<li>Szuka pozycji <b>Udostępnianie</b> / <b>Udostępnij urządzenie</b> — i wybiera osobę, której udostępnił (Tomasz).</li>
+<li>Zaznacza <b>WSZYSTKIE uprawnienia</b>, a szczególnie:
+  <ul>
+  <li><b>Podgląd na żywo</b></li>
+  <li><b>Odtwarzanie nagrań</b> (żeby dało się cofnąć do zdarzenia)</li>
+  <li><b>Powiadomienia o alarmach</b> ← <b>to jest to, czego dziś brakuje</b></li>
+  <li><b>Konfiguracja / ustawienia urządzenia</b>, jeśli taka pozycja jest dostępna</li>
+  </ul>
+</li>
+<li>Zapisuje.</li>
+</ol>
+<p class="small">Efekt: Tomasz zaczyna dostawać na telefon powiadomienia, kiedy coś się rusza przy bramie i wejściu. Nic więcej nie trzeba.</p>
+
+<h2>KROK 2 — włączyć wykrywanie ruchu na kamerach</h2>
+<p>Sprawdziliśmy: z tej instalacji <b>nie wyszło ani jedno powiadomienie</b> — lista zdarzeń jest zupełnie pusta.
+To znaczy, że kamery mają wyłączone wykrywanie ruchu albo nie mają zaznaczonego wysyłania alarmu.</p>
+<p>Do zrobienia dla każdej kamery (na monitorze podłączonym do nagrywarki albo w aplikacji):</p>
+<ol>
+<li>Menu nagrywarki → <b>Kamera</b> → <b>Detekcja ruchu</b> (Motion Detection).</li>
+<li><b>Włączyć</b> detekcję i zaznaczyć cały obszar obrazu (albo sam wjazd i wejście).</li>
+<li>W <b>Metoda powiadamiania</b> / <b>Powiązanie</b> zaznaczyć: <b>Powiadom centrum nadzoru</b> (Notify Surveillance Center) — bez tego alarm nigdzie nie idzie.</li>
+<li>Zapisać i powtórzyć dla pozostałych kamer.</li>
+</ol>
+
+<h2>KROK 3 — jedna kamera nie działa</h2>
+<p>Kanał podpisany <b>„Rog"</b> jest <b>offline</b> — nie nadaje obrazu. Pozostałe (Wjazd, Wejscie i czwarta) działają.</p>
+<p>Do sprawdzenia na miejscu: zasilanie i wtyk sieciowy tej kamery w nagrywarce (kabel LAN/PoE), ewentualnie przełożenie jej kabla do innego wolnego gniazda w nagrywarce — jeśli ruszy, wina jest w gnieździe, nie w kamerze.</p>
+
+<h2>KROK 4 — konto do wpięcia kamer w system ROD (opcjonalne, ale to jest cel)</h2>
+<p>Żeby obraz i alarmy trafiły do systemu Tomasza (i żeby dało się robić automaty: powiadomienie, nagranie, zapis zdarzeń),
+potrzebne jest <b>zwykłe konto na samej nagrywarce</b> — nie na koncie w chmurze.</p>
+<ol>
+<li>Menu nagrywarki → <b>System</b> → <b>Użytkownik</b> → <b>Dodaj</b>.</li>
+<li>Nazwa użytkownika: np. <code>tomasz</code>.</li>
+<li>Typ konta: <b>Operator</b> (albo Gość z podglądem). <b>Nie trzeba dawać administratora.</b></li>
+<li>Uprawnienia zdalne: zaznaczyć <b>Podgląd na żywo</b> i <b>Odtwarzanie</b>.</li>
+<li>Hasło: ustawia dowolne, byle silne — i przekazuje je Tomaszowi.</li>
+</ol>
+<div class="warn">
+<b>Jak przekazać hasło — ważne:</b> nie SMS-em w jednej wiadomości z nazwą użytkownika.
+Najprościej: powie je Tomaszowi <b>przez telefon</b>, albo zapisze na kartce.
+Hasło zostaje między nimi — nigdzie go nie wklejamy.
+</div>
+
+<h2>Gotowa wiadomość do wysłania (do skopiowania)</h2>
+<div class="msg">Cześć. Mam prośbę w sprawie monitoringu w Domu Działkowca.
+
+Widzę tylko obraz na żywo, ale nie dostaję żadnych powiadomień, jak coś się dzieje przy bramie — i to jest dla mnie najważniejsze, bo jestem daleko.
+
+Trzy rzeczy, wszystkie do zrobienia w telefonie w kilka minut:
+
+1. W aplikacji HiLook wejdź w nagrywarkę → Udostępnianie → moje konto i zaznacz WSZYSTKIE uprawnienia, szczególnie „powiadomienia o alarmach" i „odtwarzanie". Teraz mam tylko podgląd.
+
+2. W ustawieniach kamer włącz „detekcja ruchu" i zaznacz „powiadom centrum nadzoru". Bez tego nagrywarka nie wysyła żadnego alarmu — sprawdziłem, lista zdarzeń jest pusta.
+
+3. Kamera podpisana „Rog" nie działa — jest offline. Warto sprawdzić jej kabel przy nagrywarce.
+
+I jedna dodatkowa rzecz, jak będziesz miał chwilę: załóż mi na nagrywarce zwykłe konto (operator, tylko podgląd i odtwarzanie) i podaj mi hasło przez telefon. Wtedy wepnę kamery do systemu ROD i będziemy mieli powiadomienia na stałe, bez ruszania Twoich ustawień.
+
+Nic nie kasuję i nic Ci nie przestawiam — nagrywarka zostaje Twoja i tam gdzie jest. Dzięki.</div>
+
+<h2>Załącznik dla instalatora (gdyby ktoś to robił fachowo)</h2>
+<table>
+<tr><th>Element</th><th>Ustalone pomiarem</th></tr>
+<tr><td>Nagrywarka (NVR)</td><td>HiLook/Hikvision, adres <code>192.168.3.110</code>, porty otwarte 80 / 554 / 8000, brak 443</td></tr>
+<tr><td>Kamery</td><td><code>192.168.3.111</code>, <code>.112</code>, <code>.114</code> (typ FG092) oraz <code>.113</code> (typ FQ921); porty 80 / 443 / 554 / 8000</td></tr>
+<tr><td>ONVIF</td><td>wyłączony — <code>/onvif/device_service</code> zwraca 404 na wszystkich pięciu urządzeniach</td></tr>
+<tr><td>ISAPI</td><td>odpowiada, żąda uwierzytelnienia (401 Digest) — brakuje wyłącznie konta i hasła urządzenia</td></tr>
+<tr><td>Potrzebne konto</td><td>poziom operator, uprawnienia zdalne: podgląd na żywo + odtwarzanie (dostęp ISAPI/RTSP)</td></tr>
+<tr><td>Strumienie RTSP</td><td>kanały <code>101/201/301/401</code> (główny) i <code>102/202/302/402</code> (pomocniczy)</td></tr>
+<tr><td>Alarmy</td><td>na każdej kamerze: detekcja ruchu ON + powiązanie „Notify Surveillance Center"</td></tr>
+<tr><td>Stan kanałów</td><td>Wjazd — OK; Wejscie — OK; „Rog" — OFFLINE; czwarty kanał — do potwierdzenia</td></tr>
+</table>
+
+<p class="small" style="margin-top:34px">Wszystkie powyższe ustalenia pochodzą z pomiaru wykonanego 13.08.2026 — podgląd na żywo z kanału „Wjazd" działał o godz. 8:34.
+Do nagrywarki nie wykonano żadnych prób logowania ani żadnych zmian w konfiguracji.</p>
+
+</body>
+</html>

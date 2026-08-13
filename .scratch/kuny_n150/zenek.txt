@@ -1,0 +1,228 @@
+## POTWIERDZONE
+
+### P1. Plan jednej nocy — kanał 4
+
+1. **[O] Najpierw pobrać noc lokalnie na N150 bez transkodowania.** Osiem godzin przy 3072 kb/s zajmie około **11,06 GB**, czyli 2,7% z 416 GB wolnego. Parametry nagrania i archiwum potwierdza [TELEPORT_fabryka.md](/root/rod-ai-studio/TELEPORT_fabryka.md:206).
+
+```bash
+umask 077
+
+NOC=20260812
+START=20260812T190000Z
+KONIEC=20260813T030000Z
+BAZA=/share/kuny/$NOC
+mkdir -p "$BAZA"/{raw,klatki,kandydaci}
+
+nice -n 15 ffmpeg -nostdin -hide_banner -loglevel warning \
+  -rtsp_transport tcp \
+  -i "rtsp://NVR/Streaming/tracks/401/?starttime=${START}&endtime=${KONIEC}" \
+  -map 0:v:0 -an -c:v copy \
+  -movflags +faststart \
+  "$BAZA/raw/kanal4.mp4"
+```
+
+Polecenie celowo nie zawiera użytkownika ani hasła. **Gotowej, sprawdzonej metody podania poświadczeń ffmpeg bez pojawienia się ich w argumentach procesu NIE MA W MATERIALE.** Tego elementu nie wolno wdrożyć przez jawne `user:hasło@...`.
+
+2. **[O] Nie używać `select=gt(scene,...)` jako docelowego detektora kuny.** FFmpeg opisuje `scene`/`scdet` jako wykrywanie zmiany sceny, nie śledzenie małego obiektu. Filtr zwraca globalny wynik różnicy obrazu, więc przełączenie IR albo światła może dostać wyższy wynik niż kuna. [Dokumentacja filtrów FFmpeg](https://ffmpeg.org/ffmpeg-filters.html).
+
+Można go użyć wyłącznie do taniego pilota na ROI:
+
+```bash
+ROI_W=640
+ROI_H=260
+ROI_X=600
+ROI_Y=180
+
+nice -n 15 ffmpeg -nostdin -hide_banner \
+  -threads 1 \
+  -i "$BAZA/raw/kanal4.mp4" \
+  -vf "fps=4,crop=${ROI_W}:${ROI_H}:${ROI_X}:${ROI_Y},scale=640:-2,format=gray,select='gt(scene,0.006)',showinfo" \
+  -fps_mode vfr \
+  "$BAZA/klatki/%08d.jpg" \
+  2>"$BAZA/scena.log"
+```
+
+Wartości `ROI_*` oraz próg `0.006` są **HIPOTEZĄ kalibracyjną**, nie parametrami potwierdzonymi na nagraniu.
+
+3. **[O] Docelowo zastosować różnicę klatek po stabilizacji tła**, 4 fps, tylko w ROI aut. Logika:
+
+```text
+klatka → skala szarości → lekki blur → model tła
+→ maska różnicy → otwarcie/zamknięcie morfologiczne
+→ spójne obszary → filtr powierzchni i toru ruchu
+→ grupowanie trafień odległych o mniej niż 3 s
+```
+
+OpenCV dokumentuje modelowanie tła MOG2/KNN jako metodę wydzielania ruchomych obiektów ze statycznej kamery. [Dokumentacja OpenCV](https://docs.opencv.org/4.x/d1/dc5/tutorial_background_subtraction.html).
+
+**OpenCV na N150 nie zostało potwierdzone.** Z briefu wynika jedynie Python 3.14.5 oraz FFmpeg 8.1.2. Gotowego polecenia Python nie podaję, bo nie istnieje jeszcze sprawdzony skrypt ani zmierzone progi.
+
+4. **[O] Kandydatów ciąć z lokalnej kopii**, po 10 sekund przed i 20 sekund po trafieniu:
+
+```bash
+while IFS= read -r T; do
+  OUT=$(printf '%06d' "$((++N))")
+  ffmpeg -nostdin -hide_banner -loglevel error \
+    -ss "$T" -i "$BAZA/raw/kanal4.mp4" \
+    -t 30 -map 0:v:0 -an -c:v copy \
+    -movflags +faststart \
+    "$BAZA/kandydaci/k4_${NOC}_${OUT}.mp4"
+done < "$BAZA/czasy_startu.txt"
+```
+
+`czasy_startu.txt` musi zawierać początki już przesunięte o 10 sekund wstecz.
+
+---
+
+### P2. Czas i CPU
+
+1. **Pewne minimum czasu: 8 godzin**, jeżeli RTSP playback z NVR podaje materiał w czasie rzeczywistym. Czy ten NVR umie wypuścić archiwum szybciej niż 1× — **NIE WIEM; nie zmierzono**.
+
+2. Obliczalna ilość pracy:
+
+- 8 h × 20 fps = **576 000 dekodowanych klatek**;
+- analiza 4 fps = **115 200 klatek**;
+- surowy plik = około **11,06 GB**.
+
+3. Dokładne CPU i szybkość i3-6006U — **NIE WIEM bez pomiaru na N150**. Sama nazwa procesora nie daje uczciwego procentu CPU. Należy zmierzyć 10 minut:
+
+```bash
+/usr/bin/time -v nice -n 15 ffmpeg -nostdin -hide_banner \
+  -threads 1 \
+  -ss 0 -t 600 \
+  -i "$BAZA/raw/kanal4.mp4" \
+  -vf "fps=4,crop=${ROI_W}:${ROI_H}:${ROI_X}:${ROI_Y},scale=640:-2,format=gray,select='gt(scene,0.006)'" \
+  -f null -
+```
+
+Przeliczenie:
+
+```text
+czas całej nocy = czas pomiaru × 48
+średni udział jednego rdzenia = user_time / czas_rzeczywisty × 100%
+```
+
+4. **QSV/VAAPI najpierw testować, nie zakładać.** FFmpeg ostrzega, że filtry wykonywane na CPU mogą wymagać kopiowania klatek z GPU do RAM, a sprzętowe dekodowanie nie zawsze jest szybsze. `-hwaccels` dowodzi obecności komponentu w buildzie, nie działającego sterownika. [Dokumentacja FFmpeg](https://www.ffmpeg.org/ffmpeg.html).
+
+Test QSV:
+
+```bash
+ffmpeg -nostdin -hide_banner \
+  -init_hw_device qsv=qs:hw,child_device=/dev/dri/renderD128 \
+  -hwaccel qsv -hwaccel_device qs -c:v h264_qsv \
+  -t 600 -i "$BAZA/raw/kanal4.mp4" \
+  -vf "hwdownload,format=nv12,fps=4,crop=${ROI_W}:${ROI_H}:${ROI_X}:${ROI_Y},scale=640:-2" \
+  -f null -
+```
+
+Jeżeli test przejdzie i CPU będzie niższe, użyć QSV. Jeśli nie — software z `-threads 1`.
+
+5. Ograniczenia bez dodatkowych pakietów:
+
+```bash
+nice -n 19 taskset -c 3 ffmpeg -threads 1 ...
+```
+
+To ogranicza proces do **jednego z czterech logicznych CPU**, czyli maksymalnie około **100% jednego logicznego CPU / 25% całej raportowanej puli**. `nice` daje HA pierwszeństwo przy konkurencji. `cpulimit` na N150 nie został potwierdzony.
+
+---
+
+### P3. Odsiew pod kunę
+
+1. **ROI jest konieczne.** Kamera 4 widzi auta i roślinność nad nimi; ten stan zapisano w [TELEPORT_fabryka.md](/root/rod-ai-studio/TELEPORT_fabryka.md:227). Analiza całego kadru celowo wciąga kołyszące się drzewa i napis „Śmietnik”.
+
+2. ROI powinno obejmować:
+
+- dachy i maski aut;
+- pas 0,5–1 wysokości auta nad dachami;
+- wąskie połączenie roślinność → dach;
+- bez korony drzew poza tym przejściem.
+
+3. Bez ręcznego klikania można poprosić Genka o zwrot prostokątów `x,y,w,h` na pełnej klatce i sprawdzić je przez narysowanie ramek. **Dokładnych współrzędnych NIE WIEM**, bo obecna opinia Genka opisuje obraz, lecz nie zawiera koordynatów.
+
+4. Proponowane filtry, wszystkie wymagają kalibracji:
+
+- odrzucić zmianę zajmującą ponad **35% ROI** — IR/światło;
+- odrzucić obszary dotykające krawędzi kadru i trwające prawie nieruchomo ponad **10 s** — owad/pajęczyna;
+- wymagać ruchu środka obiektu o co najmniej **10 px w 1 s**;
+- przyjąć obiekt zajmujący początkowo **0,05–5% ROI**;
+- wymagać trafień w minimum **2 z 4 kolejnych próbek**, ale nie ciągłego falowania przez wiele minut.
+
+To są **HIPOTEZY startowe**. Bez ręcznie oznaczonego fragmentu z deszczem, IR, gałęziami i małym zwierzęciem nie ma potwierdzonego progu.
+
+---
+
+### P4. Co wysyłać na VPS
+
+1. Format: **MP4, H.264 kopiowane bez rekompresji, bez audio, `faststart`**.
+
+2. Długość: **30 s** — 10 s przed i 20 s po początku ruchu.
+
+3. Rozmiar przy 3072 kb/s:
+
+- 1 klip: **11,52 MB**;
+- limit 30 klipów: **345,6 MB**;
+- limit 50 klipów: **576 MB**.
+
+Ile rzeczywiście powstanie jednej nocy — **NIE WIEM**. `30–50` to limit kolejki, nie prognoza.
+
+4. Preferuję `rsync` po SSH przez adres Tailscale, bo wznawia niedokończony transfer:
+
+```bash
+nice -n 19 rsync -av --partial --append-verify \
+  --bwlimit=512 \
+  "$BAZA/kandydaci/" \
+  vps-kuny:/srv/kuny/"$NOC"/
+```
+
+`--bwlimit=512` oznacza około **512 KiB/s ≈ 4,2 Mb/s**. Nazwa hosta i katalog VPS są przykładowe — rzeczywiste **NIE SĄ podane w materiale**. Tailscale oficjalnie wspiera przesyłanie przez SCP/SFTP po SSH. [Dokumentacja Tailscale](https://tailscale.com/docs/features/tailscale-ssh).
+
+---
+
+### P5. Ryzyka i koszt
+
+1. **HA ucierpi od analizy.** Zapobieganie: jedna noc i jeden proces, `nice -n 19`, jeden logiczny CPU, pomiar 10 minut oraz przerwanie przy pogorszeniu HA.
+
+2. **Fałszywe alarmy z drzew, IR i owadów.** Zapobieganie: ciasny ROI aut, filtry powierzchni/czasu/toru, kalibracja na jednej godzinie przed nocą.
+
+3. **Zapchanie SSD.** Jedna noc to 11,06 GB; zachowanie 30 nocy oznaczałoby około **332 GB**. Zapobieganie: maksymalnie jedna surowa noc naraz i usunięcie jej dopiero po sprawdzeniu kandydatów. Usuwanie będzie krokiem nieodwracalnym.
+
+4. **Zapchanie uplinku.** Zapobieganie: wysyłać tylko kandydatów i ograniczyć `rsync` do około 4,2 Mb/s; rzeczywistego uplinku działki **NIE WIEM**.
+
+5. **FFmpeg zniknie po aktualizacji dodatku/HAOS.** Pakiet przeżył restart dodatku według briefu. Czy przeżyje aktualizację dodatku albo HAOS — **NIE WIEM**. Zapobieganie: przed każdym przebiegiem `command -v ffmpeg && ffmpeg -version`; konfigurację `packages` zachować, ale jej zachowanie przy aktualizacji również wymaga testu.
+
+Koszt oprogramowania i usług dla lokalnego FFmpeg, SSH, Tailscale i rsync: **0 zł dodatkowej opłaty**. Koszt energii N150 i transmisji w złotówkach — **NIE WIEM**, bo brak pomiaru watów oraz taryfy. Instalacja FFmpeg była potrzebna do wykonania dekretu lokalnego mielenia; nie mam dowodu, że była błędem.
+
+---
+
+## HIPOTEZY
+
+1. Najbezpieczniejszy pierwszy wariant to lokalna kopia jednej nocy, analiza offline na jednym logicznym CPU i dopiero potem kasowanie surowego pliku.
+
+2. Docelowy detektor różnicy klatek z modelem tła będzie lepszy od `scene`, ale wymaga zainstalowanego OpenCV albo własnej implementacji i testu na prawdziwym materiale.
+
+3. QSV może zmniejszyć CPU dekodowania, lecz kopiowanie obrazu do RAM dla filtrów może zjeść część korzyści.
+
+---
+
+## NIE WIEM
+
+- Dokładny czas szybszego niż rzeczywisty odczytu RTSP tego NVR.
+- CPU, RAM i temperatura N150 podczas analizy.
+- Czy QSV/VAAPI rzeczywiście uruchomi się ze sterownikiem w dodatku.
+- Dokładne współrzędne ROI kanału 4.
+- Liczba kandydatów po odsiewie oraz skuteczność detekcji kuny.
+- Trwałość pakietu FFmpeg po aktualizacji dodatku lub HAOS.
+- Bezpieczna, istniejąca konfiguracja przekazania hasła NVR do FFmpeg.
+
+### P6. Kolejność
+
+1. **[O]** Na już istniejącym krótkim pliku wykonać 10‑minutowy benchmark software/QSV, bez łączenia z NVR.
+2. **[O]** Uzyskać od Genka współrzędne ROI kanału 4 i wyrenderować jedną klatkę kontrolną z ramką.
+3. **[O]** Pobrać lokalnie jedną godzinę kanału 4 i skalibrować próg oraz filtry fałszywego ruchu.
+4. **[O]** Pobrać jedną noc, uruchomić odsiew z limitem jednego CPU i przesłać maksymalnie 30–50 kandydatów.
+5. **[N]** Usunąć surową noc dopiero po potwierdzeniu, że kandydaci są na VPS i dają się odtworzyć.
+
+**Jedna rzecz do zrobienia:** uruchomić na N150 10‑minutowy benchmark tego samego lokalnego fragmentu najpierw programowo, potem przez QSV, zapisując czas rzeczywisty, user CPU, maksymalny RAM i temperaturę.
+
+— **Zenek**

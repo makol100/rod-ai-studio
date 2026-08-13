@@ -33,3 +33,32 @@
 {"czas": 1785914351.750393, "czas_iso": "2026-08-05T07:19:11.750397+00:00", "powod": "Hans wstrzymal wysylke — limit 3/h przekroczony (3 w ostatniej godzinie)", "wyslane": false}
 {"czas": 1785915095.058304, "czas_iso": "2026-08-05T07:31:35.058309+00:00", "powod": "Hans wstrzymal wysylke — limit 3/h przekroczony (3 w ostatniej godzinie)", "wyslane": false}
 {"czas": 1785955660.414263, "czas_iso": "2026-08-05T18:47:40.414276+00:00", "powod": "message_id=33", "wyslane": true}
+{"czas": 1786025941.733548, "czas_iso": "2026-08-06T14:19:01.733559+00:00", "powod": "message_id=34", "wyslane": true}
+{"czas": 1786285223.921732, "czas_iso": "2026-08-09T14:20:23.921746+00:00", "powod": "message_id=35", "wyslane": true}
+{"czas": 1786293825.104424, "czas_iso": "2026-08-09T16:43:45.104435+00:00", "powod": "message_id=36", "wyslane": true}
+{"czas": 1786362639.679183, "czas_iso": "2026-08-10T11:50:39.679197+00:00", "powod": "message_id=37", "wyslane": true}
+{"czas": 1786429104.975825, "czas_iso": "2026-08-11T06:18:24.975840+00:00", "powod": "message_id=38", "wyslane": true}
+{"czas": 1786435534.387971, "czas_iso": "2026-08-11T08:05:34.387982+00:00", "powod": "message_id=39", "wyslane": true}
+{"czas": 1786514763.379526, "czas_iso": "2026-08-12T06:06:03.379531+00:00", "powod": "brak HANS_BOT_TOKEN lub HANS_CHAT_ID w konfiguracji", "wyslane": false}
+{"czas": 1786528335.641093, "czas_iso": "2026-08-12T09:52:15.641098+00:00", "powod": "brak HANS_BOT_TOKEN lub HANS_CHAT_ID w konfiguracji", "wyslane": false}
+{"czas": 1786529058.416228, "czas_iso": "2026-08-12T10:04:18.416230+00:00", "powod": "brak HANS_BOT_TOKEN lub HANS_CHAT_ID w konfiguracji", "wyslane": false}
+{"czas": 1786557161.575611, "czas_iso": "2026-08-12T17:52:41.575623+00:00", "powod": "message_id=40", "wyslane": true}
+{"czas": 1786557352.973243, "czas_iso": "2026-08-12T17:55:52.973254+00:00", "powod": "message_id=41", "wyslane": true}
+{"czas": 1786559404.197152, "czas_iso": "2026-08-12T18:30:04.197165+00:00", "powod": "message_id=42", "wyslane": true}
+{"czas": 1786559407.465538, "czas_iso": "2026-08-12T18:30:07.465551+00:00", "powod": "message_id=43", "wyslane": true}
+{"czas": 1786597542.885848, "czas_iso": "2026-08-13T05:05:42.885860+00:00", "powod": "message_id=44", "wyslane": true}
+{"czas": 1786600094.873417, "czas_iso": "2026-08-13T05:48:14.873429+00:00", "powod": "message_id=45", "wyslane": true}
+{"czas": 1786605395.785669, "czas_iso": "2026-08-13T07:16:35.785677+00:00", "powod": "message_id=51", "wyslane": true}
+{"czas": 1786610381.04825, "czas_iso": "2026-08-13T08:39:41.048259+00:00", "powod": "message_id=60", "wyslane": true}
+{"czas": 1786610545.922438, "czas_iso": "2026-08-13T08:42:25.922455+00:00", "powod": "message_id=61", "wyslane": true}
+{"czas": 1786610720.537303, "czas_iso": "2026-08-13T08:45:20.537315+00:00", "powod": "message_id=62", "wyslane": true}
+{"czas": 1786614681.705693, "czas_iso": "2026-08-13T09:51:21.705705+00:00", "powod": "message_id=71", "wyslane": true}
+{"czas": 1786616002.018205, "czas_iso": "2026-08-13T10:13:22.018217+00:00", "powod": "message_id=72", "wyslane": true}
+{"czas": 1786616817.92342, "czas_iso": "2026-08-13T10:26:57.923433+00:00", "powod": "message_id=73", "wyslane": true}
+{"czas": 1786622852.741083, "czas_iso": "2026-08-13T12:07:32.741094+00:00", "powod": "message_id=74", "wyslane": true}
+{"czas": 1786643386.20437, "czas_iso": "2026-08-13T17:49:46.204382+00:00", "powod": "message_id=75", "wyslane": true}
+{"czas": 1786643492.290173, "czas_iso": "2026-08-13T17:51:32.290185+00:00", "powod": "message_id=76", "wyslane": true}
+{"czas": 1786643620.689738, "czas_iso": "2026-08-13T17:53:40.689748+00:00", "powod": "message_id=77", "wyslane": true}
+{"czas": 1786643915.695851, "czas_iso": "2026-08-13T17:58:35.695865+00:00", "powod": "message_id=78", "wyslane": true}
+{"czas": 1786644092.287387, "czas_iso": "2026-08-13T18:01:32.287400+00:00", "powod": "message_id=79", "wyslane": true}
+{"czas": 1786644275.51151, "czas_iso": "2026-08-13T18:04:35.511523+00:00", "powod": "message_id=80", "wyslane": true}

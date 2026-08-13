@@ -1,0 +1,76 @@
+## POTWIERDZONE
+
+### P1. Nazwa użytkownika do ISAPI/web
+
+1. W HiLook/Hikvision NVR wbudowane konto administratora nazywa się dokładnie **`admin`**. Hasło do niego nie jest fabryczne — powstaje podczas pierwszej aktywacji urządzenia. [Instrukcja NVR Hikvision](https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000132/S000000007/S000000026/OFR000042/M000079101/SM000060204/User_Manual/UD36044B_Network-Video-Recorder_User-Manual_V5.01.060_20240102.PDF)
+
+2. `admin` nie jest jedynym możliwym kontem. Administrator może utworzyć dodatkowych użytkowników typu operator/gość, podając własną nazwę użytkownika i uprawnienia. Takie konto może służyć do dostępu sieciowego, jeżeli otrzymało odpowiednie uprawnienia. [Instrukcja NVR, rozdział User Management](https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000002/S000000007/S000000032/OFR000061/M000000629/User_Manual/Baseline_User-Manual-of-Network-Video-Recorder_71-E-M_V3.4.90_20180124.pdf)
+
+3. Wniosek: próba `admin` + znane hasło zakończona 401 nie rozstrzyga, czy hasło jest błędne, czy podane hasło należy do konta chmurowego/kodu weryfikacyjnego, czy istnieje inne lokalne konto.
+
+4. Nazwy dodatkowego konta nie da się wyprowadzić z hasła, adresu IP, realm Digest ani nazw „Śmietnik” i „Brama”.
+
+### P2. Trzy różne sekrety
+
+1. **Hasło konta Hik-Connect/HiLook** uwierzytelnia użytkownika w usłudze chmurowej. Konto jest rejestrowane na e-mail lub telefon; odzyskanie hasła odbywa się kodem przesłanym na ten e-mail/telefon. To hasło **nie jest hasłem lokalnego NVR** i nie służy do logowania ISAPI/web pod adresem IP. [Oficjalna procedura konta Hik-Connect](https://supportusa.hikvision.com/support/solutions/articles/17000128915-how-do-you-reset-the-hik-connect-account-password-)
+
+2. **Hasło urządzenia** jest przypisane do lokalnego użytkownika, przede wszystkim `admin`, i powstaje podczas aktywacji NVR. To właśnie para **nazwa lokalnego użytkownika + hasło urządzenia** działa przy ISAPI/web po IP. [Instrukcja aktywacji HiLook](https://www.hilooksecurity.com/content/dam/hikvision/products/S000000036/S000000159/S000000040/S000000041/OFR000048/M000000760/Quick_Start_Guide/UD30040B-B_Regulatory-Compliance-and-Safety-Information-HiLook-General_V4.75.500_20240422.pdf)
+
+3. **Kod weryfikacyjny urządzenia / encryption key** zabezpiecza zdalne oglądanie zaszyfrowanego obrazu przez HiLookVision/Hik-Connect. Może znajdować się w ustawieniach Platform Access albo na etykiecie/pudełku. Nie zastępuje hasła `admin` przy zwykłym logowaniu ISAPI/web po IP. [Wyjaśnienie verification code](https://supportusa.hikvision.com/support/solutions/articles/17000128922-what-is-a-verification-code-encryption-key), [miejsce kodu](https://supportusa.hikvision.com/support/solutions/articles/17000129918-how-do-i-add-devices-to-the-hik-connect-website-)
+
+4. Wyjątki istnieją dla niektórych urządzeń, np. określonych dzwonków EZVIZ/Hikvision, gdzie kod może pełnić rolę hasła urządzenia. Nie ma podstaw, aby stosować ten wyjątek do badanego NVR. [Oficjalna dokumentacja dodawania urządzeń](https://enpinfo.hikvision.com/hkwsen/unzip/20230330182709_44228_doc/GUID-FB10B619-C2DC-4D1E-B78A-A43245C2E564.html)
+
+### P3. Odczyt danych w HiLook 6.12.90 po polsku
+
+**NIE WIEM**, jaka jest dokładna ścieżka ekran po ekranie i dokładne polskie nazwy przycisków w `com.mcu.visionlook` 6.12.90.0519. Oficjalna strona potwierdza tę wersję aplikacji, ale nie publikuje odpowiadającej jej instrukcji ekranów w języku polskim. [Oficjalny sklep aplikacji Hikvision](https://appstore.hikvision.com/)
+
+Potwierdzone ograniczenia:
+
+1. Urządzenie dodane chmurowo jest identyfikowane numerem seryjnym i kodem weryfikacyjnym; alias „Śmietnik” lub „Brama” nie jest nazwą użytkownika urządzenia. [Dodawanie urządzenia w aplikacji](https://supportusa.hikvision.com/support/solutions/articles/17000130024-how-do-i-add-devices-manually-to-the-hikconnect-app-)
+
+2. Kod weryfikacyjny można znaleźć oficjalnie w lokalnym GUI NVR: **Configuration → Network → Platform Access/HiLookVision**, albo na etykiecie/pudełku. Nie potwierdziłem, że wersja 6.12.90 pozwala wyświetlić istniejący kod w aplikacji.
+
+3. Adres IP nie musi być widoczny dla urządzenia dodanego przez chmurę. Oficjalna pomoc Hikvision wskazuje wprost przypadki, w których IP nie jest pokazywane w aplikacji i należy użyć SADP. [Informacja o IP w aplikacji](https://supportusa.hikvision.com/support/solutions/articles/17000128879-how-do-you-add-a-ds-hd1-to-an-nvr-)
+
+4. **NIE WIEM**, czy aplikacja pokazuje nazwę lokalnego użytkownika dla urządzeń „Śmietnik” i „Brama”. Dla urządzenia dodanego chmurowo nazwa lokalnego konta nie jest potrzebna do samego oglądania.
+
+### P4. Oficjalne odzyskanie hasła urządzenia
+
+1. **Weryfikacja przez powiązane konto HiLook/Hik-Connect:** na ekranie „Forgot Password” wybrać weryfikację aplikacją, zeskanować QR aplikacją powiązaną wcześniej z NVR, przepisać otrzymany kod i ustawić nowe hasło urządzenia. Obsługa zależy od modelu i firmware. [Oficjalny przewodnik HiLook](https://www.hilooksecurity.com/content/dam/hikvision/eu/product/hilook/marketing-materials/HiLook-Product-Quick-Guide-H2-2024-HR-1.pdf)
+
+2. **Pytania bezpieczeństwa / zastrzeżony e-mail / GUID:** działają wyłącznie, jeżeli zostały skonfigurowane wcześniej; GUID musi być wcześniej wyeksportowany i zachowany. Metodę wybiera się na stronie „Forgot Password”, a następnie ustawia nowe hasło. Nie każdy model obsługuje wszystkie metody. [Oficjalne metody odzyskiwania](https://display.hikvision.com/apac/support/how-to/faq/how-to-reset-password/)
+
+3. **SADP/XML:** komputer z SADP musi wykrywać urządzenie w tej samej sieci LAN/podsieci. Eksportuje się XML/QR/reset string, przekazuje wraz ze zdjęciem etykiety do oficjalnego wsparcia, a otrzymany plik lub kod importuje i ustawia nowe hasło. [Instrukcja HiLook/Hikvision](https://www.hilooksecurity.com/content/dam/hikvision/en/support/how-to/password-reset/Troubleshooting-Tips-of-Password-Reset-Failed-Issue.pdf)
+
+4. Przy XML urządzenia nie wolno restartować ani ponownie eksportować pliku przed importem odpowiedzi. Oficjalna instrukcja podaje ważność plików wynoszącą **48 godzin**. [Rozwiązywanie błędów resetu](https://www.hilooksecurity.com/content/dam/hikvision/en/support/how-to/password-reset/Troubleshooting-Tips-of-Password-Reset-Failed-Issue.pdf)
+
+5. Zdalność:
+
+   - Metoda konta/e-mailu/pytań/GUID może być wykonana zdalnie, jeżeli dostępny ekran „Forgot Password” oferuje daną metodę i są wymagane wcześniejsze dane.
+   - SADP nie działa przez zwykły dostęp chmurowy; wymaga komputera logicznie w tej samej LAN. Tym komputerem można sterować zdalnie.
+   - Reset przyciskiem wymaga fizycznego dostępu. **NIE WIEM**, czy badany model NVR ma taki przycisk — nie podano modelu, a nie każdy NVR go ma.
+
+### P5. Czy aplikacja zna lub ustawia hasło lokalne?
+
+1. Aplikacja HiLook/Hik-Connect nie używa wyłącznie chmury. Oficjalnie obsługuje także bezpośrednie dodanie urządzenia przez IP/domenę; wtedy trzeba podać adres, port, lokalną nazwę użytkownika i hasło urządzenia. [Dodawanie bezpośrednio przez IP](https://supportusa.hikvision.com/support/solutions/articles/17000130048-can-i-add-a-device-to-the-hik-connect-mobile-app-as-a-direct-ip-connection-without-having-to-use-the-), [instrukcja dodawania przez IP](https://www.hikvision.com/content/dam/hikvision/ca/how-to-document1/software/How-to-add-device-into-Hik-Connect-App.pdf)
+
+2. Oficjalna specyfikacja Hik-Connect wymienia reset hasła urządzenia i zdalną konfigurację jako funkcje aplikacji. Nie oznacza to ujawnienia starego hasła; reset tworzy nowe hasło po przejściu weryfikacji. [Specyfikacja klienta mobilnego](https://www.hikvision.com/content/dam/hikvision/en/operation-manual/Spec%20of%20Hik-Connect%20Mobile%20Client_V3.10.0.pdf)
+
+3. Nie znalazłem oficjalnego potwierdzenia, że HiLook 6.12.90 potrafi pokazać zapisane hasło urządzenia jawnym tekstem. Odpowiedź: **starego hasła — NIE WIEM, ale brak dowodu na możliwość odczytu; reset/ustawienie nowego — możliwe tylko dla wspieranego modelu i po oficjalnej weryfikacji**.
+
+4. „Szyfrowane” przy „Śmietnik” i „Brama” oznacza szyfrowanie strumienia kodem weryfikacyjnym; nie potwierdza znajomości przez aplikację lokalnego hasła `admin`.
+
+## HIPOTEZY
+
+Hasło/kod posiadany przez Tomasza najprawdopodobniej jest hasłem konta chmurowego albo kodem weryfikacyjnym strumienia, nie hasłem lokalnego `admin`. Przemawia za tym skuteczne działanie urządzeń w aplikacji jako „Szyfrowane” oraz 401 dla `admin`, ale bez odczytu informacji urządzenia lub procedury „Forgot Password” nie da się tego rozstrzygnąć.
+
+## NIE WIEM
+
+- Jaka dodatkowa nazwa użytkownika istnieje na badanym NVR.
+- Czy obecne konto aplikacji jest właścicielem urządzeń, czy tylko odbiorcą udostępnienia.
+- Czy NVR obsługuje reset przez aplikację, e-mail, GUID, pytania lub przycisk.
+- Gdzie dokładnie wersja 6.12.90 po polsku pokazuje serial, IP, kod i nazwę użytkownika.
+
+**Jedna rzecz do zrobienia:** bez zmiany ustawień otworzyć w aplikacji kartę „Śmietnik”, wejść w jej ekran szczegółów i przesłać zrzut całego ekranu z zamazanym numerem seryjnym oraz kodem; na tej podstawie da się ustalić rzeczywistą polską ścieżkę bez próby logowania.
+
+— Zenek

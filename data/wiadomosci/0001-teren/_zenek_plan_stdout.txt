@@ -1,0 +1,1442 @@
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio/data/wiadomosci/0001-teren
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 019fa51d-e332-7d32-837a-2c405a859223
+--------
+user
+Wypisz teraz CAŁY przygotowany plan produkcji na stdout (markdown). Nie próbuj zapisywać plików — ja przechwycę wyjście.
+codex
+# ZENEK — WIADOMOŚCI DZIAŁKOWE 0001 „Teren”
+
+## Decyzja produkcyjna
+
+- Format końcowy: **1080×1920, 30 fps, H.264/AAC, pion**.
+- Zakładana długość: **71,2 s** — czołówka 3,2 s + 68,0 s głosu Stanisława.
+- Awatar: jeden render Kling STANDARD, wykorzystany od 03,2 do 71,2 s. Nie generujemy osobnych ujęć intro i outro.
+- Obraz awatara jest bazą przez cały serwis. Przebitki zastępują go pełnoekranowo, a głos TTS biegnie bez przerwy.
+- Dźwięk z materiałów terenowych domyślnie wyciszony. Opcjonalnie można dodać bardzo cichy dźwięk koparki, ale dopiero po odsłuchu i bez pogorszenia czytelności narracji.
+- Chronologia: stan terenu i prace 22.07 → kontynuacja i efekt 23.07.
+- Limit płatnej generacji: **jedno podejście Kling**.
+
+## 1. Struktura montażu sekunda po sekundzie
+
+Dokładne granice trzeba dopasować do finalnego WAV z ElevenLabs. Poniższa siatka zakłada 68 s mowy.
+
+Jeśli TTS będzie trwał 60–75 s:
+
+- nie przyspieszać głosu mechanicznie;
+- zachować czołówkę 3,2 s;
+- zachować pełne intro na awatarze;
+- przesuwać granice przebitek zgodnie z końcami zdań;
+- pozostawić ostatnie około 5 s na awatarowe outro.
+
+| Czas programu | Długość | Obraz | Źródło i wskazanie |
+|---:|---:|---|---|
+| 00,0–03,2 | 3,2 s | Czołówka | „WIADOMOŚCI DZIAŁKOWE” 88 pt oraz „ROD im. Józefa Lompy w Woźnikach” 50 pt |
+| 03,2–09,8 | 6,6 s | Stanisław, pełny ekran | Całe kanoniczne powitanie; spokojny kontakt wzrokowy |
+| 09,8–15,8 | 6,0 s | Przebitka 1 | 22.07, `20260722_093926.mp4`: szeroki plan zarośniętego terenu — **[GENEK_01_IN]** |
+| 15,8–21,3 | 5,5 s | Przebitka 2 | 22.07, ten sam plik: detal zarośli lub czytelna skala problemu — **[GENEK_02_IN]** |
+| 21,3–27,3 | 6,0 s | Przebitka 3 | 22.07, `20260722_094249.mp4`: wejście koparki albo początek karczowania — **[GENEK_03_IN]** |
+| 27,3–32,8 | 5,5 s | Przebitka 4 | 22.07, ten sam plik: wyrywanie korzeni lub odkładanie urobku — **[GENEK_04_IN]** |
+| 32,8–38,8 | 6,0 s | Przebitka 5 | 23.07, `VID-20260723-WA0001.mp4`: początek drugiego popołudnia, widoczny postęp — **[GENEK_05_IN]** |
+| 38,8–44,3 | 5,5 s | Przebitka 6 | 23.07, ten sam plik: czytelna praca maszyny — **[GENEK_06_IN]** |
+| 44,3–50,3 | 6,0 s | Przebitka 7 | 23.07, `VID-20260723-WA0005.mp4`: późniejsze prace, światło przed zmierzchem — **[GENEK_07_IN]** |
+| 50,3–56,3 | 6,0 s | Przebitka 8 | 23.07, ten sam plik: porządkowanie lub odsłonięty grunt — **[GENEK_08_IN]** |
+| 56,3–63,3 | 7,0 s | Przebitka 9 | 23.07, `VID-20260723-WA0007.mp4`: najmocniejszy plan efektu o zmierzchu — **[GENEK_09_IN]** |
+| 63,3–66,2 | 2,9 s | Stanisław | Krótkie podsumowanie; naturalny oddech przed formułą końcową |
+| 66,2–71,2 | 5,0 s | Stanisław | „Do usłyszenia przy płocie.”; około 0,4 s zapasu po zdaniu |
+
+Łącznie:
+
+- **9 przebitek**;
+- 53,5 s materiału terenowego;
+- 14,5 s widocznego awatara;
+- 3,2 s czołówki;
+- zmiana przebitek co 5,5–7 s;
+- powrót do awatara na podsumowanie i pełne outro.
+
+Nie stosować ozdobnych przejść. Preferowane są zwykłe cięcia. Dopuszczalny jest najwyżej subtelny fade między czołówką a awatarem, maksymalnie 4 klatki.
+
+### Reguły wyboru fragmentów dla Genka
+
+1. Każdy fragment powinien zawierać ruch albo czytelną zmianę sytuacji już od pierwszej sekundy.
+2. Pomijać jałowe początki i końcówki nagrań.
+3. Nie powtarzać tego samego ruchu łyżki w dwóch kolejnych przebitkach.
+4. Zachować ciąg przyczynowy:
+
+   `zarośnięty teren → wejście maszyny → wyrywanie → odkładanie urobku → odsłonięty grunt → efekt o zmierzchu`
+
+5. Preferować fragmenty stabilne, bez zasłoniętego obiektywu i bez gwałtownych obrotów telefonu.
+6. Nie stosować cyfrowego zoomu.
+7. Unikać fragmentów pokazujących przypadkowe osoby lub czytelne tablice rejestracyjne.
+8. Przy selekcji zostawić minimum 0,25 s zapasu przed i po wskazanym fragmencie, aby można było przesunąć cięcie pod frazę lektora.
+
+## 2. Pipeline FFmpeg
+
+Komendy zakładają uruchomienie z katalogu:
+
+```bash
+cd /root/rod-ai-studio
+mkdir -p data/wiadomosci/0001-teren/work
+```
+
+Zmienne robocze:
+
+```bash
+SRC=data/upload/0001-teren
+WRK=data/wiadomosci/0001-teren/work
+OUT=data/wiadomosci/0001-teren
+FONT=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+```
+
+### 2.1. Zweryfikowane parametry źródeł
+
+| Plik | Parametry |
+|---|---|
+| `20260722_093926.mp4` | 71,47 s, zapis 1920×824, orientacja pionowa z metadanych, 30 fps |
+| `20260722_094249.mp4` | 36,54 s, zapis 1920×824, orientacja pionowa z metadanych, 30 fps |
+| `VID-20260723-WA0001.mp4` | 20,42 s, 1072×1920, około 29,58 fps |
+| `VID-20260723-WA0005.mp4` | 29,25 s, 1072×1920, około 29,58 fps |
+| `VID-20260723-WA0007.mp4` | 27,95 s, 1072×1920, około 29,58 fps |
+
+Chronologia metadanych:
+
+1. 22.07, około 09:40;
+2. 22.07, około 09:43;
+3. 23.07, około 17:07;
+4. 23.07, około 19:42;
+5. 23.07, około 19:44.
+
+### 2.2. Kontrola orientacji plików z 22.07
+
+FFmpeg zwykle automatycznie uwzględnia macierz obrotu. Przed normalizacją wygenerować klatki kontrolne:
+
+```bash
+ffmpeg -y -ss 5 -i "$SRC/20260722_093926.mp4" \
+  -frames:v 1 "$WRK/check_22a.jpg"
+
+ffmpeg -y -ss 5 -i "$SRC/20260722_094249.mp4" \
+  -frames:v 1 "$WRK/check_22b.jpg"
+```
+
+Bramka:
+
+- koparka, drzewa i ludzie muszą być pionowo;
+- obraz nie może być bokiem ani do góry nogami.
+
+Jeśli używany build FFmpeg nie zastosuje orientacji automatycznie, trzeba użyć `-noautorotate` i jawnego filtra:
+
+```text
+transpose=clock
+```
+
+albo:
+
+```text
+transpose=cclock
+```
+
+Kierunek wybrać po obejrzeniu klatki kontrolnej. Nie zgadywać.
+
+### 2.3. Normalizacja pięciu źródeł
+
+Domyślny wariant: **scale + pad**.
+
+Powody:
+
+- zachowuje cały obraz;
+- nie ucina góry ani dołu;
+- nie rozciąga sylwetek;
+- stabilizuje wszystkie źródła do 1080×1920 i 30 fps;
+- dla klipów 1072×1920 margines będzie minimalny;
+- dla węższych klipów 824×1920 pojawią się wyraźniejsze marginesy boczne.
+
+Filtry:
+
+- `scale=...:force_original_aspect_ratio=decrease` — dopasowanie bez deformacji;
+- `pad=1080:1920` — uzupełnienie płótna;
+- `setsar=1` — kwadratowe piksele;
+- `fps=30` — stabilne 30 fps;
+- `format=yuv420p` — kompatybilność publikacyjna.
+
+```bash
+ffmpeg -y -i "$SRC/20260722_093926.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n01.mp4"
+
+ffmpeg -y -i "$SRC/20260722_094249.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n02.mp4"
+
+ffmpeg -y -i "$SRC/VID-20260723-WA0001.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n03.mp4"
+
+ffmpeg -y -i "$SRC/VID-20260723-WA0005.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n04.mp4"
+
+ffmpeg -y -i "$SRC/VID-20260723-WA0007.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n05.mp4"
+```
+
+#### Alternatywa dla czarnych marginesów
+
+Jeżeli boczne czarne pasy w materiałach 824×1920 zostaną odrzucone wizualnie, zastosować rozmyte tło zamiast agresywnego cropu:
+
+```bash
+ffmpeg -y -i "$SRC/20260722_093926.mp4" \
+  -filter_complex "\
+    [0:v]fps=30,split=2[bg][fg];\
+    [bg]scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920,boxblur=30:5[blur];\
+    [fg]scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos[front];\
+    [blur][front]overlay=(W-w)/2:(H-h)/2,setsar=1,format=yuv420p[v]" \
+  -map "[v]" -an \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n01_blur.mp4"
+```
+
+Ten wariant można analogicznie zastosować do `n02`.
+
+Crop nie jest wariantem domyślnym. Przy źródle 824×1920 dopasowanie przez powiększenie do szerokości 1080 wymagałoby znacznego ucięcia góry i dołu.
+
+### 2.4. Wycinanie dziewięciu przebitek
+
+Po wskazaniu przez Genka wartości `IN` ciąć z ponownym kodowaniem. Dzięki temu granice będą dokładne co do klatki, niezależnie od położenia klatek kluczowych.
+
+Przykład:
+
+```bash
+ffmpeg -y \
+  -ss GENEK_01_IN \
+  -i "$WRK/n01.mp4" \
+  -t 6.0 \
+  -an \
+  -c:v libx264 -preset medium -crf 18 \
+  -pix_fmt yuv420p \
+  "$WRK/b01.mp4"
+```
+
+Mapa fragmentów:
+
+```text
+b01: n01, GENEK_01_IN, 6.0 s
+b02: n01, GENEK_02_IN, 5.5 s
+b03: n02, GENEK_03_IN, 6.0 s
+b04: n02, GENEK_04_IN, 5.5 s
+b05: n03, GENEK_05_IN, 6.0 s
+b06: n03, GENEK_06_IN, 5.5 s
+b07: n04, GENEK_07_IN, 6.0 s
+b08: n04, GENEK_08_IN, 6.0 s
+b09: n05, GENEK_09_IN, 7.0 s
+```
+
+Szablon kompletu:
+
+```bash
+ffmpeg -y -ss GENEK_01_IN -i "$WRK/n01.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b01.mp4"
+
+ffmpeg -y -ss GENEK_02_IN -i "$WRK/n01.mp4" -t 5.5 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b02.mp4"
+
+ffmpeg -y -ss GENEK_03_IN -i "$WRK/n02.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b03.mp4"
+
+ffmpeg -y -ss GENEK_04_IN -i "$WRK/n02.mp4" -t 5.5 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b04.mp4"
+
+ffmpeg -y -ss GENEK_05_IN -i "$WRK/n03.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b05.mp4"
+
+ffmpeg -y -ss GENEK_06_IN -i "$WRK/n03.mp4" -t 5.5 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b06.mp4"
+
+ffmpeg -y -ss GENEK_07_IN -i "$WRK/n04.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b07.mp4"
+
+ffmpeg -y -ss GENEK_08_IN -i "$WRK/n04.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b08.mp4"
+
+ffmpeg -y -ss GENEK_09_IN -i "$WRK/n05.mp4" -t 7.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b09.mp4"
+```
+
+Przed renderem sprawdzić, czy dla każdego fragmentu:
+
+```text
+IN + długość przebitki ≤ długość pliku źródłowego
+```
+
+### 2.5. TTS ElevenLabs
+
+Ustawienia:
+
+- głos: **Daniel**;
+- model: `eleven_multilingual_v2`;
+- tekst: około 60–75 s;
+- „ROD” zapisać pełnymi słowami;
+- wygenerować jeden finalny plik po zatwierdzeniu tekstu.
+
+W tekście TTS zamiast:
+
+```text
+ROD
+```
+
+użyć:
+
+```text
+Rodzinnego Ogrodu Działkowego
+```
+
+albo odpowiedniej formy gramatycznej, np.:
+
+```text
+na terenie Rodzinnego Ogrodu Działkowego
+```
+
+Finalny TTS zapisać jako:
+
+```text
+$WRK/stanislaw_tts_raw.wav
+```
+
+Normalizacja:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/stanislaw_tts_raw.wav" \
+  -af "loudnorm=I=-16:TP=-1.5:LRA=7,apad=pad_dur=0.4" \
+  -ar 48000 \
+  -ac 2 \
+  "$WRK/stanislaw_tts.wav"
+```
+
+Uwaga: powyższy `loudnorm` jest wygodny dla proxy. Dla maksymalnie dokładnego poziomu mastera można wykonać dwupassową normalizację `loudnorm`, wykorzystując pomiary z pierwszego przebiegu.
+
+### 2.6. Generacja awatara Kling
+
+Ustawienia:
+
+- model: **Kling STANDARD**;
+- koszt wskazany w kanonie: **$2.27**;
+- liczba prób: **1**;
+- karta: `karta_stanislaw_CANON.png`;
+- format po generacji: około 1072×1920;
+- stały prompt zawierający: `calm presentation, eye contact`;
+- ruch spokojny, prezenter wiadomości;
+- bez szerokiej gestykulacji;
+- długość obejmująca cały finalny TTS i około 0,4 s zapasu po ostatnim zdaniu.
+
+Nie uruchamiać Kling przed:
+
+- zatwierdzeniem tekstu;
+- odsłuchem TTS;
+- sprawdzeniem wymowy;
+- potwierdzeniem finalnej długości;
+- sprawdzeniem właściwej karty;
+- potwierdzeniem modelu STANDARD i kosztu.
+
+Po pobraniu awatara:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/kling_stanislaw.mp4" \
+  -i "$WRK/stanislaw_tts.wav" \
+  -map 0:v:0 \
+  -map 1:a:0 \
+  -shortest \
+  -vf "scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -c:a aac -b:a 192k -ar 48000 \
+  "$WRK/avatar_master.mp4"
+```
+
+Crop awatara jest dopuszczalny, ponieważ różnica między 1072×1920 a 1080×1920 jest minimalna.
+
+#### Ważna kontrola synchronizacji
+
+Jeżeli Kling wygeneruje obraz zsynchronizowany ze swoją kopią audio, podłożenie ponownie WAV ElevenLabs powinno być bezpieczne tylko wtedy, gdy długość i timing są identyczne.
+
+Sprawdzić synchronizację:
+
+- na pierwszym zdaniu;
+- w połowie materiału;
+- na „Do usłyszenia przy płocie”.
+
+Jeżeli występuje dryf:
+
+- zachować oryginalne audio z Kling;
+- albo ustalić dokładne przesunięcie audio;
+- nie rozciągać obrazu bez dokładnego pomiaru.
+
+### 2.7. Sklejka awatar + przebitki
+
+Awatar jest warstwą bazową. Dziewięć niemych przebitek nakładamy pełnoekranowo. Audio jest mapowane wyłącznie z `avatar_master.mp4`, dzięki czemu narracja biegnie ciągle.
+
+Czasy poniżej są liczone względem początku awatara, czyli bez czołówki:
+
+| Przebitka | Czas w korpusie | Czas w całym programie |
+|---|---:|---:|
+| b01 | 06,6–12,6 | 09,8–15,8 |
+| b02 | 12,6–18,1 | 15,8–21,3 |
+| b03 | 18,1–24,1 | 21,3–27,3 |
+| b04 | 24,1–29,6 | 27,3–32,8 |
+| b05 | 29,6–35,6 | 32,8–38,8 |
+| b06 | 35,6–41,1 | 38,8–44,3 |
+| b07 | 41,1–47,1 | 44,3–50,3 |
+| b08 | 47,1–53,1 | 50,3–56,3 |
+| b09 | 53,1–60,1 | 56,3–63,3 |
+
+Komenda:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/avatar_master.mp4" \
+  -i "$WRK/b01.mp4" \
+  -i "$WRK/b02.mp4" \
+  -i "$WRK/b03.mp4" \
+  -i "$WRK/b04.mp4" \
+  -i "$WRK/b05.mp4" \
+  -i "$WRK/b06.mp4" \
+  -i "$WRK/b07.mp4" \
+  -i "$WRK/b08.mp4" \
+  -i "$WRK/b09.mp4" \
+  -filter_complex "\
+    [0:v]setpts=PTS-STARTPTS[base];\
+    [1:v]setpts=PTS-STARTPTS+6.6/TB[v1];\
+    [2:v]setpts=PTS-STARTPTS+12.6/TB[v2];\
+    [3:v]setpts=PTS-STARTPTS+18.1/TB[v3];\
+    [4:v]setpts=PTS-STARTPTS+24.1/TB[v4];\
+    [5:v]setpts=PTS-STARTPTS+29.6/TB[v5];\
+    [6:v]setpts=PTS-STARTPTS+35.6/TB[v6];\
+    [7:v]setpts=PTS-STARTPTS+41.1/TB[v7];\
+    [8:v]setpts=PTS-STARTPTS+47.1/TB[v8];\
+    [9:v]setpts=PTS-STARTPTS+53.1/TB[v9];\
+    [base][v1]overlay=0:0:eof_action=pass:enable='between(t,6.6,12.6)'[x1];\
+    [x1][v2]overlay=0:0:eof_action=pass:enable='between(t,12.6,18.1)'[x2];\
+    [x2][v3]overlay=0:0:eof_action=pass:enable='between(t,18.1,24.1)'[x3];\
+    [x3][v4]overlay=0:0:eof_action=pass:enable='between(t,24.1,29.6)'[x4];\
+    [x4][v5]overlay=0:0:eof_action=pass:enable='between(t,29.6,35.6)'[x5];\
+    [x5][v6]overlay=0:0:eof_action=pass:enable='between(t,35.6,41.1)'[x6];\
+    [x6][v7]overlay=0:0:eof_action=pass:enable='between(t,41.1,47.1)'[x7];\
+    [x7][v8]overlay=0:0:eof_action=pass:enable='between(t,47.1,53.1)'[x8];\
+    [x8][v9]overlay=0:0:eof_action=pass:enable='between(t,53.1,60.1)'[vout]" \
+  -map "[vout]" \
+  -map 0:a:0 \
+  -t 68.0 \
+  -c:v libx264 -preset medium -crf 18 \
+  -pix_fmt yuv420p \
+  -c:a aac -b:a 192k -ar 48000 \
+  "$WRK/news_body.mp4"
+```
+
+Po przygotowaniu finalnego TTS należy skorygować:
+
+- `-t 68.0`;
+- punkty wejścia przebitek;
+- długość ostatniego powrotu do awatara.
+
+### 2.8. Czołówka 3,2 s
+
+Kanoniczne parametry:
+
+- czas: 3,2 s;
+- format: 1080×1920;
+- font: DejaVu Sans;
+- tytuł: 88 px;
+- podtytuł: 50 px;
+- CRF 18.
+
+```bash
+ffmpeg -y \
+  -f lavfi \
+  -i "color=c=0x101820:s=1080x1920:r=30:d=3.2" \
+  -f lavfi \
+  -i "anullsrc=r=48000:cl=stereo:d=3.2" \
+  -vf "drawtext=fontfile=$FONT:text='WIADOMOŚCI DZIAŁKOWE':fontcolor=white:fontsize=88:x=(w-text_w)/2:y=(h-text_h)/2-90,drawtext=fontfile=$FONT:text='ROD im. Józefa Lompy w Woźnikach':fontcolor=white:fontsize=50:x=(w-text_w)/2:y=(h-text_h)/2+55,format=yuv420p" \
+  -c:v libx264 \
+  -preset medium \
+  -crf 18 \
+  -c:a aac \
+  -b:a 192k \
+  -ar 48000 \
+  -t 3.2 \
+  "$WRK/title.mp4"
+```
+
+Jeżeli kanon określa konkretny kolor, teksturę albo planszę tła, zastąpić tylko źródło `color`. Zachować:
+
+- długość 3,2 s;
+- dokładną pisownię;
+- rozmiary 88 i 50;
+- DejaVu Sans;
+- pion 1080×1920.
+
+### 2.9. Finalne połączenie
+
+Czołówka i korpus mają identyczne parametry techniczne. Łączymy je filtrem `concat` i wykonujemy finalny encode:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/title.mp4" \
+  -i "$WRK/news_body.mp4" \
+  -filter_complex "\
+    [0:v]setpts=PTS-STARTPTS[v0];\
+    [0:a]asetpts=PTS-STARTPTS[a0];\
+    [1:v]setpts=PTS-STARTPTS[v1];\
+    [1:a]asetpts=PTS-STARTPTS[a1];\
+    [v0][a0][v1][a1]concat=n=2:v=1:a=1[v][a]" \
+  -map "[v]" \
+  -map "[a]" \
+  -c:v libx264 \
+  -preset medium \
+  -crf 18 \
+  -profile:v high \
+  -level 4.2 \
+  -pix_fmt yuv420p \
+  -r 30 \
+  -c:a aac \
+  -b:a 192k \
+  -ar 48000 \
+  -movflags +faststart \
+  "$OUT/WD_0001_teren_master.mp4"
+```
+
+Ustawienia robocze:
+
+- proxy: `-preset veryfast -crf 23`;
+- master: `-preset medium -crf 18`.
+
+Nie wykonywać wielu kolejnych transkodowań mastera. Poprawki zatwierdzać na proxy, a finalny plik wyrenderować z najlepszych plików pośrednich.
+
+### 2.10. Kontrola parametrów mastera
+
+```bash
+ffprobe -v error \
+  -show_entries format=duration:stream=index,codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,pix_fmt,sample_rate,channels \
+  -of default=noprint_wrappers=1 \
+  "$OUT/WD_0001_teren_master.mp4"
+```
+
+Test pełnego dekodowania:
+
+```bash
+ffmpeg -v error \
+  -i "$OUT/WD_0001_teren_master.mp4" \
+  -f null -
+```
+
+Oczekiwany wynik:
+
+```text
+czas: około 71,2 s, zależnie od finalnego TTS
+wideo: H.264
+rozdzielczość: 1080×1920
+fps: 30/1 CFR
+format pikseli: yuv420p
+audio: AAC
+próbkowanie: 48000 Hz
+kanały: stereo
+błędy dekodowania: brak
+```
+
+## 3. Kosztorys
+
+| Pozycja | Koszt | Uwagi |
+|---|---:|---|
+| Kling STANDARD — Stanisław | **$2.27** | Jedno podejście; koszt potwierdzić na ekranie przed uruchomieniem |
+| ElevenLabs Daniel, `eleven_multilingual_v2` | zależny od liczby znaków i planu | Sprawdzić faktyczne zużycie limitu lub koszt na aktywnym koncie |
+| FFmpeg: normalizacja | **$0** | Lokalnie |
+| FFmpeg: montaż i kodowanie | **$0** | Lokalnie |
+| Selekcja fragmentów i QC | **$0** | Praca lokalna |
+| DejaVu Sans | **$0** | Font wolny |
+| Materiały własne ROD | **$0** | Przy założeniu posiadania praw i zgód |
+
+Minimalny znany koszt, bez wyceny TTS:
+
+```text
+$2.27
+```
+
+### Kalkulacja TTS
+
+Przed wysłaniem tekstu do ElevenLabs policzyć znaki:
+
+```bash
+wc -m "$WRK/tekst_stanislaw.txt"
+```
+
+Nie wpisywać szacunkowej ceny jako pewnej wartości, ponieważ zależy ona od:
+
+- aktywnego planu ElevenLabs;
+- sposobu rozliczania konta;
+- liczby znaków finalnego tekstu;
+- ewentualnego wykorzystania miesięcznego limitu.
+
+### Zasada jednego podejścia
+
+Jedno podejście dotyczy płatnej generacji Kling. Aby go nie zmarnować:
+
+1. najpierw zatwierdzić tekst;
+2. potem wygenerować i odsłuchać TTS;
+3. sprawdzić długość;
+4. sprawdzić kartę;
+5. sprawdzić prompt;
+6. potwierdzić STANDARD i $2.27;
+7. dopiero wtedy uruchomić generację.
+
+## 4. Ryzyka i bramki przed submitem
+
+## Bramka A — przed TTS
+
+- [ ] Tekst przy spokojnym tempie Daniela mieści się w 60–75 s.
+- [ ] Powitanie brzmi dokładnie: „Dzień dobry państwu, kłaniam się nisko. Zapraszam na Wiadomości Działkowe.”
+- [ ] Zakończenie brzmi dokładnie: „Do usłyszenia przy płocie.”
+- [ ] Skrót „ROD” zapisano w wejściu TTS pełnymi słowami.
+- [ ] Daty 22–23 lipca są zgodne z materiałem.
+- [ ] Tekst mówi o dwóch popołudniach pracy i nie dopisuje niepotwierdzonych szczegółów.
+- [ ] Nie wymieniono niepotwierdzonych nazwisk, wykonawców, kosztów ani przyszłych decyzji.
+- [ ] Odsłuch próbny tekstu nie ujawnia łamańców językowych.
+- [ ] Policzone zostały znaki.
+- [ ] Sprawdzono dostępny limit ElevenLabs.
+
+## Bramka B — przed jedyną generacją Kling
+
+- [ ] Użyta jest dokładnie `karta_stanislaw_CANON.png`.
+- [ ] Wybrano Kling STANDARD.
+- [ ] Wybrano format pionowy.
+- [ ] Koszt pokazany na ekranie wynosi $2.27.
+- [ ] Prompt zawiera `calm presentation, eye contact`.
+- [ ] Prompt nie wymusza szerokiej ani szybkiej gestykulacji.
+- [ ] TTS jest finalny.
+- [ ] TTS został przesłuchany od początku do końca.
+- [ ] Nie ma błędów wymowy, klików, trzasków ani uciętego zdania.
+- [ ] Długość awatara obejmuje cały TTS.
+- [ ] Po outro przewidziano około 0,4 s zapasu.
+- [ ] Nie uruchamiać generacji, jeśli choć jeden z powyższych punktów nie jest zatwierdzony.
+
+## Bramka C — po normalizacji materiałów
+
+- [ ] Oba klipy z 22.07 mają prawidłową orientację.
+- [ ] Koparka, ludzie, ogrodzenie i drzewa nie są obrócone.
+- [ ] Żaden obraz nie jest rozciągnięty.
+- [ ] SAR wynosi 1:1.
+- [ ] Wszystkie pliki mają 1080×1920.
+- [ ] Wszystkie pliki mają stabilne 30 fps.
+- [ ] Konwersja z około 29,58 fps nie powoduje widocznego szarpania.
+- [ ] Marginesy z `pad` są zaakceptowane.
+- [ ] Jeśli czarne pasy odrzucono, zatwierdzono wariant z rozmytym tłem.
+- [ ] Genek wskazał dziewięć punktów `IN`.
+- [ ] Każdy `IN + długość` mieści się w pliku źródłowym.
+- [ ] Zachowana jest kolejność: 22.07 → 23.07 17:07 → 19:41 → 19:44.
+
+## Bramka D — kontrola redakcyjna i wizualna
+
+- [ ] Czołówka trwa dokładnie 3,2 s.
+- [ ] Tytuł ma 88 px.
+- [ ] Podtytuł ma 50 px.
+- [ ] Pisownia „ROD im. Józefa Lompy w Woźnikach” jest poprawna.
+- [ ] Oba napisy mieszczą się w bezpiecznym obszarze telefonu.
+- [ ] Pierwsze 6,6 s awatara pokazuje całe powitanie.
+- [ ] Żadna przebitka nie przykrywa intro.
+- [ ] Przebitki mają po 5,5–7 s.
+- [ ] Każda przebitka ilustruje aktualnie wypowiadane zdanie.
+- [ ] Nie ma skoku chronologii.
+- [ ] Nie ma dwóch prawie identycznych ruchów koparki z rzędu.
+- [ ] Finał pokazuje najbardziej czytelny efekt prac.
+- [ ] Powrót do awatara następuje przed podsumowaniem.
+- [ ] Całe „Do usłyszenia przy płocie” jest pokazane na twarzy Stanisława.
+- [ ] Synchronizacja ust jest poprawna na początku.
+- [ ] Synchronizacja ust jest poprawna w środku.
+- [ ] Synchronizacja ust jest poprawna podczas outro.
+- [ ] Nie ma wad awatara: nienaturalnych zębów, oczu, dłoni, migotania ani falującego tła.
+- [ ] Osoby postronne nie są rozpoznawalne albo mają zgodę na publikację.
+- [ ] Tablice rejestracyjne są niewidoczne albo zanonimizowane.
+
+## Bramka E — dźwięk
+
+- [ ] Narracja biegnie bez przerwy pod wszystkimi przebitkami.
+- [ ] Nie następuje przypadkowe przełączenie na mikrofon telefonu.
+- [ ] Nie słychać gwałtownych skoków głośności.
+- [ ] Narracja pozostaje czytelna na głośniku telefonu.
+- [ ] Docelowa głośność wynosi około -16 LUFS.
+- [ ] True peak nie przekracza około -1,5 dBTP.
+- [ ] Początek pierwszego zdania nie jest ucięty.
+- [ ] Ostatnie słowo nie jest ucięte.
+- [ ] Po outro pozostaje około 0,4 s naturalnego zapasu.
+- [ ] Jeśli dodano dźwięk koparki, jest bardzo cichy i nie konkuruje z głosem.
+
+## Bramka F — technika i submit
+
+- [ ] Master ma 1080×1920.
+- [ ] Master ma 30 fps CFR.
+- [ ] Kodek wideo to H.264.
+- [ ] Profil jest zgodny z typowymi platformami mobilnymi.
+- [ ] Format pikseli to `yuv420p`.
+- [ ] Audio to AAC 48 kHz.
+- [ ] Plik ma `+faststart`.
+- [ ] `ffprobe` pokazuje oczekiwane parametry.
+- [ ] Test `ffmpeg -v error ... -f null -` kończy się bez błędów.
+- [ ] Master obejrzano od początku do końca.
+- [ ] Master sprawdzono na telefonie, nie tylko na komputerze.
+- [ ] Napisy nie wchodzą pod interfejs platformy.
+- [ ] Końcowa długość mieści się w kanonicznych 60–90 s.
+- [ ] Nazwa pliku końcowego jest jednoznaczna: `WD_0001_teren_master.mp4`.
+
+## Kryterium submitu
+
+Publikować dopiero po zamknięciu wszystkich bramek.
+
+Błędy bezwzględnie blokujące submit:
+
+- zła orientacja któregokolwiek klipu;
+- błędna wymowa;
+- wyraźny brak synchronizacji ust;
+- ucięte intro lub outro;
+- niechronologiczny montaż;
+- przypadkowe audio z telefonu;
+- ujawnione dane osoby postronnej;
+- rozciągnięty obraz;
+- format inny niż 1080×1920;
+- niestabilne lub inne niż 30 fps;
+- czas poza zakresem 60–90 s.
+tokens used
+33,298
+# ZENEK — WIADOMOŚCI DZIAŁKOWE 0001 „Teren”
+
+## Decyzja produkcyjna
+
+- Format końcowy: **1080×1920, 30 fps, H.264/AAC, pion**.
+- Zakładana długość: **71,2 s** — czołówka 3,2 s + 68,0 s głosu Stanisława.
+- Awatar: jeden render Kling STANDARD, wykorzystany od 03,2 do 71,2 s. Nie generujemy osobnych ujęć intro i outro.
+- Obraz awatara jest bazą przez cały serwis. Przebitki zastępują go pełnoekranowo, a głos TTS biegnie bez przerwy.
+- Dźwięk z materiałów terenowych domyślnie wyciszony. Opcjonalnie można dodać bardzo cichy dźwięk koparki, ale dopiero po odsłuchu i bez pogorszenia czytelności narracji.
+- Chronologia: stan terenu i prace 22.07 → kontynuacja i efekt 23.07.
+- Limit płatnej generacji: **jedno podejście Kling**.
+
+## 1. Struktura montażu sekunda po sekundzie
+
+Dokładne granice trzeba dopasować do finalnego WAV z ElevenLabs. Poniższa siatka zakłada 68 s mowy.
+
+Jeśli TTS będzie trwał 60–75 s:
+
+- nie przyspieszać głosu mechanicznie;
+- zachować czołówkę 3,2 s;
+- zachować pełne intro na awatarze;
+- przesuwać granice przebitek zgodnie z końcami zdań;
+- pozostawić ostatnie około 5 s na awatarowe outro.
+
+| Czas programu | Długość | Obraz | Źródło i wskazanie |
+|---:|---:|---|---|
+| 00,0–03,2 | 3,2 s | Czołówka | „WIADOMOŚCI DZIAŁKOWE” 88 pt oraz „ROD im. Józefa Lompy w Woźnikach” 50 pt |
+| 03,2–09,8 | 6,6 s | Stanisław, pełny ekran | Całe kanoniczne powitanie; spokojny kontakt wzrokowy |
+| 09,8–15,8 | 6,0 s | Przebitka 1 | 22.07, `20260722_093926.mp4`: szeroki plan zarośniętego terenu — **[GENEK_01_IN]** |
+| 15,8–21,3 | 5,5 s | Przebitka 2 | 22.07, ten sam plik: detal zarośli lub czytelna skala problemu — **[GENEK_02_IN]** |
+| 21,3–27,3 | 6,0 s | Przebitka 3 | 22.07, `20260722_094249.mp4`: wejście koparki albo początek karczowania — **[GENEK_03_IN]** |
+| 27,3–32,8 | 5,5 s | Przebitka 4 | 22.07, ten sam plik: wyrywanie korzeni lub odkładanie urobku — **[GENEK_04_IN]** |
+| 32,8–38,8 | 6,0 s | Przebitka 5 | 23.07, `VID-20260723-WA0001.mp4`: początek drugiego popołudnia, widoczny postęp — **[GENEK_05_IN]** |
+| 38,8–44,3 | 5,5 s | Przebitka 6 | 23.07, ten sam plik: czytelna praca maszyny — **[GENEK_06_IN]** |
+| 44,3–50,3 | 6,0 s | Przebitka 7 | 23.07, `VID-20260723-WA0005.mp4`: późniejsze prace, światło przed zmierzchem — **[GENEK_07_IN]** |
+| 50,3–56,3 | 6,0 s | Przebitka 8 | 23.07, ten sam plik: porządkowanie lub odsłonięty grunt — **[GENEK_08_IN]** |
+| 56,3–63,3 | 7,0 s | Przebitka 9 | 23.07, `VID-20260723-WA0007.mp4`: najmocniejszy plan efektu o zmierzchu — **[GENEK_09_IN]** |
+| 63,3–66,2 | 2,9 s | Stanisław | Krótkie podsumowanie; naturalny oddech przed formułą końcową |
+| 66,2–71,2 | 5,0 s | Stanisław | „Do usłyszenia przy płocie.”; około 0,4 s zapasu po zdaniu |
+
+Łącznie:
+
+- **9 przebitek**;
+- 53,5 s materiału terenowego;
+- 14,5 s widocznego awatara;
+- 3,2 s czołówki;
+- zmiana przebitek co 5,5–7 s;
+- powrót do awatara na podsumowanie i pełne outro.
+
+Nie stosować ozdobnych przejść. Preferowane są zwykłe cięcia. Dopuszczalny jest najwyżej subtelny fade między czołówką a awatarem, maksymalnie 4 klatki.
+
+### Reguły wyboru fragmentów dla Genka
+
+1. Każdy fragment powinien zawierać ruch albo czytelną zmianę sytuacji już od pierwszej sekundy.
+2. Pomijać jałowe początki i końcówki nagrań.
+3. Nie powtarzać tego samego ruchu łyżki w dwóch kolejnych przebitkach.
+4. Zachować ciąg przyczynowy:
+
+   `zarośnięty teren → wejście maszyny → wyrywanie → odkładanie urobku → odsłonięty grunt → efekt o zmierzchu`
+
+5. Preferować fragmenty stabilne, bez zasłoniętego obiektywu i bez gwałtownych obrotów telefonu.
+6. Nie stosować cyfrowego zoomu.
+7. Unikać fragmentów pokazujących przypadkowe osoby lub czytelne tablice rejestracyjne.
+8. Przy selekcji zostawić minimum 0,25 s zapasu przed i po wskazanym fragmencie, aby można było przesunąć cięcie pod frazę lektora.
+
+## 2. Pipeline FFmpeg
+
+Komendy zakładają uruchomienie z katalogu:
+
+```bash
+cd /root/rod-ai-studio
+mkdir -p data/wiadomosci/0001-teren/work
+```
+
+Zmienne robocze:
+
+```bash
+SRC=data/upload/0001-teren
+WRK=data/wiadomosci/0001-teren/work
+OUT=data/wiadomosci/0001-teren
+FONT=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+```
+
+### 2.1. Zweryfikowane parametry źródeł
+
+| Plik | Parametry |
+|---|---|
+| `20260722_093926.mp4` | 71,47 s, zapis 1920×824, orientacja pionowa z metadanych, 30 fps |
+| `20260722_094249.mp4` | 36,54 s, zapis 1920×824, orientacja pionowa z metadanych, 30 fps |
+| `VID-20260723-WA0001.mp4` | 20,42 s, 1072×1920, około 29,58 fps |
+| `VID-20260723-WA0005.mp4` | 29,25 s, 1072×1920, około 29,58 fps |
+| `VID-20260723-WA0007.mp4` | 27,95 s, 1072×1920, około 29,58 fps |
+
+Chronologia metadanych:
+
+1. 22.07, około 09:40;
+2. 22.07, około 09:43;
+3. 23.07, około 17:07;
+4. 23.07, około 19:42;
+5. 23.07, około 19:44.
+
+### 2.2. Kontrola orientacji plików z 22.07
+
+FFmpeg zwykle automatycznie uwzględnia macierz obrotu. Przed normalizacją wygenerować klatki kontrolne:
+
+```bash
+ffmpeg -y -ss 5 -i "$SRC/20260722_093926.mp4" \
+  -frames:v 1 "$WRK/check_22a.jpg"
+
+ffmpeg -y -ss 5 -i "$SRC/20260722_094249.mp4" \
+  -frames:v 1 "$WRK/check_22b.jpg"
+```
+
+Bramka:
+
+- koparka, drzewa i ludzie muszą być pionowo;
+- obraz nie może być bokiem ani do góry nogami.
+
+Jeśli używany build FFmpeg nie zastosuje orientacji automatycznie, trzeba użyć `-noautorotate` i jawnego filtra:
+
+```text
+transpose=clock
+```
+
+albo:
+
+```text
+transpose=cclock
+```
+
+Kierunek wybrać po obejrzeniu klatki kontrolnej. Nie zgadywać.
+
+### 2.3. Normalizacja pięciu źródeł
+
+Domyślny wariant: **scale + pad**.
+
+Powody:
+
+- zachowuje cały obraz;
+- nie ucina góry ani dołu;
+- nie rozciąga sylwetek;
+- stabilizuje wszystkie źródła do 1080×1920 i 30 fps;
+- dla klipów 1072×1920 margines będzie minimalny;
+- dla węższych klipów 824×1920 pojawią się wyraźniejsze marginesy boczne.
+
+Filtry:
+
+- `scale=...:force_original_aspect_ratio=decrease` — dopasowanie bez deformacji;
+- `pad=1080:1920` — uzupełnienie płótna;
+- `setsar=1` — kwadratowe piksele;
+- `fps=30` — stabilne 30 fps;
+- `format=yuv420p` — kompatybilność publikacyjna.
+
+```bash
+ffmpeg -y -i "$SRC/20260722_093926.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n01.mp4"
+
+ffmpeg -y -i "$SRC/20260722_094249.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n02.mp4"
+
+ffmpeg -y -i "$SRC/VID-20260723-WA0001.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n03.mp4"
+
+ffmpeg -y -i "$SRC/VID-20260723-WA0005.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n04.mp4"
+
+ffmpeg -y -i "$SRC/VID-20260723-WA0007.mp4" \
+  -map 0:v:0 -an \
+  -vf "scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n05.mp4"
+```
+
+#### Alternatywa dla czarnych marginesów
+
+Jeżeli boczne czarne pasy w materiałach 824×1920 zostaną odrzucone wizualnie, zastosować rozmyte tło zamiast agresywnego cropu:
+
+```bash
+ffmpeg -y -i "$SRC/20260722_093926.mp4" \
+  -filter_complex "\
+    [0:v]fps=30,split=2[bg][fg];\
+    [bg]scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920,boxblur=30:5[blur];\
+    [fg]scale=1080:1920:force_original_aspect_ratio=decrease:flags=lanczos[front];\
+    [blur][front]overlay=(W-w)/2:(H-h)/2,setsar=1,format=yuv420p[v]" \
+  -map "[v]" -an \
+  -c:v libx264 -preset medium -crf 18 \
+  -movflags +faststart \
+  "$WRK/n01_blur.mp4"
+```
+
+Ten wariant można analogicznie zastosować do `n02`.
+
+Crop nie jest wariantem domyślnym. Przy źródle 824×1920 dopasowanie przez powiększenie do szerokości 1080 wymagałoby znacznego ucięcia góry i dołu.
+
+### 2.4. Wycinanie dziewięciu przebitek
+
+Po wskazaniu przez Genka wartości `IN` ciąć z ponownym kodowaniem. Dzięki temu granice będą dokładne co do klatki, niezależnie od położenia klatek kluczowych.
+
+Przykład:
+
+```bash
+ffmpeg -y \
+  -ss GENEK_01_IN \
+  -i "$WRK/n01.mp4" \
+  -t 6.0 \
+  -an \
+  -c:v libx264 -preset medium -crf 18 \
+  -pix_fmt yuv420p \
+  "$WRK/b01.mp4"
+```
+
+Mapa fragmentów:
+
+```text
+b01: n01, GENEK_01_IN, 6.0 s
+b02: n01, GENEK_02_IN, 5.5 s
+b03: n02, GENEK_03_IN, 6.0 s
+b04: n02, GENEK_04_IN, 5.5 s
+b05: n03, GENEK_05_IN, 6.0 s
+b06: n03, GENEK_06_IN, 5.5 s
+b07: n04, GENEK_07_IN, 6.0 s
+b08: n04, GENEK_08_IN, 6.0 s
+b09: n05, GENEK_09_IN, 7.0 s
+```
+
+Szablon kompletu:
+
+```bash
+ffmpeg -y -ss GENEK_01_IN -i "$WRK/n01.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b01.mp4"
+
+ffmpeg -y -ss GENEK_02_IN -i "$WRK/n01.mp4" -t 5.5 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b02.mp4"
+
+ffmpeg -y -ss GENEK_03_IN -i "$WRK/n02.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b03.mp4"
+
+ffmpeg -y -ss GENEK_04_IN -i "$WRK/n02.mp4" -t 5.5 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b04.mp4"
+
+ffmpeg -y -ss GENEK_05_IN -i "$WRK/n03.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b05.mp4"
+
+ffmpeg -y -ss GENEK_06_IN -i "$WRK/n03.mp4" -t 5.5 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b06.mp4"
+
+ffmpeg -y -ss GENEK_07_IN -i "$WRK/n04.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b07.mp4"
+
+ffmpeg -y -ss GENEK_08_IN -i "$WRK/n04.mp4" -t 6.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b08.mp4"
+
+ffmpeg -y -ss GENEK_09_IN -i "$WRK/n05.mp4" -t 7.0 -an \
+  -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p "$WRK/b09.mp4"
+```
+
+Przed renderem sprawdzić, czy dla każdego fragmentu:
+
+```text
+IN + długość przebitki ≤ długość pliku źródłowego
+```
+
+### 2.5. TTS ElevenLabs
+
+Ustawienia:
+
+- głos: **Daniel**;
+- model: `eleven_multilingual_v2`;
+- tekst: około 60–75 s;
+- „ROD” zapisać pełnymi słowami;
+- wygenerować jeden finalny plik po zatwierdzeniu tekstu.
+
+W tekście TTS zamiast:
+
+```text
+ROD
+```
+
+użyć:
+
+```text
+Rodzinnego Ogrodu Działkowego
+```
+
+albo odpowiedniej formy gramatycznej, np.:
+
+```text
+na terenie Rodzinnego Ogrodu Działkowego
+```
+
+Finalny TTS zapisać jako:
+
+```text
+$WRK/stanislaw_tts_raw.wav
+```
+
+Normalizacja:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/stanislaw_tts_raw.wav" \
+  -af "loudnorm=I=-16:TP=-1.5:LRA=7,apad=pad_dur=0.4" \
+  -ar 48000 \
+  -ac 2 \
+  "$WRK/stanislaw_tts.wav"
+```
+
+Uwaga: powyższy `loudnorm` jest wygodny dla proxy. Dla maksymalnie dokładnego poziomu mastera można wykonać dwupassową normalizację `loudnorm`, wykorzystując pomiary z pierwszego przebiegu.
+
+### 2.6. Generacja awatara Kling
+
+Ustawienia:
+
+- model: **Kling STANDARD**;
+- koszt wskazany w kanonie: **$2.27**;
+- liczba prób: **1**;
+- karta: `karta_stanislaw_CANON.png`;
+- format po generacji: około 1072×1920;
+- stały prompt zawierający: `calm presentation, eye contact`;
+- ruch spokojny, prezenter wiadomości;
+- bez szerokiej gestykulacji;
+- długość obejmująca cały finalny TTS i około 0,4 s zapasu po ostatnim zdaniu.
+
+Nie uruchamiać Kling przed:
+
+- zatwierdzeniem tekstu;
+- odsłuchem TTS;
+- sprawdzeniem wymowy;
+- potwierdzeniem finalnej długości;
+- sprawdzeniem właściwej karty;
+- potwierdzeniem modelu STANDARD i kosztu.
+
+Po pobraniu awatara:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/kling_stanislaw.mp4" \
+  -i "$WRK/stanislaw_tts.wav" \
+  -map 0:v:0 \
+  -map 1:a:0 \
+  -shortest \
+  -vf "scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920,setsar=1,fps=30,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 18 \
+  -c:a aac -b:a 192k -ar 48000 \
+  "$WRK/avatar_master.mp4"
+```
+
+Crop awatara jest dopuszczalny, ponieważ różnica między 1072×1920 a 1080×1920 jest minimalna.
+
+#### Ważna kontrola synchronizacji
+
+Jeżeli Kling wygeneruje obraz zsynchronizowany ze swoją kopią audio, podłożenie ponownie WAV ElevenLabs powinno być bezpieczne tylko wtedy, gdy długość i timing są identyczne.
+
+Sprawdzić synchronizację:
+
+- na pierwszym zdaniu;
+- w połowie materiału;
+- na „Do usłyszenia przy płocie”.
+
+Jeżeli występuje dryf:
+
+- zachować oryginalne audio z Kling;
+- albo ustalić dokładne przesunięcie audio;
+- nie rozciągać obrazu bez dokładnego pomiaru.
+
+### 2.7. Sklejka awatar + przebitki
+
+Awatar jest warstwą bazową. Dziewięć niemych przebitek nakładamy pełnoekranowo. Audio jest mapowane wyłącznie z `avatar_master.mp4`, dzięki czemu narracja biegnie ciągle.
+
+Czasy poniżej są liczone względem początku awatara, czyli bez czołówki:
+
+| Przebitka | Czas w korpusie | Czas w całym programie |
+|---|---:|---:|
+| b01 | 06,6–12,6 | 09,8–15,8 |
+| b02 | 12,6–18,1 | 15,8–21,3 |
+| b03 | 18,1–24,1 | 21,3–27,3 |
+| b04 | 24,1–29,6 | 27,3–32,8 |
+| b05 | 29,6–35,6 | 32,8–38,8 |
+| b06 | 35,6–41,1 | 38,8–44,3 |
+| b07 | 41,1–47,1 | 44,3–50,3 |
+| b08 | 47,1–53,1 | 50,3–56,3 |
+| b09 | 53,1–60,1 | 56,3–63,3 |
+
+Komenda:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/avatar_master.mp4" \
+  -i "$WRK/b01.mp4" \
+  -i "$WRK/b02.mp4" \
+  -i "$WRK/b03.mp4" \
+  -i "$WRK/b04.mp4" \
+  -i "$WRK/b05.mp4" \
+  -i "$WRK/b06.mp4" \
+  -i "$WRK/b07.mp4" \
+  -i "$WRK/b08.mp4" \
+  -i "$WRK/b09.mp4" \
+  -filter_complex "\
+    [0:v]setpts=PTS-STARTPTS[base];\
+    [1:v]setpts=PTS-STARTPTS+6.6/TB[v1];\
+    [2:v]setpts=PTS-STARTPTS+12.6/TB[v2];\
+    [3:v]setpts=PTS-STARTPTS+18.1/TB[v3];\
+    [4:v]setpts=PTS-STARTPTS+24.1/TB[v4];\
+    [5:v]setpts=PTS-STARTPTS+29.6/TB[v5];\
+    [6:v]setpts=PTS-STARTPTS+35.6/TB[v6];\
+    [7:v]setpts=PTS-STARTPTS+41.1/TB[v7];\
+    [8:v]setpts=PTS-STARTPTS+47.1/TB[v8];\
+    [9:v]setpts=PTS-STARTPTS+53.1/TB[v9];\
+    [base][v1]overlay=0:0:eof_action=pass:enable='between(t,6.6,12.6)'[x1];\
+    [x1][v2]overlay=0:0:eof_action=pass:enable='between(t,12.6,18.1)'[x2];\
+    [x2][v3]overlay=0:0:eof_action=pass:enable='between(t,18.1,24.1)'[x3];\
+    [x3][v4]overlay=0:0:eof_action=pass:enable='between(t,24.1,29.6)'[x4];\
+    [x4][v5]overlay=0:0:eof_action=pass:enable='between(t,29.6,35.6)'[x5];\
+    [x5][v6]overlay=0:0:eof_action=pass:enable='between(t,35.6,41.1)'[x6];\
+    [x6][v7]overlay=0:0:eof_action=pass:enable='between(t,41.1,47.1)'[x7];\
+    [x7][v8]overlay=0:0:eof_action=pass:enable='between(t,47.1,53.1)'[x8];\
+    [x8][v9]overlay=0:0:eof_action=pass:enable='between(t,53.1,60.1)'[vout]" \
+  -map "[vout]" \
+  -map 0:a:0 \
+  -t 68.0 \
+  -c:v libx264 -preset medium -crf 18 \
+  -pix_fmt yuv420p \
+  -c:a aac -b:a 192k -ar 48000 \
+  "$WRK/news_body.mp4"
+```
+
+Po przygotowaniu finalnego TTS należy skorygować:
+
+- `-t 68.0`;
+- punkty wejścia przebitek;
+- długość ostatniego powrotu do awatara.
+
+### 2.8. Czołówka 3,2 s
+
+Kanoniczne parametry:
+
+- czas: 3,2 s;
+- format: 1080×1920;
+- font: DejaVu Sans;
+- tytuł: 88 px;
+- podtytuł: 50 px;
+- CRF 18.
+
+```bash
+ffmpeg -y \
+  -f lavfi \
+  -i "color=c=0x101820:s=1080x1920:r=30:d=3.2" \
+  -f lavfi \
+  -i "anullsrc=r=48000:cl=stereo:d=3.2" \
+  -vf "drawtext=fontfile=$FONT:text='WIADOMOŚCI DZIAŁKOWE':fontcolor=white:fontsize=88:x=(w-text_w)/2:y=(h-text_h)/2-90,drawtext=fontfile=$FONT:text='ROD im. Józefa Lompy w Woźnikach':fontcolor=white:fontsize=50:x=(w-text_w)/2:y=(h-text_h)/2+55,format=yuv420p" \
+  -c:v libx264 \
+  -preset medium \
+  -crf 18 \
+  -c:a aac \
+  -b:a 192k \
+  -ar 48000 \
+  -t 3.2 \
+  "$WRK/title.mp4"
+```
+
+Jeżeli kanon określa konkretny kolor, teksturę albo planszę tła, zastąpić tylko źródło `color`. Zachować:
+
+- długość 3,2 s;
+- dokładną pisownię;
+- rozmiary 88 i 50;
+- DejaVu Sans;
+- pion 1080×1920.
+
+### 2.9. Finalne połączenie
+
+Czołówka i korpus mają identyczne parametry techniczne. Łączymy je filtrem `concat` i wykonujemy finalny encode:
+
+```bash
+ffmpeg -y \
+  -i "$WRK/title.mp4" \
+  -i "$WRK/news_body.mp4" \
+  -filter_complex "\
+    [0:v]setpts=PTS-STARTPTS[v0];\
+    [0:a]asetpts=PTS-STARTPTS[a0];\
+    [1:v]setpts=PTS-STARTPTS[v1];\
+    [1:a]asetpts=PTS-STARTPTS[a1];\
+    [v0][a0][v1][a1]concat=n=2:v=1:a=1[v][a]" \
+  -map "[v]" \
+  -map "[a]" \
+  -c:v libx264 \
+  -preset medium \
+  -crf 18 \
+  -profile:v high \
+  -level 4.2 \
+  -pix_fmt yuv420p \
+  -r 30 \
+  -c:a aac \
+  -b:a 192k \
+  -ar 48000 \
+  -movflags +faststart \
+  "$OUT/WD_0001_teren_master.mp4"
+```
+
+Ustawienia robocze:
+
+- proxy: `-preset veryfast -crf 23`;
+- master: `-preset medium -crf 18`.
+
+Nie wykonywać wielu kolejnych transkodowań mastera. Poprawki zatwierdzać na proxy, a finalny plik wyrenderować z najlepszych plików pośrednich.
+
+### 2.10. Kontrola parametrów mastera
+
+```bash
+ffprobe -v error \
+  -show_entries format=duration:stream=index,codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,pix_fmt,sample_rate,channels \
+  -of default=noprint_wrappers=1 \
+  "$OUT/WD_0001_teren_master.mp4"
+```
+
+Test pełnego dekodowania:
+
+```bash
+ffmpeg -v error \
+  -i "$OUT/WD_0001_teren_master.mp4" \
+  -f null -
+```
+
+Oczekiwany wynik:
+
+```text
+czas: około 71,2 s, zależnie od finalnego TTS
+wideo: H.264
+rozdzielczość: 1080×1920
+fps: 30/1 CFR
+format pikseli: yuv420p
+audio: AAC
+próbkowanie: 48000 Hz
+kanały: stereo
+błędy dekodowania: brak
+```
+
+## 3. Kosztorys
+
+| Pozycja | Koszt | Uwagi |
+|---|---:|---|
+| Kling STANDARD — Stanisław | **$2.27** | Jedno podejście; koszt potwierdzić na ekranie przed uruchomieniem |
+| ElevenLabs Daniel, `eleven_multilingual_v2` | zależny od liczby znaków i planu | Sprawdzić faktyczne zużycie limitu lub koszt na aktywnym koncie |
+| FFmpeg: normalizacja | **$0** | Lokalnie |
+| FFmpeg: montaż i kodowanie | **$0** | Lokalnie |
+| Selekcja fragmentów i QC | **$0** | Praca lokalna |
+| DejaVu Sans | **$0** | Font wolny |
+| Materiały własne ROD | **$0** | Przy założeniu posiadania praw i zgód |
+
+Minimalny znany koszt, bez wyceny TTS:
+
+```text
+$2.27
+```
+
+### Kalkulacja TTS
+
+Przed wysłaniem tekstu do ElevenLabs policzyć znaki:
+
+```bash
+wc -m "$WRK/tekst_stanislaw.txt"
+```
+
+Nie wpisywać szacunkowej ceny jako pewnej wartości, ponieważ zależy ona od:
+
+- aktywnego planu ElevenLabs;
+- sposobu rozliczania konta;
+- liczby znaków finalnego tekstu;
+- ewentualnego wykorzystania miesięcznego limitu.
+
+### Zasada jednego podejścia
+
+Jedno podejście dotyczy płatnej generacji Kling. Aby go nie zmarnować:
+
+1. najpierw zatwierdzić tekst;
+2. potem wygenerować i odsłuchać TTS;
+3. sprawdzić długość;
+4. sprawdzić kartę;
+5. sprawdzić prompt;
+6. potwierdzić STANDARD i $2.27;
+7. dopiero wtedy uruchomić generację.
+
+## 4. Ryzyka i bramki przed submitem
+
+## Bramka A — przed TTS
+
+- [ ] Tekst przy spokojnym tempie Daniela mieści się w 60–75 s.
+- [ ] Powitanie brzmi dokładnie: „Dzień dobry państwu, kłaniam się nisko. Zapraszam na Wiadomości Działkowe.”
+- [ ] Zakończenie brzmi dokładnie: „Do usłyszenia przy płocie.”
+- [ ] Skrót „ROD” zapisano w wejściu TTS pełnymi słowami.
+- [ ] Daty 22–23 lipca są zgodne z materiałem.
+- [ ] Tekst mówi o dwóch popołudniach pracy i nie dopisuje niepotwierdzonych szczegółów.
+- [ ] Nie wymieniono niepotwierdzonych nazwisk, wykonawców, kosztów ani przyszłych decyzji.
+- [ ] Odsłuch próbny tekstu nie ujawnia łamańców językowych.
+- [ ] Policzone zostały znaki.
+- [ ] Sprawdzono dostępny limit ElevenLabs.
+
+## Bramka B — przed jedyną generacją Kling
+
+- [ ] Użyta jest dokładnie `karta_stanislaw_CANON.png`.
+- [ ] Wybrano Kling STANDARD.
+- [ ] Wybrano format pionowy.
+- [ ] Koszt pokazany na ekranie wynosi $2.27.
+- [ ] Prompt zawiera `calm presentation, eye contact`.
+- [ ] Prompt nie wymusza szerokiej ani szybkiej gestykulacji.
+- [ ] TTS jest finalny.
+- [ ] TTS został przesłuchany od początku do końca.
+- [ ] Nie ma błędów wymowy, klików, trzasków ani uciętego zdania.
+- [ ] Długość awatara obejmuje cały TTS.
+- [ ] Po outro przewidziano około 0,4 s zapasu.
+- [ ] Nie uruchamiać generacji, jeśli choć jeden z powyższych punktów nie jest zatwierdzony.
+
+## Bramka C — po normalizacji materiałów
+
+- [ ] Oba klipy z 22.07 mają prawidłową orientację.
+- [ ] Koparka, ludzie, ogrodzenie i drzewa nie są obrócone.
+- [ ] Żaden obraz nie jest rozciągnięty.
+- [ ] SAR wynosi 1:1.
+- [ ] Wszystkie pliki mają 1080×1920.
+- [ ] Wszystkie pliki mają stabilne 30 fps.
+- [ ] Konwersja z około 29,58 fps nie powoduje widocznego szarpania.
+- [ ] Marginesy z `pad` są zaakceptowane.
+- [ ] Jeśli czarne pasy odrzucono, zatwierdzono wariant z rozmytym tłem.
+- [ ] Genek wskazał dziewięć punktów `IN`.
+- [ ] Każdy `IN + długość` mieści się w pliku źródłowym.
+- [ ] Zachowana jest kolejność: 22.07 → 23.07 17:07 → 19:41 → 19:44.
+
+## Bramka D — kontrola redakcyjna i wizualna
+
+- [ ] Czołówka trwa dokładnie 3,2 s.
+- [ ] Tytuł ma 88 px.
+- [ ] Podtytuł ma 50 px.
+- [ ] Pisownia „ROD im. Józefa Lompy w Woźnikach” jest poprawna.
+- [ ] Oba napisy mieszczą się w bezpiecznym obszarze telefonu.
+- [ ] Pierwsze 6,6 s awatara pokazuje całe powitanie.
+- [ ] Żadna przebitka nie przykrywa intro.
+- [ ] Przebitki mają po 5,5–7 s.
+- [ ] Każda przebitka ilustruje aktualnie wypowiadane zdanie.
+- [ ] Nie ma skoku chronologii.
+- [ ] Nie ma dwóch prawie identycznych ruchów koparki z rzędu.
+- [ ] Finał pokazuje najbardziej czytelny efekt prac.
+- [ ] Powrót do awatara następuje przed podsumowaniem.
+- [ ] Całe „Do usłyszenia przy płocie” jest pokazane na twarzy Stanisława.
+- [ ] Synchronizacja ust jest poprawna na początku.
+- [ ] Synchronizacja ust jest poprawna w środku.
+- [ ] Synchronizacja ust jest poprawna podczas outro.
+- [ ] Nie ma wad awatara: nienaturalnych zębów, oczu, dłoni, migotania ani falującego tła.
+- [ ] Osoby postronne nie są rozpoznawalne albo mają zgodę na publikację.
+- [ ] Tablice rejestracyjne są niewidoczne albo zanonimizowane.
+
+## Bramka E — dźwięk
+
+- [ ] Narracja biegnie bez przerwy pod wszystkimi przebitkami.
+- [ ] Nie następuje przypadkowe przełączenie na mikrofon telefonu.
+- [ ] Nie słychać gwałtownych skoków głośności.
+- [ ] Narracja pozostaje czytelna na głośniku telefonu.
+- [ ] Docelowa głośność wynosi około -16 LUFS.
+- [ ] True peak nie przekracza około -1,5 dBTP.
+- [ ] Początek pierwszego zdania nie jest ucięty.
+- [ ] Ostatnie słowo nie jest ucięte.
+- [ ] Po outro pozostaje około 0,4 s naturalnego zapasu.
+- [ ] Jeśli dodano dźwięk koparki, jest bardzo cichy i nie konkuruje z głosem.
+
+## Bramka F — technika i submit
+
+- [ ] Master ma 1080×1920.
+- [ ] Master ma 30 fps CFR.
+- [ ] Kodek wideo to H.264.
+- [ ] Profil jest zgodny z typowymi platformami mobilnymi.
+- [ ] Format pikseli to `yuv420p`.
+- [ ] Audio to AAC 48 kHz.
+- [ ] Plik ma `+faststart`.
+- [ ] `ffprobe` pokazuje oczekiwane parametry.
+- [ ] Test `ffmpeg -v error ... -f null -` kończy się bez błędów.
+- [ ] Master obejrzano od początku do końca.
+- [ ] Master sprawdzono na telefonie, nie tylko na komputerze.
+- [ ] Napisy nie wchodzą pod interfejs platformy.
+- [ ] Końcowa długość mieści się w kanonicznych 60–90 s.
+- [ ] Nazwa pliku końcowego jest jednoznaczna: `WD_0001_teren_master.mp4`.
+
+## Kryterium submitu
+
+Publikować dopiero po zamknięciu wszystkich bramek.
+
+Błędy bezwzględnie blokujące submit:
+
+- zła orientacja któregokolwiek klipu;
+- błędna wymowa;
+- wyraźny brak synchronizacji ust;
+- ucięte intro lub outro;
+- niechronologiczny montaż;
+- przypadkowe audio z telefonu;
+- ujawnione dane osoby postronnej;
+- rozciągnięty obraz;
+- format inny niż 1080×1920;
+- niestabilne lub inne niż 30 fps;
+- czas poza zakresem 60–90 s.

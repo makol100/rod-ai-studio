@@ -1,0 +1,279 @@
+Reading additional input from stdin...
+OpenAI Codex v0.145.0
+--------
+workdir: /root/rod-ai-studio
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: none
+reasoning summaries: none
+session id: 019fe06b-77cb-7ea0-97ce-de54f6de88b9
+--------
+user
+TYLKO OCENA/PLAN TEKSTEM. NIE uruchamiaj narzedzi, nie instaluj, nie twórz plikow. # ZADANIE (Zenek + Henio): OBRAZ kamer Xiaomi w HA Dzialki — bariera izolacji
+
+CEL: obraz z kamer Xiaomi (chuangmi.camera.*) w HA Dzialki. Kazdy PODPISANY glos, potem wspolny wniosek. Rozbieznosc zostaje. Decyduje Tomasz.
+
+## FAKTY (sprawdzone 8.08)
+- Kamery WYCIAGNIETE (Extractor przez telefon Tomasza): .112 did=1022085077 model=chuangmi.camera.021a04; .114 did=371002387 model=chuangmi.camera.029a02; .127 did=323183877 model=chuangmi.camera.ipc019; .121 did=448715358 model=chuangmi.camera.025b02. userId=6338598787, region=de. did+device-token w /tmp/qr3.txt na VPS.
+- go2rtc postawiony na VPS (docker alexxit/go2rtc latest, dziala HTTP 200) ALE VPS NIE DOSIEGA kamer: .112 GLUCHA na ping I portach 554/6668/8554/54321/5000. Router Dzialki .0.1 z VPS PING OK, ale kamera .112 nie. (go2rtc VPS juz usuniety - i tak bezuzyteczny.)
+- HA Dzialki NIE ma tych kamer zintegrowanych (tylko update entities Xiaomi Home/MiIO/Miot Auto).
+- HA Dzialki SSH ZAMKNIETY (port 22 refused). Dostep: MCP connector "HA DZIALKA" (ha_call_service, ha_get_addon, ha_manage_addon, ha_eval_template, ha_config_*) + panel :8123 (HTTP 200 przez Tailscale). Wczesniej addon Tailscale zmienialem przez ha_manage_addon.
+- Router Dzialki: D-0066 NIE RUSZAC bez zgody Tomasza. Odczyt dziala: tplinkrouterc6u haslo <USUNIETE> (Client List OK).
+
+## RESEARCH (go2rtc README + issues, potwierdzone, czytac cale):
+- go2rtc xiaomi:// "Connection to the camera is LOCAL ONLY" (README, powtorzone 3x). Klucze szyfrowania z chmury (internet), ale STREAM P2P bezposrednio do kamery IP w LAN. => go2rtc MUSI byc w LAN Dzialki i DOSIEGAC kamery lokalnie. VPS bezuzyteczny - POTWIERDZONE.
+- go2rtc 1.9.14 ma BUG: CS2 cameras i/o timeout (issue #2294, #2048); v1.9.13 dziala. UZYC 1.9.13, nie latest.
+- CS2 vendor supported, TUTK nie. chuangmi zwykle mess+cs2 (dzialaja), niektore legacy EOF.
+- KLUCZOWA POSZLAKA: router .0.1 dosiegalny a kamera .112 NIE = prawdopodobnie CLIENT/AP ISOLATION na WiFi routera (izoluje klientow miedzy soba) ALBO firewall kamery. Jesli client isolation - NAWET go2rtc w HA Dzialki (inny klient WiFi) NIE dosiegnie kamer.
+
+## ROZSTRZYGNIJ (podpisany glos, potem wniosek)
+1. Jak ZDIAGNOZOWAC czy kamery sa dosiegalne z LAN Dzialki, MAJAC tylko MCP HA (bez SSH/roota)? Konkretne pomysly: (a) ha_eval_template - czy da sie nim odpalic cokolwiek sieciowego? (b) zainstalowac go2rtc jako ADDON w HA Dzialki (host mode) i jego LOG powie czy dosiega kamere; (c) odczytac w panelu routera (tplinkrouterc6u) czy "AP Isolation"/"Access Control" wlaczone; (d) HA integracja Xiaomi Miot - dodac kamere po IP i zobaczyc czy HA ja widzi (HA jest w LAN Dzialki).
+2. GDZIE go2rtc: addon w HA Dzialki (host mode, 1.9.13) - jak zainstalowac przez MCP/panel :8123? Czy jest oficjalny addon (AlexxIT/hassio-addons)?
+3. Jesli to CLIENT ISOLATION na routerze: czy wylaczyc (D-0066 = decyzja Tomasza)? Czy jest droga BEZ ruszania routera?
+4. Config go2rtc dla 021a04/029a02: CS2? transport udp/tcp? subtype? Jak podac konto (V1 token - go2rtc WebUI login, moze przez telefon jak Extractor).
+5. PLAN krok po kroku, najnizszy koszt, z jasnym "co wymaga Tomasza / co wymaga routera".
+
+Zasada 17.07: uczyc sie z issues, czytac do konca, nie zgadywac.
+codex
+Poniższa ocena opiera się wyłącznie na faktach i researchu przekazanych w zadaniu. Zgodnie z zakazem nie uruchamiałem narzędzi. „Zenek” i „Henio” to dwa rozdzielone głosy analityczne w tej odpowiedzi, a nie niezależnie wykonane kontrole środowiska.
+
+## POTWIERDZONE
+
+- Strumień `xiaomi://` wymaga lokalnego połączenia go2rtc z kamerą. VPS, który nie ma łączności z kamerami w LAN Działki, nie rozwiąże problemu.
+- go2rtc powinno działać wewnątrz LAN Działki.
+- Z przekazanego researchu wynika, że dla kamer CS2 należy zacząć od go2rtc `1.9.13`, ponieważ `1.9.14` ma zgłoszone timeouty.
+- HA Działki nie ma obecnie encji obrazu z tych kamer.
+- Port SSH HA jest niedostępny.
+- Zmiana konfiguracji routera jest objęta D-0066 i wymaga decyzji Tomasza.
+- Brak odpowiedzi kamery na ping i wybrane porty z VPS nie dowodzi jeszcze client isolation. Kamera może odrzucać ICMP, nie wystawiać typowych portów TCP albo ruch VPS może przechodzić inną ścieżką niż ruch lokalny HA.
+
+## Głos Zenka — wariant wykonawczy
+
+Najlepszym testem jest uruchomienie go2rtc `1.9.13` jako dodatku bezpośrednio na HA Działki. To jednocześnie testuje trasę HA → kamera i przygotowuje docelowe miejsce działania usługi.
+
+1. `ha_eval_template`:
+
+   Nie jest właściwym narzędziem do testowania sieci. Szablony HA są ograniczone do funkcji szablonowych i danych dostępnych w HA; nie należy zakładać dostępu do `ping`, socketów, shella ani dowolnych żądań TCP. Ewentualna funkcja integracyjna zwracająca dane sieciowe nie byłaby równoważna testowi z kontenera go2rtc.
+
+2. Dodatek go2rtc:
+
+   AlexxIT/hassio-addons należy traktować jako repozytorium społecznościowe, nie oficjalny dodatek Home Assistant. Najpierw trzeba sprawdzić w panelu Supervisor/Add-ons:
+
+   - czy repozytorium można dodać,
+   - czy dodatek pozwala wybrać lub przypiąć `1.9.13`,
+   - jaki tryb sieci deklaruje jego manifest,
+   - czy MCP potrafi instalować nowy dodatek, czy tylko zarządzać już zainstalowanym.
+
+   Sam napis „host mode” nie powinien być przyjęty na wiarę. Dodatek musi mieć rzeczywistą trasę do podsieci kamer; host networking jest pożądany, ale zwykła sieć dodatków także może działać, jeżeli routing i firewall na to pozwalają.
+
+3. Pierwszy test:
+
+   Dodać tylko jedną kamerę, najlepiej `.112`, z jej własnym `did` i tokenem. Log rozstrzygnie więcej niż ping:
+
+   - timeout połączenia do lokalnego IP → problem trasy, izolacji albo lokalnej dostępności kamery;
+   - połączenie, lecz błąd autoryzacji → sieć działa, problem dotyczy danych lub sposobu logowania;
+   - błąd CS2/EOF → problem protokołu/modelu/wersji;
+   - obraz → ścieżka działa, można dodawać kolejne kamery.
+
+4. Miot jako test:
+
+   Dodanie kamery po lokalnym IP może dać pomocniczy dowód, ale brak encji obrazu nie dowodzi braku łączności. Integracja może obsługiwać właściwości MiOT przez chmurę albo nie obsługiwać strumienia dla danego modelu. To test drugiego wyboru.
+
+5. Router:
+
+   Najpierw tylko odczyt konfiguracji: AP/client isolation, guest network, access control, ACL oraz sposób podłączenia HA. Bez zgody Tomasza niczego nie zmieniać.
+
+**Werdykt Zenka:** instalacja przypiętego go2rtc `1.9.13` w HA jest najtańszym testem rozstrzygającym. Router sprawdzać równolegle tylko odczytowo; nie zmieniać przed uzyskaniem logu lokalnego klienta.
+
+## Głos Henia — kontrola założeń
+
+Największym ryzykiem jest przedwczesne uznanie client isolation za przyczynę.
+
+- Ping routera z VPS i brak odpowiedzi kamer nie pokazują, czy HA Działki może połączyć się z kamerami.
+- AP isolation zazwyczaj dotyczy klientów bezprzewodowych tego samego SSID, ale szczegóły zależą od routera. Jeżeli HA jest po Ethernet albo ruch dodatku wychodzi inną ścieżką, wynik może być inny.
+- Kamery mogą celowo nie odpowiadać na ping i nie mieć otwartych portów skanowanych wcześniej. Xiaomi P2P/CS2 nie musi zachowywać się jak RTSP.
+- Log go2rtc będzie dowodem dopiero wtedy, gdy konfiguracja źródła będzie poprawna. Timeout po użyciu zgadywanej składni nie rozstrzyga izolacji.
+
+Przed testem należy zatem potwierdzić dokładną składnię `xiaomi://` dla wersji `1.9.13`, sposób przekazania `did`, tokenu i danych konta oraz znaczenie dostępnych parametrów. Nie należy zaczynać od losowego wyboru `udp`, `tcp` czy `subtype`.
+
+Dla modeli `021a04` i `029a02` CS2 jest rozsądną hipotezą startową na podstawie przekazanego researchu, ale nie zostało tu przedstawione źródło przypisujące konkretnie oba modele do CS2. Wynik połączenia powinien rozstrzygnąć protokół.
+
+Jeśli client isolation zostanie potwierdzone, drogi bez zmiany routera istnieją tylko wtedy, gdy go2rtc można umieścić po tej samej stronie bariery co kamery, na przykład:
+
+- urządzenie podłączone do tego samego SSID, jeśli izolacja nie obejmuje wymaganej relacji — mało prawdopodobne przy pełnej izolacji klientów;
+- go2rtc bezpośrednio na routerze — zwykle niepraktyczne i nadal oznacza ingerencję;
+- oddzielny punkt dostępowy/VLAN bez izolacji dla kamer i hosta — wymaga zmian sieciowych;
+- host wielointerfejsowy podłączony do segmentu kamer — dodatkowy sprzęt i konfiguracja.
+
+Nie ma wiarygodnej „chmurowej” drogi zastępującej lokalne P2P w opisanym mechanizmie go2rtc.
+
+**Werdykt Henia:** najpierw potwierdzić składnię konfiguracji `1.9.13`, potem wykonać lokalny test go2rtc. Dopiero timeout z poprawnie skonfigurowanego klienta oraz odczyt routera pozwalają wskazać izolację.
+
+## Wspólny wniosek
+
+Oba głosy zgadzają się, że docelowym miejscem jest HA Działki lub inny host w jego LAN, a nie VPS. Najlepsza kolejność to:
+
+1. Bez zmian sprawdzić w panelu HA możliwość dodania repozytorium AlexxIT i dostępność dodatku go2rtc.
+2. Potwierdzić, czy można rzeczywiście uruchomić `1.9.13`. Nie instalować `latest`.
+3. Z dokumentacji dokładnie tej wersji przepisać konfigurację Xiaomi — bez zgadywania URI i parametrów.
+4. Uruchomić test jednej kamery z HA i zachować pełny log.
+5. Jeżeli jest odpowiedź protokołu lub autoryzacji, sieć działa; rozwiązywać konfigurację CS2/konta/tokenów.
+6. Jeżeli jest czysty timeout, odczytać w routerze AP isolation, guest isolation, ACL/access control i położenie HA względem kamer.
+7. Dopiero po zgodności dwóch dowodów — log lokalnego timeoutu plus ustawienie izolacji/ACL — przedstawić Tomaszowi konkretną zmianę routera.
+8. Po zgodzie Tomasza wyłączyć wyłącznie wskazaną izolację albo utworzyć kontrolowaną regułę komunikacji HA → kamery; następnie natychmiast powtórzyć identyczny test.
+9. Po powodzeniu dodać pozostałe kamery pojedynczo i dopiero wtedy włączyć strumienie do HA.
+
+### Co wymaga Tomasza
+
+- każda zmiana routera objęta D-0066;
+- ewentualne przeniesienie kamer między SSID/VLAN;
+- zakup lub dołożenie lokalnego hosta/AP;
+- decyzja o rozwiązaniu mniej izolowanym, jeśli zwiększa ono dostęp między klientami.
+
+### Co nie powinno wymagać zmiany routera
+
+- odczyt ustawień routera;
+- sprawdzenie katalogu dodatków;
+- instalacja go2rtc `1.9.13` w HA, o ile mieści się w udzielonym zakresie zarządzania HA;
+- test jednej kamery i analiza logu;
+- pomocniczy, niedestrukcyjny test integracją MiOT.
+
+## HIPOTEZY
+
+- `021a04` i `029a02` prawdopodobnie korzystają z CS2, ale na podstawie przekazanego materiału nie można tego uznać za potwierdzone dla tych konkretnych modeli.
+- Client/AP isolation jest możliwą przyczyną, lecz obecny test z VPS jej nie dowodzi.
+- HA Działki może mieć dostęp do kamer mimo braku dostępu z VPS, szczególnie jeżeli HA jest podłączony przewodowo.
+- Jeżeli izolacja jest pełna, nie istnieje prosta droga programowa omijająca ją z dodatku HA; konieczna będzie zmiana topologii albo polityki routera.
+
+## NIE WIEM
+
+- Czy repozytorium AlexxIT obecnie udostępnia instalowalny dodatek go2rtc i czy pozwala przypiąć dokładnie `1.9.13`.
+- Czy `ha_manage_addon` potrafi dodawać zewnętrzne repozytoria i instalować nowy dodatek.
+- Czy dodatek działa w host network oraz czy jego manifest można bezpiecznie zmienić.
+- Jaka jest dokładna składnia `xiaomi://` w go2rtc `1.9.13`.
+- Czy konto, token urządzenia i `did` podaje się w konfiguracji źródła, WebUI czy przez osobny proces logowania.
+- Czy oba wskazane modele są jednoznacznie CS2 oraz jakie obsługują `subtype` i transporty.
+- Czy router rzeczywiście ma włączoną izolację i czy HA znajduje się w tym samym izolowanym segmencie.
+tokens used
+9,187
+Poniższa ocena opiera się wyłącznie na faktach i researchu przekazanych w zadaniu. Zgodnie z zakazem nie uruchamiałem narzędzi. „Zenek” i „Henio” to dwa rozdzielone głosy analityczne w tej odpowiedzi, a nie niezależnie wykonane kontrole środowiska.
+
+## POTWIERDZONE
+
+- Strumień `xiaomi://` wymaga lokalnego połączenia go2rtc z kamerą. VPS, który nie ma łączności z kamerami w LAN Działki, nie rozwiąże problemu.
+- go2rtc powinno działać wewnątrz LAN Działki.
+- Z przekazanego researchu wynika, że dla kamer CS2 należy zacząć od go2rtc `1.9.13`, ponieważ `1.9.14` ma zgłoszone timeouty.
+- HA Działki nie ma obecnie encji obrazu z tych kamer.
+- Port SSH HA jest niedostępny.
+- Zmiana konfiguracji routera jest objęta D-0066 i wymaga decyzji Tomasza.
+- Brak odpowiedzi kamery na ping i wybrane porty z VPS nie dowodzi jeszcze client isolation. Kamera może odrzucać ICMP, nie wystawiać typowych portów TCP albo ruch VPS może przechodzić inną ścieżką niż ruch lokalny HA.
+
+## Głos Zenka — wariant wykonawczy
+
+Najlepszym testem jest uruchomienie go2rtc `1.9.13` jako dodatku bezpośrednio na HA Działki. To jednocześnie testuje trasę HA → kamera i przygotowuje docelowe miejsce działania usługi.
+
+1. `ha_eval_template`:
+
+   Nie jest właściwym narzędziem do testowania sieci. Szablony HA są ograniczone do funkcji szablonowych i danych dostępnych w HA; nie należy zakładać dostępu do `ping`, socketów, shella ani dowolnych żądań TCP. Ewentualna funkcja integracyjna zwracająca dane sieciowe nie byłaby równoważna testowi z kontenera go2rtc.
+
+2. Dodatek go2rtc:
+
+   AlexxIT/hassio-addons należy traktować jako repozytorium społecznościowe, nie oficjalny dodatek Home Assistant. Najpierw trzeba sprawdzić w panelu Supervisor/Add-ons:
+
+   - czy repozytorium można dodać,
+   - czy dodatek pozwala wybrać lub przypiąć `1.9.13`,
+   - jaki tryb sieci deklaruje jego manifest,
+   - czy MCP potrafi instalować nowy dodatek, czy tylko zarządzać już zainstalowanym.
+
+   Sam napis „host mode” nie powinien być przyjęty na wiarę. Dodatek musi mieć rzeczywistą trasę do podsieci kamer; host networking jest pożądany, ale zwykła sieć dodatków także może działać, jeżeli routing i firewall na to pozwalają.
+
+3. Pierwszy test:
+
+   Dodać tylko jedną kamerę, najlepiej `.112`, z jej własnym `did` i tokenem. Log rozstrzygnie więcej niż ping:
+
+   - timeout połączenia do lokalnego IP → problem trasy, izolacji albo lokalnej dostępności kamery;
+   - połączenie, lecz błąd autoryzacji → sieć działa, problem dotyczy danych lub sposobu logowania;
+   - błąd CS2/EOF → problem protokołu/modelu/wersji;
+   - obraz → ścieżka działa, można dodawać kolejne kamery.
+
+4. Miot jako test:
+
+   Dodanie kamery po lokalnym IP może dać pomocniczy dowód, ale brak encji obrazu nie dowodzi braku łączności. Integracja może obsługiwać właściwości MiOT przez chmurę albo nie obsługiwać strumienia dla danego modelu. To test drugiego wyboru.
+
+5. Router:
+
+   Najpierw tylko odczyt konfiguracji: AP/client isolation, guest network, access control, ACL oraz sposób podłączenia HA. Bez zgody Tomasza niczego nie zmieniać.
+
+**Werdykt Zenka:** instalacja przypiętego go2rtc `1.9.13` w HA jest najtańszym testem rozstrzygającym. Router sprawdzać równolegle tylko odczytowo; nie zmieniać przed uzyskaniem logu lokalnego klienta.
+
+## Głos Henia — kontrola założeń
+
+Największym ryzykiem jest przedwczesne uznanie client isolation za przyczynę.
+
+- Ping routera z VPS i brak odpowiedzi kamer nie pokazują, czy HA Działki może połączyć się z kamerami.
+- AP isolation zazwyczaj dotyczy klientów bezprzewodowych tego samego SSID, ale szczegóły zależą od routera. Jeżeli HA jest po Ethernet albo ruch dodatku wychodzi inną ścieżką, wynik może być inny.
+- Kamery mogą celowo nie odpowiadać na ping i nie mieć otwartych portów skanowanych wcześniej. Xiaomi P2P/CS2 nie musi zachowywać się jak RTSP.
+- Log go2rtc będzie dowodem dopiero wtedy, gdy konfiguracja źródła będzie poprawna. Timeout po użyciu zgadywanej składni nie rozstrzyga izolacji.
+
+Przed testem należy zatem potwierdzić dokładną składnię `xiaomi://` dla wersji `1.9.13`, sposób przekazania `did`, tokenu i danych konta oraz znaczenie dostępnych parametrów. Nie należy zaczynać od losowego wyboru `udp`, `tcp` czy `subtype`.
+
+Dla modeli `021a04` i `029a02` CS2 jest rozsądną hipotezą startową na podstawie przekazanego researchu, ale nie zostało tu przedstawione źródło przypisujące konkretnie oba modele do CS2. Wynik połączenia powinien rozstrzygnąć protokół.
+
+Jeśli client isolation zostanie potwierdzone, drogi bez zmiany routera istnieją tylko wtedy, gdy go2rtc można umieścić po tej samej stronie bariery co kamery, na przykład:
+
+- urządzenie podłączone do tego samego SSID, jeśli izolacja nie obejmuje wymaganej relacji — mało prawdopodobne przy pełnej izolacji klientów;
+- go2rtc bezpośrednio na routerze — zwykle niepraktyczne i nadal oznacza ingerencję;
+- oddzielny punkt dostępowy/VLAN bez izolacji dla kamer i hosta — wymaga zmian sieciowych;
+- host wielointerfejsowy podłączony do segmentu kamer — dodatkowy sprzęt i konfiguracja.
+
+Nie ma wiarygodnej „chmurowej” drogi zastępującej lokalne P2P w opisanym mechanizmie go2rtc.
+
+**Werdykt Henia:** najpierw potwierdzić składnię konfiguracji `1.9.13`, potem wykonać lokalny test go2rtc. Dopiero timeout z poprawnie skonfigurowanego klienta oraz odczyt routera pozwalają wskazać izolację.
+
+## Wspólny wniosek
+
+Oba głosy zgadzają się, że docelowym miejscem jest HA Działki lub inny host w jego LAN, a nie VPS. Najlepsza kolejność to:
+
+1. Bez zmian sprawdzić w panelu HA możliwość dodania repozytorium AlexxIT i dostępność dodatku go2rtc.
+2. Potwierdzić, czy można rzeczywiście uruchomić `1.9.13`. Nie instalować `latest`.
+3. Z dokumentacji dokładnie tej wersji przepisać konfigurację Xiaomi — bez zgadywania URI i parametrów.
+4. Uruchomić test jednej kamery z HA i zachować pełny log.
+5. Jeżeli jest odpowiedź protokołu lub autoryzacji, sieć działa; rozwiązywać konfigurację CS2/konta/tokenów.
+6. Jeżeli jest czysty timeout, odczytać w routerze AP isolation, guest isolation, ACL/access control i położenie HA względem kamer.
+7. Dopiero po zgodności dwóch dowodów — log lokalnego timeoutu plus ustawienie izolacji/ACL — przedstawić Tomaszowi konkretną zmianę routera.
+8. Po zgodzie Tomasza wyłączyć wyłącznie wskazaną izolację albo utworzyć kontrolowaną regułę komunikacji HA → kamery; następnie natychmiast powtórzyć identyczny test.
+9. Po powodzeniu dodać pozostałe kamery pojedynczo i dopiero wtedy włączyć strumienie do HA.
+
+### Co wymaga Tomasza
+
+- każda zmiana routera objęta D-0066;
+- ewentualne przeniesienie kamer między SSID/VLAN;
+- zakup lub dołożenie lokalnego hosta/AP;
+- decyzja o rozwiązaniu mniej izolowanym, jeśli zwiększa ono dostęp między klientami.
+
+### Co nie powinno wymagać zmiany routera
+
+- odczyt ustawień routera;
+- sprawdzenie katalogu dodatków;
+- instalacja go2rtc `1.9.13` w HA, o ile mieści się w udzielonym zakresie zarządzania HA;
+- test jednej kamery i analiza logu;
+- pomocniczy, niedestrukcyjny test integracją MiOT.
+
+## HIPOTEZY
+
+- `021a04` i `029a02` prawdopodobnie korzystają z CS2, ale na podstawie przekazanego materiału nie można tego uznać za potwierdzone dla tych konkretnych modeli.
+- Client/AP isolation jest możliwą przyczyną, lecz obecny test z VPS jej nie dowodzi.
+- HA Działki może mieć dostęp do kamer mimo braku dostępu z VPS, szczególnie jeżeli HA jest podłączony przewodowo.
+- Jeżeli izolacja jest pełna, nie istnieje prosta droga programowa omijająca ją z dodatku HA; konieczna będzie zmiana topologii albo polityki routera.
+
+## NIE WIEM
+
+- Czy repozytorium AlexxIT obecnie udostępnia instalowalny dodatek go2rtc i czy pozwala przypiąć dokładnie `1.9.13`.
+- Czy `ha_manage_addon` potrafi dodawać zewnętrzne repozytoria i instalować nowy dodatek.
+- Czy dodatek działa w host network oraz czy jego manifest można bezpiecznie zmienić.
+- Jaka jest dokładna składnia `xiaomi://` w go2rtc `1.9.13`.
+- Czy konto, token urządzenia i `did` podaje się w konfiguracji źródła, WebUI czy przez osobny proces logowania.
+- Czy oba wskazane modele są jednoznacznie CS2 oraz jakie obsługują `subtype` i transporty.
+- Czy router rzeczywiście ma włączoną izolację i czy HA znajduje się w tym samym izolowanym segmencie.

@@ -1,0 +1,111 @@
+=============================================================
+KLATKA: security_camera_20260812_194046_0.9pc.jpg
+=============================================================
+[oczy_uszy] wysylam security_camera_20260812_194046_0.9pc.jpg (21 KB, image/jpeg)
+[oczy_uszy] powod zakonczenia: STOP | tokeny wejscia: {'TEXT': 203, 'IMAGE': 1100}
+Oto dokładny opis zdjęcia zgodnie z wytycznymi:
+
+1. **Człowiek, zwierzę lub pojazd:** Nie, na zdjęciu nie ma człowieka, zwierzęcia ani pojazdu.
+2. **Coidać w kadrze:**
+   - Duży metalowy kontener na śmieci z jasną, prostokątną etykietą z przodu.
+   - Fragment innego kontenera po lewej stronie.
+   - Na pierwszym planie po prawej stronie duży, jasny, zaokrąglony obiekt z otworami/uchwytami (np. duży zbiornik lub pokrywa).
+   - W tle metalowa konstrukcja (regały, kraty lub ogrodzenie) oraz ściana.
+   - Nakładka tekstowa z datą i godziną w lewym górnym rogu (`2026/08/12 WED 21:40:45`) oraz napis `IPC` w prawym dolnym rogu.
+3. **Pora / tryb zdjęcia:** Zdjęcie nocne / podczerwone (czarno-biały obraz z podświetlenia IR).
+4. **Zasłonięcie obiektywu:** Nie, żaden przedmiot nie znajduje się bezpośrednio na obiektywie i go nie zasłania (duży obiekt na pierwszym planie po prawej stronie wypełnia dolną część kadru, ale nie blokuje całkowicie widoku).
+
+=============================================================
+KLATKA: security_camera_20260812_194132_0.9pc.jpg
+=============================================================
+[oczy_uszy] wysylam security_camera_20260812_194132_0.9pc.jpg (21 KB, image/jpeg)
+[oczy_uszy] powod zakonczenia: STOP | tokeny wejscia: {'TEXT': 203, 'IMAGE': 1100}
+Oto dokładny opis zdjęcia zgodnie z wytycznymi:
+
+1. **Czy jest na nim CZLOWIEK, ZWIERZE albo POJAZD?**
+   * Brak człowieka i zwierzęcia. W kwestii pojazdu: **NIE WIEM** (obły obiekt na pierwszym planie może być fragmentem pojazdu, ale na podstawie samego zdjęcia nie da się tego jednoznacznie rozstrzygnąć).
+
+2. **Co widać w kadrze (obiekty, otoczenie)?**
+   * Duży, metalowy kontener na śmieci z białą kwadratową etykietą/naklejką z przodu.
+   * Metalowe regały / kraty zamontowane wzdłuż ściany w tle.
+   * Fragmenty innych metalowych konstrukcji/pojemników po lewej stronie.
+   * Duża, jasna, zaokrąglona powierzchnia w prawym dolnym rogu.
+   * Oznaczenie daty i godziny w lewym górnym rogu (`2026/08/12 WED 21:41:33`) oraz napis `IPC` w prawym dolnym rogu.
+
+3. **Czy zdjęcie jest dzienne, zmierzchowe czy nocne/podczerwone?**
+   * Nocne / w podczerwieni (czarno-biały obraz z doświetleniem IR).
+
+4. **Czy coś jest bardzo blisko obiektywu i zasłania kadr?**
+   * Tak, jasny, zaokrąglony obiekt w prawym dolnym rogu znajduje się blisko obiektywu i przysłania znaczną część dolnej prawej strony kadru.
+
+=============================================================
+KLATKA: security_camera_20260812_194901_67.9pc.jpg
+=============================================================
+[oczy_uszy] wysylam security_camera_20260812_194901_67.9pc.jpg (27 KB, image/jpeg)
+[oczy_uszy] powod zakonczenia: STOP | tokeny wejscia: {'IMAGE': 1100, 'TEXT': 203}
+Oto dokładny opis zdjęcia:
+
+1. **CZŁOWIEK, ZWIERZĘ, POJAZD:** Nie (na zdjęciu nie ma żadnego człowieka, zwierzęcia ani pojazdu).
+2. **CO WIDAĆ W KADRZE:** 
+   * Wnętrze wiaty lub pomieszczenia śmietnikowego z metalową ażurową ścianą/drzwiami w tle.
+   * Duży, metalowy kontener na śmieci z logo i napisem „CONER”.
+   * Częściowo widoczne inne elementy pojemników/pokryw śmietnikowych na pierwszym planie (po prawej i lewej stronie).
+   * Górne oświetlenie sztuczne.
+   * Oznaczenia czasowe w lewym górnym rogu (`2026/08/12 WED 21:48:54`) oraz napis „IPC” w prawym dolnym rogu.
+3. **PORA DNIA / OŚWIETLENIE:** Nocne (oświetlenie sztuczne, godzina 21:48).
+4. **CZY COŚ ZASŁANIA KADR:** Nie (żaden obiekt nie zasłania bezpośrednio obiektywu kamery).
+
+=============================================================
+KLATKA: security_camera_20260812_194947_67.4pc.jpg
+=============================================================
+[oczy_uszy] wysylam security_camera_20260812_194947_67.4pc.jpg (21 KB, image/jpeg)
+[oczy_uszy] powod zakonczenia: STOP | tokeny wejscia: {'TEXT': 203, 'IMAGE': 1100}
+Oto dokładny opis zdjęcia z kamery monitoringu:
+
+1. **Człowiek, zwierzę lub pojazd:** Nie — na zdjęciu nie ma człowieka, zwierzęcia ani pojazdu.
+2. **Co widać w kadrze:** Zamykane lub ogrodzone pomieszczenie gospodarcze/śmietnikowe. Widać w nim duży metalowy kontener na śmieci z jasną kwadratową etykietą, metalowe regały/konstrukcję w tle oraz obły obiekt (np. zbiornik lub dużą pokrywę) na pierwszym planie po prawej stronie. W lewym górnym rogu znajduje się znacznik czasu (`2026/08/12 WED 21:49:42`), a w prawym dolnym logo `IPC`.
+3. **Pora dnia / tryb:** Zdjęcie jest nocne / w trybie podczerwieni (czarno-biały obraz z monitoringu nocnego).
+4. **Obiekty blisko obiektywu:** Nie — żaden obiekt nie znajduje się bezpośrednio na obiektywie i go nie zasłania (duży obiekt widoczny na dole po prawej stronie znajduje się na pierwszym planie w obserwowanej przestrzeni).
+
+=============================================================
+KLATKA: kamera_taras_20260813_024624_12.3pc.jpg
+=============================================================
+[oczy_uszy] wysylam kamera_taras_20260813_024624_12.3pc.jpg (94 KB, image/jpeg)
+[oczy_uszy] powod zakonczenia: STOP | tokeny wejscia: {'IMAGE': 1100, 'TEXT': 203}
+Oto dokładny opis zdjęcia:
+
+1. **Człowiek, zwierzę, pojazd:**
+   * **Człowiek:** Brak.
+   * **Pojazd:** Brak.
+   * **Zwierzę:** Tak, na ziemi za krzesłami (w okolicy krzesła z jasną poduszką) widać małe zwierzę (prawdopodobnie pies lub kot).
+
+2. **Widoczne obiekty i otoczenie:**
+   * Meble ogrodowe: cztery krzesła (trzy ciemne oraz jedno z jasną poduszką na siedzisku i oparciu) oraz fragment stołu w lewym dolnym rogu.
+   * Stos ułożonego drewna opałowego po prawej stronie.
+   * Trawnik/podwórko i zarys drzew/krzewów w tle.
+   * Datownik w lewym górnym rogu (`2026/08/13 04:46:23`).
+
+3. **Pora / tryb zdjęcia:**
+   * Zdjęcie nocne / w podczerwieni (czarno-biały obraz z kamery monitoringu w trybie nocnym z doświetleniem IR).
+
+4. **Zasłonięcie kadru:**
+   * Tak, po prawej stronie bardzo blisko obiektywu znajduje się pionowy, mocno prześwietlony element (prawdopodobnie słup lub konstrukcja doświetlona promiennikiem IR), który zasłania znaczne fragmenty prawego obszaru kadru.
+
+=============================================================
+KLATKA: kamera_taras_20260813_025812_15.9pc.jpg
+=============================================================
+[oczy_uszy] wysylam kamera_taras_20260813_025812_15.9pc.jpg (112 KB, image/jpeg)
+[oczy_uszy] powod zakonczenia: STOP | tokeny wejscia: {'IMAGE': 1100, 'TEXT': 203}
+Oto dokładny opis zdjęcia:
+
+1. **Człowiek, zwierzę lub pojazd:** NIE WIEM (brak wyraźnie widocznych ludzi, zwierząt ani pojazdów).
+2. **Co widać w kadrze:**
+   * **Otoczenie:** Prywatna posesja, fragment utwardzonego tarasu/podwórka oraz trawnik z drzewami i krzewami w tle.
+   * **Obiekty:** 
+     * Cztery krzesła ogrodowe (trzy ciemne z tworzywa sztucznego, jedno z jasną poduszką na siedzisku i oparciu).
+     * Fragment stolika z jasnym blatem i spoczywającym na nim małym naczyniem (np. talerzykiem/popielniczką) w lewym dolnym rogu.
+     * Stos poukładanego drewna opałowego po prawej stronie.
+3. **Pora dnia / tryb:** Zdjęcie nocne / w podczerwieni (obraz czarno-biały z widocznym doświetleniem IR).
+4. **Zasłonięcie obiektywu:** Tak, blisko obiektywu po prawej stronie zwisa gruby sznur/lina, który bardzo silnie odbija światło podczerwone (jest prześwietlony) i zasłania część kadru.
+
+KONIEC GENEK 2026-08-13 09:17:30 CEST

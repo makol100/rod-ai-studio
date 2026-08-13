@@ -1,0 +1,28 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Oto analiza pliku wideo `@work/_seans_v6_480.mp4`:
+
+0) **DOWÓD WCZYTANIA**:
+   - **~2s**: Pan Stanisław siedzi przy drewnianym biurku, przed nim leży otwarty notes i magazyn „Działkowiec”. Po lewej stronie widać szklankę herbaty w metalowym koszyczku. Na górze widnieje belka „WIADOMOŚCI DZIAŁKOWE”.
+   - **~30s**: Zbliżenie na głęboki dół w ziemi z resztkami korzeni i pni, filmowane przez metalową siatkę ogrodzeniową.
+
+1) **ORIENTACJA 9-45s**:
+   - **PROSTO WSZĘDZIE**. Wszystkie ujęcia są poprawnie zorientowane pionowo (klipy POV) lub są to ujęcia poziome osadzone w pionie z rozmytym tłem. Brak klatek obróconych na bok.
+
+2) **Prześwitujący prezenter / ekran dzielony (9-45s)**:
+   - **BRAK**. Przebitki w całości pokrywają obraz z kamery głównej. W sekwencjach poziomych (np. 16–31s) tło stanowi rozmyty obraz z przebitki, a nie sylwetka prezentera.
+
+3) **Zamrożenia/czarne wstawki**:
+   - **BRAK**. Wideo odtwarza się płynnie, nie zauważono martwych klatek ani przerw w obrazie.
+
+4) **Płynność cięć (9/16/21/27/32/39/45s)**:
+   - Cięcia są wykonane czysto i profesjonalnie.
+   - **9s**: Płynne przejście z prezentera na ujęcie nóg (POV).
+   - **16s, 21s, 27s**: Zmiany ujęć koparki i prac ziemnych – dobrze dopasowane do tempa opowieści.
+   - **32s, 39s**: Dynamiczne przejścia między ujęciami korzeni i wykarczowanego terenu.
+   - **45s**: Powrót do studia bez skoków obrazu.
+
+5) **OCENA**: **10/10**
+   **PUBLIKOWAĆ: TAK**. 
+
+Materiał jest technicznie poprawny, estetyczny i bardzo dobrze zmontowany pod kątem formatu pionowej rolki. Głos Pana Stanisława idealnie współgra z tempem zmian obrazu.
+EXIT=0

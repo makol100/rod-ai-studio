@@ -1,0 +1,66 @@
+HENIO — burza mózgów, powiadomienia "wykryto człowieka" → HA Działka
+
+KLUCZOWY ŚLAD (odczyt HA Działka przed chwilą, /api/states):
+- Obecny telefon Tomasza = sm_f966b (Fold7). Ma TYLKO device_tracker.sm_f966b (stan not_home). NIE MA żadnego sensor.sm_f966b_last_notification → czujnik "Ostatnie powiadomienie" NIE jest włączony na Fold7.
+- Stary telefon sm_f926b (Fold3) MA sensor.sm_f926b_last_notification = unknown oraz sensor.sm_f926b_active_notification_count = 61 — czyli ktoś kiedyś włączył sensor, ale na innym telefonie i i tak martwy (unknown).
+- switch.security_camera_motion_alarm = off (potwierdzone). event.security_camera_doorbell_message = 2026-03-15 (martwy).
+- Brak jakiegokolwiek binary_sensor ruchu/człowieka dla security_camera.
+
+P1 — wszystkie realne drogi:
+
+(a) HA Companion "Ostatnie powiadomienie" + automatyzacja na treści.
+Jak: appka Companion na Fold7 włącza sensor last_notification, HA automatyzacją łapie zmianę treści "human body".
+Zależy od: telefonu (włączony, appka w tle, zgoda na dostęp do powiadomień), połączenia telefon→HA (Tailscale).
+Restart telefonu: appka wraca (jeśli autostart), sensor wraca. Brak WiFi: nie dociera. Restart HA: sensor wraca po połączeniu.
+PRZESZKODA ZE ŚLADEM: na Fold7 ten sensor w ogóle nie jest włączony (patrz wyżej) — najpierw trzeba go włączyć w appce. Wada: sensor pokazuje OSTATNIE powiadomienie (nadpisuje się, miks z innymi apkami), trzeba wyzwalać na ZMIANĘ stanu, nie wartość.
+
+(b) VPS odpytuje android_notification_list co N sekund → webhook HA.
+Jak: cron na VPS (tel.sh + MCP na porcie 8080) czyta listę powiadomień, filtr com.tuya.smartlife + "human body", POST do HA przez Tailscale.
+Zależy od: telefonu (włączony, MCP server żywy), VPS (24/7 — jest), Tailscale. Chmury Tuya NIE potrzebna (czyta powiadomienia lokalnie).
+Restart telefonu: NIE WIEM czy MCP ma autostart — do sprawdzenia. Brak WiFi: nie dociera. Restart HA: webhook wraca.
+Wariant bez VPS: Tasker/MacroDroid na telefonie przechwytuje powiadomienie Tuya i sam wysyła HTTP do HA (event-driven, mniejsza bateria niż odpytywanie). Zależność od telefonu taka sama.
+
+(c) Włączyć switch.security_camera_motion_alarm.
+Jak: turn_on, sprawdzić czy integracja Tuya zaczyna wystawiać encję zdarzenia/ruchu/człowieka.
+Zależy od: chmury Tuya→HA, internetu. Telefonu NIE potrzebuje.
+Restart telefonu: bez wpływu. Brak WiFi telefonu: bez wpływu. Restart HA: integracja wraca.
+Najtańsze, 0 kodu, 5 minut. ALE: czy po włączeniu cokolwiek się pojawi — NIE WIEM, to hipoteza do pomiaru.
+
+(d) Tuya IoT / scena w chmurze Tuya → webhook HA.
+Jak: w konsoli Tuya IoT scena "detekcja człowieka → wywołaj URL webhook HA".
+Zależy od: chmury Tuya, internetu, kluczy API Tuya, oraz webhooka HA DOSTĘPNEGO Z INTERNETU (publiczny albo pośrednik).
+Restart telefonu: bez wpływu. Restart HA: webhook musi wrócić. Brak WiFi telefonu: bez wpływu.
+
+(e) Własna detekcja osoby (Frigate/YOLO na klatkach go2rtc/RTSP).
+Jak: detektor osób wystawia binary_sensor do HA, pokrywa WSZYSTKIE kamery (Xiaomi przez go2rtc + Tuya jeśli RTSP wystawi).
+Zależy od: zasobów HA Działka (CPU/RAM — NIE WIEM ile), strumieni kamer. Telefonu NIE potrzebuje.
+Restart telefonu: bez wpływu. Restart HA: jeśli addon/kontener, wraca.
+
+P2 — rekomendacja:
+NA TERAZ: (c) — włączyć switch.security_camera_motion_alarm i zmierzyć, czy pojawia się encja. 0 zł, zero kodu. Jeśli nic → od razu (b) (mamy tel.sh i działający MCP).
+DOCELOWO: (e) — własna detekcja na go2rtc, bo niezależna od telefonu I chmury Tuya, pokrywa wszystkie kamery. Pod warunkiem że HA Działka udźwignie CPU.
+
+P3 — koszt:
+(a) 0 zł/mc. Bateria: ~0 (Companion już działa do backupu). CPU HA: minimalne.
+(b) 0 zł/mc (VPS i Tailscale już są). Bateria telefonu: każde odpytywanie budzi MCP — im krótszy interwał, tym więcej; dokładnej wartości NIE WIEM. CPU VPS: minimalne.
+(c) 0 zł. Telefon nietknięty.
+(d) Tuya IoT darmowy plan (limit wywołań API — dokładnego NIE WIEM), ew. płatny. Ryzyko: trzeba wystawić webhook publicznie.
+(e) 0 zł/mc na CPU HA (model YOLO/OpenVINO), ale obciążenie CPU HA — NIE WIEM ile HA Działka ma rdzeni. Coral TPU ~150-300 zł jednorazowo — NIE WIEM dokładnej ceny.
+
+P4 — ryzyka (5):
+1. Telefon wyłączony/poza zasięgiem: (a) i (b) i wariant Tasker — martwe, detekcja nie dociera. (c)(d)(e) działają nadal.
+2. Wystawianie na zewnątrz: (d) wymaga publicznego webhooka HA = wystawia endpoint do internetu. (a)(b)(e) siedzą w Tailnecie, nic nie wystawiają.
+3. Zalew fałszywych alarmów: detekcja "human body" z Tuya może puszczać false-positive (zmiana światła, zwierzę) — lekcja kosiarka Krystyna (setki nocnych trafień). Każda droga musi mieć cooldown/deduplikację.
+4. (b): opóźnienie = interwał odpytywania, plus powiadomienie może uciec między cyklami (na starym telefonie active_notification_count=61 — szybko się nawarstwiają).
+5. (c): może NIC nie wystawić (Tuya nie mapuje detekcji do HA) albo zmienić zachowanie kamery na działce (alarm/syrena — obok jest switch.auto_trigger_siren) — sprawdzić, zanim zostawimy włączone na stałe.
+
+P5 — co zmierzyć PRZED budową (konkret):
+1. (c): turn_on switch.security_camera_motion_alarm i odczyt /api/states — czy pojawia się nowa encja. To STEROWANIE HA, więc nie robię bez Twojej zgody. Polecenie gdy powiesz "rób": curl -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{"entity_id":"switch.security_camera_motion_alarm"}' http://100.115.112.5:8123/api/services/switch/turn_on
+2. (a): ZMIERZONE już — Fold7 (sm_f966b) NIE ma sensora last_notification. Trzeba w appce Companion na Fold7: Ustawienia → Czujniki → włączyć "Ostatnie powiadomienie". Potem odczytać sensor.sm_f966b_last_notification w HA.
+3. (b): zmierzyć, czy tel.sh/android_notification_list zwraca pakiet com.tuya.smartlife + "human body" w jednym odpycie (read-only, raz) i czy MCP ma autostart po restarcie telefonu.
+4. (e): zmierzyć zasoby HA Działka (CPU/RAM hosta — przez ssh do hosta HA albo /api/hassio), zanim wpuścimy Frigate.
+5. Wiarygodność detekcji: logować kilka dni zdarzeń "human body" i porównać z rzeczywistością (klatki fotopulapki), zanim podepniemy automatykę — żeby nie powtórzyć kosiarki Krystyny.
+
+Rekomendacja: zacznij od zgody na pkt P5.1 (włączenie motion_alarm na próbę) — to najtańszy test, który odpowie, czy w ogóle musimy budować cokolwiek z telefonem.
+
+— Henio

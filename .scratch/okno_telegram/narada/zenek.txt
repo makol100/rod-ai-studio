@@ -1,0 +1,124 @@
+## POTWIERDZONE
+
+### P1. Najprostszy wariant
+
+**TAK — bez odpauzowania OpenClaw.**
+
+Najprostszy wariant to rozbudować istniejący `hans-ucho.service`, działający z botem `@HansFabrykaRolek_bot`:
+
+1. Jeden proces `hans_ucho.py` odbiera wiadomości i komendy przez bezpośrednie `getUpdates` Telegram Bot API ([hans_ucho.py](/root/rod-ai-studio/tools/hans_ucho.py:143)).
+2. `/zapis` zapisuje tekst Tomasza oraz tworzy aktualny pakiet wznowienia.
+3. `/wznow` składa pakiet z:
+   - `wiedza/BRIEF_DLA_KLAUDKA.md`,
+   - `tools/decyzje.py --lista`,
+   - `TELEPORT_fabryka.md`,
+   - `.scratch/stan/klaudek/rejestr.jsonl`,
+   - ostatnich, odfiltrowanych rekordów `.scratch/hans/most.jsonl`.
+4. Bot odsyła pakiet jako plik `WZNOWIENIE.txt` oraz podaje liczbę znaków.
+5. Opcjonalny timer systemd przygotowuje i wysyła pakiet okresowo, żeby ostatnia kopia leżała już na telefonie przed awarią.
+
+OpenClaw nie jest tu potrzebny: obecne ucho łączy się bezpośrednio z `api.telegram.org` ([hans_ucho.py](/root/rod-ai-studio/tools/hans_ucho.py:159)), a wysyłka Hansa również używa bezpośrednio `sendMessage` ([hans_wysylka.py](/root/rod-ai-studio/tools/hans_wysylka.py:78)). Gateway OpenClaw jest niezależną usługą.
+
+**Stan obecny:** mechanizm nie jest jeszcze gotowy. `hans_ucho.py` zapisuje każdą wiadomość Tomasza do `SLOWA_TOMASZA.md`, ale nie rozpoznaje `/zapis` ani `/wznow` ([hans_ucho.py](/root/rod-ai-studio/tools/hans_ucho.py:193)). Aktualny unit uruchamia wyłącznie pętlę co 60 sekund ([hans-ucho.service](/etc/systemd/system/hans-ucho.service:5)).
+
+Nie proponuję crona jako głównego odbiornika. Telegram pozwala na jeden aktywny `getUpdates`; drugi proces powoduje konflikt 409, co jest zapisane w kodzie ([hans_ucho.py](/root/rod-ai-studio/tools/hans_ucho.py:52)). Powinien istnieć jeden odbiornik: `hans-ucho.service`.
+
+### P2. Pakiet wznowienia — limit 14 039 znaków
+
+Proponowany sztywny budżet:
+
+| Sekcja | Limit | Źródło |
+|---|---:|---|
+| Instrukcja dla nowego okna, data, licznik znaków | 350 | generator pakietu |
+| Brief operacyjny | 1 800 | `wiedza/BRIEF_DLA_KLAUDKA.md` |
+| Obowiązujące i najnowsze decyzje | 1 800 | `tools/decyzje.py --lista` |
+| STAN: zrobione / w toku / blokery | 1 400 | `.scratch/stan/klaudek/rejestr.jsonl` |
+| Przebieg i ostatni punkt pracy | 5 600 | koniec `TELEPORT_fabryka.md` |
+| Ostatnie istotne działania z mostu | 2 200 | `.scratch/hans/most.jsonl` |
+| Rezerwa na nagłówki i wzrost wpisów | 889 | generator |
+| **Razem** | **14 039** | — |
+
+Szkielet:
+
+```text
+PAKIET WZNOWIENIA — [czas]
+ZNAKI: [liczba]/14039
+UWAGA: zero sekretów; źródła pełne są na dysku.
+
+1. ZADANIE I CEL
+2. OSTATNI POTWIERDZONY PUNKT
+3. CO ZROBIONO
+4. CO JEST W TOKU / BLOKERY
+5. NAJNOWSZE DECYZJE TOMASZA
+6. ISTOTNY PRZEBIEG Z TELEPORTU
+7. OSTATNIE DZIAŁANIA Z MOSTU
+8. CZEGO NIE ROBIĆ
+9. PIERWSZA CZYNNOŚĆ NOWEGO OKNA
+```
+
+Limit 14 039 jest zapisany jako D-0047; wcześniejszy zestaw miał 11 738 znaków ([GDZIE_SIE_ZAPISUJE.md](/root/rod-ai-studio/wiedza/GDZIE_SIE_ZAPISUJE.md:62)). Dzisiejszy pomiar starego zestawu dał **14 250 znaków**, czyli przekroczenie o **211**. Sam `tail -120 TELEPORT_fabryka.md` ma obecnie **11 896 znaków**. Dlatego generator musi ciąć sekcje według budżetów, a nie stałej liczby linii.
+
+`most.jsonl` nie jest pełną rozmową. Ostatnie rekordy zawierają nazwę narzędzia i podgląd ograniczony m.in. do 160 znaków. Może dostarczyć śladu działań, ale nie zastąpi teleportu ani transkryptu.
+
+Na telefonie: Tomasz wpisuje jedną komendę **`/wznow`**. Bot odsyła jeden plik `.txt`; Tomasz załącza go do nowego okna albo kopiuje jego treść. Plik jest pewniejszy niż kilka wiadomości, bo nie miesza kolejności i zachowuje dokładny licznik znaków.
+
+### P3. Czy włączyć `hans-ucho.service`
+
+**NIE włączać w obecnej postaci. Włączyć dopiero po dodaniu blokady sekretów i `/wznow`.**
+
+Powody:
+
+1. Ucho zapisuje tekst dosłownie, bez filtracji ([hans_ucho.py](/root/rod-ai-studio/tools/hans_ucho.py:134)). Wysłany przez pomyłkę sekret trafiłby do `wiedza/SLOWA_TOMASZA.md`.
+2. Ucho zapisuje wyłącznie tekst lub podpis wiadomości Tomasza z Telegrama ([hans_ucho.py](/root/rod-ai-studio/tools/hans_ucho.py:199)).
+3. Nie widzi odpowiedzi Klaudka z claude.ai.
+4. Wskazany w briefie zapis rozmów `/mnt/transcripts/journal.txt` obecnie **nie istnieje** — potwierdziło to `stat`.
+5. `SLOWA_TOMASZA.md` nie zmienił się od 5.08; sam plik nie zapewnia aktualnego zapisu.
+
+**Całej rozmowy claude.ai, obu stron, obecnymi narzędziami zapisać się nie da.** Da się zapisać stronę Tomasza wysłaną botowi oraz stan pracy zapisany na dysku. Sama strona Tomasza nie wystarcza do wiernego odtworzenia rozmowy, ale pakiet `brief + decyzje + STAN + teleport + most` może wystarczyć do praktycznego wznowienia zadania, jeżeli te źródła były aktualizowane przed awarią.
+
+Koszt ucha: kod korzysta wyłącznie z Telegram Bot API i lokalnego zapisu pliku — nie wywołuje Claude ani innego modelu. Telegram podaje, że platforma botów jest bezpłatna dla użytkowników i programistów; zwykłe wiadomości pozostają bezpłatne w limitach szybkości ([oficjalna dokumentacja Telegram](https://core.telegram.org/bots), [Bot FAQ](https://core.telegram.org/bots/faq)).
+
+### P4. Co może zawieść
+
+1. **Awaria nastąpi przed ręcznym `/zapis`.**  
+   Zapobieganie: pakiet aktualizowany po każdej zmianie STAN/teleportu oraz okresowo wysyłany na Telegram. Ostatnia kopia jest wtedy już poza VPS.
+
+2. **VPS, internet albo Telegram nie odpowiadają w chwili awarii.**  
+   Zapobieganie: bot przechowuje ostatni poprawny pakiet w Telegramie; lokalny generator używa zapisu atomowego, a nie tworzy pakietu dopiero na żądanie.
+
+3. **Dwa odbiorniki wykonają `getUpdates` i Telegram zwróci 409.**  
+   Zapobieganie: dokładnie jeden odbiornik w `hans-ucho.service`; timer może generować pakiet, ale nie może sam odpytwać Telegrama.
+
+4. **Pakiet będzie nieaktualny, niepełny albo przekroczy 14 039 znaków.**  
+   Zapobieganie: sztywne limity sekcji, licznik przed wysyłką, znacznik czasu każdego źródła i odmowa wygenerowania pakietu, jeżeli brakuje celu, ostatniego punktu albo blokera.
+
+5. **Sekret trafi do Telegrama, pakietu lub nowego czatu.**  
+   Zapobieganie: fail-closed — odrzucanie treści przypominających hasło, login, token, klucz, Authorization, URL z poświadczeniami lub zawartość plików sekretów. Bot odpowiada wyłącznie: `ODRZUCONE: sekretu nie zapisano`. Generator bierze tylko dozwolone pola i przed wysłaniem ponownie skanuje cały pakiet. Żaden sekret nie może być maskowany częściowo — cały rekord trzeba wykluczyć.
+
+### P5. Koszt
+
+| Wariant | Nowy koszt miesięczny | Pula Claude Max |
+|---|---:|---|
+| Ręczne `/zapis` i `/wznow`, deterministyczny generator | **0 USD** | **Nie dotyka** |
+| Powyższe + okresowy pakiet wysyłany na Telegram | **0 USD** dodatkowej faktury | **Nie dotyka** |
+| Podsumowanie pakietu przez Claude | **NIE WIEM w USD** | **Tak, dotyka puli Max** |
+
+Dwa pierwsze warianty korzystają z istniejącego VPS, Pythona i bezpłatnego Bot API. Koszt przypisanej części prądu, transferu i VPS: **NIE WIEM**, bo w dostępnych źródłach nie ma rachunku ani metody alokacji. Marginalny koszt usługi na już opłaconym VPS wynosi **0 USD dodatkowej faktury**.
+
+**Rekomenduję wariant drugi:** jeden bot Hansa, jeden odbiornik, `/wznow` na żądanie oraz okresowa kopia pakietu na Telegramie. OpenClaw pozostaje wyłączony.
+
+## HIPOTEZY
+
+1. Pakiet stanu będzie praktycznie wystarczający do wznowienia większości zadań, jeżeli teleport i STAN będą aktualizowane na bieżąco. Nie zastępuje jednak pełnego zapisu rozmowy.
+2. Najpewniejszym momentem automatycznego odświeżenia jest każda zmiana rejestru STAN, decyzji lub teleportu, a timer powinien być tylko zabezpieczeniem.
+
+## NIE WIEM
+
+1. Nie wiem, czy claude.ai udostępnia możliwy do automatycznego pobrania pełny eksport zatrzymanej rozmowy; repo nie zawiera takiego mechanizmu.
+2. Nie wiem, dlaczego zablokowano pozostałe 7 z 8 okien.
+3. Nie wiem, jaki jest przypisany miesięczny koszt energii i transferu dla tej jednej usługi.
+4. Stan `hans-ucho.service` przez systemd jest z mojego środowiska niedostępny; brak procesu `hans_ucho.py` potwierdza tylko, że ucho obecnie nie pracuje.
+
+**Jedna rzecz do zrobienia:** Tomasz decyduje, czy zatwierdza wariant: `@HansFabrykaRolek_bot + /wznow + okresowa kopia + twarde odrzucanie sekretów`, bez uruchamiania OpenClaw.
+
+— **Zenek**

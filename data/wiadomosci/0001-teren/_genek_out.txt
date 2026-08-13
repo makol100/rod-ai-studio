@@ -1,0 +1,37 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+Oto wizualna ocena materiału do pierwszego odcinka „Wiadomości Działkowych”:
+
+### 1. Opis klatek (klatka po klatce)
+1.  **20260722_093926_1.jpg**: Potężne, wyrwane korzenie na pierwszym planie przy ogrodzeniu; obraz ostry, jasne poranne światło.
+2.  **20260722_093926_mid.jpg**: Wielkie składowisko wyciętych gałęzi obok tablicy ROD „Młyńska 40c”; obraz ostry, pełne słońce.
+3.  **20260722_093926_end.jpg**: Rozkopany pas ziemi z resztkami korzeni pod płotem; obraz ostry, słonecznie.
+4.  **20260722_094249_1.jpg**: Zbliżenie na stary pniak ukryty w gęstym zielsku; obraz ostry, światło poranne.
+5.  **20260722_094249_mid.jpg**: Widok na gęste zarośla i krzaki przy siatce ogrodzeniowej; obraz ostry, jasny dzień.
+6.  **20260722_094249_end.jpg**: Kolejne ujęcie nieużytku z pniakiem i ekspansywną roślinnością; obraz ostry, poranek.
+7.  **VID-20260723-WA0001_1.jpg**: Dynamiczne, lekko poruszone ujęcie świeżo zruszonej, ciemnej ziemi; obraz nieostry, zachmurzone popołudnie.
+8.  **VID-20260723-WA0001_mid.jpg**: Koparka pracująca przy usuwaniu korzeni w błotnistym terenie; obraz dość ostry, światło dzienne.
+9.  **VID-20260723-WA0001_end.jpg**: Starszy mężczyzna w polarze uważnie nadzorujący wykop; obraz ostry, popołudnie.
+10. **VID-20260723-WA0005_1.jpg**: Pień drzewa w głębokim dole widziany przez metalowe ogrodzenie; obraz ostry, późne popołudnie.
+11. **VID-20260723-WA0005_mid.jpg**: Mężczyzna pochylający się nad pniakiem w głębokim wykopie; obraz bardzo ostry, świetne detale.
+12. **VID-20260723-WA0005_end.jpg**: Widok zza płotu na rozkopany teren i hałdy ziemi; obraz ostry, wieczorne oświetlenie.
+13. **VID-20260723-WA0007_1.jpg**: Bardzo poruszone ujęcie słupa lub elementu infrastruktury; obraz nieostry, zmierzch.
+14. **VID-20260723-WA0007_mid.jpg**: Operator mini-koparki w trakcie pracy na tle domów; obraz ostry, przygaszone światło wieczorne.
+15. **VID-20260723-WA0007_end.jpg**: Zbliżenie na rurę lub kabel w ruchu; obraz nieostry, wieczór.
+
+### 2. Werdykt per film
+*   **20260722_094249**: **PRZED**. Pokazuje skalę zaniedbania. *Najlepsze na przebitki:* ujęcia „z poziomu trawy” pokazujące ukryte pniaki.
+*   **VID-20260723-WA0001**: **PRACA**. Rozpoczęcie ciężkich robót. *Najlepsze na przebitki:* praca łyżki koparki i sylwetka nadzorującego gospodarza.
+*   **VID-20260723-WA0007**: **PRACA**. Techniczna strona karczowania. *Najlepsze na przebitki:* operator mini-koparki przy pracy (dynamiczne ujęcie).
+*   **VID-20260723-WA0005**: **PRACA / EMOCJE**. Najbardziej dramatyczny materiał. *Najlepsze na przebitki:* zbliżenie na mężczyznę zmagającego się z korzeniem w dole.
+*   **20260722_093926**: **EFEKT**. Rezultat ciężkiej pracy. *Najlepsze na przebitki:* ujęcie z tablicą ROD oraz stosy wyrwanych „potworów” (korzeni).
+
+### 3. Proponowana kolejność narracyjna
+1.  **Start (Problem):** Film `094249` – pokazujemy dżunglę, która straszyła działkowców.
+2.  **Rozwinięcie (Akcja):** Film `WA0001` – wjeżdża koparka, zaczyna się wielkie rycie.
+3.  **Budowanie napięcia (Trudności):** Film `WA0007` – pokazujemy precyzyjną robotę operatora i uważanie na kable/rury.
+4.  **Kulminacja (Wysiłek):** Film `WA0005` – walka człowieka z naturą, ręczne sprawdzanie pniaków w dołach.
+5.  **Finał (Zwycięstwo):** Film `093926` – widok na wyczyszczony teren i dumne składowisko korzeni przy tablicy ROD.
+
+### 4. Perełka Stanisława
+> „Z korzeniem to jak z grzechem — póki go do samego spodu nie wydrzesz, to zawsze na wiosnę wylezie i spokoju nie da!”

@@ -1,0 +1,105 @@
+PAKIET WZNOWIENIA — 13.08.2026 10:30 (czas Tomasza, Europe/Warsaw)
+Zbudowany przez tools/pakiet_wznowienia.py z plikow na dysku VPS.
+Poprzednie okno czatu zostalo zablokowane. To jest jego kontekst.
+
+PIERWSZA CZYNNOSC NOWEGO OKNA: nie zaczynaj od zera i nie zgaduj —
+przeczytaj ten pakiet, potem odpal protokol startu na VPS przez konektor
+'fabryka' i dopiero potem melduj Tomaszowi, na czym stanelismy.
+
+CZEGO NIE ROBIC: nie prosic o haslo ani login w oknie czatu; nie drukowac
+zawartosci /root/.sekrety ani /root/.hilook_cred; nie probowac logowania do
+HiLook (D-0072). W tym pakiecie NIE MA sekretow — zostal przeskanowany.
+
+======================================================================
+1. BRIEF OPERACYJNY
+======================================================================
+1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-13 10:25:15 CEST
+2. OSTATNIA DECYZJA: D-0074 | 2026-08-13 | STAWIAMY RATUNEK KONTEKSTU NA TELEGRAMIE (Tomasz 13.08 09:52). Wdrozone: tools/pakiet_wznowienia.py (gen…
+3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
+4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
+5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
+6. HANS: Henia, nie Klaudka (D-0050)
+7. TELEPORTY: fabryka 0.0 dnia, Home Assistant 0.6 dnia
+8. /root/.claude/CLAUDE.md: 9.1 dnia bez zmian
+9. !! DO ZROBIENIA PRZEZ TOMASZA: WYMIANA KLUCZY API (FAL_KEY + ANTHROPIC_API_KEY) — wyswietlone w czacie 10.07, nadal jawnym tekstem w docker-compose.yml. Tomasz 4.08: "dzis wieczorem albo jutro rano".
+10. GENEK: oszczędzany — tylko oczy/uszy/grafika (D-0005: Gienka oszczedzac ze wzgledu na oczy i uszy i generowanie grafik.)
+11. KIEROWNIK: Klaudek, rozstrzygnięte 4.08 (D-0002)
+
+======================================================================
+2. ZALEGLOSC DZIENNIKOW
+======================================================================
+fabryka          bez wpisu: 0.0 dnia
+  Home Assistant   bez wpisu: 0.6 dnia
+
+======================================================================
+3. OBOWIAZUJACE DECYZJE TOMASZA
+======================================================================
+(...poczatek uciety przez limit...)
+  D-0061 [jak-piszemy] 2026-08-05 20:22:44 CEST: PRZYJETE OSIEM REGUL PISANIA (zrodlo ayghri/i-have-adhd, MIT, wskazane przez Tomasza). Wpiete w DWA 
+  D-0062 [powiadomienia] 2026-08-05 20:54:55 CEST: POWIADOMIENIA DLA TOMASZA — tools/zadanie.py. Wniosek HENIA z narady 5.08 (bolaczka 6 jako najwaznie
+  D-0063 [jakosc] 2026-08-05 21:01:21 CEST: LABEL-STUDIO — NIE INSTALOWAC. Tomasz 5.08. Zenek proponowal je jako odpowiedz na brak pomiaru jakos
+  D-0064 [ha-sosnowiec] 2026-08-05 21:13:18 CEST: TRASY TAILSCALE DLA WYBICKIEGO ZATWIERDZONE — 5.08 21:15. Klaudek zrobil to STEROJAC TELEFONEM Tomas
+  D-0065 [tailscale] 2026-08-05 21:36:00 CEST: TRASY TAILSCALE — UKLAD KONCOWY 5.08 21:37. Tomasz: 'Wszedzie siegaj' + 'Dzialka to priorytet'. KOLI
+  D-0066 [routery] 2026-08-05 22:43:28 CEST: ROUTER NA DZIALCE — ZOSTAWIC W SPOKOJU. Tomasz 5.08, dosadnie. ZAKAZ dotykania routera Dzialki: bez 
+  D-0068 [zapis/teleport] 2026-08-07 13:02:39 CEST: Zawsze zapisuj do teleportu i sie nie pytaj — po znaczacej pracy dopisuj wpis do TELEPORT_fabryka.md
+  D-0069 [tailscale] 2026-08-07 14:37:56 CEST: 7.08 Tomasz SAM zmienil numeracje routera Sosnowca 192.168.0.1 -> 192.168.50.1 w panelu (Klaudek tyl
+  D-0071 [openclaw] 2026-08-12 19:46:22 CEST: Zapauzowac huja (Tomasz 12.08 wieczor, po zablokowaniu kolejnego okna czatu). Gateway OpenClaw/Hans 
+  D-0072 [kamery-hilook] 2026-08-13 06:52:06 CEST: Nie probuj testow. (Tomasz 13.08 rano, po serii 401 z NVR/kamer HiLook 192.168.3.110-114). STOP dla 
+  D-0073 [blokady-okien] 2026-08-13 09:45:16 CEST: KOREKTA ROLI TOMASZA: jest PREZESEM ROD im. Jozefa Lompy (nie tylko czlonkiem zarzadu). Tomasz 13.08
+  D-0074 [ratunek-kontekstu] 2026-08-13 10:01:18 CEST: STAWIAMY RATUNEK KONTEKSTU NA TELEGRAMIE (Tomasz 13.08 09:52). Wdrozone: tools/pakiet_wznowienia.py
+
+======================================================================
+4. STAN: ZROBIONE / W TOKU / BLOKERY
+======================================================================
+# STAN
+
+```mermaid
+graph TD
+  n001["n001 | zrobione | Router Sosnowca przenumerowany 192.168.0.1 -> 192.168.50.1, trasa Tailscale 192.168.50.0/24 zatwierdzona i dziala"]
+  n002["n002 | zrobione | Transkrypcje YouTube przez oczy_uszy.py (Gemini fileUri omija blokade botow na VPS)"]
+  n003["n003 | zrobione | STAN zbudowany: pamiec_stan.py rdzen + wariant3 + luka1 (--zrodlo-most), commit 3383d06"]
+  n004["n004 | zrobione | Wdrozenie STAN do protokolu startu + pamieci Klaudka"]
+  n005["n005 | zrobione | Dzialka naprawiona: snat_subnet_routes false->true na Tailscale add-onie, router .0.1 dosiegalny. 3 HA gotowe"]
+  n006["n006 | zrobione | Dzialka site-to-site: accept_routes+accept_dns false->true + restart, nadal dosiegalna. 3 lokacje spojne, pelne site-to-site"]
+  n003 --> n004
+  classDef zrobione fill:#d8f3dc,stroke:#2d6a4f
+  classDef w_toku fill:#fff3bf,stroke:#e67700
+  classDef bloker fill:#ffe3e3,stroke:#c92a2a
+  class n001,n002,n003,n004,n005,n006 zrobione
+```
+
+======================================================================
+5. PRZEBIEG — OSTATNIE SESJE Z TELEPORTU
+======================================================================
+## SESJA 13.08.2026 10:17 CEST
+==============================================================================
+
+13.08 10:16 CEST: TEST END-TO-END /pakiet WYKONANY PRZEZ TOMASZA - zrzut z Telegrama. CO ZADZIALALO: komenda '/pakiet' o 10:15 odebrana przez ucho, bot odpisal 'Skladam pakiet wznowienia...', generator ruszyl, filtr zadzialal, odpowiedz wrocila na telefon. Czyli caly lancuch telefon->ucho->generator->odpowiedz DZIALA. CO NIE ZADZIALALO: pakiet NIE POWSTAL - filtr zapalil sie na linii 77, 'przypisanie hasla/tokenu'. PRZYCZYNA USTALONA (nie zgadnieta - sprawdzona przez zbudowanie pakietu i wypisanie tej linii): to byl FALSZYWY ALARM na MOIM WLASNYM wpisie do teleportu z 10:01, gdzie opisujac test filtra napisalem doslownie fraze 'haslo: <wartosc>'. Filtr uznal <wartosc> za realna wartosc hasla. Zaden prawdziwy sekret nie byl zagrozony. NAPRAWIONE: zaslepka w nawiasie trojkatnym <...> nie zapala juz alarmu (obok istniejacej [...]); PRAWDZIWE przypisanie hasla nadal zapala - test: trzy linie, dwie zaslepki przepuszczone, prawdziwa wartosc odrzucona, kod 1. Generator po naprawie: 12554 znaki z 14039, 5 z 19 sesji, kod 0. Ucho zrestartowane, active. Odchudzony tez podwojony naglowek 'PAKIET NIE POWSTAL' w odpowiedzi bota. LEKCJA DO TECZKI KLAUDKA: sam wpisalem do dziennika fraze, ktora wywalila moje wlasne narzedzie 15 minut pozniej - opisujac dzialanie filtra trzeba pisac o nim tak, zeby sie o wlasny opis nie potknal.
+
+## SESJA 13.08.2026 10:01 CEST
+==============================================================================
+
+13.08 10:00 CEST: RATUNEK KONTEKSTU NA TELEGRAMIE — WDROZONY I ZMIERZONY (polecenie Tomasza 'stawiamy ratunek kontekstu na Telegramie'). Commit d09796c. CO POWSTALO: (1) tools/pakiet_wznowienia.py - sklada pakiet z BRIEF_DLA_KLAUDKA.md + teleport --sprawdz + decyzje --lista + pamiec_stan pokaz + ogon TELEPORT_fabryka.md pociety na cale sesje; SAM mierzy dlugosc i dokłada sesje od najnowszej, dopoki mieszcza sie w 14039 (D-0047). POMIAR: 12487 znakow, 5 z 18 sesji, plik 12536 bajtow - stary reczny zestaw mial 14250, czyli limit byl przekroczony. (2) tools/filtr_sekretow.py - FAIL-CLOSED, warunek Zenka; porownuje z realnymi wartosciami z /root/.sekrety i /root/.hilook_cred (nigdy ich nie drukuje) + wzorce przypisania hasla, Authorization, URL z poswiadczeniami, dlugi hex, token bota, klucz prywatny. TESTY: tekst z 'haslo: <wartosc>' i naglowkiem Authorization -> kod 1 i dwie zapalone reguly; zdanie zawierajace samo slowo 'haslo' jako opis usterki -> kod 0 (brak falszywego alarmu). (3) hans_ucho.py: komendy /pakiet, /wznow, /pomoc; komendy NIE ida do SLOWA_TOMASZA.md; kazda inna wiadomosc przechodzi przez filtr i przy trafieniu jest ODRZUCANA z odpowiedzia 'ODRZUCONE: sekretu nie zapisano' zamiast zapisu. Kopia: tools/hans_ucho.py.bak-13.08. (4) hans-ucho.service enabled+active (proces 1280764) - byl inactive+disabled od 12.08. (5) hans-ucho-watchdog.timer co 15 min + tools/watchdog_ucha.sh - alarm dzwonkiem i restart gdy usluga stoi; to luka wskazana przez Henia (wbudowany alarm ucha gasi tylko przy awarii POLACZENIA, nie przy 'service stopped'). ZMIERZONE KONCOWO 10:00:44 CEST (.scratch/pakiet/dowod_zenek_brak_sladu.txt): is-active ucho=active, watchdog=active, getMe ok=True bot=HansFabrykaRolek_bot, sendDocument ok=True message_id=53 plik WZNOWIENIE.txt 12536 bajtow. AUDYT ZENKA: potwierdzil kod i jednostki, oznaczyl BRAK SLADU przy stanie systemd i wysylce - bo jego sandbox nie ma dostepu do magistrali systemd; dowod dolozony osobnym pomiarem i zapisany na dysk. NIEZWERYFIKOWANE (wymaga Tomasza): czy komenda /pakiet wyslana z jego telefonu odpali generator - to jedyny test end-to-end, ktorego nie da sie zrobic bez niego. NIE DOTKNIETO: gateway OpenClaw zostaje zapauzowany (D-0071), zero puli Claude Max, koszt 0 USD.
+
+## SESJA 13.08.2026 09:49 CEST
+==============================================================================
+
+13.08 09:48 CEST: DRUGI ZRZUT KOMUNIKATU BLOKADY (Tomasz przyslal, plik Screenshot_20260813_094731_Claude.jpg). TRESC DOSLOWNA: 'Chat paused. Opus 5's safety filters flagged this chat. If you think this is wrong, you can start a new chat or give our team feedback.' + przyciski 'Start new chat' i 'Give feedback'. NOWY FAKT: komunikat nazywa model - OPUS 5. Dotad w rejestrze byl komunikat z JEDNEGO zrzutu (probka 7); to drugi. DECYZJA TOMASZA: reklamacje wysyla przez przycisk 'Give feedback' w KAZDYM zablokowanym oknie (nie mailem do supportu). WYKONANE: krotka wersja tekstu na feedback (EN + PL) wystawiona z przyciskiem 'kopiuj do schowka' pod https://podglad.157-90-155-155.sslip.io/feedback-blokady.html - ZWERYFIKOWANE przez siec: HTTP 200, 4096 bajtow. Powod formy www: Tomasz ma wkleic ten sam tekst w wielu zablokowanych oknach z telefonu, a zablokowane okno nie pozwala nic z niego skopiowac.
+
+## SESJA 13.08.2026 09:45 CEST
+==============================================================================
+
+13.08 09:45 CEST: 10. BLOKADA OKNA. Polecenie Tomasza: 'Najpierw wiadomosc odwolujaca blokady mi napisz bo to juz teraz 10 okno a tak nie moze byc bo to moje urzadzenia a ja jestem prezesem w tym ROD'. ZAPISANE: D-0073 - korekta roli, Tomasz jest PREZESEM ROD im. Jozefa Lompy (dotad w pamieci bylo 'czlonek zarzadu'); sprzet ROD jest jego wlasny/pod jego wladza - to argument w reklamacji. WYKONANE: przygotowana reklamacja do wsparcia Anthropic (wersja PL do zrozumienia + EN do wyslania) oparta WYLACZNIE na faktach ze sladem z teleportu: 10 kolejnych okien zatrzymanych, przyczyna ustalona tylko dla probki 7 (haslo do kamer w oknie), dla 1-6 i 8-10 NIEUSTALONA, okno z 09:40 padlo w ~2 minuty bez wykonania pracy, obejscie na sekrety (/root/.sekrety, /root/.hilook_cred) stoi od 13.08 rano i mimo to blokady trwaja. NIE WYSLANE - wysyla Tomasz ze swojego konta.
+
+## SESJA 13.08.2026 09:42 CEST
+==============================================================================
+
+13.08 09:4x CEST (kolejne nowe okno): Tomasz powtorzyl '9 okno zablokowane'. SLAD: identyczny wpis o tej samej blokadzie zapisany 2 minuty wczesniej (mtime TELEPORT_fabryka.md 07:40:03 UTC = 09:40:03 CEST, teraz 09:41:55 CEST) - czyli okno, ktore odebralo ten meldunek o 09:40, przestalo odpowiadac w ciagu ~2 minut i Tomasz musial otworzyc kolejne. To pokazuje, ze cykl blokad przyspieszyl: nowe okno nie dozylo nawet do pierwszej roboty. NIC NIE ZMIENIONO w tej turze - same odczyty (teleport --sprawdz, decyzje --lista, pamiec_stan pokaz, git log, stat/date). ZASADA W TYM OKNIE bez zmian: zero prosb o haslo/login, zero cat/echo na /root/.sekrety i /root/.hilook_cred, zero prob logowania do HiLook (D-0072). CZEKA NA SLOWO TOMASZA (stan niezmieniony od 07:48-09:18): generator pakietu startowego na Telegram (0 zl, zaprojektowany przez Zenka i Henia, NIEWDROZONY), hans-ucho.service (rozbieznosc Henio wlaczyc teraz / Zenek dopiero po filtrze fail-closed), Tuya switch.security_camera_motion_alarm (0 zl, zgoda Zenka i Henia na pierwszy krok), przycisk uzbrojenia NVR (nieklikany, cudzy system alarmowy ROD), pula Max primary (Henio A / Zenek B), 5 miejsc wycieku sekretu - w tym haslo MQTT jawnym tekstem w PUBLICZNYM repo (TELEPORT_HA.md:486 + kopia w archiwum).
+
+## SESJA 13.08.2026 09:40 CEST
+==============================================================================
+
+13.08 (nowe okno): Tomasz zglosil '9 okno zablokowane' - dziewiata blokada z rzedu. Poprzednia (nr 8) zapisana o 07:18. Kontekst okna nr 9 NIEZNANY w momencie tego wpisu - okno nr 9 pracowalo (wg teleportu) nad monitoringiem: kamery HiLook/NVR, poswiadczenia urzadzenia, klatki z fotopulapki, narada Tuya->HA. Probka nr 7 miala USTALONA przyczyne (haslo do kamer wpisane w oknie czatu); dla 1-6, 8 i 9 przyczyna NIEUSTALONA. ZASADA W TYM OKNIE (bez zmian): zero prosb o haslo/login, zero cat/echo na plikach z sekretami (/root/.sekrety, /root/.hilook_cred), zero prob logowania do HiLook (D-0072 'Nie probuj testow'). NIEROZSTRZYGNIETE OD 07:48: generator pakietu startowego na Telegram (ratunek kontekstu przy blokadzie okna) - zaprojektowany przez Zenka i Henia, NIC NIE WDROZONE, czeka na slowo Tomasza.
+======================================================================
+KONIEC PAKIETU. Pelne zrodla leza na VPS w /root/rod-ai-studio.
+ZNAKI: 13982/14039

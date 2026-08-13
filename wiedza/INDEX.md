@@ -1,20 +1,22 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 12.08.2026 10:41.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 13.08.2026 18:05.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (45), od najswiezszego
+## Pliki wiedzy (47), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `PRZEGLAD_WARSZTATU_2026-08-12.md` | 12.08 | 4K | PRZEGLAD WARSZTATU ZALOGI (12.08.2026) — "czego CI brakuje do produkcji" |
+| `BRIEF_DLA_KLAUDKA.md` | 13.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-13 19:55:24 CEST |
+| `KUNY_MONITORING.md` | 13.08 | 8K | KUNY — MONITORING I PRZESZUKIWANIE NAGRAN (kanon) |
+| `DECYZJE_KUNY.md` | 12.08 | 1K | DECYZJE TOMASZA — FILM O KUNACH (append-only) |
+| `PRZEGLAD_WARSZTATU_2026-08-12.md` | 12.08 | 5K | PRZEGLAD WARSZTATU ZALOGI (12.08.2026) — "czego CI brakuje do produkcji" |
 | `GENEROWANIE_OBRAZU.md` | 12.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `DECYZJE_OPENCLAW.md` | 12.08 | 4K | DECYZJA TOMASZA (2026-08-12): OpenClaw WDROZYC — pilotaz proaktywnosci 24/7 |
-| `BRIEF_DLA_KLAUDKA.md` | 12.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-12 12:24:54 CEST |
 | `BANK_PROMPTOW.md` | 12.08 | 1K | BANK PROMPTOW-ZWYCIEZCOW (dekret 23.07 pkt 3, wdrozony 12.08 dekretem "Wszystko") |
 | `PILOT_MOST_PLAN.md` | 12.08 | 2K | PILOT MOSTU MIEDZYSESYJNEGO — PLAN v2 (po opiniach zalogi, 12.08.2026) |
 | `MOST_MIEDZYSESYJNY.md` | 12.08 | 2K | MOST MIEDZYSESYJNY CLAUDE CODE — ZWERYFIKOWANY 12.08.2026 |
@@ -61,8 +63,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 2K | 12.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
-| `/root/TELEPORT_HA.md` | 49K | 06.08 | teleport HA — ARCHIWUM, jw. |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 52K | 13.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/TELEPORT_HA.md` | 64K | 13.08 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
 | `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 5K | 30.07 | podrecznik Henika (dyzurny) |

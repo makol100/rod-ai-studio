@@ -1,0 +1,25 @@
+# FILM KUNY 16:9 — prompty obrazow (kanon: gemini-3.1-flash-image $0.067/szt)
+# Wszystkie: photorealistic, cinematic, 16:9, no text, no captions, no watermarks
+01|INTRO|Stone marten at night sneaking under the open hood of a parked car, dramatic low light, glowing eyes, cinematic
+02|INTRO|Close-up of chewed rubber brake line in car engine bay, teeth marks visible, morning light, shallow depth of field
+03|CZ1|Warm car engine bay glowing with residual heat at dusk, thermal warmth suggested by soft orange light, marten silhouette approaching
+04|CZ1|Stone marten mother with young in a cozy attic nest of insulation material, soft window light
+05|CZ1|Aggressive stone marten baring teeth inside engine compartment, fur bristling, territorial fury, dramatic light
+06|CZ2|Side-by-side comparison scene: two martens on a forest log, one with white forked chest patch, one with yellow rounded throat patch, natural daylight
+07|CZ2|Marten droppings twisted with fur and fruit seeds on a wooden beam, macro shot, flashlight illumination
+08|CZ2|Small five-toed animal tracks in dust on attic floorboards, oblique light revealing footprints
+09|CZ3|Cheap plastic ultrasonic repeller device covered in dust in engine bay with marten sitting calmly next to it, ironic scene
+10|CZ3|Melted toilet freshener block dripping on hot engine belt, close-up, heat shimmer
+11|CZ3|Shredded mineral wool insulation torn apart in attic, gaping hole, cold blue light
+12|CZ4|Professional engine bay steam cleaning in a workshop, technician with steam lance, water vapor, bright workshop light
+13|CZ4|Small metal contact plates of an electric marten deterrent mounted in engine bay, visible wiring, clean install
+14|CZ4|Electric fence mat with thin wires laid on garage floor under a parked car, evening garage light
+15|CZ4|Corrugated cable protection sleeve reinforced with metal braid around engine wiring, macro detail
+16|CZ5|Hands in work gloves fixing welded steel mesh over a gap under roof tiles of a garden shed, sunny day
+17|CZ5|Crumpled newspaper stuffed into a hole in shed wall, test setup, rustic wooden wall
+18|CZ5|Smooth metal collar guard mounted on a downpipe of a garden shed, branches trimmed away from roof, tidy allotment garden
+19|CZ6|Person on phone next to garden shed, friendly hunter with green uniform arriving with humane live trap cage, allotment garden setting
+20|CZ6|Metal two-entrance live trap cage standing OPEN and unused beside shed, red prohibition motif subtly implied by composition, documentary style
+21|CZ7|Snowy Scandinavian forest at dawn, wooden marten trap box mounted on tree trunk, hunter checking it from distance
+22|CZ7|Thermal drone view of forest at night, glowing heat signature of small predator among trees, HUD-free clean thermal image
+23|CZ8|Flat-lay arrangement: steel mesh roll, electric deterrent device, metal cable sleeve, pruning shears on wooden table, top-down, soft light

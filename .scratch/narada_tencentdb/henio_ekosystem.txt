@@ -1,0 +1,99 @@
+Mam pełny obraz. Oto mój głos.
+
+---
+
+## HENIO — GŁOS W SPRAWIE STAN
+
+### 1. JAK STAN MA SIĘ DO KAŻDEGO ELEMENTU
+
+**TELEPORT (283KB, narracja chronologiczna)**
+NIE DUBLUJE. Teleport = PRZEBIEG (co się stało, dlaczego, ślepe uliczki). STAN = GRAF OPERACYJNY (co zrobione/w_toku/bloker + zależności + drill-down do dowodu). Teleport czyta się tail -120 (9606 znaków), STAN czyta się jako graf (<4000 znaków) + drill-down po node_id. Dwie różne warstwy: narracyjna vs. stanowa.
+Ślad: `TELEPORT_fabryka.md` linia 1: "co się stało, w jakiej kolejności, jakie były ślepe uliczki" vs `spec_pamiec_stan.md` linia 6: "mały graf stanu (kilkaset tokenów) + drill-down po node_id do surowego pliku".
+
+**decyzje.py (rejestr decyzji Tomasza)**
+NIE DOTYCZY. Decyzje to rozstrzygnięcia Tomasza z polem "zastepuje". STAN nie dotyka domeny decyzji.
+
+**wiedza/ (WNIOSKI trwałe)**
+NIE DOTYCZY. Spec jawnie: "NIE dotyka wiedza/" (linia 4). STAN to `.scratch/` — pamięć robocza.
+
+**hans-oczy (hans_oczy.py + oczy.jsonl, 159KB)**
+CAŁKOWICIE RÓŻNE DOMENY. `hans_oczy.py` monitoruje ZMIANY PLIKÓW w `wiedza/` i `tools/` (SHA-256 + mtime, co 15 min), wykrywa "niedokończony ślad Klaudka" (kod zmieniony, wiedza nie). NIE śledzi stanu zadania. STAN śledzi POSTĘP ZADANIA. Zero dublowania.
+Ślad: `hans_oczy.py` linia 5-6: "Widzi, co się zmieniło w repo (...) w katalogach wiedza/ i tools/". Nie ma tam słowa o stanie zadania.
+
+**most.jsonl (335 linii, ~100KB, log komend MCP)**
+UZUPEŁNIA. Most.jsonl to SUROWY REJESTR KOMEND (co Klaudek wykonał przez most). STAN mógłby LINKOWAĆ do most.jsonl jako źródła dowodu zamiast kopiować output do `.scratch/refs/`. Obecnie STAN wymaga `--zrodlo PLIK` lub `--tresc-z-stdin` — nie ma integracji z mostem. TO JEST LUKA (patrz niżej).
+
+**dziennik.jsonl (457KB, output Hansa), glosy.jsonl (11KB), meldunki.jsonl (555B, 1 wpis), zmiany.jsonl, limit.jsonl, ucho_awarie.jsonl, proby_zapisu_henia.jsonl**
+NIE DOTYCZY. To logi operacyjne Hansa i Henia — metadane o naradach, limitach, awariach. Żaden nie śledzi stanu zadania.
+
+**meldunek.py + audyt_meldunku.py**
+NIE DOTYCZY. To narzędzia kontroli przed wysłaniem meldunku do Tomasza. STAN mógłby być użyty jako input do meldunku (`status` jako podsumowanie), ale to nie dublowanie, tylko potencjalna integracja.
+
+**zmiany.py**
+NIE DOTYCZY. Odcisk plików tools/ i wiedza/ z SHA-256 — podobny mechanizm do `hans_oczy.py`, nie do STAN.
+
+---
+
+### 2. CZEGO KLAUDEK NIE UWZGLĘDNIŁ (LUKI W SPEC)
+
+**A. BRAK INTEGRACJI Z most.jsonl.** Spec wymaga `--zrodlo PLIK` lub `--tresc-z-stdin`. Najcenniejszym źródłem dowodów Klaudka jest `most.jsonl` (335 wpisów komend MCP). STAN nie ma mechanizmu "pokaż komendy mostu między node_id X a Y" ani "linkuj do most.jsonl z offsetem". Bez tego każdy node_id będzie kopiował output z mostu do `.scratch/refs/`, tworząc DUPLIKATY.
+
+**B. NIE ROZWIĄZUJE PROBLEMU KONTEKSTU SESJI.** Graf.md mówi CO zrobione. Nie mówi CO TOMASZ KAZAŁ. Po kompakcji Klaudek nadal musi czytać teleport tail -120 i decyzje po to, żeby wiedzieć DLACZEGO coś jest blokerem. STAN rozwiązuje tylko "gdzie byłem", nie "dlaczego to robię".
+
+**C. CAP 4000 ZNAKÓW NIETESTOWANY REALNIE.** Test ma 8 węzłów (graf ~600-800 znaków). Realne zadanie Klaudka (jak sesja 5.08: instalacja HA Wybickiego, most.jsonl 50+ wpisów) to 20-40 węzłów. Przy 30 węzłach graf może przekroczyć 4000 nawet po zwinięciu "zrobionych". Test nie pokrywa tego scenariusza.
+
+**D. NIE PRZEWIDZIANO INTEGRACJI Z decyzje.py.** Decyzja Tomasza (`--dodaj`) mogłaby automatycznie tworzyć węzeł STAN jako bloker (decyzja do wykonania). Nie ma tego.
+
+**E. NIE WIADOMO, KTO DOPISUJE WĘZŁY.** Spec mówi: "Klaudek czyta graf.md na starcie i dopisuje węzły w trakcie". Ale Klaudek jest zajęty pracą — kto fizycznie wywołuje `pamiec_stan.py dodaj`? Automatycznie przy każdej komendzie mostu? Ręcznie? Tego nie rozpisano.
+
+**F. RYZYKO DRUGIEGO TELEPORTU.** `.scratch/refs/<agent>/<node_id>.md` offloaduje surowy output narzędzia. Przy 100 węzłach × średni output 2KB = 200KB nowych plików na dysku. Jeśli to są kopie fragmentów most.jsonl, to będzie dublowanie danych.
+
+---
+
+### 3. CZY STAN JEST POTRZEBNY?
+
+**TAK — jako TRZECIA WARSTWA, obok teleportu i wiedzy.**
+
+| warstwa | co | gdzie | jak czytać |
+|---|---|---|---|
+| PRZEBIEG | co się stało, narracja | TELEPORT (283KB) | tail -120 |
+| STAN | graf operacyjny, blokery, dowody | STAN (<4KB graf) | graf.md + drill-down |
+| WNIOSKI | jak ma być, trwałe zasady | wiedza/ | INDEX → pliki |
+
+Co STAN dodaje, czego NIE MA ŻADEN istniejący mechanizm:
+- **Strukturalny graf stanu z zależnościami między krokami.** Teleport to chronologiczna narracja — nie pokazuje, że "n007 zależy od n005 i n006". Most.jsonl to log komend — nie pokazuje zależności. STAN pokazuje.
+- **Odtworzenie stanu po kompakcji okna w <4000 znaków.** Teleport tail -120 = 9606 znaków (i rośnie). Graf.md = kilkaset znaków + drill-down tylko do aktywnych/blokerów.
+- **Odwracalny offload z drill-downem bajt-w-bajt.** Żaden inny mechanizm nie gwarantuje, że po kompakcji odzyskasz surowy dowód identyczny z oryginałem.
+
+ALE: STAN NIE ZASTĘPUJE teleportu ani decyzji. Klaudek po kompakcji nadal musi przeczytać kontekst sesji (co Tomasz kazał) — tego graf.md nie zawiera.
+
+---
+
+### 4. JAK SPIĄĆ Z HANSEM I RESZTĄ (JEŚLI POTRZEBNY)
+
+**STAN + most.jsonl — NAJWAŻNIEJSZE:**
+Zamiast `--zrodlo PLIK` niech STAN przyjmuje `--zrodlo-most OFFSET1 OFFSET2` — węzeł linkuje do zakresu linii w `most.jsonl`, nie kopiuje treści. `pokaz --node_id X` automatycznie wycina odpowiedni fragment. Eliminuje to ryzyko duplikacji danych (luka F).
+
+**STAN + hans-oczy — BEZ KONFLIKTU:**
+`hans_oczy.py` monitoruje zmiany plików (integralność repo). STAN monitoruje postęp zadania. Różne domeny. Można dodać: `pamiec_stan.py graf` przed generowaniem sprawdza przez API `hans_oczy.py`, czy pliki źródłowe nie drgnęły (weryfikacja integralności dowodów).
+
+**STAN + teleport — CZWARTY ELEMENT STARTOWY:**
+Polecenie startowe nowej sesji (obecnie: brief + decyzje + teleport tail -120) powinno dostać czwarty człon: `python3 tools/pamiec_stan.py pokaz`. Graf.md < 4000 znaków, więc mieści się w limicie 14039.
+
+**STAN + meldunek.py:**
+`pamiec_stan.py status` jako obowiązkowy element meldunku Klaudka do Tomasza — pokazuje ile w_toku, ile blokerów, czy wszystkie źródła istnieją. To daje Tomaszowi natychmiastowy obraz stanu.
+
+**STAN + decyzje.py:**
+Decyzja Tomasza (szczególnie z tematem "produkcja" lub "infrastruktura") automatycznie tworzy węzeł `bloker` lub `w_toku` w STAN-ie — agent dostaje zadanie, nie tylko wpis w rejestrze.
+
+---
+
+### ROZBIEŻNOŚĆ DO TOMASZA
+
+Klaudek w spec (linia 6) pisze: "zamiast tysiecy tokenow logu — maly graf stanu (kilkaset tokenow)". To prawda dla GRAFU. ALE: drill-down do dowodu też kosztuje tokeny (tyle co surowy plik). Oszczędność jest realna tylko gdy dowody są czytane wybiórczo (tylko blokery), nie wszystkie. To nie wada — to świadomy trade-off. Warto to powiedzieć wprost: STAN oszczędza tokeny przy WZNOWIENIU (czytasz tylko blokery), nie przy PEŁNYM ODTWORZENIU (czytasz całą historię przez drill-down).
+
+---
+
+### WNIOSEK
+
+STAN jest potrzebny jako trzecia warstwa (obok teleportu i wiedzy) — operacyjny graf stanu zadania. Nie dubluje niczego. Ale ma luki: brak integracji z most.jsonl, brak automatu dopisującego węzły, ryzyko drugiego teleportu przez kopiowanie zamiast linkowania. Te trzy rzeczy trzeba załatać przed wdrożeniem.
