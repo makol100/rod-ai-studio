@@ -872,3 +872,33 @@
 {"timestamp": "2026-08-13 18:03:00", "file": "tools/zrobione.py", "mtime": 1786643415.1714287, "checksum": "bfd50fa5bafd7c63b2aa0847d018fe03bf2b3445794cd28edd4771c96b5b5914", "status": "modified"}
 {"timestamp": "2026-08-13 18:03:00", "file": "tools/test_skrzynka.py", "mtime": 1786644126.6694036, "checksum": "df79d7a58917fb665adffaf2af8fa7ecb216c5e1fc261101dc15c4e2c759c12a", "status": "modified"}
 {"timestamp": "2026-08-13 18:03:00", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zrobione.py"], "knowledge_files": []}
+{"timestamp": "2026-08-13 22:51:59", "file": "tools/zaloga.py", "mtime": 1786660967.2172034, "checksum": "fe40934903407c474f4132c089da90827a7396450b9283d65fdf50718addbba0", "status": "modified"}
+{"timestamp": "2026-08-13 22:51:59", "file": "tools/zaloga.py.bak-13.08", "mtime": 1786660967.1826277, "checksum": "ae3e3823bb67a4a1c471aff7d5964d26abaf41fb2998775313c8144bbae244a1", "status": "added"}
+{"timestamp": "2026-08-13 22:51:59", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zaloga.py"], "knowledge_files": []}
+{"timestamp": "2026-08-14 11:48:12", "file": "tools/oczy_uszy.py", "mtime": 1786707383.5981135, "checksum": "4d597ba9b19173ffd28beb205d8f4bd4c6517866556327bccc9878b3947b5471", "status": "modified"}
+{"timestamp": "2026-08-14 11:48:12", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/oczy_uszy.py"], "knowledge_files": []}
+{"timestamp": "2026-08-14 13:51:26", "file": "wiedza/KAMERA_ROG_INSTRUKCJA.md", "mtime": 1786715225.8623314, "checksum": "813bfa911e0b1fe01811109dc30cfa42b4397e4509fa29ed0fb8a3fb4d65d42d", "status": "added"}
+{"timestamp": "2026-08-14 13:51:26", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/KAMERA_ROG_INSTRUKCJA.md"]}
+{"timestamp": "2026-08-17 09:55:03", "file": "tools/film.py", "mtime": 1786959875.983196, "checksum": "72a7edec877f30799c3ecd75c1f25bca709f28217a6523807ec5becf6225d0dd", "status": "added"}
+{"timestamp": "2026-08-17 09:55:03", "file": "tools/hans_ucho.py", "mtime": 1786959923.5802639, "checksum": "a5bb934e88d98dc830cdfbb9dc34a660d88db7fd2bf7a3d5c0806fcb8e58cca0", "status": "modified"}
+{"timestamp": "2026-08-17 09:55:03", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/film.py", "tools/hans_ucho.py"], "knowledge_files": []}
+{"timestamp": "2026-08-17 12:30:21", "file": "wiedza/KAMERA_ROG_INSTRUKCJA.md", "mtime": 1786969118.3875122, "checksum": "813bfa911e0b1fe01811109dc30cfa42b4397e4509fa29ed0fb8a3fb4d65d42d", "status": "modified"}
+{"timestamp": "2026-08-17 12:30:21", "file": "tools/oczy_uszy.py", "mtime": 1786969118.3875122, "checksum": "4d597ba9b19173ffd28beb205d8f4bd4c6517866556327bccc9878b3947b5471", "status": "modified"}
+{"timestamp": "2026-08-17 12:30:21", "file": "tools/film.py", "mtime": 1786969118.3875122, "checksum": "72a7edec877f30799c3ecd75c1f25bca709f28217a6523807ec5becf6225d0dd", "status": "modified"}
+{"timestamp": "2026-08-17 12:30:21", "file": "tools/hans_ucho.py", "mtime": 1786969118.3875122, "checksum": "a5bb934e88d98dc830cdfbb9dc34a660d88db7fd2bf7a3d5c0806fcb8e58cca0", "status": "modified"}
+{"timestamp": "2026-08-17 12:30:21", "file": "tools/zaloga.py", "mtime": 1786969118.3875122, "checksum": "fe40934903407c474f4132c089da90827a7396450b9283d65fdf50718addbba0", "status": "modified"}
+{"timestamp": "2026-08-17 12:30:21", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/oczy_uszy.py", "tools/film.py", "tools/hans_ucho.py", "tools/zaloga.py"], "knowledge_files": ["wiedza/KAMERA_ROG_INSTRUKCJA.md"]}
+{"timestamp": "2026-08-17 14:47:33", "file": "tools/straznik_komend.py", "mtime": 1786977680.4983416, "checksum": "6cdf9257a473b6e08712ef979d1f0110ec0e34f73f411d57f31615685eca636d", "status": "added"}
+{"timestamp": "2026-08-17 14:47:33", "file": "tools/test_straznik.py", "mtime": 1786977680.498625, "checksum": "4de2b4ad323f788e57ffa3cfe193109fd08f454085b0d418f376fe329b72bc8a", "status": "added"}
+{"timestamp": "2026-08-17 14:47:33", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/straznik_komend.py"], "knowledge_files": []}
+{"timestamp": "2026-08-17 15:48:45", "file": "tools/zrobione.py", "mtime": 1786981406.348615, "checksum": "b75822e08eb1f66956767d1b4a44dbd2b04c37c90c2945054ee23a02fa716bc4", "status": "modified"}
+{"timestamp": "2026-08-17 15:48:45", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zrobione.py"], "knowledge_files": []}
+{"timestamp": "2026-08-17 16:49:51", "file": "wiedza/DROGA_DOMOWA_YOUTUBE.md", "mtime": 1786985349.0240183, "checksum": "4c49e491d0adbe7be512f2208ea6fc1701687bc39e7ab5fee0d7765f8f50fcba", "status": "added"}
+{"timestamp": "2026-08-17 16:49:51", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/DROGA_DOMOWA_YOUTUBE.md"]}
+{"timestamp": "2026-08-17 18:38:41", "file": "tools/straznik_komend.py", "mtime": 1786991749.119976, "checksum": "22a0357b3d4a86a15abb8b79a2c74c85068d8614bd6d099c2d9434a4c10758d1", "status": "modified"}
+{"timestamp": "2026-08-17 18:38:41", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/straznik_komend.py"], "knowledge_files": []}
+{"timestamp": "2026-08-17 19:24:51", "file": "tools/pakiet_wznowienia.py", "mtime": 1786994279.5053484, "checksum": "15720c72b6b4f9b9e818bf9172d20e6954cdb193f3c6befd2194afc3469a6280", "status": "modified"}
+{"timestamp": "2026-08-17 19:24:51", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/pakiet_wznowienia.py"], "knowledge_files": []}
+{"timestamp": "2026-08-18 07:18:32", "file": "tools/zrobione.py", "mtime": 1787037103.7773352, "checksum": "505197eb830377a5084390d8fa3993f5db618000d64fa440c373fe90d29af710", "status": "modified"}
+{"timestamp": "2026-08-18 07:18:32", "file": "tools/czy_pisza.py", "mtime": 1787036958.544645, "checksum": "65c7aee6d20900ac358cbfaadf9e08979033c26cf2b6a38e00d8699c21c8dbff", "status": "added"}
+{"timestamp": "2026-08-18 07:18:32", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zrobione.py", "tools/czy_pisza.py"], "knowledge_files": []}

@@ -1,0 +1,7 @@
+Meldunek z filmu (cytaty z opisu autora):
+1. "last30days — research z ostatnich 30 dni (Reddit, X, YouTube, Hacker News)"
+2. "i-have-adhd — repo skracajace odpowiedzi agenta do konkretu"
+3. "impeccable — skill przeciw AI Slopowi (23 komendy, 180 gotowych styli)"
+4. "handoff-skill od Krisa — handoff i pickup zamiast /compact"
+5. "herdr — Claude Code i Codex w jednym oknie"
+Bonus wedlug autora: "skill doslownie pisze sie sam. Wystarczy, ze przeklikasz swoje zadanie tak, jak robisz to na co dzien."

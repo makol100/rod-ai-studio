@@ -1,0 +1,1070 @@
+# 10 Skills, Pluginow i Repo do Claude Code (Sierpien 2026)
+# Robert Szewczyk, https://youtu.be/XTV-4f90Edg
+# zrodlo: yt-dlp na HA DOM (domowe IP) 17.08.2026 — droga, ktora dziala
+
+Clot świeżo po instalacji zapomina
+wszystko, co powiedziałeś mu wczoraj.
+Projektuje strony internetowe, które
+wyglądają jak AI slop i może skasować ci
+pół projektu jednym poleceniem. Ale to
+nie jego wina. To wina tego, że odpalasz
+go na golasa. Dlatego dziś przychodzę do
+ciebie ze zbiorem 10 najciekawszych
+pluginów, skil oraz projektów open
+source, które w ostatnim czasie wpadły
+mi w ręce i które są bardzo dobrze
+oceniane przez społeczność. Najlepsze,
+każda z omawianych rzeczy jest darmowa,
+więc będziesz mógł ją przetestować już
+zaraz po obejrzeniu tego materiału. Na
+końcu przygotowałem mały bonus feater,
+funkcjonalność, o której mało kto mówi,
+a ostatnio pojawiła się w Clodzie i moim
+zdaniem jest bardzo ciekawa. Stałych
+widzów mojego kanału proszę o kredyt
+zaufania w postaci łapki w górę. A teraz
+bez zbędnego przedłużania lecimy z
+tematem. Zanim weźmiemy na tapet
+pierwszą pozycję pierwszego skilla, mam
+dla ciebie jedną krótką instrukcję
+instalacji, która obsłuży cały ten
+poradnik. W końcu nie ma sensu powtarzać
+tego samego 10 razy. Jeśli chcesz
+dowiedzieć się więcej na temat skills,
+tego czym są, jak działają, jak je
+tworzyć i instalować, to odsyłam cię do
+jednego z moich poprzednich materiałów
+na kanale. Jego miniatura wyświetla ci
+się teraz na ekranie, a link do niego
+znajdziesz standardowo w opisie. Jednak
+tutaj zaznaczam, że ten dzisiejszy
+sposób, który już za moment ci pokażę,
+różni się od tego, co pokazywałem w
+tamtym materiale i jest skierowany
+bardziej do osób, które cenią sobie
+wygodę, bo tam instalowaliśmy skille w
+terminalu. Tutaj skille będziemy
+instalować troszeczkę inaczej, bo za
+pomocą aplikacji desktopowej i
+wbudowanego rozwiązania w clot code. No
+i ta sama instrukcja tyczy się
+wszystkich skil pluginów, które będziemy
+dzisiaj instalować. Pierwsze co robisz
+to odpalasz swoją aplikację Clot Code.
+Następnie tutaj klikasz plusik w
+wybranym projekcie. Przechodzisz do
+zakładki Plugins. Przechodzisz tutaj do
+browins.
+W tym momencie wyświetli ci się cały
+store, cały magazyn, nazwijmy to,
+pluginów. W tym przypadku są to
+antropic, czyli od twórców cloda, ale to
+co robimy to klikamy tutaj ten plusik w
+prawym górnym rogu i wybieramy ad from a
+repository i tutaj wkleimy link do
+GitHuba. Widzisz, że możemy tutaj wkleić
+GitHub owner Repo oraz Git Repository
+URL. Z tego co widziałem użytkownicy
+skarżą się, że jeżeli wklejają cały link
+do GitHuba, to to nie działa. Więc my
+skorzystamy z tej metody i to polega na
+tym, że wracamy sobie do wybranego Repo,
+klikamy sobie link tutaj u góry, no i
+mamy tutaj nazwę użytkownika i nazwę
+Repo w tym miejscu. Kopiujemy sobie to,
+wracamy się do cloda, klikamy sobie
+tutaj, wklejamy tutaj, czekamy, hop. I w
+tym momencie klikamy synk, czyli
+synchronizuj. I to jest krok pierwszy.
+jeszcze w tym momencie nie będziesz miał
+zainstalowanego tego skilla, bo to co
+się robi to tutaj mamy zakładkę Code, ta
+trzecia obok Antropic i Partners i tu
+wyświetlają się wszystkie marketplace ze
+skillami, ale aby te skille działały,
+musisz je zainstalować. Ja już mam skill
+last 30 Days, zainstalowany, ale jak
+klikniemy sobie tutaj Pony Tail, to
+widzisz, że mam ten plugin, ale on nie
+jest zainstalowany. Musiałbym kliknąć
+tutaj plusik i dopiero wtedy nasz plugin
+jest zainstalowany. Tak więc jak
+zainstalujesz sobie marketplace, klikasz
+plusik, później resetujesz cloda i
+wszystko powinno działać. Jeśli chodzi o
+skilla last 30 days, to rozwiązuje on
+jedną z takich większych bolączek, którą
+mają użytkownicy Cloud Coda, a więc
+research. To działa tak, że zamiast
+przekopywać się przez dziesiątki stron
+Google i tracić czas na SEOPapkę, agent
+sam przeczesuje ostatnie 30 dni
+chociażby na Reddicie, na IE, YouTubie,
+TikToku, Instagramie, Hacker News i
+wielu innych miejscach. Następnie, gdy
+zbierze takie informacje wypluwa ci
+krótki brief, gdzie opisuje to, co
+ludzie mówią realnie teraz o danym
+temacie. Wczoraj zainstalowałem ten
+skill w projekcie YouTube Rob, więc
+pokażę ci jak to działa. Wpisujemy go, a
+w zasadzie uruchamiamy go tą komendą,
+którą widzisz tutaj. Następnie
+napisałem, że chcę dowiedzieć się co
+mówili ludzie o skills w cloud codzie w
+ciągu ostatnich 30 dni. No i pierwsze co
+musisz zrobić, to skonfigurować clot,
+przeprowadzi cię tutaj przez
+konfigurację krok po kroku. Będziesz
+potrzebować konta GitHub, żeby to
+wszystko działało. Plus będziesz musiał
+zainstalować kilka rzeczy. W zasadzie
+będziesz musiał się zgodzić i
+Clotinstaluje
+za ciebie. Możesz mu w pewnym momencie
+napisać albo już na starcie, żebym mówił
+po polsku. Hop, widzisz, że to działa.
+No i teraz jak sobie zjedziemy tutaj
+niżej, to widzimy jakie profile były
+przeszukiwane. Widzimy tutaj Antropic,
+widzimy Redit, jakie tematy, GitHub,
+TikTok, YouTube, hop. Widzimy tutaj
+czego się dowiedziałem. Skills przestały
+być featerem antropik i stały się
+standardem, prawda? Ale dominującym
+tematem ostatnich 30 dni nie jest co
+skills potrafią, tylko które skills
+śmieciem. Brzydko mówiąc, widzimy, że
+najbardziej niewygodny głos w całym
+oknie. Skasuj swój setup. Ciekawe. No i
+mamy tutaj cały opis. Na dole widzimy
+kluczowe wzorce z researchu, czyli to co
+się powtarzało. Widzimy, że nie mam
+cookies exa w przeglądarce, więc nie
+wszystko zadziałało. Hop. Więc musiałbym
+to poprawić, ale no mniej więcej widzisz
+jak to działa. Widzimy z jakich źródeł
+korzystali agenci podczas researchu.
+Następnie Cloud utworzył taki
+nieobrobiony dokument z cytatami,
+linkami i tak dalej. Całość jest tutaj
+po angielsku, więc to co ja zrobiłem to
+poprosiłem go, aby przerobił tego skilla
+na polski, dopisał to. No i na tej
+podstawie dostałem nową wersję, która
+już w całości jest po polsku. I teraz
+uczciwie to repozytorium, ten skill
+czujesz plugin to trochę szybszy i
+lepszy research z internetu, a nie
+wyrocznia. Więc traktuj to jako fajny
+punkt startowy, jaki taki punkt wyjścia,
+a nie coś, co jest w 100% pewne. I jeśli
+chodzi o to, jak tego używać, po prostu
+po zainstalowaniu tego plugina
+uruchamiasz komendę i pytasz Cloda
+normalnie, po ludzku. Na przykład co
+mówili ludzie na tutaj wstaw temat w
+ostatnim miesiącu, w ciągu ostatnich 30
+dni. Wtedy nawet nie musisz tak naprawdę
+wpisywać slash, bo i tak Clot będzie
+wiedział o co chodzi. No i resztę
+zostawiasz Klaudiuszowi. Pierwsze koty
+za płoty. Instalację mamy już za sobą i
+widziałeś to wszystko u mnie na ekranie.
+Zaczęliśmy od researchu, więc teraz
+bierzemy na warsztat coś, co totalnie
+zmienia sposób, w jaki Cloud Code w
+ogóle do ciebie mówi i wchodzi z tobą w
+interakcję. Druga pozycja na naszej
+liście to nie typowy skill, a raczej
+coś, co przeprogramowuje sposób, w jaki
+agent się z tobą komunikuje.
+Repozytorium po polsku nazywa się Mam
+ADHD. I autor faktycznie przyznaje, że
+ma ADHD. Zresztą jak ja. Tak jak
+widzisz, repozytorium ma blisko 20 000
+gwiazdek, czyli takich polubień. To
+całkiem sporo. I technicznie jest to
+skill spakowany w plugin, ale efektem
+tego skilla jest zmiana stylu
+odpowiedzi. Agent w dużym skrócie
+przestaje gadać, zaczyna dowozić, bo
+problem z tego co wyczytałem twórcy
+autora tego skilla był taki, że właśnie
+ma te ADHD. No i agenci mają tą
+tendencję, szczególnie na przykład Opus
+5, że rozwlekają się, robią bardzo
+długie odpowiedzi, przez co nasz autor
+tego pluginu zaczął się najprościej
+mówiąc gubić i nie mógł się skupić na
+tym co mu dowozi agent. Widzimy tutaj
+przykład tego, jak działa ten skill
+before. Mamy taką bardzo długą
+odpowiedź. Hop. Jak widzisz, jest tego
+sporo. No i po mamy krótką odpowiedź z
+punktami, ładnie sformatowaną, więc
+łatwiej się w tym wszystkim połapać.
+Narzędzie tudzież skill bądź też plugin
+ma 10 zasad, którymi operuje Clot po
+jego zainstalowaniu. Na przykład akcja
+zawsze na pierwszym miejscu, listy max
+do pięciu punktów. Zero tego irytującego
+hope this helps na końcu. Mam nadzieję,
+że to pomoże. Więc cały opis znajdziesz
+tutaj w tym repozytorium. Wszystkie
+linki znajdziesz w opisie. Wystarczy, że
+klikniesz. Czas na ważny drobiaz, o
+którym mało kto mówi. Sama instalacja
+nie zmienia niczego, a komenda slhd
+końca bieżącej sesji. A więc wyłączysz
+clotc i musisz uruchomić to ponownie.
+Dlatego postanowiłem pójść o krok dalej
+i zrobiłem własną wersję, gdzie wziąłem
+10 zasad z tego repozytorium. Licencja
+MIT na to pozwala. Połączyłem je z moim
+dotychczasowym stylem i wgrałem jako
+coś, co nazywamy output style, czyli
+plik markdown w krop clot output styles.
+Przełączasz go wbudowaną komendą i w
+odróżnieniu do skilla ten zostaje
+włączony na stałe między sesjami w danym
+projekcie. Tak więc na ekranie widzisz
+Robert ADHD output style. Mamy moje
+repozytorium. To co możesz zrobić to
+skopiować wybrane pliki, bo mamy tą
+wersję, którą przedstawił autor z tymi
+10 zasadami. No i mamy moją wersję,
+która miksuje te rzeczy. Ma te clot
+tutaj działa tak, że też ma być twoim
+takim mentorem, podpowiadać cię, nauczyć
+cię czegoś, a nie ślepo wykonywać rzeczy
+i tłumaczyć skomplikowane rzeczy w
+prosty sposób. Więc możesz przesłać tą
+instrukcję Clodowi i poprosić go, aby
+zainstalował. I teraz jeżeli chcesz
+zmienić taki output style, jak to już
+zainstalujesz rzeczywiście to robisz to
+w ten sposób. Ja wiem jak zrobić to
+widę, nie wiem jak zrobić to samo w
+aplikacji desktopowej. Jeżeli ty wiesz,
+możesz dać znać w komentarzu, ale
+odpalasz sobie cloda w terminalu bądź
+też ID i wpisujesz sobie coś takiego jak
+slash confic, tak jak widzisz tutaj.
+Hop, klikamy enter. Tutaj u góry
+wpisujemy output i mamy coś takiego jak
+output style. Hop, widzisz, że mamy
+Robert ADHD. Wchodzimy sobie tutaj i
+mamy cztery domyślne, czyli default,
+proactive, explanatory
+learning, Robert ADHD, I have ADHD,
+czyli ten bazujący na autorze. Mamy
+jeszcze jakiś mój na temat plus nauka.
+No i wystarczy, że wybierzesz sobie
+interesujący cię output style, klikniesz
+enter i ten się zaczyta. Jeśli chodzi o
+to, jak różnią się odpowiedzi na moim
+realnym przykładzie, to po lewej masz
+okienko, gdzie mam włączony output
+style, który utworzyłem. Po prawej masz
+okienko, gdzie jest ten domyślny output
+style, który masz ustawiony w clotzie na
+starcie. No i w jednym i w drugim
+przypadku zadałem to samo pytanie, jak
+działa proces pakowania. Dmg mojej
+aplikacji Tumforge i dostałem taką
+odpowiedź. Komenda bla bla bla albo to
+to łańcuch kroków 0 1 2 3 4 dalej 5 6
+layout w gotowym app. Następne, jeśli
+chcesz zobaczyć to na żywo, odpal. Czyli
+coś zasugerował mi clot. Po prawej
+wygląda tak. Pipeline ma jedno wejście,
+bla, bla, bla. Pięć etapów. Kolejność
+wynika. Widzisz, że tak rozwleka, pyk.
+No jest to o wiele dłuższe, więc tak to
+po prostu wygląda. W tym miejscu
+zaznaczę, że jest to raczej taka dość
+mocno kwestia gustu, a nie obiektywnej
+lepszości. Po prostu przetestuj to na
+sobie i oceń, który styl odpowiedzi
+bardziej ci pasuje. Zachęcam cię do
+tego, abyś poprosił ewentualnie cloda i
+na bazie tego, co masz domyślnie w
+clodzie, na bazie tego, co ja
+stworzyłem, na bazie tego repozytorium o
+I have HDHD, stworzył własny output
+style, który ci odpowiada. Jeśli w ogóle
+jakiś z tematów cię dzisiaj mocniej
+zainteresuje i chciałbyś abym wgłębił
+się w niego jeszcze bardziej, to daj mi
+znać w komentarzu. Oczywiście link do
+tego mojego repozytorium znajdziesz w
+opisie. Będzie mi miło, jeżeli
+skorzystasz, wypróbujesz, żebyś zostawił
+gwiazdkę na moim GitHubie. To nic cię
+nie kosztuje, a sprawisz mi radość i
+pokażesz, że warto robić więcej tego
+typu gotowców dla ciebie. Dobra, dwie
+pierwsze rzeczy mamy już za sobą, a
+skoro to już za nami, to czas na jedno
+rozszerzenie, jeden plugin, który mega
+zmienił podejście do tego, jak zarządzam
+moimi stronami, jak zarządzam
+WordPressem czy moim serwerem VPS.
+Kolejny punkt, a raczej plugin na naszej
+liście to rozwiązanie, dzięki któremu
+wprowadzasz zmiany na hostingu czy
+WordPressie bez logowania do panelu, a
+nawet zarządzasz serwerem VPS bez
+obsługi terminala, co docenią osoby
+nietchniczne. I jeśli chodzi o to
+rozwiązanie, jest to plugin od firmy
+Hostinger, a więc głównego partnera
+technologicznego mojego kanału. Jeśli
+chodzi o firmę Hostinger, to mam tutaj
+moje serwery VPS, moje domeny czy moje
+hostingi i niezmiennie polecam. To co
+wielokrotnie powtarzam i będę powtarzać
+to to, że Hostinger dba zarówno o osoby
+nieco bardziej techniczne, jak i te
+mniej techniczne jak chociażby ja,
+dzięki czemu zarządzanie serwerem,
+WordPressem, stronami i tak dalej jest
+tutaj mega proste i odbywa się z poziomu
+rozmowy z Cloud Codem, co szybko skradło
+moje serduszko. Swoją drogą
+opublikowałem cały materiał o tym
+pluginie, o tym konektorze od Hostinger.
+Pełny tutorial krok po kroku, gdzie
+ogarniam DNSy, publikuję stronę,
+podpinam pod nią domenę, aktualizuję
+VPS, czyli mój serwer z poziomu rozmowy
+z agentem. Jego miniaturka wyświetla ci
+się teraz na ekranie, link znajdziesz w
+opisie. Ale wracając, jeśli chodzi o ten
+plugin od hostinger, to potrzebujesz
+tutaj dwóch rzeczy. Po pierwsze,
+potrzebujesz własnego serwera bądź też
+hostingu, którym chcesz zarządzać. I
+tutaj na start polecam ci hosting, a
+konkretnie plan biznes, który nie
+zrujnuje twojego miesięcznego budżetu, a
+dzięki któremu opublikujesz aż do pięciu
+aplikacji webowych. Mamy tutaj opis:
+Wdrażaj i hostuj aplikacje webowe
+zbudowane w oparciu o frameworki takie
+jak React, NextJS, Vite i inne. I są to
+tepowe frameworki wykorzystywane przez
+narzędzia AI, jak na przykład Cloud Code
+czy Codex. Możesz tutaj wdrożyć do 50
+stron internetowych. Masz 50 gig
+pamięci, a więc miejsca, więc możesz
+całkiem sporo tego instalować. Dodatkowo
+możesz tworzyć tutaj strony z pomocą AI,
+z pomocą WordPressa, kreatora stron www
+od Hostinger czy za pomocą aplikacji
+Horizons. No i oczywiście masz tutaj te
+złącza, a więc plugin w zestawie. Sprawa
+jest prosta. Klikasz link w opisie,
+wybierasz interesujący cię plan, na
+przykład plan biznes. Teraz wybierasz
+interesujący cię okres. Im dłużej, tym
+taniej. Wiadomo, tutaj taka ciekawostka,
+wskazówka. Aktualnie trwa taka promocja,
+że wybierając plany 12 24 bądź też 48
+miiesięczne otrzymasz darmową domenę na
+rok oraz pięć bezpłatnych skrzynek
+pocztowych na rok. Każda o pojemności 1
+GB, co jest fajnym dealem, ale to nie
+koniec. Klikasz, posiadasz kod rabatowy,
+wpisujesz wielkimi literami Robert host,
+klikasz zastosuj i cyk, taki hosting na
+rok wychodzi ci się niecałe 215 zł. moim
+zdaniem warto to. Dodatkowo korzystając
+z linku i kodu w opisie wspierasz mój
+kanał. I tak jak mówiłem, potrzebujesz
+również drugiej rzeczy, a więc
+oficjalnego pluginu od Hostinger. I
+tutaj sprawa instalacji jest nieco
+prostsza, bo wchodzisz do cloda, klikasz
+tutaj plusik, przechodzisz do zakładki
+plugins, przechodzisz do browse plugins,
+następnie tutaj u góry klikasz partners,
+wpisujesz tutaj hostinger, no i wyskoczy
+ci ten plugin tutaj instalujesz go,
+uruchamiasz ponownie Cloda. Następnie w
+okienku rozmowy z Clodem pytasz go o to
+na przykład jakie domeny widzi na twoim
+koncie Hostinger. Ten otworzy
+przeglądarkę gdzie logujesz się swoim
+kontem Hostinger. Klikasz allow, aby
+nadać wszystkie poświadczenia i dzięki
+temu Cloud będzie widział twoje usługi i
+będzie mógł zarządzać twoim serwerem
+bądź też hostingiem. Tutaj nie będziemy
+się zbytnio rozwodzić, bo tak jak
+mówiłem, nagrałem o tym cały osobny
+materiał, ale jak widzisz opisałem tutaj
+Clodowi, że nagrywam taki materiał na
+YouTubie, czyli ten poprzedni, jak w
+prosty sposób za pomocą Plugin od
+Hastinger, który mam zainstalowany,
+wgrać własną stronę stworzoną z twoją
+pomocą na nasz hosting. Napisałem mu, że
+mam taką domenę, która jest przypisana
+do odpowiedniego hostingu. Zresztą Clot
+przypisał ją do tego hostingu.
+Napisałem, że chciałbym, aby stworzył
+krótki landing page i następnie
+opublikował stronę na moim hostingu i
+podpiął do niej i podpiął do niej
+domenę. Dodałem mu link do kanału. Tu
+napisałem, żeby podpiął SSH. Chodziło o
+certyfikat SSL, czyli tą kódeczkę, że
+strona jest bezpieczna. KLOT wszystko
+ogarnął. Mamy tutaj stronkę, która
+faktycznie działa. Hop. Jak widzisz,
+możesz sobie wejść, poklikać. Link
+będzie w opisie. Mamy tutaj YouTube. On
+też działa. Przenosi do mojego kanału.
+Pyk. Tak więc wszystko śmiga. Drugim
+nieco bardziej zaawansowanym casem,
+który pokazałem, tam były trzy, było to,
+że poprosiłem Cloda, aby ten powiedział
+jakie aplikacje widzi na moim VPSie,
+czyli serwerze, którego kiedyś w ogóle
+myślałem, że nie będę obsługiwał jeszcze
+2 lata temu. Teraz dzięki narzędziom AI
+stało się to dużo prostsze i nie wymaga
+ode mnie obsługi terminala. On tu
+zobaczył te aplikacje, które mam, a mam
+ich całkiem sporo. Zasugerował, które
+wymagają aktualizacji. No i powiedziałem
+mu, żeby je zaktualizował. I widzisz,
+zaktualizowane. Schling web client,
+stack postis. Wszystko działa. Clot
+zresetował te kontenery. Zrobił też
+backup przed aktualizacją. Gdyby coś się
+popsuło, moglibyśmy szybko do tego
+wrócić. zapisał ten backup na moim
+komputerze. Więc jak widzisz, obsługa
+takich rzeczy jak hosting, WordPress czy
+nawet serwer VPS stała się o wiele
+prostsza, szybsza i przyjemniejsza.
+Przypominam, że zarówno mój specjalny
+link, jak i kod znajdziesz w opisie pod
+tym filmem, ale pamiętaj, że nic co
+dobre nie trwa wiecznie, a oferta jest
+ograniczona czasowo. A skoro to mamy już
+za sobą, czas lecieć dalej z rzeczami,
+których używam każdego dnia. A skoro
+zarówno serwer, jak i hosting mamy już
+ogarnięty, bierzemy się za pozycję,
+która chyba najmocniej wpływa na to, jak
+twoje projekty, które stworzyłeś we
+współpracy z AI wyglądają. Jeśli jesteś
+osobą, która aktywnie tworzy różne
+rzeczy, na przykład strony, to pewnie
+wielokrotnie zdarzyło ci się widzieć
+bądź samemu wyprodukować coś, co wygląda
+jak typowy AI slop, chociażby ten słynny
+fioletowy gradient Gemini czy Cloda,
+który był dosłownie wszędzie. I ten
+skill, którego nazwy nie potrafię
+wymówić.
+Impecable. Impecable. Impecable.
+&gt;&gt; Jeśli chodzi o ten skill, to paczka aż
+23 różnych komend. Wśród nich jest
+chociażby komenda detect, którą widzisz
+teraz na ekranie, która wyłapuje 58
+wzorców tak zwanego AI slopu, czyli
+najprościej mówiąc to te generyczne
+efekty jak ten fioletowy gradient, po
+których od razu widzisz, że stronę bądź
+też design stworzył model AI.
+Ciekawostka jest taka, że GitHub, czyli
+twórcy platformy, którą widzisz teraz na
+ekranie i którą pewnie znasz, jeżeli
+pracujesz z agentami AI, wbudowali ten
+skill prosto w swojego kopa i lota. Więc
+to nie jest jakiś tam projekcik
+wyciągnięty z szuflady, a solidne
+narzędzie. Z takich fajniejszych rzeczy
+to ten skill ma również live mode, który
+działa tak, że agendi na przykład Cloud
+odpala twój projekt w przeglądarce. Ty
+możesz wyklwać odpowiednie elementy
+strony i dostajesz kilka gotowych
+wariantów do wyboru. Są też tak zwane
+words, czyli prawie 180 gotowych styli
+estetyk i narzędzie samodzielnie podsuwa
+ci te style jak karty stali, a ty możesz
+je dowolnie testować i dostosowywać pod
+siebie. Najprościej mówiąc, duże
+kierunkowe zmiany robisz w terminalu
+bądź też aplikacji, a te drobne poprawki
+dłubiesz w live modzie. Jak już
+skończysz, warto odpalić nowe okienko
+Cloud Codea bądź też kodex z osobnym
+kontekstem, aby ten rzucił okiem na
+projekt z boku i wyłapał resztki tak
+zwanego AI slopu. Tutaj warto zaznaczyć,
+że może dojść do pewnego paradoksu,
+ponieważ antyslop też może w końcu stać
+się nowym AI slopem. Skoro wszyscy
+zaczną używać tego samego skilla, to
+znowu internet będzie wyglądał tak samo.
+Jednak musisz wiedzieć, że to narzędzie
+podnosi podłogę, a nie sufit. Więc
+zawsze warto dorzucać własne referencje,
+kierować się własnym stylem i własnym
+doświadczeniem. No i oczywiście miej z
+tyłu głowy to, że ten skill potrafi
+zjeść sporo tokenów. Niemniej jednak
+jest to coś, co warto na ten moment
+zdecydowanie przetestować. A skoro nasze
+projekty współtworzone ramię w ramię z
+AI wyglądają jak trzeba, to przyszedł
+czas na coś, co sprawia, że praca z
+agentami AI, jak chociażby klotką czy
+kodek staje się o wiele szybsza i
+przyjemniejsza. Następna pozycja jest
+skierowana do nieco węższej grupy, ale
+jeśli akurat do niej należysz, to mam
+dla ciebie coś, z czego korzystam
+każdego dnia i nie wyobrażam sobie już
+pracy bez tego. Whisper Flow to moje
+ulubione narzędzie do zamiany mowy na
+tekst, do dyktowania, które działa tak,
+że wciskam jeden przycisk na mojej
+klawiaturze. U mnie jest to przycisk na
+macOS, a narzędzie zamienia moją mowę na
+tekst i działa w każdej aplikacji, z
+której korzystam. Jeśli chcesz je
+przetestować, to link zostawiam w
+opisie. Ale dziś nie skupimy się na
+samym Whisper Flow, bo to narzędzie już
+możesz znać, jeżeli oglądasz moje filmy.
+Skupimy się na kilku rzeczach, które
+pojawiły się jakiś czas temu wraz z
+nowymi aktualizacjami i których mogłeś
+nie zauważyć. Pierwszą poważną zmianą,
+którą mamy jest tak zwany noteer
+coś takiego, co dołącza do twojego
+spotkania na Google Meetie, Zoomie i tak
+dalej. Następnie tworzy transkrypcję po
+polsku, wybranym języku w zasadzie, ale
+no jeżeli rozmawiasz po polsku, to po
+polsku i tworzy notatki. Te są niestety,
+ale w języku angielskim. Jednak wszystko
+jest bardzo dobrze odwzorowane. Jednak
+to nie koniec nowości, bo tutaj
+przychodzi coś, co sprawia, że to, że te
+notatki są po angielsku nie ma w ogóle
+znaczenia. Kolejną zmianą jeśli chodzi o
+Whisper Flow jest oficjalny konektor
+serwer MCP, dzięki któremu twój agent AI
+może połączyć się chociażby z twoimi
+notatkami czy z notatkami ze spotkań,
+które stworzy Whisper Flow. Całość
+działa tak, że klikasz sobie tutaj
+plusik, ale zamiast plugins wybierasz
+connectors, klikasz brows connectors,
+wpisujesz sobie u góry Whisper Flow,
+instalujesz sobie ten konektor i gdy to
+zrobisz, klikasz sobie tutaj plusik,
+przechodzisz do connectors i po prostu
+zaznaczasz sobie Whisper Flow, aby był
+aktywny bądź też wyłączony. I następnie
+możesz poprosić Clauda, aby przesłał
+podsumowanie z transkryptu rozmowy z
+tutaj Norbertem, który mam na
+Whisperflow i widzimy, że ten sprawdził
+cały transkrypt, więc dostałem notatki z
+tego spotkania po polsku, chociaż te
+domyślnie są po angielsku. Podsumowując,
+efekt tego jest taki, że pytasz Cloda
+bądź też kodeks wprost, co ustaliliśmy
+na wczorajszym callu i agent wypluwa ci
+odpowiedź na bazie twoich własnych
+nagrań. Zeroręcznego przeszukiwania
+plików. Tak samo masz notatki wperflow.
+Agent ma również do nich dostęp i
+uczciwie Note jest dostępny również w
+darmowym planie Whisperflow, ale z
+tygodniowym limitem spotkań. Realnie do
+codziennej pracy potrzebujesz płatnego
+planu. Mówię o tym od razu, żeby była
+jasność. I to był fajny patent dla power
+userów, którzy chcą pracować
+efektywniej, szybciej z narzędziami
+agentowymi jajek chociażby klotką czy
+kodex. Ale teraz weźmiemy na tapet coś,
+co dotyczy absolutnie każdego, kto
+pracuje z tego typu narzędziami. Kolejna
+pozycja. Punkt na naszej liście to nie
+pojedynczy skill, a całe potężne
+repozytorium, które ma w środku
+kilkadziesiąt różnych skili. Paczka jest
+autorstwa twórcy internetowego youtubera
+Davida Andreja. Mam nadzieję, że dobrze
+to czytam, który tworzy materiały na
+temat chociażby Cloud Codea czy
+praktycznego wykorzystania AI. Link
+będzie w opisie. I David podzielił się
+paczką swoich skil, ale nie tylko skill,
+bo również hooków i to na nich głównie
+się dzisiaj skupimy. Jak widzisz, jego
+repozytorium ma prawie 4000 gwiazdek, no
+ponad 3500, 3600 i było polecane przez
+wiele osób, które mają dużo wspólnego z
+technologią, które tworzą przeróżne
+narzędzia i rozwiązania, więc myślę, że
+zdecydowanie warto rzucić na to okiem.
+Jednak tutaj zastrzeżenie. Całe
+repozytorium ma ponad 40 skili, które są
+podzielone na pięć różnych kategorii. I
+zrobiłem tutaj za ciebie selekcję złota.
+Wybrałem perełki, które mi się
+najbardziej podobały, ponieważ
+zobaczyłem, że ktoś w komentarzu pod
+filmem, gdzie właśnie David pokazuje te
+swoje skille i je omawia, ktoś napisał,
+że 15% z nich to czyste złoto, reszta to
+slop. Nie mi to oceniać, jednak jest tu
+kilka perełek, które zdecydowanie warto
+przetestować. Pierwszą rzeczą, którą ci
+pokażę są hooki, które masz tutaj. I
+hooki to są akcje, które są
+deterministyczne, czyli jeżeli stanie
+się X, to zrób Y. A więc nawet jeżeli
+nasz agent AI, czyli Clot jest
+niedeterministyczny, czyli jak w
+przypadku skiliegoś nie wywołać, tak
+hooki sprawiają, że dana akcja zawsze
+zostanie wywołana w dużym uproszczeniu.
+No i David tutaj podzielił się paczką
+hooków, które sprawiają, że Clot
+chociażby nie może wyjść z katalogu, w
+którym pracuje, nie może wykonać jakiejś
+szkodliwej akcji bez twojej zgody. Tak
+więc sprawia to, że praca z clodem,
+szczególnie w trybie bypass permissions,
+czyli tak zwanym yellow modzie, staje
+się nieco bardziej bezpieczna i ogólnie
+polecam ci z tego korzystać. Dla
+przykładu, jeżeli miałbyś na przykład
+prompt injection w jakimś skillu czy w
+jakimś miejscu z internetu i Cloud
+chciałby wyjść spoza głównego katalogu,
+w którym jest, to dzięki tym skillom ma
+krótką smycz i nie zrobi tego bez twojej
+wcześniejszej zgody. Ja korzystam ze
+swojej wersji hooków. Już dawno miałem
+to zrobione. Jednak jeżeli ty nie
+korzystasz, to zdecydowanie warto
+przesłać link do tych hooków, zapytać
+się o Clauda, o to, co jest w środku, no
+i poprosić go, aby ewentualnie ci to
+globalnie zainstalował. Nie lokalnie,
+globalnie by, żeby było przez do
+wszystkich projektów to zrobione. Jeżeli
+nie wiesz o co chodzi z tymi globalnie,
+lokalnie, to znowu odsyłam cię do filmu
+na temat skills, który nagrałem. Jeśli
+chodzi o skille, które tutaj mamy, to
+mamy pięć kategorii. Agent
+orchestration, opsant setup, researcher
+and web, skill outoring, Finkin and
+docs. I wśród tej paczki są takie skille
+jak na przykład decisions plus next
+decisions. Jest to w kategorii thinking
+and dogs. I komenda decisions pokazuje
+ci jakie decyzje agent podjął, a czego
+nie jest pewien. Zamiast czytać 2000
+linii kodu czy obszerny raport, czy też
+pięć wątpliwości. Z kolei Next Decisions
+bierze najważniejszą otwartą kwestię.
+Daje ci cztery opcje do wyboru, wskazuje
+swoją preferencję i czeka na twój ruch.
+Taki code review dla nieprogramistów. To
+co ja ogólnie polecam ci zrobić to
+skopiować link do tego repozytorium,
+wysłać Cloda i zapytać go co przyda wam
+się w tym projekcie i poprosić go, aby
+to uzasadnił. Ale od siebie powiem
+jeszcze, że po przekopaniu całego drzewa
+warto dorzucić sobie jeszcze dwa, trzy
+skille. Mamy tu na przykład skill Save
+IDa. Ten łapie ci pomysł na przykład na
+film na YouTube bądź też content z
+dowolnego czatu i wrzuca go do backlogu.
+Mamy też na przykład skill YouTube
+Transkript, który pobiera transkrypt
+filmu z YouTubea jednym kliknięciem.
+Wersja domyślna korzysta z płatnego
+Deepi, ale jest też darmowy fallback
+przez YT myśnik Delpe, który działa bez
+opłat i z którego sam korzystam na co
+dzień. Mamy też prompt Me, gdzie to
+agent przepytuje ciebie, żeby wyciągnąć
+konkrety z twojej głowy, czyli coś
+takiego jak grillin od mata pokoka,
+czyli paczki, którą polecałem ostatnio.
+Mamy również remind robi fajne TLDR
+całej rozmowy, a Stop overfinking
+wymusza na agencie krótką decyzję
+zamiast pisania elaboratów. No i tutaj
+zaznaczę, że jeśli o to chodzi, to w tym
+repa znajdziesz skill deppy, który jest
+po prostu reklamą płatnego narzędzia
+autora, więc czystym sumieniem go
+pomijam. możesz skorzystać z darmowej
+alternatywy. No i tutaj uwaga jest taka,
+że to repozytorium nie jest spakowane
+jako plugin, więc ścieżka z punktu
+pierwszego tutaj nie zadziała, ale tutaj
+znowu odsyłam ci się do mojego materiału
+na temat skills, gdzie pokazuję jak
+instalować tego typu rzeczy. Na tym
+etapie założyliśmy już naszą krótką
+smycz kodowi, więc teraz czas na skill
+od innego youtubera, a raczej od mojego
+serdecznego kolegi, który również ci
+polecam. Czas omówić jeden z
+największych problemów jeśli chodzi o
+pracę z cloud codem czy kodex, który
+jest bezpośrednio powiązany z okienkiem
+kontekstowym, czyli z tym jakie dane
+przesyłasz i jakie dane przetwarza twój
+agenti. I tutaj powołam się na film
+Krzyśka Bohaczyka, Chrisa z kanału
+Detective, który widzisz teraz na
+ekranie, link będzie w opisie. To
+ziomeczek, przyjaciel, którego bardzo
+lubię i z kim mam dobrą relację. Criso
+zostawił swój komentarz nawet pod
+ostatnim odcinkiem, gdzie omawiałem
+ciekawe repozytoria open source do clot
+i polecam ci prześledzić ten materiał,
+który widzisz na ekranie. Przestań
+używać compact w clot code, użyj tego
+skilla. Chris opisuje tu tak zwany
+context rot. To sytuacja, w której agent
+im dłużej z tobą rozmawia, tym gorzej
+pamięta środek rozmowy. Generalnie mamy
+coś takiego też jak dumb zone, czyli po
+około zapełnieniu 30 40% okienka
+kontekstowego agent zaczyna działać
+gorzej. W rezultacie ty musisz poświęcić
+więcej czasu i więcej tokenów, aby
+zrealizować dane zadanie. No i tutaj
+dostawcy takich rozwiązań jak chociażby
+Antropic, czyli twórcy Clot Codea
+zaproponowali coś takiego jak komenda
+compact. I Chris fajnie to porównał w
+swoim materiale, gdzie powiedział, że
+jest to robienie kserokopii, kserokopii
+i każda kolejna wersja po kompaktowaniu
+jest po prostu nieco gorsza. I żebyśmy
+mieli jasność, chodzi o komendę compact.
+Wpisujemy sobie slash compact. Hop.
+gdzie to działa tak, że jak masz okienko
+kontekstowe zapełnione tutaj w jakiejś
+tam ilości procent, możesz skompaktować
+rozmowę, a więc zachować główne wątki
+rozmowy, które możesz tutaj opisać i
+Clot wtedy samodzielnie zadecyduje na
+bazie tego twojego opisu, co warto
+zapisać i przenieść do nowego kontekstu,
+a ten stary wyczyści. Problem jest w tym
+taki, że masz mały wpływ na to, jak to
+będzie wyglądać. Tak jak mówił Chrisu,
+im więcej kompaktujesz rzeczy, tym
+gorzej teoretycznie to działa, no bo
+robisz kopię kopii, tak jak to
+powiedzieliśmy przed chwilą, więc
+generalnie ten sposób jest okej, ale
+można zrobić tutaj lepiej. I tu z pomocą
+przychodzi repozytorium Chrisa. Chris
+stworzył repozytorium Hand of Skill,
+który widzisz tutaj na ekranie. I handf
+skill ma dwie różne komendy. Pierwsza to
+slash handof i druga to/pickup. Jego
+rozwiązanie działa tak, że po
+wpisaniu/handof
+cloth zapisuje strukturalne podsumowanie
+sesji, czyli decyzje, stan projektu,
+ślepe uliczki i następne kroki do pliku
+w folderze session logs. Ty potem
+wpisujesz slash clear w clot codzie, aby
+wyczyścić całą pamięć sesji. Nie slash
+compact, która kompaktuje rozmowę, tylko
+slash clear, takby tabula raza, nowa
+tablica. A w nowej sesji odpalasz
+skill/pickup.
+Agent wczytuje najnowszy log z folderu
+Session logs i kontynuuje pracę z
+czystym kontekstem bez zapominania tych
+najważniejszych szczegółów. Nie musisz
+tutaj co prawda wpisywać tych komend,
+możesz też używać tego prościej. Po
+prostu pod koniec dłuższej dłubaniny z
+agentem mówisz mu zrób handof, potem
+czyścisz czat przez clear, nie przez
+compact. A w nowej sesji piszesz pickup.
+Agent sam ogarnie najnowszy L. Pamięć
+sesji mamy uratowaną, ale to dopiero
+połowa tematu, bo jest jeszcze coś
+takiego jak pamięć całego projektu.
+Drugą połowę tematu pamięci Cloud Code
+domyka rozwiązanie, którego nie
+stworzyła społeczność, a stworzyło je
+samoantropik, a więc twórcy Cloud Coda.
+To ich oficjalna wtyczka do pilnowania
+pliku cloud.md. Cloud.md TMD to taka
+główna ściąga twojego projektu,
+instrukcja systemowa, którą agent czyta
+na starcie każdej sesji i od razu wie
+jak wszystko u ciebie działa i czego mu
+nie wolno robić lub gdzie szukać
+informacji. Problem polega na tym, że ta
+ściąga lubi się starzeć. Twój kod czy
+twoje pliki idą do przodu, a clot.md
+zostaje w tyle. Jeśli chodzi o to, jak
+stworzyć w ogóle clot.md, robisz to
+wpisując komendę/init, jeżeli tego nie
+zrobiłeś, a masz jakieś pliki w
+projekcie. w ogóle to temat na osobny
+odcinek, więc jeżeli to cię interesuje,
+zostaw komentarz #cloud MD, a chętnie
+nagram o tym odcinek. Ale zakładając, że
+masz już coś takiego, no to znajdziesz
+to przechodząc tutaj files, mamy tutaj
+pliki i mamy tutaj cloud MD. A więc ten
+plik w formacie markdown z instrukcją
+systemową dla cloda. Wygląda to mniej
+więcej tak. Hop, jak sobie wejdziemy, to
+u mnie tutaj mamy 156 linijek. No jeśli
+o to chodzi to warto utrzymywać to w
+wielkości 150 200 linijek, nie więcej,
+bo tak jak mówiłem ładuje się to na
+starcie każdej sesji, co zapycha
+kontekst, przez co jak będzie tego za
+dużo, agent będzie się po prostu gubić,
+tak najprościej mówiąc. No i tutaj z
+pomocą przychodzi ta wtyczka od
+Antropic, o której mówiłem i znajdziesz
+ją klikając tutaj plusik, przechodząc do
+plugins, brows plugins, wpisujesz tutaj
+u góry MD i mamy coś takiego jak cloud
+MD management. I to właśnie ta wtyczka
+oficjalna od Antropic daje nam dostęp do
+dwóch komend i wśród nich jest komenda,
+dzięki której możesz ulepszyć, usprawnić
+i zaktualizować swójc.m.
+Jesteśmy w projekcie Tumforge i tu
+przyznam szczerze, że dawno nie zerkałem
+do cloud.m. Zrobiłem to przed chwilą i
+zobaczyłem, że jest za długie, więc
+napisałem skorzystaj z slcot myśnik
+mdagement
+dwukropek cloud myśnik md improver i
+zaproponuj ewentualne zmiany wraz wraz z
+uzasadnieniem. Dostaliśmy coś takiego
+jak raport jakości widzimy, że jest mega
+długie. Widzimy, że mam tutaj również
+Agents MD, czyli Simlink Agenc MD
+korzysta z tego clodeks i inni agenci
+jak na przykład Kimi. Po prostu to jest
+odpowiednik clot.m, ale dla innych
+agentów. Antropic ma clot.md. Kodeks ma
+na przykład Agents MD i inni agenci i
+widzimy wynik 79 na 100. Mamy tutaj
+oceny, znaleziono problemy. Hop, mamy
+luki, propozycje zmian. Hop, napisałem
+tutaj, że chciałbym to skrócić do 200
+linijek i na tej podstawie poprawić
+również Agents MD. Możesz zapytać o radę
+Cloda z modelem Fable 5. Widzimy, że
+jest odpalony tutaj Fable hop, który
+pracuje nad zmianami. No i mniej więcej
+działa to po prostu tak, że agenty
+odświeżą ci ten clot.md. MD. No i
+sprawdzam czy wszystko jest okej. Jeżeli
+nie będzie to skorzystają z dobrych
+praktyk antropic. No i po prostu sprawią
+że będzie działać to wszystko lepiej.
+Mamy też drugą komendę czyli revise clot
+md i odpalasz to na koniec pracy.
+Komenda działa tak, że wyłapuje czego
+brakowało w ściądze, czyli w clod.md
+podczas twojej sesji i dopisuje wnioski.
+Dzięki temu przy kolejnym odpaleniu
+cloda ten od razu staje się mądrzejszy.
+Tutaj warto wspomnieć o tym, że po
+pierwsze musisz mieć stworzony clot.m,
+więc wpisujesz sobie slinit, jeżeli
+jeszcze tego nie masz i używasz tych
+dodatkowych komend z tego pluginu raz na
+jakiś czas. Nie używasz tego za każdym
+razem. Po prostu warto robić to raz na
+jakiś czas, żeby zadzbać o porządek,
+chociażby raz na dwa tygodnie, raz na
+miesiąc, czy tam w zależności od tego,
+jak dużo zmieniło się w danym projekcie,
+w którym pracujesz. A skoro pamięć od
+pojedynczej sesji aż po cały projekt
+mamy odhaczoną w komplecie, to pora na
+najważniejszy wątek dzisiejszego
+poradnika. Bo wchodzimy na teren, gdzie
+działa już nie tylko jeden agent, ale
+cały zespół AI. Ostatnia duża pozycja
+przed obiecanym bonusem to coś, co
+totalnie odmienia sposób myślenia o
+pracy agentowej. Nie dodajemy clodowi
+jednej nowej sztuczki, tylko zmieniamy
+miejsce, w którym ten mieszka i pracuje.
+Herdr def to sprytne narzędzie, które
+omówiłem w jednym z poprzednich
+materiałów na moim kanale, które
+sprawia, że praca z kilkoma różnymi
+agentami AI staje się o wiele prostsza i
+przyjemniejsza. W dużym skrócie działa
+to tak, że możesz w jednym okienku
+odpalić Cloda, w drugim kodeks i
+powiedzieć Clodowi na przykład: "Cześć,
+chciałbym abyś skorzystał ze skilder" i
+przywitał się z kodeksem, który jest
+otwarty po prawej stronie, zapytał go
+się jak tam i powiedziałby ten pozdrowił
+moich widzów na YouTubie, bo nagrywam
+materiał. Tak więc wysyłamy tutaj
+prompta. Hop. Whisper flow było mówione
+wcześniej. Mamy naszego prompta. Teraz
+clot widzimy, że załadował skill herr to
+też jest na stronie. Pokazałem to w
+tamtym poradniku. Widzimy, że szuka
+okienka z Kodex. Powinien za chwilę je
+znaleźć i zaraz powinien wysłać
+wiadomość do niego po prawej stronie. To
+jest super opcja, jeżeli na przykład
+chcesz robić coś takiego jak pętle
+agentowe. Cześć Kodek, tu clot code z
+sąsiedniego Pain Herter. Jak tam u
+ciebie? Co słychać? I mam prośbę. Robert
+właśnie nagrywa materiał. Pozdrów proszę
+jego widzów paroma zdaniami od siebie.
+Cześć Clot. Zerkam tylko na kontekst
+sesji Roberta i zaraz lecę z
+pozdrowieniami. Cześć Clot. U mnie
+wszystko gra. Procesy rozgrzane,
+halucynacje trzymane na smyczy. A do
+widzów Roberta. Cześć wszystkim. Skoro
+oglądacie ten materiał, jesteście w
+dobrym miejscu. Robert potrafi
+przekładać skomplikowaną technologię dla
+rzeczy, które naprawdę da się
+wykorzystać. Bla bla bla bla bla bla. No
+i widzimy, że Clot zobaczył jego
+odpowiedź i był w stanie odpowiedzieć.
+Dzięki temu mamy rozwiązany jeden z
+największych problemów jeśli chodzi o
+pracę z agentami AI. Super rozwiązanie.
+Nie będę się na ten temat rozwodzić.
+Nagrałem o tym dwa osobne odcinki. Linki
+do nich znajdziesz w opisie. Więc
+przejdźmy sobie teraz do obiecanego
+bonusu. Czas na obiecany bonus na sam
+koniec. To ukryta funkcja, dzięki której
+skill dosłownie pisze się sam.
+Wystarczy, że przeklikasz swoje zadanie
+tak, jak robisz to na co dzień. Możesz
+też mówić co robisz, a całą resztę
+zrobić za ciebie klotką. To nowy
+feature, o którym nie mówi się za dużo,
+a który jest całkiem ciekawy. Jest
+dostępny po wejściu w customize, tutaj
+po lewej stronie. Mamy tutaj skills po
+lewej stronie. Hop. Teraz to co możesz
+zrobić to możesz kliknąć sobie tutaj add
+i widzisz kilka opcji dodania skilla. I
+mamy tutaj record your screen. Hop.
+Możesz sobie kliknąć. Możesz dodać
+mikrofon. Tak jak tutaj widzisz. Hop.
+Mamy mikrofon. Możemy kliknąć start
+recording. Klikać pokazywać rzeczy na
+ekranie. mówić co robimy i na tej
+podstawie clot stworzy twojego skilla. W
+praktyce wygląda to tak, że klikasz
+start recording, robisz swoje zadanie
+normalnie na ekranie, możesz gadać do
+mikrofonu, żeby tłumaczyć co robisz.
+Pasek nagrywania pokazuje ci liczbę
+kroków. Masz na to maksymalnie około 10
+minut. Kiedy klikniesz down, cloud
+analizuje nagranie i sam proponuje ci
+nowy skill albo aktualizuje ten skill,
+który już masz. Zanim cokolwiek
+zapiszesz, możesz oczywiście sobie
+podejrzeć wygenerowany kod. I to
+wszystko co przygotował dla ciebie Clot.
+Całość wymaga planu Pro, Max albo Team.
+Plan darmowy i Enterprise odpadają. No i
+niestety, ale ten feater działa na ten
+moment tylko na MacOS, więc fani okienek
+muszą obejść się z Macem. No i
+oczywiście przed tym trzeba nadać
+odpowiednie uprawnienia Clodowi, aby ten
+miał dostęp do chociażby nagrywania czy
+dostęp do twojego ekranu. Myślę, że
+tutaj warto pochylić się również nad
+kwestiami bezpieczeństwa i prywatności.
+Antropic w dokumentacji mówi, że wideo i
+audio nie są nigdzie przechowywane.
+Zostaje tylko zestaw zrzutów ekranu w
+tasku, więc jak skasujesz taska,
+wszystko znika. Ale uwaga, wszystko co
+masz na ekranie i wszystko co powiesz w
+trakcie nagrania jest przechwytywane i
+mielone przez clot coda, więc nigdy nie
+nagrywaj wpisywania haseł, prywatnych
+rozmów, danych poufnych czy wrażliwych.
+Przeszliśmy dzisiaj przez 10 różnych
+pluginów, narzędzi, wtyczek. które
+realnie testuję lub z których korzystam
+każdego dnia. Każdą z tych rzeczy możesz
+odpalić u siebie już dosłownie za
+moment. Każda z nich osobno to tylko
+fajny bajer, jeden output style, jeden
+hook, jeden mały konektor, ale jak
+złożysz to wszystko do kupy i dostroisz
+pod siebie, to masz agenta, który ma
+zapięte pasy bezpieczeństwa, a więc
+Guardiale, ma swój gust, trzyma focus i
+do tego ma pamięć. dzięki czemu działa
+tak jakby znał cię od roku. Moim zdaniem
+warto to przetestować i ocenić jak to
+sprawdza się u ciebie. Przypominam, że
+jeżeli chcesz abym nagrał taki głębszy
+materiał na temat któregoś z omawianych
+repozytoriów, zostaw proszę w komentarzu
+jego nazwę. Chętnie nagram dla ciebie
+coś takiego. Jeśli ten materiał był dla
+ciebie wartościowy, to będzie mi miło,
+jeśli zostawisz łapkę w górę, bo to nic
+cię nie kosztuje. W ten sposób wspierasz
+mój kanał. Z kolei jeśli jesteś nowy na
+tym kanale to zachęcam cię do
+zostawienia suba, bo w ten sposób nie
+przegapisz żadnych nowych materiałów o
+praktycznym wykorzystaniu AI agentów AI
+czy nowych technologii w codziennym
+życiu i pracy, które pojawiają się co
+kilka dni na moim kanale. Wszystkie
+najważniejsze linki wraz ze specjalną
+ofertą od głównego partnera
+technologicznego mojego kanału
+znajdziesz standardowo w opisie. Ja ci
+bardzo dziękuję za uwagę. Do zobaczenia
+w kolejnym odcinku. Cześć.

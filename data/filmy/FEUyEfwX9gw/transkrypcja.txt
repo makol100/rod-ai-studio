@@ -1,0 +1,150 @@
+# Same Prompt, Two AI Models - Seedance 2.0 vs 2.5 (The Gap Is Wild)
+# ManuAGI - AutoGPT Tutorials, https://youtu.be/FEUyEfwX9gw
+# zrodlo: yt-dlp na HA DOM (adres domowy), 17.08.2026 — droga domowa
+
+Two different AI models, same [music]
+prompt, same settings. Watch. On the
+left, SeaArt 2.0, the model that's been
+number one in the world. On the right,
+SeaArt [music] 2.5.
+Let it play, then point out one obvious
+break on the left. [music] There. The
+face drifts, the lighting shifts, and on
+the right, nothing moves unless I told
+it to.
+&gt;&gt; [music]
+&gt;&gt; I ran the same prompt through both
+models three times, and honestly, the
+gap surprised me.
+I'll show you every round in 1080p, and
+I'll show you the one test where 2.0
+completely falls apart. And right now,
+[music]
+SeaArt 2.5 in 1080p is on Higgs Field
+first, before any other platform.
+Plus, new users get five free
+generations to try it themselves. First,
+real quick, if you're new here, welcome
+to Manu AGI.
+I'm Manu, [music] and on this channel, I
+show you the best AI tools and how to
+use them in [music] simple steps anyone
+can follow. If that sounds helpful, hit
+subscribe, because this one is a perfect
+example.
+Okay, let's compare the both AI models.
+First, what actually changed? Because
+it's three things, and everything else
+follows.
+Length. 2.0 gave you 15 seconds. 2.5
+gives you up to 30 seconds in one
+generation, and it's a scene, not one
+long moment.
+You can also extend it, adding the next
+shot onto a video you already made, with
+characters and pacing carrying over.
+References. Up to 50 in a single
+generation. 30 images, 10 video clips,
+10 audio files.
+Your whole cast, location, look, and
+track at once.
+Editing.
+You can direct by the second, change one
+stretch without touching the rest, or
+keep the scene identical and change only
+the camera. So, here's my test. Same
+prompt, same settings, both models,
+three rounds, a character shot, a motion
+shot, and a group scene.
+Everything in 1080p. Let's go. First, on
+Higgs Field, go to the video section and
+select the Seadance 2.5 star model.
+You will see a dashboard like this.
+First, if you have any reference image,
+you can upload here, up to 30 images, 10
+videos, 10 audio file,
+50 references in a single generation
+like whole cast, your location, your
+look, your track. And this is what came
+back. You can upload it, but for this
+time, we only using our master prompt
+for comparing Seadance 2.0 and Seadance
+2.5.
+We will use the same prompt for both
+generations and see what difference
+there is between the Seadance 2.0 and
+Seadance 2.5. Next, choose your model.
+We already selected Seadance 2.5. First
+of all, we will use Seadance 2.5 1080p.
+Now, choose your video duration.
+Seadance 2.5 support up to 30 seconds
+long video. So, we select 30 seconds.
+Next, choose the video aspect ratio.
+For this example, I select 16:9.
+Then, choose your video resolution,
+1080p. After selecting everything, we
+simply click on generate. After few
+seconds, our 30-second short 3D
+animation story is ready to watch by
+using Seadance 2.5. Let's watch the
+result.
+&gt;&gt; [snorts]
+&gt;&gt; It's not gone.
+Hold it steady.
+&gt;&gt; It's glowing again.
+&gt;&gt; Let's create the same video using
+SeaDance 2.0 and see how it differs.
+To do this, simply copy and paste your
+master prompt. Then, select we select
+the SeaDance 2.0 model.
+Regarding the duration, since SeaDance
+2.0 supports up to 15 seconds, we will
+select the 15-second ratio is 16:9 and
+SeaDance 2.0 supports up to 4K quality.
+Let's generate the video and after
+generation Ace, we will compare the both
+generation, which will allow us to
+determine their quality and duration.
+And see our SeaDance 2.0 generation is
+done. Let's compare the both model.
+Watch the character. Watch the lighting.
+And watch for the cut because there
+isn't one. That's 30 seconds, one
+generation, one take, no stitching, no
+patching transitions, nothing drifting
+on SeaDance 2.5 1080p
+model is insane.
+&gt;&gt; It's not gone.
+Hold it steady.
+&gt;&gt; It's glowing again.
+&gt;&gt; Let me play a few more videos comparing
+SeaDance 2.5 versus 2.0 generation. So,
+honest verdict. Three rounds, clean
+sweep, but the one that actually matters
+is the group scene.
+Character consistency is what makes a
+series possible instead of a one-off
+clip.
+This is the first version where I trust
+it with a real project.
+And the timing. SeaDance 2.5 in 1080p is
+on Higgs Field first before any other
+platform until Monday.
+So, you can use it right now while most
+people can't.
+Plus, all new users get five free
+generations after linking a credit card.
+And that ends Tuesday. So, you can run
+this exact comparison yourself. Links in
+the description. That's Seedlings 2.0
+versus 2.5. Three rounds, and the group
+scene says it all. Link and your five
+free generations are below. Grab them
+before Tuesday. If this was useful, hit
+subscribe. I'm testing this model a lot
+more. And tell me in the comments, which
+round convinced you? The face, the
+motion, or the group scene? Best answer
+gets pinned. Click the video on your
+screen to keep going. See you in the
+next one.

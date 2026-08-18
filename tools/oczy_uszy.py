@@ -43,7 +43,10 @@ import urllib.request
 # Zmierzone 4.08 01:34: gemini-3.1-pro-preview = przekroczony przydzial, gemini-3.6-flash = DZIALA.
 # Kolejka: nowszy najpierw, stary jako zapas — zeby brak przydzialu nie oslepial Henia.
 MODELE = ["gemini-3.6-flash", "gemini-2.5-flash"]
-MODEL = MODELE[0]
+# 14.08.2026 POMIAR: gemini-3.6-flash zwraca 403 PERMISSION_DENIED na kazde zapytanie
+# (klucz dobry — lista modeli OK, gemini-2.5-flash i gemini-flash-latest odpowiadaja).
+# Genek przestal widziec w srodku pracy nad kuna. Przelaczone na sprawdzony model.
+MODEL = MODELE[1]
 BAZA = "https://generativelanguage.googleapis.com"
 
 POLECENIA = {

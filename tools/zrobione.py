@@ -47,13 +47,18 @@ def sprawdz_dowody(lista: str) -> tuple:
 def uruchom_test(sciezka: str) -> tuple:
     p = sciezka if os.path.isabs(sciezka) else os.path.join(REPO, sciezka)
     if not os.path.isfile(p):
-        return False, f"test {sciezka} NIE ISTNIEJE"
+        return False, f"test {sciezka} NIE ISTNIEJE", f"BLAD: plik testu {sciezka} nie istnieje"
     try:
         w = subprocess.run([sys.executable, p], cwd=REPO, capture_output=True, text=True, timeout=600)
     except Exception as e:
-        return False, f"test nie dokonczyl: {e}"
+        return False, f"test nie dokonczyl: {e}", f"BLAD: test nie dokonczyl sie: {e}"
     ostatnia = (w.stdout.strip().split("\n") or [""])[-1]
-    return w.returncode == 0, ostatnia
+    # slad dla kontrolera: co uruchomiono, z jakim skutkiem i co wypisalo (ograniczone do 8 KiB)
+    slad = (f"KOMENDA: {sys.executable} {sciezka}\n"
+            f"KOD WYJSCIA: {w.returncode} ({'ZIELONY' if w.returncode == 0 else 'CZERWONY'})\n"
+            f"--- stdout ---\n{(w.stdout or '').strip()[-8192:]}\n"
+            f"--- stderr ---\n{(w.stderr or '').strip()[-2048:]}")
+    return w.returncode == 0, ostatnia, slad
 
 
 OBRAZ_WIDEO = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".mp4", ".mov", ".mkv", ".avi")
@@ -70,7 +75,8 @@ def dobierz_zaloge(dowody: str, z_genkiem: bool = False) -> list:
     return kto
 
 
-def pytaj_zaloge(twierdzenie: str, dowody: str, kto: list | None = None) -> tuple:
+def pytaj_zaloge(twierdzenie: str, dowody: str, kto: list | None = None,
+                 wynik_testu: str = "") -> tuple:
     """Kontrola przez zaloge — Klaudek nie zatwierdza sam siebie.
 
     13.08.2026, decyzja Tomasza "poprawic bramke": bramka WOLALA zenek+henio
@@ -86,6 +92,7 @@ def pytaj_zaloge(twierdzenie: str, dowody: str, kto: list | None = None) -> tupl
 TWIERDZENIE: {twierdzenie}
 
 PLIKI DOWODOWE (sa na dysku, otworz je SAM): {dowody}
+{("TEST URUCHOMIONY PRZEZ BRAMKE (to jest slad wykonania, nie tresc pliku):" + chr(10) + wynik_testu + chr(10) + "Mozesz uruchomic go ponownie sam, ale NIE MUSISZ zgadywac, jaki test poszedl.") if wynik_testu else "TEST: bramka nie uruchamiala testu przy tym zgloszeniu."}
 
 PYTANIE ROZSTRZYGALNE — odpowiedz jednym slowem w pierwszej linii:
   POTWIERDZAM  — otworzyles dowody i one faktycznie popieraja twierdzenie
@@ -165,7 +172,7 @@ def main() -> int:
 
     print("\n2. TEST:")
     if a.test:
-        zielony, opis = uruchom_test(a.test)
+        zielony, opis, slad_testu = uruchom_test(a.test)
         print(f"   {'ZIELONY' if zielony else 'CZERWONY'}  {a.test} -> {opis}")
         if not zielony:
             upadki.append("test nie jest zielony")
@@ -176,7 +183,7 @@ def main() -> int:
     if a.bez_zalogi:
         print("   pominieta na wyrazne zadanie")
     else:
-        zgoda, glosy = pytaj_zaloge(a.co, a.dowod, dobierz_zaloge(a.dowod, a.z_genkiem))
+        zgoda, glosy = pytaj_zaloge(a.co, a.dowod, dobierz_zaloge(a.dowod, a.z_genkiem), slad_testu)
         for g in glosy:
             print(f"   {g}")
         if not zgoda:

@@ -102,6 +102,38 @@ def _bloki_teleportu() -> list[str]:
     return bloki
 
 
+def _slepe_uliczki(ile: int = 12) -> str:
+    """Drogi juz sprawdzone i MARTWE — zeby nastepna sesja ich nie powtarzala.
+
+    Dodane 17.08.2026 (rekomendacja Henia po analizie transkrypcji filmu Szewczyka).
+    Powod: tego dnia pol dnia poszlo na powtarzanie drog, o ktorych juz wiedzielismy,
+    ze nie dzialaja — bo pakiet przekazywal STAN, ale nie przekazywal PORAZEK.
+    Zrodlo: wpisy decyzji zawierajace slowa-klucze porazki.
+    """
+    import json as _json
+    plik = REPO / ".scratch" / "decyzje_tomasza.jsonl"
+    if not plik.is_file():
+        return "(brak pliku decyzji — nie ma z czego zebrac)"
+    klucze = ("odrzucone", "nie dziala", "martwa", "blokad", "polegly", "nieskuteczn",
+              "zakaz", "nie powtarzac", "http 500", "403", "wyklucz")
+    znalezione = []
+    for linia in plik.read_text(encoding="utf-8", errors="ignore").splitlines()[::-1]:
+        try:
+            w = _json.loads(linia)
+        except Exception:
+            continue
+        tresc = str(w.get("tresc") or w.get("decyzja") or "")
+        if any(k in tresc.lower() for k in klucze):
+            nr = w.get("id") or w.get("numer") or "?"
+            znalezione.append(f"- [{nr}] {tresc[:400]}")
+        if len(znalezione) >= ile:
+            break
+    if not znalezione:
+        return "(nic nie znaleziono — ale to NIE znaczy, ze wszystkie drogi sa otwarte)"
+    return ("Ponizsze drogi zostaly SPRAWDZONE i NIE DZIALAJA. Nie probuj ich od nowa "
+            "bez nowego powodu.\n\n" + "\n".join(znalezione))
+
+
 def zbuduj() -> tuple[str, dict]:
     teraz = datetime.now(STREFA)
     brief = _brief()
@@ -121,11 +153,14 @@ def zbuduj() -> tuple[str, dict]:
         "HiLook (D-0072). W tym pakiecie NIE MA sekretow — zostal przeskanowany.\n"
     )
 
+    slepe = _slepe_uliczki()
+
     sekcje = [
         ("1. BRIEF OPERACYJNY", brief),
         ("2. ZALEGLOSC DZIENNIKOW", sprawdz),
         ("3. OBOWIAZUJACE DECYZJE TOMASZA", decyzje),
         ("4. STAN: ZROBIONE / W TOKU / BLOKERY", stan),
+        ("5. SLEPE ULICZKI — CZEGO NIE POWTARZAC", slepe),
     ]
 
     baza = naglowek

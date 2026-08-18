@@ -155,7 +155,13 @@ def henio(zadanie: str, _material: str, wynik: dict) -> None:
         os.chmod(sciezka, 0o644)
         w = subprocess.run(
             ["su", "-", "hermes", "-c", f'hermes -z "$(cat {sciezka})"'],
-            capture_output=True, text=True, timeout=600)
+            # 13.08.2026 POMIAR, nie zgadywanie: Henio na zadaniu .scratch/detekcja_kuny
+            # (4229 znakow, 6 pytan) potrzebowal 1074 s = 17,9 minuty i ODDAL poprawny glos.
+            # Limit 600 s ucinal go w polowie — dzis stracilismy przez to TRZY jego glosy
+            # z rzedu, a Tomasz pytal "Brak kasy?". Nie brak kasy: brak czasu.
+            # Zenek i Genek mieszcza sie w 2-7 min, bo tylko rozumuja; Henio JAKO JEDYNY
+            # czyta skille i chodzi po systemie, wiec z natury trwa dluzej.
+            capture_output=True, text=True, timeout=1800)
         wynik["henio"] = (w.stdout or w.stderr).strip() or "GLOS NIEODEBRANY (pusta odpowiedz)"
     except Exception as e:
         wynik["henio"] = f"GLOS NIEODEBRANY ({e})"

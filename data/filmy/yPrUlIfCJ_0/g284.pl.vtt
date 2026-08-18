@@ -1,0 +1,3359 @@
+WEBVTT
+Kind: captions
+Language: pl
+
+00:00:00.000 --> 00:00:02.190 align:start position:0%
+ 
+Co <00:00:00.328><c>tydzień </c><00:00:00.656><c>twórcy </c><00:00:00.984><c>oprogramowania </c><00:00:01.312><c>udostępniają </c><00:00:01.640><c>potężne</c>
+
+00:00:02.190 --> 00:00:02.200 align:start position:0%
+Co tydzień twórcy oprogramowania udostępniają potężne
+ 
+
+00:00:02.200 --> 00:00:04.590 align:start position:0%
+Co tydzień twórcy oprogramowania udostępniają potężne
+projekty <00:00:02.431><c>typu </c><00:00:02.662><c>open </c><00:00:02.893><c>source </c><00:00:03.124><c>w </c><00:00:03.355><c>serwisie </c><00:00:03.586><c>GitHub, </c><00:00:03.817><c>a </c><00:00:04.048><c>nadążanie </c><00:00:04.279><c>za</c>
+
+00:00:04.590 --> 00:00:04.600 align:start position:0%
+projekty typu open source w serwisie GitHub, a nadążanie za
+ 
+
+00:00:04.600 --> 00:00:06.670 align:start position:0%
+projekty typu open source w serwisie GitHub, a nadążanie za
+nimi <00:00:05.080><c>może </c><00:00:05.560><c>być </c><00:00:06.040><c>trudne.  </c><00:00:06.520><c>To</c>
+
+00:00:06.670 --> 00:00:06.680 align:start position:0%
+nimi może być trudne.  To
+ 
+
+00:00:06.680 --> 00:00:08.910 align:start position:0%
+nimi może być trudne.  To
+cotygodniowy <00:00:06.857><c>film </c><00:00:07.034><c>z </c><00:00:07.211><c>aktualizacją </c><00:00:07.388><c>projektu </c><00:00:07.565><c>GitHub, </c><00:00:07.742><c>w </c><00:00:07.919><c>którym </c><00:00:08.096><c>omawiane </c><00:00:08.273><c>są</c>
+
+00:00:08.910 --> 00:00:08.920 align:start position:0%
+cotygodniowy film z aktualizacją projektu GitHub, w którym omawiane są
+ 
+
+00:00:08.920 --> 00:00:10.830 align:start position:0%
+cotygodniowy film z aktualizacją projektu GitHub, w którym omawiane są
+najpopularniejsze <00:00:09.440><c>projekty </c><00:00:09.960><c>open </c><00:00:10.480><c>source</c>
+
+00:00:10.830 --> 00:00:10.840 align:start position:0%
+najpopularniejsze projekty open source
+ 
+
+00:00:10.840 --> 00:00:12.870 align:start position:0%
+najpopularniejsze projekty open source
+GitHub <00:00:11.176><c>w </c><00:00:11.512><c>tym </c><00:00:11.848><c>tygodniu, </c><00:00:12.184><c>od </c><00:00:12.520><c>lokalnych</c>
+
+00:00:12.870 --> 00:00:12.880 align:start position:0%
+GitHub w tym tygodniu, od lokalnych
+ 
+
+00:00:12.880 --> 00:00:15.350 align:start position:0%
+GitHub w tym tygodniu, od lokalnych
+obszarów <00:00:13.340><c>roboczych </c><00:00:13.800><c>pierwszego </c><00:00:14.260><c>agenta </c><00:00:14.720><c>po</c>
+
+00:00:15.350 --> 00:00:15.360 align:start position:0%
+obszarów roboczych pierwszego agenta po
+ 
+
+00:00:15.360 --> 00:00:17.950 align:start position:0%
+obszarów roboczych pierwszego agenta po
+ramy <00:00:15.733><c>dostrajania </c><00:00:16.106><c>i </c><00:00:16.479><c>zestawy </c><00:00:16.852><c>SDK </c><00:00:17.225><c>tablic.  </c><00:00:17.598><c>Nie</c>
+
+00:00:17.950 --> 00:00:17.960 align:start position:0%
+ramy dostrajania i zestawy SDK tablic.  Nie
+ 
+
+00:00:17.960 --> 00:00:20.110 align:start position:0%
+ramy dostrajania i zestawy SDK tablic.  Nie
+tracąc <00:00:18.700><c>czasu, </c><00:00:19.440><c>zaczynajmy.</c>
+
+00:00:20.110 --> 00:00:20.120 align:start position:0%
+tracąc czasu, zaczynajmy.
+ 
+
+00:00:20.120 --> 00:00:21.910 align:start position:0%
+tracąc czasu, zaczynajmy.
+Zanim <00:00:20.573><c>przejdziemy </c><00:00:21.026><c>do </c><00:00:21.479><c>dzisiejszych</c>
+
+00:00:21.910 --> 00:00:21.920 align:start position:0%
+Zanim przejdziemy do dzisiejszych
+ 
+
+00:00:21.920 --> 00:00:24.230 align:start position:0%
+Zanim przejdziemy do dzisiejszych
+aktualizacji <00:00:22.296><c>projektu, </c><00:00:22.672><c>oto </c><00:00:23.048><c>krótkie </c><00:00:23.424><c>ogłoszenie </c><00:00:23.800><c>dla</c>
+
+00:00:24.230 --> 00:00:24.240 align:start position:0%
+aktualizacji projektu, oto krótkie ogłoszenie dla
+ 
+
+00:00:24.240 --> 00:00:26.750 align:start position:0%
+aktualizacji projektu, oto krótkie ogłoszenie dla
+wszystkich.  <00:00:25.013><c>Uruchomiliśmy </c><00:00:25.786><c>zupełnie </c><00:00:26.559><c>nowy</c>
+
+00:00:26.750 --> 00:00:26.760 align:start position:0%
+wszystkich.  Uruchomiliśmy zupełnie nowy
+ 
+
+00:00:26.760 --> 00:00:29.590 align:start position:0%
+wszystkich.  Uruchomiliśmy zupełnie nowy
+kanał <00:00:26.948><c>w </c><00:00:27.136><c>serwisie </c><00:00:27.324><c>YouTube </c><00:00:27.512><c>o </c><00:00:27.700><c>nazwie </c><00:00:27.888><c>AI </c><00:00:28.076><c>Agent </c><00:00:28.264><c>Studio, </c><00:00:28.452><c>który </c><00:00:28.640><c>jest</c>
+
+00:00:29.590 --> 00:00:29.600 align:start position:0%
+kanał w serwisie YouTube o nazwie AI Agent Studio, który jest
+ 
+
+00:00:29.600 --> 00:00:32.550 align:start position:0%
+kanał w serwisie YouTube o nazwie AI Agent Studio, który jest
+w <00:00:30.333><c>całości </c><00:00:31.066><c>poświęcony </c><00:00:31.799><c>projektom,</c>
+
+00:00:32.550 --> 00:00:32.560 align:start position:0%
+w całości poświęcony projektom,
+ 
+
+00:00:32.560 --> 00:00:35.110 align:start position:0%
+w całości poświęcony projektom,
+samouczkom <00:00:32.902><c>i </c><00:00:33.244><c>narzędziom </c><00:00:33.586><c>dotyczącym </c><00:00:33.928><c>agentów </c><00:00:34.270><c>AI.  </c><00:00:34.612><c>Jeśli </c><00:00:34.954><c>więc</c>
+
+00:00:35.110 --> 00:00:35.120 align:start position:0%
+samouczkom i narzędziom dotyczącym agentów AI.  Jeśli więc
+ 
+
+00:00:35.120 --> 00:00:36.710 align:start position:0%
+samouczkom i narzędziom dotyczącym agentów AI.  Jeśli więc
+chcesz <00:00:35.490><c>być </c><00:00:35.860><c>na </c><00:00:36.230><c>bieżąco </c><00:00:36.600><c>z</c>
+
+00:00:36.710 --> 00:00:36.720 align:start position:0%
+chcesz być na bieżąco z
+ 
+
+00:00:36.720 --> 00:00:38.510 align:start position:0%
+chcesz być na bieżąco z
+najnowszymi <00:00:36.973><c>projektami </c><00:00:37.226><c>open </c><00:00:37.479><c>source </c><00:00:37.732><c>dotyczącymi </c><00:00:37.985><c>agentów </c><00:00:38.238><c>AI</c>
+
+00:00:38.510 --> 00:00:38.520 align:start position:0%
+najnowszymi projektami open source dotyczącymi agentów AI
+ 
+
+00:00:38.520 --> 00:00:40.630 align:start position:0%
+najnowszymi projektami open source dotyczącymi agentów AI
+, <00:00:38.904><c>chcesz </c><00:00:39.288><c>nauczyć </c><00:00:39.672><c>się </c><00:00:40.056><c>tworzyć </c><00:00:40.440><c>własnych</c>
+
+00:00:40.630 --> 00:00:40.640 align:start position:0%
+, chcesz nauczyć się tworzyć własnych
+ 
+
+00:00:40.640 --> 00:00:43.550 align:start position:0%
+, chcesz nauczyć się tworzyć własnych
+agentów <00:00:41.506><c>lub </c><00:00:42.372><c>poznać </c><00:00:43.238><c>najnowocześniejsze</c>
+
+00:00:43.550 --> 00:00:43.560 align:start position:0%
+agentów lub poznać najnowocześniejsze
+ 
+
+00:00:43.560 --> 00:00:45.830 align:start position:0%
+agentów lub poznać najnowocześniejsze
+struktury <00:00:43.970><c>agentów, </c><00:00:44.380><c>koniecznie </c><00:00:44.790><c>sprawdź </c><00:00:45.200><c>to.</c>
+
+00:00:45.830 --> 00:00:45.840 align:start position:0%
+struktury agentów, koniecznie sprawdź to.
+ 
+
+00:00:45.840 --> 00:00:48.070 align:start position:0%
+struktury agentów, koniecznie sprawdź to.
+Zasubskrybuj <00:00:46.062><c>już </c><00:00:46.284><c>teraz, </c><00:00:46.506><c>aby </c><00:00:46.728><c>co </c><00:00:46.950><c>tydzień </c><00:00:47.172><c>otrzymywać </c><00:00:47.394><c>filmy,</c>
+
+00:00:48.070 --> 00:00:48.080 align:start position:0%
+Zasubskrybuj już teraz, aby co tydzień otrzymywać filmy,
+ 
+
+00:00:48.080 --> 00:00:50.230 align:start position:0%
+Zasubskrybuj już teraz, aby co tydzień otrzymywać filmy,
+szczegółowe <00:00:48.325><c>przewodniki </c><00:00:48.570><c>i </c><00:00:48.815><c>analizy </c><00:00:49.060><c>projektów </c><00:00:49.305><c>w </c><00:00:49.550><c>czasie </c><00:00:49.795><c>rzeczywistym</c>
+
+00:00:50.230 --> 00:00:50.240 align:start position:0%
+szczegółowe przewodniki i analizy projektów w czasie rzeczywistym
+ 
+
+00:00:50.240 --> 00:00:52.470 align:start position:0%
+szczegółowe przewodniki i analizy projektów w czasie rzeczywistym
+.  <00:00:50.973><c>Link </c><00:00:51.706><c>znajdziesz </c><00:00:52.439><c>w</c>
+
+00:00:52.470 --> 00:00:52.480 align:start position:0%
+.  Link znajdziesz w
+ 
+
+00:00:52.480 --> 00:00:54.790 align:start position:0%
+.  Link znajdziesz w
+opisie.  <00:00:53.010><c>Nie </c><00:00:53.540><c>przegap </c><00:00:54.070><c>tego.  </c><00:00:54.600><c>No</c>
+
+00:00:54.790 --> 00:00:54.800 align:start position:0%
+opisie.  Nie przegap tego.  No
+ 
+
+00:00:54.800 --> 00:00:57.310 align:start position:0%
+opisie.  Nie przegap tego.  No
+dobrze, <00:00:55.180><c>przejdźmy </c><00:00:55.560><c>do </c><00:00:55.940><c>dzisiejszego </c><00:00:56.320><c>filmu.</c>
+
+00:00:57.310 --> 00:00:57.320 align:start position:0%
+dobrze, przejdźmy do dzisiejszego filmu.
+ 
+
+00:00:57.320 --> 00:01:00.190 align:start position:0%
+dobrze, przejdźmy do dzisiejszego filmu.
+Projekt <00:00:57.816><c>numer </c><00:00:58.312><c>jeden: </c><00:00:58.808><c>makro, </c><00:00:59.304><c>otwarte </c><00:00:59.800><c>oprogramowanie,</c>
+
+00:01:00.190 --> 00:01:00.200 align:start position:0%
+Projekt numer jeden: makro, otwarte oprogramowanie,
+ 
+
+00:01:00.200 --> 00:01:02.110 align:start position:0%
+Projekt numer jeden: makro, otwarte oprogramowanie,
+ujednolicona <00:01:00.620><c>przestrzeń </c><00:01:01.040><c>robocza </c><00:01:01.460><c>ze </c><00:01:01.880><c>wspólną</c>
+
+00:01:02.110 --> 00:01:02.120 align:start position:0%
+ujednolicona przestrzeń robocza ze wspólną
+ 
+
+00:01:02.120 --> 00:01:04.790 align:start position:0%
+ujednolicona przestrzeń robocza ze wspólną
+pamięcią <00:01:02.649><c>zespołową.  </c><00:01:03.178><c>Macro </c><00:01:03.707><c>to </c><00:01:04.236><c>zunifikowana</c>
+
+00:01:04.790 --> 00:01:04.800 align:start position:0%
+pamięcią zespołową.  Macro to zunifikowana
+ 
+
+00:01:04.800 --> 00:01:07.030 align:start position:0%
+pamięcią zespołową.  Macro to zunifikowana
+przestrzeń <00:01:04.960><c>robocza </c><00:01:05.120><c>typu </c><00:01:05.280><c>open </c><00:01:05.440><c>source </c><00:01:05.600><c>dla </c><00:01:05.760><c>zespołów, </c><00:01:05.920><c>która </c><00:01:06.080><c>łączy </c><00:01:06.240><c>pocztę </c><00:01:06.400><c>e-mail,</c>
+
+00:01:07.030 --> 00:01:07.040 align:start position:0%
+przestrzeń robocza typu open source dla zespołów, która łączy pocztę e-mail,
+ 
+
+00:01:07.040 --> 00:01:10.950 align:start position:0%
+przestrzeń robocza typu open source dla zespołów, która łączy pocztę e-mail,
+wiadomości, <00:01:07.653><c>zadania, </c><00:01:08.266><c>dokumenty, </c><00:01:08.879><c>połączenia, </c><00:01:09.492><c>system </c><00:01:10.105><c>CRM </c><00:01:10.718><c>i</c>
+
+00:01:10.950 --> 00:01:10.960 align:start position:0%
+wiadomości, zadania, dokumenty, połączenia, system CRM i
+ 
+
+00:01:10.960 --> 00:01:13.350 align:start position:0%
+wiadomości, zadania, dokumenty, połączenia, system CRM i
+agentów <00:01:11.228><c>w </c><00:01:11.496><c>jednej, </c><00:01:11.764><c>obsługiwanej </c><00:01:12.032><c>z </c><00:01:12.300><c>poziomu </c><00:01:12.568><c>klawiatury </c><00:01:12.836><c>aplikacji.</c>
+
+00:01:13.350 --> 00:01:13.360 align:start position:0%
+agentów w jednej, obsługiwanej z poziomu klawiatury aplikacji.
+ 
+
+00:01:13.360 --> 00:01:14.430 align:start position:0%
+agentów w jednej, obsługiwanej z poziomu klawiatury aplikacji.
+Wszystko <00:01:13.640><c>łączy </c><00:01:13.920><c>się </c><00:01:14.200><c>poprzez</c>
+
+00:01:14.430 --> 00:01:14.440 align:start position:0%
+Wszystko łączy się poprzez
+ 
+
+00:01:14.440 --> 00:01:16.710 align:start position:0%
+Wszystko łączy się poprzez
+dwukierunkowe <00:01:15.066><c>łączenie, </c><00:01:15.692><c>więc </c><00:01:16.318><c>wzmianka</c>
+
+00:01:16.710 --> 00:01:16.720 align:start position:0%
+dwukierunkowe łączenie, więc wzmianka
+ 
+
+00:01:16.720 --> 00:01:19.310 align:start position:0%
+dwukierunkowe łączenie, więc wzmianka
+łączy <00:01:17.120><c>dwa </c><00:01:17.520><c>elementy </c><00:01:17.920><c>w </c><00:01:18.320><c>obie </c><00:01:18.720><c>strony.  </c><00:01:19.120><c>Współdzielona</c>
+
+00:01:19.310 --> 00:01:19.320 align:start position:0%
+łączy dwa elementy w obie strony.  Współdzielona
+ 
+
+00:01:19.320 --> 00:01:21.510 align:start position:0%
+łączy dwa elementy w obie strony.  Współdzielona
+pamięć <00:01:19.760><c>zespołowa </c><00:01:20.200><c>pozwala </c><00:01:20.640><c>agentom </c><00:01:21.080><c>zapamiętywać</c>
+
+00:01:21.510 --> 00:01:21.520 align:start position:0%
+pamięć zespołowa pozwala agentom zapamiętywać
+ 
+
+00:01:21.520 --> 00:01:23.710 align:start position:0%
+pamięć zespołowa pozwala agentom zapamiętywać
+wszystkie <00:01:21.683><c>zadania </c><00:01:21.846><c>wykonywane </c><00:01:22.009><c>w </c><00:01:22.172><c>obrębie </c><00:01:22.335><c>zespołu, </c><00:01:22.498><c>a </c><00:01:22.661><c>jedna </c><00:01:22.824><c>skrzynka </c><00:01:22.987><c>odbiorcza </c><00:01:23.150><c>dzieli </c><00:01:23.313><c>się </c><00:01:23.476><c>na</c>
+
+00:01:23.710 --> 00:01:23.720 align:start position:0%
+wszystkie zadania wykonywane w obrębie zespołu, a jedna skrzynka odbiorcza dzieli się na
+ 
+
+00:01:23.720 --> 00:01:25.830 align:start position:0%
+wszystkie zadania wykonywane w obrębie zespołu, a jedna skrzynka odbiorcza dzieli się na
+sygnał <00:01:23.937><c>i </c><00:01:24.154><c>szum.  </c><00:01:24.371><c>Aplikacja </c><00:01:24.588><c>została </c><00:01:24.805><c>stworzona </c><00:01:25.022><c>w </c><00:01:25.239><c>języku </c><00:01:25.456><c>Rust </c><00:01:25.673><c>i</c>
+
+00:01:25.830 --> 00:01:25.840 align:start position:0%
+sygnał i szum.  Aplikacja została stworzona w języku Rust i
+ 
+
+00:01:25.840 --> 00:01:28.830 align:start position:0%
+sygnał i szum.  Aplikacja została stworzona w języku Rust i
+SolidJS, <00:01:26.626><c>zastępuje </c><00:01:27.412><c>Slack, </c><00:01:28.198><c>Linear,</c>
+
+00:01:28.830 --> 00:01:28.840 align:start position:0%
+SolidJS, zastępuje Slack, Linear,
+ 
+
+00:01:28.840 --> 00:01:31.230 align:start position:0%
+SolidJS, zastępuje Slack, Linear,
+Notion <00:01:29.220><c>i </c><00:01:29.600><c>Superhuman </c><00:01:29.980><c>i </c><00:01:30.360><c>łączy </c><00:01:30.740><c>się </c><00:01:31.120><c>z</c>
+
+00:01:31.230 --> 00:01:31.240 align:start position:0%
+Notion i Superhuman i łączy się z
+ 
+
+00:01:31.240 --> 00:01:34.110 align:start position:0%
+Notion i Superhuman i łączy się z
+kodem <00:01:31.550><c>Claude'a </c><00:01:31.860><c>za </c><00:01:32.170><c>pośrednictwem </c><00:01:32.480><c>MCP.  </c><00:01:32.790><c>Zarejestruj </c><00:01:33.100><c>się </c><00:01:33.410><c>i </c><00:01:33.720><c>zjednocz</c>
+
+00:01:34.110 --> 00:01:34.120 align:start position:0%
+kodem Claude'a za pośrednictwem MCP.  Zarejestruj się i zjednocz
+ 
+
+00:01:34.120 --> 00:01:36.710 align:start position:0%
+kodem Claude'a za pośrednictwem MCP.  Zarejestruj się i zjednocz
+swój <00:01:34.568><c>zespół.  </c><00:01:35.016><c>Projekt </c><00:01:35.464><c>numer </c><00:01:35.912><c>dwa, </c><00:01:36.360><c>Nigo</c>
+
+00:01:36.710 --> 00:01:36.720 align:start position:0%
+swój zespół.  Projekt numer dwa, Nigo
+ 
+
+00:01:36.720 --> 00:01:38.910 align:start position:0%
+swój zespół.  Projekt numer dwa, Nigo
+light, <00:01:36.982><c>przeglądarka, </c><00:01:37.244><c>z </c><00:01:37.506><c>której </c><00:01:37.768><c>Ty </c><00:01:38.030><c>i </c><00:01:38.292><c>Twoi </c><00:01:38.554><c>agenci</c>
+
+00:01:38.910 --> 00:01:38.920 align:start position:0%
+light, przeglądarka, z której Ty i Twoi agenci
+ 
+
+00:01:38.920 --> 00:01:41.630 align:start position:0%
+light, przeglądarka, z której Ty i Twoi agenci
+korzystacie.  <00:01:39.240><c>Nigo </c><00:01:39.560><c>Light </c><00:01:39.880><c>to </c><00:01:40.200><c>darmowa </c><00:01:40.520><c>przeglądarka, </c><00:01:40.840><c>w</c>
+
+00:01:41.630 --> 00:01:41.640 align:start position:0%
+korzystacie.  Nigo Light to darmowa przeglądarka, w
+ 
+
+00:01:41.640 --> 00:01:43.430 align:start position:0%
+korzystacie.  Nigo Light to darmowa przeglądarka, w
+której <00:01:41.880><c>Ty </c><00:01:42.120><c>i </c><00:01:42.360><c>Twoi </c><00:01:42.600><c>agenci </c><00:01:42.840><c>AI </c><00:01:43.080><c>możecie </c><00:01:43.320><c>pracować</c>
+
+00:01:43.430 --> 00:01:43.440 align:start position:0%
+której Ty i Twoi agenci AI możecie pracować
+ 
+
+00:01:43.440 --> 00:01:46.110 align:start position:0%
+której Ty i Twoi agenci AI możecie pracować
+równolegle.  <00:01:43.866><c>Każdy </c><00:01:44.292><c>agent </c><00:01:44.718><c>wykonuje </c><00:01:45.144><c>swoje </c><00:01:45.570><c>zadania </c><00:01:45.996><c>w</c>
+
+00:01:46.110 --> 00:01:46.120 align:start position:0%
+równolegle.  Każdy agent wykonuje swoje zadania w
+ 
+
+00:01:46.120 --> 00:01:48.470 align:start position:0%
+równolegle.  Każdy agent wykonuje swoje zadania w
+swojej <00:01:46.464><c>własnej </c><00:01:46.808><c>przestrzeni, </c><00:01:47.152><c>pracując </c><00:01:47.496><c>w </c><00:01:47.840><c>tle,</c>
+
+00:01:48.470 --> 00:01:48.480 align:start position:0%
+swojej własnej przestrzeni, pracując w tle,
+ 
+
+00:01:48.480 --> 00:01:50.510 align:start position:0%
+swojej własnej przestrzeni, pracując w tle,
+podczas <00:01:48.690><c>gdy </c><00:01:48.900><c>Twoje </c><00:01:49.110><c>karty </c><00:01:49.320><c>pozostają </c><00:01:49.530><c>Twoje, </c><00:01:49.740><c>a </c><00:01:49.950><c>dostęp </c><00:01:50.160><c>do</c>
+
+00:01:50.510 --> 00:01:50.520 align:start position:0%
+podczas gdy Twoje karty pozostają Twoje, a dostęp do
+ 
+
+00:01:50.520 --> 00:01:52.390 align:start position:0%
+podczas gdy Twoje karty pozostają Twoje, a dostęp do
+Twoich <00:01:50.780><c>danych </c><00:01:51.040><c>logowania </c><00:01:51.300><c>uzyskujesz </c><00:01:51.560><c>za </c><00:01:51.820><c>pomocą </c><00:01:52.080><c>pomocniczej</c>
+
+00:01:52.390 --> 00:01:52.400 align:start position:0%
+Twoich danych logowania uzyskujesz za pomocą pomocniczej
+ 
+
+00:01:52.400 --> 00:01:54.470 align:start position:0%
+Twoich danych logowania uzyskujesz za pomocą pomocniczej
+przeglądarki <00:01:52.880><c>Ego.  </c><00:01:53.360><c>Udostępnia </c><00:01:53.840><c>stronę </c><00:01:54.320><c>jako</c>
+
+00:01:54.470 --> 00:01:54.480 align:start position:0%
+przeglądarki Ego.  Udostępnia stronę jako
+ 
+
+00:01:54.480 --> 00:01:58.070 align:start position:0%
+przeglądarki Ego.  Udostępnia stronę jako
+narzędzia <00:01:55.200><c>JavaScript, </c><00:01:55.920><c>migawki, </c><00:01:56.640><c>kliknięcia, </c><00:01:57.360><c>wypełnienia.</c>
+
+00:01:58.070 --> 00:01:58.080 align:start position:0%
+narzędzia JavaScript, migawki, kliknięcia, wypełnienia.
+ 
+
+00:01:58.080 --> 00:02:01.430 align:start position:0%
+narzędzia JavaScript, migawki, kliknięcia, wypełnienia.
+Dzięki <00:01:58.480><c>temu </c><00:01:58.880><c>dowolny </c><00:01:59.280><c>agent </c><00:01:59.680><c>CLI, </c><00:02:00.080><c>kod </c><00:02:00.480><c>Claude'a, </c><00:02:00.880><c>Codex</c>
+
+00:02:01.430 --> 00:02:01.440 align:start position:0%
+Dzięki temu dowolny agent CLI, kod Claude'a, Codex
+ 
+
+00:02:01.440 --> 00:02:03.830 align:start position:0%
+Dzięki temu dowolny agent CLI, kod Claude'a, Codex
+lub <00:02:01.820><c>kursor </c><00:02:02.200><c>zapisuje </c><00:02:02.580><c>jeden </c><00:02:02.960><c>fragment </c><00:02:03.340><c>kodu </c><00:02:03.720><c>zamiast</c>
+
+00:02:03.830 --> 00:02:03.840 align:start position:0%
+lub kursor zapisuje jeden fragment kodu zamiast
+ 
+
+00:02:03.840 --> 00:02:05.950 align:start position:0%
+lub kursor zapisuje jeden fragment kodu zamiast
+wywołań <00:02:04.240><c>krok </c><00:02:04.640><c>po </c><00:02:05.040><c>kroku.  </c><00:02:05.440><c>Aplikacja </c><00:02:05.840><c>dziedziczy</c>
+
+00:02:05.950 --> 00:02:05.960 align:start position:0%
+wywołań krok po kroku.  Aplikacja dziedziczy
+ 
+
+00:02:05.960 --> 00:02:08.389 align:start position:0%
+wywołań krok po kroku.  Aplikacja dziedziczy
+dane <00:02:06.164><c>logowania </c><00:02:06.368><c>przeglądarki </c><00:02:06.572><c>Chrome </c><00:02:06.776><c>i </c><00:02:06.980><c>działa </c><00:02:07.184><c>w </c><00:02:07.388><c>systemie </c><00:02:07.592><c>Mac </c><00:02:07.796><c>OS.</c>
+
+00:02:08.389 --> 00:02:08.399 align:start position:0%
+dane logowania przeglądarki Chrome i działa w systemie Mac OS.
+ 
+
+00:02:08.399 --> 00:02:10.230 align:start position:0%
+dane logowania przeglądarki Chrome i działa w systemie Mac OS.
+Pobierz <00:02:08.735><c>i </c><00:02:09.071><c>przeglądaj </c><00:02:09.407><c>razem </c><00:02:09.743><c>ze </c><00:02:10.079><c>swoimi</c>
+
+00:02:10.230 --> 00:02:10.240 align:start position:0%
+Pobierz i przeglądaj razem ze swoimi
+ 
+
+00:02:10.240 --> 00:02:13.949 align:start position:0%
+Pobierz i przeglądaj razem ze swoimi
+agentami.  <00:02:10.816><c>Projekt </c><00:02:11.392><c>numer </c><00:02:11.968><c>trzy, </c><00:02:12.544><c>Hola </c><00:02:13.120><c>OS,</c>
+
+00:02:13.949 --> 00:02:13.959 align:start position:0%
+agentami.  Projekt numer trzy, Hola OS,
+ 
+
+00:02:13.959 --> 00:02:16.390 align:start position:0%
+agentami.  Projekt numer trzy, Hola OS,
+pierwsza <00:02:14.305><c>lokalna </c><00:02:14.651><c>przestrzeń </c><00:02:14.997><c>robocza </c><00:02:15.343><c>do </c><00:02:15.689><c>uruchamiania </c><00:02:16.035><c>dowolnego</c>
+
+00:02:16.390 --> 00:02:16.400 align:start position:0%
+pierwsza lokalna przestrzeń robocza do uruchamiania dowolnego
+ 
+
+00:02:16.400 --> 00:02:19.390 align:start position:0%
+pierwsza lokalna przestrzeń robocza do uruchamiania dowolnego
+agenta <00:02:16.771><c>AI.  </c><00:02:17.142><c>Hola </c><00:02:17.513><c>OS </c><00:02:17.884><c>to </c><00:02:18.255><c>otwartoźródłowa, </c><00:02:18.626><c>lokalna </c><00:02:18.997><c>przestrzeń</c>
+
+00:02:19.390 --> 00:02:19.400 align:start position:0%
+agenta AI.  Hola OS to otwartoźródłowa, lokalna przestrzeń
+ 
+
+00:02:19.400 --> 00:02:21.550 align:start position:0%
+agenta AI.  Hola OS to otwartoźródłowa, lokalna przestrzeń
+robocza, <00:02:19.776><c>w </c><00:02:20.152><c>której </c><00:02:20.528><c>Ty </c><00:02:20.904><c>i </c><00:02:21.280><c>Twoi</c>
+
+00:02:21.550 --> 00:02:21.560 align:start position:0%
+robocza, w której Ty i Twoi
+ 
+
+00:02:21.560 --> 00:02:23.870 align:start position:0%
+robocza, w której Ty i Twoi
+agenci <00:02:21.906><c>AI </c><00:02:22.252><c>dzielicie </c><00:02:22.598><c>jeden </c><00:02:22.944><c>komputer.  </c><00:02:23.290><c>Uruchom </c><00:02:23.636><c>dowolnego</c>
+
+00:02:23.870 --> 00:02:23.880 align:start position:0%
+agenci AI dzielicie jeden komputer.  Uruchom dowolnego
+ 
+
+00:02:23.880 --> 00:02:26.350 align:start position:0%
+agenci AI dzielicie jeden komputer.  Uruchom dowolnego
+agenta, <00:02:24.470><c>kod </c><00:02:25.060><c>Claude'a, </c><00:02:25.650><c>Codex </c><00:02:26.240><c>lub</c>
+
+00:02:26.350 --> 00:02:26.360 align:start position:0%
+agenta, kod Claude'a, Codex lub
+ 
+
+00:02:26.360 --> 00:02:29.150 align:start position:0%
+agenta, kod Claude'a, Codex lub
+wbudowany <00:02:27.213><c>agent, </c><00:02:28.066><c>współdzieląc </c><00:02:28.919><c>jedną</c>
+
+00:02:29.150 --> 00:02:29.160 align:start position:0%
+wbudowany agent, współdzieląc jedną
+ 
+
+00:02:29.160 --> 00:02:31.710 align:start position:0%
+wbudowany agent, współdzieląc jedną
+pamięć, <00:02:29.520><c>narzędzia </c><00:02:29.880><c>i </c><00:02:30.240><c>aplikacje.  </c><00:02:30.600><c>Pamięć </c><00:02:30.960><c>ta </c><00:02:31.320><c>jest</c>
+
+00:02:31.710 --> 00:02:31.720 align:start position:0%
+pamięć, narzędzia i aplikacje.  Pamięć ta jest
+ 
+
+00:02:31.720 --> 00:02:33.990 align:start position:0%
+pamięć, narzędzia i aplikacje.  Pamięć ta jest
+przechowywana <00:02:31.960><c>na </c><00:02:32.200><c>Twoim </c><00:02:32.440><c>komputerze </c><00:02:32.680><c>w </c><00:02:32.920><c>postaci </c><00:02:33.160><c>zwykłych </c><00:02:33.400><c>plików, </c><00:02:33.640><c>dzięki </c><00:02:33.880><c>czemu</c>
+
+00:02:33.990 --> 00:02:34.000 align:start position:0%
+przechowywana na Twoim komputerze w postaci zwykłych plików, dzięki czemu
+ 
+
+00:02:34.000 --> 00:02:36.110 align:start position:0%
+przechowywana na Twoim komputerze w postaci zwykłych plików, dzięki czemu
+agent <00:02:34.200><c>kontynuuje </c><00:02:34.400><c>pracę </c><00:02:34.600><c>od </c><00:02:34.800><c>miejsca, </c><00:02:35.000><c>w </c><00:02:35.200><c>którym </c><00:02:35.400><c>ją </c><00:02:35.600><c>przerwałeś.</c>
+
+00:02:36.110 --> 00:02:36.120 align:start position:0%
+agent kontynuuje pracę od miejsca, w którym ją przerwałeś.
+ 
+
+00:02:36.120 --> 00:02:38.190 align:start position:0%
+agent kontynuuje pracę od miejsca, w którym ją przerwałeś.
+Modele <00:02:36.287><c>Frontier </c><00:02:36.454><c>są </c><00:02:36.621><c>wyposażone </c><00:02:36.788><c>w </c><00:02:36.955><c>wbudowane </c><00:02:37.122><c>kluczyki </c><00:02:37.289><c>lub </c><00:02:37.456><c>można </c><00:02:37.623><c>je </c><00:02:37.790><c>nabyć </c><00:02:37.957><c>z</c>
+
+00:02:38.190 --> 00:02:38.200 align:start position:0%
+Modele Frontier są wyposażone w wbudowane kluczyki lub można je nabyć z
+ 
+
+00:02:38.200 --> 00:02:40.550 align:start position:0%
+Modele Frontier są wyposażone w wbudowane kluczyki lub można je nabyć z
+własnymi <00:02:38.500><c>kluczykami.  </c><00:02:38.800><c>Aplikacje </c><00:02:39.100><c>otwierają </c><00:02:39.400><c>się </c><00:02:39.700><c>jako </c><00:02:40.000><c>powierzchnie</c>
+
+00:02:40.550 --> 00:02:40.560 align:start position:0%
+własnymi kluczykami.  Aplikacje otwierają się jako powierzchnie
+ 
+
+00:02:40.560 --> 00:02:43.510 align:start position:0%
+własnymi kluczykami.  Aplikacje otwierają się jako powierzchnie
+obok <00:02:40.992><c>agenta, </c><00:02:41.424><c>a </c><00:02:41.856><c>ponad </c><00:02:42.288><c>100 </c><00:02:42.720><c>integracji</c>
+
+00:02:43.510 --> 00:02:43.520 align:start position:0%
+obok agenta, a ponad 100 integracji
+ 
+
+00:02:43.520 --> 00:02:45.910 align:start position:0%
+obok agenta, a ponad 100 integracji
+i <00:02:43.832><c>serwerów </c><00:02:44.144><c>MCP </c><00:02:44.456><c>łączy </c><00:02:44.768><c>się </c><00:02:45.080><c>natychmiast.</c>
+
+00:02:45.910 --> 00:02:45.920 align:start position:0%
+i serwerów MCP łączy się natychmiast.
+ 
+
+00:02:45.920 --> 00:02:47.949 align:start position:0%
+i serwerów MCP łączy się natychmiast.
+Zainstaluj <00:02:46.220><c>i </c><00:02:46.520><c>udostępnij </c><00:02:46.820><c>swój </c><00:02:47.120><c>komputer.</c>
+
+00:02:47.949 --> 00:02:47.959 align:start position:0%
+Zainstaluj i udostępnij swój komputer.
+ 
+
+00:02:47.959 --> 00:02:50.670 align:start position:0%
+Zainstaluj i udostępnij swój komputer.
+Projekt <00:02:48.549><c>numer </c><00:02:49.139><c>cztery, </c><00:02:49.729><c>Switchyard, </c><00:02:50.319><c>serwer</c>
+
+00:02:50.670 --> 00:02:50.680 align:start position:0%
+Projekt numer cztery, Switchyard, serwer
+ 
+
+00:02:50.680 --> 00:02:52.990 align:start position:0%
+Projekt numer cztery, Switchyard, serwer
+proxy <00:02:51.048><c>Rust, </c><00:02:51.416><c>który </c><00:02:51.784><c>kieruje </c><00:02:52.152><c>i </c><00:02:52.520><c>tłumaczy</c>
+
+00:02:52.990 --> 00:02:53.000 align:start position:0%
+proxy Rust, który kieruje i tłumaczy
+ 
+
+00:02:53.000 --> 00:02:55.390 align:start position:0%
+proxy Rust, który kieruje i tłumaczy
+ruch <00:02:53.420><c>LLM.  </c><00:02:53.840><c>Switchyard </c><00:02:54.260><c>to </c><00:02:54.680><c>otwartoźródłowy</c>
+
+00:02:55.390 --> 00:02:55.400 align:start position:0%
+ruch LLM.  Switchyard to otwartoźródłowy
+ 
+
+00:02:55.400 --> 00:02:58.030 align:start position:0%
+ruch LLM.  Switchyard to otwartoźródłowy
+serwer <00:02:55.708><c>proxy </c><00:02:56.016><c>Rust </c><00:02:56.324><c>i </c><00:02:56.632><c>biblioteka </c><00:02:56.940><c>dla </c><00:02:57.248><c>ruchu </c><00:02:57.556><c>LLM</c>
+
+00:02:58.030 --> 00:02:58.040 align:start position:0%
+serwer proxy Rust i biblioteka dla ruchu LLM
+ 
+
+00:02:58.040 --> 00:03:00.229 align:start position:0%
+serwer proxy Rust i biblioteka dla ruchu LLM
+z <00:02:58.400><c>Nvidia </c><00:02:58.760><c>Nemo.  </c><00:02:59.120><c>Tłumaczy </c><00:02:59.480><c>on </c><00:02:59.840><c>pomiędzy</c>
+
+00:03:00.229 --> 00:03:00.239 align:start position:0%
+z Nvidia Nemo.  Tłumaczy on pomiędzy
+ 
+
+00:03:00.239 --> 00:03:02.790 align:start position:0%
+z Nvidia Nemo.  Tłumaczy on pomiędzy
+czatem <00:03:00.839><c>OpenAI, </c><00:03:01.439><c>wiadomościami </c><00:03:02.039><c>Anthropic </c><00:03:02.639><c>i</c>
+
+00:03:02.790 --> 00:03:02.800 align:start position:0%
+czatem OpenAI, wiadomościami Anthropic i
+ 
+
+00:03:02.800 --> 00:03:05.509 align:start position:0%
+czatem OpenAI, wiadomościami Anthropic i
+odpowiedziami <00:03:03.226><c>OpenAI, </c><00:03:03.652><c>dzięki </c><00:03:04.078><c>czemu </c><00:03:04.504><c>kod </c><00:03:04.930><c>Claude </c><00:03:05.356><c>lub</c>
+
+00:03:05.509 --> 00:03:05.519 align:start position:0%
+odpowiedziami OpenAI, dzięki czemu kod Claude lub
+ 
+
+00:03:05.519 --> 00:03:07.750 align:start position:0%
+odpowiedziami OpenAI, dzięki czemu kod Claude lub
+Codex <00:03:05.822><c>zachowuje </c><00:03:06.125><c>swój </c><00:03:06.428><c>natywny </c><00:03:06.731><c>interfejs </c><00:03:07.034><c>API, </c><00:03:07.337><c>podczas </c><00:03:07.640><c>gdy</c>
+
+00:03:07.750 --> 00:03:07.760 align:start position:0%
+Codex zachowuje swój natywny interfejs API, podczas gdy
+ 
+
+00:03:07.760 --> 00:03:10.949 align:start position:0%
+Codex zachowuje swój natywny interfejs API, podczas gdy
+żądania <00:03:08.206><c>są </c><00:03:08.652><c>obsługiwane </c><00:03:09.098><c>przez </c><00:03:09.544><c>VLLM, </c><00:03:09.990><c>Nvidia </c><00:03:10.436><c>NIM,</c>
+
+00:03:10.949 --> 00:03:10.959 align:start position:0%
+żądania są obsługiwane przez VLLM, Nvidia NIM,
+ 
+
+00:03:10.959 --> 00:03:13.229 align:start position:0%
+żądania są obsługiwane przez VLLM, Nvidia NIM,
+lamę <00:03:11.204><c>lub </c><00:03:11.449><c>dowolny </c><00:03:11.694><c>punkt </c><00:03:11.939><c>końcowy </c><00:03:12.184><c>zgodny </c><00:03:12.429><c>z </c><00:03:12.674><c>OpenAI</c>
+
+00:03:13.229 --> 00:03:13.239 align:start position:0%
+lamę lub dowolny punkt końcowy zgodny z OpenAI
+ 
+
+00:03:13.239 --> 00:03:15.350 align:start position:0%
+lamę lub dowolny punkt końcowy zgodny z OpenAI
+.  <00:03:13.503><c>Kieruje </c><00:03:13.767><c>za </c><00:03:14.031><c>pomocą </c><00:03:14.295><c>strategii </c><00:03:14.559><c>klasyfikatorów,</c>
+
+00:03:15.350 --> 00:03:15.360 align:start position:0%
+.  Kieruje za pomocą strategii klasyfikatorów,
+ 
+
+00:03:15.360 --> 00:03:18.030 align:start position:0%
+.  Kieruje za pomocą strategii klasyfikatorów,
+etapów <00:03:15.980><c>i </c><00:03:16.600><c>eskalacji </c><00:03:17.220><c>lub </c><00:03:17.840><c>Twoich</c>
+
+00:03:18.030 --> 00:03:18.040 align:start position:0%
+etapów i eskalacji lub Twoich
+ 
+
+00:03:18.040 --> 00:03:20.830 align:start position:0%
+etapów i eskalacji lub Twoich
+własnych, <00:03:18.473><c>a </c><00:03:18.906><c>także </c><00:03:19.339><c>rejestruje </c><00:03:19.772><c>metryki </c><00:03:20.205><c>Prometheusa.  </c><00:03:20.638><c>Można</c>
+
+00:03:20.830 --> 00:03:20.840 align:start position:0%
+własnych, a także rejestruje metryki Prometheusa.  Można
+ 
+
+00:03:20.840 --> 00:03:23.030 align:start position:0%
+własnych, a także rejestruje metryki Prometheusa.  Można
+go <00:03:21.180><c>uruchomić </c><00:03:21.520><c>jako </c><00:03:21.860><c>launcher, </c><00:03:22.200><c>samodzielny </c><00:03:22.540><c>serwer </c><00:03:22.880><c>lub</c>
+
+00:03:23.030 --> 00:03:23.040 align:start position:0%
+go uruchomić jako launcher, samodzielny serwer lub
+ 
+
+00:03:23.040 --> 00:03:25.910 align:start position:0%
+go uruchomić jako launcher, samodzielny serwer lub
+bibliotekę <00:03:23.500><c>Rust.  </c><00:03:23.960><c>To </c><00:03:24.420><c>jest </c><00:03:24.880><c>wersja </c><00:03:25.340><c>pre-alfa.  </c><00:03:25.800><c>Zainstaluj</c>
+
+00:03:25.910 --> 00:03:25.920 align:start position:0%
+bibliotekę Rust.  To jest wersja pre-alfa.  Zainstaluj
+ 
+
+00:03:25.920 --> 00:03:27.830 align:start position:0%
+bibliotekę Rust.  To jest wersja pre-alfa.  Zainstaluj
+i <00:03:26.256><c>przekieruj </c><00:03:26.592><c>swój </c><00:03:26.928><c>ruch.  </c><00:03:27.264><c>Projekt </c><00:03:27.600><c>numer</c>
+
+00:03:27.830 --> 00:03:27.840 align:start position:0%
+i przekieruj swój ruch.  Projekt numer
+ 
+
+00:03:27.840 --> 00:03:30.790 align:start position:0%
+i przekieruj swój ruch.  Projekt numer
+pięć, <00:03:28.234><c>„Książka </c><00:03:28.628><c>w </c><00:03:29.022><c>umiejętność”, </c><00:03:29.416><c>przekształca </c><00:03:29.810><c>dowolną </c><00:03:30.204><c>książkę </c><00:03:30.598><c>w</c>
+
+00:03:30.790 --> 00:03:30.800 align:start position:0%
+pięć, „Książka w umiejętność”, przekształca dowolną książkę w
+ 
+
+00:03:30.800 --> 00:03:33.270 align:start position:0%
+pięć, „Książka w umiejętność”, przekształca dowolną książkę w
+umiejętność <00:03:31.146><c>agenta </c><00:03:31.492><c>na </c><00:03:31.838><c>żądanie.  </c><00:03:32.184><c>Book </c><00:03:32.530><c>to </c><00:03:32.876><c>Skill</c>
+
+00:03:33.270 --> 00:03:33.280 align:start position:0%
+umiejętność agenta na żądanie.  Book to Skill
+ 
+
+00:03:33.280 --> 00:03:35.590 align:start position:0%
+umiejętność agenta na żądanie.  Book to Skill
+to <00:03:33.606><c>otwartoźródłowa </c><00:03:33.932><c>umiejętność </c><00:03:34.258><c>agenta, </c><00:03:34.584><c>która </c><00:03:34.910><c>pozwala </c><00:03:35.236><c>przekształcić</c>
+
+00:03:35.590 --> 00:03:35.600 align:start position:0%
+to otwartoźródłowa umiejętność agenta, która pozwala przekształcić
+ 
+
+00:03:35.600 --> 00:03:37.910 align:start position:0%
+to otwartoźródłowa umiejętność agenta, która pozwala przekształcić
+dowolną <00:03:35.936><c>książkę </c><00:03:36.272><c>techniczną, </c><00:03:36.608><c>folder </c><00:03:36.944><c>lub </c><00:03:37.280><c>dokument</c>
+
+00:03:37.910 --> 00:03:37.920 align:start position:0%
+dowolną książkę techniczną, folder lub dokument
+ 
+
+00:03:37.920 --> 00:03:40.470 align:start position:0%
+dowolną książkę techniczną, folder lub dokument
+w <00:03:38.177><c>umiejętność, </c><00:03:38.434><c>którą </c><00:03:38.691><c>agent </c><00:03:38.948><c>może </c><00:03:39.205><c>załadować </c><00:03:39.462><c>na </c><00:03:39.719><c>żądanie.</c>
+
+00:03:40.470 --> 00:03:40.480 align:start position:0%
+w umiejętność, którą agent może załadować na żądanie.
+ 
+
+00:03:40.480 --> 00:03:43.550 align:start position:0%
+w umiejętność, którą agent może załadować na żądanie.
+Wskazujesz <00:03:41.064><c>plik </c><00:03:41.648><c>PDF, </c><00:03:42.232><c>EPUB, </c><00:03:42.816><c>DOCX </c><00:03:43.400><c>lub</c>
+
+00:03:43.550 --> 00:03:43.560 align:start position:0%
+Wskazujesz plik PDF, EPUB, DOCX lub
+ 
+
+00:03:43.560 --> 00:03:45.229 align:start position:0%
+Wskazujesz plik PDF, EPUB, DOCX lub
+folder, <00:03:43.848><c>a </c><00:03:44.136><c>on </c><00:03:44.424><c>destyluje </c><00:03:44.712><c>to </c><00:03:45.000><c>do</c>
+
+00:03:45.229 --> 00:03:45.239 align:start position:0%
+folder, a on destyluje to do
+ 
+
+00:03:45.239 --> 00:03:47.150 align:start position:0%
+folder, a on destyluje to do
+struktur, <00:03:45.919><c>reguł </c><00:03:46.599><c>decyzyjnych,</c>
+
+00:03:47.150 --> 00:03:47.160 align:start position:0%
+struktur, reguł decyzyjnych,
+ 
+
+00:03:47.160 --> 00:03:49.630 align:start position:0%
+struktur, reguł decyzyjnych,
+antywzorców <00:03:47.446><c>i </c><00:03:47.732><c>plików </c><00:03:48.018><c>dla </c><00:03:48.304><c>poszczególnych </c><00:03:48.590><c>rozdziałów </c><00:03:48.876><c>—</c>
+
+00:03:49.630 --> 00:03:49.640 align:start position:0%
+antywzorców i plików dla poszczególnych rozdziałów —
+ 
+
+00:03:49.640 --> 00:03:51.910 align:start position:0%
+antywzorców i plików dla poszczególnych rozdziałów —
+struktury, <00:03:50.032><c>ale </c><00:03:50.424><c>nie </c><00:03:50.816><c>podsumowania.  </c><00:03:51.208><c>Twój </c><00:03:51.600><c>agent</c>
+
+00:03:51.910 --> 00:03:51.920 align:start position:0%
+struktury, ale nie podsumowania.  Twój agent
+ 
+
+00:03:51.920 --> 00:03:53.830 align:start position:0%
+struktury, ale nie podsumowania.  Twój agent
+czyta <00:03:52.300><c>odpowiedni </c><00:03:52.680><c>rozdział </c><00:03:53.060><c>i </c><00:03:53.440><c>odpowiada</c>
+
+00:03:53.830 --> 00:03:53.840 align:start position:0%
+czyta odpowiedni rozdział i odpowiada
+ 
+
+00:03:53.840 --> 00:03:55.470 align:start position:0%
+czyta odpowiedni rozdział i odpowiada
+na <00:03:54.034><c>podstawie </c><00:03:54.228><c>prawdziwych </c><00:03:54.422><c>treści, </c><00:03:54.616><c>dzięki </c><00:03:54.810><c>czemu </c><00:03:55.004><c>nie </c><00:03:55.198><c>ma</c>
+
+00:03:55.470 --> 00:03:55.480 align:start position:0%
+na podstawie prawdziwych treści, dzięki czemu nie ma
+ 
+
+00:03:55.480 --> 00:03:57.790 align:start position:0%
+na podstawie prawdziwych treści, dzięki czemu nie ma
+halucynacji.  <00:03:55.990><c>Działa </c><00:03:56.500><c>lokalnie </c><00:03:57.010><c>i </c><00:03:57.520><c>współpracuje</c>
+
+00:03:57.790 --> 00:03:57.800 align:start position:0%
+halucynacji.  Działa lokalnie i współpracuje
+ 
+
+00:03:57.800 --> 00:04:01.110 align:start position:0%
+halucynacji.  Działa lokalnie i współpracuje
+z <00:03:58.273><c>Claude </c><00:03:58.746><c>Code, </c><00:03:59.219><c>Copilot </c><00:03:59.692><c>CLI </c><00:04:00.165><c>i </c><00:04:00.638><c>Amp.</c>
+
+00:04:01.110 --> 00:04:01.120 align:start position:0%
+z Claude Code, Copilot CLI i Amp.
+ 
+
+00:04:01.120 --> 00:04:03.630 align:start position:0%
+z Claude Code, Copilot CLI i Amp.
+Zainstaluj <00:04:01.536><c>i </c><00:04:01.952><c>studiuj </c><00:04:02.368><c>dowolną </c><00:04:02.784><c>książkę.  </c><00:04:03.200><c>Projekt</c>
+
+00:04:03.630 --> 00:04:03.640 align:start position:0%
+Zainstaluj i studiuj dowolną książkę.  Projekt
+ 
+
+00:04:03.640 --> 00:04:06.070 align:start position:0%
+Zainstaluj i studiuj dowolną książkę.  Projekt
+numer <00:04:03.926><c>sześć, </c><00:04:04.212><c>OpenWork, </c><00:04:04.498><c>alternatywa </c><00:04:04.784><c>typu </c><00:04:05.070><c>open </c><00:04:05.356><c>source</c>
+
+00:04:06.070 --> 00:04:06.080 align:start position:0%
+numer sześć, OpenWork, alternatywa typu open source
+ 
+
+00:04:06.080 --> 00:04:08.470 align:start position:0%
+numer sześć, OpenWork, alternatywa typu open source
+dla <00:04:06.580><c>Claude </c><00:04:07.080><c>CoWork, </c><00:04:07.580><c>umożliwiająca </c><00:04:08.080><c>udostępnianie</c>
+
+00:04:08.470 --> 00:04:08.480 align:start position:0%
+dla Claude CoWork, umożliwiająca udostępnianie
+ 
+
+00:04:08.480 --> 00:04:10.750 align:start position:0%
+dla Claude CoWork, umożliwiająca udostępnianie
+przepływów <00:04:08.920><c>pracy.  </c><00:04:09.360><c>OpenWork </c><00:04:09.800><c>to </c><00:04:10.240><c>bezpłatna</c>
+
+00:04:10.750 --> 00:04:10.760 align:start position:0%
+przepływów pracy.  OpenWork to bezpłatna
+ 
+
+00:04:10.760 --> 00:04:13.150 align:start position:0%
+przepływów pracy.  OpenWork to bezpłatna
+aplikacja <00:04:11.062><c>desktopowa </c><00:04:11.364><c>typu </c><00:04:11.666><c>open </c><00:04:11.968><c>source </c><00:04:12.270><c>służąca </c><00:04:12.572><c>do </c><00:04:12.874><c>udostępniania</c>
+
+00:04:13.150 --> 00:04:13.160 align:start position:0%
+aplikacja desktopowa typu open source służąca do udostępniania
+ 
+
+00:04:13.160 --> 00:04:15.230 align:start position:0%
+aplikacja desktopowa typu open source służąca do udostępniania
+przepływów <00:04:13.332><c>pracy </c><00:04:13.504><c>związanych </c><00:04:13.676><c>ze </c><00:04:13.848><c>sztuczną </c><00:04:14.020><c>inteligencją. </c><00:04:14.192><c>Stanowi </c><00:04:14.364><c>alternatywę </c><00:04:14.536><c>dla </c><00:04:14.708><c>aplikacji </c><00:04:14.880><c>Claude</c>
+
+00:04:15.230 --> 00:04:15.240 align:start position:0%
+przepływów pracy związanych ze sztuczną inteligencją. Stanowi alternatywę dla aplikacji Claude
+ 
+
+00:04:15.240 --> 00:04:18.190 align:start position:0%
+przepływów pracy związanych ze sztuczną inteligencją. Stanowi alternatywę dla aplikacji Claude
+CoWork <00:04:15.640><c>i </c><00:04:16.040><c>działa </c><00:04:16.440><c>na </c><00:04:16.840><c>systemach </c><00:04:17.240><c>macOS, </c><00:04:17.640><c>Windows </c><00:04:18.040><c>i</c>
+
+00:04:18.190 --> 00:04:18.200 align:start position:0%
+CoWork i działa na systemach macOS, Windows i
+ 
+
+00:04:18.200 --> 00:04:20.870 align:start position:0%
+CoWork i działa na systemach macOS, Windows i
+Linux.  <00:04:18.626><c>Dodajesz </c><00:04:19.052><c>jeden </c><00:04:19.478><c>pakiet </c><00:04:19.904><c>MCP </c><00:04:20.330><c>OpenWork </c><00:04:20.756><c>do</c>
+
+00:04:20.870 --> 00:04:20.880 align:start position:0%
+Linux.  Dodajesz jeden pakiet MCP OpenWork do
+ 
+
+00:04:20.880 --> 00:04:23.790 align:start position:0%
+Linux.  Dodajesz jeden pakiet MCP OpenWork do
+Codex, <00:04:21.400><c>Claude </c><00:04:21.920><c>Code, </c><00:04:22.440><c>Cursor </c><00:04:22.960><c>lub </c><00:04:23.480><c>innego</c>
+
+00:04:23.790 --> 00:04:23.800 align:start position:0%
+Codex, Claude Code, Cursor lub innego
+ 
+
+00:04:23.800 --> 00:04:26.030 align:start position:0%
+Codex, Claude Code, Cursor lub innego
+zgodnego <00:04:24.120><c>agenta </c><00:04:24.440><c>i </c><00:04:24.760><c>ponownie </c><00:04:25.080><c>wykorzystujesz </c><00:04:25.400><c>te </c><00:04:25.720><c>same</c>
+
+00:04:26.030 --> 00:04:26.040 align:start position:0%
+zgodnego agenta i ponownie wykorzystujesz te same
+ 
+
+00:04:26.040 --> 00:04:29.030 align:start position:0%
+zgodnego agenta i ponownie wykorzystujesz te same
+umiejętności, <00:04:26.464><c>pakiety </c><00:04:26.888><c>MCP </c><00:04:27.312><c>i </c><00:04:27.736><c>połączone </c><00:04:28.160><c>usługi,</c>
+
+00:04:29.030 --> 00:04:29.040 align:start position:0%
+umiejętności, pakiety MCP i połączone usługi,
+ 
+
+00:04:29.040 --> 00:04:32.270 align:start position:0%
+umiejętności, pakiety MCP i połączone usługi,
+takie <00:04:29.366><c>jak </c><00:04:29.692><c>Google </c><00:04:30.018><c>Workspace </c><00:04:30.344><c>i </c><00:04:30.670><c>Microsoft </c><00:04:30.996><c>365,</c>
+
+00:04:32.270 --> 00:04:32.280 align:start position:0%
+takie jak Google Workspace i Microsoft 365,
+ 
+
+00:04:32.280 --> 00:04:33.950 align:start position:0%
+takie jak Google Workspace i Microsoft 365,
+we <00:04:32.502><c>wszystkich </c><00:04:32.724><c>narzędziach, </c><00:04:32.946><c>wśród </c><00:04:33.168><c>współpracowników </c><00:04:33.390><c>i </c><00:04:33.612><c>na </c><00:04:33.834><c>wszystkich</c>
+
+00:04:33.950 --> 00:04:33.960 align:start position:0%
+we wszystkich narzędziach, wśród współpracowników i na wszystkich
+ 
+
+00:04:33.960 --> 00:04:36.510 align:start position:0%
+we wszystkich narzędziach, wśród współpracowników i na wszystkich
+komputerach.  <00:04:34.400><c>Aplikacja </c><00:04:34.840><c>komputerowa </c><00:04:35.280><c>jest </c><00:04:35.720><c>opcjonalna,</c>
+
+00:04:36.510 --> 00:04:36.520 align:start position:0%
+komputerach.  Aplikacja komputerowa jest opcjonalna,
+ 
+
+00:04:36.520 --> 00:04:38.630 align:start position:0%
+komputerach.  Aplikacja komputerowa jest opcjonalna,
+a <00:04:36.850><c>konsola </c><00:04:37.180><c>administracyjna </c><00:04:37.510><c>umożliwia </c><00:04:37.840><c>organizacjom</c>
+
+00:04:38.630 --> 00:04:38.640 align:start position:0%
+a konsola administracyjna umożliwia organizacjom
+ 
+
+00:04:38.640 --> 00:04:40.990 align:start position:0%
+a konsola administracyjna umożliwia organizacjom
+publikowanie <00:04:39.050><c>możliwości </c><00:04:39.460><c>i </c><00:04:39.870><c>zarządzanie </c><00:04:40.280><c>dostępem.</c>
+
+00:04:40.990 --> 00:04:41.000 align:start position:0%
+publikowanie możliwości i zarządzanie dostępem.
+ 
+
+00:04:41.000 --> 00:04:42.830 align:start position:0%
+publikowanie możliwości i zarządzanie dostępem.
+Zainstaluj <00:04:41.320><c>i </c><00:04:41.640><c>udostępnij </c><00:04:41.960><c>swoją </c><00:04:42.280><c>pierwszą </c><00:04:42.600><c>pracę.</c>
+
+00:04:42.830 --> 00:04:42.840 align:start position:0%
+Zainstaluj i udostępnij swoją pierwszą pracę.
+ 
+
+00:04:42.840 --> 00:04:45.270 align:start position:0%
+Zainstaluj i udostępnij swoją pierwszą pracę.
+Projekt <00:04:43.280><c>numer </c><00:04:43.720><c>siedem, </c><00:04:44.160><c>Dossier </c><00:04:44.600><c>Libre,</c>
+
+00:04:45.270 --> 00:04:45.280 align:start position:0%
+Projekt numer siedem, Dossier Libre,
+ 
+
+00:04:45.280 --> 00:04:47.790 align:start position:0%
+Projekt numer siedem, Dossier Libre,
+lekki <00:04:45.768><c>system </c><00:04:46.256><c>GIS </c><00:04:46.744><c>uruchamiający </c><00:04:47.232><c>mapy </c><00:04:47.720><c>w</c>
+
+00:04:47.790 --> 00:04:47.800 align:start position:0%
+lekki system GIS uruchamiający mapy w
+ 
+
+00:04:47.800 --> 00:04:50.510 align:start position:0%
+lekki system GIS uruchamiający mapy w
+przeglądarce.  <00:04:48.080><c>GeoLibre </c><00:04:48.360><c>to </c><00:04:48.640><c>aplikacja </c><00:04:48.920><c>GIS </c><00:04:49.200><c>przeznaczona </c><00:04:49.480><c>na </c><00:04:49.760><c>komputery </c><00:04:50.040><c>stacjonarne,</c>
+
+00:04:50.510 --> 00:04:50.520 align:start position:0%
+przeglądarce.  GeoLibre to aplikacja GIS przeznaczona na komputery stacjonarne,
+ 
+
+00:04:50.520 --> 00:04:53.150 align:start position:0%
+przeglądarce.  GeoLibre to aplikacja GIS przeznaczona na komputery stacjonarne,
+stworzona <00:04:51.016><c>z </c><00:04:51.512><c>wykorzystaniem </c><00:04:52.008><c>Tauri, </c><00:04:52.504><c>React </c><00:04:53.000><c>i</c>
+
+00:04:53.150 --> 00:04:53.160 align:start position:0%
+stworzona z wykorzystaniem Tauri, React i
+ 
+
+00:04:53.160 --> 00:04:56.190 align:start position:0%
+stworzona z wykorzystaniem Tauri, React i
+MapLibre <00:04:53.633><c>GL </c><00:04:54.106><c>JS, </c><00:04:54.579><c>która </c><00:04:55.052><c>umożliwia </c><00:04:55.525><c>przeglądanie </c><00:04:55.998><c>i</c>
+
+00:04:56.190 --> 00:04:56.200 align:start position:0%
+MapLibre GL JS, która umożliwia przeglądanie i
+ 
+
+00:04:56.200 --> 00:04:58.510 align:start position:0%
+MapLibre GL JS, która umożliwia przeglądanie i
+edytowanie <00:04:56.700><c>danych </c><00:04:57.200><c>geoprzestrzennych </c><00:04:57.700><c>bez </c><00:04:58.200><c>konieczności</c>
+
+00:04:58.510 --> 00:04:58.520 align:start position:0%
+edytowanie danych geoprzestrzennych bez konieczności
+ 
+
+00:04:58.520 --> 00:05:00.870 align:start position:0%
+edytowanie danych geoprzestrzennych bez konieczności
+instalowania <00:04:59.120><c>ciężkiego </c><00:04:59.720><c>oprogramowania.  </c><00:05:00.320><c>Uruchamia</c>
+
+00:05:00.870 --> 00:05:00.880 align:start position:0%
+instalowania ciężkiego oprogramowania.  Uruchamia
+ 
+
+00:05:00.880 --> 00:05:04.350 align:start position:0%
+instalowania ciężkiego oprogramowania.  Uruchamia
+lokalnie <00:05:01.280><c>mapę </c><00:05:01.680><c>MapLibre, </c><00:05:02.080><c>ładuje </c><00:05:02.480><c>warstwy </c><00:05:02.880><c>GeoJSON, </c><00:05:03.280><c>GeoParquet,</c>
+
+00:05:04.350 --> 00:05:04.360 align:start position:0%
+lokalnie mapę MapLibre, ładuje warstwy GeoJSON, GeoParquet,
+ 
+
+00:05:04.360 --> 00:05:06.710 align:start position:0%
+lokalnie mapę MapLibre, ładuje warstwy GeoJSON, GeoParquet,
+GeoPackage <00:05:05.093><c>i </c><00:05:05.826><c>shapefile </c><00:05:06.559><c>oraz</c>
+
+00:05:06.710 --> 00:05:06.720 align:start position:0%
+GeoPackage i shapefile oraz
+ 
+
+00:05:06.720 --> 00:05:09.430 align:start position:0%
+GeoPackage i shapefile oraz
+wykorzystuje <00:05:07.144><c>DuckDB </c><00:05:07.568><c>WASM </c><00:05:07.992><c>do </c><00:05:08.416><c>przetwarzania </c><00:05:08.840><c>przestrzennego</c>
+
+00:05:09.430 --> 00:05:09.440 align:start position:0%
+wykorzystuje DuckDB WASM do przetwarzania przestrzennego
+ 
+
+00:05:09.440 --> 00:05:11.710 align:start position:0%
+wykorzystuje DuckDB WASM do przetwarzania przestrzennego
+w <00:05:09.990><c>przeglądarce </c><00:05:10.540><c>lub </c><00:05:11.090><c>powłoce </c><00:05:11.640><c>pulpitu.</c>
+
+00:05:11.710 --> 00:05:11.720 align:start position:0%
+w przeglądarce lub powłoce pulpitu.
+ 
+
+00:05:11.720 --> 00:05:14.190 align:start position:0%
+w przeglądarce lub powłoce pulpitu.
+System <00:05:12.144><c>wtyczek </c><00:05:12.568><c>dodaje </c><00:05:12.992><c>mapy </c><00:05:13.416><c>bazowe, </c><00:05:13.840><c>Street</c>
+
+00:05:14.190 --> 00:05:14.200 align:start position:0%
+System wtyczek dodaje mapy bazowe, Street
+ 
+
+00:05:14.200 --> 00:05:16.830 align:start position:0%
+System wtyczek dodaje mapy bazowe, Street
+View, <00:05:14.613><c>LiDAR </c><00:05:15.026><c>i </c><00:05:15.439><c>narzędzia </c><00:05:15.852><c>do </c><00:05:16.265><c>edycji </c><00:05:16.678><c>z</c>
+
+00:05:16.830 --> 00:05:16.840 align:start position:0%
+View, LiDAR i narzędzia do edycji z
+ 
+
+00:05:16.840 --> 00:05:18.830 align:start position:0%
+View, LiDAR i narzędzia do edycji z
+opcjonalnym <00:05:17.250><c>dodatkiem </c><00:05:17.660><c>Python </c><00:05:18.070><c>do </c><00:05:18.480><c>trudniejszych</c>
+
+00:05:18.830 --> 00:05:18.840 align:start position:0%
+opcjonalnym dodatkiem Python do trudniejszych
+ 
+
+00:05:18.840 --> 00:05:21.470 align:start position:0%
+opcjonalnym dodatkiem Python do trudniejszych
+zadań.  <00:05:19.090><c>Jest </c><00:05:19.340><c>to </c><00:05:19.590><c>narzędzie </c><00:05:19.840><c>odpowiednie </c><00:05:20.090><c>dla </c><00:05:20.340><c>programistów </c><00:05:20.590><c>i </c><00:05:20.840><c>analityków</c>
+
+00:05:21.470 --> 00:05:21.480 align:start position:0%
+zadań.  Jest to narzędzie odpowiednie dla programistów i analityków
+ 
+
+00:05:21.480 --> 00:05:23.430 align:start position:0%
+zadań.  Jest to narzędzie odpowiednie dla programistów i analityków
+poszukujących <00:05:22.000><c>szybkiego </c><00:05:22.520><c>i </c><00:05:23.040><c>rozszerzalnego</c>
+
+00:05:23.430 --> 00:05:23.440 align:start position:0%
+poszukujących szybkiego i rozszerzalnego
+ 
+
+00:05:23.440 --> 00:05:25.830 align:start position:0%
+poszukujących szybkiego i rozszerzalnego
+narzędzia <00:05:23.760><c>do </c><00:05:24.080><c>mapowania.  </c><00:05:24.400><c>Przejrzyj </c><00:05:24.720><c>repozytorium </c><00:05:25.040><c>i </c><00:05:25.360><c>wypróbuj </c><00:05:25.680><c>aplikację</c>
+
+00:05:25.830 --> 00:05:25.840 align:start position:0%
+narzędzia do mapowania.  Przejrzyj repozytorium i wypróbuj aplikację
+ 
+
+00:05:25.840 --> 00:05:28.750 align:start position:0%
+narzędzia do mapowania.  Przejrzyj repozytorium i wypróbuj aplikację
+lokalnie.  <00:05:26.340><c>Projekt </c><00:05:26.840><c>numer </c><00:05:27.340><c>osiem, </c><00:05:27.840><c>Axolotl,</c>
+
+00:05:28.750 --> 00:05:28.760 align:start position:0%
+lokalnie.  Projekt numer osiem, Axolotl,
+ 
+
+00:05:28.760 --> 00:05:30.830 align:start position:0%
+lokalnie.  Projekt numer osiem, Axolotl,
+oprogramowanie <00:05:28.986><c>typu </c><00:05:29.212><c>open </c><00:05:29.438><c>source </c><00:05:29.664><c>do </c><00:05:29.890><c>precyzyjnego </c><00:05:30.116><c>dostrajania</c>
+
+00:05:30.830 --> 00:05:30.840 align:start position:0%
+oprogramowanie typu open source do precyzyjnego dostrajania
+ 
+
+00:05:30.840 --> 00:05:33.270 align:start position:0%
+oprogramowanie typu open source do precyzyjnego dostrajania
+dużych <00:05:31.410><c>modeli </c><00:05:31.980><c>językowych.  </c><00:05:32.550><c>Axolotl </c><00:05:33.120><c>to</c>
+
+00:05:33.270 --> 00:05:33.280 align:start position:0%
+dużych modeli językowych.  Axolotl to
+ 
+
+00:05:33.280 --> 00:05:35.470 align:start position:0%
+dużych modeli językowych.  Axolotl to
+oprogramowanie <00:05:33.520><c>typu </c><00:05:33.760><c>open </c><00:05:34.000><c>source, </c><00:05:34.240><c>które </c><00:05:34.480><c>usprawnia </c><00:05:34.720><c>proces</c>
+
+00:05:35.470 --> 00:05:35.480 align:start position:0%
+oprogramowanie typu open source, które usprawnia proces
+ 
+
+00:05:35.480 --> 00:05:37.550 align:start position:0%
+oprogramowanie typu open source, które usprawnia proces
+późniejszego <00:05:35.920><c>trenowania </c><00:05:36.360><c>i </c><00:05:36.800><c>dostrajania </c><00:05:37.240><c>dużych</c>
+
+00:05:37.550 --> 00:05:37.560 align:start position:0%
+późniejszego trenowania i dostrajania dużych
+ 
+
+00:05:37.560 --> 00:05:39.790 align:start position:0%
+późniejszego trenowania i dostrajania dużych
+modeli <00:05:38.020><c>językowych.  </c><00:05:38.480><c>Obsługuje </c><00:05:38.940><c>wiele </c><00:05:39.400><c>modeli</c>
+
+00:05:39.790 --> 00:05:39.800 align:start position:0%
+modeli językowych.  Obsługuje wiele modeli
+ 
+
+00:05:39.800 --> 00:05:41.249 align:start position:0%
+modeli językowych.  Obsługuje wiele modeli
+z <00:05:40.088><c>Hugging </c><00:05:40.376><c>Face </c><00:05:40.664><c>Hub, </c><00:05:40.952><c>a </c><00:05:41.240><c>także</c>
+
+00:05:41.249 --> 00:05:41.259 align:start position:0%
+z Hugging Face Hub, a także
+ 
+
+00:05:41.259 --> 00:05:42.830 align:start position:0%
+z Hugging Face Hub, a także
+[odchrząkuje] <00:05:41.614><c>multimodalne </c><00:05:41.969><c>modele </c><00:05:42.324><c>wizji </c><00:05:42.679><c>i</c>
+
+00:05:42.830 --> 00:05:42.840 align:start position:0%
+[odchrząkuje] multimodalne modele wizji i
+ 
+
+00:05:42.840 --> 00:05:45.030 align:start position:0%
+[odchrząkuje] multimodalne modele wizji i
+dźwięku, <00:05:43.224><c>wykorzystujące </c><00:05:43.608><c>metody </c><00:05:43.992><c>takie </c><00:05:44.376><c>jak </c><00:05:44.760><c>pełne</c>
+
+00:05:45.030 --> 00:05:45.040 align:start position:0%
+dźwięku, wykorzystujące metody takie jak pełne
+ 
+
+00:05:45.040 --> 00:05:47.550 align:start position:0%
+dźwięku, wykorzystujące metody takie jak pełne
+dostrajanie, <00:05:45.860><c>LoRA, </c><00:05:46.680><c>QLoRA,</c>
+
+00:05:47.550 --> 00:05:47.560 align:start position:0%
+dostrajanie, LoRA, QLoRA,
+ 
+
+00:05:47.560 --> 00:05:49.750 align:start position:0%
+dostrajanie, LoRA, QLoRA,
+trening <00:05:48.400><c>uwzględniający </c><00:05:49.240><c>kwantyzację,</c>
+
+00:05:49.750 --> 00:05:49.760 align:start position:0%
+trening uwzględniający kwantyzację,
+ 
+
+00:05:49.760 --> 00:05:52.030 align:start position:0%
+trening uwzględniający kwantyzację,
+dostrajanie <00:05:50.310><c>preferencji </c><00:05:50.860><c>i </c><00:05:51.410><c>uczenie </c><00:05:51.960><c>wzmacniające.</c>
+
+00:05:52.030 --> 00:05:52.040 align:start position:0%
+dostrajanie preferencji i uczenie wzmacniające.
+ 
+
+00:05:52.040 --> 00:05:54.550 align:start position:0%
+dostrajanie preferencji i uczenie wzmacniające.
+Pojedynczy <00:05:52.580><c>plik </c><00:05:53.120><c>konfiguracyjny </c><00:05:53.660><c>YAML </c><00:05:54.200><c>steruje</c>
+
+00:05:54.550 --> 00:05:54.560 align:start position:0%
+Pojedynczy plik konfiguracyjny YAML steruje
+ 
+
+00:05:54.560 --> 00:05:56.830 align:start position:0%
+Pojedynczy plik konfiguracyjny YAML steruje
+wstępnym <00:05:55.360><c>przetwarzaniem, </c><00:05:56.160><c>trenowaniem,</c>
+
+00:05:56.830 --> 00:05:56.840 align:start position:0%
+wstępnym przetwarzaniem, trenowaniem,
+ 
+
+00:05:56.840 --> 00:05:59.310 align:start position:0%
+wstępnym przetwarzaniem, trenowaniem,
+oceną <00:05:57.312><c>i </c><00:05:57.784><c>wnioskowaniem </c><00:05:58.256><c>zestawu </c><00:05:58.728><c>danych.  </c><00:05:59.200><c>Działa</c>
+
+00:05:59.310 --> 00:05:59.320 align:start position:0%
+oceną i wnioskowaniem zestawu danych.  Działa
+ 
+
+00:05:59.320 --> 00:06:02.350 align:start position:0%
+oceną i wnioskowaniem zestawu danych.  Działa
+lokalnie <00:05:59.635><c>na </c><00:05:59.950><c>procesorach </c><00:06:00.265><c>graficznych </c><00:06:00.580><c>Nvidia </c><00:06:00.895><c>lub </c><00:06:01.210><c>AMD </c><00:06:01.525><c>lub </c><00:06:01.840><c>za </c><00:06:02.155><c>pośrednictwem</c>
+
+00:06:02.350 --> 00:06:02.360 align:start position:0%
+lokalnie na procesorach graficznych Nvidia lub AMD lub za pośrednictwem
+ 
+
+00:06:02.360 --> 00:06:04.830 align:start position:0%
+lokalnie na procesorach graficznych Nvidia lub AMD lub za pośrednictwem
+obrazów <00:06:02.685><c>Docker </c><00:06:03.010><c>i </c><00:06:03.335><c>platform </c><00:06:03.660><c>chmurowych.  </c><00:06:03.985><c>Jest </c><00:06:04.310><c>to </c><00:06:04.635><c>narzędzie</c>
+
+00:06:04.830 --> 00:06:04.840 align:start position:0%
+obrazów Docker i platform chmurowych.  Jest to narzędzie
+ 
+
+00:06:04.840 --> 00:06:06.550 align:start position:0%
+obrazów Docker i platform chmurowych.  Jest to narzędzie
+odpowiednie <00:06:05.026><c>dla </c><00:06:05.212><c>badaczy </c><00:06:05.398><c>i </c><00:06:05.584><c>inżynierów, </c><00:06:05.770><c>którzy </c><00:06:05.956><c>chcą</c>
+
+00:06:06.550 --> 00:06:06.560 align:start position:0%
+odpowiednie dla badaczy i inżynierów, którzy chcą
+ 
+
+00:06:06.560 --> 00:06:09.230 align:start position:0%
+odpowiednie dla badaczy i inżynierów, którzy chcą
+efektywnie <00:06:07.190><c>dostosowywać </c><00:06:07.820><c>programy </c><00:06:08.450><c>LLM.  </c><00:06:09.080><c>Rozpocznij</c>
+
+00:06:09.230 --> 00:06:09.240 align:start position:0%
+efektywnie dostosowywać programy LLM.  Rozpocznij
+ 
+
+00:06:09.240 --> 00:06:11.350 align:start position:0%
+efektywnie dostosowywać programy LLM.  Rozpocznij
+pierwsze <00:06:09.528><c>dostrajanie </c><00:06:09.816><c>korzystając </c><00:06:10.104><c>z </c><00:06:10.392><c>krótkiego </c><00:06:10.680><c>przewodnika.</c>
+
+00:06:11.350 --> 00:06:11.360 align:start position:0%
+pierwsze dostrajanie korzystając z krótkiego przewodnika.
+ 
+
+00:06:11.360 --> 00:06:14.830 align:start position:0%
+pierwsze dostrajanie korzystając z krótkiego przewodnika.
+Projekt <00:06:11.820><c>numer </c><00:06:12.280><c>dziewięć, </c><00:06:12.740><c>PDFCN, </c><00:06:13.200><c>gotowe </c><00:06:13.660><c>do </c><00:06:14.120><c>użycia</c>
+
+00:06:14.830 --> 00:06:14.840 align:start position:0%
+Projekt numer dziewięć, PDFCN, gotowe do użycia
+ 
+
+00:06:14.840 --> 00:06:17.950 align:start position:0%
+Projekt numer dziewięć, PDFCN, gotowe do użycia
+komponenty <00:06:15.340><c>PDF </c><00:06:15.840><c>dla </c><00:06:16.340><c>aplikacji </c><00:06:16.840><c>React.  </c><00:06:17.340><c>PDFCN </c><00:06:17.840><c>to</c>
+
+00:06:17.950 --> 00:06:17.960 align:start position:0%
+komponenty PDF dla aplikacji React.  PDFCN to
+ 
+
+00:06:17.960 --> 00:06:19.670 align:start position:0%
+komponenty PDF dla aplikacji React.  PDFCN to
+biblioteka <00:06:18.660><c>komponentów </c><00:06:19.360><c>udostępniająca</c>
+
+00:06:19.670 --> 00:06:19.680 align:start position:0%
+biblioteka komponentów udostępniająca
+ 
+
+00:06:19.680 --> 00:06:21.750 align:start position:0%
+biblioteka komponentów udostępniająca
+programistom <00:06:20.050><c>React </c><00:06:20.420><c>gotowe </c><00:06:20.790><c>bloki </c><00:06:21.160><c>konstrukcyjne</c>
+
+00:06:21.750 --> 00:06:21.760 align:start position:0%
+programistom React gotowe bloki konstrukcyjne
+ 
+
+00:06:21.760 --> 00:06:23.790 align:start position:0%
+programistom React gotowe bloki konstrukcyjne
+do <00:06:22.000><c>generowania </c><00:06:22.240><c>plików </c><00:06:22.480><c>PDF, </c><00:06:22.720><c>dzięki </c><00:06:22.960><c>czemu </c><00:06:23.200><c>nie </c><00:06:23.440><c>muszą </c><00:06:23.680><c>oni</c>
+
+00:06:23.790 --> 00:06:23.800 align:start position:0%
+do generowania plików PDF, dzięki czemu nie muszą oni
+ 
+
+00:06:23.800 --> 00:06:26.230 align:start position:0%
+do generowania plików PDF, dzięki czemu nie muszą oni
+projektować <00:06:24.256><c>układów </c><00:06:24.712><c>plików </c><00:06:25.168><c>PDF </c><00:06:25.624><c>od </c><00:06:26.080><c>podstaw.</c>
+
+00:06:26.230 --> 00:06:26.240 align:start position:0%
+projektować układów plików PDF od podstaw.
+ 
+
+00:06:26.240 --> 00:06:27.990 align:start position:0%
+projektować układów plików PDF od podstaw.
+Działa <00:06:26.500><c>poprzez </c><00:06:26.760><c>Takumi </c><00:06:27.020><c>i </c><00:06:27.280><c>Form </c><00:06:27.540><c>A </c><00:06:27.800><c>jako</c>
+
+00:06:27.990 --> 00:06:28.000 align:start position:0%
+Działa poprzez Takumi i Form A jako
+ 
+
+00:06:28.000 --> 00:06:29.790 align:start position:0%
+Działa poprzez Takumi i Form A jako
+silniki <00:06:28.560><c>renderujące </c><00:06:29.120><c>i </c><00:06:29.680><c>wykorzystuje</c>
+
+00:06:29.790 --> 00:06:29.800 align:start position:0%
+silniki renderujące i wykorzystuje
+ 
+
+00:06:29.800 --> 00:06:31.470 align:start position:0%
+silniki renderujące i wykorzystuje
+
+
+00:06:31.470 --> 00:06:31.480 align:start position:0%
+ 
+ 
+
+00:06:31.480 --> 00:06:33.790 align:start position:0%
+ 
+format <00:06:31.872><c>rejestru </c><00:06:32.264><c>Shadcn/zui, </c><00:06:32.656><c>umożliwiając </c><00:06:33.048><c>programistom </c><00:06:33.440><c>kopiowanie</c>
+
+00:06:33.790 --> 00:06:33.800 align:start position:0%
+format rejestru Shadcn/zui, umożliwiając programistom kopiowanie
+ 
+
+00:06:33.800 --> 00:06:35.990 align:start position:0%
+format rejestru Shadcn/zui, umożliwiając programistom kopiowanie
+komponentów <00:06:34.210><c>bezpośrednio </c><00:06:34.620><c>do </c><00:06:35.030><c>bazy </c><00:06:35.440><c>kodu</c>
+
+00:06:35.990 --> 00:06:36.000 align:start position:0%
+komponentów bezpośrednio do bazy kodu
+ 
+
+00:06:36.000 --> 00:06:38.590 align:start position:0%
+komponentów bezpośrednio do bazy kodu
+przy <00:06:36.308><c>użyciu </c><00:06:36.616><c>tego </c><00:06:36.924><c>samego </c><00:06:37.232><c>przepływu </c><00:06:37.540><c>pracy </c><00:06:37.848><c>CLI.  </c><00:06:38.156><c>Zawiera</c>
+
+00:06:38.590 --> 00:06:38.600 align:start position:0%
+przy użyciu tego samego przepływu pracy CLI.  Zawiera
+ 
+
+00:06:38.600 --> 00:06:41.510 align:start position:0%
+przy użyciu tego samego przepływu pracy CLI.  Zawiera
+tabele, <00:06:39.300><c>formularze, </c><00:06:40.000><c>wykresy, </c><00:06:40.700><c>faktury </c><00:06:41.400><c>i</c>
+
+00:06:41.510 --> 00:06:41.520 align:start position:0%
+tabele, formularze, wykresy, faktury i
+ 
+
+00:06:41.520 --> 00:06:43.750 align:start position:0%
+tabele, formularze, wykresy, faktury i
+bloki <00:06:41.896><c>raportów </c><00:06:42.272><c>dostosowane </c><00:06:42.648><c>stylem </c><00:06:43.024><c>do </c><00:06:43.400><c>współdzielonych</c>
+
+00:06:43.750 --> 00:06:43.760 align:start position:0%
+bloki raportów dostosowane stylem do współdzielonych
+ 
+
+00:06:43.760 --> 00:06:45.710 align:start position:0%
+bloki raportów dostosowane stylem do współdzielonych
+motywów.  <00:06:43.993><c>Ma </c><00:06:44.226><c>to </c><00:06:44.459><c>duże </c><00:06:44.692><c>znaczenie </c><00:06:44.925><c>dla </c><00:06:45.158><c>deweloperów</c>
+
+00:06:45.710 --> 00:06:45.720 align:start position:0%
+motywów.  Ma to duże znaczenie dla deweloperów
+ 
+
+00:06:45.720 --> 00:06:47.790 align:start position:0%
+motywów.  Ma to duże znaczenie dla deweloperów
+szybko <00:06:45.953><c>tworzących </c><00:06:46.186><c>aplikacje </c><00:06:46.419><c>zawierające </c><00:06:46.652><c>dużą </c><00:06:46.885><c>ilość </c><00:06:47.118><c>dokumentów.</c>
+
+00:06:47.790 --> 00:06:47.800 align:start position:0%
+szybko tworzących aplikacje zawierające dużą ilość dokumentów.
+ 
+
+00:06:47.800 --> 00:06:49.270 align:start position:0%
+szybko tworzących aplikacje zawierające dużą ilość dokumentów.
+Dodaj <00:06:48.040><c>do </c><00:06:48.280><c>swojego </c><00:06:48.520><c>projektu </c><00:06:48.760><c>i </c><00:06:49.000><c>zacznij</c>
+
+00:06:49.270 --> 00:06:49.280 align:start position:0%
+Dodaj do swojego projektu i zacznij
+ 
+
+00:06:49.280 --> 00:06:52.030 align:start position:0%
+Dodaj do swojego projektu i zacznij
+tworzyć <00:06:49.820><c>dokumenty.  </c><00:06:50.360><c>Projekt </c><00:06:50.900><c>numer </c><00:06:51.440><c>10,</c>
+
+00:06:52.030 --> 00:06:52.040 align:start position:0%
+tworzyć dokumenty.  Projekt numer 10,
+ 
+
+00:06:52.040 --> 00:06:54.230 align:start position:0%
+tworzyć dokumenty.  Projekt numer 10,
+Loom <00:06:52.640><c>Feed, </c><00:06:53.240><c>samodzielnie </c><00:06:53.840><c>hostowana</c>
+
+00:06:54.230 --> 00:06:54.240 align:start position:0%
+Loom Feed, samodzielnie hostowana
+ 
+
+00:06:54.240 --> 00:06:57.150 align:start position:0%
+Loom Feed, samodzielnie hostowana
+platforma <00:06:54.554><c>społecznościowa </c><00:06:54.868><c>stworzona </c><00:06:55.182><c>dla </c><00:06:55.496><c>agentów </c><00:06:55.810><c>AI </c><00:06:56.124><c>i </c><00:06:56.438><c>ludzi.</c>
+
+00:06:57.150 --> 00:06:57.160 align:start position:0%
+platforma społecznościowa stworzona dla agentów AI i ludzi.
+ 
+
+00:06:57.160 --> 00:06:58.990 align:start position:0%
+platforma społecznościowa stworzona dla agentów AI i ludzi.
+Loom <00:06:57.530><c>Feed </c><00:06:57.900><c>to </c><00:06:58.270><c>samodzielnie </c><00:06:58.640><c>hostowana</c>
+
+00:06:58.990 --> 00:06:59.000 align:start position:0%
+Loom Feed to samodzielnie hostowana
+ 
+
+00:06:59.000 --> 00:07:01.510 align:start position:0%
+Loom Feed to samodzielnie hostowana
+platforma <00:06:59.360><c>społecznościowa, </c><00:06:59.720><c>podobna </c><00:07:00.080><c>do </c><00:07:00.440><c>Reddita, </c><00:07:00.800><c>w </c><00:07:01.160><c>której</c>
+
+00:07:01.510 --> 00:07:01.520 align:start position:0%
+platforma społecznościowa, podobna do Reddita, w której
+ 
+
+00:07:01.520 --> 00:07:04.070 align:start position:0%
+platforma społecznościowa, podobna do Reddita, w której
+agenci <00:07:01.737><c>AI </c><00:07:01.954><c>są </c><00:07:02.171><c>traktowani </c><00:07:02.388><c>jako </c><00:07:02.605><c>pełnoprawni </c><00:07:02.822><c>uczestnicy </c><00:07:03.039><c>na </c><00:07:03.256><c>równi </c><00:07:03.473><c>z</c>
+
+00:07:04.070 --> 00:07:04.080 align:start position:0%
+agenci AI są traktowani jako pełnoprawni uczestnicy na równi z
+ 
+
+00:07:04.080 --> 00:07:06.230 align:start position:0%
+agenci AI są traktowani jako pełnoprawni uczestnicy na równi z
+ludźmi.  <00:07:04.430><c>Działa </c><00:07:04.780><c>na </c><00:07:05.130><c>zapleczu </c><00:07:05.480><c>Go,</c>
+
+00:07:06.230 --> 00:07:06.240 align:start position:0%
+ludźmi.  Działa na zapleczu Go,
+ 
+
+00:07:06.240 --> 00:07:09.950 align:start position:0%
+ludźmi.  Działa na zapleczu Go,
+front-endzie <00:07:06.990><c>Next.js, </c><00:07:07.740><c>Postgres </c><00:07:08.490><c>i </c><00:07:09.240><c>Redis,</c>
+
+00:07:09.950 --> 00:07:09.960 align:start position:0%
+front-endzie Next.js, Postgres i Redis,
+ 
+
+00:07:09.960 --> 00:07:11.350 align:start position:0%
+front-endzie Next.js, Postgres i Redis,
+wdrożonych <00:07:10.220><c>razem </c><00:07:10.480><c>za </c><00:07:10.740><c>pomocą </c><00:07:11.000><c>Docker</c>
+
+00:07:11.350 --> 00:07:11.360 align:start position:0%
+wdrożonych razem za pomocą Docker
+ 
+
+00:07:11.360 --> 00:07:14.830 align:start position:0%
+wdrożonych razem za pomocą Docker
+Compose.  <00:07:11.675><c>Agenci </c><00:07:11.990><c>łączą </c><00:07:12.305><c>się </c><00:07:12.620><c>za </c><00:07:12.935><c>pomocą </c><00:07:13.250><c>protokołu </c><00:07:13.565><c>REST, </c><00:07:13.880><c>MCP</c>
+
+00:07:14.830 --> 00:07:14.840 align:start position:0%
+Compose.  Agenci łączą się za pomocą protokołu REST, MCP
+ 
+
+00:07:14.840 --> 00:07:17.750 align:start position:0%
+Compose.  Agenci łączą się za pomocą protokołu REST, MCP
+lub <00:07:15.233><c>A2A, </c><00:07:15.626><c>a </c><00:07:16.019><c>następnie </c><00:07:16.412><c>publikują </c><00:07:16.805><c>posty, </c><00:07:17.198><c>komentują</c>
+
+00:07:17.750 --> 00:07:17.760 align:start position:0%
+lub A2A, a następnie publikują posty, komentują
+ 
+
+00:07:17.760 --> 00:07:20.470 align:start position:0%
+lub A2A, a następnie publikują posty, komentują
+i <00:07:18.106><c>głosują, </c><00:07:18.452><c>korzystając </c><00:07:18.798><c>z </c><00:07:19.144><c>kluczy </c><00:07:19.490><c>API </c><00:07:19.836><c>i</c>
+
+00:07:20.470 --> 00:07:20.480 align:start position:0%
+i głosują, korzystając z kluczy API i
+ 
+
+00:07:20.480 --> 00:07:22.790 align:start position:0%
+i głosują, korzystając z kluczy API i
+wyników <00:07:20.793><c>reputacji.  </c><00:07:21.106><c>Każdy </c><00:07:21.419><c>wpis </c><00:07:21.732><c>generowany </c><00:07:22.045><c>przez </c><00:07:22.358><c>agenta</c>
+
+00:07:22.790 --> 00:07:22.800 align:start position:0%
+wyników reputacji.  Każdy wpis generowany przez agenta
+ 
+
+00:07:22.800 --> 00:07:24.710 align:start position:0%
+wyników reputacji.  Każdy wpis generowany przez agenta
+zawiera <00:07:23.320><c>dane </c><00:07:23.840><c>o </c><00:07:24.360><c>pochodzeniu,</c>
+
+00:07:24.710 --> 00:07:24.720 align:start position:0%
+zawiera dane o pochodzeniu,
+ 
+
+00:07:24.720 --> 00:07:27.390 align:start position:0%
+zawiera dane o pochodzeniu,
+cytowane <00:07:25.096><c>źródła </c><00:07:25.472><c>i </c><00:07:25.848><c>etykiety </c><00:07:26.224><c>statusu </c><00:07:26.600><c>epistemicznego,</c>
+
+00:07:27.390 --> 00:07:27.400 align:start position:0%
+cytowane źródła i etykiety statusu epistemicznego,
+ 
+
+00:07:27.400 --> 00:07:29.630 align:start position:0%
+cytowane źródła i etykiety statusu epistemicznego,
+a <00:07:27.646><c>jedynie </c><00:07:27.892><c>ludzie </c><00:07:28.138><c>mogą </c><00:07:28.384><c>weryfikować </c><00:07:28.630><c>treść.   </c><00:07:28.876><c>Rozwiązanie</c>
+
+00:07:29.630 --> 00:07:29.640 align:start position:0%
+a jedynie ludzie mogą weryfikować treść.   Rozwiązanie
+ 
+
+00:07:29.640 --> 00:07:30.990 align:start position:0%
+a jedynie ludzie mogą weryfikować treść.   Rozwiązanie
+to <00:07:29.848><c>jest </c><00:07:30.056><c>przydatne </c><00:07:30.264><c>dla </c><00:07:30.472><c>deweloperów </c><00:07:30.680><c>budujących</c>
+
+00:07:30.990 --> 00:07:31.000 align:start position:0%
+to jest przydatne dla deweloperów budujących
+ 
+
+00:07:31.000 --> 00:07:32.670 align:start position:0%
+to jest przydatne dla deweloperów budujących
+społeczności, <00:07:31.248><c>w </c><00:07:31.496><c>których </c><00:07:31.744><c>agenci </c><00:07:31.992><c>i </c><00:07:32.240><c>ludzie</c>
+
+00:07:32.670 --> 00:07:32.680 align:start position:0%
+społeczności, w których agenci i ludzie
+ 
+
+00:07:32.680 --> 00:07:34.950 align:start position:0%
+społeczności, w których agenci i ludzie
+wspólnie <00:07:33.060><c>prowadzą </c><00:07:33.440><c>badania.  </c><00:07:33.820><c>Sklonuj </c><00:07:34.200><c>repozytorium</c>
+
+00:07:34.950 --> 00:07:34.960 align:start position:0%
+wspólnie prowadzą badania.  Sklonuj repozytorium
+ 
+
+00:07:34.960 --> 00:07:37.270 align:start position:0%
+wspólnie prowadzą badania.  Sklonuj repozytorium
+i <00:07:35.440><c>hostuj </c><00:07:35.920><c>własną </c><00:07:36.400><c>instancję.  </c><00:07:36.880><c>Projekt</c>
+
+00:07:37.270 --> 00:07:37.280 align:start position:0%
+i hostuj własną instancję.  Projekt
+ 
+
+00:07:37.280 --> 00:07:39.790 align:start position:0%
+i hostuj własną instancję.  Projekt
+numer <00:07:37.646><c>11, </c><00:07:38.012><c>Be </c><00:07:38.378><c>a </c><00:07:38.744><c>Snap </c><00:07:39.110><c>Shane, </c><00:07:39.476><c>natywne</c>
+
+00:07:39.790 --> 00:07:39.800 align:start position:0%
+numer 11, Be a Snap Shane, natywne
+ 
+
+00:07:39.800 --> 00:07:41.750 align:start position:0%
+numer 11, Be a Snap Shane, natywne
+narzędzie <00:07:40.057><c>do </c><00:07:40.314><c>tworzenia </c><00:07:40.571><c>zrzutów </c><00:07:40.828><c>ekranu </c><00:07:41.085><c>i </c><00:07:41.342><c>adnotacji </c><00:07:41.599><c>dla</c>
+
+00:07:41.750 --> 00:07:41.760 align:start position:0%
+narzędzie do tworzenia zrzutów ekranu i adnotacji dla
+ 
+
+00:07:41.760 --> 00:07:44.270 align:start position:0%
+narzędzie do tworzenia zrzutów ekranu i adnotacji dla
+komputerów <00:07:42.300><c>Wayland.  </c><00:07:42.840><c>Eosnap </c><00:07:43.380><c>to </c><00:07:43.920><c>natywny</c>
+
+00:07:44.270 --> 00:07:44.280 align:start position:0%
+komputerów Wayland.  Eosnap to natywny
+ 
+
+00:07:44.280 --> 00:07:46.710 align:start position:0%
+komputerów Wayland.  Eosnap to natywny
+edytor <00:07:44.712><c>zrzutów </c><00:07:45.144><c>ekranu </c><00:07:45.576><c>i </c><00:07:46.008><c>adnotacji </c><00:07:46.440><c>stworzony</c>
+
+00:07:46.710 --> 00:07:46.720 align:start position:0%
+edytor zrzutów ekranu i adnotacji stworzony
+ 
+
+00:07:46.720 --> 00:07:48.950 align:start position:0%
+edytor zrzutów ekranu i adnotacji stworzony
+dla <00:07:46.953><c>komputerów </c><00:07:47.186><c>Wayland </c><00:07:47.419><c>z </c><00:07:47.652><c>systemem </c><00:07:47.885><c>Hyperland, </c><00:07:48.118><c>którego</c>
+
+00:07:48.950 --> 00:07:48.960 align:start position:0%
+dla komputerów Wayland z systemem Hyperland, którego
+ 
+
+00:07:48.960 --> 00:07:51.270 align:start position:0%
+dla komputerów Wayland z systemem Hyperland, którego
+głównym <00:07:49.326><c>celem </c><00:07:49.692><c>jest </c><00:07:50.058><c>E </c><00:07:50.424><c>Amareki.  </c><00:07:50.790><c>Jest </c><00:07:51.156><c>to</c>
+
+00:07:51.270 --> 00:07:51.280 align:start position:0%
+głównym celem jest E Amareki.  Jest to
+ 
+
+00:07:51.280 --> 00:07:53.350 align:start position:0%
+głównym celem jest E Amareki.  Jest to
+narzędzie <00:07:51.546><c>komputerowe, </c><00:07:51.812><c>które </c><00:07:52.078><c>przechwytuje </c><00:07:52.344><c>obraz </c><00:07:52.610><c>z </c><00:07:52.876><c>wybranego</c>
+
+00:07:53.350 --> 00:07:53.360 align:start position:0%
+narzędzie komputerowe, które przechwytuje obraz z wybranego
+ 
+
+00:07:53.360 --> 00:07:55.190 align:start position:0%
+narzędzie komputerowe, które przechwytuje obraz z wybranego
+monitora <00:07:53.606><c>za </c><00:07:53.852><c>pomocą </c><00:07:54.098><c>protokołów </c><00:07:54.344><c>kopiowania </c><00:07:54.590><c>obrazu </c><00:07:54.836><c>Wayland</c>
+
+00:07:55.190 --> 00:07:55.200 align:start position:0%
+monitora za pomocą protokołów kopiowania obrazu Wayland
+ 
+
+00:07:55.200 --> 00:07:58.030 align:start position:0%
+monitora za pomocą protokołów kopiowania obrazu Wayland
+, <00:07:55.640><c>a </c><00:07:56.080><c>następnie </c><00:07:56.520><c>otwiera </c><00:07:56.960><c>edytor </c><00:07:57.400><c>nakładek,</c>
+
+00:07:58.030 --> 00:07:58.040 align:start position:0%
+, a następnie otwiera edytor nakładek,
+ 
+
+00:07:58.040 --> 00:08:00.230 align:start position:0%
+, a następnie otwiera edytor nakładek,
+w <00:07:58.245><c>którym </c><00:07:58.450><c>adnotacje </c><00:07:58.655><c>znajdują </c><00:07:58.860><c>się </c><00:07:59.065><c>w </c><00:07:59.270><c>postaci </c><00:07:59.475><c>ruchomych,</c>
+
+00:08:00.230 --> 00:08:00.240 align:start position:0%
+w którym adnotacje znajdują się w postaci ruchomych,
+ 
+
+00:08:00.240 --> 00:08:02.470 align:start position:0%
+w którym adnotacje znajdują się w postaci ruchomych,
+skalowalnych <00:08:00.853><c>warstw </c><00:08:01.466><c>wektorowych.  </c><00:08:02.079><c>Oferuje</c>
+
+00:08:02.470 --> 00:08:02.480 align:start position:0%
+skalowalnych warstw wektorowych.  Oferuje
+ 
+
+00:08:02.480 --> 00:08:05.150 align:start position:0%
+skalowalnych warstw wektorowych.  Oferuje
+przechwytywanie <00:08:02.872><c>obszarów, </c><00:08:03.264><c>okien </c><00:08:03.656><c>i </c><00:08:04.048><c>całego </c><00:08:04.440><c>ekranu,</c>
+
+00:08:05.150 --> 00:08:05.160 align:start position:0%
+przechwytywanie obszarów, okien i całego ekranu,
+ 
+
+00:08:05.160 --> 00:08:08.670 align:start position:0%
+przechwytywanie obszarów, okien i całego ekranu,
+strzałek, <00:08:05.686><c>tekstu, </c><00:08:06.212><c>pociągnięć </c><00:08:06.738><c>odręcznych, </c><00:08:07.264><c>rozpoznawanie </c><00:08:07.790><c>tekstu </c><00:08:08.316><c>OCR</c>
+
+00:08:08.670 --> 00:08:08.680 align:start position:0%
+strzałek, tekstu, pociągnięć odręcznych, rozpoznawanie tekstu OCR
+ 
+
+00:08:08.680 --> 00:08:11.030 align:start position:0%
+strzałek, tekstu, pociągnięć odręcznych, rozpoznawanie tekstu OCR
+i <00:08:09.220><c>historię </c><00:08:09.760><c>cofania </c><00:08:10.300><c>— </c><00:08:10.840><c>wszystkie</c>
+
+00:08:11.030 --> 00:08:11.040 align:start position:0%
+i historię cofania — wszystkie
+ 
+
+00:08:11.040 --> 00:08:13.390 align:start position:0%
+i historię cofania — wszystkie
+przetwarzane <00:08:11.786><c>lokalnie.  </c><00:08:12.532><c>Kopiuj </c><00:08:13.278><c>do</c>
+
+00:08:13.390 --> 00:08:13.400 align:start position:0%
+przetwarzane lokalnie.  Kopiuj do
+ 
+
+00:08:13.400 --> 00:08:16.270 align:start position:0%
+przetwarzane lokalnie.  Kopiuj do
+schowka <00:08:13.788><c>lub </c><00:08:14.176><c>zapisz </c><00:08:14.564><c>jako </c><00:08:14.952><c>pliki </c><00:08:15.340><c>PNG.  </c><00:08:15.728><c>Jest </c><00:08:16.116><c>ona</c>
+
+00:08:16.270 --> 00:08:16.280 align:start position:0%
+schowka lub zapisz jako pliki PNG.  Jest ona
+ 
+
+00:08:16.280 --> 00:08:18.630 align:start position:0%
+schowka lub zapisz jako pliki PNG.  Jest ona
+przeznaczona <00:08:16.540><c>dla </c><00:08:16.800><c>użytkowników </c><00:08:17.060><c>Linuksa </c><00:08:17.320><c>w </c><00:08:17.580><c>środowisku </c><00:08:17.840><c>Hyperland, </c><00:08:18.100><c>którzy </c><00:08:18.360><c>chcą</c>
+
+00:08:18.630 --> 00:08:18.640 align:start position:0%
+przeznaczona dla użytkowników Linuksa w środowisku Hyperland, którzy chcą
+ 
+
+00:08:18.640 --> 00:08:20.990 align:start position:0%
+przeznaczona dla użytkowników Linuksa w środowisku Hyperland, którzy chcą
+szybko <00:08:19.150><c>edytować </c><00:08:19.660><c>zrzuty </c><00:08:20.170><c>ekranu.  </c><00:08:20.680><c>Sklonuj</c>
+
+00:08:20.990 --> 00:08:21.000 align:start position:0%
+szybko edytować zrzuty ekranu.  Sklonuj
+ 
+
+00:08:21.000 --> 00:08:23.030 align:start position:0%
+szybko edytować zrzuty ekranu.  Sklonuj
+repozytorium <00:08:21.383><c>i </c><00:08:21.766><c>zainstaluj </c><00:08:22.149><c>je </c><00:08:22.532><c>za </c><00:08:22.915><c>pomocą</c>
+
+00:08:23.030 --> 00:08:23.040 align:start position:0%
+repozytorium i zainstaluj je za pomocą
+ 
+
+00:08:23.040 --> 00:08:25.790 align:start position:0%
+repozytorium i zainstaluj je za pomocą
+instalatora <00:08:23.456><c>E </c><00:08:23.872><c>Amareki.  </c><00:08:24.288><c>Projekt </c><00:08:24.704><c>nr </c><00:08:25.120><c>12,</c>
+
+00:08:25.790 --> 00:08:25.800 align:start position:0%
+instalatora E Amareki.  Projekt nr 12,
+ 
+
+00:08:25.800 --> 00:08:28.590 align:start position:0%
+instalatora E Amareki.  Projekt nr 12,
+Muzeum <00:08:26.400><c>Zwierząt </c><00:08:27.000><c>Prehistorycznych, </c><00:08:27.600><c>spokojne, </c><00:08:28.200><c>trójwymiarowe</c>
+
+00:08:28.590 --> 00:08:28.600 align:start position:0%
+Muzeum Zwierząt Prehistorycznych, spokojne, trójwymiarowe
+ 
+
+00:08:28.600 --> 00:08:30.390 align:start position:0%
+Muzeum Zwierząt Prehistorycznych, spokojne, trójwymiarowe
+muzeum <00:08:29.010><c>dinozaurów </c><00:08:29.420><c>dla </c><00:08:29.830><c>dzieci </c><00:08:30.240><c>i</c>
+
+00:08:30.390 --> 00:08:30.400 align:start position:0%
+muzeum dinozaurów dla dzieci i
+ 
+
+00:08:30.400 --> 00:08:32.909 align:start position:0%
+muzeum dinozaurów dla dzieci i
+rodziców.  <00:08:31.010><c>Muzeum </c><00:08:31.620><c>Zwierząt </c><00:08:32.230><c>Prehistorycznych </c><00:08:32.840><c>to</c>
+
+00:08:32.909 --> 00:08:32.919 align:start position:0%
+rodziców.  Muzeum Zwierząt Prehistorycznych to
+ 
+
+00:08:32.919 --> 00:08:34.870 align:start position:0%
+rodziców.  Muzeum Zwierząt Prehistorycznych to
+aplikacja <00:08:33.319><c>internetowa, </c><00:08:33.719><c>która </c><00:08:34.119><c>pozwala </c><00:08:34.519><c>dzieciom</c>
+
+00:08:34.870 --> 00:08:34.880 align:start position:0%
+aplikacja internetowa, która pozwala dzieciom
+ 
+
+00:08:34.880 --> 00:08:37.870 align:start position:0%
+aplikacja internetowa, która pozwala dzieciom
+poznać <00:08:35.392><c>18 </c><00:08:35.904><c>prehistorycznych </c><00:08:36.416><c>zwierząt </c><00:08:36.928><c>w </c><00:08:37.440><c>spokojnej,</c>
+
+00:08:37.870 --> 00:08:37.880 align:start position:0%
+poznać 18 prehistorycznych zwierząt w spokojnej,
+ 
+
+00:08:37.880 --> 00:08:39.790 align:start position:0%
+poznać 18 prehistorycznych zwierząt w spokojnej,
+interaktywnej <00:08:38.339><c>przestrzeni </c><00:08:38.798><c>3D.  </c><00:08:39.257><c>Jest </c><00:08:39.716><c>to</c>
+
+00:08:39.790 --> 00:08:39.800 align:start position:0%
+interaktywnej przestrzeni 3D.  Jest to
+ 
+
+00:08:39.800 --> 00:08:42.070 align:start position:0%
+interaktywnej przestrzeni 3D.  Jest to
+muzeum <00:08:40.102><c>oparte </c><00:08:40.404><c>na </c><00:08:40.706><c>przeglądarce, </c><00:08:41.008><c>w </c><00:08:41.310><c>którym </c><00:08:41.612><c>dziecko </c><00:08:41.914><c>może</c>
+
+00:08:42.070 --> 00:08:42.080 align:start position:0%
+muzeum oparte na przeglądarce, w którym dziecko może
+ 
+
+00:08:42.080 --> 00:08:44.270 align:start position:0%
+muzeum oparte na przeglądarce, w którym dziecko może
+obracać <00:08:42.450><c>model </c><00:08:42.820><c>palcem </c><00:08:43.190><c>lub </c><00:08:43.560><c>myszką,</c>
+
+00:08:44.270 --> 00:08:44.280 align:start position:0%
+obracać model palcem lub myszką,
+ 
+
+00:08:44.280 --> 00:08:46.590 align:start position:0%
+obracać model palcem lub myszką,
+przybliżać <00:08:44.520><c>obraz </c><00:08:44.760><c>i </c><00:08:45.000><c>słuchać </c><00:08:45.240><c>krótkiej </c><00:08:45.480><c>narracji </c><00:08:45.720><c>w </c><00:08:45.960><c>języku </c><00:08:46.200><c>angielskim </c><00:08:46.440><c>lub</c>
+
+00:08:46.590 --> 00:08:46.600 align:start position:0%
+przybliżać obraz i słuchać krótkiej narracji w języku angielskim lub
+ 
+
+00:08:46.600 --> 00:08:48.710 align:start position:0%
+przybliżać obraz i słuchać krótkiej narracji w języku angielskim lub
+mandaryńskim, <00:08:46.952><c>która </c><00:08:47.304><c>nigdy </c><00:08:47.656><c>nie </c><00:08:48.008><c>odtwarza </c><00:08:48.360><c>się</c>
+
+00:08:48.710 --> 00:08:48.720 align:start position:0%
+mandaryńskim, która nigdy nie odtwarza się
+ 
+
+00:08:48.720 --> 00:08:50.790 align:start position:0%
+mandaryńskim, która nigdy nie odtwarza się
+automatycznie.  <00:08:49.128><c>Do </c><00:08:49.536><c>każdej </c><00:08:49.944><c>wystawy </c><00:08:50.352><c>dołączony </c><00:08:50.760><c>jest</c>
+
+00:08:50.790 --> 00:08:50.800 align:start position:0%
+automatycznie.  Do każdej wystawy dołączony jest
+ 
+
+00:08:50.800 --> 00:08:52.590 align:start position:0%
+automatycznie.  Do każdej wystawy dołączony jest
+przewodnik <00:08:51.096><c>dla </c><00:08:51.392><c>rodziców, </c><00:08:51.688><c>który </c><00:08:51.984><c>omawia </c><00:08:52.280><c>okres</c>
+
+00:08:52.590 --> 00:08:52.600 align:start position:0%
+przewodnik dla rodziców, który omawia okres
+ 
+
+00:08:52.600 --> 00:08:55.390 align:start position:0%
+przewodnik dla rodziców, który omawia okres
+życia <00:08:52.977><c>zwierzęcia, </c><00:08:53.354><c>regiony </c><00:08:53.731><c>występowania </c><00:08:54.108><c>skamieniałości, </c><00:08:54.485><c>wielkość, </c><00:08:54.862><c>dietę </c><00:08:55.239><c>i</c>
+
+00:08:55.390 --> 00:08:55.400 align:start position:0%
+życia zwierzęcia, regiony występowania skamieniałości, wielkość, dietę i
+ 
+
+00:08:55.400 --> 00:08:57.550 align:start position:0%
+życia zwierzęcia, regiony występowania skamieniałości, wielkość, dietę i
+klasyfikację.  <00:08:55.900><c>Działa </c><00:08:56.400><c>w </c><00:08:56.900><c>oparciu </c><00:08:57.400><c>o</c>
+
+00:08:57.550 --> 00:08:57.560 align:start position:0%
+klasyfikację.  Działa w oparciu o
+ 
+
+00:08:57.560 --> 00:09:00.630 align:start position:0%
+klasyfikację.  Działa w oparciu o
+zasoby <00:08:57.850><c>statyczne </c><00:08:58.140><c>i </c><00:08:58.430><c>nie </c><00:08:58.720><c>odwołuje </c><00:08:59.010><c>się </c><00:08:59.300><c>do </c><00:08:59.590><c>sztucznej </c><00:08:59.880><c>inteligencji,</c>
+
+00:09:00.630 --> 00:09:00.640 align:start position:0%
+zasoby statyczne i nie odwołuje się do sztucznej inteligencji,
+ 
+
+00:09:00.640 --> 00:09:03.110 align:start position:0%
+zasoby statyczne i nie odwołuje się do sztucznej inteligencji,
+reklam <00:09:01.426><c>ani </c><00:09:02.212><c>usług </c><00:09:02.998><c>analitycznych.</c>
+
+00:09:03.110 --> 00:09:03.120 align:start position:0%
+reklam ani usług analitycznych.
+ 
+
+00:09:03.120 --> 00:09:05.550 align:start position:0%
+reklam ani usług analitycznych.
+Nie <00:09:03.377><c>wymaga </c><00:09:03.634><c>logowania.  </c><00:09:03.891><c>To </c><00:09:04.148><c>rozwiązanie </c><00:09:04.405><c>jest </c><00:09:04.662><c>odpowiednie </c><00:09:04.919><c>dla </c><00:09:05.176><c>rodziców </c><00:09:05.433><c>i</c>
+
+00:09:05.550 --> 00:09:05.560 align:start position:0%
+Nie wymaga logowania.  To rozwiązanie jest odpowiednie dla rodziców i
+ 
+
+00:09:05.560 --> 00:09:07.110 align:start position:0%
+Nie wymaga logowania.  To rozwiązanie jest odpowiednie dla rodziców i
+małych <00:09:05.920><c>dzieci, </c><00:09:06.280><c>którzy </c><00:09:06.640><c>chcą</c>
+
+00:09:07.110 --> 00:09:07.120 align:start position:0%
+małych dzieci, którzy chcą
+ 
+
+00:09:07.120 --> 00:09:09.150 align:start position:0%
+małych dzieci, którzy chcą
+wspólnie <00:09:07.377><c>uczyć </c><00:09:07.634><c>się </c><00:09:07.891><c>przy </c><00:09:08.148><c>słabym </c><00:09:08.405><c>świetle </c><00:09:08.662><c>ekranu.  </c><00:09:08.919><c>Odwiedź</c>
+
+00:09:09.150 --> 00:09:09.160 align:start position:0%
+wspólnie uczyć się przy słabym świetle ekranu.  Odwiedź
+ 
+
+00:09:09.160 --> 00:09:11.030 align:start position:0%
+wspólnie uczyć się przy słabym świetle ekranu.  Odwiedź
+muzeum <00:09:09.488><c>i </c><00:09:09.816><c>przyjrzyj </c><00:09:10.144><c>się </c><00:09:10.472><c>uważnie </c><00:09:10.800><c>każdemu</c>
+
+00:09:11.030 --> 00:09:11.040 align:start position:0%
+muzeum i przyjrzyj się uważnie każdemu
+ 
+
+00:09:11.040 --> 00:09:13.710 align:start position:0%
+muzeum i przyjrzyj się uważnie każdemu
+zwierzęciu <00:09:11.408><c>na </c><00:09:11.776><c>raz.  </c><00:09:12.144><c>Projekt </c><00:09:12.512><c>numer </c><00:09:12.880><c>13,</c>
+
+00:09:13.710 --> 00:09:13.720 align:start position:0%
+zwierzęciu na raz.  Projekt numer 13,
+ 
+
+00:09:13.720 --> 00:09:16.630 align:start position:0%
+zwierzęciu na raz.  Projekt numer 13,
+Scene <00:09:14.208><c>Card </c><00:09:14.696><c>Studio, </c><00:09:15.184><c>przekształca </c><00:09:15.672><c>osobiste </c><00:09:16.160><c>zdjęcia</c>
+
+00:09:16.630 --> 00:09:16.640 align:start position:0%
+Scene Card Studio, przekształca osobiste zdjęcia
+ 
+
+00:09:16.640 --> 00:09:18.990 align:start position:0%
+Scene Card Studio, przekształca osobiste zdjęcia
+w <00:09:17.150><c>uporządkowane </c><00:09:17.660><c>narracje </c><00:09:18.170><c>wizualne.  </c><00:09:18.680><c>Scene</c>
+
+00:09:18.990 --> 00:09:19.000 align:start position:0%
+w uporządkowane narracje wizualne.  Scene
+ 
+
+00:09:19.000 --> 00:09:21.070 align:start position:0%
+w uporządkowane narracje wizualne.  Scene
+Card <00:09:19.180><c>Studio </c><00:09:19.360><c>to </c><00:09:19.540><c>narzędzie </c><00:09:19.720><c>wiersza </c><00:09:19.900><c>poleceń </c><00:09:20.080><c>w </c><00:09:20.260><c>języku </c><00:09:20.440><c>Python,</c>
+
+00:09:21.070 --> 00:09:21.080 align:start position:0%
+Card Studio to narzędzie wiersza poleceń w języku Python,
+ 
+
+00:09:21.080 --> 00:09:23.270 align:start position:0%
+Card Studio to narzędzie wiersza poleceń w języku Python,
+które <00:09:21.560><c>przekształca </c><00:09:22.040><c>osobiste </c><00:09:22.520><c>zdjęcia </c><00:09:23.000><c>w</c>
+
+00:09:23.270 --> 00:09:23.280 align:start position:0%
+które przekształca osobiste zdjęcia w
+ 
+
+00:09:23.280 --> 00:09:25.470 align:start position:0%
+które przekształca osobiste zdjęcia w
+edytowalne <00:09:24.340><c>narracje.  </c><00:09:25.400><c>Zamiast</c>
+
+00:09:25.470 --> 00:09:25.480 align:start position:0%
+edytowalne narracje.  Zamiast
+ 
+
+00:09:25.480 --> 00:09:27.590 align:start position:0%
+edytowalne narracje.  Zamiast
+stosować <00:09:26.133><c>prosty </c><00:09:26.786><c>filtr </c><00:09:27.439><c>stylu,</c>
+
+00:09:27.590 --> 00:09:27.600 align:start position:0%
+stosować prosty filtr stylu,
+ 
+
+00:09:27.600 --> 00:09:29.710 align:start position:0%
+stosować prosty filtr stylu,
+oddziela <00:09:27.885><c>to, </c><00:09:28.170><c>co </c><00:09:28.455><c>zdjęcie </c><00:09:28.740><c>przedstawia, </c><00:09:29.025><c>od </c><00:09:29.310><c>tego, </c><00:09:29.595><c>jak</c>
+
+00:09:29.710 --> 00:09:29.720 align:start position:0%
+oddziela to, co zdjęcie przedstawia, od tego, jak
+ 
+
+00:09:29.720 --> 00:09:31.470 align:start position:0%
+oddziela to, co zdjęcie przedstawia, od tego, jak
+powinno <00:09:30.133><c>być </c><00:09:30.546><c>interpretowane, </c><00:09:30.959><c>rejestrując</c>
+
+00:09:31.470 --> 00:09:31.480 align:start position:0%
+powinno być interpretowane, rejestrując
+ 
+
+00:09:31.480 --> 00:09:33.910 align:start position:0%
+powinno być interpretowane, rejestrując
+obserwacje, <00:09:32.240><c>wstępne </c><00:09:33.000><c>tematy </c><00:09:33.760><c>i</c>
+
+00:09:33.910 --> 00:09:33.920 align:start position:0%
+obserwacje, wstępne tematy i
+ 
+
+00:09:33.920 --> 00:09:36.510 align:start position:0%
+obserwacje, wstępne tematy i
+role <00:09:34.280><c>w </c><00:09:34.640><c>historii </c><00:09:35.000><c>w </c><00:09:35.360><c>postaci </c><00:09:35.720><c>edytowalnych </c><00:09:36.080><c>kart </c><00:09:36.440><c>scen.</c>
+
+00:09:36.510 --> 00:09:36.520 align:start position:0%
+role w historii w postaci edytowalnych kart scen.
+ 
+
+00:09:36.520 --> 00:09:38.830 align:start position:0%
+role w historii w postaci edytowalnych kart scen.
+Następnie <00:09:37.080><c>kompilator </c><00:09:37.640><c>konwertuje </c><00:09:38.200><c>te </c><00:09:38.760><c>karty,</c>
+
+00:09:38.830 --> 00:09:38.840 align:start position:0%
+Następnie kompilator konwertuje te karty,
+ 
+
+00:09:38.840 --> 00:09:40.630 align:start position:0%
+Następnie kompilator konwertuje te karty,
+wybrany <00:09:39.413><c>system </c><00:09:39.986><c>narracji </c><00:09:40.559><c>i</c>
+
+00:09:40.630 --> 00:09:40.640 align:start position:0%
+wybrany system narracji i
+ 
+
+00:09:40.640 --> 00:09:42.590 align:start position:0%
+wybrany system narracji i
+profil <00:09:41.133><c>ekspresji </c><00:09:41.626><c>na </c><00:09:42.119><c>wersjonowany</c>
+
+00:09:42.590 --> 00:09:42.600 align:start position:0%
+profil ekspresji na wersjonowany
+ 
+
+00:09:42.600 --> 00:09:44.950 align:start position:0%
+profil ekspresji na wersjonowany
+kontrakt <00:09:42.950><c>monitu </c><00:09:43.300><c>do </c><00:09:43.650><c>generowania </c><00:09:44.000><c>obrazu,</c>
+
+00:09:44.950 --> 00:09:44.960 align:start position:0%
+kontrakt monitu do generowania obrazu,
+ 
+
+00:09:44.960 --> 00:09:46.910 align:start position:0%
+kontrakt monitu do generowania obrazu,
+przy <00:09:45.155><c>czym </c><00:09:45.350><c>ponowne </c><00:09:45.545><c>próby </c><00:09:45.740><c>i </c><00:09:45.935><c>recenzje </c><00:09:46.130><c>są </c><00:09:46.325><c>śledzone </c><00:09:46.520><c>za </c><00:09:46.715><c>pomocą</c>
+
+00:09:46.910 --> 00:09:46.920 align:start position:0%
+przy czym ponowne próby i recenzje są śledzone za pomocą
+ 
+
+00:09:46.920 --> 00:09:49.190 align:start position:0%
+przy czym ponowne próby i recenzje są śledzone za pomocą
+łańcucha <00:09:47.240><c>skrótów.  </c><00:09:47.560><c>Generowanie </c><00:09:47.880><c>obrazów </c><00:09:48.200><c>w </c><00:09:48.520><c>chmurze</c>
+
+00:09:49.190 --> 00:09:49.200 align:start position:0%
+łańcucha skrótów.  Generowanie obrazów w chmurze
+ 
+
+00:09:49.200 --> 00:09:51.510 align:start position:0%
+łańcucha skrótów.  Generowanie obrazów w chmurze
+odbywa <00:09:49.440><c>się </c><00:09:49.680><c>wyłącznie </c><00:09:49.920><c>po </c><00:09:50.160><c>uzyskaniu </c><00:09:50.400><c>wyraźnej </c><00:09:50.640><c>zgody,</c>
+
+00:09:51.510 --> 00:09:51.520 align:start position:0%
+odbywa się wyłącznie po uzyskaniu wyraźnej zgody,
+ 
+
+00:09:51.520 --> 00:09:53.710 align:start position:0%
+odbywa się wyłącznie po uzyskaniu wyraźnej zgody,
+w <00:09:51.853><c>przeciwnym </c><00:09:52.186><c>razie </c><00:09:52.519><c>wszystkie </c><00:09:52.852><c>dane </c><00:09:53.185><c>pozostają </c><00:09:53.518><c>lokalne.</c>
+
+00:09:53.710 --> 00:09:53.720 align:start position:0%
+w przeciwnym razie wszystkie dane pozostają lokalne.
+ 
+
+00:09:53.720 --> 00:09:55.310 align:start position:0%
+w przeciwnym razie wszystkie dane pozostają lokalne.
+Nadaje <00:09:53.912><c>się </c><00:09:54.104><c>dla </c><00:09:54.296><c>osób </c><00:09:54.488><c>budujących </c><00:09:54.680><c>uporządkowane,</c>
+
+00:09:55.310 --> 00:09:55.320 align:start position:0%
+Nadaje się dla osób budujących uporządkowane,
+ 
+
+00:09:55.320 --> 00:09:57.590 align:start position:0%
+Nadaje się dla osób budujących uporządkowane,
+osobiste <00:09:55.736><c>historie </c><00:09:56.152><c>fotograficzne.  </c><00:09:56.568><c>Wypróbuj </c><00:09:56.984><c>to </c><00:09:57.400><c>na</c>
+
+00:09:57.590 --> 00:09:57.600 align:start position:0%
+osobiste historie fotograficzne.  Wypróbuj to na
+ 
+
+00:09:57.600 --> 00:09:59.030 align:start position:0%
+osobiste historie fotograficzne.  Wypróbuj to na
+swoich <00:09:57.786><c>zdjęciach, </c><00:09:57.972><c>korzystając </c><00:09:58.158><c>z </c><00:09:58.344><c>poleceń </c><00:09:58.530><c>szybkiego </c><00:09:58.716><c>startu</c>
+
+00:09:59.030 --> 00:09:59.040 align:start position:0%
+swoich zdjęciach, korzystając z poleceń szybkiego startu
+ 
+
+00:09:59.040 --> 00:10:02.750 align:start position:0%
+swoich zdjęciach, korzystając z poleceń szybkiego startu
+.  <00:09:59.632><c>Projekt </c><00:10:00.224><c>numer </c><00:10:00.816><c>14, </c><00:10:01.408><c>Kiro </c><00:10:02.000><c>Crew,</c>
+
+00:10:02.750 --> 00:10:02.760 align:start position:0%
+.  Projekt numer 14, Kiro Crew,
+ 
+
+00:10:02.760 --> 00:10:05.270 align:start position:0%
+.  Projekt numer 14, Kiro Crew,
+stała <00:10:03.240><c>przestrzeń </c><00:10:03.720><c>robocza </c><00:10:04.200><c>agenta </c><00:10:04.680><c>AI, </c><00:10:05.160><c>która</c>
+
+00:10:05.270 --> 00:10:05.280 align:start position:0%
+stała przestrzeń robocza agenta AI, która
+ 
+
+00:10:05.280 --> 00:10:07.750 align:start position:0%
+stała przestrzeń robocza agenta AI, która
+działa <00:10:05.720><c>w </c><00:10:06.160><c>różnych </c><00:10:06.600><c>sesjach.  </c><00:10:07.040><c>Kiro </c><00:10:07.480><c>Crew</c>
+
+00:10:07.750 --> 00:10:07.760 align:start position:0%
+działa w różnych sesjach.  Kiro Crew
+ 
+
+00:10:07.760 --> 00:10:09.990 align:start position:0%
+działa w różnych sesjach.  Kiro Crew
+to <00:10:08.040><c>środowisko </c><00:10:08.320><c>programistyczne </c><00:10:08.600><c>typu </c><00:10:08.880><c>open </c><00:10:09.160><c>source,</c>
+
+00:10:09.990 --> 00:10:10.000 align:start position:0%
+to środowisko programistyczne typu open source,
+ 
+
+00:10:10.000 --> 00:10:12.190 align:start position:0%
+to środowisko programistyczne typu open source,
+które <00:10:10.400><c>nieprzerwanie </c><00:10:10.800><c>uruchamia </c><00:10:11.200><c>agenta </c><00:10:11.600><c>AI </c><00:10:12.000><c>na</c>
+
+00:10:12.190 --> 00:10:12.200 align:start position:0%
+które nieprzerwanie uruchamia agenta AI na
+ 
+
+00:10:12.200 --> 00:10:14.470 align:start position:0%
+które nieprzerwanie uruchamia agenta AI na
+kontrolowanym <00:10:12.440><c>przez </c><00:10:12.680><c>Ciebie </c><00:10:12.920><c>sprzęcie, </c><00:10:13.160><c>zamiast </c><00:10:13.400><c>kończyć </c><00:10:13.640><c>działanie </c><00:10:13.880><c>wraz </c><00:10:14.120><c>z</c>
+
+00:10:14.470 --> 00:10:14.480 align:start position:0%
+kontrolowanym przez Ciebie sprzęcie, zamiast kończyć działanie wraz z
+ 
+
+00:10:14.480 --> 00:10:16.430 align:start position:0%
+kontrolowanym przez Ciebie sprzęcie, zamiast kończyć działanie wraz z
+zamknięciem <00:10:15.053><c>okna </c><00:10:15.626><c>czatu.  </c><00:10:16.199><c>Działa</c>
+
+00:10:16.430 --> 00:10:16.440 align:start position:0%
+zamknięciem okna czatu.  Działa
+ 
+
+00:10:16.440 --> 00:10:18.270 align:start position:0%
+zamknięciem okna czatu.  Działa
+poprzez <00:10:16.810><c>proces </c><00:10:17.180><c>bramy </c><00:10:17.550><c>łączący </c><00:10:17.920><c>się</c>
+
+00:10:18.270 --> 00:10:18.280 align:start position:0%
+poprzez proces bramy łączący się
+ 
+
+00:10:18.280 --> 00:10:21.870 align:start position:0%
+poprzez proces bramy łączący się
+z <00:10:18.710><c>aplikacją </c><00:10:19.140><c>komputerową, </c><00:10:19.570><c>pulpitem </c><00:10:20.000><c>internetowym, </c><00:10:20.430><c>interfejsem </c><00:10:20.860><c>wiersza </c><00:10:21.290><c>poleceń </c><00:10:21.720><c>lub</c>
+
+00:10:21.870 --> 00:10:21.880 align:start position:0%
+z aplikacją komputerową, pulpitem internetowym, interfejsem wiersza poleceń lub
+ 
+
+00:10:21.880 --> 00:10:24.310 align:start position:0%
+z aplikacją komputerową, pulpitem internetowym, interfejsem wiersza poleceń lub
+narzędziami <00:10:22.085><c>do </c><00:10:22.290><c>przesyłania </c><00:10:22.495><c>wiadomości, </c><00:10:22.700><c>takimi </c><00:10:22.905><c>jak </c><00:10:23.110><c>Slack </c><00:10:23.315><c>i </c><00:10:23.520><c>Discord,</c>
+
+00:10:24.310 --> 00:10:24.320 align:start position:0%
+narzędziami do przesyłania wiadomości, takimi jak Slack i Discord,
+ 
+
+00:10:24.320 --> 00:10:26.910 align:start position:0%
+narzędziami do przesyłania wiadomości, takimi jak Slack i Discord,
+obsługującymi <00:10:24.628><c>sesje </c><00:10:24.936><c>interfejsu </c><00:10:25.244><c>wiersza </c><00:10:25.552><c>poleceń </c><00:10:25.860><c>Kiro, </c><00:10:26.168><c>które </c><00:10:26.476><c>zachowują</c>
+
+00:10:26.910 --> 00:10:26.920 align:start position:0%
+obsługującymi sesje interfejsu wiersza poleceń Kiro, które zachowują
+ 
+
+00:10:26.920 --> 00:10:29.310 align:start position:0%
+obsługującymi sesje interfejsu wiersza poleceń Kiro, które zachowują
+pamięć, <00:10:27.288><c>harmonogramy </c><00:10:27.656><c>i </c><00:10:28.024><c>punkty </c><00:10:28.392><c>kontrolne </c><00:10:28.760><c>zadań</c>
+
+00:10:29.310 --> 00:10:29.320 align:start position:0%
+pamięć, harmonogramy i punkty kontrolne zadań
+ 
+
+00:10:29.320 --> 00:10:31.710 align:start position:0%
+pamięć, harmonogramy i punkty kontrolne zadań
+po <00:10:29.760><c>ponownym </c><00:10:30.200><c>uruchomieniu.  </c><00:10:30.640><c>Obsługuje </c><00:10:31.080><c>długotrwałe</c>
+
+00:10:31.710 --> 00:10:31.720 align:start position:0%
+po ponownym uruchomieniu.  Obsługuje długotrwałe
+ 
+
+00:10:31.720 --> 00:10:34.430 align:start position:0%
+po ponownym uruchomieniu.  Obsługuje długotrwałe
+zadania, <00:10:32.330><c>zaplanowane </c><00:10:32.940><c>zadania </c><00:10:33.550><c>i </c><00:10:34.160><c>równoległe</c>
+
+00:10:34.430 --> 00:10:34.440 align:start position:0%
+zadania, zaplanowane zadania i równoległe
+ 
+
+00:10:34.440 --> 00:10:36.590 align:start position:0%
+zadania, zaplanowane zadania i równoległe
+podagencje <00:10:34.780><c>lokalnie </c><00:10:35.120><c>lub </c><00:10:35.460><c>na </c><00:10:35.800><c>wybranym </c><00:10:36.140><c>zdalnym </c><00:10:36.480><c>hoście,</c>
+
+00:10:36.590 --> 00:10:36.600 align:start position:0%
+podagencje lokalnie lub na wybranym zdalnym hoście,
+ 
+
+00:10:36.600 --> 00:10:38.590 align:start position:0%
+podagencje lokalnie lub na wybranym zdalnym hoście,
+z <00:10:37.200><c>zatwierdzaniem </c><00:10:37.800><c>narzędzi </c><00:10:38.400><c>i</c>
+
+00:10:38.590 --> 00:10:38.600 align:start position:0%
+z zatwierdzaniem narzędzi i
+ 
+
+00:10:38.600 --> 00:10:40.790 align:start position:0%
+z zatwierdzaniem narzędzi i
+sandboxingiem <00:10:38.817><c>na </c><00:10:39.034><c>poziomie </c><00:10:39.251><c>środowiska </c><00:10:39.468><c>wykonawczego.  </c><00:10:39.685><c>To </c><00:10:39.902><c>rozwiązanie </c><00:10:40.119><c>jest </c><00:10:40.336><c>odpowiednie </c><00:10:40.553><c>dla</c>
+
+00:10:40.790 --> 00:10:40.800 align:start position:0%
+sandboxingiem na poziomie środowiska wykonawczego.  To rozwiązanie jest odpowiednie dla
+ 
+
+00:10:40.800 --> 00:10:42.590 align:start position:0%
+sandboxingiem na poziomie środowiska wykonawczego.  To rozwiązanie jest odpowiednie dla
+deweloperów, <00:10:41.080><c>którzy </c><00:10:41.360><c>oczekują </c><00:10:41.640><c>od </c><00:10:41.920><c>agenta, </c><00:10:42.200><c>który </c><00:10:42.480><c>potrafi</c>
+
+00:10:42.590 --> 00:10:42.600 align:start position:0%
+deweloperów, którzy oczekują od agenta, który potrafi
+ 
+
+00:10:42.600 --> 00:10:44.870 align:start position:0%
+deweloperów, którzy oczekują od agenta, który potrafi
+zachować <00:10:42.862><c>kontekst </c><00:10:43.124><c>i </c><00:10:43.386><c>doskonalić </c><00:10:43.648><c>się </c><00:10:43.910><c>w </c><00:10:44.172><c>miarę </c><00:10:44.434><c>powtarzania</c>
+
+00:10:44.870 --> 00:10:44.880 align:start position:0%
+zachować kontekst i doskonalić się w miarę powtarzania
+ 
+
+00:10:44.880 --> 00:10:46.950 align:start position:0%
+zachować kontekst i doskonalić się w miarę powtarzania
+zadań.  <00:10:45.124><c>Skonfiguruj </c><00:10:45.368><c>go </c><00:10:45.612><c>i </c><00:10:45.856><c>przypisz </c><00:10:46.100><c>mu </c><00:10:46.344><c>zadanie, </c><00:10:46.588><c>które </c><00:10:46.832><c>ma</c>
+
+00:10:46.950 --> 00:10:46.960 align:start position:0%
+zadań.  Skonfiguruj go i przypisz mu zadanie, które ma
+ 
+
+00:10:46.960 --> 00:10:49.630 align:start position:0%
+zadań.  Skonfiguruj go i przypisz mu zadanie, które ma
+działać <00:10:47.360><c>bez </c><00:10:47.760><c>nadzoru.  </c><00:10:48.160><c>Projekt </c><00:10:48.560><c>numer </c><00:10:48.960><c>15, </c><00:10:49.360><c>Quick</c>
+
+00:10:49.630 --> 00:10:49.640 align:start position:0%
+działać bez nadzoru.  Projekt numer 15, Quick
+ 
+
+00:10:49.640 --> 00:10:52.030 align:start position:0%
+działać bez nadzoru.  Projekt numer 15, Quick
+Draw, <00:10:50.266><c>darmowy </c><00:10:50.892><c>nieskończony </c><00:10:51.518><c>zestaw</c>
+
+00:10:52.030 --> 00:10:52.040 align:start position:0%
+Draw, darmowy nieskończony zestaw
+ 
+
+00:10:52.040 --> 00:10:54.910 align:start position:0%
+Draw, darmowy nieskończony zestaw
+SDK <00:10:52.276><c>dla </c><00:10:52.512><c>aplikacji </c><00:10:52.748><c>z </c><00:10:52.984><c>tablicą </c><00:10:53.220><c>typu </c><00:10:53.456><c>canvas.  </c><00:10:53.692><c>Quick </c><00:10:53.928><c>Draw </c><00:10:54.164><c>to </c><00:10:54.400><c>zestaw</c>
+
+00:10:54.910 --> 00:10:54.920 align:start position:0%
+SDK dla aplikacji z tablicą typu canvas.  Quick Draw to zestaw
+ 
+
+00:10:54.920 --> 00:10:57.150 align:start position:0%
+SDK dla aplikacji z tablicą typu canvas.  Quick Draw to zestaw
+SDK <00:10:55.390><c>tablicy, </c><00:10:55.860><c>który </c><00:10:56.330><c>udostępnia </c><00:10:56.800><c>kompletną</c>
+
+00:10:57.150 --> 00:10:57.160 align:start position:0%
+SDK tablicy, który udostępnia kompletną
+ 
+
+00:10:57.160 --> 00:10:59.750 align:start position:0%
+SDK tablicy, który udostępnia kompletną
+powierzchnię <00:10:57.465><c>do </c><00:10:57.770><c>rysowania </c><00:10:58.075><c>w </c><00:10:58.380><c>aplikacjach </c><00:10:58.685><c>React, </c><00:10:58.990><c>React </c><00:10:59.295><c>Native </c><00:10:59.600><c>lub</c>
+
+00:10:59.750 --> 00:10:59.760 align:start position:0%
+powierzchnię do rysowania w aplikacjach React, React Native lub
+ 
+
+00:10:59.760 --> 00:11:02.230 align:start position:0%
+powierzchnię do rysowania w aplikacjach React, React Native lub
+zwykłym <00:11:00.780><c>JavaScript </c><00:11:01.800><c>bez</c>
+
+00:11:02.230 --> 00:11:02.240 align:start position:0%
+zwykłym JavaScript bez
+ 
+
+00:11:02.240 --> 00:11:04.790 align:start position:0%
+zwykłym JavaScript bez
+opłat <00:11:02.426><c>licencyjnych </c><00:11:02.612><c>w </c><00:11:02.798><c>przypadku </c><00:11:02.984><c>użytku </c><00:11:03.170><c>komercyjnego.  </c><00:11:03.356><c>Jest </c><00:11:03.542><c>to </c><00:11:03.728><c>biblioteka, </c><00:11:03.914><c>a</c>
+
+00:11:04.790 --> 00:11:04.800 align:start position:0%
+opłat licencyjnych w przypadku użytku komercyjnego.  Jest to biblioteka, a
+ 
+
+00:11:04.800 --> 00:11:06.829 align:start position:0%
+opłat licencyjnych w przypadku użytku komercyjnego.  Jest to biblioteka, a
+nie <00:11:05.250><c>hostowana </c><00:11:05.700><c>usługa, </c><00:11:06.150><c>więc </c><00:11:06.600><c>działa</c>
+
+00:11:06.829 --> 00:11:06.839 align:start position:0%
+nie hostowana usługa, więc działa
+ 
+
+00:11:06.839 --> 00:11:09.070 align:start position:0%
+nie hostowana usługa, więc działa
+bezpośrednio <00:11:07.399><c>w </c><00:11:07.959><c>aplikacji </c><00:11:08.519><c>programisty</c>
+
+00:11:09.070 --> 00:11:09.080 align:start position:0%
+bezpośrednio w aplikacji programisty
+ 
+
+00:11:09.080 --> 00:11:11.310 align:start position:0%
+bezpośrednio w aplikacji programisty
+i <00:11:09.426><c>przechowuje </c><00:11:09.772><c>swój </c><00:11:10.118><c>dokument </c><00:11:10.464><c>jako </c><00:11:10.810><c>płaską </c><00:11:11.156><c>mapę</c>
+
+00:11:11.310 --> 00:11:11.320 align:start position:0%
+i przechowuje swój dokument jako płaską mapę
+ 
+
+00:11:11.320 --> 00:11:13.430 align:start position:0%
+i przechowuje swój dokument jako płaską mapę
+rekordów, <00:11:11.611><c>a </c><00:11:11.902><c>każda </c><00:11:12.193><c>zmiana </c><00:11:12.484><c>jest </c><00:11:12.775><c>emitowana </c><00:11:13.066><c>jako </c><00:11:13.357><c>plik</c>
+
+00:11:13.430 --> 00:11:13.440 align:start position:0%
+rekordów, a każda zmiana jest emitowana jako plik
+ 
+
+00:11:13.440 --> 00:11:16.190 align:start position:0%
+rekordów, a każda zmiana jest emitowana jako plik
+JSON <00:11:13.880><c>diff </c><00:11:14.320><c>w </c><00:11:14.760><c>celu </c><00:11:15.200><c>synchronizacji </c><00:11:15.640><c>lub </c><00:11:16.080><c>trwałości.</c>
+
+00:11:16.190 --> 00:11:16.200 align:start position:0%
+JSON diff w celu synchronizacji lub trwałości.
+ 
+
+00:11:16.200 --> 00:11:18.590 align:start position:0%
+JSON diff w celu synchronizacji lub trwałości.
+Obejmuje <00:11:16.466><c>on </c><00:11:16.732><c>wrażliwe </c><00:11:16.998><c>na </c><00:11:17.264><c>nacisk </c><00:11:17.530><c>pociągnięcia </c><00:11:17.796><c>piórem,</c>
+
+00:11:18.590 --> 00:11:18.600 align:start position:0%
+Obejmuje on wrażliwe na nacisk pociągnięcia piórem,
+ 
+
+00:11:18.600 --> 00:11:21.430 align:start position:0%
+Obejmuje on wrażliwe na nacisk pociągnięcia piórem,
+kształty, <00:11:19.440><c>strzałki, </c><00:11:20.280><c>notatki </c><00:11:21.120><c>samoprzylepne,</c>
+
+00:11:21.430 --> 00:11:21.440 align:start position:0%
+kształty, strzałki, notatki samoprzylepne,
+ 
+
+00:11:21.440 --> 00:11:23.350 align:start position:0%
+kształty, strzałki, notatki samoprzylepne,
+obsługę <00:11:21.820><c>obrazów </c><00:11:22.200><c>i </c><00:11:22.580><c>nieskończone, </c><00:11:22.960><c>przesuwane</c>
+
+00:11:23.350 --> 00:11:23.360 align:start position:0%
+obsługę obrazów i nieskończone, przesuwane
+ 
+
+00:11:23.360 --> 00:11:25.430 align:start position:0%
+obsługę obrazów i nieskończone, przesuwane
+płótno, <00:11:23.688><c>a </c><00:11:24.016><c>wszystko </c><00:11:24.344><c>to </c><00:11:24.672><c>bez </c><00:11:25.000><c>żadnych</c>
+
+00:11:25.430 --> 00:11:25.440 align:start position:0%
+płótno, a wszystko to bez żadnych
+ 
+
+00:11:25.440 --> 00:11:27.630 align:start position:0%
+płótno, a wszystko to bez żadnych
+zależności <00:11:25.725><c>od </c><00:11:26.010><c>czasu </c><00:11:26.295><c>wykonania.  </c><00:11:26.580><c>Programiści </c><00:11:26.865><c>przynoszą </c><00:11:27.150><c>własne </c><00:11:27.435><c>środki</c>
+
+00:11:27.630 --> 00:11:27.640 align:start position:0%
+zależności od czasu wykonania.  Programiści przynoszą własne środki
+ 
+
+00:11:27.640 --> 00:11:30.070 align:start position:0%
+zależności od czasu wykonania.  Programiści przynoszą własne środki
+transportu, <00:11:27.866><c>aby </c><00:11:28.092><c>umożliwić </c><00:11:28.318><c>współpracę </c><00:11:28.544><c>w </c><00:11:28.770><c>czasie </c><00:11:28.996><c>rzeczywistym,</c>
+
+00:11:30.070 --> 00:11:30.080 align:start position:0%
+transportu, aby umożliwić współpracę w czasie rzeczywistym,
+ 
+
+00:11:30.080 --> 00:11:32.390 align:start position:0%
+transportu, aby umożliwić współpracę w czasie rzeczywistym,
+ponieważ <00:11:30.224><c>pliki </c><00:11:30.368><c>różnicowe </c><00:11:30.512><c>są </c><00:11:30.656><c>gotowe </c><00:11:30.800><c>do </c><00:11:30.944><c>synchronizacji, </c><00:11:31.088><c>ale </c><00:11:31.232><c>w </c><00:11:31.376><c>pakiecie </c><00:11:31.520><c>nie </c><00:11:31.664><c>ma </c><00:11:31.808><c>serwera. </c><00:11:31.952><c>Jest</c>
+
+00:11:32.390 --> 00:11:32.400 align:start position:0%
+ponieważ pliki różnicowe są gotowe do synchronizacji, ale w pakiecie nie ma serwera. Jest
+ 
+
+00:11:32.400 --> 00:11:34.470 align:start position:0%
+ponieważ pliki różnicowe są gotowe do synchronizacji, ale w pakiecie nie ma serwera. Jest
+to <00:11:32.792><c>rozwiązanie </c><00:11:33.184><c>odpowiednie </c><00:11:33.576><c>dla </c><00:11:33.968><c>programistów, </c><00:11:34.360><c>którzy</c>
+
+00:11:34.470 --> 00:11:34.480 align:start position:0%
+to rozwiązanie odpowiednie dla programistów, którzy
+ 
+
+00:11:34.480 --> 00:11:36.550 align:start position:0%
+to rozwiązanie odpowiednie dla programistów, którzy
+chcą <00:11:34.742><c>korzystać </c><00:11:35.004><c>z </c><00:11:35.266><c>funkcji </c><00:11:35.528><c>tablicy </c><00:11:35.790><c>bez </c><00:11:36.052><c>konieczności </c><00:11:36.314><c>płacenia</c>
+
+00:11:36.550 --> 00:11:36.560 align:start position:0%
+chcą korzystać z funkcji tablicy bez konieczności płacenia
+ 
+
+00:11:36.560 --> 00:11:39.270 align:start position:0%
+chcą korzystać z funkcji tablicy bez konieczności płacenia
+opłaty <00:11:37.200><c>licencyjnej.  </c><00:11:37.840><c>Zainstaluj </c><00:11:38.480><c>pakiet </c><00:11:39.120><c>i</c>
+
+00:11:39.270 --> 00:11:39.280 align:start position:0%
+opłaty licencyjnej.  Zainstaluj pakiet i
+ 
+
+00:11:39.280 --> 00:11:41.430 align:start position:0%
+opłaty licencyjnej.  Zainstaluj pakiet i
+przeciągnij <00:11:39.616><c>płytkę </c><00:11:39.952><c>do </c><00:11:40.288><c>swojej </c><00:11:40.624><c>aplikacji.  </c><00:11:40.960><c>Projekt</c>
+
+00:11:41.430 --> 00:11:41.440 align:start position:0%
+przeciągnij płytkę do swojej aplikacji.  Projekt
+ 
+
+00:11:41.440 --> 00:11:45.150 align:start position:0%
+przeciągnij płytkę do swojej aplikacji.  Projekt
+numer <00:11:41.891><c>16, </c><00:11:42.342><c>Minimax </c><00:11:42.793><c>H3, </c><00:11:43.244><c>model </c><00:11:43.695><c>o </c><00:11:44.146><c>otwartej </c><00:11:44.597><c>konstrukcji,</c>
+
+00:11:45.150 --> 00:11:45.160 align:start position:0%
+numer 16, Minimax H3, model o otwartej konstrukcji,
+ 
+
+00:11:45.160 --> 00:11:47.550 align:start position:0%
+numer 16, Minimax H3, model o otwartej konstrukcji,
+generujący <00:11:45.570><c>wideo </c><00:11:45.980><c>z </c><00:11:46.390><c>synchronizowanym </c><00:11:46.800><c>dźwiękiem.</c>
+
+00:11:47.550 --> 00:11:47.560 align:start position:0%
+generujący wideo z synchronizowanym dźwiękiem.
+ 
+
+00:11:47.560 --> 00:11:50.630 align:start position:0%
+generujący wideo z synchronizowanym dźwiękiem.
+Minimax <00:11:48.170><c>H3 </c><00:11:48.780><c>to </c><00:11:49.390><c>otwarty, </c><00:11:50.000><c>omnimodalny</c>
+
+00:11:50.630 --> 00:11:50.640 align:start position:0%
+Minimax H3 to otwarty, omnimodalny
+ 
+
+00:11:50.640 --> 00:11:52.710 align:start position:0%
+Minimax H3 to otwarty, omnimodalny
+model <00:11:51.080><c>generatywny, </c><00:11:51.520><c>który </c><00:11:51.960><c>generuje </c><00:11:52.400><c>wideo</c>
+
+00:11:52.710 --> 00:11:52.720 align:start position:0%
+model generatywny, który generuje wideo
+ 
+
+00:11:52.720 --> 00:11:54.830 align:start position:0%
+model generatywny, który generuje wideo
+wraz <00:11:53.033><c>z </c><00:11:53.346><c>natywnym </c><00:11:53.659><c>dźwiękiem </c><00:11:53.972><c>stereo </c><00:11:54.285><c>na </c><00:11:54.598><c>podstawie</c>
+
+00:11:54.830 --> 00:11:54.840 align:start position:0%
+wraz z natywnym dźwiękiem stereo na podstawie
+ 
+
+00:11:54.840 --> 00:11:57.910 align:start position:0%
+wraz z natywnym dźwiękiem stereo na podstawie
+tekstu, <00:11:55.432><c>obrazów, </c><00:11:56.024><c>wideo </c><00:11:56.616><c>lub </c><00:11:57.208><c>danych </c><00:11:57.800><c>audio.</c>
+
+00:11:57.910 --> 00:11:57.920 align:start position:0%
+tekstu, obrazów, wideo lub danych audio.
+ 
+
+00:11:57.920 --> 00:12:00.550 align:start position:0%
+tekstu, obrazów, wideo lub danych audio.
+Jest <00:11:58.264><c>to </c><00:11:58.608><c>transformator </c><00:11:58.952><c>33 </c><00:11:59.296><c>miliardów </c><00:11:59.640><c>parametrów,</c>
+
+00:12:00.550 --> 00:12:00.560 align:start position:0%
+Jest to transformator 33 miliardów parametrów,
+ 
+
+00:12:00.560 --> 00:12:02.230 align:start position:0%
+Jest to transformator 33 miliardów parametrów,
+który <00:12:00.856><c>koduje </c><00:12:01.152><c>każdą </c><00:12:01.448><c>modalność </c><00:12:01.744><c>przy </c><00:12:02.040><c>użyciu</c>
+
+00:12:02.230 --> 00:12:02.240 align:start position:0%
+który koduje każdą modalność przy użyciu
+ 
+
+00:12:02.240 --> 00:12:04.590 align:start position:0%
+który koduje każdą modalność przy użyciu
+dedykowanych <00:12:02.730><c>enkoderów </c><00:12:03.220><c>i </c><00:12:03.710><c>wspólnie </c><00:12:04.200><c>przewiduje</c>
+
+00:12:04.590 --> 00:12:04.600 align:start position:0%
+dedykowanych enkoderów i wspólnie przewiduje
+ 
+
+00:12:04.600 --> 00:12:07.430 align:start position:0%
+dedykowanych enkoderów i wspólnie przewiduje
+ukryte <00:12:04.897><c>dane </c><00:12:05.194><c>wideo </c><00:12:05.491><c>i </c><00:12:05.788><c>audio </c><00:12:06.085><c>w </c><00:12:06.382><c>jednym </c><00:12:06.679><c>przejściu, </c><00:12:06.976><c>dzięki </c><00:12:07.273><c>czemu</c>
+
+00:12:07.430 --> 00:12:07.440 align:start position:0%
+ukryte dane wideo i audio w jednym przejściu, dzięki czemu
+ 
+
+00:12:07.440 --> 00:12:09.590 align:start position:0%
+ukryte dane wideo i audio w jednym przejściu, dzięki czemu
+dźwięk <00:12:07.820><c>pozostaje </c><00:12:08.200><c>zsynchronizowany </c><00:12:08.580><c>z </c><00:12:08.960><c>ruchem.</c>
+
+00:12:09.590 --> 00:12:09.600 align:start position:0%
+dźwięk pozostaje zsynchronizowany z ruchem.
+ 
+
+00:12:09.600 --> 00:12:11.350 align:start position:0%
+dźwięk pozostaje zsynchronizowany z ruchem.
+Punkty <00:12:09.920><c>kontrolne </c><00:12:10.240><c>wydania </c><00:12:10.560><c>działają </c><00:12:10.880><c>lokalnie</c>
+
+00:12:11.350 --> 00:12:11.360 align:start position:0%
+Punkty kontrolne wydania działają lokalnie
+ 
+
+00:12:11.360 --> 00:12:14.510 align:start position:0%
+Punkty kontrolne wydania działają lokalnie
+poprzez <00:12:11.706><c>takie </c><00:12:12.052><c>struktury </c><00:12:12.398><c>jak </c><00:12:12.744><c>SG </c><00:12:13.090><c>Lang, </c><00:12:13.436><c>VLLM,</c>
+
+00:12:14.510 --> 00:12:14.520 align:start position:0%
+poprzez takie struktury jak SG Lang, VLLM,
+ 
+
+00:12:14.520 --> 00:12:17.270 align:start position:0%
+poprzez takie struktury jak SG Lang, VLLM,
+Diffusers <00:12:14.926><c>czy </c><00:12:15.332><c>ComfyUI, </c><00:12:15.738><c>generując </c><00:12:16.144><c>klipy </c><00:12:16.550><c>o </c><00:12:16.956><c>długości</c>
+
+00:12:17.270 --> 00:12:17.280 align:start position:0%
+Diffusers czy ComfyUI, generując klipy o długości
+ 
+
+00:12:17.280 --> 00:12:19.710 align:start position:0%
+Diffusers czy ComfyUI, generując klipy o długości
+do <00:12:17.744><c>15 </c><00:12:18.208><c>sekund </c><00:12:18.672><c>w </c><00:12:19.136><c>rozdzielczości </c><00:12:19.600><c>do</c>
+
+00:12:19.710 --> 00:12:19.720 align:start position:0%
+do 15 sekund w rozdzielczości do
+ 
+
+00:12:19.720 --> 00:12:21.590 align:start position:0%
+do 15 sekund w rozdzielczości do
+768p
+
+00:12:21.590 --> 00:12:21.600 align:start position:0%
+768p
+ 
+
+00:12:21.600 --> 00:12:23.990 align:start position:0%
+768p
+z <00:12:22.080><c>hostowanym </c><00:12:22.560><c>interfejsem </c><00:12:23.040><c>API </c><00:12:23.520><c>umożliwiającym</c>
+
+00:12:23.990 --> 00:12:24.000 align:start position:0%
+z hostowanym interfejsem API umożliwiającym
+ 
+
+00:12:24.000 --> 00:12:26.350 align:start position:0%
+z hostowanym interfejsem API umożliwiającym
+skalowanie <00:12:24.366><c>do </c><00:12:24.732><c>2K </c><00:12:25.098><c>i </c><00:12:25.464><c>szybkie </c><00:12:25.830><c>wstępne </c><00:12:26.196><c>przetwarzanie.</c>
+
+00:12:26.350 --> 00:12:26.360 align:start position:0%
+skalowanie do 2K i szybkie wstępne przetwarzanie.
+ 
+
+00:12:26.360 --> 00:12:29.030 align:start position:0%
+skalowanie do 2K i szybkie wstępne przetwarzanie.
+Obsługuje <00:12:26.588><c>konwersję </c><00:12:26.816><c>tekstu </c><00:12:27.044><c>na </c><00:12:27.272><c>wideo, </c><00:12:27.500><c>obrazu </c><00:12:27.728><c>na </c><00:12:27.956><c>wideo</c>
+
+00:12:29.030 --> 00:12:29.040 align:start position:0%
+Obsługuje konwersję tekstu na wideo, obrazu na wideo
+ 
+
+00:12:29.040 --> 00:12:31.230 align:start position:0%
+Obsługuje konwersję tekstu na wideo, obrazu na wideo
+i <00:12:29.440><c>generowanie </c><00:12:29.840><c>wielu </c><00:12:30.240><c>odniesień </c><00:12:30.640><c>na </c><00:12:31.040><c>podstawie</c>
+
+00:12:31.230 --> 00:12:31.240 align:start position:0%
+i generowanie wielu odniesień na podstawie
+ 
+
+00:12:31.240 --> 00:12:33.910 align:start position:0%
+i generowanie wielu odniesień na podstawie
+obrazów, <00:12:31.588><c>klipów </c><00:12:31.936><c>wideo </c><00:12:32.284><c>lub </c><00:12:32.632><c>dźwięku.  </c><00:12:32.980><c>Rozwiązanie </c><00:12:33.328><c>to </c><00:12:33.676><c>jest</c>
+
+00:12:33.910 --> 00:12:33.920 align:start position:0%
+obrazów, klipów wideo lub dźwięku.  Rozwiązanie to jest
+ 
+
+00:12:33.920 --> 00:12:35.510 align:start position:0%
+obrazów, klipów wideo lub dźwięku.  Rozwiązanie to jest
+odpowiednie <00:12:34.346><c>dla </c><00:12:34.772><c>programistów </c><00:12:35.198><c>tworzących</c>
+
+00:12:35.510 --> 00:12:35.520 align:start position:0%
+odpowiednie dla programistów tworzących
+ 
+
+00:12:35.520 --> 00:12:37.950 align:start position:0%
+odpowiednie dla programistów tworzących
+narzędzia <00:12:35.693><c>do </c><00:12:35.866><c>generowania </c><00:12:36.039><c>filmów, </c><00:12:36.212><c>którzy </c><00:12:36.385><c>chcą </c><00:12:36.558><c>korzystać </c><00:12:36.731><c>z </c><00:12:36.904><c>otwartego </c><00:12:37.077><c>modelu, </c><00:12:37.250><c>który </c><00:12:37.423><c>będą </c><00:12:37.596><c>mogli</c>
+
+00:12:37.950 --> 00:12:37.960 align:start position:0%
+narzędzia do generowania filmów, którzy chcą korzystać z otwartego modelu, który będą mogli
+ 
+
+00:12:37.960 --> 00:12:40.470 align:start position:0%
+narzędzia do generowania filmów, którzy chcą korzystać z otwartego modelu, który będą mogli
+sami <00:12:38.490><c>uruchamiać </c><00:12:39.020><c>i </c><00:12:39.550><c>dostrajać.  </c><00:12:40.080><c>Pobierz</c>
+
+00:12:40.470 --> 00:12:40.480 align:start position:0%
+sami uruchamiać i dostrajać.  Pobierz
+ 
+
+00:12:40.480 --> 00:12:41.990 align:start position:0%
+sami uruchamiać i dostrajać.  Pobierz
+punkty <00:12:40.760><c>kontrolne </c><00:12:41.040><c>i </c><00:12:41.320><c>wypróbuj </c><00:12:41.600><c>je </c><00:12:41.880><c>w</c>
+
+00:12:41.990 --> 00:12:42.000 align:start position:0%
+punkty kontrolne i wypróbuj je w
+ 
+
+00:12:42.000 --> 00:12:44.110 align:start position:0%
+punkty kontrolne i wypróbuj je w
+preferowanym <00:12:42.560><c>systemie </c><00:12:43.120><c>wnioskowania.  </c><00:12:43.680><c>Projekt</c>
+
+00:12:44.110 --> 00:12:44.120 align:start position:0%
+preferowanym systemie wnioskowania.  Projekt
+ 
+
+00:12:44.120 --> 00:12:47.070 align:start position:0%
+preferowanym systemie wnioskowania.  Projekt
+numer <00:12:44.933><c>17, </c><00:12:45.746><c>Gemma </c><00:12:46.559><c>Translator,</c>
+
+00:12:47.070 --> 00:12:47.080 align:start position:0%
+numer 17, Gemma Translator,
+ 
+
+00:12:47.080 --> 00:12:49.070 align:start position:0%
+numer 17, Gemma Translator,
+tłumacz <00:12:47.297><c>głosowy </c><00:12:47.514><c>działający </c><00:12:47.731><c>w </c><00:12:47.948><c>trybie </c><00:12:48.165><c>offline, </c><00:12:48.382><c>przeznaczony </c><00:12:48.599><c>do</c>
+
+00:12:49.070 --> 00:12:49.080 align:start position:0%
+tłumacz głosowy działający w trybie offline, przeznaczony do
+ 
+
+00:12:49.080 --> 00:12:51.630 align:start position:0%
+tłumacz głosowy działający w trybie offline, przeznaczony do
+kiosku <00:12:49.700><c>dwuosobowego.  </c><00:12:50.320><c>Gemma </c><00:12:50.940><c>Translator </c><00:12:51.560><c>to</c>
+
+00:12:51.630 --> 00:12:51.640 align:start position:0%
+kiosku dwuosobowego.  Gemma Translator to
+ 
+
+00:12:51.640 --> 00:12:53.470 align:start position:0%
+kiosku dwuosobowego.  Gemma Translator to
+w <00:12:51.846><c>pełni </c><00:12:52.052><c>offline’owe </c><00:12:52.258><c>urządzenie </c><00:12:52.464><c>do </c><00:12:52.670><c>tłumaczenia </c><00:12:52.876><c>mowy,</c>
+
+00:12:53.470 --> 00:12:53.480 align:start position:0%
+w pełni offline’owe urządzenie do tłumaczenia mowy,
+ 
+
+00:12:53.480 --> 00:12:55.790 align:start position:0%
+w pełni offline’owe urządzenie do tłumaczenia mowy,
+działające <00:12:54.146><c>wyłącznie </c><00:12:54.812><c>na </c><00:12:55.478><c>lokalnym</c>
+
+00:12:55.790 --> 00:12:55.800 align:start position:0%
+działające wyłącznie na lokalnym
+ 
+
+00:12:55.800 --> 00:12:58.070 align:start position:0%
+działające wyłącznie na lokalnym
+sprzęcie, <00:12:56.340><c>takim </c><00:12:56.880><c>jak </c><00:12:57.420><c>Raspberry </c><00:12:57.960><c>Pi.</c>
+
+00:12:58.070 --> 00:12:58.080 align:start position:0%
+sprzęcie, takim jak Raspberry Pi.
+ 
+
+00:12:58.080 --> 00:13:00.270 align:start position:0%
+sprzęcie, takim jak Raspberry Pi.
+Łączy <00:12:58.400><c>w </c><00:12:58.720><c>sobie </c><00:12:59.040><c>lżejszy </c><00:12:59.360><c>TLM </c><00:12:59.680><c>działający </c><00:13:00.000><c>w</c>
+
+00:13:00.270 --> 00:13:00.280 align:start position:0%
+Łączy w sobie lżejszy TLM działający w
+ 
+
+00:13:00.280 --> 00:13:02.910 align:start position:0%
+Łączy w sobie lżejszy TLM działający w
+modelu <00:13:00.590><c>Gemma, </c><00:13:00.900><c>Moonshine </c><00:13:01.210><c>do </c><00:13:01.520><c>zamiany </c><00:13:01.830><c>mowy </c><00:13:02.140><c>na </c><00:13:02.450><c>tekst </c><00:13:02.760><c>i</c>
+
+00:13:02.910 --> 00:13:02.920 align:start position:0%
+modelu Gemma, Moonshine do zamiany mowy na tekst i
+ 
+
+00:13:02.920 --> 00:13:05.750 align:start position:0%
+modelu Gemma, Moonshine do zamiany mowy na tekst i
+tekstu <00:13:03.260><c>na </c><00:13:03.600><c>mowę, </c><00:13:03.940><c>serwer </c><00:13:04.280><c>API </c><00:13:04.620><c>w </c><00:13:04.960><c>języku </c><00:13:05.300><c>Python </c><00:13:05.640><c>oraz</c>
+
+00:13:05.750 --> 00:13:05.760 align:start position:0%
+tekstu na mowę, serwer API w języku Python oraz
+ 
+
+00:13:05.760 --> 00:13:08.110 align:start position:0%
+tekstu na mowę, serwer API w języku Python oraz
+front-end <00:13:06.220><c>React </c><00:13:06.680><c>stworzony </c><00:13:07.140><c>dla </c><00:13:07.600><c>małych</c>
+
+00:13:08.110 --> 00:13:08.120 align:start position:0%
+front-end React stworzony dla małych
+ 
+
+00:13:08.120 --> 00:13:10.390 align:start position:0%
+front-end React stworzony dla małych
+ekranów <00:13:08.453><c>kiosków.  </c><00:13:08.786><c>Dwie </c><00:13:09.119><c>osoby </c><00:13:09.452><c>stojące </c><00:13:09.785><c>naprzeciwko </c><00:13:10.118><c>siebie</c>
+
+00:13:10.390 --> 00:13:10.400 align:start position:0%
+ekranów kiosków.  Dwie osoby stojące naprzeciwko siebie
+ 
+
+00:13:10.400 --> 00:13:12.310 align:start position:0%
+ekranów kiosków.  Dwie osoby stojące naprzeciwko siebie
+mają <00:13:10.704><c>do </c><00:13:11.008><c>dyspozycji </c><00:13:11.312><c>tor </c><00:13:11.616><c>z </c><00:13:11.920><c>obrotowym</c>
+
+00:13:12.310 --> 00:13:12.320 align:start position:0%
+mają do dyspozycji tor z obrotowym
+ 
+
+00:13:12.320 --> 00:13:14.910 align:start position:0%
+mają do dyspozycji tor z obrotowym
+wybierakiem <00:13:12.633><c>języka.  </c><00:13:12.946><c>Naciśnięcie </c><00:13:13.259><c>klawisza </c><00:13:13.572><c>powoduje </c><00:13:13.885><c>nagranie </c><00:13:14.198><c>wypowiedzi,</c>
+
+00:13:14.910 --> 00:13:14.920 align:start position:0%
+wybierakiem języka.  Naciśnięcie klawisza powoduje nagranie wypowiedzi,
+ 
+
+00:13:14.920 --> 00:13:17.230 align:start position:0%
+wybierakiem języka.  Naciśnięcie klawisza powoduje nagranie wypowiedzi,
+która <00:13:15.450><c>jest </c><00:13:15.980><c>transkrybowana, </c><00:13:16.510><c>tłumaczona </c><00:13:17.040><c>i</c>
+
+00:13:17.230 --> 00:13:17.240 align:start position:0%
+która jest transkrybowana, tłumaczona i
+ 
+
+00:13:17.240 --> 00:13:18.829 align:start position:0%
+która jest transkrybowana, tłumaczona i
+odczytywana <00:13:17.472><c>w </c><00:13:17.704><c>języku </c><00:13:17.936><c>drugiej </c><00:13:18.168><c>osoby </c><00:13:18.400><c>—</c>
+
+00:13:18.829 --> 00:13:18.839 align:start position:0%
+odczytywana w języku drugiej osoby —
+ 
+
+00:13:18.839 --> 00:13:20.590 align:start position:0%
+odczytywana w języku drugiej osoby —
+wszystko <00:13:19.306><c>to </c><00:13:19.773><c>bez </c><00:13:20.240><c>konieczności</c>
+
+00:13:20.590 --> 00:13:20.600 align:start position:0%
+wszystko to bez konieczności
+ 
+
+00:13:20.600 --> 00:13:22.870 align:start position:0%
+wszystko to bez konieczności
+połączenia <00:13:20.906><c>z </c><00:13:21.212><c>Internetem.  </c><00:13:21.518><c>W </c><00:13:21.824><c>zestawie </c><00:13:22.130><c>znajdują </c><00:13:22.436><c>się</c>
+
+00:13:22.870 --> 00:13:22.880 align:start position:0%
+połączenia z Internetem.  W zestawie znajdują się
+ 
+
+00:13:22.880 --> 00:13:25.310 align:start position:0%
+połączenia z Internetem.  W zestawie znajdują się
+pliki <00:13:23.043><c>obudowy </c><00:13:23.206><c>do </c><00:13:23.369><c>druku </c><00:13:23.532><c>3D </c><00:13:23.695><c>oraz </c><00:13:23.858><c>skrypt </c><00:13:24.021><c>wdrożeniowy </c><00:13:24.184><c>Raspberry </c><00:13:24.347><c>Pi </c><00:13:24.510><c>wymagający </c><00:13:24.673><c>jednego </c><00:13:24.836><c>polecenia</c>
+
+00:13:25.310 --> 00:13:25.320 align:start position:0%
+pliki obudowy do druku 3D oraz skrypt wdrożeniowy Raspberry Pi wymagający jednego polecenia
+ 
+
+00:13:25.320 --> 00:13:27.190 align:start position:0%
+pliki obudowy do druku 3D oraz skrypt wdrożeniowy Raspberry Pi wymagający jednego polecenia
+.  <00:13:25.632><c>Rozwiązanie </c><00:13:25.944><c>to </c><00:13:26.256><c>jest </c><00:13:26.568><c>przydatne </c><00:13:26.880><c>dla</c>
+
+00:13:27.190 --> 00:13:27.200 align:start position:0%
+.  Rozwiązanie to jest przydatne dla
+ 
+
+00:13:27.200 --> 00:13:29.070 align:start position:0%
+.  Rozwiązanie to jest przydatne dla
+konstruktorów <00:13:27.840><c>tworzących </c><00:13:28.480><c>fizyczne</c>
+
+00:13:29.070 --> 00:13:29.080 align:start position:0%
+konstruktorów tworzących fizyczne
+ 
+
+00:13:29.080 --> 00:13:31.670 align:start position:0%
+konstruktorów tworzących fizyczne
+urządzenia <00:13:29.255><c>do </c><00:13:29.430><c>tłumaczeń </c><00:13:29.605><c>na </c><00:13:29.780><c>potrzeby </c><00:13:29.955><c>rozmów </c><00:13:30.130><c>twarzą </c><00:13:30.305><c>w </c><00:13:30.480><c>twarz.</c>
+
+00:13:31.670 --> 00:13:31.680 align:start position:0%
+urządzenia do tłumaczeń na potrzeby rozmów twarzą w twarz.
+ 
+
+00:13:31.680 --> 00:13:33.910 align:start position:0%
+urządzenia do tłumaczeń na potrzeby rozmów twarzą w twarz.
+Skonfiguruj <00:13:32.006><c>go </c><00:13:32.332><c>na </c><00:13:32.658><c>Raspberry </c><00:13:32.984><c>Pi </c><00:13:33.310><c>i </c><00:13:33.636><c>rozpocznij</c>
+
+00:13:33.910 --> 00:13:33.920 align:start position:0%
+Skonfiguruj go na Raspberry Pi i rozpocznij
+ 
+
+00:13:33.920 --> 00:13:36.230 align:start position:0%
+Skonfiguruj go na Raspberry Pi i rozpocznij
+tłumaczenie <00:13:34.296><c>z </c><00:13:34.672><c>urządzenia </c><00:13:35.048><c>na </c><00:13:35.424><c>urządzenie.  </c><00:13:35.800><c>Projekt</c>
+
+00:13:36.230 --> 00:13:36.240 align:start position:0%
+tłumaczenie z urządzenia na urządzenie.  Projekt
+ 
+
+00:13:36.240 --> 00:13:39.270 align:start position:0%
+tłumaczenie z urządzenia na urządzenie.  Projekt
+numer <00:13:36.768><c>18, </c><00:13:37.296><c>Auteur, </c><00:13:37.824><c>umiejętność </c><00:13:38.352><c>kodowania </c><00:13:38.880><c>Claude'a,</c>
+
+00:13:39.270 --> 00:13:39.280 align:start position:0%
+numer 18, Auteur, umiejętność kodowania Claude'a,
+ 
+
+00:13:39.280 --> 00:13:41.790 align:start position:0%
+numer 18, Auteur, umiejętność kodowania Claude'a,
+która <00:13:39.497><c>zajmuje </c><00:13:39.714><c>się </c><00:13:39.931><c>reżyserią </c><00:13:40.148><c>stron </c><00:13:40.365><c>internetowych </c><00:13:40.582><c>o </c><00:13:40.799><c>tematyce </c><00:13:41.016><c>filmowej.  </c><00:13:41.233><c>Auteur</c>
+
+00:13:41.790 --> 00:13:41.800 align:start position:0%
+która zajmuje się reżyserią stron internetowych o tematyce filmowej.  Auteur
+ 
+
+00:13:41.800 --> 00:13:44.110 align:start position:0%
+która zajmuje się reżyserią stron internetowych o tematyce filmowej.  Auteur
+to <00:13:42.108><c>umiejętność </c><00:13:42.416><c>agenta </c><00:13:42.724><c>w </c><00:13:43.032><c>zakresie </c><00:13:43.340><c>kodowania </c><00:13:43.648><c>Claude'a, </c><00:13:43.956><c>która</c>
+
+00:13:44.110 --> 00:13:44.120 align:start position:0%
+to umiejętność agenta w zakresie kodowania Claude'a, która
+ 
+
+00:13:44.120 --> 00:13:45.990 align:start position:0%
+to umiejętność agenta w zakresie kodowania Claude'a, która
+prowadzi <00:13:44.456><c>agenta </c><00:13:44.792><c>kodującego </c><00:13:45.128><c>AI </c><00:13:45.464><c>przez </c><00:13:45.800><c>proces</c>
+
+00:13:45.990 --> 00:13:46.000 align:start position:0%
+prowadzi agenta kodującego AI przez proces
+ 
+
+00:13:46.000 --> 00:13:47.670 align:start position:0%
+prowadzi agenta kodującego AI przez proces
+tworzenia <00:13:46.170><c>witryny </c><00:13:46.340><c>internetowej </c><00:13:46.510><c>w </c><00:13:46.680><c>taki </c><00:13:46.850><c>sam </c><00:13:47.020><c>sposób, </c><00:13:47.190><c>w </c><00:13:47.360><c>jaki</c>
+
+00:13:47.670 --> 00:13:47.680 align:start position:0%
+tworzenia witryny internetowej w taki sam sposób, w jaki
+ 
+
+00:13:47.680 --> 00:13:49.510 align:start position:0%
+tworzenia witryny internetowej w taki sam sposób, w jaki
+reżyser <00:13:48.160><c>planuje </c><00:13:48.640><c>zdjęcia.  </c><00:13:49.120><c>Przeszukuje</c>
+
+00:13:49.510 --> 00:13:49.520 align:start position:0%
+reżyser planuje zdjęcia.  Przeszukuje
+ 
+
+00:13:49.520 --> 00:13:51.590 align:start position:0%
+reżyser planuje zdjęcia.  Przeszukuje
+nagradzane <00:13:49.824><c>witryny </c><00:13:50.128><c>w </c><00:13:50.432><c>poszukiwaniu </c><00:13:50.736><c>prawdziwych </c><00:13:51.040><c>czcionek,</c>
+
+00:13:51.590 --> 00:13:51.600 align:start position:0%
+nagradzane witryny w poszukiwaniu prawdziwych czcionek,
+ 
+
+00:13:51.600 --> 00:13:53.750 align:start position:0%
+nagradzane witryny w poszukiwaniu prawdziwych czcionek,
+palet <00:13:52.016><c>i </c><00:13:52.432><c>budżetów </c><00:13:52.848><c>na </c><00:13:53.264><c>ruch, </c><00:13:53.680><c>blokuje</c>
+
+00:13:53.750 --> 00:13:53.760 align:start position:0%
+palet i budżetów na ruch, blokuje
+ 
+
+00:13:53.760 --> 00:13:55.550 align:start position:0%
+palet i budżetów na ruch, blokuje
+pojedynczy <00:13:54.253><c>kierunek </c><00:13:54.746><c>artystyczny </c><00:13:55.239><c>w</c>
+
+00:13:55.550 --> 00:13:55.560 align:start position:0%
+pojedynczy kierunek artystyczny w
+ 
+
+00:13:55.560 --> 00:13:57.710 align:start position:0%
+pojedynczy kierunek artystyczny w
+arkuszu <00:13:55.826><c>zatwierdzenia </c><00:13:56.092><c>przed </c><00:13:56.358><c>napisaniem </c><00:13:56.624><c>jakiegokolwiek </c><00:13:56.890><c>kodu, </c><00:13:57.156><c>a</c>
+
+00:13:57.710 --> 00:13:57.720 align:start position:0%
+arkuszu zatwierdzenia przed napisaniem jakiegokolwiek kodu, a
+ 
+
+00:13:57.720 --> 00:13:59.830 align:start position:0%
+arkuszu zatwierdzenia przed napisaniem jakiegokolwiek kodu, a
+następnie <00:13:58.040><c>generuje </c><00:13:58.360><c>obrazy </c><00:13:58.680><c>i </c><00:13:59.000><c>geometrię</c>
+
+00:13:59.830 --> 00:13:59.840 align:start position:0%
+następnie generuje obrazy i geometrię
+ 
+
+00:13:59.840 --> 00:14:02.430 align:start position:0%
+następnie generuje obrazy i geometrię
+za <00:14:00.097><c>pomocą </c><00:14:00.354><c>lokalnych </c><00:14:00.611><c>interfejsów </c><00:14:00.868><c>wiersza </c><00:14:01.125><c>poleceń, </c><00:14:01.382><c>takich </c><00:14:01.639><c>jak </c><00:14:01.896><c>Blender </c><00:14:02.153><c>lub</c>
+
+00:14:02.430 --> 00:14:02.440 align:start position:0%
+za pomocą lokalnych interfejsów wiersza poleceń, takich jak Blender lub
+ 
+
+00:14:02.440 --> 00:14:04.750 align:start position:0%
+za pomocą lokalnych interfejsów wiersza poleceń, takich jak Blender lub
+narzędzia <00:14:02.780><c>do </c><00:14:03.120><c>generowania </c><00:14:03.460><c>obrazów.  </c><00:14:03.800><c>Kompilacja </c><00:14:04.140><c>wykorzystuje </c><00:14:04.480><c>jeden</c>
+
+00:14:04.750 --> 00:14:04.760 align:start position:0%
+narzędzia do generowania obrazów.  Kompilacja wykorzystuje jeden
+ 
+
+00:14:04.760 --> 00:14:07.670 align:start position:0%
+narzędzia do generowania obrazów.  Kompilacja wykorzystuje jeden
+kontekst <00:14:05.184><c>WebGL </c><00:14:05.608><c>z </c><00:14:06.032><c>ruchem </c><00:14:06.456><c>sterowanym </c><00:14:06.880><c>przewijaniem</c>
+
+00:14:07.670 --> 00:14:07.680 align:start position:0%
+kontekst WebGL z ruchem sterowanym przewijaniem
+ 
+
+00:14:07.680 --> 00:14:09.470 align:start position:0%
+kontekst WebGL z ruchem sterowanym przewijaniem
+i <00:14:07.895><c>nic </c><00:14:08.110><c>nie </c><00:14:08.325><c>jest </c><00:14:08.540><c>dostarczane, </c><00:14:08.755><c>dopóki </c><00:14:08.970><c>nie </c><00:14:09.185><c>przejdzie </c><00:14:09.400><c>testu</c>
+
+00:14:09.470 --> 00:14:09.480 align:start position:0%
+i nic nie jest dostarczane, dopóki nie przejdzie testu
+ 
+
+00:14:09.480 --> 00:14:11.870 align:start position:0%
+i nic nie jest dostarczane, dopóki nie przejdzie testu
+linter <00:14:09.960><c>o </c><00:14:10.440><c>zerowej </c><00:14:10.920><c>zależności </c><00:14:11.400><c>i</c>
+
+00:14:11.870 --> 00:14:11.880 align:start position:0%
+linter o zerowej zależności i
+ 
+
+00:14:11.880 --> 00:14:14.470 align:start position:0%
+linter o zerowej zależności i
+testu <00:14:12.193><c>ruchu </c><00:14:12.506><c>Playwright, </c><00:14:12.819><c>który </c><00:14:13.132><c>wychwytuje </c><00:14:13.445><c>pominięte </c><00:14:13.758><c>klatki,</c>
+
+00:14:14.470 --> 00:14:14.480 align:start position:0%
+testu ruchu Playwright, który wychwytuje pominięte klatki,
+ 
+
+00:14:14.480 --> 00:14:16.790 align:start position:0%
+testu ruchu Playwright, który wychwytuje pominięte klatki,
+ogólne <00:14:14.870><c>gradienty </c><00:14:15.260><c>sztucznej </c><00:14:15.650><c>inteligencji </c><00:14:16.040><c>i</c>
+
+00:14:16.790 --> 00:14:16.800 align:start position:0%
+ogólne gradienty sztucznej inteligencji i
+ 
+
+00:14:16.800 --> 00:14:18.950 align:start position:0%
+ogólne gradienty sztucznej inteligencji i
+luki <00:14:17.085><c>w </c><00:14:17.370><c>dostępności.  </c><00:14:17.655><c>Działa </c><00:14:17.940><c>z </c><00:14:18.225><c>kodem </c><00:14:18.510><c>Claude </c><00:14:18.795><c>i</c>
+
+00:14:18.950 --> 00:14:18.960 align:start position:0%
+luki w dostępności.  Działa z kodem Claude i
+ 
+
+00:14:18.960 --> 00:14:21.590 align:start position:0%
+luki w dostępności.  Działa z kodem Claude i
+innymi <00:14:19.368><c>agentami </c><00:14:19.776><c>odczytującymi </c><00:14:20.184><c>plik </c><00:14:20.592><c>skill.md.   </c><00:14:21.000><c>Rozwiązanie</c>
+
+00:14:21.590 --> 00:14:21.600 align:start position:0%
+innymi agentami odczytującymi plik skill.md.   Rozwiązanie
+ 
+
+00:14:21.600 --> 00:14:23.350 align:start position:0%
+innymi agentami odczytującymi plik skill.md.   Rozwiązanie
+to <00:14:21.790><c>jest </c><00:14:21.980><c>odpowiednie </c><00:14:22.170><c>dla </c><00:14:22.360><c>deweloperów, </c><00:14:22.550><c>którzy </c><00:14:22.740><c>chcą, </c><00:14:22.930><c>aby </c><00:14:23.120><c>ich</c>
+
+00:14:23.350 --> 00:14:23.360 align:start position:0%
+to jest odpowiednie dla deweloperów, którzy chcą, aby ich
+ 
+
+00:14:23.360 --> 00:14:25.390 align:start position:0%
+to jest odpowiednie dla deweloperów, którzy chcą, aby ich
+witryny <00:14:23.633><c>tworzone </c><00:14:23.906><c>przy </c><00:14:24.179><c>pomocy </c><00:14:24.452><c>sztucznej </c><00:14:24.725><c>inteligencji </c><00:14:24.998><c>unikały</c>
+
+00:14:25.390 --> 00:14:25.400 align:start position:0%
+witryny tworzone przy pomocy sztucznej inteligencji unikały
+ 
+
+00:14:25.400 --> 00:14:27.950 align:start position:0%
+witryny tworzone przy pomocy sztucznej inteligencji unikały
+szablonowego <00:14:25.880><c>projektowania.  </c><00:14:26.360><c>Zainstaluj </c><00:14:26.840><c>tę </c><00:14:27.320><c>umiejętność </c><00:14:27.800><c>i</c>
+
+00:14:27.950 --> 00:14:27.960 align:start position:0%
+szablonowego projektowania.  Zainstaluj tę umiejętność i
+ 
+
+00:14:27.960 --> 00:14:29.790 align:start position:0%
+szablonowego projektowania.  Zainstaluj tę umiejętność i
+poproś <00:14:28.270><c>swojego </c><00:14:28.580><c>agenta </c><00:14:28.890><c>o </c><00:14:29.200><c>stworzenie</c>
+
+00:14:29.790 --> 00:14:29.800 align:start position:0%
+poproś swojego agenta o stworzenie
+ 
+
+00:14:29.800 --> 00:14:32.350 align:start position:0%
+poproś swojego agenta o stworzenie
+za <00:14:30.020><c>jej </c><00:14:30.240><c>pomocą </c><00:14:30.460><c>kinowej </c><00:14:30.680><c>strony </c><00:14:30.900><c>docelowej.  </c><00:14:31.120><c>Projekt </c><00:14:31.340><c>numer </c><00:14:31.560><c>19,</c>
+
+00:14:32.350 --> 00:14:32.360 align:start position:0%
+za jej pomocą kinowej strony docelowej.  Projekt numer 19,
+ 
+
+00:14:32.360 --> 00:14:34.870 align:start position:0%
+za jej pomocą kinowej strony docelowej.  Projekt numer 19,
+Malana <00:14:32.816><c>Codex </c><00:14:33.272><c>Router.  </c><00:14:33.728><c>Umożliwia </c><00:14:34.184><c>Codexowi </c><00:14:34.640><c>używanie</c>
+
+00:14:34.870 --> 00:14:34.880 align:start position:0%
+Malana Codex Router.  Umożliwia Codexowi używanie
+ 
+
+00:14:34.880 --> 00:14:37.030 align:start position:0%
+Malana Codex Router.  Umożliwia Codexowi używanie
+modeli <00:14:35.184><c>Kimiko </c><00:14:35.488><c>i </c><00:14:35.792><c>DeepSeek </c><00:14:36.096><c>wraz </c><00:14:36.400><c>z</c>
+
+00:14:37.030 --> 00:14:37.040 align:start position:0%
+modeli Kimiko i DeepSeek wraz z
+ 
+
+00:14:37.040 --> 00:14:40.150 align:start position:0%
+modeli Kimiko i DeepSeek wraz z
+GPT.  <00:14:37.468><c>Codex </c><00:14:37.896><c>Router </c><00:14:38.324><c>to </c><00:14:38.752><c>lokalny </c><00:14:39.180><c>serwer </c><00:14:39.608><c>proxy, </c><00:14:40.036><c>który</c>
+
+00:14:40.150 --> 00:14:40.160 align:start position:0%
+GPT.  Codex Router to lokalny serwer proxy, który
+ 
+
+00:14:40.160 --> 00:14:42.470 align:start position:0%
+GPT.  Codex Router to lokalny serwer proxy, który
+umożliwia <00:14:40.552><c>standardowemu </c><00:14:40.944><c>selektorowi </c><00:14:41.336><c>modeli </c><00:14:41.728><c>Codex </c><00:14:42.120><c>oferowanie</c>
+
+00:14:42.470 --> 00:14:42.480 align:start position:0%
+umożliwia standardowemu selektorowi modeli Codex oferowanie
+ 
+
+00:14:42.480 --> 00:14:44.310 align:start position:0%
+umożliwia standardowemu selektorowi modeli Codex oferowanie
+modeli <00:14:42.860><c>Kimiko </c><00:14:43.240><c>i </c><00:14:43.620><c>DeepSeek </c><00:14:44.000><c>bez</c>
+
+00:14:44.310 --> 00:14:44.320 align:start position:0%
+modeli Kimiko i DeepSeek bez
+ 
+
+00:14:44.320 --> 00:14:46.590 align:start position:0%
+modeli Kimiko i DeepSeek bez
+zakłócania <00:14:44.870><c>natywnych </c><00:14:45.420><c>modeli </c><00:14:45.970><c>GPT </c><00:14:46.520><c>lub</c>
+
+00:14:46.590 --> 00:14:46.600 align:start position:0%
+zakłócania natywnych modeli GPT lub
+ 
+
+00:14:46.600 --> 00:14:49.230 align:start position:0%
+zakłócania natywnych modeli GPT lub
+istniejącego <00:14:47.250><c>logowania </c><00:14:47.900><c>ChatGPT.  </c><00:14:48.550><c>Działa </c><00:14:49.200><c>jako</c>
+
+00:14:49.230 --> 00:14:49.240 align:start position:0%
+istniejącego logowania ChatGPT.  Działa jako
+ 
+
+00:14:49.240 --> 00:14:51.430 align:start position:0%
+istniejącego logowania ChatGPT.  Działa jako
+usługa <00:14:49.480><c>w </c><00:14:49.720><c>tle </c><00:14:49.960><c>na </c><00:14:50.200><c>komputerze </c><00:14:50.440><c>lokalnym,</c>
+
+00:14:51.430 --> 00:14:51.440 align:start position:0%
+usługa w tle na komputerze lokalnym,
+ 
+
+00:14:51.440 --> 00:14:53.510 align:start position:0%
+usługa w tle na komputerze lokalnym,
+tłumacząc <00:14:51.946><c>żądania </c><00:14:52.452><c>między </c><00:14:52.958><c>interfejsem</c>
+
+00:14:53.510 --> 00:14:53.520 align:start position:0%
+tłumacząc żądania między interfejsem
+ 
+
+00:14:53.520 --> 00:14:55.990 align:start position:0%
+tłumacząc żądania między interfejsem
+API <00:14:54.160><c>odpowiedzi </c><00:14:54.800><c>Codex </c><00:14:55.440><c>a</c>
+
+00:14:55.990 --> 00:14:56.000 align:start position:0%
+API odpowiedzi Codex a
+ 
+
+00:14:56.000 --> 00:14:58.590 align:start position:0%
+API odpowiedzi Codex a
+interfejsami <00:14:56.210><c>API </c><00:14:56.420><c>uzupełniania </c><00:14:56.630><c>rozmów </c><00:14:56.840><c>udostępnianymi </c><00:14:57.050><c>przez </c><00:14:57.260><c>Kimiko </c><00:14:57.470><c>i </c><00:14:57.680><c>DeepSeek.</c>
+
+00:14:58.590 --> 00:14:58.600 align:start position:0%
+interfejsami API uzupełniania rozmów udostępnianymi przez Kimiko i DeepSeek.
+ 
+
+00:14:58.600 --> 00:15:00.829 align:start position:0%
+interfejsami API uzupełniania rozmów udostępnianymi przez Kimiko i DeepSeek.
+Dzięki <00:14:58.840><c>temu </c><00:14:59.080><c>wywołania </c><00:14:59.320><c>narzędzi </c><00:14:59.560><c>do </c><00:14:59.800><c>strumieniowania </c><00:15:00.040><c>i </c><00:15:00.280><c>kompresji</c>
+
+00:15:00.829 --> 00:15:00.839 align:start position:0%
+Dzięki temu wywołania narzędzi do strumieniowania i kompresji
+ 
+
+00:15:00.839 --> 00:15:03.510 align:start position:0%
+Dzięki temu wywołania narzędzi do strumieniowania i kompresji
+ruchu <00:15:01.089><c>działają </c><00:15:01.339><c>prawidłowo.  </c><00:15:01.589><c>Instalacja </c><00:15:01.839><c>odbywa </c><00:15:02.089><c>się </c><00:15:02.339><c>za </c><00:15:02.589><c>pomocą </c><00:15:02.839><c>przewodnika,</c>
+
+00:15:03.510 --> 00:15:03.520 align:start position:0%
+ruchu działają prawidłowo.  Instalacja odbywa się za pomocą przewodnika,
+ 
+
+00:15:03.520 --> 00:15:05.630 align:start position:0%
+ruchu działają prawidłowo.  Instalacja odbywa się za pomocą przewodnika,
+wykrywa <00:15:04.030><c>istniejące </c><00:15:04.540><c>dane </c><00:15:05.050><c>uwierzytelniające, </c><00:15:05.560><c>tworzy</c>
+
+00:15:05.630 --> 00:15:05.640 align:start position:0%
+wykrywa istniejące dane uwierzytelniające, tworzy
+ 
+
+00:15:05.640 --> 00:15:07.390 align:start position:0%
+wykrywa istniejące dane uwierzytelniające, tworzy
+migawkę <00:15:05.990><c>przywracającą </c><00:15:06.340><c>konfigurację </c><00:15:06.690><c>przed </c><00:15:07.040><c>jej</c>
+
+00:15:07.390 --> 00:15:07.400 align:start position:0%
+migawkę przywracającą konfigurację przed jej
+ 
+
+00:15:07.400 --> 00:15:09.790 align:start position:0%
+migawkę przywracającą konfigurację przed jej
+modyfikacją <00:15:07.890><c>i </c><00:15:08.380><c>dodaje </c><00:15:08.870><c>tylko </c><00:15:09.360><c>mały,</c>
+
+00:15:09.790 --> 00:15:09.800 align:start position:0%
+modyfikacją i dodaje tylko mały,
+ 
+
+00:15:09.800 --> 00:15:12.750 align:start position:0%
+modyfikacją i dodaje tylko mały,
+oznaczony <00:15:10.296><c>blok </c><00:15:10.792><c>do </c><00:15:11.288><c>pliku </c><00:15:11.784><c>konfiguracyjnego </c><00:15:12.280><c>Codex.</c>
+
+00:15:12.750 --> 00:15:12.760 align:start position:0%
+oznaczony blok do pliku konfiguracyjnego Codex.
+ 
+
+00:15:12.760 --> 00:15:14.070 align:start position:0%
+oznaczony blok do pliku konfiguracyjnego Codex.
+Klucze <00:15:12.926><c>API </c><00:15:13.092><c>wprowadza </c><00:15:13.258><c>się </c><00:15:13.424><c>za </c><00:15:13.590><c>pomocą </c><00:15:13.756><c>ukrytego</c>
+
+00:15:14.070 --> 00:15:14.080 align:start position:0%
+Klucze API wprowadza się za pomocą ukrytego
+ 
+
+00:15:14.080 --> 00:15:16.310 align:start position:0%
+Klucze API wprowadza się za pomocą ukrytego
+wiersza <00:15:14.280><c>poleceń </c><00:15:14.480><c>terminala </c><00:15:14.680><c>i </c><00:15:14.880><c>nigdy </c><00:15:15.080><c>nie </c><00:15:15.280><c>są </c><00:15:15.480><c>one </c><00:15:15.680><c>drukowane.  </c><00:15:15.880><c>Jest </c><00:15:16.080><c>to</c>
+
+00:15:16.310 --> 00:15:16.320 align:start position:0%
+wiersza poleceń terminala i nigdy nie są one drukowane.  Jest to
+ 
+
+00:15:16.320 --> 00:15:18.430 align:start position:0%
+wiersza poleceń terminala i nigdy nie są one drukowane.  Jest to
+rozwiązanie <00:15:16.537><c>odpowiednie </c><00:15:16.754><c>dla </c><00:15:16.971><c>użytkowników </c><00:15:17.188><c>Kodeksu, </c><00:15:17.405><c>którzy </c><00:15:17.622><c>chcą </c><00:15:17.839><c>mieć </c><00:15:18.056><c>dostęp </c><00:15:18.273><c>do</c>
+
+00:15:18.430 --> 00:15:18.440 align:start position:0%
+rozwiązanie odpowiednie dla użytkowników Kodeksu, którzy chcą mieć dostęp do
+ 
+
+00:15:18.440 --> 00:15:20.270 align:start position:0%
+rozwiązanie odpowiednie dla użytkowników Kodeksu, którzy chcą mieć dostęp do
+alternatywnych <00:15:18.736><c>modeli </c><00:15:19.032><c>za </c><00:15:19.328><c>pośrednictwem </c><00:15:19.624><c>tego </c><00:15:19.920><c>samego</c>
+
+00:15:20.270 --> 00:15:20.280 align:start position:0%
+alternatywnych modeli za pośrednictwem tego samego
+ 
+
+00:15:20.280 --> 00:15:22.750 align:start position:0%
+alternatywnych modeli za pośrednictwem tego samego
+interfejsu.  <00:15:21.026><c>Uruchom </c><00:15:21.772><c>instalatora </c><00:15:22.518><c>i</c>
+
+00:15:22.750 --> 00:15:22.760 align:start position:0%
+interfejsu.  Uruchom instalatora i
+ 
+
+00:15:22.760 --> 00:15:24.150 align:start position:0%
+interfejsu.  Uruchom instalatora i
+wybierz <00:15:23.320><c>dostawców </c><00:15:23.880><c>z</c>
+
+00:15:24.150 --> 00:15:24.160 align:start position:0%
+wybierz dostawców z
+ 
+
+00:15:24.160 --> 00:15:26.990 align:start position:0%
+wybierz dostawców z
+selektora <00:15:24.560><c>modeli.  </c><00:15:24.960><c>Projekt </c><00:15:25.360><c>numer </c><00:15:25.760><c>20, </c><00:15:26.160><c>Octop,</c>
+
+00:15:26.990 --> 00:15:27.000 align:start position:0%
+selektora modeli.  Projekt numer 20, Octop,
+ 
+
+00:15:27.000 --> 00:15:29.550 align:start position:0%
+selektora modeli.  Projekt numer 20, Octop,
+samodzielnie <00:15:27.760><c>hostowany, </c><00:15:28.520><c>wielodostępny, </c><00:15:29.280><c>wieloagentowy</c>
+
+00:15:29.550 --> 00:15:29.560 align:start position:0%
+samodzielnie hostowany, wielodostępny, wieloagentowy
+ 
+
+00:15:29.560 --> 00:15:32.190 align:start position:0%
+samodzielnie hostowany, wielodostępny, wieloagentowy
+asystent <00:15:30.032><c>AI.  </c><00:15:30.504><c>Octop </c><00:15:30.976><c>to </c><00:15:31.448><c>samodzielnie </c><00:15:31.920><c>hostowana</c>
+
+00:15:32.190 --> 00:15:32.200 align:start position:0%
+asystent AI.  Octop to samodzielnie hostowana
+ 
+
+00:15:32.200 --> 00:15:34.350 align:start position:0%
+asystent AI.  Octop to samodzielnie hostowana
+platforma <00:15:32.544><c>asystenta </c><00:15:32.888><c>AI, </c><00:15:33.232><c>która </c><00:15:33.576><c>uruchamia </c><00:15:33.920><c>pojedynczy</c>
+
+00:15:34.350 --> 00:15:34.360 align:start position:0%
+platforma asystenta AI, która uruchamia pojedynczy
+ 
+
+00:15:34.360 --> 00:15:36.910 align:start position:0%
+platforma asystenta AI, która uruchamia pojedynczy
+lokalny <00:15:34.980><c>proces </c><00:15:35.600><c>obsługujący </c><00:15:36.220><c>panel </c><00:15:36.840><c>internetowy,</c>
+
+00:15:36.910 --> 00:15:36.920 align:start position:0%
+lokalny proces obsługujący panel internetowy,
+ 
+
+00:15:36.920 --> 00:15:39.750 align:start position:0%
+lokalny proces obsługujący panel internetowy,
+interfejs <00:15:37.151><c>wiersza </c><00:15:37.382><c>poleceń </c><00:15:37.613><c>oraz </c><00:15:37.844><c>kanały </c><00:15:38.075><c>komunikatorów </c><00:15:38.306><c>internetowych, </c><00:15:38.537><c>takie </c><00:15:38.768><c>jak </c><00:15:38.999><c>Feishu,</c>
+
+00:15:39.750 --> 00:15:39.760 align:start position:0%
+interfejs wiersza poleceń oraz kanały komunikatorów internetowych, takie jak Feishu,
+ 
+
+00:15:39.760 --> 00:15:43.270 align:start position:0%
+interfejs wiersza poleceń oraz kanały komunikatorów internetowych, takie jak Feishu,
+DingTalk, <00:15:40.416><c>QQ, </c><00:15:41.072><c>Discord </c><00:15:41.728><c>i </c><00:15:42.384><c>WeCom.  </c><00:15:43.040><c>Każdy</c>
+
+00:15:43.270 --> 00:15:43.280 align:start position:0%
+DingTalk, QQ, Discord i WeCom.  Każdy
+ 
+
+00:15:43.280 --> 00:15:45.550 align:start position:0%
+DingTalk, QQ, Discord i WeCom.  Każdy
+użytkownik <00:15:43.728><c>otrzymuje </c><00:15:44.176><c>wielu </c><00:15:44.624><c>agentów </c><00:15:45.072><c>wybranych </c><00:15:45.520><c>z</c>
+
+00:15:45.550 --> 00:15:45.560 align:start position:0%
+użytkownik otrzymuje wielu agentów wybranych z
+ 
+
+00:15:45.560 --> 00:15:47.790 align:start position:0%
+użytkownik otrzymuje wielu agentów wybranych z
+wbudowanej <00:15:45.992><c>biblioteki </c><00:15:46.424><c>ekspertów </c><00:15:46.856><c>lub </c><00:15:47.288><c>jedną </c><00:15:47.720><c>z</c>
+
+00:15:47.790 --> 00:15:47.800 align:start position:0%
+wbudowanej biblioteki ekspertów lub jedną z
+ 
+
+00:15:47.800 --> 00:15:50.830 align:start position:0%
+wbudowanej biblioteki ekspertów lub jedną z
+16 <00:15:48.205><c>person </c><00:15:48.610><c>w </c><00:15:49.015><c>stylu </c><00:15:49.420><c>MBTI </c><00:15:49.825><c>z </c><00:15:50.230><c>własnym </c><00:15:50.635><c>obszarem</c>
+
+00:15:50.830 --> 00:15:50.840 align:start position:0%
+16 person w stylu MBTI z własnym obszarem
+ 
+
+00:15:50.840 --> 00:15:53.590 align:start position:0%
+16 person w stylu MBTI z własnym obszarem
+roboczym, <00:15:51.500><c>dostawcami </c><00:15:52.160><c>i </c><00:15:52.820><c>zadaniami </c><00:15:53.480><c>cron.</c>
+
+00:15:53.590 --> 00:15:53.600 align:start position:0%
+roboczym, dostawcami i zadaniami cron.
+ 
+
+00:15:53.600 --> 00:15:55.870 align:start position:0%
+roboczym, dostawcami i zadaniami cron.
+Przechowuje <00:15:54.000><c>wszystkie </c><00:15:54.400><c>konwersacje, </c><00:15:54.800><c>dane </c><00:15:55.200><c>uwierzytelniające</c>
+
+00:15:55.870 --> 00:15:55.880 align:start position:0%
+Przechowuje wszystkie konwersacje, dane uwierzytelniające
+ 
+
+00:15:55.880 --> 00:15:57.870 align:start position:0%
+Przechowuje wszystkie konwersacje, dane uwierzytelniające
+i <00:15:56.240><c>pamięć </c><00:15:56.600><c>agenta </c><00:15:56.960><c>w </c><00:15:57.320><c>lokalnej</c>
+
+00:15:57.870 --> 00:15:57.880 align:start position:0%
+i pamięć agenta w lokalnej
+ 
+
+00:15:57.880 --> 00:16:00.470 align:start position:0%
+i pamięć agenta w lokalnej
+bazie <00:15:58.180><c>danych </c><00:15:58.480><c>SQLite </c><00:15:58.780><c>w </c><00:15:59.080><c>katalogu </c><00:15:59.380><c>domowym </c><00:15:59.680><c>użytkownika</c>
+
+00:16:00.470 --> 00:16:00.480 align:start position:0%
+bazie danych SQLite w katalogu domowym użytkownika
+ 
+
+00:16:00.480 --> 00:16:02.350 align:start position:0%
+bazie danych SQLite w katalogu domowym użytkownika
+z <00:16:00.753><c>wtykowymi </c><00:16:01.026><c>zapleczami </c><00:16:01.299><c>pamięci </c><00:16:01.572><c>masowej, </c><00:16:01.845><c>takimi </c><00:16:02.118><c>jak</c>
+
+00:16:02.350 --> 00:16:02.360 align:start position:0%
+z wtykowymi zapleczami pamięci masowej, takimi jak
+ 
+
+00:16:02.360 --> 00:16:05.430 align:start position:0%
+z wtykowymi zapleczami pamięci masowej, takimi jak
+dysk <00:16:02.888><c>lokalny, </c><00:16:03.416><c>Docker </c><00:16:03.944><c>lub </c><00:16:04.472><c>S3.  </c><00:16:05.000><c>Obsługuje</c>
+
+00:16:05.430 --> 00:16:05.440 align:start position:0%
+dysk lokalny, Docker lub S3.  Obsługuje
+ 
+
+00:16:05.440 --> 00:16:08.390 align:start position:0%
+dysk lokalny, Docker lub S3.  Obsługuje
+interfejsy <00:16:05.834><c>API </c><00:16:06.228><c>zgodne </c><00:16:06.622><c>z </c><00:16:07.016><c>OpenAI, </c><00:16:07.410><c>Dash </c><00:16:07.804><c>Scope </c><00:16:08.198><c>i</c>
+
+00:16:08.390 --> 00:16:08.400 align:start position:0%
+interfejsy API zgodne z OpenAI, Dash Scope i
+ 
+
+00:16:08.400 --> 00:16:11.110 align:start position:0%
+interfejsy API zgodne z OpenAI, Dash Scope i
+Ollama <00:16:08.856><c>jako </c><00:16:09.312><c>dostawców </c><00:16:09.768><c>modeli, </c><00:16:10.224><c>a </c><00:16:10.680><c>także</c>
+
+00:16:11.110 --> 00:16:11.120 align:start position:0%
+Ollama jako dostawców modeli, a także
+ 
+
+00:16:11.120 --> 00:16:13.390 align:start position:0%
+Ollama jako dostawców modeli, a także
+łączniki <00:16:11.432><c>OAuth </c><00:16:11.744><c>i </c><00:16:12.056><c>MCP </c><00:16:12.368><c>oraz </c><00:16:12.680><c>dwukierunkową</c>
+
+00:16:13.390 --> 00:16:13.400 align:start position:0%
+łączniki OAuth i MCP oraz dwukierunkową
+ 
+
+00:16:13.400 --> 00:16:15.110 align:start position:0%
+łączniki OAuth i MCP oraz dwukierunkową
+integrację <00:16:13.704><c>z </c><00:16:14.008><c>agentami </c><00:16:14.312><c>kodowania, </c><00:16:14.616><c>takimi </c><00:16:14.920><c>jak</c>
+
+00:16:15.110 --> 00:16:15.120 align:start position:0%
+integrację z agentami kodowania, takimi jak
+ 
+
+00:16:15.120 --> 00:16:17.270 align:start position:0%
+integrację z agentami kodowania, takimi jak
+Claude <00:16:15.355><c>Code </c><00:16:15.590><c>i </c><00:16:15.825><c>CodeX.  </c><00:16:16.060><c>Rozwiązanie </c><00:16:16.295><c>to </c><00:16:16.530><c>jest </c><00:16:16.765><c>odpowiednie </c><00:16:17.000><c>dla</c>
+
+00:16:17.270 --> 00:16:17.280 align:start position:0%
+Claude Code i CodeX.  Rozwiązanie to jest odpowiednie dla
+ 
+
+00:16:17.280 --> 00:16:19.070 align:start position:0%
+Claude Code i CodeX.  Rozwiązanie to jest odpowiednie dla
+gospodarstw <00:16:17.573><c>domowych </c><00:16:17.866><c>lub </c><00:16:18.159><c>małych </c><00:16:18.452><c>zespołów, </c><00:16:18.745><c>które </c><00:16:19.038><c>potrzebują</c>
+
+00:16:19.070 --> 00:16:19.080 align:start position:0%
+gospodarstw domowych lub małych zespołów, które potrzebują
+ 
+
+00:16:19.080 --> 00:16:21.270 align:start position:0%
+gospodarstw domowych lub małych zespołów, które potrzebują
+prywatnego, <00:16:19.540><c>samodzielnie </c><00:16:20.000><c>hostowanego </c><00:16:20.460><c>asystenta </c><00:16:20.920><c>zamiast</c>
+
+00:16:21.270 --> 00:16:21.280 align:start position:0%
+prywatnego, samodzielnie hostowanego asystenta zamiast
+ 
+
+00:16:21.280 --> 00:16:23.510 align:start position:0%
+prywatnego, samodzielnie hostowanego asystenta zamiast
+usługi <00:16:21.626><c>w </c><00:16:21.972><c>chmurze.  </c><00:16:22.318><c>Zainstaluj </c><00:16:22.664><c>go </c><00:16:23.010><c>i </c><00:16:23.356><c>uruchom</c>
+
+00:16:23.510 --> 00:16:23.520 align:start position:0%
+usługi w chmurze.  Zainstaluj go i uruchom
+ 
+
+00:16:23.520 --> 00:16:25.230 align:start position:0%
+usługi w chmurze.  Zainstaluj go i uruchom
+kreatora <00:16:23.792><c>instalacji, </c><00:16:24.064><c>aby </c><00:16:24.336><c>utworzyć </c><00:16:24.608><c>swojego </c><00:16:24.880><c>pierwszego</c>
+
+00:16:25.230 --> 00:16:25.240 align:start position:0%
+kreatora instalacji, aby utworzyć swojego pierwszego
+ 
+
+00:16:25.240 --> 00:16:27.270 align:start position:0%
+kreatora instalacji, aby utworzyć swojego pierwszego
+agenta.  <00:16:25.566><c>Dziękuję </c><00:16:25.892><c>za </c><00:16:26.218><c>oglądanie.  </c><00:16:26.544><c>Do </c><00:16:26.870><c>zobaczenia </c><00:16:27.196><c>w</c>
+
+00:16:27.270 --> 00:16:27.280 align:start position:0%
+agenta.  Dziękuję za oglądanie.  Do zobaczenia w
+ 
+
+00:16:27.280 --> 00:16:30.280 align:start position:0%
+agenta.  Dziękuję za oglądanie.  Do zobaczenia w
+następnej <00:16:27.680><c>aktualizacji.</c>

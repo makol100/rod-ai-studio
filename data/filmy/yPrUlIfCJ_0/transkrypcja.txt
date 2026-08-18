@@ -1,0 +1,423 @@
+# Trending Open-Source Github Projects: Macro, holaOS, Switchyard, Axolotl, Octop & MiniMax H3 #284
+# ManuAGI - AutoGPT Tutorials, https://youtu.be/yPrUlIfCJ_0
+# zrodlo: droga domowa (yt-dlp na HA DOM), 17.08.2026
+
+Co tydzień twórcy oprogramowania udostępniają potężne
+projekty typu open source w serwisie GitHub, a nadążanie za
+nimi może być trudne.  To
+cotygodniowy film z aktualizacją projektu GitHub, w którym omawiane są
+najpopularniejsze projekty open source
+GitHub w tym tygodniu, od lokalnych
+obszarów roboczych pierwszego agenta po
+ramy dostrajania i zestawy SDK tablic.  Nie
+tracąc czasu, zaczynajmy.
+Zanim przejdziemy do dzisiejszych
+aktualizacji projektu, oto krótkie ogłoszenie dla
+wszystkich.  Uruchomiliśmy zupełnie nowy
+kanał w serwisie YouTube o nazwie AI Agent Studio, który jest
+w całości poświęcony projektom,
+samouczkom i narzędziom dotyczącym agentów AI.  Jeśli więc
+chcesz być na bieżąco z
+najnowszymi projektami open source dotyczącymi agentów AI
+, chcesz nauczyć się tworzyć własnych
+agentów lub poznać najnowocześniejsze
+struktury agentów, koniecznie sprawdź to.
+Zasubskrybuj już teraz, aby co tydzień otrzymywać filmy,
+szczegółowe przewodniki i analizy projektów w czasie rzeczywistym
+.  Link znajdziesz w
+opisie.  Nie przegap tego.  No
+dobrze, przejdźmy do dzisiejszego filmu.
+Projekt numer jeden: makro, otwarte oprogramowanie,
+ujednolicona przestrzeń robocza ze wspólną
+pamięcią zespołową.  Macro to zunifikowana
+przestrzeń robocza typu open source dla zespołów, która łączy pocztę e-mail,
+wiadomości, zadania, dokumenty, połączenia, system CRM i
+agentów w jednej, obsługiwanej z poziomu klawiatury aplikacji.
+Wszystko łączy się poprzez
+dwukierunkowe łączenie, więc wzmianka
+łączy dwa elementy w obie strony.  Współdzielona
+pamięć zespołowa pozwala agentom zapamiętywać
+wszystkie zadania wykonywane w obrębie zespołu, a jedna skrzynka odbiorcza dzieli się na
+sygnał i szum.  Aplikacja została stworzona w języku Rust i
+SolidJS, zastępuje Slack, Linear,
+Notion i Superhuman i łączy się z
+kodem Claude'a za pośrednictwem MCP.  Zarejestruj się i zjednocz
+swój zespół.  Projekt numer dwa, Nigo
+light, przeglądarka, z której Ty i Twoi agenci
+korzystacie.  Nigo Light to darmowa przeglądarka, w
+której Ty i Twoi agenci AI możecie pracować
+równolegle.  Każdy agent wykonuje swoje zadania w
+swojej własnej przestrzeni, pracując w tle,
+podczas gdy Twoje karty pozostają Twoje, a dostęp do
+Twoich danych logowania uzyskujesz za pomocą pomocniczej
+przeglądarki Ego.  Udostępnia stronę jako
+narzędzia JavaScript, migawki, kliknięcia, wypełnienia.
+Dzięki temu dowolny agent CLI, kod Claude'a, Codex
+lub kursor zapisuje jeden fragment kodu zamiast
+wywołań krok po kroku.  Aplikacja dziedziczy
+dane logowania przeglądarki Chrome i działa w systemie Mac OS.
+Pobierz i przeglądaj razem ze swoimi
+agentami.  Projekt numer trzy, Hola OS,
+pierwsza lokalna przestrzeń robocza do uruchamiania dowolnego
+agenta AI.  Hola OS to otwartoźródłowa, lokalna przestrzeń
+robocza, w której Ty i Twoi
+agenci AI dzielicie jeden komputer.  Uruchom dowolnego
+agenta, kod Claude'a, Codex lub
+wbudowany agent, współdzieląc jedną
+pamięć, narzędzia i aplikacje.  Pamięć ta jest
+przechowywana na Twoim komputerze w postaci zwykłych plików, dzięki czemu
+agent kontynuuje pracę od miejsca, w którym ją przerwałeś.
+Modele Frontier są wyposażone w wbudowane kluczyki lub można je nabyć z
+własnymi kluczykami.  Aplikacje otwierają się jako powierzchnie
+obok agenta, a ponad 100 integracji
+i serwerów MCP łączy się natychmiast.
+Zainstaluj i udostępnij swój komputer.
+Projekt numer cztery, Switchyard, serwer
+proxy Rust, który kieruje i tłumaczy
+ruch LLM.  Switchyard to otwartoźródłowy
+serwer proxy Rust i biblioteka dla ruchu LLM
+z Nvidia Nemo.  Tłumaczy on pomiędzy
+czatem OpenAI, wiadomościami Anthropic i
+odpowiedziami OpenAI, dzięki czemu kod Claude lub
+Codex zachowuje swój natywny interfejs API, podczas gdy
+żądania są obsługiwane przez VLLM, Nvidia NIM,
+lamę lub dowolny punkt końcowy zgodny z OpenAI
+.  Kieruje za pomocą strategii klasyfikatorów,
+etapów i eskalacji lub Twoich
+własnych, a także rejestruje metryki Prometheusa.  Można
+go uruchomić jako launcher, samodzielny serwer lub
+bibliotekę Rust.  To jest wersja pre-alfa.  Zainstaluj
+i przekieruj swój ruch.  Projekt numer
+pięć, „Książka w umiejętność”, przekształca dowolną książkę w
+umiejętność agenta na żądanie.  Book to Skill
+to otwartoźródłowa umiejętność agenta, która pozwala przekształcić
+dowolną książkę techniczną, folder lub dokument
+w umiejętność, którą agent może załadować na żądanie.
+Wskazujesz plik PDF, EPUB, DOCX lub
+folder, a on destyluje to do
+struktur, reguł decyzyjnych,
+antywzorców i plików dla poszczególnych rozdziałów —
+struktury, ale nie podsumowania.  Twój agent
+czyta odpowiedni rozdział i odpowiada
+na podstawie prawdziwych treści, dzięki czemu nie ma
+halucynacji.  Działa lokalnie i współpracuje
+z Claude Code, Copilot CLI i Amp.
+Zainstaluj i studiuj dowolną książkę.  Projekt
+numer sześć, OpenWork, alternatywa typu open source
+dla Claude CoWork, umożliwiająca udostępnianie
+przepływów pracy.  OpenWork to bezpłatna
+aplikacja desktopowa typu open source służąca do udostępniania
+przepływów pracy związanych ze sztuczną inteligencją. Stanowi alternatywę dla aplikacji Claude
+CoWork i działa na systemach macOS, Windows i
+Linux.  Dodajesz jeden pakiet MCP OpenWork do
+Codex, Claude Code, Cursor lub innego
+zgodnego agenta i ponownie wykorzystujesz te same
+umiejętności, pakiety MCP i połączone usługi,
+takie jak Google Workspace i Microsoft 365,
+we wszystkich narzędziach, wśród współpracowników i na wszystkich
+komputerach.  Aplikacja komputerowa jest opcjonalna,
+a konsola administracyjna umożliwia organizacjom
+publikowanie możliwości i zarządzanie dostępem.
+Zainstaluj i udostępnij swoją pierwszą pracę.
+Projekt numer siedem, Dossier Libre,
+lekki system GIS uruchamiający mapy w
+przeglądarce.  GeoLibre to aplikacja GIS przeznaczona na komputery stacjonarne,
+stworzona z wykorzystaniem Tauri, React i
+MapLibre GL JS, która umożliwia przeglądanie i
+edytowanie danych geoprzestrzennych bez konieczności
+instalowania ciężkiego oprogramowania.  Uruchamia
+lokalnie mapę MapLibre, ładuje warstwy GeoJSON, GeoParquet,
+GeoPackage i shapefile oraz
+wykorzystuje DuckDB WASM do przetwarzania przestrzennego
+w przeglądarce lub powłoce pulpitu.
+System wtyczek dodaje mapy bazowe, Street
+View, LiDAR i narzędzia do edycji z
+opcjonalnym dodatkiem Python do trudniejszych
+zadań.  Jest to narzędzie odpowiednie dla programistów i analityków
+poszukujących szybkiego i rozszerzalnego
+narzędzia do mapowania.  Przejrzyj repozytorium i wypróbuj aplikację
+lokalnie.  Projekt numer osiem, Axolotl,
+oprogramowanie typu open source do precyzyjnego dostrajania
+dużych modeli językowych.  Axolotl to
+oprogramowanie typu open source, które usprawnia proces
+późniejszego trenowania i dostrajania dużych
+modeli językowych.  Obsługuje wiele modeli
+z Hugging Face Hub, a także
+[odchrząkuje] multimodalne modele wizji i
+dźwięku, wykorzystujące metody takie jak pełne
+dostrajanie, LoRA, QLoRA,
+trening uwzględniający kwantyzację,
+dostrajanie preferencji i uczenie wzmacniające.
+Pojedynczy plik konfiguracyjny YAML steruje
+wstępnym przetwarzaniem, trenowaniem,
+oceną i wnioskowaniem zestawu danych.  Działa
+lokalnie na procesorach graficznych Nvidia lub AMD lub za pośrednictwem
+obrazów Docker i platform chmurowych.  Jest to narzędzie
+odpowiednie dla badaczy i inżynierów, którzy chcą
+efektywnie dostosowywać programy LLM.  Rozpocznij
+pierwsze dostrajanie korzystając z krótkiego przewodnika.
+Projekt numer dziewięć, PDFCN, gotowe do użycia
+komponenty PDF dla aplikacji React.  PDFCN to
+biblioteka komponentów udostępniająca
+programistom React gotowe bloki konstrukcyjne
+do generowania plików PDF, dzięki czemu nie muszą oni
+projektować układów plików PDF od podstaw.
+Działa poprzez Takumi i Form A jako
+silniki renderujące i wykorzystuje
+format rejestru Shadcn/zui, umożliwiając programistom kopiowanie
+komponentów bezpośrednio do bazy kodu
+przy użyciu tego samego przepływu pracy CLI.  Zawiera
+tabele, formularze, wykresy, faktury i
+bloki raportów dostosowane stylem do współdzielonych
+motywów.  Ma to duże znaczenie dla deweloperów
+szybko tworzących aplikacje zawierające dużą ilość dokumentów.
+Dodaj do swojego projektu i zacznij
+tworzyć dokumenty.  Projekt numer 10,
+Loom Feed, samodzielnie hostowana
+platforma społecznościowa stworzona dla agentów AI i ludzi.
+Loom Feed to samodzielnie hostowana
+platforma społecznościowa, podobna do Reddita, w której
+agenci AI są traktowani jako pełnoprawni uczestnicy na równi z
+ludźmi.  Działa na zapleczu Go,
+front-endzie Next.js, Postgres i Redis,
+wdrożonych razem za pomocą Docker
+Compose.  Agenci łączą się za pomocą protokołu REST, MCP
+lub A2A, a następnie publikują posty, komentują
+i głosują, korzystając z kluczy API i
+wyników reputacji.  Każdy wpis generowany przez agenta
+zawiera dane o pochodzeniu,
+cytowane źródła i etykiety statusu epistemicznego,
+a jedynie ludzie mogą weryfikować treść.   Rozwiązanie
+to jest przydatne dla deweloperów budujących
+społeczności, w których agenci i ludzie
+wspólnie prowadzą badania.  Sklonuj repozytorium
+i hostuj własną instancję.  Projekt
+numer 11, Be a Snap Shane, natywne
+narzędzie do tworzenia zrzutów ekranu i adnotacji dla
+komputerów Wayland.  Eosnap to natywny
+edytor zrzutów ekranu i adnotacji stworzony
+dla komputerów Wayland z systemem Hyperland, którego
+głównym celem jest E Amareki.  Jest to
+narzędzie komputerowe, które przechwytuje obraz z wybranego
+monitora za pomocą protokołów kopiowania obrazu Wayland
+, a następnie otwiera edytor nakładek,
+w którym adnotacje znajdują się w postaci ruchomych,
+skalowalnych warstw wektorowych.  Oferuje
+przechwytywanie obszarów, okien i całego ekranu,
+strzałek, tekstu, pociągnięć odręcznych, rozpoznawanie tekstu OCR
+i historię cofania — wszystkie
+przetwarzane lokalnie.  Kopiuj do
+schowka lub zapisz jako pliki PNG.  Jest ona
+przeznaczona dla użytkowników Linuksa w środowisku Hyperland, którzy chcą
+szybko edytować zrzuty ekranu.  Sklonuj
+repozytorium i zainstaluj je za pomocą
+instalatora E Amareki.  Projekt nr 12,
+Muzeum Zwierząt Prehistorycznych, spokojne, trójwymiarowe
+muzeum dinozaurów dla dzieci i
+rodziców.  Muzeum Zwierząt Prehistorycznych to
+aplikacja internetowa, która pozwala dzieciom
+poznać 18 prehistorycznych zwierząt w spokojnej,
+interaktywnej przestrzeni 3D.  Jest to
+muzeum oparte na przeglądarce, w którym dziecko może
+obracać model palcem lub myszką,
+przybliżać obraz i słuchać krótkiej narracji w języku angielskim lub
+mandaryńskim, która nigdy nie odtwarza się
+automatycznie.  Do każdej wystawy dołączony jest
+przewodnik dla rodziców, który omawia okres
+życia zwierzęcia, regiony występowania skamieniałości, wielkość, dietę i
+klasyfikację.  Działa w oparciu o
+zasoby statyczne i nie odwołuje się do sztucznej inteligencji,
+reklam ani usług analitycznych.
+Nie wymaga logowania.  To rozwiązanie jest odpowiednie dla rodziców i
+małych dzieci, którzy chcą
+wspólnie uczyć się przy słabym świetle ekranu.  Odwiedź
+muzeum i przyjrzyj się uważnie każdemu
+zwierzęciu na raz.  Projekt numer 13,
+Scene Card Studio, przekształca osobiste zdjęcia
+w uporządkowane narracje wizualne.  Scene
+Card Studio to narzędzie wiersza poleceń w języku Python,
+które przekształca osobiste zdjęcia w
+edytowalne narracje.  Zamiast
+stosować prosty filtr stylu,
+oddziela to, co zdjęcie przedstawia, od tego, jak
+powinno być interpretowane, rejestrując
+obserwacje, wstępne tematy i
+role w historii w postaci edytowalnych kart scen.
+Następnie kompilator konwertuje te karty,
+wybrany system narracji i
+profil ekspresji na wersjonowany
+kontrakt monitu do generowania obrazu,
+przy czym ponowne próby i recenzje są śledzone za pomocą
+łańcucha skrótów.  Generowanie obrazów w chmurze
+odbywa się wyłącznie po uzyskaniu wyraźnej zgody,
+w przeciwnym razie wszystkie dane pozostają lokalne.
+Nadaje się dla osób budujących uporządkowane,
+osobiste historie fotograficzne.  Wypróbuj to na
+swoich zdjęciach, korzystając z poleceń szybkiego startu
+.  Projekt numer 14, Kiro Crew,
+stała przestrzeń robocza agenta AI, która
+działa w różnych sesjach.  Kiro Crew
+to środowisko programistyczne typu open source,
+które nieprzerwanie uruchamia agenta AI na
+kontrolowanym przez Ciebie sprzęcie, zamiast kończyć działanie wraz z
+zamknięciem okna czatu.  Działa
+poprzez proces bramy łączący się
+z aplikacją komputerową, pulpitem internetowym, interfejsem wiersza poleceń lub
+narzędziami do przesyłania wiadomości, takimi jak Slack i Discord,
+obsługującymi sesje interfejsu wiersza poleceń Kiro, które zachowują
+pamięć, harmonogramy i punkty kontrolne zadań
+po ponownym uruchomieniu.  Obsługuje długotrwałe
+zadania, zaplanowane zadania i równoległe
+podagencje lokalnie lub na wybranym zdalnym hoście,
+z zatwierdzaniem narzędzi i
+sandboxingiem na poziomie środowiska wykonawczego.  To rozwiązanie jest odpowiednie dla
+deweloperów, którzy oczekują od agenta, który potrafi
+zachować kontekst i doskonalić się w miarę powtarzania
+zadań.  Skonfiguruj go i przypisz mu zadanie, które ma
+działać bez nadzoru.  Projekt numer 15, Quick
+Draw, darmowy nieskończony zestaw
+SDK dla aplikacji z tablicą typu canvas.  Quick Draw to zestaw
+SDK tablicy, który udostępnia kompletną
+powierzchnię do rysowania w aplikacjach React, React Native lub
+zwykłym JavaScript bez
+opłat licencyjnych w przypadku użytku komercyjnego.  Jest to biblioteka, a
+nie hostowana usługa, więc działa
+bezpośrednio w aplikacji programisty
+i przechowuje swój dokument jako płaską mapę
+rekordów, a każda zmiana jest emitowana jako plik
+JSON diff w celu synchronizacji lub trwałości.
+Obejmuje on wrażliwe na nacisk pociągnięcia piórem,
+kształty, strzałki, notatki samoprzylepne,
+obsługę obrazów i nieskończone, przesuwane
+płótno, a wszystko to bez żadnych
+zależności od czasu wykonania.  Programiści przynoszą własne środki
+transportu, aby umożliwić współpracę w czasie rzeczywistym,
+ponieważ pliki różnicowe są gotowe do synchronizacji, ale w pakiecie nie ma serwera. Jest
+to rozwiązanie odpowiednie dla programistów, którzy
+chcą korzystać z funkcji tablicy bez konieczności płacenia
+opłaty licencyjnej.  Zainstaluj pakiet i
+przeciągnij płytkę do swojej aplikacji.  Projekt
+numer 16, Minimax H3, model o otwartej konstrukcji,
+generujący wideo z synchronizowanym dźwiękiem.
+Minimax H3 to otwarty, omnimodalny
+model generatywny, który generuje wideo
+wraz z natywnym dźwiękiem stereo na podstawie
+tekstu, obrazów, wideo lub danych audio.
+Jest to transformator 33 miliardów parametrów,
+który koduje każdą modalność przy użyciu
+dedykowanych enkoderów i wspólnie przewiduje
+ukryte dane wideo i audio w jednym przejściu, dzięki czemu
+dźwięk pozostaje zsynchronizowany z ruchem.
+Punkty kontrolne wydania działają lokalnie
+poprzez takie struktury jak SG Lang, VLLM,
+Diffusers czy ComfyUI, generując klipy o długości
+do 15 sekund w rozdzielczości do
+768p
+z hostowanym interfejsem API umożliwiającym
+skalowanie do 2K i szybkie wstępne przetwarzanie.
+Obsługuje konwersję tekstu na wideo, obrazu na wideo
+i generowanie wielu odniesień na podstawie
+obrazów, klipów wideo lub dźwięku.  Rozwiązanie to jest
+odpowiednie dla programistów tworzących
+narzędzia do generowania filmów, którzy chcą korzystać z otwartego modelu, który będą mogli
+sami uruchamiać i dostrajać.  Pobierz
+punkty kontrolne i wypróbuj je w
+preferowanym systemie wnioskowania.  Projekt
+numer 17, Gemma Translator,
+tłumacz głosowy działający w trybie offline, przeznaczony do
+kiosku dwuosobowego.  Gemma Translator to
+w pełni offline’owe urządzenie do tłumaczenia mowy,
+działające wyłącznie na lokalnym
+sprzęcie, takim jak Raspberry Pi.
+Łączy w sobie lżejszy TLM działający w
+modelu Gemma, Moonshine do zamiany mowy na tekst i
+tekstu na mowę, serwer API w języku Python oraz
+front-end React stworzony dla małych
+ekranów kiosków.  Dwie osoby stojące naprzeciwko siebie
+mają do dyspozycji tor z obrotowym
+wybierakiem języka.  Naciśnięcie klawisza powoduje nagranie wypowiedzi,
+która jest transkrybowana, tłumaczona i
+odczytywana w języku drugiej osoby —
+wszystko to bez konieczności
+połączenia z Internetem.  W zestawie znajdują się
+pliki obudowy do druku 3D oraz skrypt wdrożeniowy Raspberry Pi wymagający jednego polecenia
+.  Rozwiązanie to jest przydatne dla
+konstruktorów tworzących fizyczne
+urządzenia do tłumaczeń na potrzeby rozmów twarzą w twarz.
+Skonfiguruj go na Raspberry Pi i rozpocznij
+tłumaczenie z urządzenia na urządzenie.  Projekt
+numer 18, Auteur, umiejętność kodowania Claude'a,
+która zajmuje się reżyserią stron internetowych o tematyce filmowej.  Auteur
+to umiejętność agenta w zakresie kodowania Claude'a, która
+prowadzi agenta kodującego AI przez proces
+tworzenia witryny internetowej w taki sam sposób, w jaki
+reżyser planuje zdjęcia.  Przeszukuje
+nagradzane witryny w poszukiwaniu prawdziwych czcionek,
+palet i budżetów na ruch, blokuje
+pojedynczy kierunek artystyczny w
+arkuszu zatwierdzenia przed napisaniem jakiegokolwiek kodu, a
+następnie generuje obrazy i geometrię
+za pomocą lokalnych interfejsów wiersza poleceń, takich jak Blender lub
+narzędzia do generowania obrazów.  Kompilacja wykorzystuje jeden
+kontekst WebGL z ruchem sterowanym przewijaniem
+i nic nie jest dostarczane, dopóki nie przejdzie testu
+linter o zerowej zależności i
+testu ruchu Playwright, który wychwytuje pominięte klatki,
+ogólne gradienty sztucznej inteligencji i
+luki w dostępności.  Działa z kodem Claude i
+innymi agentami odczytującymi plik skill.md.   Rozwiązanie
+to jest odpowiednie dla deweloperów, którzy chcą, aby ich
+witryny tworzone przy pomocy sztucznej inteligencji unikały
+szablonowego projektowania.  Zainstaluj tę umiejętność i
+poproś swojego agenta o stworzenie
+za jej pomocą kinowej strony docelowej.  Projekt numer 19,
+Malana Codex Router.  Umożliwia Codexowi używanie
+modeli Kimiko i DeepSeek wraz z
+GPT.  Codex Router to lokalny serwer proxy, który
+umożliwia standardowemu selektorowi modeli Codex oferowanie
+modeli Kimiko i DeepSeek bez
+zakłócania natywnych modeli GPT lub
+istniejącego logowania ChatGPT.  Działa jako
+usługa w tle na komputerze lokalnym,
+tłumacząc żądania między interfejsem
+API odpowiedzi Codex a
+interfejsami API uzupełniania rozmów udostępnianymi przez Kimiko i DeepSeek.
+Dzięki temu wywołania narzędzi do strumieniowania i kompresji
+ruchu działają prawidłowo.  Instalacja odbywa się za pomocą przewodnika,
+wykrywa istniejące dane uwierzytelniające, tworzy
+migawkę przywracającą konfigurację przed jej
+modyfikacją i dodaje tylko mały,
+oznaczony blok do pliku konfiguracyjnego Codex.
+Klucze API wprowadza się za pomocą ukrytego
+wiersza poleceń terminala i nigdy nie są one drukowane.  Jest to
+rozwiązanie odpowiednie dla użytkowników Kodeksu, którzy chcą mieć dostęp do
+alternatywnych modeli za pośrednictwem tego samego
+interfejsu.  Uruchom instalatora i
+wybierz dostawców z
+selektora modeli.  Projekt numer 20, Octop,
+samodzielnie hostowany, wielodostępny, wieloagentowy
+asystent AI.  Octop to samodzielnie hostowana
+platforma asystenta AI, która uruchamia pojedynczy
+lokalny proces obsługujący panel internetowy,
+interfejs wiersza poleceń oraz kanały komunikatorów internetowych, takie jak Feishu,
+DingTalk, QQ, Discord i WeCom.  Każdy
+użytkownik otrzymuje wielu agentów wybranych z
+wbudowanej biblioteki ekspertów lub jedną z
+16 person w stylu MBTI z własnym obszarem
+roboczym, dostawcami i zadaniami cron.
+Przechowuje wszystkie konwersacje, dane uwierzytelniające
+i pamięć agenta w lokalnej
+bazie danych SQLite w katalogu domowym użytkownika
+z wtykowymi zapleczami pamięci masowej, takimi jak
+dysk lokalny, Docker lub S3.  Obsługuje
+interfejsy API zgodne z OpenAI, Dash Scope i
+Ollama jako dostawców modeli, a także
+łączniki OAuth i MCP oraz dwukierunkową
+integrację z agentami kodowania, takimi jak
+Claude Code i CodeX.  Rozwiązanie to jest odpowiednie dla
+gospodarstw domowych lub małych zespołów, które potrzebują
+prywatnego, samodzielnie hostowanego asystenta zamiast
+usługi w chmurze.  Zainstaluj go i uruchom
+kreatora instalacji, aby utworzyć swojego pierwszego
+agenta.  Dziękuję za oglądanie.  Do zobaczenia w
+następnej aktualizacji.
