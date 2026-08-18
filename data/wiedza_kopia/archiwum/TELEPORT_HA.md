@@ -677,3 +677,38 @@ STAN DZIALKA (obserwacja przeniesiona z 4.08, niezamknieta): 377 encji niedostep
 ==============================================================================
 
 13.08.2026 19:3x CEST — WLASNOSC ROUTEROW USTALONA, koniec zgadywania. Tomasz: 'AX55 pro to moj. Podpiety jako drugi po mr600'. TOMASZ MA W SIECI ROD DWA WLASNE URZADZENIA: (1) RouterMR600Maksys 192.168.3.188 — PIERWSZY, router LTE; (2) ArcherAX55Pro 192.168.3.152 — DRUGI, podpiety po MR600, to ten kupiony pod OneMesh. Wszystkie pozostale to SASIEDZI: MiWiFi-R4A .26, Archer A8 .29, Archer A6 .40, Archer A6 .73, Archer AX1800 .117, D-Link DIR825 .124, TL-WR844N .193, switche TL-SG105E .104 i TL-SG108E .45, Archer C6 bez DHCP (169.254.138.97) oraz w historii Archer C20, TL-WR841N, deco-E4R, dwa dlinkap. LANCUCH: Linksys WRT1900ACS (.1, wspolna siec ROD) -> MR600 Maksys (.188) -> AX55 Pro (.152) -> wlasna siec Tomasza 192.168.0.x (kamery Xiaomi, Reolink .207, jacuzzi .115, N150 .250). Linksys nie widzi ZADNEGO adresu 192.168.0.x. Zapisane tez w pamieci Klaudka /areas/wifi-mesh-dzialka.md. To zamyka pytanie, ktore wracalo przy kazdej pracy nad siecia dzialki.
+
+
+==============================================================================
+## SESJA 14.08.2026 15:42 CEST
+==============================================================================
+
+14.08.2026 ~13:30 CEST — DLACZEGO NIE ZNALEZLISMY AUTA: stalo w polu widzenia kamery ROG (kanal 3, .113), ktora NIE DZIALA od zawsze (NVR: errorUserNameOrPasswd, puste pola model/serial/firmware = nigdy sie nie polaczyl). Nagran z tego miejsca po prostu NIE MA. Data 2/3.08 byla dobra od poczatku — potwierdzona zdjeciem wlasciciela auta z metadanymi 3.08 9:23 (odciski lap na dachu i szybie szyberdachu Opla Insignii kombi). Wszystkie inne tropy (bledna data, zle ROI, zla kamera) byly szukaniem czegos, czego w materiale byc nie moglo. PODNOSZE PRIORYTET: reset .113 to teraz najwazniejsza pozycja na liste wizyty — bez niej rog parkingu, gdzie parkuja niszczone auta, jest slepy. Przypomnienie procedury: przycisk RESET na obudowie przy wlaczonym zasilaniu, potem ustawic haslo z kompletu A i adres 192.168.3.113, wpisac w NVR kanal 3. Zgloszenie do wsparcia HiLook nie przyspieszy (SADP wymaga LAN, multicast nie przejdzie przez Tailscale). CO ZOSTAJE WAZNE MIMO WSZYSTKO: metoda detekcji dziala — na kanale 4 z tej samej nocy wyszlo 124 kandydatow, 44 w rozmiarze kuny; Tomasz: 'sposob nie jest glupi co do szukania nocnej aktywnosci'.
+
+
+==============================================================================
+## SESJA 14.08.2026 15:47 CEST
+==============================================================================
+
+14.08.2026 — POWSTALA INSTRUKCJA WLACZENIA KAMERY ROG (.113) DO SYSTEMU: wiedza/KAMERA_ROG_INSTRUKCJA.md na VPS + wersja do czytania na telefonie https://podglad.157-90-155-155.sslip.io/kamera_rog.html. Podzielona na CZESC 1 (Tomasz na miejscu: znalezc przycisk RESET, przytrzymac 10-20 s pod napieciem, aktywowac kamere nadajac haslo z kompletu A, ustawic adres 192.168.3.113 / maska 255.255.255.0 / brama 192.168.3.1) i CZESC 2 (Klaudek zdalnie: sprawdzenie ISAPI deviceInfo, PUT hasla do InputProxy kanalu 3 w NVR, dwa strumienie rod_rog i rod_rog_sub w go2rtc, encja camera.rod_rog przez platform ffmpeg w configuration.yaml + restart HA, kafelek advanced-camera-card w widoku kamery, na koniec ROI od Genka i wlaczenie kanalu 301 do skryptow pobierz_okno.sh i detekcja2.py). Zapisane tez czego NIE robic: zero prob zgadywania hasla (blokada po 5 probach na 30 min), wsparcie HiLook nie zastapi resetu bo SADP wymaga LAN.
+
+
+==============================================================================
+## SESJA 17.08.2026 09:23 CEST
+==============================================================================
+
+16.08.2026 ~11:30 — TEMAT ZAMROZONY, Tomasz wyjechal z dzialki. N150 zostaje w rescue mode, wlaczony, z monitorem i klawiatura. Pelny stan awarii i lista nastepnych krokow w decyzji D-00xx (temat n150-awaria). SKROT DLA NASTEPNEGO OKNA: (1) maszyna nie ma dostepu zdalnego — Klaudek jest slepy, wszystko szlo przez zdjecia ekranu; (2) dysk jest SPRAWNY, uszkodzenie systemu plikow DROBNE, dane czytelne; (3) sda8 zamontowane read-only w /dev/src, pendrive w /dev/usb, ratowanie danych ZACZETE ale NIEDOKONCZONE; (4) prowadzi HENIO — Tomasz dekretem 16.08 'Heniek kurwa prowadzi'; Klaudek TYLKO przekazuje polecenia i wraca ze zdjeciami, bez wlasnych pomyslow; (5) do zrobienia po powrocie: dokonczyc kopiowanie wg tury 8, potem probowac naprawy fs, a jesli sie nie uda — reinstalacja HAOS i przywrocenie z /dev/usb/ratunek. NIE DZIALA W TYM CZASIE: cala Dzialka — HA, kamery ROD w HA, go2rtc, Zigbee, ESPHome, MariaDB, dostep do NVR przez Tailscale (bo trase oglaszal N150).
+
+
+==============================================================================
+## SESJA 17.08.2026 14:18 CEST
+==============================================================================
+
+17.08: dostep do NVR/kamer ROD przez tailnet NADAL LEZY (trasy 192.168.3.0/24 oglaszal N150, ktory jest w rescue mode po awarii). VPS fabryki mial dzis wlasna awarie (exit-node, D-0098) — naprawiona, mosty wrocily, w tym most do Folda.
+
+
+==============================================================================
+## SESJA 17.08.2026 14:44 CEST
+==============================================================================
+
+17.08 14:30 dla porzadku w dzienniku HA: awaria fabryki (exit-node) NAPRAWIONA droga awaryjna przez HA DOM — dodatek Advanced SSH (a0d7b954_ssh) jako rece: packages+init_commands+restart, sshpass po tailnecie na 100.79.116.107, odczyt wyniku z ha_get_logs. Dodatek POSPRZATANY (opcje puste). sshd na VPS: haslo tylko z tailnetu (plik 00-haslo-tylko-tailnet.conf). Ta droga zostaje jako STALY plan awaryjny dostepu do VPS. Szczegoly: D-0098 w fabryce.

@@ -281,7 +281,34 @@ def _pobierz_zalacznik(wiadomosc: dict, token: str) -> str | None:
         os.chmod(cel, 0o600)
     except OSError as blad:
         return f"NIE ZAPISALEM zalacznika: {type(blad).__name__}"
-    return f"ZAPISANY plik: {cel.name} ({len(dane)} bajtow). Lezy w /root/skrzynka/pliki."
+    komunikat = f"ZAPISANY plik: {cel.name} ({len(dane)} bajtow). Lezy w /root/skrzynka/pliki."
+
+    # 17.08.2026: ciasteczka YouTube rozpoznajemy PO TRESCI i przenosimy do skrytki,
+    # zeby tools/film.py mial je od reki. Powod: Tomasz przyslal je kiedys i przepadly,
+    # bo nikt ich nie zapisal — przeszukanie 497 sesji i calej historii gita nic nie dalo.
+    # NIGDY nie drukujemy zawartosci ani nazw ciasteczek — to dostep do konta Google.
+    try:
+        poczatek = dane[:200].decode("utf-8", errors="ignore")
+        if "Netscape HTTP Cookie" in poczatek or "# HTTP Cookie File" in poczatek:
+            tresc = dane.decode("utf-8", errors="ignore")
+            if "youtube.com" in tresc or "google.com" in tresc:
+                skrytka = Path("/root/.sekrety")
+                skrytka.mkdir(parents=True, exist_ok=True)
+                os.chmod(skrytka, 0o700)
+                docelowy = skrytka / "youtube_cookies.txt"
+                docelowy.write_bytes(dane)
+                os.chmod(docelowy, 0o600)
+                cel.unlink(missing_ok=True)  # nie zostawiamy kopii w skrzynce
+                wpisow = sum(1 for l in tresc.splitlines()
+                             if l.strip() and not l.startswith("#"))
+                komunikat = (f"ROZPOZNANE CIASTECZKA YouTube — {wpisow} wpisow. "
+                             "Zapisane do skrytki (600, poza repozytorium), kopia ze "
+                             "skrzynki usunieta. Tresci nie drukuje. "
+                             "Teraz dziala: python3 tools/film.py <link>")
+    except Exception:  # noqa: BLE001
+        pass  # rozpoznanie jest dodatkiem — nigdy nie moze zepsuc zapisu zalacznika
+
+    return komunikat
 
 
 def _obsluz_sekret(tekst: str, token: str, czat: str, msg_id: int | None) -> str:

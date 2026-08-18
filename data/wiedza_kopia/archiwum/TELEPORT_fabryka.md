@@ -260,3 +260,24 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 13.08 19:2x CEST: TOMASZ — 'Zawsze jest ten sam problem'. Diagnoza przyjeta i zapisana MECHANICZNIE, nie jako obietnica. Problem nie polega na braku zapisow, tylko na tym, ze Klaudek zaczyna temat od zera zamiast od nich. Dowod z jednego dnia: kamery, nagrywarka, rozny realm .113 i wzorzec 'go2rtc + platform ffmpeg jak Xiaomi' lezaly w TELEPORT_HA od 12.08 — odkryte drugi raz przez kilka godzin; do tego zakaz dotyczacy routera zostal przez Klaudka rozciagniety na Linksysa, choc w tym samym wpisie stalo 'wchodzimy tylko na jego routery Linksys'. ZAPISANE: (1) nowy ROZDZIAL 0 w pamieci Klaudka /areas/klaudek-pamiec.md — 'ZANIM DOTKNIESZ TEMATU, SPRAWDZ CO JUZ O NIM WIEMY': pierwsze slowo Tomasza o nowym temacie = najpierw szukaj.py po KILKU haslach (nazwa, IP, marka, nazwa zadania), potem robota; osobno zapisane, ze 'sprawdz w pamieci / przypomnij sobie / juz to robilismy' oznacza, ze zapis ISTNIEJE i nie zostal otwarty; (2) wpis do wiedza/TECZKI/KLAUDEK.md z dowodem. Rozdzial 0 stoi PRZED rozdzialem o Heniu, wiec kazde nowe okno czyta go pierwszy.
+
+
+==============================================================================
+## SESJA 13.08.2026 20:05 CEST
+==============================================================================
+
+13.08 20:0x CEST: BRAMKA POPRAWIONA I SKRZYNKA PRZEPUSZCZONA (polecenie Tomasza '2 poprawic bramke', potem 'Wez do tego zadania cala druzyne', potem 'Puszczaj'). (1) WADA BRAMKI: tools/zrobione.py wolal zaloge przez zaloga.py BEZ --kto (a ta domyslnie wola tylko zenka i henia wg dekretu 4.08), ale petla oceniajaca iterowala po ('zenek','genek','henio') — Genek, ktorego bramka NIGDY nie zapraszala, zawsze wychodzil jako GLOS NIEODEBRANY, a brak glosu liczy sie jako sprzeciw. Skutek: KAZDA praca bez grafiki z gory dostawala ODRZUCONE. To zablokowalo dzis skrzynke mimo zielonego testu i dwoch potwierdzen. (2) POPRAWKA: bramka pyta DOKLADNIE tych, ktorych wola; lista idzie do zaloga.py jako --kto; Genek dolacza AUTOMATYCZNIE gdy wsrod dowodow jest obraz albo wideo, albo jawnie flaga --z-genkiem. Dobor wydzielony do testowalnej funkcji dobierz_zaloge. NIE OSLABIONO: brak glosu nadal nie jest zgoda, glos starszy niz 1800 s odrzucany, tryb awaryjny sie nie liczy, jedno BRAK SLADU blokuje. (3) ZENEK ODRZUCIL MNIE DWA RAZY I ZA KAZDYM RAZEM MIAL RACJE: najpierw ze logika doboru nie jest testowana (wydzielilem funkcje, dopisalem T13-T16), potem ze test nie pokrywa obslugi wielu /sekret ani zapisu zdjec i plikow (dopisalem T17-T19 z podstawiona siecia). Petla urosla z 17 do 29 przypadkow, wszystkie zielone. (4) BRAMKA Z CALA DRUZYNA (--z-genkiem): zenek POTWIERDZAM, henio POTWIERDZAM, genek POTWIERDZAM -> PRZEPUSZCZONE. (5) SKRZYNKA: druga bramka rowniez PRZEPUSZCZONA (zenek + henio). Commit zrobiony.
+
+
+==============================================================================
+## SESJA 17.08.2026 14:01 CEST
+==============================================================================
+
+17.08 14:00 VPS ODZYSKANY po wpadce z exit-node. Petla: Klaudek przelaczyl caly VPS na wyjscie przez telefon Tomasza -> zerwal wlasny kanal -> telefon przestal byc wyjsciem -> Tailscale zablokowal caly ruch VPS. Ratunek: SSH od srodka tailnetu z HA Dom (dodatek Advanced SSH jako rece, sshpass + haslo roota z panelu Hetznera) -> tailscale set --exit-node= -> wrocilo. Szczegoly i lekcje w D-0098 (temat vps-awaria). Film Szewczyka NADAL niepobrany — cookies albo izolowane wyjscie przez telefon, ale NIE przelaczaniem calego VPS. Rescue w panelu Hetznera zostalo UZBROJONE i trzeba je ROZBROIC (Tomasz), inaczej nastepny restart wejdzie w rescue.
+
+
+==============================================================================
+## SESJA 17.08.2026 14:16 CEST
+==============================================================================
+
+17.08 14:20 PRZELOM: tresc filmu Szewczyka ZDOBYTA przez Folda (odczyt pelnego opisu z ekranu YouTube app, wezly accessibility, bez Genka) -> data/filmy/XTV-4f90Edg/opis_pelny.md. Lista 10+1: last30days, i-have-adhd(+output style Szewczyka), impeccable, Wispr Flow, paczka Ondreja(hooki/Bypass), handoff-skill(zamiast /compact), claude-md-management, herdr, bonus: skill-z-nagrania-ekranu. Zaloga (Z+H) dostala runde 2 z prawdziwa trescia (.scratch/yt_skills/runda2). Droga-przez-Folda dziala i jest powtarzalna dla kazdego filmu: opis+rozdzialy z wezlow; transkrypcja tez mozliwa (panel Transkrypcja), ale drozsza.

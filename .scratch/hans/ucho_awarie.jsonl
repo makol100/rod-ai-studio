@@ -49,3 +49,93 @@
 {"czas": 1786627346.3502102, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
 {"czas": 1786641022.382138, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
 {"czas": 1786643310.0393534, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786655000.9022887, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786660056.0297346, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786681704.683414, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786682258.1503143, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786686592.9661584, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786700439.5165436, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786700884.4143999, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786701316.945759, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786704539.1005578, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786707502.5451143, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786713962.8183913, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786721019.8223004, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786724908.1665394, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786729780.7045007, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786732377.7184803, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786733319.641467, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786738215.590285, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786739986.3505907, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786743039.4411147, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786745372.5523672, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786758314.9594212, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786764760.5493684, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786776257.526964, "powod": "polaczenie/odpowiedz: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"}
+{"czas": 1786784744.431283, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786787422.6950812, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786791966.2278523, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786794948.5855553, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786808211.5121498, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786816650.7098074, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786819773.2695417, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786828619.7165504, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786842783.68312, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786843216.226161, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786846338.6863823, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786847129.3064103, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786848115.090235, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786854816.43049, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786857020.3821704, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786858816.7951918, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786863705.035736, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786867042.2557063, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786873446.9048572, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786873554.0788612, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786875671.0320556, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786885485.0063705, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786892586.4507139, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786892941.7413514, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786893849.556609, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786897033.134368, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786899000.263896, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786901027.8048794, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786902959.4085505, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786903902.2135427, "powod": "polaczenie/odpowiedz: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"}
+{"czas": 1786905416.528746, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786909020.782198, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786918509.2304955, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786920308.6703424, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786928950.5508761, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786940040.1255183, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786942607.3255394, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786945934.956951, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786952360.7421541, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786961337.4544804, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786962174.4950068, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x7c2652cd4550>, 'Connection to api.telegram.org timed out. (connect timeout=45)'))"}
+{"czas": 1786962324.5916018, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x7c2652cd4550>, 'Connection to api.telegram.org timed out. (connect timeout=45)'))"}
+{"czas": 1786962474.6869473, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x7c2652cd5310>, 'Connection to api.telegram.org timed out. (connect timeout=45)'))"}
+{"czas": 1786962674.942907, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x7c2652cd4f50>, 'Connection to api.telegram.org timed out. (connect timeout=45)'))"}
+{"czas": 1786962825.035859, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x7c2652cd4e10>, 'Connection to api.telegram.org timed out. (connect timeout=45)'))"}
+{"czas": 1786963898.2616153, "powod": "polaczenie/odpowiedz: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"}
+{"czas": 1786963976.4891047, "powod": "polaczenie/odpowiedz: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"}
+{"czas": 1786964563.1042986, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786965145.38146, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))"}
+{"czas": 1786965713.0749457, "powod": "polaczenie/odpowiedz: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"}
+{"czas": 1786967842.8631492, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x71c877650e10>, 'Connection to api.telegram.org timed out. (connect timeout=45)'))"}
+{"czas": 1786967992.9346724, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8905454527:AAEgaDQ4wEOQvC5guZzTLJhGWMALw0-kQfA/getUpdates?offset=817596628&timeout=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x71c8776511d0>, 'Connection to api.telegram.org timed out. (connect timeout=45)'))"}
+{"czas": 1786968310.4423416, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786972736.1592798, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786977855.7087626, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786978317.009336, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786981063.6882114, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786989170.7409985, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786990506.1509583, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1786994910.4176311, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1787002858.3030164, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1787012227.8004096, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1787012779.230619, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1787020247.043986, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1787020683.5667346, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1787024226.3830361, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}
+{"czas": 1787026094.8756618, "powod": "polaczenie/odpowiedz: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=45)"}

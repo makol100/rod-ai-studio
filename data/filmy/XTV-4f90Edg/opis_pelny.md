@@ -1,0 +1,41 @@
+# 10 Skills, Pluginow i Repo do Claude Code, Ktore Warto Znac (Sierpien 2026)
+# Robert Szewczyk, 13.08.2026, 39:58, https://youtu.be/XTV-4f90Edg
+# ZRODLO: pelny opis filmu odczytany 17.08.2026 z ekranu telefonu Tomasza (YouTube app,
+# wezly accessibility) — droga przez Folda, BEZ Genka. To slowa AUTORA, nie streszczenie.
+
+## ZAPOWIEDZ AUTORA (doslownie z opisu)
+"W tym materiale pokaze Ci 10 skilli, pluginow i repozytoriow do Claude Code oraz Codex,
+ktore w ostatnim czasie wpadly mi w rece i sa naprawde dobrze oceniane przez spolecznosc.
+Wszystko, co dzis omawiam, jest darmowe, a cala instalacje obsluzymy jedna instrukcja
+z poczatku filmu - klikana, bez grzebania w terminalu."
+Watki z zapowiedzi: research bez SEO-papki; przeprogramowanie komunikacji agenta ("przestal
+gadac, zaczal dowozic"); 58 wzorcow "AI Slop"; dyktowanie i notatki ze spotkan; hooki
+trzymajace CC na krotkiej smyczy NAWET w Bypass Permissions; "lekarstwo na amnezje miedzy
+sesjami zamiast wysluzonego /compact"; oficjalna wtyczka pilnujaca CLAUDE.md; praca zespolu
+agentow; ukryta funkcja - skill pisze sie sam z przeklikania zadania.
+
+## LISTA — 9 polecajek + bonus (tak liczy sam film: rozdzialy 'Polecajka 1..9' + 'Bonus';
+## tytulowe '10' obejmuje bonus). Linki czesciowo uciete w UI — koncowki do ustalenia po repo.
+1. last30days — research z ostatnich 30 dni (Reddit, X, YouTube, Hacker News).
+   github.com/mvanhorn/last...
+2. i-have-adhd — repo skracajace odpowiedzi agenta do konkretu. github.com/ayghri/i-have...
+3. Output style Szewczyka na bazie "i-have-adhd" (dwie wersje). github.com/Szewowsky/rob...
+4. impeccable — skill przeciw AI Slopowi (23 komendy, 180 gotowych styli). impeccable.style
+5. Wispr Flow — dyktowanie, note taker, konektor MCP (komercyjne, link afiliacyjny).
+6. Paczka skilli i hookow od Davida Ondreja (40+ skilli). github.com/davidondrej/s...
+7. handoff-skill od Krisa — handoff i pickup zamiast /compact. github.com/simplybychris...
+8. claude-md-management — oficjalna wtyczka Anthropic do pilnowania CLAUDE.md.
+   docs.claude.com/en/docs/...
+9. herdr — Claude Code i Codex w jednym oknie. herdr.dev
+10. BONUS: skill z NAGRANIA EKRANU — "ukryta funkcja w Claude, dzieki ktorej skill doslownie
+    pisze sie sam. Wystarczy, ze przeklikasz swoje zadanie tak, jak robisz to na co dzien."
+    Dokumentacja: support.claude.com/en/ar...
+
+## SPIS TRESCI (rozdzialy z opisu)
+00:00 Wprowadzenie | 00:52 Instalowanie pluginow | 03:20 P1 | 06:34 P2 | 12:04 P3 |
+17:26 P4 | 20:13 P5 | 22:53 P6 | 27:23 P7 | 30:40 P8 | 34:34 P9 | 36:27 Bonus | 38:34 Podsumowanie
+(9 rozdzialow "Polecajka" + bonus; mapowanie rozdzial->pozycja listy do potwierdzenia z transkrypcji)
+
+## KONTEKST
+5111 wyswietlen, 204 polubienia, 40 komentarzy (w tym: skill adhd nie instaluje sie jako
+marketplace — "This repository isn't a marke..."). Film zawiera platna promocje (Hostinger).

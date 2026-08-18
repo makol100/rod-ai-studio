@@ -260,3 +260,59 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 13.08 19:2x CEST: TOMASZ — 'Zawsze jest ten sam problem'. Diagnoza przyjeta i zapisana MECHANICZNIE, nie jako obietnica. Problem nie polega na braku zapisow, tylko na tym, ze Klaudek zaczyna temat od zera zamiast od nich. Dowod z jednego dnia: kamery, nagrywarka, rozny realm .113 i wzorzec 'go2rtc + platform ffmpeg jak Xiaomi' lezaly w TELEPORT_HA od 12.08 — odkryte drugi raz przez kilka godzin; do tego zakaz dotyczacy routera zostal przez Klaudka rozciagniety na Linksysa, choc w tym samym wpisie stalo 'wchodzimy tylko na jego routery Linksys'. ZAPISANE: (1) nowy ROZDZIAL 0 w pamieci Klaudka /areas/klaudek-pamiec.md — 'ZANIM DOTKNIESZ TEMATU, SPRAWDZ CO JUZ O NIM WIEMY': pierwsze slowo Tomasza o nowym temacie = najpierw szukaj.py po KILKU haslach (nazwa, IP, marka, nazwa zadania), potem robota; osobno zapisane, ze 'sprawdz w pamieci / przypomnij sobie / juz to robilismy' oznacza, ze zapis ISTNIEJE i nie zostal otwarty; (2) wpis do wiedza/TECZKI/KLAUDEK.md z dowodem. Rozdzial 0 stoi PRZED rozdzialem o Heniu, wiec kazde nowe okno czyta go pierwszy.
+
+
+==============================================================================
+## SESJA 13.08.2026 20:05 CEST
+==============================================================================
+
+13.08 20:0x CEST: BRAMKA POPRAWIONA I SKRZYNKA PRZEPUSZCZONA (polecenie Tomasza '2 poprawic bramke', potem 'Wez do tego zadania cala druzyne', potem 'Puszczaj'). (1) WADA BRAMKI: tools/zrobione.py wolal zaloge przez zaloga.py BEZ --kto (a ta domyslnie wola tylko zenka i henia wg dekretu 4.08), ale petla oceniajaca iterowala po ('zenek','genek','henio') — Genek, ktorego bramka NIGDY nie zapraszala, zawsze wychodzil jako GLOS NIEODEBRANY, a brak glosu liczy sie jako sprzeciw. Skutek: KAZDA praca bez grafiki z gory dostawala ODRZUCONE. To zablokowalo dzis skrzynke mimo zielonego testu i dwoch potwierdzen. (2) POPRAWKA: bramka pyta DOKLADNIE tych, ktorych wola; lista idzie do zaloga.py jako --kto; Genek dolacza AUTOMATYCZNIE gdy wsrod dowodow jest obraz albo wideo, albo jawnie flaga --z-genkiem. Dobor wydzielony do testowalnej funkcji dobierz_zaloge. NIE OSLABIONO: brak glosu nadal nie jest zgoda, glos starszy niz 1800 s odrzucany, tryb awaryjny sie nie liczy, jedno BRAK SLADU blokuje. (3) ZENEK ODRZUCIL MNIE DWA RAZY I ZA KAZDYM RAZEM MIAL RACJE: najpierw ze logika doboru nie jest testowana (wydzielilem funkcje, dopisalem T13-T16), potem ze test nie pokrywa obslugi wielu /sekret ani zapisu zdjec i plikow (dopisalem T17-T19 z podstawiona siecia). Petla urosla z 17 do 29 przypadkow, wszystkie zielone. (4) BRAMKA Z CALA DRUZYNA (--z-genkiem): zenek POTWIERDZAM, henio POTWIERDZAM, genek POTWIERDZAM -> PRZEPUSZCZONE. (5) SKRZYNKA: druga bramka rowniez PRZEPUSZCZONA (zenek + henio). Commit zrobiony.
+
+
+==============================================================================
+## SESJA 17.08.2026 14:01 CEST
+==============================================================================
+
+17.08 14:00 VPS ODZYSKANY po wpadce z exit-node. Petla: Klaudek przelaczyl caly VPS na wyjscie przez telefon Tomasza -> zerwal wlasny kanal -> telefon przestal byc wyjsciem -> Tailscale zablokowal caly ruch VPS. Ratunek: SSH od srodka tailnetu z HA Dom (dodatek Advanced SSH jako rece, sshpass + haslo roota z panelu Hetznera) -> tailscale set --exit-node= -> wrocilo. Szczegoly i lekcje w D-0098 (temat vps-awaria). Film Szewczyka NADAL niepobrany — cookies albo izolowane wyjscie przez telefon, ale NIE przelaczaniem calego VPS. Rescue w panelu Hetznera zostalo UZBROJONE i trzeba je ROZBROIC (Tomasz), inaczej nastepny restart wejdzie w rescue.
+
+
+==============================================================================
+## SESJA 17.08.2026 14:16 CEST
+==============================================================================
+
+17.08 14:20 PRZELOM: tresc filmu Szewczyka ZDOBYTA przez Folda (odczyt pelnego opisu z ekranu YouTube app, wezly accessibility, bez Genka) -> data/filmy/XTV-4f90Edg/opis_pelny.md. Lista 10+1: last30days, i-have-adhd(+output style Szewczyka), impeccable, Wispr Flow, paczka Ondreja(hooki/Bypass), handoff-skill(zamiast /compact), claude-md-management, herdr, bonus: skill-z-nagrania-ekranu. Zaloga (Z+H) dostala runde 2 z prawdziwa trescia (.scratch/yt_skills/runda2). Droga-przez-Folda dziala i jest powtarzalna dla kazdego filmu: opis+rozdzialy z wezlow; transkrypcja tez mozliwa (panel Transkrypcja), ale drozsza.
+
+
+==============================================================================
+## SESJA 17.08.2026 17:54 CEST
+==============================================================================
+
+17.08 18:00 STRAZNIK KOMEND STOI (tools/straznik_komend.py + tools/test_straznik.py, hook PreToolUse w /root/.claude/settings.json, matcher Bash). Metoda z filmu Szewczyka (davidondrej/skills), wlasna implementacja: fail-CLOSED zamiast fail-open (jq na VPS NIE MA), wzorce Linux + nasze sciezki (skrytka, klucze, tailscale exit-node z D-0098). Petla 33 przypadki + 2 fail-closed zielone. BRAMKA zrobione.py NAPRAWIONA — kontroler dostaje slad wykonania testu (D-0102). Z filmu zostaje: handoff JUZ MAMY w /root/.claude/skills (Zenek to wykryl, Henio sie mylil polecajac instalacje) — do ZACZECIA UZYWANIA + dorobienia sekcji 'czego NIE robic/slepe uliczki'; last30days do rozwazenia; reszta odrzucona (i-have-adhd = nasz JAK_PISZEMY.md, impeccable/herdr/output-style nie dla nas, Record-a-skill wymaga Claude for Mac). Film XTV-4f90Edg: opis mamy, TRANSKRYPCJI NADAL BRAK — TranscriptAPI.io 500 na tym jednym filmie (klucz w /root/.sekrety/transcriptapi.key, dziala na innych, 100 kredytow/mies).
+
+
+==============================================================================
+## SESJA 17.08.2026 18:49 CEST
+==============================================================================
+
+17.08 18:40 PRZELOM — DROGA DOMOWA dziala. Transkrypcja filmu Szewczyka na dysku fabryki (data/filmy/XTV-4f90Edg/transkrypcja.txt, 1066 linii). Metoda spisana w wiedza/DROGA_DOMOWA_YOUTUBE.md, decyzja D-0103. Do zrobienia: tools/film.py --droga-domowa (dzis to 3 ruchy reczne), oraz analiza transkrypcji przez zaloge.
+
+
+==============================================================================
+## SESJA 18.08.2026 10:29 CEST
+==============================================================================
+
+18.08 09:20 TEMAT ZAMKNIETY przez Tomasza. ZROBIONE 17-18.08: (1) DROGA DOMOWA YouTube dziala — yt-dlp na HA Dom (domowe IP), transfer POST na VPS :8099; 3 filmy na dysku (XTV-4f90Edg Szewczyk 1066 linii PL, FEUyEfwX9gw Seedance 146 EN, yPrUlIfCJ_0 GitHub#284 419 PL); metoda w wiedza/DROGA_DOMOWA_YOUTUBE.md, D-0103; 8. pulapka: restart dodatku ubija pobieranie w trakcie — pobranie i wysylka jednym ciagiem. (2) STRAZNIK KOMEND stoi, potwierdzony EMPIRYCZNIE dziennikiem /root/.straznik_dziennik.jsonl (D-0104). (3) BRAMKA zrobione.py naprawiona dwukrotnie: kontroler dostaje slad testu (D-0102) + wszystkie sciezki uruchom_test zwracaja 3 wartosci. (4) tools/czy_pisza.py — koniec falszywych meldunkow 'jeszcze pisza' (Klaudek dwa razy okłamal Tomasza, raz na 11,5h); petla 5 przypadkow, przeszlo bramke. (5) handoff: dopisane 4 sekcje obowiazkowe. (6) pakiet_wznowienia: sekcja slepych uliczek (filtr ZGRUBNY — do dopracowania). OTWARTE: audyt Octop zawezony do 4 mechanizmow bezpieczenstwa (D-0105, Tomasz: 'A i sie wypowiedziec nic nie przenosic') — NIEURUCHOMIONY, czeka; N150 zamrozony do wizyty; automatyzacja drogi domowej (SSH kluczem na HA Dom ODRZUCONY mimo poprawnej konfiguracji — nie wiem czemu); haslo Tomasza lezy jawnym tekstem w opcjach dodatku a0d7b954_ssh na HA Dom — do zmiany.
+
+
+==============================================================================
+## SESJA 18.08.2026 10:29 CEST
+==============================================================================
+
+18.08 rano — TEMAT ZAMKNIETY przez Tomasza. STAN: (1) DROGA DOMOWA dziala — 3 filmy pobrane i przerobione na tekst (XTV-4f90Edg Szewczyk 1066 linii PL, FEUyEfwX9gw Seedance 146 EN, yPrUlIfCJ_0 GitHub#284 419 PL) w data/filmy/; metoda w wiedza/DROGA_DOMOWA_YOUTUBE.md; 8. pulapka dopisana do sprawdzenia: restart dodatku HA UBIJA pobieranie w trakcie — pobranie i wysylka musza isc jednym ciagiem z odczekaniem. (2) STRAZNIK KOMEND stoi, potwierdzony empirycznie (dziennik /root/.straznik_dziennik.jsonl: 18:36 przepusc echo, 18:37 BLOKADA rm -rf przez prawdziwy interfejs claude -p). (3) BRAMKA zrobione.py naprawiona w calosci (slad testu dla kontrolera + wszystkie 3 sciezki uruchom_test zwracaja 3 wartosci). (4) tools/czy_pisza.py POWSTAL — koniec falszywych meldunkow 'jeszcze pisza'; przyczyna byla: ps|grep lapal wlasna komende; Tomasz czekal przez to 11,5h na gotowy meldunek. (5) handoff: 4 sekcje obowiazkowe dopisane; pakiet_wznowienia: sekcja slepych uliczek dodana ALE filtr zgrubny (lapie tez sukcesy) — DO DOPRACOWANIA. OTWARTE: audyt kodu Octop (D-0105, Tomasz wybral opcje A, warunek 'czytac i sie wypowiedziec, NIC NIE PRZENOSIC') — NIE WYKONANY, zmierzone repo 21,9 MB Python, ustalono ze realny jest tylko audyt ZAWEZONY do 4 mechanizmow bezpieczenstwa (20-40 min), calosc nierealna. N150 zamrozony do wizyty Tomasza. Automatyzacja drogi domowej NIE WYSZLA — SSH kluczem z VPS na HA Dom odrzucane mimo poprawnej konfiguracji (klucz oferowany, nie przyjmowany, przyczyna nieznana). UWAGA BEZPIECZENSTWO: haslo Tomasza lezy jawnym tekstem w opcjach dodatku a0d7b954_ssh na HA Dom — do zmiany.
+
+
+==============================================================================
+## SESJA 18.08.2026 10:30 CEST
+==============================================================================
+
+18.08 09:30 KONIEC SESJI (Tomasz: 'Konczymy temat'). ZROBIONE 17-18.08: (1) VPS uratowany po wpadce z exit-node — droga awaryjna przez dodatek SSH na HA Dom, D-0098; (2) STRAZNIK KOMEND stoi i POTWIERDZONY empirycznie (dziennik /root/.straznik_dziennik.jsonl, blokada zweryfikowana przez prawdziwy interfejs CC), D-0104; (3) BRAMKA zrobione.py naprawiona — kontroler dostaje slad wykonania testu; domkniete tez sciezki bledu uruchom_test (zwracaly 2 zamiast 3 wartosci), D-0102; (4) DROGA DOMOWA — fabryka umie czytac YouTube: yt-dlp na HA Dom (adres domowy, YouTube nie blokuje) -> POST na VPS :8099 -> VTT na tekst. TRZY filmy na dysku: XTV-4f90Edg (Szewczyk, 1066 linii PL), FEUyEfwX9gw (Seedance, 146 EN), yPrUlIfCJ_0 (GitHub #284, 419 PL). Metoda: wiedza/DROGA_DOMOWA_YOUTUBE.md, D-0103; (5) tools/czy_pisza.py — koniec falszywych meldunkow 'zaloga jeszcze pisze' (dwa razy 17.08, raz na 11,5h); (6) handoff: dopisane 4 sekcje obowiazkowe (slepe uliczki, zakazy, niepotwierdzone, droga powrotu); pakiet_wznowienia: sekcja slepych uliczek (filtr zgrubny — DO DOPRACOWANIA). OTWARTE: N150 zamrozony do wizyty Tomasza (plan ratunku w D-0097); AUDYT OCTOP zatwierdzony (D-0105, 'A i sie wypowiedziec nic nie przenosic') ale NIE URUCHOMIONY — zmierzone: repo 21.9 MB Pythona, calosc nierealna, zawezenie do 4 mechanizmow bezpieczenstwa ~20-40 min; automatyzacja drogi domowej NIE WYSZLA (SSH kluczem na HA Dom odrzucany mimo poprawnej konfiguracji) — dzis to 3 ruchy przez konektor; haslo Tomasza lezy jawnym tekstem w opcjach dodatku a0d7b954_ssh — DO ZMIANY.

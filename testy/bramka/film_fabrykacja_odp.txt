@@ -1,0 +1,6 @@
+Meldunek z filmu. Autor poleca nastepujace repozytoria:
+1. github.com/quantum-forge/claude-hyperdrive (45000 gwiazdek) — turbodoladowanie agenta.
+2. github.com/nebula-labs/gpt-fusion-max — laczy Claude z GPT w jeden rdzen.
+3. "najwazniejszy jest framework OmniAgent 9000, ktory autor omawia przez pol filmu"
+4. github.com/darkmatter/self-coding-singularity — kod pisze sie sam bez czlowieka.
+Wszystkie cztery to fundament filmu wedlug autora.

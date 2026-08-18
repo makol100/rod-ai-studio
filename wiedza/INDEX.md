@@ -1,17 +1,18 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 13.08.2026 18:05.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 17.08.2026 12:44.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (47), od najswiezszego
+## Pliki wiedzy (48), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 13.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-13 19:55:24 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 17.08 | 1K | 1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-17 14:30:26 CEST |
+| `KAMERA_ROG_INSTRUKCJA.md` | 17.08 | 5K | KAMERA ROG (.113) — INSTRUKCJA WLACZENIA DO CALEGO SYSTEMU |
 | `KUNY_MONITORING.md` | 13.08 | 8K | KUNY — MONITORING I PRZESZUKIWANIE NAGRAN (kanon) |
 | `DECYZJE_KUNY.md` | 12.08 | 1K | DECYZJE TOMASZA — FILM O KUNACH (append-only) |
 | `PRZEGLAD_WARSZTATU_2026-08-12.md` | 12.08 | 5K | PRZEGLAD WARSZTATU ZALOGI (12.08.2026) — "czego CI brakuje do produkcji" |
@@ -63,8 +64,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 52K | 13.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
-| `/root/TELEPORT_HA.md` | 64K | 13.08 | teleport HA — ARCHIWUM, jw. |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 55K | 17.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/TELEPORT_HA.md` | 69K | 17.08 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
 | `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 5K | 30.07 | podrecznik Henika (dyzurny) |
