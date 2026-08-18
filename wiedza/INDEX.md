@@ -74,3 +74,5 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 Jeden fakt ma jedno miejsce. Nowy zapis idzie do `wiedza/`, nie do teleportu.
 Teleporty sa ARCHIWUM historycznym — czyta sie je wyszukiwarka, nie w calosci.
+- **ZALOGA_SKLAD.md** — kto jest kim w załodze i na czym chodzi (Zenek=gpt-5.6-sol, Heniek=Hermes/deepseek-v4-pro, Genek=Gemini); limity czasu, pamięć Heńka i jej bramki, dziury w bezpieczeństwie do zamknięcia. Czytać przy doborze załogi.
+- **DROGA_DOMOWA_YOUTUBE.md** — jak fabryka czyta filmy z YouTube (pobieranie na HA Dom z domowego adresu, przesył na VPS); 8 pułapek, drogi odrzucone po pomiarach.

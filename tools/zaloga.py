@@ -96,8 +96,14 @@ def czytaj_material(lista: str) -> str:
 
 def zenek(zadanie: str, _material: str, wynik: dict) -> None:
     try:
-        w = subprocess.run(["codex", "exec", zadanie + STOPKA], cwd=REPO,
-                           capture_output=True, text=True, timeout=600)
+        # 18.08.2026 dekret Tomasza "ustaw Zenka na maxa": maksymalny wysilek rozumowania.
+        # Sprawdzone tego dnia — codex przyjmuje -c model_reasoning_effort bez bledu.
+        # Modelu NIE wymuszamy: bierze domyslny z subskrypcji Tomasza (dzis gpt-5.6-sol);
+        # warianty Luna/Terra tez odpowiadaja, ale katalog NIE podaje, ktory jest mocniejszy,
+        # wiec nie zgadujemy. Limit czasu podniesiony, bo wiekszy wysilek = dluzsza praca.
+        w = subprocess.run(["codex", "exec", "-c", "model_reasoning_effort=max",
+                            zadanie + STOPKA], cwd=REPO,
+                           capture_output=True, text=True, timeout=1800)
         out = w.stdout
         # 30.07: obcinanie do 3000 znakow ucielo Zenkowi punkty 1-5 w debacie o wygladzie Izabeli —
         # zostala sama koncowka, zaczynajaca sie w polowie zdania. Limit podniesiony i liczony od KONCA
