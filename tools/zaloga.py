@@ -96,15 +96,37 @@ def czytaj_material(lista: str) -> str:
 
 def zenek(zadanie: str, _material: str, wynik: dict) -> None:
     try:
-        # 18.08.2026 dekret Tomasza "ustaw Zenka na maxa": maksymalny wysilek rozumowania.
+        # 19.08 dekret Tomasza: "Zmniejszyc Zenka stopien nizej i zobaczymy ile wpierdala
+        # kredytow" — effort max -> high. Powod: 18.08 przy max wyczerpal dobowa pule konta
+        # w kilka godzin (Codex: "You have hit your usage limit"), co dalo 4 puste glosy
+        # i 3 timeouty. Tomasz o jakosci na max: "jest wysmienity" — wiec to proba pomiaru,
+        # nie rezygnacja. Powrot na max: zmienic to jedno slowo.
         # Sprawdzone tego dnia — codex przyjmuje -c model_reasoning_effort bez bledu.
         # Modelu NIE wymuszamy: bierze domyslny z subskrypcji Tomasza (dzis gpt-5.6-sol);
         # warianty Luna/Terra tez odpowiadaja, ale katalog NIE podaje, ktory jest mocniejszy,
         # wiec nie zgadujemy. Limit czasu podniesiony, bo wiekszy wysilek = dluzsza praca.
-        w = subprocess.run(["codex", "exec", "-c", "model_reasoning_effort=max",
+        w = subprocess.run(["codex", "exec", "-c", "model_reasoning_effort=high",
                             zadanie + STOPKA], cwd=REPO,
                            capture_output=True, text=True, timeout=2700)
         out = w.stdout
+        # 19.08 (dekret Tomasza "zobaczymy ile wpierdala kredytow"): licznik zuzycia.
+        # Codex wypisuje "tokens used" + liczbe. Zapisujemy do /root/.zenek_zuzycie.jsonl,
+        # zeby dalo sie POROWNAC effort=high z wczesniejszym max — liczba, nie odczucie.
+        try:
+            import re as _re, datetime as _dt
+            surowe = (w.stdout or "") + "\n" + (w.stderr or "")
+            m = _re.search(r"tokens used[^0-9]*([0-9][0-9,]*)", surowe, _re.IGNORECASE)
+            if not m:  # inne warianty formatu Codexa
+                m = _re.search(r"([0-9][0-9,]{3,})\s*tokens", surowe, _re.IGNORECASE)
+            wpis = {"czas": _dt.datetime.now().isoformat(timespec="seconds"),
+                    "effort": "high",
+                    "tokeny": int(m.group(1).replace(",", "")) if m else None,
+                    "znakow_odpowiedzi": len(out or ""),
+                    "zadanie": Path(zadanie).name if isinstance(zadanie, str) and len(zadanie) < 200 else "(tresc)"}
+            with open("/root/.zenek_zuzycie.jsonl", "a", encoding="utf-8") as f:
+                f.write(json.dumps(wpis, ensure_ascii=False) + "\n")
+        except Exception:
+            pass  # licznik nigdy nie moze zepsuc pracy Zenka
         # 30.07: obcinanie do 3000 znakow ucielo Zenkowi punkty 1-5 w debacie o wygladzie Izabeli —
         # zostala sama koncowka, zaczynajaca sie w polowie zdania. Limit podniesiony i liczony od KONCA
         # ostatniej wypowiedzi, a nie od konca calego logu.
@@ -395,7 +417,11 @@ Pelne reguly: wiedza/JAK_PISZEMY.md""")
         try:
             with open(kk, encoding="utf-8") as f:
                 czesci.append("\n=== KONTROLA KLAUDKA (obowiazkowa, wolajcie STOP) ===")
-                czesci.append(f.read()[:3200])
+                # 19.08: limit 3200 UCINAL kontrole w polowie — dopisany 19.08 SPRAWDZIAN NR 4
+                # (o zgadywaniu zamiast czytania zrodla) doszedl do zalogi SAMYM NAGLOWKIEM,
+                # bez formuly STOP, ktora maja wolac. Czyli mechanizm kontroli byl kaleki
+                # dokladnie w tym miejscu, gdzie mial dzialac. Limit podniesiony do 8000.
+                czesci.append(f.read()[:8000])
         except OSError:
             pass
 
