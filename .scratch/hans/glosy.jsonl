@@ -235,3 +235,5 @@
 {"czas_tomasza": "2026-08-19 16:04:43 CEST", "czas_utc": "2026-08-19T14:04:43.389852+00:00", "autor": "zenek", "zadanie": "test_high2", "znakow": 105, "plik": "/tmp/test_high2/narada/zenek.txt"}
 {"czas_tomasza": "2026-08-19 16:33:46 CEST", "czas_utc": "2026-08-19T14:33:46.142912+00:00", "autor": "henio", "zadanie": "pamiec_bez_bramki", "znakow": 4408, "plik": ".scratch/pamiec_bez_bramki/narada/henio.txt"}
 {"czas_tomasza": "2026-08-19 16:35:45 CEST", "czas_utc": "2026-08-19T14:35:45.920537+00:00", "autor": "zenek", "zadanie": "pamiec_bez_bramki", "znakow": 3820, "plik": ".scratch/pamiec_bez_bramki/narada/zenek.txt"}
+{"czas_tomasza": "2026-08-19 16:52:15 CEST", "czas_utc": "2026-08-19T14:52:15.602764+00:00", "autor": "henio", "zadanie": "hermes10", "znakow": 7700, "plik": ".scratch/hermes10/narada/henio.txt"}
+{"czas_tomasza": "2026-08-19 16:58:44 CEST", "czas_utc": "2026-08-19T14:58:44.469223+00:00", "autor": "zenek", "zadanie": "hermes10", "znakow": 10321, "plik": ".scratch/hermes10/narada/zenek.txt"}
