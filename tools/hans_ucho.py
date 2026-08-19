@@ -378,8 +378,10 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
                    "/sekrety — lista SAMYCH NAZW zapisanych kluczy\n"
                    "/dane <tresc> — zapis danych roboczych do /root/skrzynka (poza repo)\n"
                    "zdjecie albo plik — pobiera sie do /root/skrzynka/pliki\n\n"
-                   "UWAGA: kazda INNA wiadomosc idzie do wiedza/SLOWA_TOMASZA.md, a to jest "
-                   "PUBLICZNE repo na GitHubie. Dane wrazliwe wysylaj przez /sekret albo /dane.")
+                   "Kazda INNA wiadomosc idzie do /root/skrzynka/slowa.md — katalog 700, "
+                   "plik 600, POZA repozytorium (od 13.08). Nic stamtad nie trafia na GitHuba. "
+                   "Poswiadczenia i tak wysylaj przez /sekret — ich tresc jest maskowana "
+                   "w dzienniku diagnostycznym, zwykle wiadomosci nie.")
         return True
 
     _odpowiedz(token, czat, "Skladam pakiet wznowienia...")

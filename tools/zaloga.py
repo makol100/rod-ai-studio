@@ -349,7 +349,11 @@ Pelne reguly: wiedza/JAK_PISZEMY.md""")
     # przestal dzialac dla wszystkiego, co Tomasz napisal po 13.08 — przez 6 dni.
     # Teraz zaloga dostaje OBA: archiwum + swieze slowa ze skrzynki.
     fragmenty_slow = []
-    archiwum = os.path.join(REPO, "wiedza", "SLOWA_TOMASZA.md")
+    # 19.08: archiwum wyprowadzone z PUBLICZNEGO repo do skrzynki (700/600).
+    # Fallback na stara sciezke zostaje na wypadek, gdyby ktos przywrocil plik w repo.
+    archiwum = "/root/skrzynka/slowa_archiwum.md"
+    if not os.path.isfile(archiwum):
+        archiwum = os.path.join(REPO, "wiedza", "SLOWA_TOMASZA.md")
     if os.path.isfile(archiwum):
         try:
             with open(archiwum, encoding="utf-8") as f:
