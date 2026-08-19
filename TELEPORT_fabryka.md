@@ -386,3 +386,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 19.08 wieczor — pamiec Henia: bramka ZDJETA na dekret Tomasza (zapisuje natychmiast), ale pamiec WYPROWADZONA z publicznego repo do /root/pamiec_henia (700/600). Powod: byla sledzona przez gita, a na push czekaly dwa grozne wpisy — o dziurze w fabryka-api i o dostepie SSH z adresem, loginem i sciezka klucza. Pytanie Tomasza 'po co Heniek ma wystawiac pamiec na zewnatrz' bylo trafne: nie bylo po co, plik lezal w repo przez przypadek. Dowiazanie przepiete, zapis sprawdzony na zywo. Szczegoly D-0120.
+
+
+==============================================================================
+## SESJA 19.08.2026 17:06 CEST
+==============================================================================
+
+19.08 — narada o 10 skillach do Hermesa (film dotyczacy silnika Henia): NIC NIE INSTALUJEMY, szczegoly D-0121. Henio ma juz 1 z 10 (humanizer, przeniesiony do Hermesa oficjalnie) i poprawil moj opis: nie 13 skilli tylko 66 w 12 kategoriach. Zenek poprawil 3 nazwy z napisow i wylapal ukryte koszty, ktorych film nie podaje (cookies, SaaS 29 USD/mies, AGPL, licencja dwoista). Rozbieznosc: Defuddle — Henio NIE, Zenek TAK z warunkiem testu. NAJCIEKAWSZE: na pytanie o wlasny skill OBAJ odrzucili cala dziesiatke i wskazali NASZ temat — procedure szukania kuny na nagraniach NVR ('kuna-nvr-dowod'), czyli spisanie tego, co robimy recznie od tygodni.
