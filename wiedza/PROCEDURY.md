@@ -36,6 +36,13 @@ najlepiej po pełnym cyklu (docker restart + sleep 22 + curl).
 
 ## HA Dom / Działka
 - Dom: Nabu Casa + MCP; Działka: Tailscale (Funnel włączony!) + MCP
+- SSH na HA Dom (100.87.37.19, dodatek Advanced SSH a0d7b954_ssh): login WYŁĄCZNIE
+  `makol100` MAŁYMI literami (klucz /root/.ssh/id_ed25519 i hasło działają). Dodatek
+  lowercasuje ssh.username z opcji ("Makol100"→"makol100"), a sshd ma
+  AllowUsers=makol100 (case-sensitive) → "Makol100"/"homeassistant"/"root" =
+  Permission denied zanim sshd sprawdzi klucz. Klucze autoryzowane leżą w
+  /etc/ssh/authorized_keys (644), NIE w /root/.ssh (to symlink /data/.ssh bez kluczy).
+  Potwierdzone: ssh jako makol100 → uid=1000 OK (19.08 15:53 CEST).
 - Zmiany configuration.yaml (klucz rest, shell_command): restart HA wymagany;
   restart przez MCP potrafi zwrócić error, ALE się wykonać — weryfikuj po 90 s
 - Telegram: telegram_bot.send_message przez HA Dom (token w HA, NIE kopiować na VPS)

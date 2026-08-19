@@ -379,3 +379,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 19.08 — SSH NA HA DOM DZIALA (D-0118). Cala przyczyna dwoch dni odbijania: dodatek lowercasuje username, sshd porownuje case-sensitive. Logowac sie jako makol100 (MALE litery), nie Makol100. Zero zmian w konfiguracji. Rozwiazal Henio, Klaudek zweryfikowal: uid=1000, grupa wheel (sudo). To daje fabryce STALY dostep awaryjny do HA Dom niezalezny od konektora — ta sama droga, ktora 17.08 uratowala VPS po wpadce z exit-node, ale teraz kluczem zamiast haslem.
+
+
+==============================================================================
+## SESJA 19.08.2026 16:40 CEST
+==============================================================================
+
+19.08 wieczor — pamiec Henia: bramka ZDJETA na dekret Tomasza (zapisuje natychmiast), ale pamiec WYPROWADZONA z publicznego repo do /root/pamiec_henia (700/600). Powod: byla sledzona przez gita, a na push czekaly dwa grozne wpisy — o dziurze w fabryka-api i o dostepie SSH z adresem, loginem i sciezka klucza. Pytanie Tomasza 'po co Heniek ma wystawiac pamiec na zewnatrz' bylo trafne: nie bylo po co, plik lezal w repo przez przypadek. Dowiazanie przepiete, zapis sprawdzony na zywo. Szczegoly D-0120.
