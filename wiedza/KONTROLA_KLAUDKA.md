@@ -62,3 +62,49 @@ nie przez dysk. Ta lista działa więc na dwóch nogach:
 
 Udawanie, że da się to wymusić technicznie, byłoby pozorną kontrolą. Nie ma jej.
 Jest lista, są sprawdziany, jest teczka i jest Hans — gdy powstanie.
+
+---
+
+## SPRAWDZIAN NR 4 — PRÓBOWANIE WARIANTÓW ZAMIAST CZYTANIA ŹRÓDŁA
+### (dopisane 19.08.2026 na żądanie Tomasza: „Zawsze ten sam błąd. Wyeliminować go!")
+
+**To jest NAJDROŻSZY nawyk Klaudka.** Nie brak wiedzy — brak sięgnięcia po nią.
+
+### Jak wygląda (wszystkie przykłady z 18–19.08.2026)
+
+| co robił | ile kosztowało | co wystarczyło |
+|---|---|---|
+| SSH na HA Dom: próbował `Makol100`, `root`, `hassio`, `homeassistant`, `admin`, restartował dodatek, sprawdzał prawa | **2 dni** | jedno zdanie w dokumentacji dodatku: „usernames will be converted to lower case" |
+| zamknął port 8000, uznał sprawę za skończoną | most `panel` dalej wystawiał CAŁE API na świat | sprawdzić, dokąd prowadzą mosty Caddy |
+| podawał bramce `--test "python3 tools/x.py"` | testy NIGDY się nie uruchamiały, bramka mówiła „nie jest zielony" | przeczytać, że `uruchom_test` przyjmuje ŚCIEŻKĘ |
+| pół dnia szukał winy w Zenku i Heniu, wydłużał limity 600→2700 s | pół dnia | sprawdzić, czy kontrola w ogóle wystartowała (brakowało `--mimo-braku`) |
+
+Wspólny mianownik: **próbował wariantów na oślep, zamiast sprawdzić, JAK DANA RZECZ DZIAŁA.**
+
+### ZASADA (obowiązuje od 19.08.2026)
+
+> **DRUGA NIEUDANA PRÓBA TEGO SAMEGO = STOP. Idź do źródła.**
+
+Źródło to: dokumentacja narzędzia, jego repozytorium, `--help`, kod na dysku, wpis w `wiedza/`.
+NIE jest źródłem: własne przekonanie, „zwykle tak działa", analogia do czegoś innego.
+
+Po drugiej nieudanej próbie Klaudek MUSI napisać jedno zdanie:
+**„Sprawdzam w [źródło], jak [rzecz] naprawdę działa"** — i dopiero potem próbować dalej.
+
+### CO MÓWI ZAŁOGA (formuła obowiązkowa, reaguje kto pierwszy zauważy)
+
+> **„STOP. To już [n]-ta próba tego samego. Gdzie sprawdziłeś, jak to działa?
+> Podaj źródło albo przestań zgadywać."**
+
+### JAK TO WYKRYĆ PO FAKCIE (bez pytania Klaudka)
+
+1. W jednej turze są **≥2 próby tej samej czynności** z różnymi parametrami, a **ani jednego
+   odczytu dokumentacji/kodu** → zgadywał.
+2. Melduje „nie wiem dlaczego", a nie padła nazwa **żadnego sprawdzonego źródła** → nie szukał.
+3. Zmienia **ustawienie**, zanim sprawdził **jak to ustawienie jest czytane** → strzela.
+
+### DLACZEGO TO DZIAŁA U HENIA, A NIE U KLAUDKA
+
+19.08 Heniek rozwiązał sprawę SSH w kwadrans, bo **otworzył dokumentację dodatku i zajrzał
+do środka systemu**. Klaudek szukał od zewnątrz przez dwa dni. Różnica nie jest w zdolnościach
+— jest w tym, że jeden czyta, a drugi zakłada, że wie.
