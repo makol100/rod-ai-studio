@@ -906,3 +906,5 @@
 {"timestamp": "2026-08-18 10:52:56", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zaloga.py"], "knowledge_files": []}
 {"timestamp": "2026-08-18 12:08:51", "file": "tools/zaloga.py", "mtime": 1787054446.815225, "checksum": "85e4c461f893aaf961e95baec6a0dd26cfccf2f07f4b9e99394ee80fe2948a6d", "status": "modified"}
 {"timestamp": "2026-08-18 12:08:51", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zaloga.py"], "knowledge_files": []}
+{"timestamp": "2026-08-18 14:41:36", "file": "wiedza/ZALOGA_SKLAD.md", "mtime": 1787063205.1547441, "checksum": "74b3036ec27b458e3d7288b7c31c768682240f9c9a39ab47c664c8743895713e", "status": "added"}
+{"timestamp": "2026-08-18 14:41:36", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/ZALOGA_SKLAD.md"]}
