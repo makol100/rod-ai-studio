@@ -203,7 +203,12 @@ def main() -> int:
 
     print("\n3. KONTROLA ZALOGI:")
     if a.bez_zalogi:
-        print("   pominieta na wyrazne zadanie")
+        # 19.08 (znalazl Zenek): --bez-zalogi omijalo glosy i mimo to bramka wystawiala
+        # stempel — czyli furtka, ktora znosila caly sens kontroli. Teraz: pominiecie
+        # kontroli JEST upadkiem. Stempel wymaga glosow, kropka. Flaga zostaje tylko
+        # jako tryb podgladu (pokazuje dowody i test), nie jako droga do zatwierdzenia.
+        print("   POMINIETA — a to znaczy BRAK POTWIERDZENIA, nie zgode")
+        upadki.append("kontrola zalogi pominieta (--bez-zalogi nie zastepuje glosow)")
     else:
         zgoda, glosy = pytaj_zaloge(a.co, a.dowod, dobierz_zaloge(a.dowod, a.z_genkiem), slad_testu)
         for g in glosy:

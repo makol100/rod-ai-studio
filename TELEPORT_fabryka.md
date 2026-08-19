@@ -365,3 +365,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 19.08 popoludnie — SIEDEM NAPRAW ZAMKNIETYCH (D-0116), obie ostatnie z potwierdzeniem Zenka i Henia. Dolozone: rotacja dziennika straznika przy 5 MB, wykrywanie nieudanego startu zalogi. ODKRYCIE DNIA: bramka NIGDY nie startowala kontroli, bo nie przekazywala --mimo-braku — zaloga konczyla kodem 2 (sonda sprawdza wylaczonego Genka), a bramka meldowala 'GLOS NIEODEBRANY'. Klaudek pol dnia szukal winy w Zenku i Heniu i wydluzal im limity (600->2700 s), zamiast sprawdzic, czy w ogole zostali zapytani. TRZY WLASNE BLEDY PRZY ZGLASZANIU: dwie naprawy w jednym zgloszeniu; --test podawany jako cale polecenie zamiast sciezki (test sie NIE URUCHAMIAL, a bramka mowila 'nie jest zielony'); dowod z testu badajacego INNY plik (wychwycil Zenek). ZENEK WYCZERPAL LIMIT KONTA — to bylo prawdziwe zrodlo jego pustych glosow, nie timeout; przyczyna: effort=max spalil dobowa pule. Tomasz doladowal, model zostaje. TECZKA HENIA poprawiona: 'pamiec to dodatek, nie zamiennik raportu' — 18.08 Klaudek kazal mu zapisywac do pamieci i nie dopisal, ze raport ma isc w odpowiedzi; jeden raport przez to przepadl bezpowrotnie.
+
+
+==============================================================================
+## SESJA 19.08.2026 15:41 CEST
+==============================================================================
+
+19.08 wieczor — LISTA OTWARTYCH WYCZYSZCZONA DO ZERA (D-0117). Poprawione: klamiaca pomoc bota, SLOWA_TOMASZA.md wyprowadzone z publicznego repo do skrzynki, furtka --bez-zalogi zamknieta (nie wystawia juz stempla bez glosow), klucz API Henia do skrytki + wyczyszczony z 5 kopii zapasowych, haslo Tomasza do dodatku HA wymienione na losowe i schowane w skrytce. Wszystko zweryfikowane, Henio dziala, brief zalogi dziala. OTWARTE ZOSTAJE TYLKO: N150 na dzialce (zamrozony do wizyty) oraz znany drobiazg — logowanie kluczem na HA Dom odbija Permission denied mimo poprawnego authorized_keys (dostepu Tomasza nie dotyczy).
