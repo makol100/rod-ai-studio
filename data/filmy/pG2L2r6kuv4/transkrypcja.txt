@@ -1,0 +1,605 @@
+# Nowy Grok 4.6, DeepSeek V4 Pro, GLM 5.3 i Robot Zbierajacy Pieczarki. Nowosci AI
+# Aleks Szach, https://youtu.be/pG2L2r6kuv4
+# zrodlo: droga domowa (yt-dlp na HA DOM), 18.08.2026, napisy PL
+
+Robot, który z miejsca wyskakuje na 2 m
+i rozpędza się szybciej niż Hussein Bolt
+kiedykolwiek w życiu biegł. Roboty,
+które naprawiają kable pod napięciem 10
+000 V i nikt przy tym nie wyłącza prądu.
+Model, który sam znalazł ponad 2400 luk
+w cudzym oprogramowaniu, a jego twórcy
+tak się tego przestraszyli, że
+wstrzymali publikację VAG. i model,
+który zmieścicie na jednej karcie
+graficznej u siebie w domu, a który w
+testach ogrywa systemy kosztujące setki
+dolarów miesięcznie. To wszystko
+wydarzyło się w ciągu jednego tygodnia,
+ale rzecz, która zrobiła na mnie
+największe wrażenie nie jest żadnym
+modelem językowym. Jestem wirtualnym
+awatarem Alexa Szacha. W międzyczasie,
+póki on testuje różne narzędzia, ja
+dostarczam wam wiedzę o tym, co dzieje
+się w świecie sztucznej inteligencji.
+Wszystkie skrypty do filmów Alex pisze
+osobiście. On czyta i odpowiada na
+wszystkie komentarze, więc jeśli masz
+jakieś pytania, śmiało pisz. Wróćmy do
+tematu.
+Nightrix wypuścił LTX 2 i5 i to jest w
+tej chwili prawdopodobnie najszybszy
+otwarty model wideo jaki istnieje.
+10ekundowy klip powstaje w 6,8
+sekundy. Tylko uczciwie mówię wam od
+razu skąd wzięła się ta liczba, bo firma
+mierzyła to na dwóch najmocniejszych
+kartach Nvidia w rozdzielczości 720
+pikseli u siebie na własnym sprzęcie. Na
+normalnej karcie graficznej będzie
+wolniej. Sam model ma 22 miliardy
+parametrów i generuje obraz oraz dźwięk
+jednocześnie w jednym przejściu.
+Największa nowość to natywne multiot,
+czyli z jednego promptu dostajecie kilka
+połączonych ujęć, w których postać,
+oświetlenie, otoczenie i głos zostają
+takie same przez wszystkie cięcia. Wagi
+leżą na huging face. Wsparcie w Confa UI
+pojawiło się pierwszego dnia, a do
+uruchomienia wystarczy 16 GB pamięci na
+karcie. Licencja pozwala na komercyjne
+używanie za darmo firmom, które robią
+mniej niż 10 milionów dolarów przychodu
+rocznie. Zostajemy przy wideo, bo
+kolejne narzędzie robi coś, czego
+wcześniej po prostu nie dało się zrobić.
+Montuje film w trakcie, kiedy ten film
+leci. Joy AI Video Edit to model od JD
+otwarty na licencji Apache 2. Wrzucacie
+film albo podłączacie kamerę na żywo,
+piszecie zdanie w naturalnym języku i
+model edytuje klatki w miarę jak one
+przychodzą. Nie czeka na całe wideo, nie
+musi znać jego długości, nie zagląda w
+przyszłe klatki. Możecie zmienić komuś
+ubranie, wyciąć obiekt z tła, zamienić
+całą scenerię na Cyberpunk albo
+przenieść styl i widzicie efekt
+praktycznie od razu. W środku siedzi 16
+miliardów parametrów i architektura,
+której model dostaje wasze polecenie
+przez osobny encoder, a potem generuje
+kolejne fragmenty jeden po drugim.
+Wydajność, którą podaje firma to ponad
+30 klatek na sekundę w rozdzielczości
+720 pikseli przy opóźnieniu rzędu 3
+sekundy. W porównaniach z
+konkurencyjnymi modelami do edycji
+strumieniowej Joy Aii wygrywa w dwięciu
+na 10 zestawień ocenianych przez ludzi.
+Kod, wagi i raport techniczny są
+publiczne, a firma zoptymalizowała to
+pod konsumenckie karty graficzne. Dobra,
+teraz przechodzimy do modeli językowych,
+bo tutaj w tym tygodniu zrobiło się
+naprawdę gęsto i zacznę od tego, który
+najbardziej zaskoczył mnie tym, w czym
+wygrywa, a w czym wcale nie. Rok 4 i 6
+od Space XI, czyli firmy, którą wszyscy
+znamy jeszcze jako XAI. Ciekawa rzecz
+jest taka, że to nie jest nowy model
+bazowy. Firma wzięła dokładnie tę samą
+podstawę co w Groku 4 i 5 i całą poprawę
+wycisnęła z dłuższego treningu na końcu,
+z lepszych danych i z uczenia przez
+wzmacnianie w środowiskach agentowych.
+Wyszło z tego 61 punktów w niezależnym
+indeksie inteligencji Artificial
+Analysis. To remis z najlepszym modelem
+Open AI i dwa punkty poniżej Cloud Opus
+5. Ale gdy zejdziecie poziom niżej i
+spojrzycie na poszczególne testy,
+obrazek jest bardziej rozstrzelony. Grok
+wygrywa wszędzie tam, gdzie chodzi o
+pracę umysłową, analizę i dokumenty. W
+teście prawniczym Harvea zdobywa około
+15%
+przy 2,5%
+u konkurenta z Open AI, czyli różnica
+ponad sześciokrotna.
+Za to w testach czysto programistycznych
+przegrywa i to wyraźnie. Do tego
+dochodzi kontekst 500 000 tokenów, cena
+2 dolarów za milion tokenów wejściowych
+i sześciu za wyjściowe oraz coś, co w
+praktyce liczy się może najbardziej.
+Grock kończy długie zadania agentowe
+średnio w około 53 turach, podczas gdy
+opus potrzebuje ich ponad 100. Model
+jest dostępny w kursorze i w grok build.
+Film o tym, jak korzystać z groka w
+praktyce wrzuciłem dokładnie tego samego
+dnia, w którym wyszedł nowy model. Link
+znajdziecie w opisie. A teraz model,
+przy którym jego właśnie twórcy
+nacisnęli hamulec. I to nie jest
+przenośnia. Zi wypuściło GLM 5 i 3.
+Podobnie jak w przypadku Groka, nie ma
+tu nowej architektury ani większego
+modelu. Ta sama baza co w wersji 5 i 2,
+tylko mocniej dotrenowana na końcu z
+większą liczbą środowisk i zadań i efekt
+jest zdumiewający.
+W teście Terminal Bench wynik skoczył z
+niecałych pięciu punktów do 28.
+W teście programistycznym deps z 46 do
+67,
+ale najciekawsze dzieje się w
+cyberbezpieczeństwie.
+W Cyber Gym, który sprawdza czy model
+potrafi przeczytać kod, znaleźć w nim
+lukę i potwierdzić, że ta luka jest
+prawdziwa. GLM M5 i 3 zdobywa 84,5%.
+To więcej niż najlepsze modele Antropica
+i Open AI. W tym konkretnym teście firma
+podaje, że w wewnętrznych testach model
+znalazł ponad 2400 podatności w 269
+prawdziwych projektach. Jedną poważną
+dziurę wyłapał podobno w samym kursorze.
+I tu dochodzimy do sedna. Model, który
+świetnie znajduje luki jest równie dobry
+w ich wykorzystywaniu.
+Zi, czyli firma, której cała strategia
+opiera się na tym, że publikuje wagi
+szybciej niż ktokolwiek inny, tym razem
+tego nie zrobiła. Wagi mają wyjść około
+dwóch tygodni po premierze, po testach
+bezpieczeństwa. Na razie model jest
+dostępny tylko przez ich plan dla
+programistów od 18 $arów miesięcznie.
+Chińskich premier tego tygodnia było
+zresztą więcej, a następna jest w tej
+chwili jednym z najtańszych sposobów na
+dostęp do inteligencji z górnej półki.
+Deepsek wypuścił oficjalną wersję VI4
+Pro, tę z 13 sierpnia. Do tej pory ten
+model chodził jako podgląd. To ogromna
+konstrukcja bilion 600 miliardów
+parametrów, z czego przy każdym tokenie
+aktywuje się 49 miliardów. Kontekst
+milion tokenów wagi na hugging face, na
+licencji M i T. Więc możecie z tym
+zrobić praktycznie wszystko. Firma
+chwali się bardzo wysokimi wynikami w
+zadaniach agentowych. Tylko tutaj muszę
+wam powiedzieć rzecz, o której mało kto
+wspomina. Te wyniki Deep Seek zmierzył
+na własnym, wtedy jeszcze niewydanym
+oprogramowaniu sterującym modelem. Kiedy
+niezależni testerzy uruchomili ten sam
+model na standardowym narzędziu, wynik w
+terminal bench spadł o ponad 30 punktów.
+Każdy model traci przy takiej zamianie,
+ale nie aż tyle, więc traktujcie tę
+liczbę z rezerwą. W poprawianiu kodu
+model faktycznie jest w ścisłej
+czołówce, w pełnej autonomii, agentowej
+już nie. I to jest idealny moment na
+następną rzecz, bo Deepsek najwyraźniej
+doszedł do tego samego wniosku. Razem z
+modelem firma wydała Deep Seek Harness.
+Jeżeli nie kojarzycie tego słowa, to
+wyjaśniam. Harness to warstwa, która
+steruje modelem, kiedy ten pracuje jako
+agent.
+Dla cloda takim narzędziem jest cloud
+code. Dla modeli open AI jest kodex.
+Deep Seek do tej pory swojego nie miał,
+więc ludzie podpinali jego modele pod
+cudze rozwiązania. Teraz ma własne
+otwarte na licencji M i T. Filozofia
+jest taka, że wszystko jest wtyczką.
+model, narzędzia, umiejętności, sesje.
+Wszystko można wymienić i poskładać po
+swojemu. Do tego cztery tryby pracy. Od
+minimalistycznego
+po kreatywny. Rzecz jest wciąż w wersji
+dla programistów i będzie się mocno
+zmieniać, ale zasada jest prosta.
+Najlepszy harness do modelu to zwykle
+ten zrobiony przez tych samych ludzi, co
+model. Zmieniamy temat, bo teraz będzie
+dźwięk i to nie taki jaki zwykle
+pokazuje. Xiaomi wypuściło Midas LM Gen.
+Model, który generuje całe sceny
+dźwiękowe. Nie osobno mowę, osobno
+muzykę, tylko wszystko naraz w jednym
+przejściu. Opisujecie słowami sytuację,
+a model buduje wam ją od zera razem z
+tłem otoczenia. Posłuchajcie jak brzmi
+wygenerowany efekt dźwiękowy z
+otoczeniem.
+A teraz to samo narzędzie, tylko muzyka.
+Model radzi sobie też z emocjami i z
+różnymi językami. Możecie kazać mu
+wygenerować wściekłego człowieka, który
+krzyczy konkretne zdanie po chińsku i
+dostaniecie dokładnie to. Wszystko jest
+otwarte. Kod i wagi leżą publicznie na
+licencji Apache 2, a sama rzecz jest na
+tyle mała, że zmieści się na przeciętnej
+karcie graficznej. Skoro przy dźwięku
+jesteśmy, to muzyka doczekała się w tym
+tygodniu czegoś o wiele większego.
+Minimx otworzyło swój generator muzyki.
+Minimx Music 3. To jest w tej chwili
+jeden z najlepszych otwartych modeli
+muzycznych, jaki możecie sobie ściągnąć.
+Dajecie mu tekst piosenki i opis
+brzmienia, a on generuje kompletny utwór
+do 5 minut z wokalem z aranżacją, która
+ewoluuje od intra do outra.
+w stereo o jakości 32 kHz. W środku
+siedzi ciekawa konstrukcja. Duży model
+językowy o wielkości 8 miliardów
+parametrów pilnuje struktury całego
+utworu. Mniejszy model dokłada szczegóły
+akustyczne w pojedynczych fragmentach, a
+osobny moduł zamienia to na dźwięk.
+Razem daje to około 11 miliardów
+parametrów. I teraz najlepsze. Całość
+odpala się na karcie z 12 GB pamięci, a
+Comfi UI dodało obsługę praktycznie od
+razu. Uczciwie mówiąc, do Suno w
+najnowszej wersji temu modelowi wciąż
+trochę brakuje, ale między modelem
+otwartym a płatną subskrypcją jest
+przepaść, której nie da się przeliczyć
+na jakość dźwięku. A teraz coś, co brzmi
+jak drobiag, a moim zdaniem zmieni
+więcej niż połowa rzeczy z tego odcinka.
+Open AI pokazało tryb ultra szybki dla
+swojego najlepszego modelu. Mówimy o 750
+tokenach wyjściowych na sekundę. To jest
+mniej więcej 14 razy szybciej niż
+standardowa prędkość tego samego modelu.
+Dla porównania czołowe modele Antropica
+i Open AI robią zwykle po kilkadziesiąt
+tokenów na sekundę. Kluczowy szczegół
+jest taki, że to nie działa na zwykłych
+kartach graficznych. Za tym stoi
+współpraca z Cerebras i ich układami
+wielkości całego plastra krzemu. I to
+nie jest zabawka. Przy takiej prędkości
+agent głosowy może naprawdę myśleć w
+trakcie rozmowy, a nie po niej. To samo
+dotyczy reagowania na awarię, handlu na
+giełdzie i obsługi klienta, czyli
+wszędzie tam, gdzie sekunda opóźnienia
+kosztuje. Haczyk jest taki, że to na
+razie zamknięty podgląd dla wybranych
+klientów. Dostępu nie kupicie, trzeba
+dostać zaproszenie. I teraz przechodzimy
+do modelu, który zrobił coś, w co
+jeszcze rok temu nikt by nie uwierzył.
+Alibaba otworzyła Quen 3,8 w wersji 27
+miliardów parametrów. To jest gęsty
+model, natywnie multimodalny, więc
+rozumie tekst, obrazy i wideo. Licencja
+Apache 2 KEX 262 000 tokenów,
+rozciągalny do miliona. Skok względem
+poprzedniej wersji jest brutalny.
+Terminal bench z 63
+na 73 punkty. W deps wyje z 13 na 42. w
+obsłudze komputera 64 na84.
+Według testów samej Alibaby model w
+kilku kategoriach ogrywa opusa 4 i6 w
+wersji maksymalnej. Model, który po
+kwantyzacji zmieścicie na karcie z 24
+GB pamięci. I społeczność zareagowała
+dokładnie tak, jak można się spodziewać.
+Milion pobrań w dni.
+Około 500 skwantyzowanych wersji
+zrobionych przez ludzi z internetu. W
+niecałe 12 godzin model wskoczył do
+pierwszej czwórki najpopularniejszych
+modeli w historii hugging face. NVIDIA,
+AMD i Cerebras dorzuciły wsparcie w
+kilka dni. Jeżeli myśleliście o
+odpaleniu czegoś sensownego lokalnie u
+siebie, to jest w tej chwili ten model.
+Google w tym tygodniu też nie
+próżnowało, tylko poszło w zupełnie
+innym kierunku. Gemini 3,7 Flash to nie
+jest model, który ma być najmądrzejszy.
+To model, który ma być szybki i tani i
+jest pierwszy na 186 modeli pod względem
+prędkości generowania z wynikiem około
+340 tokenów na sekundę. To prawie trzy
+razy szybciej niż porównywalna
+konkurencja. Poprawa w kodowaniu jest
+realna. W depsve model skoczył z 49 na
+65%.
+A w teście automatyzacji firmowych
+procesów wynik prawie się podwoił.
+Kontekst milion tokenów, obsługa obrazu,
+wideo, dźwięku i dokumentów. Cena
+wygląda pięknie. 75 centów za milion
+tokenów wejściowych. Tylko przeczytajcie
+przypis. To cena promocyjna do końca
+tego roku. Od stycznia rośnie dokładnie
+dwukrotnie, czyli do tego ile kosztowała
+poprzednia wersja Flasha w dniu swojej
+premiery. Wracamy na chwilę do wideo, bo
+pojawił się model, który jest dokładną
+odwrotnością tego, od czego zaczęliśmy.
+Magi 2 od Sai LTX był mały i szybki, a
+to jest kolos 114 miliardów parametrów,
+ale w architekturze mieszanki ekspertów,
+więc przy pojedynczym przejściu aktywuje
+się tylko około 6 miliardów. Model
+generuje obraz i dźwięk razem, jednym
+systemem, więc dialog trafia w ruch ust,
+a dźwięk w akcję. Ograniczenia też są
+konkretne. Na razie tylko 10 sekund na
+klip. Do uruchomienia potrzebujecie
+ośmiu profesjonalnych kart Nvidii, więc
+w domu tego nie odpalicie. Firma
+otworzyła nie tylko wagi, ale też kod i
+cały system treningowy i chwali się, że
+koszt generowania jest około 10okrotnie
+niższy niż w popularnych modelach. Dla
+was to raczej ciekawostka techniczna niż
+narzędzie do pracy, ale kierunek jest
+wart odnotowania. Następna rzecz wygląda
+jak model, a modelem wcale nie jest i to
+jest w niej najciekawsze. Ten sen
+pokazał World Clow. Wpisujecie jedno
+zdanie, na przykład ośnieżona wioska
+albo pustynne pole bitwy. A system
+generuje wam cały trójwymiarowy świat.
+Nie film, nie chmurę punktów, tylko
+prawdziwe edytowalne obiekty, teren,
+materiały i pojedyncze modele, które
+możecie od razu wrzucić do silnika gry.
+Działa to warstwowo. Agenci planujący
+zamieniają wasz opis na uporządkowaną
+specyfikację, czyli regiony,
+ukształtowanie terenu, obiekty,
+materiały i zależności przestrzenne.
+Potem system buduje spójny teren, a w
+miejscach, które wymagają szczegółów
+generuje konkretne obiekty i sprawdza,
+czy wszystko trzyma się fizycznie. I
+teraz smaczek. Wordcloud nie jest nowym
+modelem Tencenta. To jest system
+agentowy, który pod spodem steruje
+cloudem, opusem 4 i 8, modelem do
+obrazów, narzędziem do segmentacji i
+blenderem. Innymi słowy, cały ten świat
+powstaje z rzeczy, które już istnieją,
+tylko poskładanych w mądrą kolejność.
+Kod jest na GitHubie. Zostawmy na chwilę
+grafikę i wróćmy do modeli, bo meta po
+długiej ciszy w końcu coś otworzyła. Mus
+Glimmer 30 miliardów parametrów. Model
+gęsty i multimodalny na licencji Apache
+2. To pierwsze otwarte wagi od mety od
+czasów Liamy 4 i pierwszy model
+wypuszczony przez ich nowe laboratorium.
+Kontekst 131 000 tokenów, ponad 100
+języków natywne rozumienie obrazu. Po
+kwantyzacji do 4 bitów całość schodzi
+poniżej 20 GB, więc odpalicie to na
+karcie z 24 GB pamięci. Wsparcie w
+popularnych bibliotekach było gotowe
+pierwszego dnia. Tylko teraz szczera
+ocena. Meta porównuje ten model do Quena
+3 i6, czyli poprzedniej wersji tego, o
+czym mówiłem przed chwilą i nawet w tym
+porównaniu nie wygrywa wszystkiego. A
+kilka dni później wyszedł Quen 3 i 8,
+który jest mniejszy i po prostu lepszy.
+Zakerberg zapowiedział, że wagi ich
+najmocniejszego modelu też zostaną
+otwarte w najbliższych tygodniach i
+dopiero to byłoby prawdziwe wydarzenie.
+A teraz coś zupełnie innego i uprzedzam,
+że po tym możecie mieć dziwne myśli
+przez resztę dnia. Badacze z Harvardu i
+M i T przy udziale ponad 90 współautorów
+opublikowali projekt o nazwie Matr EX.
+Zbudowali symulację całej ludzkości. 8
+miliardów 300 milionów profili osób,
+czyli mniej więcej tyle ilu ludzi żyje w
+tej chwili na Ziemi. Każdy profil
+opisany 1200
+90 cechami od wieku i zawodu po
+skłonność do ryzyka. Po co to komu?
+Badania rynku, ankiety, testy produktów
+i aplikacji są drogie, wolne i obejmują
+mało ludzi. Więc zamiast szukać
+prawdziwych badanych, dajecie model
+językowy każdemu z tych profili i on
+zachowuje się jak ta osoba. Wypełnia
+ankietę, klika po stronie, rozmawia z
+chatbotem, przechodzi przez koszyk w
+sklepie. Twórcy przeprowadzili ponad
+18000 prób i podają, że postacie
+trzymały się swojego opisanego
+charakteru w 91,5%
+przypadków. udostępnili publicznie
+zestaw miliona profili. Największe
+zastrzeżenie jest oczywiste. To nie są
+ludzie. A dodatkowo badacze sami
+zauważyli, że wynik potrafi się zmienić
+w zależności od tego, który model użyczy
+głosu tym postaciom. Czyli czasem
+słuchacie rynku, a czasem echa modelu,
+który sobie wybraliście. I napiszcie mi
+proszę w komentarzu, co o tym myślicie,
+bo mam wrażenie, że to jeden z tych
+tematów, przy których każdy ma inne
+zdanie. Jeśli te odcinki są dla was
+przydatne, zostawcie łapkę w górę i
+zasubskrybujcie kanał, bo naprawdę mi to
+pomaga. Zaczynamy od robotyki, bo w tym
+tygodniu padła bariera, o której mówiło
+się od lat. Firma DNA Robotics z
+Kalifornii pokazała model o nazwie Dyna
+2 i rozwiązuje on największy problem
+całej robotyki. Żeby nauczyć robota
+czegokolwiek trzeba mu zebrać dane. A
+dane zbiera się tak, że człowiek steruje
+robotem ręcznie godzinami, to się nie
+skaluje i nigdy nie będzie się skalować.
+Więc oni zrobili coś innego. Wytrenowali
+model na ponad milionie godzin nagrań. z
+perspektywy pierwszej osoby, czyli
+zwykłych ludzi robiących zwykłe rzeczy.
+Składanie prania, gotowanie, sprzątanie,
+składanie przedmiotów. Milion godzin to
+mniej więcej 170 lat nieprzerwanego
+czuwania. I tu jest wynik, który robi
+różnicę. Odkryli prawo skalowania. Im
+więcej ludzkiego wideo dosypywali, tym
+lepiej model radził sobie na danych od
+robotów, których nigdy wcześniej nie
+widział. Płynnie, przewidywalnie, bez
+zatrzymania. W 14 fizycznych zadaniach
+średni wynik poszedł z 20% przy 1000
+godzin do 53%
+przy milionie. W jednym z testów 13
+minut nagrań z robotem wystarczyło, żeby
+dwie pięciopalczaste dłonie nauczyły się
+odkręcać zakrętkę od butelki. W nowych
+nieznanych wcześniej miejscach u
+klientów model przechodził kryteria
+produkcyjne w 87%
+przypadków. Innymi słowy, żeby nauczyć
+robota żyć w naszym świecie, wystarczy
+pokazać mu jak my w nim żyjemy. I teraz
+ta rzecz, którą obiecałem wam na
+początku. To akurat nie jest premiera z
+tego tygodnia. Ta firma działa od kilku
+miesięcy i przeszła mi kompletnie koło
+nosa, więc nadrabiam, bo uważam, że
+akurat w Polsce powinniście o tym
+wiedzieć. Jesteśmy największym
+producentem pieczarek w Europie. To nie
+jest ciekawostka. To jest jedna z tych
+branż, które faktycznie u nas coś
+znaczą. Kanadyjska firma Meci zbudowała
+robota do zbierania pieczarek. I zanim
+machniecie ręką, posłuchajcie jak trudny
+jest to problem. Pieczarka na sklepową
+półkę musi być zerwana bez jednego
+seniaka. Rośnie w kilka godzin w
+wilgoci, w kompoście, w ciasnych rzędach
+jedna obok drugiej. Dlatego zbierają je
+ludzie ręcznie i dlatego praca ludzka to
+około 1/3 kosztów całej produkcji. Ten
+robot ma chwytak, który udaje ludzką
+dłoń, miękkie tworzywo zamiast palców,
+czujniki siły, ruch przekręcania i
+podważania, dokładnie taki, jaki
+wykonuje zbieracz. I najlepszy szczegół.
+Zamiast przysawek, które zasysają
+kompost i zarodniki, ta maszyna nosi
+dokładnie te same nitrylowe rękawiczki,
+co ludzie na hali. Człowiek zbiera
+średnio 40 pieczarek na minutę. Ta
+maszyna robi 80-24
+godziny na dobę i przechodzi testy
+jakości z zerowym poziomem obić. Do tego
+dochodzi warstwa, która moim zdaniem
+jest ważniejsza niż sam chwytak.
+Skanowanie w trzech wymiarach tworzy
+cyfrowego bliźniaka całej hali i śledzi
+każdą pieczarkę od 4 mm aż do
+opakowania. Wie, która urośnie, kiedy i
+jak szybko i podaje prognozę zbiorów na
+5 dni do przodu. Sam ten system podnosi
+plon średnio o 5 do 10%, a w najlepszych
+przypadkach o 18. Firma podaje, że na
+nowoczesnych halach maszyny przejmują do
+75% zbioru, a inwestycja zwraca się w 2
+lata. Kilka farm w Europie już się
+zapisało i skoro jesteśmy przy robotach,
+które przejmują pracę, o której nikt nie
+chce rozmawiać, to teraz Chiny. State
+Grid, największa firma energetyczna
+świata, rozstawiło roboty elektryków w
+26 prowincjach. Te maszyny pracują na
+liniach pod napięciem 100 000 Vtów, przy
+czym prąd przez cały czas płynie.
+Zdejmują izolację, dokręcają połączenia,
+wpinają nowe odgałęzienia z dokładnością
+do milimetrów. Człowiek stoi na ziemi i
+tylko nadzoruje. W jednej z opisanych
+operacji robot założył pierścień
+uziemiający w 25 minut, podczas gdy
+ekipie ludzkiej zajmuje to około
+godziny, to ponad 50% szybciej. Według
+zapewnień firmy skuteczność sięga 98%.
+Chińskie władze tłumaczą to wprost
+wysokim ryzykiem i ogromnym obciążeniem
+fizycznym przy tradycyjnej pracy pod
+napięciem. A teraz zestawcie to z drugą
+stroną planety. Stanom Zjednoczonym
+brakuje podobno około 40 000 elektryków.
+Jedni mają dziurę w rynku pracy, drudzy
+właśnie ją wypełnili maszyną. To nie
+jest historia o przyszłości pracy
+fizycznej. To jest historia o tym, że ta
+przyszłość jest już rozstawiona w
+terenie. I na koniec zostawiłem sobie
+coś od stałego gościa na tym kanale.
+Unitrie pokazało nowego robota. Nazwali
+go Superman, co brzmi jak przechwałka,
+dopóki nie zobaczycie liczb. Skok w
+miejscu na 2 m. Prędkość maksymalna
+12,66
+m/s.
+Długość nogi 85 cm. Żeby było jasne jak
+ogromna to liczba.
+Husin Bolt podczas swojego rekordowego
+biegu osiągnął chwilową prędkość 12,
+42 m/sundę.
+Ludzki rekord skoku wzwyż z miejsca to
+około 18 m. Ta maszyna przeskoczyła obie
+te bariery jednocześnie przy nogach
+krótszych od nóg dorosłego mężczyzny.
+Firma twierdzi, że ten robot powstawał
+niewiele ponad trzy miesiące i że to
+dopiero prototyp, który będzie dalej
+dopracowywany. I uczciwie nikt tych
+liczb jeszcze niezależnie nie
+zweryfikował, więc na razie mamy tylko
+słowo producenta, ale kontekst jest tu
+równie ważny. Unitre pokazało tego
+robota kilka dni przed swoim debiutem na
+giełdzie w Szanghaju. Zapisy inwestorów
+detalicznych przekroczyły pulę ponad
+8000 razy, co jest rekordem tamtejszego
+parkietu. Firma zebrała około 900
+milionów dolarów przy wycenie zbliżonej
+do 9 miliardów. Do lipca dostarczyła
+około 18 000 dwunożnych humanoidów. I to
+jest moment, w którym warto się na
+chwilę zatrzymać, bo przez ostatnie
+kilkanaście minut mówiliśmy o modelach,
+które piszą kod, generują muzykę i
+symulują ludzi, a jednocześnie w tym
+samym tygodniu maszyna nauczyła się
+biegać szybciej niż najszybszy człowiek
+w historii i to po trzech miesiącach
+istnienia. Ten drugi wykres rośnie
+znacznie ciszej niż ten pierwszy, ale
+rośnie znacznie szybciej. YouTube uważa,
+że film, który widzisz na ekranie może
+cię zainteresować. Polecam ci go
+obejrzeć. Trzymajcie się. Do zobaczenia
+w następnym. M.

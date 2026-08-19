@@ -323,3 +323,31 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 18.08 po poludniu — SKLAD ZALOGI ZMIERZONY I DOSTROJONY + PAMIEC HENIA WLACZONA. (1) HENIO = Hermes na deepseek-v4-pro (najmocniejszy pod tym kluczem; drugi dostepny to flash). ZENEK = Codex na gpt-5.6-sol (Sol = flagowiec rodziny 5.6; Luna/Terra slabsze; Sol jako jedyny odblokowuje max reasoning). Zenek chodzi teraz z effort=max, limit 30 min (nie zdazyl w 20). GENEK = Gemini. Szczegoly D-0106. (2) PAMIEC HENIA: byla pusta 14 dni mimo wlaczonej — przyczyna NIE byla ta, ktora Klaudek zgadywal; flush_min_turns to martwy klucz, a 'hermes -z' konczy proces po jednym przebiegu. Wlaczone bramki zatwierdzania (memory + skills), do SOUL.md dopisana zasada zapisu z lista co/czego-nie i wymogiem dowodu. Wpisy ida do ~/.hermes/pending/, zatwierdza Tomasz. Szczegoly D-0107. (3) FILMY przemielone droga domowa: Paperclip (9o16uyJB0os) — werdykt: nic nie przenosimy, ale ich mechanizmy budzetow/blokad wykonania to luka u nas; DeepSeek Harness vs Hermes (-ABQEVAD5l0) — film o NASZYM Heniu, zero pomiarow, autor ma wlasny platny produkt, nic nie bierzemy. Transkrypcje w data/filmy/. (4) POMYLKI KLAUDKA do zapamietania: dwa razy zaproponowal licznik kosztow, mimo ze Tomasz ma abonamenty ('Wszystkich mam w pakiecie', 'Ja podejmuje juz decyzje jak np pisze wam ze bez Gienka'); postawil odbiornik plikow na 0.0.0.0 i zlapal skan z internetu (poprawione na nasluch tylko w tailnecie).
+
+
+==============================================================================
+## SESJA 18.08.2026 17:33 CEST
+==============================================================================
+
+18.08 wieczorem — ZAMKNIETY WYCIEK 2,23 USD/DOBE. Na Vast.ai chodzila od 19.07 bezczynna instancja RTX 4090 z ComfyUI (GPU 0% przez miesiac), 67,89 USD zuzycia, auto-doladowania ~5 USD co 2 dni. Fabryka nie miala z tym nic wspolnego (zero sladow w repo i wiedzy). Instancja zniszczona przez telefon, Tomasz wylaczyl auto-doladowanie. Szczegoly D-0108. PRZY OKAZJI ZMIERZONE (audyt botow, w toku): 2077 nieudanych prob logowania SSH na dobe, ZERO udanych — zabezpieczenie z 17.08 dziala. ALE otwarte na swiat i odpowiadaja: 11434 (ollama), 5678 (n8n), 8000 (fabryka-api). n8n NIE DZIALA od 30.06 (baza nietknieta, zero wykonan) — kandydat do wylaczenia. Zaloga konczy audyt w .scratch/audyt_botow.
+
+
+==============================================================================
+## SESJA 18.08.2026 18:25 CEST
+==============================================================================
+
+18.08 wieczor — ZAMKNIETE TRZY DZIURY: ollama (obcy uzywali naszych modeli, 215 zapytan/dobe vs nasze 29), kamery go2rtc (RTSP/WebRTC otwarte na swiat bez hasla, 3 strumienie parkingu), fabryka-api (bez autoryzacji, 622+342 obce zapytania w tygodniu). Wszystko przestawione na nasluch 127.0.0.1, kopie zapasowe zrobione, zweryfikowane z obu stron — fabryka dziala bez zmian. Szczegoly D-0111. UWAGA: jeden obcy adres (84.247.152.177) pojawil sie ZAROWNO przy ollamie JAK I przy api — ktos chodzil po serwerze systematycznie. DO ZROBIENIA: n8n (token FB, martwy od 30.06), Zenek drugi raz z rzedu nie zdazyl w 30 min przy effort=max.
+
+
+==============================================================================
+## SESJA 19.08.2026 08:33 CEST
+==============================================================================
+
+18.08 wieczor — narada o nowosciach AI (Grok 4.6 / DeepSeek V4 Pro / GLM 5.3): NIC NIE ZMIENIAMY, szczegoly D-0112. Zenek na effort=max zlapal dwa bledy filmu (Grok 1 pkt a nie 2 za czolowka; przemilczany prog cenowy 200K) i obalil 'spadek o 30 pkt' jako nieudokumentowany — zestawiajac oficjalne liczby pokazal, ze model Henia (deepseek-v4-pro) wypada nizej od jego wlasnego (gpt-5.6-sol) we wszystkich trzech pomiarach agentowych. SPRAWDZONE PRZY OKAZJI: chatbot ROD ogrodnik-rod.pages.dev DZIALA (test /api/ask = HTTP 200, odpowiada jako asystent ROD im. Jozefa Lompy) i NIE ucierpial po zamknieciu portow — stoi w calosci na Cloudflare, zero odwolan do naszego serwera. W naszych zapisach ma tylko 2 linijki (TELEPORT_HA + PAMIEC_INFRASTRUKTURA) — brak wiedzy roboczej, do uzupelnienia gdyby kiedys trzeba bylo go ruszac.
+
+
+==============================================================================
+## SESJA 19.08.2026 09:36 CEST
+==============================================================================
+
+19.08 rano — AUDYT OCTOP ZAMKNIETY (D-0113): nic nie przenosimy; kluczowe ustalenie — cala logika 4 mechanizmow siedzi w NIEPUBLICZNEJ zaleznosci orcakit-harness-agent (repo 404), Octop to tylko konfiguracja i panel; ich guard startuje w trybie warn (blokuje NIC) a HITL jest wylaczony = swieza instalacja niezabezpieczona. WAZNIEJSZE OD AUDYTU: Zenek znalazl TRZY NASZE usterki (D-0114, nienaprawione): bramka zrobione.py moze przepuscic gdy kontroler nie zdazy (nieodebrany glos != sprzeciw — a Zenek dwa razy 18.08 nie zdazyl); straznik przepuszcza komende o typie innym niz tekst i polyka blad dziennika (i ma 23 wzorce, nie 24 jak podawalem); filtr wejsciowy Hansa jest WYLACZONY. Jedyna rekomendacja Zenka: rozwazyc mala bramke PRE-TOOL nalozona na obecne blokowanie — bo nasze zrobione.py pilnuje dopiero PRZY MELDUNKU, nie przed wykonaniem narzedzia.
