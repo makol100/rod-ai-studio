@@ -108,12 +108,28 @@ Nie oceniaj, czy pomysl jest dobry. Oceniaj TYLKO, czy dowod pokrywa twierdzenie
     katalog = f"/tmp/zrobione_kontrola_{int(time.time())}"
     try:
         w = subprocess.run(
+            # 19.08: --mimo-braku jest KONIECZNE. Bez niego zaloga.py konczy z kodem 2
+            # (sonda zdolnosci sprawdza takze Genka, ktory jest WYLACZONY decyzja Tomasza)
+            # i kontrola NIGDY nie startuje. Objaw: bramka pokazywala "GLOS NIEODEBRANY"
+            # dla obu, choc nikt ich nie pytal. Wykryte dopiero po dodaniu sprawdzania
+            # returncode — wczesniej ta awaria byla niewidoczna.
             [sys.executable, os.path.join(REPO, "tools", "zaloga.py"),
-             "--zadanie", sciezka, "--katalog", katalog, "--kto", ",".join(kto)],
+             "--zadanie", sciezka, "--katalog", katalog, "--kto", ",".join(kto),
+             "--mimo-braku"],
             cwd=REPO, capture_output=True, text=True, timeout=900)
     except Exception as e:
         return False, [f"kontrola nie dokonczyla: {e}"]
+
+    # 19.08 (znalazl Zenek przy audycie): bramka NIE sprawdzala, czy zaloga w ogole
+    # wystartowala poprawnie. Przy jej awarii, ze starym plikiem glosu w katalogu,
+    # zgloszenie moglo przejsc. Zmierzone przed zmiana: normalne zakonczenie zaloga.py
+    # zwraca kod 0 — wiec kazdy inny kod to awaria, nie zwykla praca.
     glosy, sprzeciw = [], False
+    if w.returncode != 0:
+        blad = (w.stderr or w.stdout or "").strip().splitlines()
+        glosy.append(f"KONTROLA NIE WYSTARTOWALA POPRAWNIE (kod {w.returncode}): "
+                     f"{blad[-1][:150] if blad else 'brak komunikatu'}")
+        sprzeciw = True
     print(f"   (katalog kontroli: {katalog})")
     for imie in kto:
         p = os.path.join(katalog, f"{imie}.txt")
