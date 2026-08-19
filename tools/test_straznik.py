@@ -83,11 +83,39 @@ def main():
     if w.returncode != 2:
         bledy.append(f"  fail-closed: Bash bez pola command mial blokowac, kod={w.returncode}")
 
+    # 19.08: przypadki dla usterki znalezionej przez Zenka (D-0114) — komenda o typie
+    # innym niz tekst PRZECHODZILA bez sprawdzenia. Kazdy z tych ksztaltow ma BLOKOWAC.
+    import json as _j
+    for opis, wartosc in (("lista", ["rm", "-rf", "/"]),
+                          ("slownik", {"cmd": "rm -rf /"}),
+                          ("liczba", 12345),
+                          ("bool", True)):
+        we = _j.dumps({"tool_name": "Bash", "tool_input": {"command": wartosc}})
+        w = subprocess.run([sys.executable, STRAZNIK], input=we,
+                           capture_output=True, text=True, timeout=30)
+        if w.returncode != 2:
+            bledy.append(f"  command jako {opis}: mialo BLOKOWAC, kod={w.returncode}")
+
+    # 19.08: przypadki dla DRUGIEJ fali (znalazl Zenek) — zla CALA struktura wejscia
+    # dawala AttributeError -> kod 1 -> Claude Code PRZEPUSZCZAL. Ma byc kod 2.
+    for opis, wejscie_surowe in (
+            ("JSON to lista", '["rm -rf /"]'),
+            ("JSON to tekst", '"rm -rf /"'),
+            ("JSON to null", 'null'),
+            ("JSON to liczba", '42'),
+            ("tool_name nie-tekst", '{"tool_name": 123, "tool_input": {"command": "rm -rf /"}}'),
+            ("tool_input nie-slownik", '{"tool_name": "Bash", "tool_input": "rm -rf /"}'),
+            ("tool_input lista", '{"tool_name": "Bash", "tool_input": ["rm -rf /"]}')):
+        w = subprocess.run([sys.executable, STRAZNIK], input=wejscie_surowe,
+                           capture_output=True, text=True, timeout=30)
+        if w.returncode != 2:
+            bledy.append(f"  {opis}: mialo BLOKOWAC (kod 2), kod={w.returncode}")
+
     if bledy:
         print(f"CZERWONE — {len(bledy)} przypadkow nie przeszlo:")
         print("\n".join(bledy))
         sys.exit(1)
-    print(f"PETLA ZIELONA — {len(PRZYPADKI)} przypadkow + 2 fail-closed przeszly.")
+    print(f"PETLA ZIELONA — {len(PRZYPADKI)} przypadkow z listy + 4 nie-tekstowe + 7 zlej struktury + 2 fail-closed.")
 
 
 if __name__ == "__main__":

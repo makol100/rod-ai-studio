@@ -399,6 +399,39 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
     return True
 
 
+def _zamaskuj_wrazliwe(aktualizacja: dict) -> dict:
+    """Kopia aktualizacji z zamaskowana trescia komend wrazliwych (19.08).
+
+    Diagnostyka ma pokazywac KSZTALT tego, co przysyla Telegram — nie tresc sekretow.
+    Maskujemy: /sekret, /dane, oraz teksty wygladajace na poswiadczenia. Reszta bez zmian.
+    """
+    import copy as _copy
+    import re as _re
+    try:
+        kopia = _copy.deepcopy(aktualizacja)
+    except Exception:  # noqa: BLE001
+        return {"update_id": aktualizacja.get("update_id"), "_uwaga": "nie udalo sie skopiowac"}
+
+    wzorce_wrazliwe = _re.compile(
+        r"^\s*/(sekret|dane)\b|sk-[A-Za-z0-9_-]{8,}|AIza[A-Za-z0-9_-]{10,}|"
+        r"(haslo|password|token|api[_-]?key)\s*[:=]",
+        _re.IGNORECASE,
+    )
+    for klucz in ("message", "edited_message", "channel_post"):
+        wiad = kopia.get(klucz)
+        if not isinstance(wiad, dict):
+            continue
+        tekst = wiad.get("text") or wiad.get("caption")
+        if isinstance(tekst, str) and wzorce_wrazliwe.search(tekst):
+            komenda = tekst.split()[0] if tekst.split() else "?"
+            zamiennik = f"<ZAMASKOWANE {len(tekst)} znakow, komenda: {komenda[:20]}>"
+            if "text" in wiad:
+                wiad["text"] = zamiennik
+            if "caption" in wiad:
+                wiad["caption"] = zamiennik
+    return kopia
+
+
 def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
     """Główna funkcja odpytująca Telegram i zapisująca słowa Tomasza."""
     # 1. Uzgodnienie danych uwierzytelniających
@@ -446,9 +479,14 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
             continue
 
         try:  # 13.08 diagnostyka: co Telegram NAPRAWDE przysyla
+            # 19.08 NAPRAWA (znalazl Zenek przy kontroli napraw): CALA surowa aktualizacja
+            # ladowala tu ZANIM kod rozpoznal /sekret — czyli haslo wyslane ta komenda
+            # zostawialo slad w pliku diagnostycznym. Teraz tresc komend wrazliwych
+            # jest maskowana PRZED zapisem; struktura zostaje, bo po to ta diagnostyka jest.
+            do_zapisu = _zamaskuj_wrazliwe(aktualizacja)
             Path("/root/skrzynka").mkdir(parents=True, exist_ok=True)
             with open("/root/skrzynka/surowe_aktualizacje.jsonl", "a", encoding="utf-8") as _d:
-                _d.write(json.dumps(aktualizacja, ensure_ascii=False) + "\n")
+                _d.write(json.dumps(do_zapisu, ensure_ascii=False) + "\n")
             os.chmod("/root/skrzynka/surowe_aktualizacje.jsonl", 0o600)
         except OSError:
             pass

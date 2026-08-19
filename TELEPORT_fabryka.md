@@ -351,3 +351,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 19.08 rano — AUDYT OCTOP ZAMKNIETY (D-0113): nic nie przenosimy; kluczowe ustalenie — cala logika 4 mechanizmow siedzi w NIEPUBLICZNEJ zaleznosci orcakit-harness-agent (repo 404), Octop to tylko konfiguracja i panel; ich guard startuje w trybie warn (blokuje NIC) a HITL jest wylaczony = swieza instalacja niezabezpieczona. WAZNIEJSZE OD AUDYTU: Zenek znalazl TRZY NASZE usterki (D-0114, nienaprawione): bramka zrobione.py moze przepuscic gdy kontroler nie zdazy (nieodebrany glos != sprzeciw — a Zenek dwa razy 18.08 nie zdazyl); straznik przepuszcza komende o typie innym niz tekst i polyka blad dziennika (i ma 23 wzorce, nie 24 jak podawalem); filtr wejsciowy Hansa jest WYLACZONY. Jedyna rekomendacja Zenka: rozwazyc mala bramke PRE-TOOL nalozona na obecne blokowanie — bo nasze zrobione.py pilnuje dopiero PRZY MELDUNKU, nie przed wykonaniem narzedzia.
+
+
+==============================================================================
+## SESJA 19.08.2026 12:14 CEST
+==============================================================================
+
+19.08 poludnie — PIEC NAPRAW ZAMKNIETYCH (D-0115). Bramka juz nie przepuszcza gdy kontroler nie zdazy; straznik blokuje zly typ komendy ORAZ zla cala strukture wejscia (druga fala — Zenek pokazal, ze pierwsza naprawa byla polowiczna: AttributeError dawal kod 1, a Claude Code blokuje tylko przy 2); slowa Tomasza znowu docieraja do zalogi (od 13.08 przez 6 DNI zaloga dostawala plik zamrozony na 5.08 — dekret 'mowie do WSZYSTKICH' nie dzialal, znalezli to Zenek i Henio NIEZALEZNIE); tresc /sekret nie trafia juz do dziennika diagnostycznego. Petla straznika: 33+4+7+2 zielone. Wszystko z kopiami zapasowymi. LEKCJA DNIA: audyt cudzego kodu (Octop) wykryl wiecej dziur U NAS niz u nich, a kontrola napraw wykryla, ze pierwsza naprawa Klaudka byla polowiczna — dlatego autor NIE sprawdza sam siebie. ZOSTAJE: dziennik straznika bez rotacji, bramka nie sprawdza returncode zalogi, --bez-zalogi omija glosy, pomoc bota nieaktualna od 13.08.

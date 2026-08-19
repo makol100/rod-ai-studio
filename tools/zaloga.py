@@ -343,15 +343,34 @@ Pelne reguly: wiedza/JAK_PISZEMY.md""")
 
     # SLOWA TOMASZA — dekret 01.08: "Jezeli cos pisze, mowie, to mowie do WSZYSTKICH!!!"
     # Klaudek NIE jest posrednikiem ani filtrem — jest jednym z odbiorcow, tak samo jak reszta.
-    sc = os.path.join(REPO, "wiedza", "SLOWA_TOMASZA.md")
-    if os.path.isfile(sc):
+    # 19.08 NAPRAWA (znalezli niezaleznie Zenek i Henio): od 13.08 nowe slowa Tomasza
+    # ida do /root/skrzynka/slowa.md (poza publicznym repo), a zaloga dostawala WYLACZNIE
+    # stary wiedza/SLOWA_TOMASZA.md, zamrozony na 5.08. Czyli dekret "mowie do WSZYSTKICH"
+    # przestal dzialac dla wszystkiego, co Tomasz napisal po 13.08 — przez 6 dni.
+    # Teraz zaloga dostaje OBA: archiwum + swieze slowa ze skrzynki.
+    fragmenty_slow = []
+    archiwum = os.path.join(REPO, "wiedza", "SLOWA_TOMASZA.md")
+    if os.path.isfile(archiwum):
         try:
-            with open(sc, encoding="utf-8") as f:
-                tresc = f.read()
-            czesci.append("\n=== SLOWA TOMASZA (dosłownie, do WSZYSTKICH) ===")
-            czesci.append(tresc[:4000])
+            with open(archiwum, encoding="utf-8") as f:
+                fragmenty_slow.append(("ARCHIWUM (do 5.08)", f.read()[:4000]))
         except OSError:
             pass
+    swieze = os.environ.get("HANS_SLOWA_PATH", "/root/skrzynka/slowa.md")
+    if os.path.isfile(swieze):
+        try:
+            with open(swieze, encoding="utf-8") as f:
+                tresc_sw = f.read()
+            if tresc_sw.strip():
+                # swieze slowa waza wiecej niz archiwum — dajemy im wiecej miejsca i konca briefu
+                fragmenty_slow.append(("SWIEZE (od 13.08, z Telegrama)", tresc_sw[-6000:]))
+        except OSError:
+            pass
+    if fragmenty_slow:
+        czesci.append("\n=== SLOWA TOMASZA (dosłownie, do WSZYSTKICH) ===")
+        for etykieta, tresc in fragmenty_slow:
+            czesci.append(f"--- {etykieta} ---")
+            czesci.append(tresc)
 
     # HANS — agent specjalny pilnujacy wspolnego dobra pracy w grupie, WSZYSTKICH na rowno.
     h = os.path.join(REPO, "wiedza", "HANS_AGENT.md")
