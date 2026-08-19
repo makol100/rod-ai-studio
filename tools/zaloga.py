@@ -103,7 +103,7 @@ def zenek(zadanie: str, _material: str, wynik: dict) -> None:
         # wiec nie zgadujemy. Limit czasu podniesiony, bo wiekszy wysilek = dluzsza praca.
         w = subprocess.run(["codex", "exec", "-c", "model_reasoning_effort=max",
                             zadanie + STOPKA], cwd=REPO,
-                           capture_output=True, text=True, timeout=1800)
+                           capture_output=True, text=True, timeout=2700)
         out = w.stdout
         # 30.07: obcinanie do 3000 znakow ucielo Zenkowi punkty 1-5 w debacie o wygladzie Izabeli —
         # zostala sama koncowka, zaczynajaca sie w polowie zdania. Limit podniesiony i liczony od KONCA

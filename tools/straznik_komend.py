@@ -97,6 +97,15 @@ def zapisz_slad(komenda: str, decyzja: str) -> None:
         import datetime
         wpis = {"czas": datetime.datetime.now().isoformat(timespec="seconds"),
                 "decyzja": decyzja, "komenda": (komenda or "")[:300]}
+        # 19.08: rotacja — bez niej dziennik rosl bez konca (tempo ~139 wpisow/dobe,
+        # czyli ~5 MB rocznie). Przy 5 MB przenosimy do .1 i zaczynamy nowy;
+        # jedna poprzednia generacja zostaje, starsza jest nadpisywana.
+        import os as _os
+        try:
+            if _os.path.exists(DZIENNIK) and _os.path.getsize(DZIENNIK) > 5 * 1024 * 1024:
+                _os.replace(DZIENNIK, DZIENNIK + ".1")
+        except OSError:
+            pass  # rotacja nigdy nie moze zablokowac zapisu ani pracy
         with open(DZIENNIK, "a", encoding="utf-8") as f:
             f.write(json.dumps(wpis, ensure_ascii=False) + "\n")
     except Exception:
