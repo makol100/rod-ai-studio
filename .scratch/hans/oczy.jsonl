@@ -935,3 +935,8 @@
 {"timestamp": "2026-08-19 13:48:02", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zrobione.py", "tools/hans_ucho.py", "tools/zaloga.py"], "knowledge_files": ["wiedza/SLOWA_TOMASZA.md"]}
 {"timestamp": "2026-08-19 14:03:18", "file": "tools/zaloga.py", "mtime": 1787148099.1721346, "checksum": "e1e02e70ebb8048f53340d73cfe265512777178947f314584cbaa08736da0272", "status": "modified"}
 {"timestamp": "2026-08-19 14:03:18", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zaloga.py"], "knowledge_files": []}
+{"timestamp": "2026-08-19 14:18:31", "file": "wiedza/KONTROLA_KLAUDKA.md", "mtime": 1787148651.1428204, "checksum": "af1b2ce6c8b739f89ad5f67163cc7485ba0ac7f8354e75365ee9ee568f040f7f", "status": "modified"}
+{"timestamp": "2026-08-19 14:18:31", "file": "tools/zaloga.py", "mtime": 1787148694.981688, "checksum": "56e8cc805ea0e7b1019b506b2bf3d821733df34d14eb6d2293118016b86d8150", "status": "modified"}
+{"timestamp": "2026-08-19 14:18:31", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zaloga.py"], "knowledge_files": ["wiedza/KONTROLA_KLAUDKA.md"]}
+{"timestamp": "2026-08-19 14:33:38", "file": "wiedza/PROCEDURY.md", "mtime": 1787149450.0149913, "checksum": "a8d1173d6e92df1b27e86efa461603f8a624f84473f0a2b1d0d9fb8af204d060", "status": "modified"}
+{"timestamp": "2026-08-19 14:33:38", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/PROCEDURY.md"]}
