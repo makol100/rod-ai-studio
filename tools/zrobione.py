@@ -141,8 +141,14 @@ Nie oceniaj, czy pomysl jest dobry. Oceniaj TYLKO, czy dowod pokrywa twierdzenie
         else:
             glosy.append(f"{imie}: odpowiedz niejednoznaczna")
             sprzeciw = True
-    if "NIEODEBRANY" in " ".join(glosy) and not sprzeciw:
-        glosy.append("(brak glosu NIE jest zgoda)")
+    # 19.08 NAPRAWA (znalazl Zenek przy audycie Octopa): kod DOPISYWAL adnotacje
+    # "brak glosu NIE jest zgoda", ale NIE ustawial sprzeciwu — wiec bramka i tak
+    # zwracala ZGODE. Realne: Zenek 18.08 dwa razy nie zdazyl w limicie (effort=max),
+    # a przy takim timeoucie bramka przepuszczalaby na samym glosie Henia.
+    # Teraz: nieodebrany glos = BRAK ZGODY, nie neutralnosc.
+    if "NIEODEBRANY" in " ".join(glosy):
+        glosy.append("(brak glosu NIE jest zgoda — bramka ODRZUCA)")
+        sprzeciw = True
     return (not sprzeciw), glosy
 
 

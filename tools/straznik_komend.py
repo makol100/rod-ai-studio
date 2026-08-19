@@ -112,26 +112,60 @@ def main():
         sys.exit(2)
 
     if not surowe.strip():
+        zapisz_slad("(puste wejscie)", "przepusc")
         sys.exit(0)  # brak wejscia = nie ma czego blokowac (hook wolany na sucho)
 
     try:
         dane = json.loads(surowe)
     except json.JSONDecodeError:
+        zapisz_slad("(wejscie nie jest JSON)", "BLOKADA")
         print("STRAZNIK: wejscie nie jest poprawnym JSON — blokuje (fail-closed).", file=sys.stderr)
         sys.exit(2)
 
+    # Cala struktura musi byc slownikiem — inaczej nie umiem jej ocenic.
+    if not isinstance(dane, dict):
+        zapisz_slad(f"(wejscie typu {type(dane).__name__})", "BLOKADA")
+        print(f"STRAZNIK: wejscie nie jest obiektem JSON (typ: {type(dane).__name__}) "
+              f"— blokuje (fail-closed).", file=sys.stderr)
+        sys.exit(2)
+
     narzedzie = dane.get("tool_name") or dane.get("tool") or ""
-    wejscie = dane.get("tool_input") or {}
+    if not isinstance(narzedzie, str):
+        zapisz_slad(f"(tool_name typu {type(narzedzie).__name__})", "BLOKADA")
+        print(f"STRAZNIK: tool_name nie jest tekstem (typ: {type(narzedzie).__name__}) "
+              f"— blokuje (fail-closed).", file=sys.stderr)
+        sys.exit(2)
+
+    wejscie = dane.get("tool_input")
+    if wejscie is None:
+        wejscie = {}
+    if not isinstance(wejscie, dict):
+        zapisz_slad(f"(tool_input typu {type(wejscie).__name__})", "BLOKADA")
+        print(f"STRAZNIK: tool_input nie jest obiektem (typ: {type(wejscie).__name__}) "
+              f"— blokuje (fail-closed).", file=sys.stderr)
+        sys.exit(2)
     if narzedzie and narzedzie.lower() not in ("bash", "shell", "run_command"):
+        zapisz_slad(f"(narzedzie: {narzedzie})", "przepusc-nie-powloka")
         sys.exit(0)  # nie komenda powloki — nie nasza sprawa
 
     komenda = wejscie.get("command")
     if komenda is None:
         # Bash bez pola command = nie umiem ocenic -> blokuje
         if narzedzie.lower() in ("bash", "shell", "run_command"):
+            zapisz_slad("(brak pola command)", "BLOKADA")
             print("STRAZNIK: brak pola command w tool_input — blokuje (fail-closed).", file=sys.stderr)
             sys.exit(2)
         sys.exit(0)
+
+    # 19.08 NAPRAWA (znalazl Zenek przy audycie Octopa): komenda o typie INNYM NIZ TEKST
+    # (lista, slownik, liczba) PRZECHODZILA — bo sprawdz() ma isinstance(komenda, str)
+    # i dla nie-tekstu zwracalo None, czyli "czysto". Teraz: czego nie umiem odczytac
+    # jako tekst, tego nie przepuszczam.
+    if not isinstance(komenda, str):
+        zapisz_slad(f"(typ {type(komenda).__name__}) {str(komenda)[:200]}", "BLOKADA")
+        print(f"STRAZNIK: pole command nie jest tekstem (typ: {type(komenda).__name__}) "
+              f"— blokuje (fail-closed).", file=sys.stderr)
+        sys.exit(2)
 
     powod = sprawdz(komenda)
     zapisz_slad(komenda, "BLOKADA" if powod else "przepusc")
@@ -145,4 +179,17 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Siatka bezpieczenstwa: Claude Code blokuje TYLKO przy kodzie 2. Kazdy nieprzewidziany
+    # wyjatek dawalby kod 1 = PRZEPUSZCZENIE. Tego nie chcemy na maszynie z poswiadczeniami.
+    try:
+        main()
+    except SystemExit:
+        raise
+    except BaseException as e:  # noqa: BLE001
+        try:
+            zapisz_slad(f"(wyjatek {type(e).__name__})", "BLOKADA")
+        except Exception:  # noqa: BLE001
+            pass
+        print(f"STRAZNIK: nieprzewidziany blad ({type(e).__name__}) — blokuje (fail-closed).",
+              file=sys.stderr)
+        sys.exit(2)
