@@ -372,3 +372,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 19.08 wieczor — LISTA OTWARTYCH WYCZYSZCZONA DO ZERA (D-0117). Poprawione: klamiaca pomoc bota, SLOWA_TOMASZA.md wyprowadzone z publicznego repo do skrzynki, furtka --bez-zalogi zamknieta (nie wystawia juz stempla bez glosow), klucz API Henia do skrytki + wyczyszczony z 5 kopii zapasowych, haslo Tomasza do dodatku HA wymienione na losowe i schowane w skrytce. Wszystko zweryfikowane, Henio dziala, brief zalogi dziala. OTWARTE ZOSTAJE TYLKO: N150 na dzialce (zamrozony do wizyty) oraz znany drobiazg — logowanie kluczem na HA Dom odbija Permission denied mimo poprawnego authorized_keys (dostepu Tomasza nie dotyczy).
+
+
+==============================================================================
+## SESJA 19.08.2026 15:58 CEST
+==============================================================================
+
+19.08 — SSH NA HA DOM DZIALA (D-0118). Cala przyczyna dwoch dni odbijania: dodatek lowercasuje username, sshd porownuje case-sensitive. Logowac sie jako makol100 (MALE litery), nie Makol100. Zero zmian w konfiguracji. Rozwiazal Henio, Klaudek zweryfikowal: uid=1000, grupa wheel (sudo). To daje fabryce STALY dostep awaryjny do HA Dom niezalezny od konektora — ta sama droga, ktora 17.08 uratowala VPS po wpadce z exit-node, ale teraz kluczem zamiast haslem.
