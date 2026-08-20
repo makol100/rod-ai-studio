@@ -421,3 +421,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 20.08 — PILOT PRODUKTU NA TOMASZU (D-0126): dzialajacy raport przetargowy dla jego wlasnej firmy (elektryk, SEP E+D, instalacje+pomiary). Lejek: 3874 ogloszenia -> 7 trafien w jego skali. Zaloga dodala to, czego w API nie ma: warunki wejscia (2 referencje przy PW), zmiane terminu w osobnym ogloszeniu, bariere polisy 200 tys. przy SANIKO, i poprawila moje bledne odsianie (linia kablowa nN pod wodociagowym tytulem). Henio wylapal, ze w SEP nie ma kategorii C. NOWE USTALENIE: pomiary okresowe to OSOBNA nisza — zlecenia cykliczne, mniejsza konkurencja; pierwszy filtr jej nie widzial. TECHNIKA: API BZP nie ma stronicowania, trzeba dzien po dniu + dedup.
+
+
+==============================================================================
+## SESJA 20.08.2026 17:07 CEST
+==============================================================================
+
+20.08 — niezaleznosc wyszukiwania Zenka i Henia WRESZCIE dziala (D-0127). Dekret Tomasza z 12.08 lezal martwy 8 dni: SearXNG chodzil, dokumentacja byla, ale NIC z tego nie trafilo do briefu — Henio o wyszukiwarce nie wiedzial i pisal wlasne skrypty, Zenek mial --search wylaczony. Naprawione oba. UWAGA: --search w Codexie musi stac PRZED 'exec', inaczej blad (przez chwile zepsulem Zenka tym bledem). Dowod: Zenek pobral z sieci cennik i-przetargi (399 zl netto/kwartal), ktorego nie mial w briefie.
