@@ -407,3 +407,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 20.08 rano — raporty Henia dochodza w calosci (D-0123). Druga przyczyna: 'hermes -z' zwraca tylko ostatnia wypowiedz, a raport + zapis do pamieci w jednej wypowiedzi spycha raport na pozycje posrednia. Naprawa: usage-file -> session_id -> eksport sesji -> sklejenie wszystkich wypowiedzi assistant. Dowod A/B: 541 B -> 1566 znakow. UWAGA NA PRZYSZLOSC: problem powstal jako SKUTEK UBOCZNY zdjecia bramki pamieci (D-0120) — kazda zmiana w zachowaniu Henia moze zmienic to, co do nas dociera.
+
+
+==============================================================================
+## SESJA 20.08.2026 07:29 CEST
+==============================================================================
+
+20.08 — runda 3 monitoringu przetargow (D-0124): obaj wybrali te sama nisze (BZP/BIP, otwarte API, strata zero-jedynkowa przy przegapionym terminie), ale roznia sie cena (149/249 vs 179+299) i kosztem budowy (40-80 h vs 140-180 h). PODPATRZENIE KONKURENCJI (zasada Tomasza) dalo najwazniejsza rzecz: BIP Alert JUZ daje streszczenia AI i to czesciowo ZA DARMO (freemium 0/19/99/399 zl) — nasza zakladana przewaga jest zajeta. Cold mailing WYMAGA ZGODY (art. 398 PKE), wiec dotarcie tylko przez izby, polecenia i spotkania. Bramka stoi: zero deklaracji, zero kodu. OSOBNO (D-0125): Zenek napisal glos ZA Henia — przez zly naglowek moich zlecen; dopisany SPRAWDZIAN NR 5 'nie pisz za kolege'.
