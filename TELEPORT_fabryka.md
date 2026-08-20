@@ -414,3 +414,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 20.08 — runda 3 monitoringu przetargow (D-0124): obaj wybrali te sama nisze (BZP/BIP, otwarte API, strata zero-jedynkowa przy przegapionym terminie), ale roznia sie cena (149/249 vs 179+299) i kosztem budowy (40-80 h vs 140-180 h). PODPATRZENIE KONKURENCJI (zasada Tomasza) dalo najwazniejsza rzecz: BIP Alert JUZ daje streszczenia AI i to czesciowo ZA DARMO (freemium 0/19/99/399 zl) — nasza zakladana przewaga jest zajeta. Cold mailing WYMAGA ZGODY (art. 398 PKE), wiec dotarcie tylko przez izby, polecenia i spotkania. Bramka stoi: zero deklaracji, zero kodu. OSOBNO (D-0125): Zenek napisal glos ZA Henia — przez zly naglowek moich zlecen; dopisany SPRAWDZIAN NR 5 'nie pisz za kolege'.
+
+
+==============================================================================
+## SESJA 20.08.2026 12:13 CEST
+==============================================================================
+
+20.08 — PILOT PRODUKTU NA TOMASZU (D-0126): dzialajacy raport przetargowy dla jego wlasnej firmy (elektryk, SEP E+D, instalacje+pomiary). Lejek: 3874 ogloszenia -> 7 trafien w jego skali. Zaloga dodala to, czego w API nie ma: warunki wejscia (2 referencje przy PW), zmiane terminu w osobnym ogloszeniu, bariere polisy 200 tys. przy SANIKO, i poprawila moje bledne odsianie (linia kablowa nN pod wodociagowym tytulem). Henio wylapal, ze w SEP nie ma kategorii C. NOWE USTALENIE: pomiary okresowe to OSOBNA nisza — zlecenia cykliczne, mniejsza konkurencja; pierwszy filtr jej nie widzial. TECHNIKA: API BZP nie ma stronicowania, trzeba dzien po dniu + dedup.

@@ -249,3 +249,5 @@
 {"czas_tomasza": "2026-08-20 06:47:45 CEST", "czas_utc": "2026-08-20T04:47:45.651807+00:00", "autor": "henio", "zadanie": "test_ab_wynik", "znakow": 1503, "plik": "/tmp/test_ab_wynik/narada/henio.txt"}
 {"czas_tomasza": "2026-08-20 07:00:38 CEST", "czas_utc": "2026-08-20T05:00:38.295082+00:00", "autor": "henio", "zadanie": "monitoring_v2", "znakow": 11298, "plik": ".scratch/monitoring_v2/narada/henio.txt"}
 {"czas_tomasza": "2026-08-20 07:14:05 CEST", "czas_utc": "2026-08-20T05:14:05.730868+00:00", "autor": "zenek", "zadanie": "monitoring_v2", "znakow": 21892, "plik": ".scratch/monitoring_v2/narada/zenek.txt"}
+{"czas_tomasza": "2026-08-20 07:46:42 CEST", "czas_utc": "2026-08-20T05:46:42.594786+00:00", "autor": "zenek", "zadanie": "raport_probny", "znakow": 8191, "plik": ".scratch/raport_probny/narada/zenek.txt"}
+{"czas_tomasza": "2026-08-20 07:50:31 CEST", "czas_utc": "2026-08-20T05:50:31.240077+00:00", "autor": "henio", "zadanie": "raport_probny", "znakow": 8406, "plik": ".scratch/raport_probny/narada/henio.txt"}
