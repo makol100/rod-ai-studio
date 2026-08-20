@@ -182,7 +182,19 @@ def henio(zadanie: str, _material: str, wynik: dict) -> None:
             f.write(zadanie + STOPKA)
         os.chmod(sciezka, 0o644)
         w = subprocess.run(
-            ["su", "-", "hermes", "-c", f'hermes -z "$(cat {sciezka})"'],
+            # 19.08 NAPRAWA znikajacych raportow Henia. PRZYCZYNA (znaleziona w kodzie
+            # hermesa, agent/verification_stop.py): po turze, ktora dotknela pliku Z KODEM,
+            # wlacza sie "verify-on-stop" i kaze Heniowi udowodnic weryfikacje. Przy zadaniu
+            # BADAWCZYM nie ma czego testowac — wiec zamiast raportu wraca jego tlumaczenie,
+            # dlaczego weryfikacja jest niemozliwa. A Henio przy researchu SAM tworzy sobie
+            # tymczasowe skrypty .py do pobierania danych, wiec straznik odpalal sie prawie
+            # zawsze. Tak stracilismy 2 raporty 19.08 (audyt mostow, rynek PL).
+            # Tryb domyslny "auto" = ON dla wywolan z CLI (czyli nasze), OFF dla komunikatorow
+            # — z uzasadnieniem w kodzie: "the verification narrative would reach a human as
+            # chat noise". Dokladnie nasz przypadek. HERMES_VERIFY_ON_STOP wygrywa nad configiem.
+            # Jakosc pracy Henia pilnuje u nas bramka tools/zrobione.py, nie ten mechanizm.
+            ["su", "-", "hermes", "-c",
+             f'HERMES_VERIFY_ON_STOP=0 hermes -z "$(cat {sciezka})"'],
             # 13.08.2026 POMIAR, nie zgadywanie: Henio na zadaniu .scratch/detekcja_kuny
             # (4229 znakow, 6 pytan) potrzebowal 1074 s = 17,9 minuty i ODDAL poprawny glos.
             # Limit 600 s ucinal go w polowie — dzis stracilismy przez to TRZY jego glosy

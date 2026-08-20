@@ -393,3 +393,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 19.08 — narada o 10 skillach do Hermesa (film dotyczacy silnika Henia): NIC NIE INSTALUJEMY, szczegoly D-0121. Henio ma juz 1 z 10 (humanizer, przeniesiony do Hermesa oficjalnie) i poprawil moj opis: nie 13 skilli tylko 66 w 12 kategoriach. Zenek poprawil 3 nazwy z napisow i wylapal ukryte koszty, ktorych film nie podaje (cookies, SaaS 29 USD/mies, AGPL, licencja dwoista). Rozbieznosc: Defuddle — Henio NIE, Zenek TAK z warunkiem testu. NAJCIEKAWSZE: na pytanie o wlasny skill OBAJ odrzucili cala dziesiatke i wskazali NASZ temat — procedure szukania kuny na nagraniach NVR ('kuna-nvr-dowod'), czyli spisanie tego, co robimy recznie od tygodni.
+
+
+==============================================================================
+## SESJA 20.08.2026 06:01 CEST
+==============================================================================
+
+19.08 — znikajace raporty Henia NAPRAWIONE (D-0122). Przyczyna NIE byla po jego stronie: Hermes ma verification_stop.py, ktory po turze dotykajacej pliku z kodem kaze udowodnic weryfikacje; przy zadaniu badawczym nie ma czego testowac, wiec zamiast raportu wracalo jego tlumaczenie — a Henio przy researchu sam tworzy tymczasowe skrypty .py, wiec straznik odpalal sie prawie zawsze. Naprawa: HERMES_VERIFY_ON_STOP=0 w wywolaniu z zaloga.py. Dowod A/B na tym samym zadaniu. Moja poranna diagnoza (wpis do SOUL.md o 'pamiec to dodatek') byla ZGADYWANIEM po objawach i nie mogla zadzialac.
