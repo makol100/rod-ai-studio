@@ -400,3 +400,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 19.08 — znikajace raporty Henia NAPRAWIONE (D-0122). Przyczyna NIE byla po jego stronie: Hermes ma verification_stop.py, ktory po turze dotykajacej pliku z kodem kaze udowodnic weryfikacje; przy zadaniu badawczym nie ma czego testowac, wiec zamiast raportu wracalo jego tlumaczenie — a Henio przy researchu sam tworzy tymczasowe skrypty .py, wiec straznik odpalal sie prawie zawsze. Naprawa: HERMES_VERIFY_ON_STOP=0 w wywolaniu z zaloga.py. Dowod A/B na tym samym zadaniu. Moja poranna diagnoza (wpis do SOUL.md o 'pamiec to dodatek') byla ZGADYWANIEM po objawach i nie mogla zadzialac.
+
+
+==============================================================================
+## SESJA 20.08.2026 06:51 CEST
+==============================================================================
+
+20.08 rano — raporty Henia dochodza w calosci (D-0123). Druga przyczyna: 'hermes -z' zwraca tylko ostatnia wypowiedz, a raport + zapis do pamieci w jednej wypowiedzi spycha raport na pozycje posrednia. Naprawa: usage-file -> session_id -> eksport sesji -> sklejenie wszystkich wypowiedzi assistant. Dowod A/B: 541 B -> 1566 znakow. UWAGA NA PRZYSZLOSC: problem powstal jako SKUTEK UBOCZNY zdjecia bramki pamieci (D-0120) — kazda zmiana w zachowaniu Henia moze zmienic to, co do nas dociera.

@@ -23,6 +23,8 @@ Awaria jednego wykonawcy NIE jest zgoda — w podsumowaniu stoi wtedy "GLOS NIEO
 import argparse
 import json
 import os
+import secrets
+import shlex
 import hashlib
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
@@ -181,28 +183,49 @@ def henio(zadanie: str, _material: str, wynik: dict) -> None:
         with open(sciezka, "w", encoding="utf-8") as f:
             f.write(zadanie + STOPKA)
         os.chmod(sciezka, 0o644)
+        # 20.08 NAPRAWA NR 2 (znalazl Zenek, sprawdzone na zywo). PRZYCZYNA: `hermes -z`
+        # zwraca WYLACZNIE ostatnia wypowiedz (final_response, oneshot.py:443-444), a gdy
+        # Henio w jednej wypowiedzi napisze raport I wywola narzedzie memory, ta wiadomosc
+        # zostaje zapisana jako POSREDNIA (conversation_loop.py:5913-6006), a final_response
+        # staje sie nastepna — czyli "raport kompletny powyzej". Raport NIE GINIE: siedzi
+        # w bazie sesji ~/.hermes/state.db. Problem nasilil sie po zdjeciu bramki pamieci
+        # 19.08 — im pilniej Henio zapisuje, tym czesciej gubi raport.
+        # ROZWIAZANIE: usage-file daje session_id, eksport sesji daje WSZYSTKIE wypowiedzi.
+        # HERMES_VERIFY_ON_STOP=0 zostaje — to naprawa nr 1 (D-0122), inna przyczyna.
+        uzycie = f"/tmp/_zaloga_henio_usage_{secrets.token_hex(8)}.json"
         w = subprocess.run(
-            # 19.08 NAPRAWA znikajacych raportow Henia. PRZYCZYNA (znaleziona w kodzie
-            # hermesa, agent/verification_stop.py): po turze, ktora dotknela pliku Z KODEM,
-            # wlacza sie "verify-on-stop" i kaze Heniowi udowodnic weryfikacje. Przy zadaniu
-            # BADAWCZYM nie ma czego testowac — wiec zamiast raportu wraca jego tlumaczenie,
-            # dlaczego weryfikacja jest niemozliwa. A Henio przy researchu SAM tworzy sobie
-            # tymczasowe skrypty .py do pobierania danych, wiec straznik odpalal sie prawie
-            # zawsze. Tak stracilismy 2 raporty 19.08 (audyt mostow, rynek PL).
-            # Tryb domyslny "auto" = ON dla wywolan z CLI (czyli nasze), OFF dla komunikatorow
-            # — z uzasadnieniem w kodzie: "the verification narrative would reach a human as
-            # chat noise". Dokladnie nasz przypadek. HERMES_VERIFY_ON_STOP wygrywa nad configiem.
-            # Jakosc pracy Henia pilnuje u nas bramka tools/zrobione.py, nie ten mechanizm.
             ["su", "-", "hermes", "-c",
-             f'HERMES_VERIFY_ON_STOP=0 hermes -z "$(cat {sciezka})"'],
-            # 13.08.2026 POMIAR, nie zgadywanie: Henio na zadaniu .scratch/detekcja_kuny
-            # (4229 znakow, 6 pytan) potrzebowal 1074 s = 17,9 minuty i ODDAL poprawny glos.
-            # Limit 600 s ucinal go w polowie — dzis stracilismy przez to TRZY jego glosy
-            # z rzedu, a Tomasz pytal "Brak kasy?". Nie brak kasy: brak czasu.
-            # Zenek i Genek mieszcza sie w 2-7 min, bo tylko rozumuja; Henio JAKO JEDYNY
-            # czyta skille i chodzi po systemie, wiec z natury trwa dluzej.
+             f'HERMES_VERIFY_ON_STOP=0 hermes --usage-file {shlex.quote(uzycie)} '
+             f'-z "$(cat {sciezka})"'],
             capture_output=True, text=True, timeout=1800)
-        wynik["henio"] = (w.stdout or w.stderr).strip() or "GLOS NIEODEBRANY (pusta odpowiedz)"
+        koncowa = (w.stdout or w.stderr).strip()
+        try:
+            with open(uzycie, encoding="utf-8") as f:
+                sesja_id = str(json.load(f).get("session_id") or "").strip()
+            if not sesja_id:
+                raise RuntimeError("usage-file bez session_id")
+            e = subprocess.run(
+                ["su", "-", "hermes", "-c",
+                 f"hermes sessions export - --format jsonl --session-id {shlex.quote(sesja_id)}"],
+                capture_output=True, text=True, timeout=120)
+            e.check_returncode()
+            dane = json.loads(e.stdout)
+            czesci = [m["content"].strip() for m in dane.get("messages", [])
+                      if m.get("role") == "assistant"
+                      and isinstance(m.get("content"), str) and m["content"].strip()]
+            if koncowa and koncowa not in czesci:
+                czesci.append(koncowa)
+            if not czesci:
+                raise RuntimeError("eksport bez wypowiedzi assistant")
+            wynik["henio"] = "\n\n".join(czesci)
+        except Exception as exc:  # noqa: BLE001
+            wynik["henio"] = (f"GLOS CZESCIOWY — eksport sesji nieudany: {exc}\n\n"
+                              f"{koncowa or 'pusta odpowiedz'}")
+        finally:
+            try:
+                os.unlink(uzycie)
+            except OSError:
+                pass
     except Exception as e:
         wynik["henio"] = f"GLOS NIEODEBRANY ({e})"
 
