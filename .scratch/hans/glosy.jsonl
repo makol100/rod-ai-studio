@@ -244,3 +244,6 @@
 {"czas_tomasza": "2026-08-19 17:59:45 CEST", "czas_utc": "2026-08-19T15:59:45.854735+00:00", "autor": "zenek", "zadanie": "rynek_pl", "znakow": 12144, "plik": ".scratch/rynek_pl/narada/zenek.txt"}
 {"czas_tomasza": "2026-08-19 19:07:35 CEST", "czas_utc": "2026-08-19T17:07:35.117579+00:00", "autor": "zenek", "zadanie": "zlecenia_pl", "znakow": 12972, "plik": ".scratch/zlecenia_pl/narada/zenek.txt"}
 {"czas_tomasza": "2026-08-19 19:15:03 CEST", "czas_utc": "2026-08-19T17:15:03.301847+00:00", "autor": "henio", "zadanie": "zlecenia_pl", "znakow": 1208, "plik": ".scratch/zlecenia_pl/narada/henio.txt"}
+{"czas_tomasza": "2026-08-20 06:21:12 CEST", "czas_utc": "2026-08-20T04:21:12.168203+00:00", "autor": "henio", "zadanie": "zlecenia_henio", "znakow": 513, "plik": ".scratch/zlecenia_henio/narada/henio.txt"}
+{"czas_tomasza": "2026-08-20 06:40:55 CEST", "czas_utc": "2026-08-20T04:40:55.254219+00:00", "autor": "zenek", "zadanie": "napraw_henia", "znakow": 10711, "plik": ".scratch/napraw_henia/narada/zenek.txt"}
+{"czas_tomasza": "2026-08-20 06:47:45 CEST", "czas_utc": "2026-08-20T04:47:45.651807+00:00", "autor": "henio", "zadanie": "test_ab_wynik", "znakow": 1503, "plik": "/tmp/test_ab_wynik/narada/henio.txt"}
