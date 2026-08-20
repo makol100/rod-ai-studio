@@ -1,5 +1,5 @@
-1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-20 06:31:16 CEST
-2. OSTATNIA DECYZJA: D-0122 | 2026-08-20 | 19.08 ZNIKAJACE RAPORTY HENIA — PRZYCZYNA ZNALEZIONA I NAPRAWIONA (Tomasz: 'Znajdz czemu kurwa przepada.…
+1. PRODUKCJA: WOLNA — stop zdjety (D-0039) | wygenerowano 2026-08-20 07:01:17 CEST
+2. OSTATNIA DECYZJA: D-0123 | 2026-08-20 | 20.08 ZNIKAJACE RAPORTY HENIA — DRUGA PRZYCZYNA ZNALEZIONA I NAPRAWIONA (Tomasz: 'Napraw to z Zenkiem do…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'

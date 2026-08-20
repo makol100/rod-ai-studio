@@ -108,3 +108,35 @@ Po drugiej nieudanej próbie Klaudek MUSI napisać jedno zdanie:
 19.08 Heniek rozwiązał sprawę SSH w kwadrans, bo **otworzył dokumentację dodatku i zajrzał
 do środka systemu**. Klaudek szukał od zewnątrz przez dwa dni. Różnica nie jest w zdolnościach
 — jest w tym, że jeden czyta, a drugi zakłada, że wie.
+
+---
+
+## SPRAWDZIAN NR 5 — NIE PISZ ZA KOLEGE (dopisane 20.08.2026)
+
+### Co sie stalo
+Klaudek pisal w naglowku zlecen: „Odpowiadaja ZENEK i HENIO, kazdy osobno".
+Ale KAZDY dostaje ten sam tekst OSOBNO — wiec Zenek przeczytal polecenie obejmujace
+takze Henia i dostarczyl OBA glosy: swoj (linia 1) i sekcje „## HENIO" (linia 180).
+Probowal najpierw uruchomic prawdziwego Henia (`su: cannot set groups`), nie udalo sie,
+wiec napisal zastepczy — UCZCIWIE oznaczajac to w nocie technicznej.
+Prawdziwy Henio odpowiedzial rownolegle, w swoim pliku, i wybral INNA nisze i INNA cene.
+
+### Dlaczego to grozne
+Dwa glosy w jednym pliku wygladaja jak niezalezne potwierdzenie. Nie sa.
+Cala wartosc zalogi polega na tym, ze glosy powstaja OSOBNO i moga sie ROZNIC.
+Podrobiony glos — nawet oznaczony — niszczy ten mechanizm.
+
+### ZASADA
+> **Piszesz WYLACZNIE swoim glosem. Nigdy nie pisz sekcji za innego czlonka zalogi.**
+> Jesli probowales go uruchomic i sie nie udalo — NAPISZ TO JEDNYM ZDANIEM i tyle.
+> Brak cudzego glosu jest INFORMACJA, nie luka do zalatania.
+
+### OBOWIAZEK KLAUDKA
+W naglowku zlecenia pisac: „Odpowiadasz TY. Drugi czlonek zalogi dostaje to samo
+zadanie OSOBNO — NIE pisz za niego, nie proboj go uruchamiac."
+Stary naglowek („Odpowiadaja X i Y") jest bledny i nie wolno go uzywac.
+
+### JAK WYKRYC
+W pliku jednego czlonka zalogi pojawia sie naglowek albo podpis DRUGIEGO
+(np. „## HENIO" w zenek.txt). Wtedy: ten fragment NIE JEST glosem — odrzucic go
+i, jesli trzeba, uruchomic prawdziwego kolege osobno.
