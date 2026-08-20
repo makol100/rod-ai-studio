@@ -107,7 +107,7 @@ def zenek(zadanie: str, _material: str, wynik: dict) -> None:
         # Modelu NIE wymuszamy: bierze domyslny z subskrypcji Tomasza (dzis gpt-5.6-sol);
         # warianty Luna/Terra tez odpowiadaja, ale katalog NIE podaje, ktory jest mocniejszy,
         # wiec nie zgadujemy. Limit czasu podniesiony, bo wiekszy wysilek = dluzsza praca.
-        w = subprocess.run(["codex", "exec", "-c", "model_reasoning_effort=high",
+        w = subprocess.run(["codex", "--search", "exec", "-c", "model_reasoning_effort=high",
                             zadanie + STOPKA], cwd=REPO,
                            capture_output=True, text=True, timeout=2700)
         out = w.stdout
@@ -444,6 +444,22 @@ Pelne reguly: wiedza/JAK_PISZEMY.md""")
             "wiedza/HANS_AGENT.md. Poprawione 4.08 — do tego dnia zaloga dostawala w KAZDYM "
             "zleceniu informacje 'NIEZBUDOWANY', wykryl to Zenek w audycie calosci.")
         czesci.append("  Pilnuje WSZYSTKICH na rowno, Klaudka takze. Budowa: wspolna, cala czworka.")
+
+    # 20.08: WLASNA WYSZUKIWARKA — dekret Tomasza byl wdrozony 12.08 (SearXNG w kontenerze,
+    # tools/szukaj_www.py), UDOKUMENTOWANY w wiedza/WYSZUKIWARKA.md — i NIGDY nie trafil
+    # do briefu. Skutek: Zenek i Henio o niej NIE WIEDZIELI i przy researchu pisali sobie
+    # wlasne skrypty do pobierania stron. Wyszukiwarka chodzila w tle bezuzytecznie.
+    czesci.append(
+        "\n=== TWOJA WLASNA WYSZUKIWARKA (uzywaj JEJ, nie pisz wlasnych skryptow) ===\n"
+        "Dekret Tomasza: 'Heniek i Zenek powinni miec swoja niezaleznosc we wyszukiwaniu.\n"
+        "Przez Klaudka wyniki moga byc takie same, jakby on szukal.'\n"
+        "JAK:  python3 tools/szukaj_www.py \"twoje zapytanie\"\n"
+        "  -> 20 wynikow (tytul, URL, opis) z wlasnej instancji SearXNG na 127.0.0.1:8888\n"
+        "  -> metawyszukiwarka Google/Bing/DuckDuckGo, BEZ kluczy, BEZ limitow, JSON\n"
+        "  -> szukasz SAM, wlasnymi zapytaniami — to jest sens tej niezaleznosci\n"
+        "Do pobrania TRESCI konkretnej strony: curl albo tools/szukaj_net.py.\n"
+        "NIE pisz wlasnych skryptow scrapujacych, zanim nie sprobujesz szukaj_www.py.\n"
+        "Szczegoly: wiedza/WYSZUKIWARKA.md\n")
 
     # KONTROLA KLAUDKA — wdrozona 2.08 na polecenie Tomasza. Cala zaloga MUSI ja widziec,
     # bo to oni maja wolac STOP, gdy Klaudek pominie sprawdzenie.
