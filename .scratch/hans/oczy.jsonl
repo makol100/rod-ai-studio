@@ -948,3 +948,5 @@
 {"timestamp": "2026-08-20 05:34:03", "event": "suspicion", "kind": "wiedza_bez_powiazanego_kodu", "code_files": [], "knowledge_files": ["wiedza/KONTROLA_KLAUDKA.md"]}
 {"timestamp": "2026-08-20 15:00:35", "file": "tools/zaloga.py", "mtime": 1787237469.3306594, "checksum": "c8a46018d9e9c96667c0142a434cbf0f5a7d4c7205215c68a5018046b86d49cd", "status": "modified"}
 {"timestamp": "2026-08-20 15:00:35", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/zaloga.py"], "knowledge_files": []}
+{"timestamp": "2026-08-25 08:11:39", "file": "tools/hans_ucho.py", "mtime": 1787645489.0120158, "checksum": "79b2c97ab603b40cdfe24a0c49646c09e3672571896bc25604e7f7de24131823", "status": "modified"}
+{"timestamp": "2026-08-25 08:11:39", "event": "suspicion", "kind": "tools_bez_powiazanej_wiedzy", "code_files": ["tools/hans_ucho.py"], "knowledge_files": []}

@@ -333,10 +333,60 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
     """Komendy Tomasza. Zwraca True, jesli wiadomosc byla komenda (nie zapisujemy jej do slow)."""
     komenda = tekst.strip().split()[0].lower().split("@")[0] if tekst.strip() else ""
     if komenda not in ("/pakiet", "/wznow", "/pomoc", "/start", "/help",
-                       "/sekret", "/sekrety", "/dane"):
+                       "/sekret", "/sekrety", "/dane", "/henio"):
         return False
 
     reszta = tekst.strip()[len(komenda):].strip()
+
+    # 25.08 DROGA DO HENIA PRZEZ TELEGRAM (dekret Tomasza: "zrobisz mi droge przez
+    # telegram do tego modelu"). Ustalenia z narady: Qwen 3.8 27B na naszym VPS NIE
+    # ruszy (dense 27B, 2-3 tok/s na CPU, Q4 nie miesci sie w 17 GB) — ale Henio
+    # (DeepSeek v4 pro) NIE ODMAWIA ostrego humoru, sprawdzone pomiarem. Wiec droga
+    # prowadzi do Henia, nie do Qwena. Zmiana adresata = zmiana jednej linii nizej.
+    if komenda == "/henio":
+        if not reszta:
+            _odpowiedz(token, czat,
+                       "Napisz: /henio <polecenie>\n\n"
+                       "Henio ma pelny dostep do VPS (sudo, docker, repo).\n"
+                       "Odpowiedz potrafi zajac kilka minut przy dluzszej robocie.")
+            return True
+        _odpowiedz(token, czat, "Henio dostal. Pracuje...")
+        try:
+            import secrets as _sec, shlex as _shl, subprocess as _sub, json as _js, os as _os
+            zad = f"/tmp/_henio_tg_{_sec.token_hex(6)}.txt"
+            Path(zad).write_text(reszta, encoding="utf-8")
+            _os.chmod(zad, 0o644)
+            uzycie = f"/tmp/_henio_tg_usage_{_sec.token_hex(6)}.json"
+            w = _sub.run(
+                ["su", "-", "hermes", "-c",
+                 f"HERMES_VERIFY_ON_STOP=0 hermes --usage-file {_shl.quote(uzycie)} "
+                 f'-z "$(cat {zad})"'],
+                capture_output=True, text=True, timeout=1800)
+            koncowa = (w.stdout or w.stderr).strip()
+            # pelna tura z bazy sesji (D-0123): -z zwraca tylko ostatnia wypowiedz
+            try:
+                sid = str(_js.loads(Path(uzycie).read_text()).get("session_id") or "").strip()
+                e = _sub.run(["su", "-", "hermes", "-c",
+                              f"hermes sessions export - --format jsonl --session-id {_shl.quote(sid)}"],
+                             capture_output=True, text=True, timeout=120)
+                czesci = [m["content"].strip() for m in _js.loads(e.stdout).get("messages", [])
+                          if m.get("role") == "assistant"
+                          and isinstance(m.get("content"), str) and m["content"].strip()]
+                if koncowa and koncowa not in czesci:
+                    czesci.append(koncowa)
+                odp = "\n\n".join(czesci) or koncowa
+            except Exception:
+                odp = koncowa
+            for plik in (zad, uzycie):
+                try: _os.unlink(plik)
+                except OSError: pass
+            odp = odp or "Henio nie odpowiedzial."
+            # Telegram tnie po 4096 znakow
+            for i in range(0, min(len(odp), 12000), 3800):
+                _odpowiedz(token, czat, odp[i:i+3800])
+        except Exception as exc:  # noqa: BLE001
+            _odpowiedz(token, czat, f"Henio nie odpowiedzial: {exc}")
+        return True
 
     if komenda == "/sekret":
         # 13.08: Tomasz wyslal DWIE komendy w jednej wiadomosci — klucz wyszedl jako
@@ -368,7 +418,7 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
 
     if komenda in ("/pomoc", "/start", "/help"):
         _odpowiedz(token, czat,
-                   "Hans — ratunek kontekstu.\n"
+                   "/henio <polecenie> — wysyla zadanie do Henia (ma pelny dostep do VPS)\nHans — ratunek kontekstu.\n"
                    "/pakiet  — przyslij PAKIET WZNOWIENIA jako plik .txt "
                    "(wklejasz go do nowego okna czatu po blokadzie)\n"
                    "/wznow   — to samo co /pakiet\n"
