@@ -428,3 +428,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 20.08 — niezaleznosc wyszukiwania Zenka i Henia WRESZCIE dziala (D-0127). Dekret Tomasza z 12.08 lezal martwy 8 dni: SearXNG chodzil, dokumentacja byla, ale NIC z tego nie trafilo do briefu — Henio o wyszukiwarce nie wiedzial i pisal wlasne skrypty, Zenek mial --search wylaczony. Naprawione oba. UWAGA: --search w Codexie musi stac PRZED 'exec', inaczej blad (przez chwile zepsulem Zenka tym bledem). Dowod: Zenek pobral z sieci cennik i-przetargi (399 zl netto/kwartal), ktorego nie mial w briefie.
+
+
+==============================================================================
+## SESJA 25.08.2026 09:07 CEST
+==============================================================================
+
+25.08 — automatyczne kopie HA na fabryke DZIALAJA (D-0128). Codziennie 6:30 fabryka sciaga najswiezsza kopie z Domu i Wybickiego (Dzialka czeka na dysk). Pulapki: scp nie dziala przez dodatek SSH (brak sftp) — ciagniemy przez 'cat'; kazdy serwer ma innego uzytkownika (Dom=makol100, Wybickiego=root); po restarcie dodatku trzeba ssh-keygen -R. Skrypt /root/kopie_ha/pobierz.sh, dziennik obok. Powod: awaria N150 kosztowala tydzien przez kopie sprzed 2 miesiecy.
