@@ -140,3 +140,33 @@ Stary naglowek („Odpowiadaja X i Y") jest bledny i nie wolno go uzywac.
 W pliku jednego czlonka zalogi pojawia sie naglowek albo podpis DRUGIEGO
 (np. „## HENIO" w zenek.txt). Wtedy: ten fragment NIE JEST glosem — odrzucic go
 i, jesli trzeba, uruchomic prawdziwego kolege osobno.
+
+---
+
+## SPRAWDZIAN NR 6 — NIE RESTARTUJ RECZNIE TEGO, CZYM ZARZADZA SYSTEMD (25.08.2026)
+
+### Co sie stalo
+Klaudek dodal komende /henio do tools/hans_ucho.py i zeby ja wczytac zrobil:
+`pkill -f hans_ucho.py` + `nohup setsid python3 tools/hans_ucho.py &`.
+ALE bot jest uslugą systemd (hans-ucho.service, ExecStart z parametrem `--petla 60`).
+Skutek: usluga przeszla w stan `activating`, WATCHDOG wyslal Tomaszowi ALARM na Telegram
+("UCHO HANSA NIE CHODZI... Twoje wiadomosci NIE SA zapisywane"), a obok chodzil rownolegle
+recznie odpalony proces BEZ parametrow uslugi. Systemd sam wznowil wlasciwy proces
+i sprawa sie zamknela, ale Tomasz dostal falszywy alarm i stracil zaufanie do meldunku.
+
+### ZASADA
+> **Zanim zrestartujesz cokolwiek: SPRAWDZ, czy to usluga systemd.**
+> `systemctl list-units --type=service --all | grep -i <nazwa>`
+> Jesli TAK -> `systemctl restart <usluga>`. NIGDY pkill + nohup.
+> Recznie uruchamiac wolno TYLKO to, czego systemd nie zna.
+
+### DLACZEGO TO GROZNE
+1. Recznie odpalony proces nie ma parametrow z ExecStart (tu: `--petla 60`) — dziala INACZEJ.
+2. Watchdog widzi przerwe i alarmuje Tomasza. Falszywy alarm = zuzyta uwaga.
+3. Moga chodzic DWA procesy naraz i wzajemnie sobie przeszkadzac (podwojne odczyty offsetu).
+
+### CHECKLISTA PRZED RESTARTEM CZEGOKOLWIEK
+- [ ] `systemctl list-units --type=service --all | grep -i <nazwa>` — czy jest usluga?
+- [ ] jesli jest: `systemctl restart <usluga>`, potem `systemctl status <usluga>`
+- [ ] jesli nie ma: dopiero wtedy recznie
+- [ ] po restarcie: sprawdz, czy chodzi DOKLADNIE JEDEN proces (`pgrep -af <nazwa>`)
