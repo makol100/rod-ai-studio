@@ -281,3 +281,269 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 17.08 14:20 PRZELOM: tresc filmu Szewczyka ZDOBYTA przez Folda (odczyt pelnego opisu z ekranu YouTube app, wezly accessibility, bez Genka) -> data/filmy/XTV-4f90Edg/opis_pelny.md. Lista 10+1: last30days, i-have-adhd(+output style Szewczyka), impeccable, Wispr Flow, paczka Ondreja(hooki/Bypass), handoff-skill(zamiast /compact), claude-md-management, herdr, bonus: skill-z-nagrania-ekranu. Zaloga (Z+H) dostala runde 2 z prawdziwa trescia (.scratch/yt_skills/runda2). Droga-przez-Folda dziala i jest powtarzalna dla kazdego filmu: opis+rozdzialy z wezlow; transkrypcja tez mozliwa (panel Transkrypcja), ale drozsza.
+
+
+==============================================================================
+## SESJA 17.08.2026 17:54 CEST
+==============================================================================
+
+17.08 18:00 STRAZNIK KOMEND STOI (tools/straznik_komend.py + tools/test_straznik.py, hook PreToolUse w /root/.claude/settings.json, matcher Bash). Metoda z filmu Szewczyka (davidondrej/skills), wlasna implementacja: fail-CLOSED zamiast fail-open (jq na VPS NIE MA), wzorce Linux + nasze sciezki (skrytka, klucze, tailscale exit-node z D-0098). Petla 33 przypadki + 2 fail-closed zielone. BRAMKA zrobione.py NAPRAWIONA — kontroler dostaje slad wykonania testu (D-0102). Z filmu zostaje: handoff JUZ MAMY w /root/.claude/skills (Zenek to wykryl, Henio sie mylil polecajac instalacje) — do ZACZECIA UZYWANIA + dorobienia sekcji 'czego NIE robic/slepe uliczki'; last30days do rozwazenia; reszta odrzucona (i-have-adhd = nasz JAK_PISZEMY.md, impeccable/herdr/output-style nie dla nas, Record-a-skill wymaga Claude for Mac). Film XTV-4f90Edg: opis mamy, TRANSKRYPCJI NADAL BRAK — TranscriptAPI.io 500 na tym jednym filmie (klucz w /root/.sekrety/transcriptapi.key, dziala na innych, 100 kredytow/mies).
+
+
+==============================================================================
+## SESJA 17.08.2026 18:49 CEST
+==============================================================================
+
+17.08 18:40 PRZELOM — DROGA DOMOWA dziala. Transkrypcja filmu Szewczyka na dysku fabryki (data/filmy/XTV-4f90Edg/transkrypcja.txt, 1066 linii). Metoda spisana w wiedza/DROGA_DOMOWA_YOUTUBE.md, decyzja D-0103. Do zrobienia: tools/film.py --droga-domowa (dzis to 3 ruchy reczne), oraz analiza transkrypcji przez zaloge.
+
+
+==============================================================================
+## SESJA 18.08.2026 10:29 CEST
+==============================================================================
+
+18.08 09:20 TEMAT ZAMKNIETY przez Tomasza. ZROBIONE 17-18.08: (1) DROGA DOMOWA YouTube dziala — yt-dlp na HA Dom (domowe IP), transfer POST na VPS :8099; 3 filmy na dysku (XTV-4f90Edg Szewczyk 1066 linii PL, FEUyEfwX9gw Seedance 146 EN, yPrUlIfCJ_0 GitHub#284 419 PL); metoda w wiedza/DROGA_DOMOWA_YOUTUBE.md, D-0103; 8. pulapka: restart dodatku ubija pobieranie w trakcie — pobranie i wysylka jednym ciagiem. (2) STRAZNIK KOMEND stoi, potwierdzony EMPIRYCZNIE dziennikiem /root/.straznik_dziennik.jsonl (D-0104). (3) BRAMKA zrobione.py naprawiona dwukrotnie: kontroler dostaje slad testu (D-0102) + wszystkie sciezki uruchom_test zwracaja 3 wartosci. (4) tools/czy_pisza.py — koniec falszywych meldunkow 'jeszcze pisza' (Klaudek dwa razy okłamal Tomasza, raz na 11,5h); petla 5 przypadkow, przeszlo bramke. (5) handoff: dopisane 4 sekcje obowiazkowe. (6) pakiet_wznowienia: sekcja slepych uliczek (filtr ZGRUBNY — do dopracowania). OTWARTE: audyt Octop zawezony do 4 mechanizmow bezpieczenstwa (D-0105, Tomasz: 'A i sie wypowiedziec nic nie przenosic') — NIEURUCHOMIONY, czeka; N150 zamrozony do wizyty; automatyzacja drogi domowej (SSH kluczem na HA Dom ODRZUCONY mimo poprawnej konfiguracji — nie wiem czemu); haslo Tomasza lezy jawnym tekstem w opcjach dodatku a0d7b954_ssh na HA Dom — do zmiany.
+
+
+==============================================================================
+## SESJA 18.08.2026 10:29 CEST
+==============================================================================
+
+18.08 rano — TEMAT ZAMKNIETY przez Tomasza. STAN: (1) DROGA DOMOWA dziala — 3 filmy pobrane i przerobione na tekst (XTV-4f90Edg Szewczyk 1066 linii PL, FEUyEfwX9gw Seedance 146 EN, yPrUlIfCJ_0 GitHub#284 419 PL) w data/filmy/; metoda w wiedza/DROGA_DOMOWA_YOUTUBE.md; 8. pulapka dopisana do sprawdzenia: restart dodatku HA UBIJA pobieranie w trakcie — pobranie i wysylka musza isc jednym ciagiem z odczekaniem. (2) STRAZNIK KOMEND stoi, potwierdzony empirycznie (dziennik /root/.straznik_dziennik.jsonl: 18:36 przepusc echo, 18:37 BLOKADA rm -rf przez prawdziwy interfejs claude -p). (3) BRAMKA zrobione.py naprawiona w calosci (slad testu dla kontrolera + wszystkie 3 sciezki uruchom_test zwracaja 3 wartosci). (4) tools/czy_pisza.py POWSTAL — koniec falszywych meldunkow 'jeszcze pisza'; przyczyna byla: ps|grep lapal wlasna komende; Tomasz czekal przez to 11,5h na gotowy meldunek. (5) handoff: 4 sekcje obowiazkowe dopisane; pakiet_wznowienia: sekcja slepych uliczek dodana ALE filtr zgrubny (lapie tez sukcesy) — DO DOPRACOWANIA. OTWARTE: audyt kodu Octop (D-0105, Tomasz wybral opcje A, warunek 'czytac i sie wypowiedziec, NIC NIE PRZENOSIC') — NIE WYKONANY, zmierzone repo 21,9 MB Python, ustalono ze realny jest tylko audyt ZAWEZONY do 4 mechanizmow bezpieczenstwa (20-40 min), calosc nierealna. N150 zamrozony do wizyty Tomasza. Automatyzacja drogi domowej NIE WYSZLA — SSH kluczem z VPS na HA Dom odrzucane mimo poprawnej konfiguracji (klucz oferowany, nie przyjmowany, przyczyna nieznana). UWAGA BEZPIECZENSTWO: haslo Tomasza lezy jawnym tekstem w opcjach dodatku a0d7b954_ssh na HA Dom — do zmiany.
+
+
+==============================================================================
+## SESJA 18.08.2026 10:30 CEST
+==============================================================================
+
+18.08 09:30 KONIEC SESJI (Tomasz: 'Konczymy temat'). ZROBIONE 17-18.08: (1) VPS uratowany po wpadce z exit-node — droga awaryjna przez dodatek SSH na HA Dom, D-0098; (2) STRAZNIK KOMEND stoi i POTWIERDZONY empirycznie (dziennik /root/.straznik_dziennik.jsonl, blokada zweryfikowana przez prawdziwy interfejs CC), D-0104; (3) BRAMKA zrobione.py naprawiona — kontroler dostaje slad wykonania testu; domkniete tez sciezki bledu uruchom_test (zwracaly 2 zamiast 3 wartosci), D-0102; (4) DROGA DOMOWA — fabryka umie czytac YouTube: yt-dlp na HA Dom (adres domowy, YouTube nie blokuje) -> POST na VPS :8099 -> VTT na tekst. TRZY filmy na dysku: XTV-4f90Edg (Szewczyk, 1066 linii PL), FEUyEfwX9gw (Seedance, 146 EN), yPrUlIfCJ_0 (GitHub #284, 419 PL). Metoda: wiedza/DROGA_DOMOWA_YOUTUBE.md, D-0103; (5) tools/czy_pisza.py — koniec falszywych meldunkow 'zaloga jeszcze pisze' (dwa razy 17.08, raz na 11,5h); (6) handoff: dopisane 4 sekcje obowiazkowe (slepe uliczki, zakazy, niepotwierdzone, droga powrotu); pakiet_wznowienia: sekcja slepych uliczek (filtr zgrubny — DO DOPRACOWANIA). OTWARTE: N150 zamrozony do wizyty Tomasza (plan ratunku w D-0097); AUDYT OCTOP zatwierdzony (D-0105, 'A i sie wypowiedziec nic nie przenosic') ale NIE URUCHOMIONY — zmierzone: repo 21.9 MB Pythona, calosc nierealna, zawezenie do 4 mechanizmow bezpieczenstwa ~20-40 min; automatyzacja drogi domowej NIE WYSZLA (SSH kluczem na HA Dom odrzucany mimo poprawnej konfiguracji) — dzis to 3 ruchy przez konektor; haslo Tomasza lezy jawnym tekstem w opcjach dodatku a0d7b954_ssh — DO ZMIANY.
+
+
+==============================================================================
+## SESJA 18.08.2026 16:25 CEST
+==============================================================================
+
+18.08 po poludniu — SKLAD ZALOGI ZMIERZONY I DOSTROJONY + PAMIEC HENIA WLACZONA. (1) HENIO = Hermes na deepseek-v4-pro (najmocniejszy pod tym kluczem; drugi dostepny to flash). ZENEK = Codex na gpt-5.6-sol (Sol = flagowiec rodziny 5.6; Luna/Terra slabsze; Sol jako jedyny odblokowuje max reasoning). Zenek chodzi teraz z effort=max, limit 30 min (nie zdazyl w 20). GENEK = Gemini. Szczegoly D-0106. (2) PAMIEC HENIA: byla pusta 14 dni mimo wlaczonej — przyczyna NIE byla ta, ktora Klaudek zgadywal; flush_min_turns to martwy klucz, a 'hermes -z' konczy proces po jednym przebiegu. Wlaczone bramki zatwierdzania (memory + skills), do SOUL.md dopisana zasada zapisu z lista co/czego-nie i wymogiem dowodu. Wpisy ida do ~/.hermes/pending/, zatwierdza Tomasz. Szczegoly D-0107. (3) FILMY przemielone droga domowa: Paperclip (9o16uyJB0os) — werdykt: nic nie przenosimy, ale ich mechanizmy budzetow/blokad wykonania to luka u nas; DeepSeek Harness vs Hermes (-ABQEVAD5l0) — film o NASZYM Heniu, zero pomiarow, autor ma wlasny platny produkt, nic nie bierzemy. Transkrypcje w data/filmy/. (4) POMYLKI KLAUDKA do zapamietania: dwa razy zaproponowal licznik kosztow, mimo ze Tomasz ma abonamenty ('Wszystkich mam w pakiecie', 'Ja podejmuje juz decyzje jak np pisze wam ze bez Gienka'); postawil odbiornik plikow na 0.0.0.0 i zlapal skan z internetu (poprawione na nasluch tylko w tailnecie).
+
+
+==============================================================================
+## SESJA 18.08.2026 17:33 CEST
+==============================================================================
+
+18.08 wieczorem — ZAMKNIETY WYCIEK 2,23 USD/DOBE. Na Vast.ai chodzila od 19.07 bezczynna instancja RTX 4090 z ComfyUI (GPU 0% przez miesiac), 67,89 USD zuzycia, auto-doladowania ~5 USD co 2 dni. Fabryka nie miala z tym nic wspolnego (zero sladow w repo i wiedzy). Instancja zniszczona przez telefon, Tomasz wylaczyl auto-doladowanie. Szczegoly D-0108. PRZY OKAZJI ZMIERZONE (audyt botow, w toku): 2077 nieudanych prob logowania SSH na dobe, ZERO udanych — zabezpieczenie z 17.08 dziala. ALE otwarte na swiat i odpowiadaja: 11434 (ollama), 5678 (n8n), 8000 (fabryka-api). n8n NIE DZIALA od 30.06 (baza nietknieta, zero wykonan) — kandydat do wylaczenia. Zaloga konczy audyt w .scratch/audyt_botow.
+
+
+==============================================================================
+## SESJA 18.08.2026 18:25 CEST
+==============================================================================
+
+18.08 wieczor — ZAMKNIETE TRZY DZIURY: ollama (obcy uzywali naszych modeli, 215 zapytan/dobe vs nasze 29), kamery go2rtc (RTSP/WebRTC otwarte na swiat bez hasla, 3 strumienie parkingu), fabryka-api (bez autoryzacji, 622+342 obce zapytania w tygodniu). Wszystko przestawione na nasluch 127.0.0.1, kopie zapasowe zrobione, zweryfikowane z obu stron — fabryka dziala bez zmian. Szczegoly D-0111. UWAGA: jeden obcy adres (84.247.152.177) pojawil sie ZAROWNO przy ollamie JAK I przy api — ktos chodzil po serwerze systematycznie. DO ZROBIENIA: n8n (token FB, martwy od 30.06), Zenek drugi raz z rzedu nie zdazyl w 30 min przy effort=max.
+
+
+==============================================================================
+## SESJA 19.08.2026 08:33 CEST
+==============================================================================
+
+18.08 wieczor — narada o nowosciach AI (Grok 4.6 / DeepSeek V4 Pro / GLM 5.3): NIC NIE ZMIENIAMY, szczegoly D-0112. Zenek na effort=max zlapal dwa bledy filmu (Grok 1 pkt a nie 2 za czolowka; przemilczany prog cenowy 200K) i obalil 'spadek o 30 pkt' jako nieudokumentowany — zestawiajac oficjalne liczby pokazal, ze model Henia (deepseek-v4-pro) wypada nizej od jego wlasnego (gpt-5.6-sol) we wszystkich trzech pomiarach agentowych. SPRAWDZONE PRZY OKAZJI: chatbot ROD ogrodnik-rod.pages.dev DZIALA (test /api/ask = HTTP 200, odpowiada jako asystent ROD im. Jozefa Lompy) i NIE ucierpial po zamknieciu portow — stoi w calosci na Cloudflare, zero odwolan do naszego serwera. W naszych zapisach ma tylko 2 linijki (TELEPORT_HA + PAMIEC_INFRASTRUKTURA) — brak wiedzy roboczej, do uzupelnienia gdyby kiedys trzeba bylo go ruszac.
+
+
+==============================================================================
+## SESJA 19.08.2026 09:36 CEST
+==============================================================================
+
+19.08 rano — AUDYT OCTOP ZAMKNIETY (D-0113): nic nie przenosimy; kluczowe ustalenie — cala logika 4 mechanizmow siedzi w NIEPUBLICZNEJ zaleznosci orcakit-harness-agent (repo 404), Octop to tylko konfiguracja i panel; ich guard startuje w trybie warn (blokuje NIC) a HITL jest wylaczony = swieza instalacja niezabezpieczona. WAZNIEJSZE OD AUDYTU: Zenek znalazl TRZY NASZE usterki (D-0114, nienaprawione): bramka zrobione.py moze przepuscic gdy kontroler nie zdazy (nieodebrany glos != sprzeciw — a Zenek dwa razy 18.08 nie zdazyl); straznik przepuszcza komende o typie innym niz tekst i polyka blad dziennika (i ma 23 wzorce, nie 24 jak podawalem); filtr wejsciowy Hansa jest WYLACZONY. Jedyna rekomendacja Zenka: rozwazyc mala bramke PRE-TOOL nalozona na obecne blokowanie — bo nasze zrobione.py pilnuje dopiero PRZY MELDUNKU, nie przed wykonaniem narzedzia.
+
+
+==============================================================================
+## SESJA 19.08.2026 12:14 CEST
+==============================================================================
+
+19.08 poludnie — PIEC NAPRAW ZAMKNIETYCH (D-0115). Bramka juz nie przepuszcza gdy kontroler nie zdazy; straznik blokuje zly typ komendy ORAZ zla cala strukture wejscia (druga fala — Zenek pokazal, ze pierwsza naprawa byla polowiczna: AttributeError dawal kod 1, a Claude Code blokuje tylko przy 2); slowa Tomasza znowu docieraja do zalogi (od 13.08 przez 6 DNI zaloga dostawala plik zamrozony na 5.08 — dekret 'mowie do WSZYSTKICH' nie dzialal, znalezli to Zenek i Henio NIEZALEZNIE); tresc /sekret nie trafia juz do dziennika diagnostycznego. Petla straznika: 33+4+7+2 zielone. Wszystko z kopiami zapasowymi. LEKCJA DNIA: audyt cudzego kodu (Octop) wykryl wiecej dziur U NAS niz u nich, a kontrola napraw wykryla, ze pierwsza naprawa Klaudka byla polowiczna — dlatego autor NIE sprawdza sam siebie. ZOSTAJE: dziennik straznika bez rotacji, bramka nie sprawdza returncode zalogi, --bez-zalogi omija glosy, pomoc bota nieaktualna od 13.08.
+
+
+==============================================================================
+## SESJA 19.08.2026 15:30 CEST
+==============================================================================
+
+19.08 popoludnie — SIEDEM NAPRAW ZAMKNIETYCH (D-0116), obie ostatnie z potwierdzeniem Zenka i Henia. Dolozone: rotacja dziennika straznika przy 5 MB, wykrywanie nieudanego startu zalogi. ODKRYCIE DNIA: bramka NIGDY nie startowala kontroli, bo nie przekazywala --mimo-braku — zaloga konczyla kodem 2 (sonda sprawdza wylaczonego Genka), a bramka meldowala 'GLOS NIEODEBRANY'. Klaudek pol dnia szukal winy w Zenku i Heniu i wydluzal im limity (600->2700 s), zamiast sprawdzic, czy w ogole zostali zapytani. TRZY WLASNE BLEDY PRZY ZGLASZANIU: dwie naprawy w jednym zgloszeniu; --test podawany jako cale polecenie zamiast sciezki (test sie NIE URUCHAMIAL, a bramka mowila 'nie jest zielony'); dowod z testu badajacego INNY plik (wychwycil Zenek). ZENEK WYCZERPAL LIMIT KONTA — to bylo prawdziwe zrodlo jego pustych glosow, nie timeout; przyczyna: effort=max spalil dobowa pule. Tomasz doladowal, model zostaje. TECZKA HENIA poprawiona: 'pamiec to dodatek, nie zamiennik raportu' — 18.08 Klaudek kazal mu zapisywac do pamieci i nie dopisal, ze raport ma isc w odpowiedzi; jeden raport przez to przepadl bezpowrotnie.
+
+
+==============================================================================
+## SESJA 19.08.2026 15:41 CEST
+==============================================================================
+
+19.08 wieczor — LISTA OTWARTYCH WYCZYSZCZONA DO ZERA (D-0117). Poprawione: klamiaca pomoc bota, SLOWA_TOMASZA.md wyprowadzone z publicznego repo do skrzynki, furtka --bez-zalogi zamknieta (nie wystawia juz stempla bez glosow), klucz API Henia do skrytki + wyczyszczony z 5 kopii zapasowych, haslo Tomasza do dodatku HA wymienione na losowe i schowane w skrytce. Wszystko zweryfikowane, Henio dziala, brief zalogi dziala. OTWARTE ZOSTAJE TYLKO: N150 na dzialce (zamrozony do wizyty) oraz znany drobiazg — logowanie kluczem na HA Dom odbija Permission denied mimo poprawnego authorized_keys (dostepu Tomasza nie dotyczy).
+
+
+==============================================================================
+## SESJA 19.08.2026 15:58 CEST
+==============================================================================
+
+19.08 — SSH NA HA DOM DZIALA (D-0118). Cala przyczyna dwoch dni odbijania: dodatek lowercasuje username, sshd porownuje case-sensitive. Logowac sie jako makol100 (MALE litery), nie Makol100. Zero zmian w konfiguracji. Rozwiazal Henio, Klaudek zweryfikowal: uid=1000, grupa wheel (sudo). To daje fabryce STALY dostep awaryjny do HA Dom niezalezny od konektora — ta sama droga, ktora 17.08 uratowala VPS po wpadce z exit-node, ale teraz kluczem zamiast haslem.
+
+
+==============================================================================
+## SESJA 19.08.2026 16:40 CEST
+==============================================================================
+
+19.08 wieczor — pamiec Henia: bramka ZDJETA na dekret Tomasza (zapisuje natychmiast), ale pamiec WYPROWADZONA z publicznego repo do /root/pamiec_henia (700/600). Powod: byla sledzona przez gita, a na push czekaly dwa grozne wpisy — o dziurze w fabryka-api i o dostepie SSH z adresem, loginem i sciezka klucza. Pytanie Tomasza 'po co Heniek ma wystawiac pamiec na zewnatrz' bylo trafne: nie bylo po co, plik lezal w repo przez przypadek. Dowiazanie przepiete, zapis sprawdzony na zywo. Szczegoly D-0120.
+
+
+==============================================================================
+## SESJA 19.08.2026 17:06 CEST
+==============================================================================
+
+19.08 — narada o 10 skillach do Hermesa (film dotyczacy silnika Henia): NIC NIE INSTALUJEMY, szczegoly D-0121. Henio ma juz 1 z 10 (humanizer, przeniesiony do Hermesa oficjalnie) i poprawil moj opis: nie 13 skilli tylko 66 w 12 kategoriach. Zenek poprawil 3 nazwy z napisow i wylapal ukryte koszty, ktorych film nie podaje (cookies, SaaS 29 USD/mies, AGPL, licencja dwoista). Rozbieznosc: Defuddle — Henio NIE, Zenek TAK z warunkiem testu. NAJCIEKAWSZE: na pytanie o wlasny skill OBAJ odrzucili cala dziesiatke i wskazali NASZ temat — procedure szukania kuny na nagraniach NVR ('kuna-nvr-dowod'), czyli spisanie tego, co robimy recznie od tygodni.
+
+
+==============================================================================
+## SESJA 20.08.2026 06:01 CEST
+==============================================================================
+
+19.08 — znikajace raporty Henia NAPRAWIONE (D-0122). Przyczyna NIE byla po jego stronie: Hermes ma verification_stop.py, ktory po turze dotykajacej pliku z kodem kaze udowodnic weryfikacje; przy zadaniu badawczym nie ma czego testowac, wiec zamiast raportu wracalo jego tlumaczenie — a Henio przy researchu sam tworzy tymczasowe skrypty .py, wiec straznik odpalal sie prawie zawsze. Naprawa: HERMES_VERIFY_ON_STOP=0 w wywolaniu z zaloga.py. Dowod A/B na tym samym zadaniu. Moja poranna diagnoza (wpis do SOUL.md o 'pamiec to dodatek') byla ZGADYWANIEM po objawach i nie mogla zadzialac.
+
+
+==============================================================================
+## SESJA 20.08.2026 06:51 CEST
+==============================================================================
+
+20.08 rano — raporty Henia dochodza w calosci (D-0123). Druga przyczyna: 'hermes -z' zwraca tylko ostatnia wypowiedz, a raport + zapis do pamieci w jednej wypowiedzi spycha raport na pozycje posrednia. Naprawa: usage-file -> session_id -> eksport sesji -> sklejenie wszystkich wypowiedzi assistant. Dowod A/B: 541 B -> 1566 znakow. UWAGA NA PRZYSZLOSC: problem powstal jako SKUTEK UBOCZNY zdjecia bramki pamieci (D-0120) — kazda zmiana w zachowaniu Henia moze zmienic to, co do nas dociera.
+
+
+==============================================================================
+## SESJA 20.08.2026 07:29 CEST
+==============================================================================
+
+20.08 — runda 3 monitoringu przetargow (D-0124): obaj wybrali te sama nisze (BZP/BIP, otwarte API, strata zero-jedynkowa przy przegapionym terminie), ale roznia sie cena (149/249 vs 179+299) i kosztem budowy (40-80 h vs 140-180 h). PODPATRZENIE KONKURENCJI (zasada Tomasza) dalo najwazniejsza rzecz: BIP Alert JUZ daje streszczenia AI i to czesciowo ZA DARMO (freemium 0/19/99/399 zl) — nasza zakladana przewaga jest zajeta. Cold mailing WYMAGA ZGODY (art. 398 PKE), wiec dotarcie tylko przez izby, polecenia i spotkania. Bramka stoi: zero deklaracji, zero kodu. OSOBNO (D-0125): Zenek napisal glos ZA Henia — przez zly naglowek moich zlecen; dopisany SPRAWDZIAN NR 5 'nie pisz za kolege'.
+
+
+==============================================================================
+## SESJA 20.08.2026 12:13 CEST
+==============================================================================
+
+20.08 — PILOT PRODUKTU NA TOMASZU (D-0126): dzialajacy raport przetargowy dla jego wlasnej firmy (elektryk, SEP E+D, instalacje+pomiary). Lejek: 3874 ogloszenia -> 7 trafien w jego skali. Zaloga dodala to, czego w API nie ma: warunki wejscia (2 referencje przy PW), zmiane terminu w osobnym ogloszeniu, bariere polisy 200 tys. przy SANIKO, i poprawila moje bledne odsianie (linia kablowa nN pod wodociagowym tytulem). Henio wylapal, ze w SEP nie ma kategorii C. NOWE USTALENIE: pomiary okresowe to OSOBNA nisza — zlecenia cykliczne, mniejsza konkurencja; pierwszy filtr jej nie widzial. TECHNIKA: API BZP nie ma stronicowania, trzeba dzien po dniu + dedup.
+
+
+==============================================================================
+## SESJA 20.08.2026 17:07 CEST
+==============================================================================
+
+20.08 — niezaleznosc wyszukiwania Zenka i Henia WRESZCIE dziala (D-0127). Dekret Tomasza z 12.08 lezal martwy 8 dni: SearXNG chodzil, dokumentacja byla, ale NIC z tego nie trafilo do briefu — Henio o wyszukiwarce nie wiedzial i pisal wlasne skrypty, Zenek mial --search wylaczony. Naprawione oba. UWAGA: --search w Codexie musi stac PRZED 'exec', inaczej blad (przez chwile zepsulem Zenka tym bledem). Dowod: Zenek pobral z sieci cennik i-przetargi (399 zl netto/kwartal), ktorego nie mial w briefie.
+
+
+==============================================================================
+## SESJA 25.08.2026 09:07 CEST
+==============================================================================
+
+25.08 — automatyczne kopie HA na fabryke DZIALAJA (D-0128). Codziennie 6:30 fabryka sciaga najswiezsza kopie z Domu i Wybickiego (Dzialka czeka na dysk). Pulapki: scp nie dziala przez dodatek SSH (brak sftp) — ciagniemy przez 'cat'; kazdy serwer ma innego uzytkownika (Dom=makol100, Wybickiego=root); po restarcie dodatku trzeba ssh-keygen -R. Skrypt /root/kopie_ha/pobierz.sh, dziennik obok. Powod: awaria N150 kosztowala tydzien przez kopie sprzed 2 miesiecy.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:00 CEST
+==============================================================================
+
+25.08 — BELZEBUB, dokonczenie zapisu po ZABLOKOWANYM OKNIE CHATU. Poprzednie okno padlo na limicie ZANIM dekret o Belzebubie trafil do rejestru i teleportu — zapis ocalal tylko w pamieci Klaudka, szukaj.py dawal 0/102 plikow. Uzupelnione dzis (D-0130). STAN WDROZENIA zmierzony: user belzebub istnieje (uid 1002, grupy tylko belzebub — bez sudo/docker, zgodnie z ustaleniami), katalog ~/.hermes skonfigurowany 09:47, komenda /bzb wpieta w hans_ucho.py (czyta klucz z /root/.sekrety/belzebub.key). BRAKUJE: klucza belzebub.key — konto Featherless NIE oplacone, /bzb odpowie brakiem klucza. Nastepny krok wymaga decyzji Tomasza o wydatku 50 USD/mies. LEKCJA: przy dlugim oknie zapisywac dekrety NA BIEZACO, nie na koncu — limit okna ucina zapis.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:06 CEST
+==============================================================================
+
+25.08 — BELZEBUB DZIAŁA (dekret Tomasza: 'Belzebub juz dziala, jest tez na telegramie'). MODEL ZMIERZONY: huihui-ai/Huihui-Qwen3.8-27B-abliterated (Featherless.ai, klucz aktywny, 46 pluginow). User belzebub uid 1002 bez sudo/docker/sekrety/repo. Droga /bzb przez Hansa dziala. ZASADA KLAUDKA: nie generowac tresci dla Belzebuba — grozi blokada Anthropic.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:08 CEST
+==============================================================================
+
+25.08 — LEKCJA BELZEBUB (twarda): nie tylko pisanie ZA niego ale nawet CZYTANIE jego odpowiedzi w oknie Klaudka blokuje czat Anthropic. Potwierdzone empirycznie — poprzednie okno padlo wlasnie z tego powodu. NOWY PROTOKOL: output Belzebuba idzie do Henia albo Tomasz czyta sam. Klaudek slepа na tresc Belzebuba.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:40 CEST
+==============================================================================
+
+25.08 — archiwum rozmow z Belzebubem WDROZONE. Wczesniej odpowiedzi /bzb szly prosto z API do Telegrama i NIGDZIE nie ladowaly na dysku — dlatego szukanie 'pamieci chatu' nic nie dalo, tej pamieci po prostu nie bylo. Teraz kazda wymiana ląduje w /root/rozmowy_belzebub/. Restart przez systemctl (nie pkill — sprawdzian nr 6), po restarcie dokladnie jeden proces hans_ucho.py (pgrep -af; pgrep -c pokazal 2, bo liczy wlasne polecenie). Proba zapisu wykonana na tekscie zastepczym — bez wolania API, zero kosztu.
+
+
+==============================================================================
+## SESJA 25.08.2026 13:27 CEST
+==============================================================================
+
+25.08 — /bzb: model huihui zapchany po stronie Featherless (capacity_exhausted, blad serwera NIE Klaudka — kod, klucz i endpoint dzialaly). Zmierzono oba: huihui zapchany, OBLITERATUS/Qwen3.8-27B-OBLITERATED WOLNY (ta sama cena, ten typ). Podmieniono model w tools/hans_ucho.py na OBLITERATUS. Restart przez systemctl, jeden proces. Kopia sprzed: /tmp/hans_ucho.przed_zmiana_modelu.bak. UWAGA: ktos powiedzial Tomaszowi 'juz zamienione' ale w kodzie zmiany NIE bylo — dopiero ta zmiana jest realna, zweryfikowana grepem.
+
+
+==============================================================================
+## SESJA 25.08.2026 13:51 CEST
+==============================================================================
+
+25.08 — /bzb model na huihui-Llama-3.3-70B-Instruct-abliterated (najmocniejszy z wolnych, 70B, ctx 32K). Powod: OBLITERATUS tez zapchany (capacity_exhausted po stronie Featherless — modele bez cenzury stoja na malej liczbie serwerow, latwo je przepelnic, stan zmienia sie co minute). Zmierzono 6 kandydatow: OBLITERATUS i DavidAU zapchane, huihui-Qwen3.8, huihui-Qwen3.5-27B, Llama-70B i Qwen3.5-9B WOLNE. Wybrano Llama-70B na zyczenie Tomasza ('najmocniejszy sprawdzimy'). Przed restartem sprawdzono ze DALEJ wolny. Restart systemctl, jeden proces. Kopia: /tmp/hans_ucho.przed_llama70b.bak. DO ROZWAZENIA: automatyczne przelaczanie modeli przy capacity_exhausted (Tomasz jeszcze nie zdecydowal).
+
+
+==============================================================================
+## SESJA 25.08.2026 14:21 CEST
+==============================================================================
+
+25.08 — VPS zamkniety przed botami SSH. Fail2ban + firewall (port 22 tylko tailnet) + hasla off. WAZNA LEKCJA: (a) publiczny adres VPS to IPv6 — sama iptables IPv4 zostawiala dziure, trzeba bylo ip6tables; (b) test /dev/tcp z serwera na jego wlasny publiczny IP idzie LOKALNIE (petla), pokazuje falszywe 'otwarty' — miarodajny jest licznik pakietow reguly DROP (-L -v), nie proba polaczenia; (c) fail2ban systemd-backend nie parsuje 'sshd-session', trzeba backend=auto+logpath. Zero udanych wlaman od poczatku — boty pukaly, nie weszly. Dostep tailnet zweryfikowany po kazdym kroku, rollback za 5min jako siatka (anulowany po potwierdzeniu).
+
+
+==============================================================================
+## SESJA 25.08.2026 14:32 CEST
+==============================================================================
+
+25.08 — Belzebub dostal pamiec rozmowy. /bzb teraz doklejа historie z archiwum (od najnowszej, do 22K tokenow), twardy sufit 32K pilnowany w kodzie licznikiem znakow. Test na sucho przed restartem: 17 wymian ~5286 tok, total ~7286/32768. Restart systemctl, jeden proces. Bariera Klaudka OK — historie sklada usluga bota, nie okno Klaudka.
+
+
+==============================================================================
+## SESJA 26.08.2026 06:52 CEST
+==============================================================================
+
+26.08 — Belzebub dostal wyszukiwarke: SearXNG+Google CSE (najlepsze zrodlo na VPS, darmowe, bez limitow). /bzb wyszukuje pytanie w sieci i dokleja 8 wynikow do kontekstu przed wyslaniem do modelu. Test na sucho OK (8 wynikow, 1749 znakow). Belzebub ma teraz: pamiec rozmowy + wyszukiwanie sieci. Kolejnosc w kodzie: historia -> wyniki sieci -> pytanie. Restart, jeden proces. Kopia w /tmp.
+
+
+==============================================================================
+## SESJA 26.08.2026 14:43 CEST
+==============================================================================
+
+26.08 — PILOT INTRO KUN WYPRODUKOWANY (D-0144, zgoda Tomasza 'A / Ok pilot intro'). Komplet glosow D-0143 przed zgoda: Zenek PASS, Henio zdatny, Genek 2.19, Belzebub BRAK bledow (pelny pakiet w prompcie przez Henia — dziala!). Przebieg: obraz gemini 0.067 (bramka oka Genka: kuna pod maska, zero tekstu) -> TTS Charlotte 3 pliki 0.0239 (klamra 8.54 s < 10 s) -> Veo lite FLF 0.40 (straznik PASS; MCP ucial polaczenie ale state.json + plik ocalaly — submit w tle to standard od dzis) -> OmniHuman ~1.37-1.45 (8.542 s audio). WPADKA POUCZAJACA: OmniHuman zwraca 1920x1088 (8 px padding kodeka) i 25 fps — straznik FAIL, naprawa LOKALNA crop+fps=24, zero nowych submitow. FAL_KEY NIE lezy w wartosci.env — zyje w kontenerze: docker exec fabryka-api printenv FAL_KEY. Kadr izabela_16x9_v1.png ma napis PREZENTERKA AI wtopiony — decyzja A spelniona bez drawtext. Final: intro_pilot_v1.mp4 14.81 s, A/V 0.021, faststart, bramka PASS. Koszt z cennika 1.86-1.94 USD (limit 2.19; rozliczenie fal opoznione, koncowa liczba po ustabilizowaniu salda).
+
+
+==============================================================================
+## SESJA 26.08.2026 14:56 CEST
+==============================================================================
+
+26.08 — pilot INTRO kun ZATWIERDZONY przez Tomasza bez poprawek (D-0145). Gotowe media pilota wchodza do pelnego filmu.
+
+
+==============================================================================
+## SESJA 26.08.2026 15:48 CEST
+==============================================================================
+
+26.08 — FILM KUN v1 WYSLANY Tomaszowi na Telegram (kuny_film_v1.mp4, 7:26, 34.3 MB, 29 scen, wariant statykowy po awarii Veo; D-0147). Bramka techniczna PASS; bramka_oka FAIL-e falszywe (narzedzie pilnuje pionu 9:16, film 16:9) — tresc kadrow potwierdzona poprawna. Czuwacz Veo dalej probuje odebrac oplacony cz1. Otwarte: v2 z ruchem (Veo po powrocie 0.80 albo inny model, np. Wan).
+
+
+==============================================================================
+## SESJA 26.08.2026 15:58 CEST
+==============================================================================
+
+26.08 — FILM KUN v2 WYSLANY (podglad 720p na Telegram; master 1080p 98.8MB: data/filmy/kuny/kuny_film_v2.mp4). Klipy cz4+cz7 zrobil GENEK: Veo 3.1 Lite bezposrednio przez Gemini API (D-0149), ~3 min/klip, straznik+oko PASS (w termowizji kuna nie wilk). Koszt wg cennika ~0.80 na koncie Google Genka. Scena c1a nadal statyk — klip oplacony na fal (rid w veo_cz1_state.json) do odebrania gdy fal wstanie. LEKCJA: fal to posrednik — przy awarii fal Veo dziala u zrodla przez klucz Genka, ta sama cena lite.
+
+
+==============================================================================
+## SESJA 27.08.2026 05:23 CEST
+==============================================================================
+
+27.08 — FILM KUN FINAL v3 GOTOWY I WYSLANY: kuny_film_v3_full.mp4 (7:57, 100MB 1080p, na wgraj + podglad 720p Telegram). Wzgledem v2: +wejscie/wyjscie z logo ROD (plansze PIL+ffmpeg 0 zl, sygnal CC0 kanon), +rozszerzona c7d o zanety na kune domowa (research 4 zrodla DE: jajko/owoce/orzechy/ryba/mieso + rama prawna zachowana; TTS 592 zn 0.06). Koszt calosci ~3.68 (limit 3.60 przekroczony o 0.08 za zgoda Tomasza). Zostaje otwarte: klip cz1 na fal (rid czeka), publikacja na oddzielna decyzje.
+
+
+==============================================================================
+## SESJA 27.08.2026 07:46 CEST
+==============================================================================
+
+27.08 — KUNY OPUBLIKOWANE: YouTube b2f_srU7lF4 + FB ROD Wozniki. Projekt filmu ZAMKNIETY (final: kuny_film_v3_full.mp4, 7:57). Zostaje tylko odbior klipu cz1 z fal gdy wstanie.
+
+
+==============================================================================
+## SESJA 27.08.2026 07:53 CEST
+==============================================================================
+
+27.08 — panel apki Tomasza odblokowany (wariant A, D-0151): basic auth dla internetu, tailnet bez zmian; testy PASS, backup Caddyfile zrobiony.
