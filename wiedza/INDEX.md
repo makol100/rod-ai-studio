@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 01.09.2026 08:59.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 01.09.2026 12:09.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,9 +11,9 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `BRIEF_DLA_KLAUDKA.md` | 01.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-01 14:05:17 CEST |
 | `AKTYWA_SERII.md` | 01.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `PREZENTER_TOMASZ_KANON_0.1.md` | 01.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
-| `BRIEF_DLA_KLAUDKA.md` | 01.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-01 10:35:14 CEST |
 | `OMNI_1_1_FLASH_fakty_0109.md` | 01.09 | 1K | Gemini Omni 1.1 Flash — fakty zweryfikowane 01.09.2026 (Klaudek-czat: changelog + docs/omni 30.08 + pricing +  |
 | `GENEK_OMNI_1.1_FLASH.md` | 01.09 | 2K | Gemini Omni 1.1 Flash — fakty z dokumentacji Google (sprawdzone 01.09.2026 przez Klaudka; Genek NIE ODDAL wiar |
 | `AWATAR_TOMASZ_NARADA_0109.md` | 01.09 | 19K | ODPOWIEDŹ: do zbudowania wiarygodnego awatara Tomasza potrzebujemy od Tomasza 12 zdjęć, jednego 5-minutowego n |
