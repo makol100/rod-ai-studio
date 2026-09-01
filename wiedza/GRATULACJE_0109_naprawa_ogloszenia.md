@@ -1,0 +1,1 @@
+Tomasz 01.09.2026 po v7: 'Jest zajebiscie. Gratulacje dla grupy calej.' — za naprawe 0 USD ogloszenia Prezentera Tomasza (Zenek: lista ciec co do klatki, SSIM; Henio: pomiary word-level, demo planszy). Opublikowane: https://www.facebook.com/reel/1072180219009887
