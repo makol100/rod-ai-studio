@@ -62,3 +62,111 @@ nie przez dysk. Ta lista działa więc na dwóch nogach:
 
 Udawanie, że da się to wymusić technicznie, byłoby pozorną kontrolą. Nie ma jej.
 Jest lista, są sprawdziany, jest teczka i jest Hans — gdy powstanie.
+
+---
+
+## SPRAWDZIAN NR 4 — PRÓBOWANIE WARIANTÓW ZAMIAST CZYTANIA ŹRÓDŁA
+### (dopisane 19.08.2026 na żądanie Tomasza: „Zawsze ten sam błąd. Wyeliminować go!")
+
+**To jest NAJDROŻSZY nawyk Klaudka.** Nie brak wiedzy — brak sięgnięcia po nią.
+
+### Jak wygląda (wszystkie przykłady z 18–19.08.2026)
+
+| co robił | ile kosztowało | co wystarczyło |
+|---|---|---|
+| SSH na HA Dom: próbował `Makol100`, `root`, `hassio`, `homeassistant`, `admin`, restartował dodatek, sprawdzał prawa | **2 dni** | jedno zdanie w dokumentacji dodatku: „usernames will be converted to lower case" |
+| zamknął port 8000, uznał sprawę za skończoną | most `panel` dalej wystawiał CAŁE API na świat | sprawdzić, dokąd prowadzą mosty Caddy |
+| podawał bramce `--test "python3 tools/x.py"` | testy NIGDY się nie uruchamiały, bramka mówiła „nie jest zielony" | przeczytać, że `uruchom_test` przyjmuje ŚCIEŻKĘ |
+| pół dnia szukał winy w Zenku i Heniu, wydłużał limity 600→2700 s | pół dnia | sprawdzić, czy kontrola w ogóle wystartowała (brakowało `--mimo-braku`) |
+
+Wspólny mianownik: **próbował wariantów na oślep, zamiast sprawdzić, JAK DANA RZECZ DZIAŁA.**
+
+### ZASADA (obowiązuje od 19.08.2026)
+
+> **DRUGA NIEUDANA PRÓBA TEGO SAMEGO = STOP. Idź do źródła.**
+
+Źródło to: dokumentacja narzędzia, jego repozytorium, `--help`, kod na dysku, wpis w `wiedza/`.
+NIE jest źródłem: własne przekonanie, „zwykle tak działa", analogia do czegoś innego.
+
+Po drugiej nieudanej próbie Klaudek MUSI napisać jedno zdanie:
+**„Sprawdzam w [źródło], jak [rzecz] naprawdę działa"** — i dopiero potem próbować dalej.
+
+### CO MÓWI ZAŁOGA (formuła obowiązkowa, reaguje kto pierwszy zauważy)
+
+> **„STOP. To już [n]-ta próba tego samego. Gdzie sprawdziłeś, jak to działa?
+> Podaj źródło albo przestań zgadywać."**
+
+### JAK TO WYKRYĆ PO FAKCIE (bez pytania Klaudka)
+
+1. W jednej turze są **≥2 próby tej samej czynności** z różnymi parametrami, a **ani jednego
+   odczytu dokumentacji/kodu** → zgadywał.
+2. Melduje „nie wiem dlaczego", a nie padła nazwa **żadnego sprawdzonego źródła** → nie szukał.
+3. Zmienia **ustawienie**, zanim sprawdził **jak to ustawienie jest czytane** → strzela.
+
+### DLACZEGO TO DZIAŁA U HENIA, A NIE U KLAUDKA
+
+19.08 Heniek rozwiązał sprawę SSH w kwadrans, bo **otworzył dokumentację dodatku i zajrzał
+do środka systemu**. Klaudek szukał od zewnątrz przez dwa dni. Różnica nie jest w zdolnościach
+— jest w tym, że jeden czyta, a drugi zakłada, że wie.
+
+---
+
+## SPRAWDZIAN NR 5 — NIE PISZ ZA KOLEGE (dopisane 20.08.2026)
+
+### Co sie stalo
+Klaudek pisal w naglowku zlecen: „Odpowiadaja ZENEK i HENIO, kazdy osobno".
+Ale KAZDY dostaje ten sam tekst OSOBNO — wiec Zenek przeczytal polecenie obejmujace
+takze Henia i dostarczyl OBA glosy: swoj (linia 1) i sekcje „## HENIO" (linia 180).
+Probowal najpierw uruchomic prawdziwego Henia (`su: cannot set groups`), nie udalo sie,
+wiec napisal zastepczy — UCZCIWIE oznaczajac to w nocie technicznej.
+Prawdziwy Henio odpowiedzial rownolegle, w swoim pliku, i wybral INNA nisze i INNA cene.
+
+### Dlaczego to grozne
+Dwa glosy w jednym pliku wygladaja jak niezalezne potwierdzenie. Nie sa.
+Cala wartosc zalogi polega na tym, ze glosy powstaja OSOBNO i moga sie ROZNIC.
+Podrobiony glos — nawet oznaczony — niszczy ten mechanizm.
+
+### ZASADA
+> **Piszesz WYLACZNIE swoim glosem. Nigdy nie pisz sekcji za innego czlonka zalogi.**
+> Jesli probowales go uruchomic i sie nie udalo — NAPISZ TO JEDNYM ZDANIEM i tyle.
+> Brak cudzego glosu jest INFORMACJA, nie luka do zalatania.
+
+### OBOWIAZEK KLAUDKA
+W naglowku zlecenia pisac: „Odpowiadasz TY. Drugi czlonek zalogi dostaje to samo
+zadanie OSOBNO — NIE pisz za niego, nie proboj go uruchamiac."
+Stary naglowek („Odpowiadaja X i Y") jest bledny i nie wolno go uzywac.
+
+### JAK WYKRYC
+W pliku jednego czlonka zalogi pojawia sie naglowek albo podpis DRUGIEGO
+(np. „## HENIO" w zenek.txt). Wtedy: ten fragment NIE JEST glosem — odrzucic go
+i, jesli trzeba, uruchomic prawdziwego kolege osobno.
+
+---
+
+## SPRAWDZIAN NR 6 — NIE RESTARTUJ RECZNIE TEGO, CZYM ZARZADZA SYSTEMD (25.08.2026)
+
+### Co sie stalo
+Klaudek dodal komende /henio do tools/hans_ucho.py i zeby ja wczytac zrobil:
+`pkill -f hans_ucho.py` + `nohup setsid python3 tools/hans_ucho.py &`.
+ALE bot jest uslugą systemd (hans-ucho.service, ExecStart z parametrem `--petla 60`).
+Skutek: usluga przeszla w stan `activating`, WATCHDOG wyslal Tomaszowi ALARM na Telegram
+("UCHO HANSA NIE CHODZI... Twoje wiadomosci NIE SA zapisywane"), a obok chodzil rownolegle
+recznie odpalony proces BEZ parametrow uslugi. Systemd sam wznowil wlasciwy proces
+i sprawa sie zamknela, ale Tomasz dostal falszywy alarm i stracil zaufanie do meldunku.
+
+### ZASADA
+> **Zanim zrestartujesz cokolwiek: SPRAWDZ, czy to usluga systemd.**
+> `systemctl list-units --type=service --all | grep -i <nazwa>`
+> Jesli TAK -> `systemctl restart <usluga>`. NIGDY pkill + nohup.
+> Recznie uruchamiac wolno TYLKO to, czego systemd nie zna.
+
+### DLACZEGO TO GROZNE
+1. Recznie odpalony proces nie ma parametrow z ExecStart (tu: `--petla 60`) — dziala INACZEJ.
+2. Watchdog widzi przerwe i alarmuje Tomasza. Falszywy alarm = zuzyta uwaga.
+3. Moga chodzic DWA procesy naraz i wzajemnie sobie przeszkadzac (podwojne odczyty offsetu).
+
+### CHECKLISTA PRZED RESTARTEM CZEGOKOLWIEK
+- [ ] `systemctl list-units --type=service --all | grep -i <nazwa>` — czy jest usluga?
+- [ ] jesli jest: `systemctl restart <usluga>`, potem `systemctl status <usluga>`
+- [ ] jesli nie ma: dopiero wtedy recznie
+- [ ] po restarcie: sprawdz, czy chodzi DOKLADNIE JEDEN proces (`pgrep -af <nazwa>`)
