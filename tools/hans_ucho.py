@@ -329,7 +329,7 @@ def _obsluz_sekret(tekst: str, token: str, czat: str, msg_id: int | None) -> str
             "SKASUJ JA RECZNIE — sekret nadal wisi w historii czatu.")
 
 
-def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None) -> bool:
+def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None, osoba: str = "tomasz") -> bool:
     """Komendy Tomasza. Zwraca True, jesli wiadomosc byla komenda (nie zapisujemy jej do slow)."""
     komenda = tekst.strip().split()[0].lower().split("@")[0] if tekst.strip() else ""
     if komenda not in ("/pakiet", "/wznow", "/pomoc", "/start", "/help",
@@ -395,7 +395,7 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
             # historii = ~88000 znakow. Nowe pytanie zawsze na koncu.
             _hist = []
             try:
-                _kat = Path("/root/rozmowy_belzebub")
+                _kat = Path("/root/rozmowy_belzebub") if osoba == "tomasz" else Path("/root/rozmowy_belzebub") / osoba.lower().replace("ś", "s")
                 _pliki = sorted(_kat.glob("2*.md"), reverse=True)  # najnowsze pierwsze
                 _budzet_znakow = 88000  # ~22K tokenow historii, zapas do 32K
                 _zebrane = []
@@ -438,8 +438,8 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
             # Kazda wymiana /bzb ladu­je na dysku — Tomasz i Henio moga wrocic do tresci.
             try:
                 import datetime as _dt
-                _kat = Path("/root/rozmowy_belzebub")
-                _kat.mkdir(mode=0o700, exist_ok=True)
+                _kat = Path("/root/rozmowy_belzebub") if osoba == "tomasz" else Path("/root/rozmowy_belzebub") / osoba.lower().replace("ś", "s")
+                _kat.mkdir(mode=0o700, parents=True, exist_ok=True)
                 _stamp = _dt.datetime.now().strftime("%Y%m%d_%H%M%S")
                 _plik = _kat / f"{_stamp}.md"
                 _plik.write_text(
@@ -728,7 +728,10 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
 
             if kto and isinstance(tekst, str):
                 # 13.08: komendy nie ida do SLOWA_TOMASZA.md
-                if _obsluz_komende(tekst, token, id_czatu, wiadomosc.get("message_id")):
+                # 02.09 dekret: Wiktoria pisze do Belzebuba BEZ komendy — kazdy jej zwykly tekst = /bzb
+                if kto != "tomasz" and not tekst.strip().startswith("/"):
+                    tekst = "/bzb " + tekst.strip()
+                if _obsluz_komende(tekst, token, id_czatu, wiadomosc.get("message_id"), osoba=kto):
                     ostatni_offset = up_id
                     _zapisz_offset(ostatni_offset, offset_path)
                     continue
