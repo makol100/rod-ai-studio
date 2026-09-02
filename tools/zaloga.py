@@ -21,6 +21,7 @@ Wynik: pliki <katalog>/<imie>.txt oraz zbiorcze podsumowanie na wyjsciu.
 Awaria jednego wykonawcy NIE jest zgoda — w podsumowaniu stoi wtedy "GLOS NIEODEBRANY".
 """
 import argparse
+from pathlib import Path
 import json
 import os
 import secrets
@@ -230,7 +231,28 @@ def henio(zadanie: str, _material: str, wynik: dict) -> None:
         wynik["henio"] = f"GLOS NIEODEBRANY ({e})"
 
 
-WYKONAWCY = {"zenek": zenek, "genek": genek, "henio": henio}
+
+def belzebub(zadanie: str, material: str, wynik: dict) -> None:
+    """02.09 BELZEBUB 2.0 (dekret Tomasza: pelnoprawny glos w naradach): tools/belzebub_agent.py —
+    model Qwen3.8-27B abliterated z WLASNYM dostepem do sieci (SearXNG bez filtra + czytanie stron).
+    Dysku NIE ma — material z --material dostaje w tresci. Glos zapisany DOSLOWNIE (bez parafrazy)."""
+    try:
+        sys.path.insert(0, os.path.join(REPO, "tools"))
+        import belzebub_agent as _b
+        klucz = ""
+        for lin in open("/root/.sekrety/wartosci.env", encoding="utf-8"):
+            if lin.startswith("BELZEBUB_KEY="):
+                klucz = lin.split("=", 1)[1].strip().strip('"\'').strip("<>")
+        if not klucz:
+            wynik["belzebub"] = "GLOS NIEODEBRANY (brak klucza Featherless)"
+            return
+        tresc_zad = zadanie + ("\n\n[MATERIAL Z DYSKU — dostarczony przez Klaudka, Belzebub nie ma dysku]\n" + material[:60000] if material else "") + STOPKA
+        odp, slad = _b.odpowiedz(tresc_zad, [], klucz)
+        wynik["belzebub"] = ("# GLOS BELZEBUBA 2.0 — doslownie, bez parafrazy (model %s, narzedzia: web_search+fetch_page)\n\n" % _b.MODEL_DOMYSLNY) + odp + ("\n\n" + slad if slad else "")
+    except Exception as e:
+        wynik["belzebub"] = f"GLOS NIEODEBRANY ({e})"
+
+WYKONAWCY = {"zenek": zenek, "genek": genek, "henio": henio, "belzebub": belzebub}
 
 
 def zapisz_glos(katalog: str, imie: str, tresc: str) -> None:
