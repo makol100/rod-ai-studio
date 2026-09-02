@@ -72,3 +72,6 @@ bramka równych szans zablokowała rozesłanie, bo Klaudek źle skonfigurował s
 (pytała sztywno o wyczerpany model, potem traktowała telefon Tomasza jak zdolność załogi).
 Zgodnie z dekretem z 01.08 te trzy nieobecności obciążają teczkę KLAUDKA.
 Zenek w tym czasie odpowiadał normalnie — sprawdzone bezpośrednim wywołaniem.
+
+## 02.09.2026 — narada tauron_kdt
+- BLAD: koszt Izabeli policzony na Klingu (1,24 USD) mimo kanonu OmniHuman 1.5 (IZABELA_KANON_0.1.md L402-447: 'Kling NIE jest juz modelem docelowym') — zaniżenie ~3 USD. Lekcja: cena = z KANONU postaci, nie z kanonu innej postaci.
