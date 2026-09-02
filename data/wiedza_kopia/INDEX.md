@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 01.09.2026 14:24.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 02.09.2026 09:26.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,8 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `BRIEF_DLA_KLAUDKA.md` | 02.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-02 11:05:35 CEST |
 | `GRATULACJE_0109_naprawa_ogloszenia.md` | 01.09 | 1K | Tomasz 01.09.2026 po v7: 'Jest zajebiscie. Gratulacje dla grupy calej.' — za naprawe 0 USD ogloszenia Prezente |
-| `BRIEF_DLA_KLAUDKA.md` | 01.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-01 16:05:19 CEST |
 | `AKTYWA_SERII.md` | 01.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `PREZENTER_TOMASZ_KANON_0.1.md` | 01.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
 | `OMNI_1_1_FLASH_fakty_0109.md` | 01.09 | 1K | Gemini Omni 1.1 Flash — fakty zweryfikowane 01.09.2026 (Klaudek-czat: changelog + docs/omni 30.08 + pricing +  |
