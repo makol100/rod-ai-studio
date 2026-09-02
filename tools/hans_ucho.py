@@ -333,7 +333,7 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
     """Komendy Tomasza. Zwraca True, jesli wiadomosc byla komenda (nie zapisujemy jej do slow)."""
     komenda = tekst.strip().split()[0].lower().split("@")[0] if tekst.strip() else ""
     if komenda not in ("/pakiet", "/wznow", "/pomoc", "/start", "/help",
-                       "/sekret", "/sekrety", "/dane", "/henio"):
+                       "/sekret", "/sekrety", "/dane", "/henio", "/bzb"):
         return False
 
     reszta = tekst.strip()[len(komenda):].strip()
@@ -343,6 +343,121 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
     # ruszy (dense 27B, 2-3 tok/s na CPU, Q4 nie miesci sie w 17 GB) — ale Henio
     # (DeepSeek v4 pro) NIE ODMAWIA ostrego humoru, sprawdzone pomiarem. Wiec droga
     # prowadzi do Henia, nie do Qwena. Zmiana adresata = zmiana jednej linii nizej.
+    # 25.08 BELZEBUB — pisarz-doradca bez mechanizmu odmawiania (imie nadal Tomasz).
+    # Osobny uzytkownik systemowy: BEZ sudo, BEZ dockera, BEZ dostepu do /root/.sekrety
+    # i do repo — zgodnie ze stanowiskiem Zenka ("tak dla piatego pracownika, nie dla
+    # piatego roota") i Henia, oba niezalezne. Prompt injection przez tresc z sieci jest
+    # udokumentowany (NIST) i dotyczy takze modeli Z zabezpieczeniami — model po ablacji
+    # nie ma hamulca w ogole. Belzebub PROPONUJE, wykonuje Henio albo Klaudek.
+    if komenda == "/bzb":
+        # 25.08: /sekret zapisuje do zbiorczego wartosci.env, nie do osobnego pliku
+        def _klucz_bzb() -> str:
+            for sc in ("/root/.sekrety/belzebub.key", "/root/.sekrety/wartosci.env"):
+                try:
+                    t = Path(sc).read_text(encoding="utf-8")
+                except OSError:
+                    continue
+                if sc.endswith(".key") and t.strip():
+                    return t.strip()
+                # 25.08: bierzemy OSTATNI wpis (Tomasz przyslal klucz dwa razy —
+                # pierwszy raz z nawiasami <> z mojej instrukcji) i czyscimy nawiasy
+                znaleziony = ""
+                for lin in t.splitlines():
+                    if lin.strip().upper().startswith(("BELZEBUB", "FEATHERLESS")):
+                        znaleziony = lin.split("=", 1)[-1].strip().strip('"\'').strip("<>")
+                if znaleziony:
+                    return znaleziony
+            return ""
+        _kbzb = _klucz_bzb()
+        if not _kbzb:
+            _odpowiedz(token, czat,
+                       "Belzebub nie ma jeszcze klucza.\n\n"
+                       "1. featherless.ai/register (email + haslo min. 8 znakow)\n"
+                       "2. plan Developer (od $50 kredytow/mies, karta przez Stripe)\n"
+                       "3. Account -> API Keys -> utworz klucz\n"
+                       "4. przyslij: /sekret BELZEBUB_KEY=<klucz>")
+            return True
+        if not reszta:
+            _odpowiedz(token, czat, "Napisz: /bzb <polecenie>")
+            return True
+        _odpowiedz(token, czat, "Belzebub dostal. Pracuje...")
+        try:
+            # 25.08: powloka Hermesa wymaga kontekstu 64K, a ten model ma 32K —
+            # obejscie przez context_length nie dziala ("Cannot compress further").
+            # Tomasz wybral rolę PISARZA ("no to pisarz"), wiec narzedzia systemowe
+            # nie sa potrzebne. Idziemy PROSTO do API (sprawdzone: model odpowiedzial
+            # po polsku o dzialkowcu i kunach).
+            import json as _js, urllib.request as _ur
+            # 25.08 dekret Tomasza: "dac pamiec co z nim pisze", limit "32k tokenow MAX".
+            # Budujemy historie z archiwum /root/rozmowy_belzebub od NAJNOWSZEJ wymiany,
+            # doklejajac az do bezpiecznego progu. Model ma 32K ctx; rezerwujemy miejsce
+            # na nowa odpowiedz (1500 tok) + bufor. ~4 znaki/token => prog 22000 tokenow
+            # historii = ~88000 znakow. Nowe pytanie zawsze na koncu.
+            _hist = []
+            try:
+                _kat = Path("/root/rozmowy_belzebub")
+                _pliki = sorted(_kat.glob("2*.md"), reverse=True)  # najnowsze pierwsze
+                _budzet_znakow = 88000  # ~22K tokenow historii, zapas do 32K
+                _zebrane = []
+                for _pl in _pliki:
+                    try:
+                        _tekst = _pl.read_text(encoding="utf-8")
+                    except OSError:
+                        continue
+                    # rozbij na pytanie i odpowiedz po naglowkach
+                    _q = _a = ""
+                    if "## PYTANIE TOMASZA" in _tekst and "## ODPOWIEDZ BELZEBUBA" in _tekst:
+                        _cz = _tekst.split("## ODPOWIEDZ BELZEBUBA", 1)
+                        _q = _cz[0].split("## PYTANIE TOMASZA", 1)[-1].strip()
+                        _a = _cz[1].strip()
+                    if not _q:
+                        continue
+                    _dlugosc = len(_q) + len(_a)
+                    if sum(len(x["content"]) for x in _zebrane) + _dlugosc > _budzet_znakow:
+                        break  # 32K sufit — nie przekraczamy
+                    # wstawiamy na POCZATEK (bo idziemy od najnowszej wstecz)
+                    _zebrane.insert(0, {"role": "assistant", "content": _a})
+                    _zebrane.insert(0, {"role": "user", "content": _q})
+                _hist = _zebrane
+            except Exception:  # noqa: BLE001
+                _hist = []  # brak pamieci nie moze zablokowac odpowiedzi
+            # 02.09 BELZEBUB 2.0 (dekret Tomasza: mocniejszy model bez kontroli, pelny dostep
+            # do sieci): petla narzedziowa w tools/belzebub_agent.py — model SAM szuka
+            # (SearXNG bez safesearch) i CZYTA cale strony, do 6 rund; linki nieodwiedzone
+            # sa oznaczane. Model: huihui-ai/Huihui-Qwen3.8-27B-abliterated (D-0214/D-0215).
+            import sys as _sys
+            if "/root/rod-ai-studio/tools" not in _sys.path:
+                _sys.path.insert(0, "/root/rod-ai-studio/tools")
+            import importlib as _il
+            import belzebub_agent as _bzb
+            _il.reload(_bzb)
+            odp, _slad = _bzb.odpowiedz(reszta, _hist, _kbzb)
+            if _slad:
+                odp = odp + "\n\n" + _slad
+            # 25.08 dekret Tomasza: "To zrob taki folder z pytaniami i odpowiedziami"
+            # Kazda wymiana /bzb ladu­je na dysku — Tomasz i Henio moga wrocic do tresci.
+            try:
+                import datetime as _dt
+                _kat = Path("/root/rozmowy_belzebub")
+                _kat.mkdir(mode=0o700, exist_ok=True)
+                _stamp = _dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+                _plik = _kat / f"{_stamp}.md"
+                _plik.write_text(
+                    f"# Belzebub — wymiana {_stamp}\n\n"
+                    f"## PYTANIE TOMASZA\n\n{reszta}\n\n"
+                    f"## ODPOWIEDZ BELZEBUBA\n\n{odp}\n",
+                    encoding="utf-8")
+                _plik.chmod(0o600)
+                with (_kat / "SPIS.md").open("a", encoding="utf-8") as _s:
+                    _s.write(f"- {_stamp}.md — {reszta[:90]}\n")
+            except Exception:  # noqa: BLE001
+                pass  # archiwum nie moze zablokowac odpowiedzi do Tomasza
+            for i2 in range(0, min(len(odp), 12000), 3800):
+                _odpowiedz(token, czat, odp[i2:i2+3800])
+        except Exception as exc:  # noqa: BLE001
+            _odpowiedz(token, czat, f"Belzebub nie odpowiedzial: {exc}")
+        return True
+
     if komenda == "/henio":
         if not reszta:
             _odpowiedz(token, czat,
