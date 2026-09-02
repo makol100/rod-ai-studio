@@ -1,5 +1,5 @@
-1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-02 11:35:35 CEST
-2. OSTATNIA DECYZJA: D-0216 | 2026-09-02 | 02.09 SLEPY TEST Belzebub STARY (Llama 3.3 70B abl) vs NOWY (Qwen3.8-27B abl), 3 zadania, 0 USD (wiedza/…
+1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-02 12:35:36 CEST
+2. OSTATNIA DECYZJA: D-0223 | 2026-09-02 | 02.09 SLOWA Tomasza (DOSLOWNIE): 'Nie musimy isc Omni. Mamy Gienka i to on moze zrobic a nawet przez Omn…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'

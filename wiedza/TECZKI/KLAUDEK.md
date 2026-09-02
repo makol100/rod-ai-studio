@@ -213,3 +213,9 @@ wpisie stalo "wchodzimy tylko na jego routery Linksys" - i zamiast jednego zapyt
 JNAP z VPS klikal po omacku w aplikacji na telefonie, odpalajac test predkosci.
 LEKARSTWO (wpisane do pamieci jako rozdzial 0): pierwsze slowo Tomasza o nowym temacie
 = najpierw tools/szukaj.py po kilku haslach, dopiero potem robota.
+
+## 26.08.2026 — BŁĄD: werdykt "Belzebub zielony" wydany na sesji, w której sam go głodziłem kontekstem
+Fakty z transkryptu narady o filmie kun: RUNDA 1 — Klaudek poszedł prosto do API z SAMYM scenariuszem (zero wiedzy fabryki: bez cen, bez NAUKI_SERII, bez CENA_BLEDOW, bez definicji pilota) — stąd 20-30 klipów i 17-40 USD. RUNDA 2 — tylko wycinek faktów, nadal bez ksiąg kosztów i storyboardu. Do tego Klaudek meldował "miał dostęp do materiałów, nie zajrzał" — MYLĄCE: bind-mounty czyta sesja agentowa na koncie belzebub, a surowe wywołanie API widzi WYŁĄCZNIE to, co wklejone w prompt; przez API Belzebub fizycznie NIE MÓGŁ zajrzeć. Złamane zasady konstytucji: "obowiązek kontekstu — pracownicy dostają pełną wiedzę w brieffie, bez głodzenia" oraz "ocena członka załogi tylko z dowodem i w zakresie tego dowodu". Werdykt o odrzuceniu głosu opisywał wejście przygotowane przez Klaudka, nie zdolności Belzebuba. REGUŁA NA PRZYSZŁOŚĆ: pytanie do Belzebuba przez API = pełny pakiet wiedzy WKLEJONY W PROMPT (jak dla każdego w zaloga.py robi wspolna_wiedza); ocena kolegi po teście bez równych szans jest nieważna.
+
+## 02.09.2026 — narada tauron_kdt
+- BLAD KLAUDKA: uznal placeholder zenek.txt (0 B, tworzony na starcie narady) za awarie Zenka i odpalil DRUGIEGO Codexa recznie (duplikat, kredyty Tomasza) — zabity po 3 min. Lekcja: 0 B w katalogu narady = 'w toku', sprawdzac pgrep codex i etime ZANIM sie cokolwiek odpali ponownie.
