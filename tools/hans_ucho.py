@@ -622,7 +622,9 @@ def _kto(id_czatu: str, id_nadawcy: str, nadawca: dict, chat_id: str, token: str
     if id_nadawcy in d:
         return d[id_nadawcy]
     imie = (nadawca.get("first_name") or "").strip()
-    if "wiktoria" in imie.lower():
+    # 02.09 Tomasz: "Wikus tak mam ja na telegramie" — imie w Telegramie to Wikus, nie Wiktoria
+    _im = imie.lower().replace("ś", "s")
+    if _im and any(w in _im for w in ("wiktoria", "wikus", "wika", "wiki")):
         _dodaj_dozwolonego(id_nadawcy, imie or "Wiktoria")
         try:
             _odpowiedz(token, chat_id, f"Hans: Wiktoria ({imie}, id {id_nadawcy}) napisala pierwszy raz — wpuszczona na Twoj dekret z 02.09.")
