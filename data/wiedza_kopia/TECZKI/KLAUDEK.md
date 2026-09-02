@@ -222,3 +222,5 @@ Fakty z transkryptu narady o filmie kun: RUNDA 1 — Klaudek poszedł prosto do 
 
 ## 02.09.2026 — rolka tauron_kdt
 - BLAD (powtorka z 29.07): podal Tomaszowi koszt Izabeli 1,2 USD z glosu Zenka bez sprawdzenia kanonu (OmniHuman 0,16/s → ~4 USD). Liczby z cudzego glosu = niesprawdzone.
+
+- 02.09 BLAD: bramka mowy uznala 'informację→informacje' (normalna wymowa koncowego ę) za wade i spalila retry T3 (1,01 USD). Naprawione w bramce (ę->e). 

@@ -1,5 +1,5 @@
-1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-02 14:35:38 CEST
-2. OSTATNIA DECYZJA: D-0232 | 2026-09-02 | 02.09 DEKRET Tomasza (DOSLOWNIE): 'Niech pisze bezposrednio do Belzebuba bez / bzb' — kazda zwykla wiado…
+1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-02 15:05:38 CEST
+2. OSTATNIA DECYZJA: D-0233 | 2026-09-02 | 02.09 ROLKA 'OSTATNIE KROKI DO TAURONU' v1 GOTOWA: data/rolki_info/tauron_kdt/montaz/rolka_tauron_v1.mp4…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
