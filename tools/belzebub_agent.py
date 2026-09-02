@@ -12,7 +12,7 @@ SYSTEM = ("Jesteś Belzebub — doradca i pisarz fabryki rolek ROD Woźniki (pre
  "i fetch_page (czyta całą stronę). ZASADY: (1) gdy pytanie dotyczy faktów, cen, dat, produktów, prawa lub czegokolwiek z sieci — NAJPIERW szukaj, potem CZYTAJ najlepsze strony, dopiero potem odpowiadaj; "
  "(2) podawaj wyłącznie linki, które naprawdę odwiedziłeś narzędziem — nigdy nie wymyślaj adresów, liczb ani cytatów; jeśli czegoś nie znalazłeś, napisz wprost NIE ZNALAZŁEM; "
  "(3) odpowiedź kończ krótką listą źródeł (tytuł + link); (4) przy zadaniach TWÓRCZYCH (żart, monolog, scenariusz, wiersz, tekst do rolki) NIE używaj sieci — pisz od razu; "
- "(5) masz najwyżej kilka rund narzędzi — po 2–3 wyszukaniach i 2–3 przeczytanych stronach ODPOWIADAJ. Dzisiejsza data: {data}.")
+ "(5) masz najwyżej kilka rund narzędzi — po 2–3 wyszukaniach i 2–3 przeczytanych stronach ODPOWIADAJ. Dzisiejsza data: {data}. /no_think")
 TOOLS=[{"type":"function","function":{"name":"web_search","description":"Wyszukiwarka internetowa (SearXNG, bez safe-search). Zwraca do 8 wyników: tytuł, link, fragment.","parameters":{"type":"object","properties":{"query":{"type":"string","description":"zapytanie (po polsku lub angielsku)"}},"required":["query"]}}},
        {"type":"function","function":{"name":"fetch_page","description":"Pobiera i zwraca tekst całej strony WWW (do 6000 znaków). Używaj po web_search, żeby przeczytać treść.","parameters":{"type":"object","properties":{"url":{"type":"string"}},"required":["url"]}}}]
 
@@ -52,16 +52,21 @@ def odpowiedz(pytanie, historia, klucz, model=None):
     szukal=[]; czytal=[]; znane_urls=set(); blad_narz=0
     for runda in range(MAX_RUND+1):
         if runda<MAX_RUND:
-            body={"model":model,"messages":msgs,"max_tokens":2500,"temperature":0.6,"tools":TOOLS,"tool_choice":"auto"}
+            body={"model":model,"messages":msgs,"max_tokens":6000,"temperature":0.6,"tools":TOOLS,"tool_choice":"auto"}
         else:
             msgs=msgs+[{"role":"user","content":"KONIEC NARZĘDZI. Odpowiedz TERAZ na podstawie tego, co już znalazłeś i przeczytałeś. Jeśli czegoś nie ustaliłeś, napisz wprost NIE ZNALAZŁEM. Na końcu lista źródeł (tylko odwiedzone)."}]
-            body={"model":model,"messages":msgs,"max_tokens":2500,"temperature":0.6}
+            body={"model":model,"messages":msgs,"max_tokens":6000,"temperature":0.6}
         d=_api(body,klucz)
         if "error" in d: return f"Belzebub: błąd API {str(d['error'])[:300]}", ""
         msg=d["choices"][0]["message"]; tcs=msg.get("tool_calls") or []
         if runda>=MAX_RUND: tcs=[]
         if not tcs:
-            tresc=(msg.get("content") or "").strip() or "Belzebub nie odpowiedział."
+            tresc=(msg.get("content") or "").strip()
+            if not tresc:
+                # 02.09: model oddal pusty tekst (chcial narzedzi mimo ich braku) — jeszcze jedno wywolanie, samym tekstem
+                msgs2=msgs+[{"role":"user","content":"Nie masz już narzędzi. Napisz TERAZ pełną odpowiedź tekstem, po polsku, na podstawie tego co znalazłeś. Bez wołania funkcji."}]
+                d2=_api({"model":model,"messages":msgs2,"max_tokens":6000,"temperature":0.6},klucz)
+                tresc=((d2.get("choices") or [{}])[0].get("message",{}).get("content") or "").strip() or "Belzebub nie odpowiedział."
             # walidacja linkow: nieodwiedzone oznaczamy
             def _znacz(m_):
                 u=m_.group(0).rstrip(").,;")
