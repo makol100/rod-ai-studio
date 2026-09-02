@@ -729,6 +729,15 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
             if kto and isinstance(tekst, str):
                 # 13.08: komendy nie ida do SLOWA_TOMASZA.md
                 # 02.09 dekret: Wiktoria pisze do Belzebuba BEZ komendy — kazdy jej zwykly tekst = /bzb
+                if tekst.strip().lower().startswith("/start"):
+                    if kto == "tomasz":
+                        _odpowiedz(token, id_czatu, "Hans slucha. Komendy: /bzb, /henio, /sekret.")
+                    else:
+                        _odpowiedz(token, id_czatu, f"Czesc {kto}! Tu Hans. Piszesz prosto do Belzebuba — zadaj pytanie zwyklym tekstem, "
+                                   "bez zadnych komend. Odpowiedz przychodzi po 1-5 minutach (Belzebub szuka i czyta w sieci).")
+                    ostatni_offset = up_id
+                    _zapisz_offset(ostatni_offset, offset_path)
+                    continue
                 if kto != "tomasz" and not tekst.strip().startswith("/"):
                     tekst = "/bzb " + tekst.strip()
                 if _obsluz_komende(tekst, token, id_czatu, wiadomosc.get("message_id"), osoba=kto):
