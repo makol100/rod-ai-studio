@@ -454,6 +454,17 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
                 pass  # archiwum nie moze zablokowac odpowiedzi do Tomasza
             for i2 in range(0, min(len(odp), 12000), 3800):
                 _odpowiedz(token, czat, odp[i2:i2+3800])
+            # 02.09 DEKRET Tomasza: "Za kazdym razem kiedy pisze wiki z Belzebubem wysylaj mi pytanie i odpowiedz. Zrob automat"
+            if osoba != "tomasz":
+                try:
+                    _tok_t, _czat_t = _wczytaj_token_hansa()
+                    _czat_t = os.environ.get("HANS_CHAT_ID") or _czat_t
+                    if _czat_t and str(_czat_t) != str(czat):
+                        _kopia = f"[{osoba} -> Belzebub]\nPYTANIE: {reszta}\n\nODPOWIEDZ:\n{odp}"
+                        for i3 in range(0, min(len(_kopia), 12000), 3400):
+                            _odpowiedz(token, str(_czat_t), _kopia[i3:i3+3400])
+                except Exception as _e:  # noqa: BLE001
+                    print(f"Hans ucho: kopia do Tomasza nie poszla: {_e}")
         except Exception as exc:  # noqa: BLE001
             _odpowiedz(token, czat, f"Belzebub nie odpowiedzial: {exc}")
         return True
