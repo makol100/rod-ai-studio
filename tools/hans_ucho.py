@@ -599,6 +599,42 @@ def _zamaskuj_wrazliwe(aktualizacja: dict) -> dict:
     return kopia
 
 
+# 02.09.2026 DEKRET Tomasza: "Udostepnilem Hans_bot mojej Wiktorii. Masz Jej go nie zablokowac!"
+# Dozwoleni nadawcy = Tomasz (HANS_CHAT_ID) + lista w /root/skrzynka/dozwolone_ids.json.
+# Nadawca o imieniu Wiktoria (Telegram first_name) jest wpuszczany automatycznie i dopisywany do listy;
+# inni nieznani NIE sa obslugiwani, Tomasz dostaje o nich powiadomienie (ID + imie).
+_DOZWOLENI_PLIK = Path("/root/skrzynka/dozwolone_ids.json")
+def _dozwoleni() -> dict:
+    try:
+        return json.loads(_DOZWOLENI_PLIK.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return {}
+def _dodaj_dozwolonego(id_: str, imie: str) -> None:
+    d = _dozwoleni(); d[str(id_)] = imie
+    _DOZWOLENI_PLIK.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+    _DOZWOLENI_PLIK.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    _DOZWOLENI_PLIK.chmod(0o600)
+def _kto(id_czatu: str, id_nadawcy: str, nadawca: dict, chat_id: str, token: str) -> str | None:
+    """Zwraca 'tomasz', imie dozwolonego, albo None (nieznany — nie obslugujemy)."""
+    if id_czatu == str(chat_id) or id_nadawcy == str(chat_id):
+        return "tomasz"
+    d = _dozwoleni()
+    if id_nadawcy in d:
+        return d[id_nadawcy]
+    imie = (nadawca.get("first_name") or "").strip()
+    if "wiktoria" in imie.lower():
+        _dodaj_dozwolonego(id_nadawcy, imie or "Wiktoria")
+        try:
+            _odpowiedz(token, chat_id, f"Hans: Wiktoria ({imie}, id {id_nadawcy}) napisala pierwszy raz — wpuszczona na Twoj dekret z 02.09.")
+        except Exception:  # noqa: BLE001
+            pass
+        return imie or "Wiktoria"
+    try:
+        _odpowiedz(token, chat_id, f"Hans: NIEZNANY nadawca {imie or '?'} (id {id_nadawcy}) napisal do bota — NIE obsluzone. Jesli to ktos Twoj, dopisz do /root/skrzynka/dozwolone_ids.json.")
+    except Exception:  # noqa: BLE001
+        pass
+    return None
+
 def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
     """Główna funkcja odpytująca Telegram i zapisująca słowa Tomasza."""
     # 1. Uzgodnienie danych uwierzytelniających
@@ -672,8 +708,9 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
             if tekst is None:
                 tekst = wiadomosc.get("caption")
 
-            # Przechwytujemy wiadomości, jeśli chat_id lub from_id pasuje do Tomasza
-            if id_czatu == str(chat_id) or id_nadawcy == str(chat_id):
+            kto = _kto(id_czatu, id_nadawcy, nadawca, str(chat_id), token)
+            # Przechwytujemy wiadomości od Tomasza i dozwolonych (Wiktoria, dekret 02.09)
+            if kto:
                 # 13.08 BLAD KLAUDKA: _pobierz_zalacznik istniala, ale NIE BYLA WOLANA.
                 # Skutek: zdjecie/plik od Tomasza przesuwalo offset i przepadalo bez sladu.
                 komunikat_zalacznika = _pobierz_zalacznik(wiadomosc, token)
@@ -687,7 +724,7 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
                     _zapisz_offset(ostatni_offset, offset_path)
                     continue
 
-            if (id_czatu == str(chat_id) or id_nadawcy == str(chat_id)) and isinstance(tekst, str):
+            if kto and isinstance(tekst, str):
                 # 13.08: komendy nie ida do SLOWA_TOMASZA.md
                 if _obsluz_komende(tekst, token, id_czatu, wiadomosc.get("message_id")):
                     ostatni_offset = up_id
@@ -697,10 +734,14 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
                 # Filtr na WEJSCIU jest wylaczony — kazdy tekst przechodzi.
                 # W zamian slowa NIE ida juz do publicznego repo, tylko do /root/skrzynka
                 # (700), wiec nawet haslo wyslane pomylkowo nie trafia na GitHuba.
-                _dopisz_doslownie(tekst, wiadomosc.get("date", time.time()), slowa_path)
+                if kto == "tomasz":
+                    _dopisz_doslownie(tekst, wiadomosc.get("date", time.time()), slowa_path)
+                else:
+                    # slowa innych osob — OSOBNY plik, nigdy do SLOWA_TOMASZA (to nie dekrety)
+                    _dopisz_doslownie(f"[{kto}] {tekst}", wiadomosc.get("date", time.time()), Path("/root/skrzynka/SLOWA_INNYCH.md"))
                 dopisane += 1
 
-            elif id_czatu == str(chat_id) or id_nadawcy == str(chat_id):
+            elif kto:
                 # 13.08: wiadomosc od Tomasza, ktorej NIE UMIEM odebrac, nie moze zniknac
                 # po cichu — dokladnie to stalo sie o 10:58 i 11:02.
                 pola = sorted(k for k in wiadomosc

@@ -219,3 +219,6 @@ Fakty z transkryptu narady o filmie kun: RUNDA 1 — Klaudek poszedł prosto do 
 
 ## 02.09.2026 — narada tauron_kdt
 - BLAD KLAUDKA: uznal placeholder zenek.txt (0 B, tworzony na starcie narady) za awarie Zenka i odpalil DRUGIEGO Codexa recznie (duplikat, kredyty Tomasza) — zabity po 3 min. Lekcja: 0 B w katalogu narady = 'w toku', sprawdzac pgrep codex i etime ZANIM sie cokolwiek odpali ponownie.
+
+## 02.09.2026 — rolka tauron_kdt
+- BLAD (powtorka z 29.07): podal Tomaszowi koszt Izabeli 1,2 USD z glosu Zenka bez sprawdzenia kanonu (OmniHuman 0,16/s → ~4 USD). Liczby z cudzego glosu = niesprawdzone.
