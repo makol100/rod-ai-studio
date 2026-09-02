@@ -16,3 +16,7 @@ Założona 02.09.2026 (dekret Tomasza „Kończ Belzebuba"). Zasada teczek: wpis
 - Humor/polszczyzna: NOWY wyraźnie lepszy. „Bez hamulców" (kuny): NOWY plan z cenami. Źródła: NOWY po poprawce pętli 93 s, liczby z 2 odwiedzonych stron; STARY z głowy + 2 linki NIESPRAWDZONE.
 - Wpadka NOWEGO do pilnowania: napisał „Veo Lite bez audio" (cennik: z audio). Fakty nadal sprawdzać.
 - Test narady przez odpal.py (/tmp/n_bzb_test): cena Veo 3.1 Lite 0,05 USD/s + 2 źródła — poprawnie.
+
+## 02.09.2026 — audyt koncowy wdrozenia 2.0
+- SearXNG: DDG/Brave/Startpage/Qwant/Yahoo blokuja IP VPS; dziala Google CSE (limit dzienny!) + Bing (dolozony 02.09). Przy braku wynikow sprawdzic 'unresponsive_engines' w JSON SearXNG.
+- Pierwsza realna wymiana /bzb Tomasza na nowym modelu: 02.09 11:55 (archiwum /root/rozmowy_belzebub).
