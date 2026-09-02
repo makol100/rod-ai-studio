@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 02.09.2026 10:02.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 02.09.2026 10:05.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,11 +11,11 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `PREZENTER_TOMASZ_KANON_0.1.md` | 02.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
 | `BANK_KWESTII_PREZENTER_TOMASZ.md` | 02.09 | 6K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
 | `BRIEF_DLA_KLAUDKA.md` | 02.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-02 11:35:35 CEST |
 | `GRATULACJE_0109_naprawa_ogloszenia.md` | 01.09 | 1K | Tomasz 01.09.2026 po v7: 'Jest zajebiscie. Gratulacje dla grupy calej.' — za naprawe 0 USD ogloszenia Prezente |
 | `AKTYWA_SERII.md` | 01.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
-| `PREZENTER_TOMASZ_KANON_0.1.md` | 01.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
 | `OMNI_1_1_FLASH_fakty_0109.md` | 01.09 | 1K | Gemini Omni 1.1 Flash — fakty zweryfikowane 01.09.2026 (Klaudek-czat: changelog + docs/omni 30.08 + pricing +  |
 | `GENEK_OMNI_1.1_FLASH.md` | 01.09 | 2K | Gemini Omni 1.1 Flash — fakty z dokumentacji Google (sprawdzone 01.09.2026 przez Klaudka; Genek NIE ODDAL wiar |
 | `AWATAR_TOMASZ_NARADA_0109.md` | 01.09 | 19K | ODPOWIEDŹ: do zbudowania wiarygodnego awatara Tomasza potrzebujemy od Tomasza 12 zdjęć, jednego 5-minutowego n |
