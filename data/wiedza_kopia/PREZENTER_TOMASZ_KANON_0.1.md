@@ -15,7 +15,7 @@ Status: DRUGI PREZENTER ROD obok Izabeli (wiedza/IZABELA_KANON_0.1.md — bez zm
 - Bramki obowiazkowe przed pokazaniem: straznik.py (kwestia PL, usta, tozsamosc --wzorzec TOMASZ=ref_tomasz_720.jpg) + VLM 3 klatki (host, qwen2.5vl) na dekrety wygladu + brak tekstu.
 ## Wyniki testu #1 (01.09): polski 1.0 (whisper), usta 5.34 PASS, tozsamosc 0.65/10 trafien, VLM 3/3 dekrety, 36 s generacji.
 ## OTWARTE (decyzje Tomasza / testy)
-- Podzial rol: co mowi Izabela, co Prezenter Tomasz (rekomendacja zalogi 01.09: sprawy zarzadu/pieniadze/bezpieczenstwo = prawdziwy Tomasz lub z jego zatwierdzeniem; awatar z etykieta AI — AI Act art. 50).
+- ZAMKNIETE 02.09 (dekret doslownie: 'Zaden podzial rol miedzy Izabela a prezydentem Tomaszem to nasi dwoje prezenterow i na moje widzi misie powiem ktorego uzywamy'): brak podzialu rol; ktory prezenter prowadzi rolke — wskazuje Tomasz kazdorazowo. Etykieta AI (art. 50) zostaje: plansza AI w filmie + zdanie w opisie.
 - Formula jawnosci AI dla Prezentera Tomasza (u Izabeli: deklaracja w intro).
 - SPOJNOSC miedzy klipami (twarz + glos): test #2 = extend w tym samym watku (previous_interaction_id) + porownanie; potem test 'nowy watek z VIDEO_REF'.
 - Zakaz tematow w ustach awatara prezesa (ustalenie zalogi): przelewy, kody, spory, nagle wypadki, "prezes prosi".
