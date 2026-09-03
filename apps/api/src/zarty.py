@@ -31,52 +31,30 @@ CENA_SEK = 0.15          # USD / s, t2v z audio 1080p — jak w zarty_produkcja
 CENA_KADR = 0.15         # USD / kadr referencyjny NB Pro
 KLIP_SEK = 8
 
-# Rola: wersja profesjonalna. (Propozycja Tomasza: "Steven Spielberg pił wodę
-# z miski, w której moczyłem nogi" — kanon zespołu, ale IQ modelu nie podnosi.
-# Podnosi je rzemiosło + wzorzec poniżej.)
-# Rola: wersja rzemieslnicza. (Tomasz proponowal: "Steven Spielberg pil wode
-# z miski, w ktorej moczylem nogi" — kanon zespolu, ale IQ modelu nie podnosi.)
-# Rola: wersja rzemieslnicza. (Tomasz proponowal: "Steven Spielberg pil wode
-# z miski, w ktorej moczylem nogi" — kanon zespolu, ale IQ modelu nie podnosi.)
+# Obsada: DUET serii (dekret Tomasza 23.07 + 27.08 "A"): BOHATER (=Tomek) i JANUSZ.
+# Nuta rezyserska serii (17.07): grac LZEJ — komediowe przerysowanie
+# i mock-seriousness zamiast serio-powagi.
 PROMPT_ZART = '''Jesteś doświadczonym scenarzystą komediowym. Twoja specjalność: 30-sekundowe skecze wizualne, w których GAG DZIEJE SIĘ W OBRAZIE, a słowa tylko go dobijają. Piszesz o polskiej działce (ROD).
-skecze wizualne — gag dzieje się W OBRAZIE, kwestia tylko go dobija. Piszesz
-o polskiej działce (ROD).
 Napisz scenariusz 3-klipowego żartu wideo (każdy klip 8 sekund) na temat: {temat}
 
-OBSADA (używaj TYLKO tych postaci):
-MIECZYSŁAW - mądry ogrodnik ok. 70 lat, MAŁOMÓWNY, mówi tylko puentę.
-HELENA - jego żona, ciepła, konkretna.
-TOMASZ - sąsiad kombinator, wiecznie testuje "nowoczesne" pomysły.
-JACUŚ - dorosły wnuk, mówi na głos to, co wszyscy myślą.
+OBSADA (używaj TYLKO tych dwóch postaci, dokładnie te etykiety):
+BOHATER - gospodarz działki ok. 50 lat, długie włosy w kucyku, szpakowata broda; spokojny, konkretny, suche poczucie humoru. Mówi mało i celnie.
+JANUSZ - samozwańczy strażnik działkowych przepisów, szczupły, wysoki, po sześćdziesiątce; siwy wąsik, okulary na sznurku, kamizelka z kieszeniami i NOTESIK do spisywania naruszeń. Absurd traktuje śmiertelnie poważnie, jak urzędnik na misji.
 
 ŻELAZNY FORMAT (dokładnie tak, 3 klipy):
-KLIP 1: OBRAZ: [co widać - absurd/problem widoczny od pierwszej sekundy] MÓWI: [imię] KWESTIA: [maks 10 słów]
-KLIP 2: OBRAZ: [eskalacja - sytuacja się pogłębia] MÓWI: [imię] KWESTIA: [maks 10 słów]
-KLIP 3: OBRAZ: [Mieczysław reaguje spokojnie] MÓWI: MIECZYSŁAW KWESTIA: [puenta, maks 10 słów, sucha i celna]
+KAŻDY klip to DOKŁADNIE JEDNA linia zaczynająca się od "KLIP N: OBRAZ:" — OBRAZ, MÓWI i KWESTIA w tej samej linii, bez pustych linii między nimi, bez didaskaliów w nawiasach.
+KLIP 1: OBRAZ: [co widać - absurd/problem widoczny od pierwszej sekundy] MÓWI: [BOHATER albo JANUSZ] KWESTIA: [maks 10 słów]
+KLIP 2: OBRAZ: [eskalacja - sytuacja się pogłębia] MÓWI: [BOHATER albo JANUSZ] KWESTIA: [maks 10 słów]
+KLIP 3: OBRAZ: [spokojna reakcja drugiej postaci] MÓWI: [BOHATER albo JANUSZ] KWESTIA: [puenta, maks 10 słów, sucha i celna]
 
 ZASADA NADRZĘDNA (ważniejsza od wszystkich):
 ŻART MUSI BYĆ ZROZUMIAŁY W TRZY SEKUNDY DLA KAŻDEGO — dziesięciolatka i babci.
 
 WZORZEC RYTMU I STYLU (sprawdzony na publiczności — NIE kopiuj tematu, miejsca ani rekwizytów, kopiuj RYTM i typ humoru):
-KLIP 1: OBRAZ: OGRÓD: Helena wjeżdża przez furtkę z taczką pełną ogromnych cukinii, zatrzymuje taczkę przed drewnianą altaną i woła w stronę jej okna. MÓWI: HELENA KWESTIA: Tomku! Przyniosłam ci świeżutkie cukinie!
-KLIP 2: OBRAZ: WNĘTRZE ALTANY, kamera w środku pomieszczenia: Tomasz kuca na podłodze pod oknem, przyciśnięty do ściany, i zerka zza firanki; przez szybę widać rozmyty ogród. MÓWI: TOMASZ KWESTIA: Ciii... może pomyśli, że wyjechałem.
-KLIP 3: OBRAZ: PRZY PŁOCIE: Mieczysław opiera się o drewniany płot i spokojnie kiwa głową. MÓWI: MIECZYSŁAW KWESTIA: W zeszłym tygodniu to on udawał remont.
-Dlaczego działa: absurd WIDAĆ od pierwszej sekundy, eskalacja jest fizyczna, puenta ujawnia STAŁY numer Tomka — zaskoczenie w ostatnich słowach.
-
-WZORZEC RYTMU I STYLU (sprawdzony na publiczności — NIE kopiuj tematu, miejsca ani rekwizytów, kopiuj RYTM i typ humoru):
-KLIP 1: OBRAZ: OGRÓD: Helena wjeżdża przez furtkę z taczką pełną ogromnych cukinii, zatrzymuje taczkę przed drewnianą altaną i woła w stronę jej okna. MÓWI: HELENA KWESTIA: Tomku! Przyniosłam ci świeżutkie cukinie!
-KLIP 2: OBRAZ: WNĘTRZE ALTANY, kamera w środku pomieszczenia: Tomasz kuca na podłodze pod oknem, przyciśnięty do ściany, i zerka zza firanki; przez szybę widać rozmyty ogród. MÓWI: TOMASZ KWESTIA: Ciii... może pomyśli, że wyjechałem.
-KLIP 3: OBRAZ: PRZY PŁOCIE: Mieczysław opiera się o drewniany płot i spokojnie kiwa głową. MÓWI: MIECZYSŁAW KWESTIA: W zeszłym tygodniu to on udawał remont.
-Dlaczego działa: absurd WIDAĆ od pierwszej sekundy, eskalacja jest fizyczna (dorosły facet chowa się we własnej altanie), puenta ujawnia STAŁY numer Tomka — zaskoczenie w ostatnich słowach.
-
-WZORZEC RYTMU I STYLU (sprawdzony na publiczności — NIE kopiuj tematu, miejsc
-ani rekwizytów; kopiuj wyłącznie RYTM i typ humoru):
-KLIP 1: OBRAZ: OGRÓD: Helena wjeżdża przez furtkę z taczką pełną ogromnych cukinii, zatrzymuje taczkę przed drewnianą altaną i woła w stronę jej okna. MÓWI: HELENA KWESTIA: Tomku! Przyniosłam ci świeżutkie cukinie!
-KLIP 2: OBRAZ: WNĘTRZE ALTANY, kamera w środku pomieszczenia: Tomasz kuca na podłodze pod oknem, przyciśnięty do ściany, i zerka zza firanki; przez szybę widać rozmyty ogród. MÓWI: TOMASZ KWESTIA: Ciii... może pomyśli, że wyjechałem.
-KLIP 3: OBRAZ: PRZY PŁOCIE: Mieczysław opiera się o drewniany płot i spokojnie kiwa głową. MÓWI: MIECZYSŁAW KWESTIA: W zeszłym tygodniu to on udawał remont.
-Dlaczego działa: absurd widać w 1. sekundzie (taczka gigantycznych cukinii),
-eskalacja jest FIZYCZNA (dorosły facet ukrywa się we własnej altanie), a puenta
-ujawnia, że to stały wzorzec zachowania — zaskoczenie w ostatnich słowach.
+KLIP 1: OBRAZ: OGRÓD: Janusz w kamizelce z kieszeniami stoi na drabince opartej o płot, wychyla się z notesikiem nad grządki sąsiedniej działki i mierzy dynię na oko przez okulary na sznurku. MÓWI: JANUSZ KWESTIA: Dynia! Trzydzieści centymetrów za blisko płotu!
+KLIP 2: OBRAZ: OGRÓD: drabinka chwieje się coraz mocniej, Janusz balansuje i ląduje siedząc w krzaku porzeczek, notesik trzyma wysoko nad głową. MÓWI: JANUSZ KWESTIA: Paragraf... nadal obowiązuje!
+KLIP 3: OBRAZ: PRZY PŁOCIE: Bohater z kucykiem i szpakowatą brodą spokojnie podlewa konewką grządkę, patrzy przed siebie na podlewane warzywa. MÓWI: BOHATER KWESTIA: W zeszłym roku mierzył mi ogórki z latarką.
+Dlaczego działa: absurd WIDAĆ od pierwszej sekundy (facet z notesikiem na drabince mierzy cudzą dynię), eskalacja jest FIZYCZNA (upadek w krzak z notesikiem w górze — misja ważniejsza niż upadek), a puenta ujawnia STAŁY wzorzec zachowania Janusza — zaskoczenie w ostatnich słowach.
 Zero wiedzy fachowej (taryfy, przepisy, technika). Mechanizm śmieszności musi być
 WIDOCZNY NA EKRANIE: śmieszy to, co widać, a kwestie tylko dobijają.
 Test: gdyby wyciszyć dźwięk, sytuacja nadal ma być zabawna.
@@ -84,35 +62,32 @@ Test: gdyby wyciszyć dźwięk, sytuacja nadal ma być zabawna.
 ZASADY HUMORU:
 1. SYTUACYJNY i ZROZUMIAŁY: śmieszy obraz plus jedna celna kwestia. Każdy ma się rozpoznać (ślimaki, krety, sąsiedzi, nadmiar plonów, pogoda, pożyczanie narzędzi).
 2. ZERO gierek słownych, ZERO abstrakcji. Babcia i wnuk mają zrozumieć bez tłumaczenia.
-3. Jedna kwestia na klip. Krótko. Mieczysław mówi TYLKO w klipie 3.
+3. Jedna kwestia na klip. Krótko. Puentę w klipie 3 mówi TA postać, która NIE napędzała absurdu — spokojnie i sucho.
 4. Puenta to spokojna mądrość albo sucha riposta. Po puencie NIC już nie ma.
 5. Postaci NIE tłumaczą żartu. Żart ma się sam bronić.
-6. SUCHY SARKAZM zamiast wygłupów: postaci traktują absurd śmiertelnie poważnie.
+6. SUCHY SARKAZM zamiast wygłupów: postaci traktują absurd śmiertelnie poważnie. Janusz gra przerysowaną urzędniczą powagę (mock-seriousness), Bohater kontruje spokojem.
 7. KONTRAST: dramatyczna reakcja, przyziemna przyczyna (im zwyklejsza, tym śmieszniej).
 8. W OBRAZIE wymieniaj WYŁĄCZNIE postaci widoczne w kadrze. Miejsca opisuj bez imion
-   (pisz "altana", NIGDY "altana Tomasza") — każde imię w OBRAZIE trafia do kadru!
+   (pisz "altana", NIGDY "altana Janusza") — każde imię w OBRAZIE trafia do kadru!
 9. LOGIKA MIĘDZY KLIPAMI: jeśli ktoś się ukrywa, wcześniej nie mógł być widoczny.
 10. KAŻDY OBRAZ zaczyna się od miejsca: "WNĘTRZE ALTANY:" albo "OGRÓD:" albo
     "PRZY PŁOCIE:". Przy wnętrzu dopisz, że kamera jest w środku pomieszczenia.
 11. Unikaj akcji, które generator psuje: pukanie do drzwi, otwieranie drzwi,
     precyzyjne gesty dłońmi. Lepiej: wołanie, niesienie, patrzenie, kucanie.
+12. Rekwizyt serii: notesik Janusza może wracać, ale nie musi być w każdym żarcie.
 
 Odpowiedz WYŁĄCZNIE scenariuszem w podanym formacie, bez komentarzy.'''
 
 STYL_BOHATEROW = (
     "Ciepła animacja 3D w stylu współczesnych filmów animowanych (nie fotorealizm). "
-    "CZTERY postacie na polskiej działce przy altanie: "
-    "MIECZYSŁAW — ogrodnik około siedemdziesiątki, wysoki, spokojny, siwy krótki zarost, "
-    "kaszkiet, kamizelka ogrodowa, mądre zmrużone oczy, postawa człowieka, "
-    "który wie. "
-    "HELENA — jego żona, około sześćdziesięciu pięciu lat, ciepła twarz, siwy kok, kwiecista "
-    "sukienka i fartuch kuchenny, w dłoniach często blacha z ciastem. "
-    "TOMASZ — sąsiad około pięćdziesiątki, lekko zaokrąglony, przekrzywiona czapka z daszkiem, "
-    "rozpięta koszula hawajska, szeroki niepewny uśmiech, w ręku zawsze jakiś gadżet. "
-    "JACUŚ — dorosły wnuk około dwudziestu pięciu lat, szczupły, odstające uszy, piegi, "
-    "luźna koszulka, ciekawskie wielkie oczy, wiecznie z telefonem w kieszeni. "
+    "DWIE postacie na polskiej działce przy altanie: "
+    "BOHATER — gospodarz około pięćdziesiątki, długie włosy spięte w kucyk, pełna "
+    "szpakowata broda, spokojna pewna postawa, prosta koszula robocza. "
+    "JANUSZ — szczupły, wysoki, po sześćdziesiątce, siwy wąsik, okulary na sznurku "
+    "na szyi, kamizelka z wieloma kieszeniami, w dłoni mały notesik i ołówek, "
+    "wyprostowany jak urzędnik na inspekcji. "
     "Tło: zadbana działka ROD — grządki, altana z pnączem, płot, konewki, letnie światło. "
-    "Pionowy kadr 9:16, wszyscy czworo widoczni."
+    "Pionowy kadr 9:16, obie postacie widoczne."
 )
 
 
@@ -346,7 +321,7 @@ def zart_kadry(zid: str, data: dict = Body(None)):
     klipy = _parsuj(sc)
     chciane = set((data or {}).get("klipy") or [k["nr"] for k in klipy])
     from src.ai.image_backend import generate_image
-    from src.zarty_produkcja import STYL_BOHATEROW, OPISY_POSTACI
+    from src.zarty_produkcja import OPISY_POSTACI  # STYL_BOHATEROW jest LOKALNY (w produkcji go nie ma po czystce 23.07)
     zrobione, bledy = [], []
     for k in klipy:
         if k["nr"] not in chciane or "(BANK)" in k.get("mowi", "").upper():
@@ -538,9 +513,10 @@ def zart_audytuj(zid: str, data: dict = Body(None)):
         raise HTTPException(status_code=500, detail="Brak ANTHROPIC_API_KEY")
     system = (
         "Jesteś audytorem scenariuszy 24-sekundowych animowanych żartów (3 klipy po 8 s) "
-        "dla polskich działkowców. Format: KLIP N: / OBRAZ: [scena] / MÓWI: [IMIĘ] / KWESTIA: [jedna kwestia bez cudzysłowów]. Postacie: MIECZYSŁAW "
-        "(mądry, małomówny — jak powie, to już powie), HELENA (żona, ciepła, praktyczna), "
-        "TOMASZ (sąsiad-kombinator), JACUŚ (wnuczek 8 lat, szczery). Sprawdź i NAPRAW:\n"
+        "dla polskich działkowców. Format: KLIP N: / OBRAZ: [scena] / MÓWI: [IMIĘ] / KWESTIA: [jedna kwestia bez cudzysłowów]. Postacie (TYLKO te dwie, etykiety BOHATER i JANUSZ): BOHATER "
+        "(gospodarz ~50 lat, kucyk i szpakowata broda, spokojny, suchy humor), "
+        "JANUSZ (strażnik działkowych przepisów 60+, wąsik, okulary na sznurku, notesik, "
+        "śmiertelnie poważny w absurdzie). Sprawdź i NAPRAW:\n"
         "1. NAPISY w OBRAZ ('z napisem X', tablice, etykiety) — generator wideo psuje polski "
         "tekst; zamień na opis wyglądu przedmiotu.\n"
         "2. Dokładnie JEDNA kwestia na klip; postać z MÓWI musi być widoczna w OBRAZIE; "
@@ -550,8 +526,8 @@ def zart_audytuj(zid: str, data: dict = Body(None)):
         "0. GRZECH GŁÓWNY: żart wymaga wiedzy fachowej (taryfy, przepisy, technika) albo mechanizm śmieszności NIE jest widoczny w OBRAZIE — wtedy odrzuć całość i zaproponuj prostszy koncept.\n"
         "4. Suma mówienia w klipie ≤ 7 sekund (ok. 16-18 słów) — dłuższe skróć.\n"
         "5. Jedna ciągła akcja na klip (RUCH bez cięć i 'następnego dnia' w środku klipu).\n"
-        "6. PUENTA: ostatni klip musi zaskakiwać; należy do MIECZYSŁAWA (krótko, celnie) "
-        "albo JACUSIA (dziecięca szczerość). Nie tłumaczy się jej.\n"
+        "6. PUENTA: ostatni klip musi zaskakiwać; mówi ją postać, która NIE napędzała "
+        "absurdu (krótko, sucho). Nie tłumaczy się jej.\n"
         "7. Humor życzliwy, działkowy — zero polityki i przykrości.\n"
         "Odpowiedz DOKŁADNIE w formacie:\nPROBLEMY:\n- ...(albo 'Brak problemow.')\n"
         "PROPOZYCJA_SCENARIUSZA:\n(cały scenariusz KLIP/RUCH/DIALOG — poprawiony, albo "
