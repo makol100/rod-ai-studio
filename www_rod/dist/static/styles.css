@@ -534,9 +534,9 @@ button { font: inherit; }
 /* Zegar analogowy na logo — same wskazówki, nie zasłania napisu */
 .hero-visual { position: relative; }
 .zegar-hero { position: absolute; left: 50%; top: 50%; width: 52%; height: 52%; transform: translate(-50%, -50%); z-index: 4; pointer-events: none; overflow: visible; }
-.zegar-hero line { stroke-linecap: round; transform-box: view-box; transform-origin: 50px 50px; }
-.wsk-godz { stroke: #111; stroke-width: 3.2; opacity: .9; }
-.wsk-min { stroke: #111; stroke-width: 2; opacity: .9; }
-.wsk-sek { stroke: #111; stroke-width: 1; opacity: .8; }
-.wsk-srodek { fill: #111; }
+.zegar-hero line { stroke-linecap: round; transform-box: view-box; transform-origin: 50px 50px; paint-order: stroke; }
+.wsk-godz { stroke: #0a0a0a; stroke-width: 4.5; opacity: 1; filter: drop-shadow(0 0 1.5px #fffdf6); }
+.wsk-min { stroke: #0a0a0a; stroke-width: 3.2; opacity: 1; filter: drop-shadow(0 0 1.5px #fffdf6); }
+.wsk-sek { stroke: #c0392b; stroke-width: 1.6; opacity: 1; filter: drop-shadow(0 0 1px #fffdf6); }
+.wsk-srodek { fill: #0a0a0a; stroke: #fffdf6; stroke-width: 1; }
 @media (prefers-reduced-motion: reduce) { .wsk-sek { display: none; } }
