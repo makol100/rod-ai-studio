@@ -163,6 +163,47 @@ def write(path: Path, content: str) -> None:
 KATEGORIE_TABLICA = {"sprzedam": "Sprzedam", "oddam": "Oddam za darmo", "kupie": "Kupię", "pomoc": "Szukam pomocy", "zguby": "Zguby i znaleziska", "inne": "Inne"}
 
 
+def fb_posty_html() -> str:
+    try:
+        items = load_json(CONTENT / "fb_posty.json")
+    except Exception:
+        items = []
+    if not isinstance(items, list) or not items:
+        return '<p class="muted">Wpisy pojawią się wkrótce.</p>'
+    ETYK = {"powitanie": "Dzień dobry", "porada": "Porada dnia", "ostrzezenie": "Ostrzeżenie"}
+    rows = []
+    for it in items:
+        tresc = html.escape(it.get("tresc", "")).replace("\n", "<br>")
+        rows.append(f'<article class="fb-wpis fb-{it.get("typ","porada")}"><div class="fb-head"><span class="ogl-kat">{ETYK.get(it.get("typ"),"Wpis")}</span><time>{html.escape(it.get("display_date",""))} · {html.escape(it.get("godz",""))}</time></div>'
+                    f'<h3>{html.escape(it["tytul"])}</h3><div class="fb-tresc">{tresc}</div><a class="text-link" href="{html.escape(it["link"])}" rel="noopener">Zobacz na Facebooku <span aria-hidden="true">→</span></a></article>')
+    return '<div class="fb-lista">' + "".join(rows) + '</div>'
+
+
+def fb_posty_skrot() -> str:
+    try:
+        items = load_json(CONTENT / "fb_posty.json")
+    except Exception:
+        items = []
+    if not isinstance(items, list) or not items:
+        return '<p class="muted">Codzienne wpisy Ogrodnika ROD.</p>'
+    it = items[0]
+    return f'<p class="fb-skrot-tyt">{html.escape(it["tytul"])}</p><p class="fb-skrot-tresc">{html.escape(it.get("tresc","")[:140])}…</p>'
+
+
+def porady_miesiaca_html() -> str:
+    import datetime as _dt
+    try:
+        p = load_json(CONTENT / "porady_miesiace.json")
+    except Exception:
+        return ""
+    m = str(_dt.date.today().month)
+    MIES = ["", "styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"]
+    lista = p.get(m, [])
+    if not lista:
+        return ""
+    return f'<p class="card-label">Co robić teraz — {MIES[int(m)]}</p><ul class="porady-lista">' + "".join(f"<li>{html.escape(x)}</li>" for x in lista) + "</ul>"
+
+
 def tablica_skrot() -> str:
     try:
         items = load_json(CONTENT / "tablica.json")
@@ -217,7 +258,7 @@ def build() -> list[Path]:
     layout = (ROOT / "templates/page.html").read_text(encoding="utf-8")
     home = (ROOT / "templates/home.html").read_text(encoding="utf-8")
     featured = next((item for item in announcements if item.get("featured")), announcements[0])
-    home_body = render(home, {"featured_announcement": announcement_html(featured), "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot()})
+    home_body = render(home, {"featured_announcement": announcement_html(featured), "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
@@ -253,7 +294,7 @@ def build() -> list[Path]:
             title=meta["title"],
             description=meta["description"],
             canonical=f'{site["url"]}/{meta["slug"]}/',
-            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html())),
+            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{fb_posty}}", fb_posty_html())),
         )
 
     paths = ["/", "/ogloszenia/"] + [f"/{parse_page(path)[0]['slug']}/" for path in sorted((CONTENT / "pages").glob("*.md"))]
