@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 03.09.2026 10:10.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 03.09.2026 17:07.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,27 +11,27 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 03.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-03 12:05:55 CEST |
+| `ZAKUPY_glosnik_pilot.md` | 03.09 | 2K | LISTA ZAKUPOWA — pilot glosnika ultradzwiekowego na kuny (1 glowica) |
+| `YT_dollwet_kdp_2026.md` | 03.09 | 2K | Film Sean Dollwet "The SIMPLEST Way To Make Money Online With Claude AI In 2026" (youtu.be/JrFZ_ky7AzE) — werd |
+| `ZALOGA_SKLAD.md` | 03.09 | 4K | ZAŁOGA FABRYKI — kto jest kim i na czym chodzi |
+| `KUNY_MONITORING.md` | 03.09 | 8K | KUNY — MONITORING I PRZESZUKIWANIE NAGRAN (kanon) |
+| `GRATULACJE_0109_naprawa_ogloszenia.md` | 03.09 | 1K | Tomasz 01.09.2026 po v7: 'Jest zajebiscie. Gratulacje dla grupy calej.' — za naprawe 0 USD ogloszenia Prezente |
+| `GENEK_OMNI_1.1_FLASH.md` | 03.09 | 2K | Gemini Omni 1.1 Flash — fakty z dokumentacji Google (sprawdzone 01.09.2026 przez Klaudka; Genek NIE ODDAL wiar |
+| `DECYZJE_SERIA_HUMOR.md` | 03.09 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
+| `PREZENTER_TOMASZ_KANON_0.1.md` | 03.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
+| `LEKCJE_INFRA.md` | 03.09 | 1K | 27.08.2026 — fail2ban + Caddy access log (S3, wdrozone i przetestowane zywym banem) |
+| `OMNI_1_1_FLASH_fakty_0109.md` | 03.09 | 1K | Gemini Omni 1.1 Flash — fakty zweryfikowane 01.09.2026 (Klaudek-czat: changelog + docs/omni 30.08 + pricing +  |
+| `KONTROLA_KLAUDKA.md` | 03.09 | 8K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
+| `PROCEDURY.md` | 03.09 | 4K | PROCEDURY — jak się robi |
+| `PRZEGLAD_WARSZTATU_2026-08-12.md` | 03.09 | 5K | PRZEGLAD WARSZTATU ZALOGI (12.08.2026) — "czego CI brakuje do produkcji" |
+| `DROGA_DOMOWA_YOUTUBE.md` | 03.09 | 4K | DROGA DOMOWA — jak fabryka czyta filmy z YouTube (17.08.2026) |
+| `KAMERA_ROG_INSTRUKCJA.md` | 03.09 | 5K | KAMERA ROG (.113) — INSTRUKCJA WLACZENIA DO CALEGO SYSTEMU |
 | `DECYZJE_OPENCLAW.md` | 03.09 | 4K | DECYZJA TOMASZA (2026-08-12): OpenClaw WDROZYC — pilotaz proaktywnosci 24/7 |
-| `PREZENTER_TOMASZ_KANON_0.1.md` | 02.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
-| `BANK_KWESTII_PREZENTER_TOMASZ.md` | 02.09 | 6K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
-| `GRATULACJE_0109_naprawa_ogloszenia.md` | 01.09 | 1K | Tomasz 01.09.2026 po v7: 'Jest zajebiscie. Gratulacje dla grupy calej.' — za naprawe 0 USD ogloszenia Prezente |
-| `AKTYWA_SERII.md` | 01.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
-| `OMNI_1_1_FLASH_fakty_0109.md` | 01.09 | 1K | Gemini Omni 1.1 Flash — fakty zweryfikowane 01.09.2026 (Klaudek-czat: changelog + docs/omni 30.08 + pricing +  |
-| `GENEK_OMNI_1.1_FLASH.md` | 01.09 | 2K | Gemini Omni 1.1 Flash — fakty z dokumentacji Google (sprawdzone 01.09.2026 przez Klaudka; Genek NIE ODDAL wiar |
-| `AWATAR_TOMASZ_NARADA_0109.md` | 01.09 | 19K | ODPOWIEDŹ: do zbudowania wiarygodnego awatara Tomasza potrzebujemy od Tomasza 12 zdjęć, jednego 5-minutowego n |
-| `YT_dollwet_kdp_2026.md` | 31.08 | 2K | Film Sean Dollwet "The SIMPLEST Way To Make Money Online With Claude AI In 2026" (youtu.be/JrFZ_ky7AzE) — werd |
-| `ZAKUPY_glosnik_pilot.md` | 31.08 | 2K | LISTA ZAKUPOWA — pilot glosnika ultradzwiekowego na kuny (1 glowica) |
-| `DECYZJE_SERIA_HUMOR.md` | 27.08 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
-| `LEKCJE_INFRA.md` | 27.08 | 1K | 27.08.2026 — fail2ban + Caddy access log (S3, wdrozone i przetestowane zywym banem) |
-| `KONTROLA_KLAUDKA.md` | 25.08 | 8K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
-| `PROCEDURY.md` | 19.08 | 4K | PROCEDURY — jak się robi |
-| `ZALOGA_SKLAD.md` | 18.08 | 4K | ZAŁOGA FABRYKI — kto jest kim i na czym chodzi |
-| `DROGA_DOMOWA_YOUTUBE.md` | 17.08 | 4K | DROGA DOMOWA — jak fabryka czyta filmy z YouTube (17.08.2026) |
-| `KAMERA_ROG_INSTRUKCJA.md` | 17.08 | 5K | KAMERA ROG (.113) — INSTRUKCJA WLACZENIA DO CALEGO SYSTEMU |
-| `KUNY_MONITORING.md` | 13.08 | 8K | KUNY — MONITORING I PRZESZUKIWANIE NAGRAN (kanon) |
-| `DECYZJE_KUNY.md` | 12.08 | 1K | DECYZJE TOMASZA — FILM O KUNACH (append-only) |
-| `PRZEGLAD_WARSZTATU_2026-08-12.md` | 12.08 | 5K | PRZEGLAD WARSZTATU ZALOGI (12.08.2026) — "czego CI brakuje do produkcji" |
+| `DECYZJE_KUNY.md` | 03.09 | 1K | DECYZJE TOMASZA — FILM O KUNACH (append-only) |
+| `AKTYWA_SERII.md` | 03.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
+| `AWATAR_TOMASZ_NARADA_0109.md` | 03.09 | 19K | ODPOWIEDŹ: do zbudowania wiarygodnego awatara Tomasza potrzebujemy od Tomasza 12 zdjęć, jednego 5-minutowego n |
+| `BRIEF_DLA_KLAUDKA.md` | 03.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-03 18:36:01 CEST |
+| `BANK_KWESTII_PREZENTER_TOMASZ.md` | 03.09 | 6K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
 | `GENEROWANIE_OBRAZU.md` | 12.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `BANK_PROMPTOW.md` | 12.08 | 1K | BANK PROMPTOW-ZWYCIEZCOW (dekret 23.07 pkt 3, wdrozony 12.08 dekretem "Wszystko") |
 | `PILOT_MOST_PLAN.md` | 12.08 | 2K | PILOT MOSTU MIEDZYSESYJNEGO — PLAN v2 (po opiniach zalogi, 12.08.2026) |
@@ -74,8 +74,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 87K | 27.08 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
-| `/root/TELEPORT_HA.md` | 69K | 17.08 | teleport HA — ARCHIWUM, jw. |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 87K | 03.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/TELEPORT_HA.md` | 69K | 03.09 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
 | `/home/hermes/PODRECZNIK_DYZURNEGO.md` | 5K | 30.07 | podrecznik Henika (dyzurny) |
