@@ -220,5 +220,7 @@ button { font: inherit; }
 .budowa-pasek .znak-budowa { flex: none; width: 46px !important; height: 41px !important; max-width: 46px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
 @media (max-width: 640px) { .budowa-pasek .znak-budowa:last-child { display: none; } .budowa-dopisek { display: none; } }
 
-.fb-wideo { margin-top: 14px; }
-.fb-wideo iframe { max-width: 100%; border-radius: 16px; }
+.fb-wideo { position: relative; display: block; width: min(320px, 100%); margin-top: 16px; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); text-decoration: none; }
+.fb-wideo img { width: 100%; height: auto; display: block; }
+.fb-wideo .play { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); width: 78px; height: 78px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,253,246,.92); color: var(--forest-900); font-size: 2rem; padding-left: 6px; }
+.fb-wideo .fb-podpis { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px; text-align: center; color: #fffdf6; font-weight: 700; background: linear-gradient(transparent, rgba(0,0,0,.65)); }

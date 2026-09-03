@@ -129,10 +129,9 @@ def announcements_page(items: list[dict]) -> str:
             f'<p><strong>{html.escape(item["place"])}</strong></p>'
             f'<p>{html.escape(item["body"])}</p>'
             + (
-                '<div class="fb-wideo"><iframe src="https://www.facebook.com/plugins/video.php?href='
-                + html.escape(item["video_fb"]) + '&show_text=false&t=0" width="360" height="640" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" '
-                'allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" title="Film z ogłoszeniem"></iframe>'
-                '<p><a class="text-link" href="' + html.escape(item["video_fb"]) + '" rel="noopener">Zobacz film na Facebooku →</a></p></div>'
+                '<a class="fb-wideo" href="' + html.escape(item["video_fb"]) + '" rel="noopener" aria-label="Obejrzyj film na Facebooku">'
+                '<img src="/static/img/' + html.escape(item.get("video_img", "ogloszenie_sezon.jpg")) + '" width="720" height="1280" alt="Kadr z filmu z ogłoszeniem" loading="lazy">'
+                '<span class="play" aria-hidden="true">▶</span><span class="fb-podpis">Obejrzyj film na Facebooku</span></a>'
                 if item.get("video_fb") else ""
             )
             + '</li>'
