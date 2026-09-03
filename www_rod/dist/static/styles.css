@@ -224,3 +224,17 @@ button { font: inherit; }
 .fb-wideo img { width: 100%; height: auto; display: block; }
 .fb-wideo .play { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); width: 78px; height: 78px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,253,246,.92); color: var(--forest-900); font-size: 2rem; padding-left: 6px; }
 .fb-wideo .fb-podpis { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px; text-align: center; color: #fffdf6; font-weight: 700; background: linear-gradient(transparent, rgba(0,0,0,.65)); }
+
+/* Formularz kontaktowy */
+.kontakt-form { display: grid; gap: 8px; max-width: 640px; margin-top: 14px; }
+.kontakt-form label { font-weight: 700; margin-top: 10px; }
+.kontakt-form input[type=text], .kontakt-form input[type=email], .kontakt-form textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 1.1rem; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); }
+.kontakt-form textarea { min-height: 150px; resize: vertical; }
+.kontakt-form input:focus, .kontakt-form textarea:focus { outline: none; border-color: var(--forest-700); }
+.kontakt-form .zgoda { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: .95rem; color: var(--muted); }
+.kontakt-form .zgoda input { margin-top: 4px; width: 22px; height: 22px; }
+.kontakt-form button { margin-top: 10px; justify-self: start; }
+.kontakt-form .pulapka { position: absolute; left: -9999px; }
+.form-ok, .form-blad { display: none; padding: 14px 16px; border-radius: 14px; font-weight: 600; }
+.form-ok { background: #e3f4e6; color: #1f5a37; } .form-blad { background: #fde8e6; color: #8a1f14; }
+.form-ok.widoczny, .form-blad.widoczny { display: block; }

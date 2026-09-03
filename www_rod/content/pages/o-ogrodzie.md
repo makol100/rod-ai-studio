@@ -6,6 +6,8 @@ slug: o-ogrodzie
 
 # O ogrodzie
 
+**Nasz ogród istnieje od 1948 roku** — od ponad siedmiu dekad kolejne pokolenia działkowców uprawiają tu ziemię przy ul. Młyńskiej w Woźnikach.
+
 Rodzinny Ogród Działkowy im. Józefa Lompy znajduje się przy ul. Młyńskiej 40c w Woźnikach. Tworzy go 51 działek — 51 własnych kawałków zieleni i jedna wspólna przestrzeń.
 
 ## Tu rośnie coś więcej
