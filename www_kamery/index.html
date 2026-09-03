@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10251c">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Kamery ROD im. Józefa Lompy</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">ROD im. Józefa Lompy w Woźnikach</p>
+      <h1>Kamery na działkowcu</h1>
+    </div>
+    <button class="quiet-button" id="privacy-button" type="button">O monitoringu</button>
+  </header>
+
+  <main>
+    <section class="viewer" aria-labelledby="camera-title">
+      <div class="viewer-topline">
+        <div>
+          <p class="section-label">Teraz oglądasz</p>
+          <h2 id="camera-title">Wjazd na parking</h2>
+        </div>
+        <div class="live-status" id="live-status" data-state="loading" role="status" aria-live="polite">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span id="live-label">Łączenie</span>
+        </div>
+      </div>
+
+      <div class="video-shell" id="video-shell">
+        <div class="player-host" id="player-host" aria-label="Obraz z wybranej kamery"></div>
+        <div class="signal-message" id="signal-message" hidden>
+          <strong>Brak sygnału</strong>
+          <span>Ponawiamy połączenie automatycznie.</span>
+        </div>
+        <button class="fullscreen-button" id="fullscreen-button" type="button" aria-label="Włącz pełny ekran">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+          Pełny ekran
+        </button>
+      </div>
+
+      <p class="last-frame" id="last-frame">Ostatni obraz: czekam na sygnał</p>
+      <p class="last-frame" id="widzowie">Oglądają teraz: —</p>
+    </section>
+
+    <nav class="camera-picker" aria-label="Wybór kamery">
+      <button class="camera-card is-active" type="button" data-camera="parking_wjazd" aria-pressed="true">
+        <span class="camera-number">01</span>
+        <span><strong>Wjazd</strong><small>Parking</small></span>
+      </button>
+      <button class="camera-card" type="button" data-camera="parking_wejscie" aria-pressed="false">
+        <span class="camera-number">02</span>
+        <span><strong>Wejście</strong><small>Parking</small></span>
+      </button>
+      <button class="camera-card" type="button" data-camera="parking_smietnik" aria-pressed="false">
+        <span class="camera-number">03</span>
+        <span><strong>Altana śmietnikowa</strong><small>Parking</small></span>
+      </button>
+    </nav>
+
+    <p class="stream-note">Dla oszczędzania transmisji działa jedna wybrana kamera. Zmiana widoku rozłącza poprzedni strumień.</p>
+  </main>
+
+  <footer>
+    <span>Obraz służy ochronie mienia i bezpieczeństwu na terenie ROD.</span>
+    <button class="footer-link" id="privacy-footer-button" type="button">Informacja o monitoringu</button>
+  </footer>
+
+  <dialog id="privacy-dialog" aria-labelledby="privacy-title">
+    <div class="dialog-head">
+      <h2 id="privacy-title">Informacja o monitoringu</h2>
+      <button class="close-button" id="privacy-close" type="button" aria-label="Zamknij">×</button>
+    </div>
+    <p>Teren parkingu jest objęty monitoringiem wizyjnym w celu ochrony mienia oraz zapewnienia bezpieczeństwa osób przebywających na terenie ROD.</p>
+    <p><strong>Administrator danych:</strong> Zarząd Rodzinnego Ogrodu Działkowego im. Józefa Lompy w Woźnikach, ul. Młyńska 40c, 42-289 Woźniki.</p>
+    <p><strong>Kontakt w sprawach danych osobowych:</strong> pisemnie na adres administratora (ul. Młyńska 40c, 42-289 Woźniki) lub osobiście w siedzibie zarządu.</p>
+    <p><strong>Cel i podstawa prawna:</strong> ochrona mienia oraz bezpieczeństwo osób przebywających na terenie ogrodu — prawnie uzasadniony interes administratora (art. 6 ust. 1 lit. f RODO).</p>
+    <p><strong>Zakres i okres przechowywania:</strong> monitoring obejmuje parking ROD (wjazd, wejście, altana śmietnikowa). Nagrania są przechowywane w rejestratorze przez okres do 30 dni, po czym są nadpisywane; podgląd na żywo na tej stronie nie jest utrwalany.</p>
+    <p><strong>Odbiorcy danych:</strong> podgląd na żywo jest dostępny wyłącznie dla zalogowanych członków ROD; nagrania mogą być udostępnione organom uprawnionym na podstawie przepisów prawa (np. Policji). Transmisja obrazu odbywa się z użyciem usług technicznych dostawców (chmura producenta kamer oraz serwer w Unii Europejskiej).</p>
+    <p><strong>Prawa osób:</strong> prawo dostępu do danych, ich usunięcia lub ograniczenia przetwarzania oraz prawo sprzeciwu, a także prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych. Dane nie są wykorzystywane do zautomatyzowanego podejmowania decyzji ani profilowania.</p>
+  </dialog>
+
+  <noscript>Do odtworzenia obrazu potrzebna jest obsługa JavaScript.</noscript>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

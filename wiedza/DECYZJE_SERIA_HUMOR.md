@@ -166,3 +166,4 @@ Format: data | DOSŁOWNY cytat | interpretacja (1 zdanie) | status
   nie z OPISY_POSTACI. Backup: /tmp/zp_pre_czystka.py. | ZAMKNIĘTE
 2026-07-25 | Tomasz wkleił "Scenariusz 6: Infiltracja, czyli kontrola u prezesa" (duet, biuro zarządu, donos za młotek 09:55), po czym: "Nie to. Czekaj" | WSTRZYMANE — niczego nie produkować, nie numerować, czekać na następne słowo Tomasza (uwaga dla równoległych okien) | STOP
 2026-07-25 | "Żebyś sam nie wystawił na Facebooka" (przy 10009) | zasada serii: żadna publikacja bez osobnej wyraźnej komendy Tomasza; akceptacja materiału ≠ zgoda na publikację | STAŁE
+- 27.08 | "Prompt i Kanon" (rozstrzygniecie samozwanczy vs typowy ogrodowy) | KANON ZAKTUALIZOWANY: Janusz = SAMOZWANCZY straznik dzialkowych przepisow (slowo z promptu generatora wchodzi do kanonu; rysopis bez zmian: szczuply, wysoki, 60+, siwy wasik, okulary na sznurku, kamizelka, notesik) | ZAMKNIETE

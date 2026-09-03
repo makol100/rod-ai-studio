@@ -224,3 +224,9 @@ Fakty z transkryptu narady o filmie kun: RUNDA 1 — Klaudek poszedł prosto do 
 - BLAD (powtorka z 29.07): podal Tomaszowi koszt Izabeli 1,2 USD z glosu Zenka bez sprawdzenia kanonu (OmniHuman 0,16/s → ~4 USD). Liczby z cudzego glosu = niesprawdzone.
 
 - 02.09 BLAD: bramka mowy uznala 'informację→informacje' (normalna wymowa koncowego ę) za wade i spalila retry T3 (1,01 USD). Naprawione w bramce (ę->e). 
+
+- 03.09 BLAD: w zleceniu narady napisalem '3 strumienie NA ZYWO' na podstawie 'producers: 1' z API go2rtc — to konfiguracja, nie polaczenie; Henio sprawdzil dziennik: strumienie ezviz NIGDY nie dostarczyly obrazu (ten sam blad 12.08, 18.08, 03.09). Lekcja: 'zywy strumien' = klatka pobrana (frame.jpeg >0 B), nie licznik w API.
+
+- 03.09 LEKCJA (Caddy): /root/claude-vps-mcp/Caddyfile jest zamontowany do kontenera jako POJEDYNCZY PLIK — sed -i tworzy nowy inode i kontener widzi stara wersje mimo 'reload OK'. Edytowac TYLKO w miejscu (python open('w'), cat > plik, cp na istniejacy) albo po sed -i zrobic docker restart caddy-mcp. Objaw: caddy adapt nie zawiera zmiany.
+
+- 03.09 LEKCJA (Caddy): /root/claude-vps-mcp/Caddyfile jest zamontowany do kontenera jako POJEDYNCZY PLIK — sed -i tworzy nowy inode i kontener widzi stara wersje mimo 'reload OK'. Edytowac TYLKO w miejscu (python open('w'), cat > plik, cp na istniejacy) albo po sed -i zrobic docker restart caddy-mcp. Objaw: caddy adapt nie zawiera zmiany.

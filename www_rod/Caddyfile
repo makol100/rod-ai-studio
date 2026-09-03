@@ -1,0 +1,32 @@
+# Kandydat. Nie jest aktywną konfiguracją i nie publikuje strony.
+www.rodwozniki.pl {
+	redir https://rodwozniki.pl{uri} permanent
+}
+
+rodwozniki.pl {
+	encode zstd gzip
+	root * /srv/www_rod
+
+	header {
+		Content-Security-Policy "default-src 'self'; connect-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'; object-src 'none'"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	@static path /static/*
+	header @static Cache-Control "public, max-age=604800"
+
+
+	handle {
+		try_files {path} {path}/ =404
+		file_server
+	}
+
+	handle_errors {
+		rewrite * /404.html
+		file_server
+	}
+}

@@ -75,3 +75,7 @@ Zenek w tym czasie odpowiadał normalnie — sprawdzone bezpośrednim wywołanie
 
 ## 02.09.2026 — narada tauron_kdt
 - BLAD: koszt Izabeli policzony na Klingu (1,24 USD) mimo kanonu OmniHuman 1.5 (IZABELA_KANON_0.1.md L402-447: 'Kling NIE jest juz modelem docelowym') — zaniżenie ~3 USD. Lekcja: cena = z KANONU postaci, nie z kanonu innej postaci.
+
+## 03.09.2026 — ZASLUGA: chmurowy relay VTM Hik-Connect (TCP) omijajacy NAT — znaleziony, zaimplementowany (tools/kamery_vtm_relay.py, hikcloudstream+pyezvizapi w venv) i przetestowany na 3 kamerach + NVR; zywy obraz na stronie bez urzadzenia w ROD.
+
+- 03.09 (Zenek+Genek) BLAD: pierwszy szkic strony ROD z data-theme=auto i dominanta #183a26 — na telefonie Tomasza (tryb ciemny) strona byla ciemna, 'wojskowa' ('zasiek'). Dekret: strona ogrodu = JASNA. Poprawione: domyslnie light, swieza zielen #2e7d4f, slonce, krem.
