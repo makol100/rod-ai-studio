@@ -18,7 +18,8 @@
   <link rel="icon" type="image/png" sizes="64x64" href="/static/img/favicon.png">
   <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
   <link rel="preload" href="/static/fonts/fraunces-pl.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/static/styles.e2912ec5.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="/static/styles.9ed455f1.css">
   <title>ROD im. Józefa Lompy | ROD im. Józefa Lompy w Woźnikach</title>
 </head>
 <body class="home">
@@ -76,7 +77,10 @@
       <button class="pogoda-teraz" id="pogoda-teraz" type="button" aria-expanded="false" aria-controls="pogoda-dni">
         <p class="muted">Ładuję prognozę…</p>
       </button>
-      <div class="pogoda-radar" id="pogoda-radar" aria-label="Radar opadów — najbliższe 12 godzin"></div>
+      <div class="pogoda-radar" id="pogoda-radar" aria-label="Radar opadów — mapa">
+        <div id="radar-mapa"></div>
+        <div class="radar-panel"><button class="radar-play" id="radar-play" type="button" aria-label="Odtwórz animację">⏸</button><span class="radar-czas" id="radar-czas">—</span></div>
+      </div>
     </div>
     <div class="pogoda-dni" id="pogoda-dni" hidden></div>
     <p class="muted pogoda-stopka" id="pogoda-stopka"></p>
@@ -153,7 +157,7 @@
 <section class="section shell section-contact">
   <div class="contact-card">
     <div><p class="eyebrow">Kontakt</p><h2>Spotkajmy się w ogrodzie</h2><p>ul. Młyńska 40c<br>42-289 Woźniki</p></div>
-    <div class="contact-actions"><a class="button button-primary" href="/kontakt/">Dane kontaktowe</a><a class="button button-ghost" href="https://www.openstreetmap.org/search?query=M%C5%82y%C5%84ska%2040c%2C%20Wo%C5%BAniki">Otwórz mapę</a></div>
+    <div class="contact-actions"><a class="button button-primary" href="/kontakt/">Dane kontaktowe</a><a class="button button-ghost" href="https://www.google.com/maps/search/?api=1&query=ROD+im.+J%C3%B3zefa+Lompy+M%C5%82y%C5%84ska+40c+Wo%C5%BAniki" rel="noopener">Otwórz w Google Maps</a></div>
   </div>
 </section>
 
@@ -173,6 +177,7 @@
     <p class="licznik-odwiedzin" id="licznik-odwiedzin" aria-live="polite"></p>
     <p class="copyright">Rodzinny Ogród Działkowy im. Józefa Lompy w Woźnikach · od 1948 roku · © <span data-year>2026</span></p>
   </footer>
-  <script src="/static/app.e2912ec5.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script src="/static/app.9ed455f1.js" defer></script>
 </body>
 </html>
