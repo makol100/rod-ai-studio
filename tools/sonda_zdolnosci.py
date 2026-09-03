@@ -19,6 +19,7 @@ Fail-closed: kazdy blad sondy = zdolnosc raportowana jako NIE, nigdy jako "pewni
 import argparse
 import json
 import os
+import pwd
 import subprocess
 import sys
 import time
@@ -60,8 +61,11 @@ def czy_przejsciowy(opis: str) -> bool:
 
 
 def polecenie(cmd: str, limit: int = 60, jako: str = "") -> tuple:
-    """Uruchamia polecenie, zwraca (czy_ok, pierwsze_linie_wyjscia)."""
-    pelne = ["su", "-", jako, "-c", cmd] if jako else ["bash", "-lc", cmd]
+    """Uruchamia polecenie, zwraca (czy_ok, pierwsze_linie_wyjscia).
+    25.08: `su NA_SIEBIE` (gdy sonda dziala juz jako ten sam user) wymaga hasla
+    i dawal falszywe NIE na henio.gateway / henio.zapis_repo. Su tylko gdy REALNIE inny user."""
+    biezacy = pwd.getpwuid(os.getuid()).pw_name
+    pelne = ["su", "-", jako, "-c", cmd] if (jako and jako != biezacy) else ["bash", "-lc", cmd]
     try:
         w = subprocess.run(pelne, capture_output=True, text=True, timeout=limit)
         return w.returncode == 0, (w.stdout or w.stderr).strip()[:160]

@@ -11,7 +11,16 @@ Typy scen:
 Lektor: edge-tts pl-PL-MarekNeural. Długość sceny = długość lektora + 0.7 s.
 Klipy: dźwięk oryginalny WYRZUCONY (decyzja Tomasza — "tam to bzdury").
 """
-import asyncio, subprocess, os
+import argparse
+import asyncio
+import json
+import math
+import os
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+
 import edge_tts
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
@@ -263,3 +272,167 @@ def buduj(sceny, wynik, muzyka=None):
                         "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest",
                         wynik, "-y"], check=True)
     print("\ngotowe:", wynik, flush=True)
+
+
+# ---------------------------------------------------------------------------
+# Minimalny montaz 16:9 dla nowych filmow. Stare API buduj() zostaje bez zmian,
+# bo korzystaja z niego historyczne scenariusze filmu o przebudowie sieci.
+
+ROOT = Path(__file__).resolve().parents[2]
+NOWE_W, NOWE_H, NOWE_FPS = 1920, 1080, 24
+OBRAZY = {".jpg", ".jpeg", ".png", ".webp"}
+
+
+def _uruchom(cmd):
+    print("+", " ".join(map(str, cmd)), flush=True)
+    subprocess.run([str(x) for x in cmd], check=True)
+
+
+def _sciezka_z_manifestu(wartosc, manifest):
+    sciezka = Path(wartosc)
+    if not sciezka.is_absolute():
+        sciezka = (manifest.parent / sciezka).resolve()
+    return sciezka
+
+
+def _probe(plik):
+    wynik = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(plik)],
+        check=True, capture_output=True, text=True,
+    )
+    return json.loads(wynik.stdout)
+
+
+def _czas_audio(plik):
+    dane = _probe(plik)
+    for strumien in dane.get("streams", []):
+        if strumien.get("codec_type") == "audio" and strumien.get("duration") not in (None, "N/A"):
+            return float(strumien["duration"])
+    return float(dane["format"]["duration"])
+
+
+def _czas_strumienia(dane, typ):
+    for strumien in dane.get("streams", []):
+        if strumien.get("codec_type") == typ:
+            czas = strumien.get("duration")
+            if czas not in (None, "N/A"):
+                return float(czas)
+    return float(dane["format"]["duration"])
+
+
+def _bramka_finalu(plik):
+    dane = _probe(plik)
+    video = next((s for s in dane.get("streams", []) if s.get("codec_type") == "video"), None)
+    audio = next((s for s in dane.get("streams", []) if s.get("codec_type") == "audio"), None)
+    if video is None or audio is None:
+        raise RuntimeError("BRAK wymaganych strumieni video+audio")
+
+    licznik, mianownik = video.get("avg_frame_rate", "0/1").split("/", 1)
+    fps = float(licznik) / float(mianownik)
+    czas_video = _czas_strumienia(dane, "video")
+    czas_audio = _czas_strumienia(dane, "audio")
+    roznica = abs(czas_video - czas_audio)
+    with Path(plik).open("rb") as uchwyt:
+        poczatek = uchwyt.read(65536)
+    moov = poczatek.find(b"moov")
+    mdat = poczatek.find(b"mdat")
+    faststart = moov >= 0 and (mdat < 0 or moov < mdat)
+
+    kontrole = {
+        "wymiary": [video.get("width"), video.get("height")],
+        "fps": round(fps, 6),
+        "video_codec": video.get("codec_name"),
+        "audio_codec": audio.get("codec_name"),
+        "audio_sample_rate": int(audio.get("sample_rate", 0)),
+        "audio_channels": int(audio.get("channels", 0)),
+        "duration_video": round(czas_video, 6),
+        "duration_audio": round(czas_audio, 6),
+        "roznica_av": round(roznica, 6),
+        "faststart": faststart,
+    }
+    if kontrole["wymiary"] != [NOWE_W, NOWE_H]:
+        raise RuntimeError(f"BRAMKA FAIL wymiary: {kontrole}")
+    if abs(fps - NOWE_FPS) > 0.001:
+        raise RuntimeError(f"BRAMKA FAIL fps: {kontrole}")
+    if audio.get("codec_name") != "aac" or kontrole["audio_sample_rate"] != 48000 or kontrole["audio_channels"] != 2:
+        raise RuntimeError(f"BRAMKA FAIL audio: {kontrole}")
+    if roznica >= 0.05:
+        raise RuntimeError(f"BRAMKA FAIL |video-audio| >= 0.05 s: {kontrole}")
+    if not faststart:
+        raise RuntimeError(f"BRAMKA FAIL brak faststart: {kontrole}")
+    return kontrole
+
+
+def montuj_manifest(manifest, wynik):
+    """Skleja pary media+audio z JSON; audio wyznacza dlugosc kazdej sceny."""
+    manifest = Path(manifest).resolve()
+    wynik = Path(wynik).resolve()
+    if wynik.exists():
+        raise FileExistsError(f"ODWRACALNOSC: plik wynikowy juz istnieje, nie nadpisuje: {wynik}")
+    spec = json.loads(manifest.read_text(encoding="utf-8"))
+    sceny = spec.get("sceny") if isinstance(spec, dict) else spec
+    if not isinstance(sceny, list) or not sceny:
+        raise ValueError("manifest musi zawierac niepusta liste 'sceny'")
+
+    wynik.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="film16x9_", dir="/tmp") as tmp:
+        tmp = Path(tmp)
+        czesci = []
+        for nr, scena in enumerate(sceny, 1):
+            media = _sciezka_z_manifestu(scena["media"], manifest)
+            audio = _sciezka_z_manifestu(scena["audio"], manifest)
+            if not media.is_file() or not audio.is_file():
+                raise FileNotFoundError(f"scena {nr}: brak media lub audio: {media}, {audio}")
+            czas_audio = _czas_audio(audio)
+            if czas_audio <= 0:
+                raise ValueError(f"scena {nr}: audio ma niedodatnia dlugosc")
+            czas = math.ceil(czas_audio * NOWE_FPS) / NOWE_FPS
+            czesc = tmp / f"czesc_{nr:03d}.mp4"
+            if media.suffix.lower() in OBRAZY:
+                wejscie = ["-loop", "1", "-framerate", str(NOWE_FPS), "-i", media]
+            else:
+                wejscie = ["-stream_loop", "-1", "-i", media]
+            filtr = (
+                f"[0:v]scale={NOWE_W}:{NOWE_H}:force_original_aspect_ratio=decrease,"
+                f"pad={NOWE_W}:{NOWE_H}:(ow-iw)/2:(oh-ih)/2:color=black,"
+                f"setsar=1,fps={NOWE_FPS},format=yuv420p[v];"
+                f"[1:a]aresample=48000:async=1:first_pts=0,"
+                f"aformat=sample_rates=48000:channel_layouts=stereo,"
+                f"apad,atrim=duration={czas:.6f}[a]"
+            )
+            _uruchom([
+                "ffmpeg", "-y", "-v", "error", *wejscie, "-i", audio,
+                "-filter_complex", filtr, "-map", "[v]", "-map", "[a]",
+                "-t", f"{czas:.6f}", "-c:v", "libx264", "-preset", "veryfast",
+                "-crf", "21", "-pix_fmt", "yuv420p", "-r", str(NOWE_FPS),
+                "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2",
+                "-movflags", "+faststart", czesc,
+            ])
+            czesci.append(czesc)
+
+        lista = tmp / "concat.txt"
+        lista.write_text("".join(f"file '{czesc}'\n" for czesc in czesci), encoding="utf-8")
+        surowy = tmp / "surowy.mp4"
+        final_tmp = tmp / "final.mp4"
+        _uruchom(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0",
+                   "-i", lista, "-c", "copy", surowy])
+        _uruchom(["ffmpeg", "-y", "-v", "error", "-i", surowy, "-c", "copy",
+                   "-movflags", "+faststart", final_tmp])
+        kontrole = _bramka_finalu(final_tmp)
+        shutil.copy2(final_tmp, wynik)
+
+    print(json.dumps({"status": "OK", "wynik": str(wynik), "kontrole": kontrole},
+                     ensure_ascii=False, indent=2))
+    return kontrole
+
+
+def _main():
+    parser = argparse.ArgumentParser(description="Minimalny montaz 16:9: kadry/klipy + gotowe audio")
+    parser.add_argument("manifest", type=Path, help="JSON: lista scen z polami media i audio")
+    parser.add_argument("--wynik", type=Path, required=True)
+    args = parser.parse_args()
+    montuj_manifest(args.manifest, args.wynik)
+
+
+if __name__ == "__main__":
+    _main()
