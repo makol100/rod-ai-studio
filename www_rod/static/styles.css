@@ -540,3 +540,8 @@ button { font: inherit; }
 .wsk-sek { stroke: #c0392b; stroke-width: 1.6; opacity: 1; filter: drop-shadow(0 0 1px #fffdf6); }
 .wsk-srodek { fill: #0a0a0a; stroke: #fffdf6; stroke-width: 1; }
 @media (prefers-reduced-motion: reduce) { .wsk-sek { display: none; } }
+
+/* Data + godzina pod logo (czytelna, dla starszych) */
+.zegar-data { position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); z-index: 5; padding: 8px 18px; border-radius: 999px; background: rgba(23,32,25,.9); color: #fffdf6; font-weight: 800; font-size: 1.05rem; letter-spacing: .01em; white-space: nowrap; box-shadow: 0 6px 20px rgba(16,41,27,.25); text-align: center; }
+.zegar-data .dz-godz { color: #ffe08a; }
+@media (max-width: 640px) { .zegar-data { font-size: .95rem; padding: 7px 14px; } }

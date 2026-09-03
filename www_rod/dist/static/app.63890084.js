@@ -138,3 +138,16 @@
     const t = new Date(); g.style.transform = `rotate(${((t.getHours()%12)+t.getMinutes()/60)*30}deg)`; m.style.transform = `rotate(${t.getMinutes()*6}deg)`;
   } else tik();
 })();
+
+// Data + godzina pod logo — pełna, czytelna (dla starszych)
+(function dataHero() {
+  const el = document.querySelector('#zegar-data'); if (!el) return;
+  const DNI = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
+  const MIES = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
+  function odswiez() {
+    const t = new Date();
+    const g = t.getHours().toString().padStart(2,'0') + ':' + t.getMinutes().toString().padStart(2,'0');
+    el.innerHTML = `${DNI[t.getDay()]}, ${t.getDate()} ${MIES[t.getMonth()]} ${t.getFullYear()} · <span class="dz-godz">${g}</span>`;
+  }
+  odswiez(); setInterval(odswiez, 15000);
+})();
