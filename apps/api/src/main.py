@@ -36,9 +36,11 @@ app.include_router(topics_router)
 from src.zarty import router as zarty_router
 from src.kamery_auth import router as kamery_auth_router
 from src.kontakt_rod import router as kontakt_rod_router
+from src.licznik_rod import router as licznik_rod_router
 app.include_router(zarty_router)
 app.include_router(kamery_auth_router)
 app.include_router(kontakt_rod_router)
+app.include_router(licznik_rod_router)
 
 
 @app.get("/health")
