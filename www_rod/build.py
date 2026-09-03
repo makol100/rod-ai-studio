@@ -160,6 +160,29 @@ def write(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+KATEGORIE_TABLICA = {"sprzedam": "Sprzedam", "oddam": "Oddam za darmo", "kupie": "Kupię", "pomoc": "Szukam pomocy", "zguby": "Zguby i znaleziska", "inne": "Inne"}
+
+
+def tablica_html() -> str:
+    try:
+        items = load_json(CONTENT / "tablica.json")
+    except Exception:
+        items = []
+    if not isinstance(items, list) or not items:
+        return '<p class="muted">Na razie brak ogłoszeń. Bądź pierwszy — wyślij swoje powyżej.</p>'
+    rows = []
+    for it in items:
+        kat = KATEGORIE_TABLICA.get(it.get("kategoria", "inne"), "Inne")
+        kontakt = f'<p class="ogl-kontakt">Kontakt: {html.escape(it["kontakt"])}</p>' if it.get("kontakt") else ""
+        podpis = " · ".join(x for x in [html.escape(it.get("imie", "")), ("działka " + html.escape(it["dzialka"])) if it.get("dzialka") else ""] if x)
+        rows.append(
+            f'<li class="ogl-tab"><div class="ogl-tab-head"><span class="ogl-kat ogl-kat-{html.escape(it.get("kategoria","inne"))}">{kat}</span>'
+            f'<time>{html.escape(it.get("display_date",""))}</time></div>'
+            f'<h3>{html.escape(it["tytul"])}</h3><p>{html.escape(it["tresc"])}</p>{kontakt}'
+            + (f'<p class="ogl-od">{podpis}</p>' if podpis else "") + '</li>')
+    return '<ul class="ogl-tablica">' + "".join(rows) + '</ul>'
+
+
 def build() -> list[Path]:
     site = load_json(CONTENT / "site.json")
     announcements = load_json(CONTENT / "announcements.json")
@@ -216,7 +239,7 @@ def build() -> list[Path]:
             title=meta["title"],
             description=meta["description"],
             canonical=f'{site["url"]}/{meta["slug"]}/',
-            content=page_content(meta["title"], markdown(body)),
+            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html())),
         )
 
     paths = ["/", "/ogloszenia/"] + [f"/{parse_page(path)[0]['slug']}/" for path in sorted((CONTENT / "pages").glob("*.md"))]

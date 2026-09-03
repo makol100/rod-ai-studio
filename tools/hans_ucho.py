@@ -8,6 +8,8 @@ import subprocess
 import sys
 import time
 import json
+import json as _json
+import urllib.request as _urllib
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -706,6 +708,30 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
             os.chmod("/root/skrzynka/surowe_aktualizacje.jsonl", 0o600)
         except OSError:
             pass
+
+        # Callback (przyciski inline) — np. zatwierdzanie ogloszen tablicy TAK/NIE
+        cbq = aktualizacja.get("callback_query")
+        if isinstance(cbq, dict):
+            try:
+                cb_data = cbq.get("data", "")
+                cb_id = cbq.get("id")
+                cb_czat = str(((cbq.get("message") or {}).get("chat") or {}).get("id"))
+                cb_from = str((cbq.get("from") or {}).get("id"))
+                # tylko Tomasz moderuje tablice
+                if cb_data.startswith(("tab_ok:", "tab_nie:")) and cb_from == "8339659505":
+                    import sys as _sys; _sys.path.insert(0, "/root/rod-ai-studio/tools")
+                    import tablica_moderacja as _tab
+                    odp = _tab.obsluz_callback(cb_data)
+                    # answerCallbackQuery + wynik
+                    try:
+                        _rq = _urllib.request.Request(f"https://api.telegram.org/bot{token}/answerCallbackQuery",
+                            data=_json.dumps({"callback_query_id": cb_id, "text": odp[:180]}).encode(), headers={"Content-Type": "application/json"})
+                        _urllib.request.urlopen(_rq, timeout=15)
+                    except Exception: pass
+                    _odpowiedz(token, cb_czat, odp)
+            except Exception as _e:
+                print("callback tablicy blad:", _e)
+            continue
 
         wiadomosc = aktualizacja.get("message")
         if not isinstance(wiadomosc, dict):
