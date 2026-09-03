@@ -4,10 +4,12 @@ description: Józef Lompa (1797–1863) — nauczyciel z Lubszy, pisarz, pionier
 slug: patron
 ---
 
+:::html
 <figure class="patron-portret">
   <img src="/static/img/jozef_lompa.jpg" width="620" height="853" alt="Portret Józefa Lompy" loading="lazy">
   <figcaption>Józef Lompa — portret z książki Jana Kudery (Mikołów, 1920). Domena publiczna, Wikimedia Commons.</figcaption>
 </figure>
+:::
 
 # Józef Lompa (1797–1863)
 
