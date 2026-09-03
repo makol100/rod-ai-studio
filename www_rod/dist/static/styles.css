@@ -144,11 +144,11 @@ button { font: inherit; }
 .announcement-item time { color: var(--forest-700); font-weight: 850; }
 .announcement-item h2 { margin: 8px 0; font-size: 2rem; }
 
-.site-footer { display: grid; grid-template-columns: 1fr auto; gap: 32px; width: var(--shell); margin: 0 auto; padding-block: 52px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
+.site-footer { display: grid; grid-template-columns: minmax(260px, 1.1fr) minmax(0, 1fr); gap: 32px; width: var(--shell); margin: 0 auto; padding-block: 52px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
 .site-footer > div:first-child { display: flex; align-items: center; gap: 16px; min-width: 0; }
 .site-footer > div:first-child p { margin: 0; min-width: 0; }
 .site-footer img { flex: none; width: 64px; height: 64px; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; justify-content: flex-end; }
 .site-footer img { border-radius: 50%; }
 .footer-links { display: flex; align-items: center; gap: 18px; }
 .copyright { grid-column: 1 / -1; margin: 0; }
