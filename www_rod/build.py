@@ -180,7 +180,7 @@ def build() -> list[Path]:
     layout = (ROOT / "templates/page.html").read_text(encoding="utf-8")
     home = (ROOT / "templates/home.html").read_text(encoding="utf-8")
     featured = next((item for item in announcements if item.get("featured")), announcements[0])
-    home_body = render(home, {"featured_announcement": announcement_html(featured)})
+    home_body = render(home, {"featured_announcement": announcement_html(featured), "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements)})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
