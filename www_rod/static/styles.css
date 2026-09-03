@@ -214,7 +214,7 @@ button { font: inherit; }
 @media (max-width: 640px) { .patron-portret { float: none; width: 100%; margin: 0 0 18px; } }
 
 /* Pasek: strona w budowie (dekret 03.09) */
-.budowa-pasek { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 10px 16px; background: repeating-linear-gradient(135deg, #f6c000 0 18px, #1b1b1b 18px 36px); }
+.budowa-pasek { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 8px 14px; max-height: 96px; overflow: hidden; background: repeating-linear-gradient(135deg, #f6c000 0 18px, #1b1b1b 18px 36px); }
 .budowa-pasek p { margin: 0; padding: 8px 16px; border-radius: 999px; background: #fffdf6; color: #1b1b1b; font-size: .95rem; text-align: center; }
-.budowa-pasek .znak-budowa { flex: none; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+.budowa-pasek .znak-budowa { flex: none; width: 44px !important; height: 40px !important; max-width: 44px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
 @media (max-width: 560px) { .budowa-pasek .znak-budowa:last-child { display: none; } }
