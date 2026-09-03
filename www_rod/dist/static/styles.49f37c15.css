@@ -189,6 +189,8 @@ button { font: inherit; }
   .feature-card { min-height: 330px; }
   .split-layout, .patron-grid { grid-template-columns: 1fr; }
   .photo-card { max-width: 520px; margin-inline: auto; transform: none; }
+  .link-galeria { margin-top: 16px; }
+  .card-wide .photo-card { margin-bottom: 8px; }
   .announcement-inner { grid-template-columns: 1fr; gap: 8px; }
   .announcement-inner .button { justify-self: start; }
 }
@@ -291,7 +293,7 @@ button { font: inherit; }
 .licznik-odwiedzin { grid-column: 1 / -1; margin: 0; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; text-align: center; }
 .copyright { grid-column: 1 / -1; text-align: center; }
 
-.link-galeria { margin-top: -10px; }
+.link-galeria { margin-top: 20px; }
 
 /* V2 „lokalny zielnik redakcyjny” — CSS-first, bez generowanych grafik */
 .site-header {
