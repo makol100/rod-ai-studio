@@ -163,6 +163,20 @@ def write(path: Path, content: str) -> None:
 KATEGORIE_TABLICA = {"sprzedam": "Sprzedam", "oddam": "Oddam za darmo", "kupie": "Kupię", "pomoc": "Szukam pomocy", "zguby": "Zguby i znaleziska", "inne": "Inne"}
 
 
+def tablica_skrot() -> str:
+    try:
+        items = load_json(CONTENT / "tablica.json")
+    except Exception:
+        items = []
+    if not isinstance(items, list) or not items:
+        return '<p class="muted">Jeszcze nie ma ogłoszeń — dodaj pierwsze na tablicy.</p>'
+    rows = []
+    for it in items[:3]:
+        kat = KATEGORIE_TABLICA.get(it.get("kategoria", "inne"), "Inne")
+        rows.append(f'<li><span class="ogl-kat ogl-kat-{html.escape(it.get("kategoria","inne"))}">{kat}</span> {html.escape(it["tytul"])}</li>')
+    return '<ul class="tablica-skrot">' + "".join(rows) + '</ul>'
+
+
 def tablica_html() -> str:
     try:
         items = load_json(CONTENT / "tablica.json")
@@ -203,7 +217,7 @@ def build() -> list[Path]:
     layout = (ROOT / "templates/page.html").read_text(encoding="utf-8")
     home = (ROOT / "templates/home.html").read_text(encoding="utf-8")
     featured = next((item for item in announcements if item.get("featured")), announcements[0])
-    home_body = render(home, {"featured_announcement": announcement_html(featured), "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements)})
+    home_body = render(home, {"featured_announcement": announcement_html(featured), "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:

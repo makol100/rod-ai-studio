@@ -6,7 +6,7 @@ slug: tablica
 
 # Tablica ogłoszeń działkowców
 
-Miejsce na drobne ogłoszenia sąsiedzkie: sprzedam, oddam, kupię, szukam pomocy, zguby i znaleziska. Każde ogłoszenie sprawdza zarząd, zanim pojawi się na tablicy.
+Miejsce na drobne ogłoszenia sąsiedzkie: sprzedam, oddam, kupię, szukam pomocy, zguby i znaleziska. Każde ogłoszenie sprawdza zarząd, zanim pojawi się na tablicy. Ogłoszenia znikają automatycznie po tygodniu — jeśli sprawa nadal aktualna, wyślij je ponownie.
 
 :::html
 <p class="form-ok" id="wyslano">Dziękujemy — ogłoszenie trafiło do zarządu. Po zatwierdzeniu pojawi się na tablicy.</p>
