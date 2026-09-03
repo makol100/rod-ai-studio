@@ -73,9 +73,8 @@ button { font: inherit; }
 .hero-facts li { display: grid; line-height: 1.2; }
 .hero-facts strong { font-family: Georgia, serif; color: var(--forest-800); font-size: 1.6rem; }
 .hero-facts span { color: var(--muted); font-size: .78rem; }
-.hero-visual { position: relative; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 50% 45%, rgba(229,183,68,.28), transparent 44%), linear-gradient(145deg, #dce8c7, #9abd7f); box-shadow: var(--shadow); overflow: hidden; isolation: isolate; }
-.hero-logo { width: 82%; height: auto; border-radius: 50%; z-index: 2; box-shadow: 0 24px 55px rgba(16,41,27,.18); }
-.sun-orbit { position: absolute; width: 62px; height: 62px; right: 13%; top: 11%; border-radius: 50%; background: var(--sun-500); box-shadow: 0 0 0 18px rgba(229,183,68,.18); }
+.hero-visual { position: relative; aspect-ratio: 1; display: grid; place-items: center; background: none; }
+.hero-logo { width: 88%; height: auto; }
 .hero-note { position: absolute; z-index: 3; left: 5%; bottom: 10%; padding: 10px 15px; border-radius: 999px; color: var(--forest-950); background: rgba(255,253,246,.9); backdrop-filter: blur(10px); font-size: .78rem; font-weight: 850; box-shadow: 0 10px 30px rgba(16,41,27,.15); }
 .hero-note span { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: #c55335; }
 
