@@ -544,3 +544,6 @@ button { font: inherit; }
 /* Data + godzina pod logo (czytelna, dla starszych) */
 .zegar-data .dz-godz { color: #ffe08a; }
 @media (max-width: 640px) { }
+
+/* Data pod logo */
+.hero-data { margin: 10px auto 0; text-align: center; font-weight: 700; font-size: 1rem; color: var(--forest-800); letter-spacing: .01em; text-transform: capitalize; }
