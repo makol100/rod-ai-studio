@@ -284,6 +284,8 @@ def _cache_bust():
         s = _re.sub(r'/static/app(?:\.[0-9a-f]{8})?\.js(\?v=\w+)?', "/static/app." + v + ".js", s)
         html.write_text(s, encoding="utf-8")
     import shutil as _sh
+    for _old in list((dist / "static").glob("styles.*.css")) + list((dist / "static").glob("app.*.js")):  # stare wersje z hashem
+        if v not in _old.name: _old.unlink()
     _sh.copy2(dist / "static/styles.css", dist / ("static/styles." + v + ".css"))
     _sh.copy2(dist / "static/app.js", dist / ("static/app." + v + ".js"))
     print("cache-bust v=" + v)
