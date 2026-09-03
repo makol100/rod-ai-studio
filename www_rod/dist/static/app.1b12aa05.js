@@ -42,3 +42,13 @@
   if (q.get('wyslano')) document.querySelector('#wyslano')?.classList.add('widoczny');
   if (q.get('blad')) document.querySelector('#blad')?.classList.add('widoczny');
 })();
+
+// Licznik odwiedzin (bez cookies; z logu serwera, co 5 min)
+(async () => {
+  const el = document.querySelector('#licznik-odwiedzin') || document.querySelector('#licznik'); if (!el) return;
+  try {
+    const r = await fetch('/licznik.json', { cache: 'no-store' }); if (!r.ok) return;
+    const d = await r.json();
+    el.textContent = `Odwiedziny: dziś ${d.dzis_goscie} · łącznie ${d.lacznie_goscie} gości (${d.lacznie_odslony} odsłon) od ${d.od.split('-').reverse().join('.')}`;
+  } catch (e) { /* cicho */ }
+})();

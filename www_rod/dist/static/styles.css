@@ -267,3 +267,5 @@ button { font: inherit; }
 
 .licznik-odwiedzin { grid-column: 1 / -1; margin: 0; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; text-align: center; }
 .copyright { grid-column: 1 / -1; text-align: center; }
+
+.link-galeria { margin-top: -10px; }

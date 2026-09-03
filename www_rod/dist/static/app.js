@@ -45,7 +45,7 @@
 
 // Licznik odwiedzin (bez cookies; z logu serwera, co 5 min)
 (async () => {
-  const el = document.querySelector('#licznik'); if (!el) return;
+  const el = document.querySelector('#licznik-odwiedzin') || document.querySelector('#licznik'); if (!el) return;
   try {
     const r = await fetch('/licznik.json', { cache: 'no-store' }); if (!r.ok) return;
     const d = await r.json();
