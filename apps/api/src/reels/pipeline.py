@@ -57,6 +57,29 @@ def _notify_telegram(folder: Path, result: dict):
         _log(f"OSTRZEZENIE: powiadomienie Telegram nie wyslane: {e}")
 
 
+def _notify_telegram_blad(folder: Path, etap: str, extra: dict = None):
+    """Powiadomienie Telegram gdy produkcja rolki PADNIE (S4, D-0153
+    27.08.2026 - Tomasz nie trzyma panelu otwartego, ma wiedziec ze rolka
+    padla, nie tylko ze jest gotowa/na checkpoincie). Uzywa istniejacego
+    webhooka checkpointowego HA (send_message tekstu na Telegram).
+    Nigdy nie ma wywalic pipeline'u - failure tylko logowany."""
+    import requests
+    try:
+        reel_id = folder.name
+        detail = ""
+        if extra:
+            detail = str(extra.get("detail") or extra.get("problemy") or "")[:300]
+        wiadomosc = f"\u274c Rolka {reel_id}: produkcja PADLA (etap: {etap}). {detail}\nhttps://panel.157-90-155-155.sslip.io/panel"
+        requests.post(
+            "https://kzdoj77rzm29x15ipkor8zo2jnh884rs.ui.nabu.casa/api/webhook/fabryka_rolka_padla",
+            json={"wiadomosc": wiadomosc},
+            timeout=15,
+        )
+        _log(f"powiadomienie Telegram (blad) wyslane ({reel_id})")
+    except Exception as e:
+        _log(f"OSTRZEZENIE: powiadomienie Telegram (blad) nie wyslane: {e}")
+
+
 def _stop_requested(folder: Path) -> bool:
     """Sprawdza czy user kliknal 'Przerwij' w panelu (Dyskusja 09.07.2026).
     Kooperacyjna flaga plikowa - nie zabija watku na sile (bezpieczniej dla
@@ -133,6 +156,8 @@ def _write_status(folder: Path, etap: str, extra: dict = None, kolejnosc: str = 
         if kolejnosc:
             data["kolejnosc"] = kolejnosc
         (folder / "status.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        if etap == "blad":
+            _notify_telegram_blad(folder, etap, extra)
     except Exception:
         pass  # status.json to tylko UI-owy bonus, nigdy nie ma wywalic pipeline'u
 

@@ -782,7 +782,7 @@
     <div style="display:flex; gap:10px; align-items:center; margin-bottom:14px">
       <img src="/zarty-postacie" alt="postacie" onerror="this.style.display='none'"
            style="width:84px;height:150px;object-fit:cover;border-radius:10px;border:1px solid #C9C3B4">
-      <div id="ztInfo" style="font-size:13px;color:#6B675E;line-height:1.5">
+      <div style="font-size:13px;color:#6B675E;line-height:1.5">
         <b>Obsada (raz na zawsze):</b> Mieczysław — mądry ogrodnik; Helena — jego żona;
         Tomasz — sąsiad-kombinator; Jacuś — wnuczek.<br>
         Klip Veo 8 s = ok. czterdzieści groszy; typowy żart (3 klipy) ≈ <b>2,40 $</b>.
@@ -1042,31 +1042,6 @@
     };
   }
 
-  /* ---------- panel-config (D-0158): prawda z API, sztywne wartosci HTML = fallback ---------- */
-  let PANEL_CFG = null;
-  async function zaladujPanelConfig(){
-    try{
-      PANEL_CFG = await api('/panel-config');
-      if(PANEL_CFG && Array.isArray(PANEL_CFG.silniki_obrazow) && PANEL_CFG.silniki_obrazow.length){
-        const sel = document.getElementById('cpSilnikObrazow');
-        if(sel){ sel.innerHTML=''; PANEL_CFG.silniki_obrazow.forEach(s=>{ const o=document.createElement('option'); o.value=s.value; o.textContent=s.label; if(s.domyslny) o.selected=true; sel.appendChild(o); }); }
-      }
-      if(PANEL_CFG && Array.isArray(PANEL_CFG.drogi_generowania) && PANEL_CFG.drogi_generowania.length){
-        const ds = document.getElementById('drogaSelect');
-        if(ds){ ds.innerHTML=''; PANEL_CFG.drogi_generowania.forEach(d=>{ const o=document.createElement('option'); o.value=d.value; o.textContent=d.label + (d.aktywna===false?' \u2014 NIEDOST\u0118PNA':''); if(d.aktywna===false) o.disabled=true; if(d.domyslna && d.aktywna!==false) o.selected=true; ds.appendChild(o); }); }
-      }
-      if(PANEL_CFG && PANEL_CFG.zarty){
-        const zi = document.getElementById('ztInfo');
-        if(zi){ const z=PANEL_CFG.zarty; const ck=(typeof z.cena_klip_usd==='number'?z.cena_klip_usd:0.4); const kl=(z.klipy_typowy_zart||3);
-          zi.innerHTML='<b>Obsada (raz na zawsze):</b> '+esc(z.obsada||'')+'<br>Klip Veo 8 s = ok. $'+ck.toFixed(2)+'; typowy \u017cart ('+kl+' klipy) \u2248 <b>$'+(ck*kl).toFixed(2)+'</b>.'; }
-      }
-    }catch(e){ /* API padlo -> zostaja sztywne wartosci HTML */ }
-  }
-  function cenaSilnika(v){
-    try{ const s=(PANEL_CFG&&PANEL_CFG.silniki_obrazow||[]).find(x=>x.value===v); if(s&&typeof s.cena_usd==='number') return s.cena_usd; }catch(e){}
-    return v ? 0.15 : 0.07;
-  }
-
   /* ---------- mode detection ---------- */
   async function detectMode(){
     try{
@@ -1150,17 +1125,14 @@
     const dol = liveLogBox.scrollHeight - liveLogBox.scrollTop - liveLogBox.clientHeight;
     liveLogAutoscroll = dol < 30;
   });
-  function renderLiveLog(tresc){
-    liveLogBox.textContent = tresc;
-    if(liveLogAutoscroll) liveLogBox.scrollTop = liveLogBox.scrollHeight;
-  }
   async function odswiezLiveLog(){
     try{
       const d = await api('/live-log?linie=200');
       const linie = d.linie || [];
       if(linie.length === liveLogOstatniaLiczba) return; // nic nowego - nie dotykaj DOM (flicker)
       liveLogOstatniaLiczba = linie.length;
-      renderLiveLog(linie.length ? linie.join('\n') : '(pusto - brak aktywnosci od restartu API)');
+      liveLogBox.textContent = linie.length ? linie.join('\n') : '(pusto - brak aktywnosci od restartu API)';
+      if(liveLogAutoscroll) liveLogBox.scrollTop = liveLogBox.scrollHeight;
     }catch(e){ /* cicho - brak endpointu w DEMO albo chwilowy blad */ }
   }
   function startLiveLog(){
@@ -1168,6 +1140,7 @@
     odswiezLiveLog();
     liveLogTimer = setInterval(odswiezLiveLog, 1500);
   }
+  startLiveLog(); // leci zawsze, niezaleznie od tego czy user generuje cos w TEJ karcie przegladarki
 
   $('#liveLogToggle').addEventListener('click', ()=>{
     const wrap = $('#liveLogWrap'), arrow = $('#liveLogArrow');
@@ -1194,59 +1167,6 @@
     }
   });
 
-  async function applyReelStatus(st, reelId){
-    if(st.kolejnosc) przelaczKolejnosc(st.kolejnosc);
-    const etap = st.etap;
-    if(etap === 'gotowe'){
-      clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
-      lineDone();
-      await finishGeneration(reelId, true, st);
-      return;
-    }
-    if(etap === 'blad' || etap === 'zatrzymano_walidacja'){
-      clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
-      lineError(etap === 'zatrzymano_walidacja' ? 'Zatrzymano: scenariusz nie przeszedl walidacji.' : 'Blad generowania.');
-      await finishGeneration(reelId, false, st);
-      return;
-    }
-    if(etap === 'przerwano'){
-      clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
-      clearInterval(clockTimer);
-      busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
-      $('#lineBadge').className='badge'; $('#lineBadge').textContent='przerwano';
-      $('#lineMsg').textContent='Przerwano na życzenie użytkownika.';
-      loadReels(); loadStats();
-      return;
-    }
-    if(etap === 'checkpoint'){
-      clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
-      clearInterval(clockTimer);
-      busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
-      $('#lineBadge').className='badge'; $('#lineBadge').textContent='checkpoint';
-      $('#lineMsg').textContent='Scenariusz gotowy — czeka na weryfikację.';
-      openCheckpoint(reelId);
-      return;
-    }
-    const idx = STAGE_INDEX[etap];
-    if(idx !== undefined){
-      markProgress(idx);
-      let msg = 'Etap '+STAGES[idx].n+' — '+STAGES[idx].name.toLowerCase()+'…';
-      if(etap === 'obrazy' && st.extra){
-        // Dyskusja 09.07.2026: etap "obrazy" ma DWIE fazy - najpierw Qwen
-        // pisze prompty scena-po-scenie (tanie, lokalne), potem dopiero
-        // fal.ai faktycznie renderuje obrazy (kosztowne). Bez rozroznienia
-        // faz user widzial tylko "obrazy" bez wiedzy co konkretnie sie liczy.
-        if(st.extra.faza === 'prompty'){
-          msg = 'Etap '+STAGES[idx].n+' — prompty obrazów (Qwen)';
-          if(st.extra.total) msg += ' ('+st.extra.i+'/'+st.extra.total+')';
-          msg += '…';
-        } else if(st.extra.total){
-          msg += ' ('+st.extra.i+'/'+st.extra.total+')';
-        }
-      }
-      $('#lineMsg').textContent = msg;
-    }
-  }
   function startStatusPolling(reelId){
     statusPollReelId = reelId;
     if(statusPollTimer) clearInterval(statusPollTimer);
@@ -1254,7 +1174,57 @@
       let st;
       try{ st = await api('/reel-status/'+reelId); }
       catch(e){ return; } // status.json jeszcze nie istnieje na samym starcie - normalne
-      applyReelStatus(st, reelId);
+      if(st.kolejnosc) przelaczKolejnosc(st.kolejnosc);
+      const etap = st.etap;
+      if(etap === 'gotowe'){
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
+        lineDone();
+        await finishGeneration(reelId, true, st);
+        return;
+      }
+      if(etap === 'blad' || etap === 'zatrzymano_walidacja'){
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
+        lineError(etap === 'zatrzymano_walidacja' ? 'Zatrzymano: scenariusz nie przeszedl walidacji.' : 'Blad generowania.');
+        await finishGeneration(reelId, false, st);
+        return;
+      }
+      if(etap === 'przerwano'){
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
+        clearInterval(clockTimer);
+        busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
+        $('#lineBadge').className='badge'; $('#lineBadge').textContent='przerwano';
+        $('#lineMsg').textContent='Przerwano na życzenie użytkownika.';
+        loadReels(); loadStats();
+        return;
+      }
+      if(etap === 'checkpoint'){
+        clearInterval(statusPollTimer); statusPollTimer = null; statusPollReelId = null;
+        clearInterval(clockTimer);
+        busy($('#btnGenerate'), false); busy($('#btnRandom'), false);
+        $('#lineBadge').className='badge'; $('#lineBadge').textContent='checkpoint';
+        $('#lineMsg').textContent='Scenariusz gotowy — czeka na weryfikację.';
+        openCheckpoint(reelId);
+        return;
+      }
+      const idx = STAGE_INDEX[etap];
+      if(idx !== undefined){
+        markProgress(idx);
+        let msg = 'Etap '+STAGES[idx].n+' — '+STAGES[idx].name.toLowerCase()+'…';
+        if(etap === 'obrazy' && st.extra){
+          // Dyskusja 09.07.2026: etap "obrazy" ma DWIE fazy - najpierw Qwen
+          // pisze prompty scena-po-scenie (tanie, lokalne), potem dopiero
+          // fal.ai faktycznie renderuje obrazy (kosztowne). Bez rozroznienia
+          // faz user widzial tylko "obrazy" bez wiedzy co konkretnie sie liczy.
+          if(st.extra.faza === 'prompty'){
+            msg = 'Etap '+STAGES[idx].n+' — prompty obrazów (Qwen)';
+            if(st.extra.total) msg += ' ('+st.extra.i+'/'+st.extra.total+')';
+            msg += '…';
+          } else if(st.extra.total){
+            msg += ' ('+st.extra.i+'/'+st.extra.total+')';
+          }
+        }
+        $('#lineMsg').textContent = msg;
+      }
     }, 1500);
   }
   function lineDone(){
@@ -1340,9 +1310,7 @@
     const prompt = $('#prompt').value.trim();
     if(!prompt){ toast('Wpisz temat rolki albo wylosuj z bazy.', 'info'); $('#prompt').focus(); return; }
     const ileS = sceneCount || 8;
-    const _cs=(PANEL_CFG&&PANEL_CFG.silniki_obrazow||[]).map(s=>s.cena_usd).filter(x=>typeof x==='number');
-    const cMin=_cs.length?Math.min.apply(null,_cs):0.07, cMax=_cs.length?Math.max.apply(null,_cs):0.15;
-    if(!confirm('Start produkcji rolki:\n\n1) Scenariusz pisze Bielik (DARMOWE) i produkcja STAJE na checkpoincie.\n2) Koszt obraz\u00f3w: '+ileS+' scen \u00d7 '+cMin.toFixed(2)+'\u2013'+cMax.toFixed(2)+' USD (wg silnika) \u2248 '+(ileS*cMin).toFixed(2)+'\u2013'+(ileS*cMax).toFixed(2)+' USD + TTS \u2014 naliczy si\u0119 DOPIERO po zatwierdzeniu checkpointu.\n\nKontynuowa\u0107?')) return;
+    if(!confirm('Start produkcji rolki:\n\n1) Scenariusz pisze Bielik (DARMOWE) i produkcja STAJE na checkpoincie.\n2) Koszt obraz\u00f3w: '+ileS+' scen \u00d7 0,07\u20130,15 USD (wg silnika) \u2248 '+(ileS*0.07).toFixed(2)+'\u2013'+(ileS*0.15).toFixed(2)+' USD + TTS \u2014 naliczy si\u0119 DOPIERO po zatwierdzeniu checkpointu.\n\nKontynuowa\u0107?')) return;
     busy($('#btnGenerate'), true); busy($('#btnRandom'), true);
     $('#result').classList.remove('show');
     startLine();
@@ -2213,7 +2181,7 @@
     const tekst = $('#cpScenariusz').value.trim();
     if(!tekst){ toast('Scenariusz nie może być pusty.', 'info'); return; }
     const ileObr = (tekst.match(/^SCENA\s*\d+/gim)||[]).length;
-    const stawkaCp = cenaSilnika($('#cpSilnikObrazow').value);
+    const stawkaCp = $('#cpSilnikObrazow').value ? 0.15 : 0.07;
     const wycenaCp = ileObr>0 ? (ileObr+' obraz\u00f3w \u00d7 ~'+stawkaCp.toFixed(2)+' USD \u2248 '+(ileObr*stawkaCp).toFixed(2)+' USD (+ TTS)') : ('~'+stawkaCp.toFixed(2)+' USD za obraz, wg liczby scen (+ TTS)');
     if(!confirm('UWAGA \u2014 to uruchamia P\u0141ATN\u0104 produkcj\u0119:\n'+wycenaCp+'\n\nZatwierdzi\u0107 scenariusz i generowa\u0107 obrazy?')) return;
     busy($('#cpOk'), true);
@@ -2235,21 +2203,17 @@
      inna sesja przegladarki) - panel ma pokazywac prawdziwy pasek postepu
      niezaleznie od tego CO uruchomilo generowanie. Ustalone w Dyskusji
      08.07.2026 po serii testow uruchamianych bezposrednio z VPS. ---------- */
-  function applyAktywna(akt){
-    if(!akt || !akt.aktywna) return;
-    if(statusPollTimer) return; // juz sledzimy - SSE moze wysylac "aktywna" co 5s, nie resetuj linii
-    startLine();
-    busy($('#btnGenerate'), true); busy($('#btnRandom'), true);
-    const t0 = Date.now();
-    clockTimer = setInterval(()=>{ $('#lineClock').textContent = fmtClock(Date.now()-t0); }, 500);
-    if(sseOk){ statusPollReelId = akt.aktywna; } // SSE niesie status; id zapamietane dla restore po tle
-    else { startStatusPolling(akt.aktywna); }
-  }
   async function checkAktywneGenerowanie(){
     if(statusPollTimer) return; // juz cos sledzimy - nie dubluj
     try{
       const akt = await api('/aktywne-generowanie');
-      applyAktywna(akt);
+      if(akt && akt.aktywna){
+        startLine();
+        busy($('#btnGenerate'), true); busy($('#btnRandom'), true);
+        const t0 = Date.now();
+        clockTimer = setInterval(()=>{ $('#lineClock').textContent = fmtClock(Date.now()-t0); }, 500);
+        startStatusPolling(akt.aktywna);
+      }
     }catch(e){ /* cicho - brak endpointu w DEMO albo chwilowy blad, nieistotne */ }
   }
 
@@ -2264,16 +2228,13 @@
     else if(p >= 70) fill.classList.add('warn');
     val.textContent = extraLabel || (p.toFixed(0) + '%');
   }
-  function renderHealth(h){
-    setBar('#hbarRam', '#hbarRamVal', h.ram_percent, h.ram_used_gb.toFixed(1)+'/'+h.ram_total_gb.toFixed(1)+' GB');
-    setBar('#hbarCpu', '#hbarCpuVal', h.cpu_percent_approx, h.cpu_percent_approx.toFixed(0)+'% (load '+h.cpu_load1.toFixed(1)+')');
-    setBar('#hbarDisk', '#hbarDiskVal', h.disk_percent, h.disk_used_gb.toFixed(0)+'/'+h.disk_total_gb.toFixed(0)+' GB');
-    $('#healthUpdated').textContent = new Date().toLocaleTimeString('pl-PL', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  }
   async function loadHealth(){
     try{
       const h = await api('/system-health');
-      renderHealth(h);
+      setBar('#hbarRam', '#hbarRamVal', h.ram_percent, h.ram_used_gb.toFixed(1)+'/'+h.ram_total_gb.toFixed(1)+' GB');
+      setBar('#hbarCpu', '#hbarCpuVal', h.cpu_percent_approx, h.cpu_percent_approx.toFixed(0)+'% (load '+h.cpu_load1.toFixed(1)+')');
+      setBar('#hbarDisk', '#hbarDiskVal', h.disk_percent, h.disk_used_gb.toFixed(0)+'/'+h.disk_total_gb.toFixed(0)+' GB');
+      $('#healthUpdated').textContent = new Date().toLocaleTimeString('pl-PL', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
     }catch(e){ /* w DEMO albo chwilowy blad - cicho pomin */ }
   }
 
@@ -2295,89 +2256,18 @@
     }
   });
 
-  /* ---------- SSE (D-0161): push zamiast pollingu ---------- */
-  let es = null, sseOk = false, fallbackStarted = false;
-
-  function startFallbackPolling(){
-    if(fallbackStarted) return;
-    fallbackStarted = true;
-    startLiveLog(); // odswiezLiveLog() natychmiast + interwal 1.5s
-    checkAktywneGenerowanie();
-    setInterval(checkAktywneGenerowanie, 15000);
-    loadHealth();
-    setInterval(loadHealth, 5000);
-  }
-
-  function startSSE(){
-    if(DEMO) return false;
-    if(!window.EventSource) return false;
-    let localEs;
-    try{
-      localEs = new EventSource('/panel-events');
-    }catch(e){ return false; }
-
-    localEs.addEventListener('health', (e)=>{
-      try{ renderHealth(JSON.parse(e.data)); }catch(_){}
-    });
-    localEs.addEventListener('aktywna', (e)=>{
-      try{ applyAktywna(JSON.parse(e.data)); }catch(_){}
-    });
-    localEs.addEventListener('status', (e)=>{
-      try{
-        const st = JSON.parse(e.data);
-        applyReelStatus(st, st.reel_id);
-      }catch(_){}
-    });
-    localEs.addEventListener('log', (e)=>{
-      try{
-        const d = JSON.parse(e.data); const linie = d.linie || [];
-        renderLiveLog(linie.length ? linie.join('\n') : '(pusto - brak aktywnosci od restartu API)');
-      }catch(_){}
-    });
-    localEs.addEventListener('summary', (e)=>{
-      // brak wyodrebnionej funkcji renderSummary w zakresie D-0161 - event swiadomie ignorowany
-    });
-
-    localEs.onopen = ()=>{
-      sseOk = true;
-      // NIE startujemy interwalow pollingu - SSE je zastepuje
-      if(statusPollTimer){ clearInterval(statusPollTimer); statusPollTimer = null; } // SSE przejmuje status
-    };
-    localEs.onerror = ()=>{
-      try{ localEs.close(); }catch(_){}
-      sseOk = false;
-      if(es === localEs) es = null;
-      startFallbackPolling(); // JEDEN raz (guard fallbackStarted)
-    };
-
-    es = localEs;
-    return true;
-  }
-
-  document.addEventListener('visibilitychange', () => {
-    if(document.visibilityState === 'hidden'){
-      if(es){ try{ es.close(); }catch(_){} es = null; sseOk = false; }
-    } else if(document.visibilityState === 'visible'){
-      loadHealth();
-      checkAktywneGenerowanie();
-      odswiezLiveLog();
-      startSSE();
-    }
-  });
-
   /* ---------- boot ---------- */
   async function boot(){
     buildLine(); buildMonthPick(); renderSeason();
     await detectMode();
-    zaladujPanelConfig();
     loadStats();
     loadReels();
     loadCategories();
     loadStatus();
-    if(!startSSE()){
-      // DEMO albo natychmiastowy blad EventSource - stary polling bez zmian
-      startFallbackPolling();
-    }
+    checkAktywneGenerowanie();
+    setInterval(checkAktywneGenerowanie, 15000);
+    loadHealth();
+    setInterval(loadHealth, 5000);
   }
   boot();
   window.addEventListener('resize', ()=>{ /* keep fill orientation correct if line already progressed */ });

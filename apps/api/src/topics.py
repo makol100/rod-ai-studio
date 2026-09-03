@@ -75,6 +75,7 @@ def generate_text(data: dict = Body(...)):
 
 
 REELS_DIR = Path("/root/rod-ai-studio/data/reels")
+ARCH_DIR = Path("/root/rod-ai-studio/data/reels_archiwum")  # M2 (D-0156)
 
 
 def _scan_reels_from_disk(limit=20):
@@ -258,14 +259,84 @@ def odznacz_grupe_fb(reel_id: str, grupa_id: str):
 
 @router.delete("/reels/{reel_id}")
 def delete_reel(reel_id: str):
-    """Usuwa caly folder rolki z dysku (scenariusz, obrazy, audio, napisy, wideo).
-    Nieodwracalne. Numeracja pozostalych rolek sie nie zmienia."""
+    """M2 (D-0156, 27.08.2026): NIC nie kasuje. Przenosi caly folder rolki do
+    data/reels_archiwum (scenariusz, obrazy, audio, wideo zostaja na dysku).
+    Przywracanie: POST /reels-archiwum/{id}/przywroc. Numeracja bez zmian."""
+    import time
     from src.naprawa import znajdz_folder
     folder = znajdz_folder(str(REELS_DIR), reel_id)
     if folder is None:
         raise HTTPException(status_code=404, detail="Rolka nie znaleziona")
-    shutil.rmtree(folder)
-    return {"status": "ok", "deleted": reel_id}
+    ARCH_DIR.mkdir(parents=True, exist_ok=True)
+    cel = ARCH_DIR / folder.name
+    if cel.exists():
+        cel = ARCH_DIR / (folder.name + "_" + time.strftime("%Y%m%d%H%M%S"))
+    shutil.move(str(folder), str(cel))
+    return {"status": "ok", "archiwum": cel.name, "deleted": reel_id}
+
+
+@router.get("/reels-archiwum")
+def reels_archiwum_lista():
+    """M2: lista zarchiwizowanych rolek (id = nazwa folderu w archiwum)."""
+    import json, time
+    if not ARCH_DIR.is_dir():
+        return {"reels": []}
+    out = []
+    for d in sorted(ARCH_DIR.iterdir()):
+        if not d.is_dir():
+            continue
+        temat = ""
+        try:
+            mf = json.loads((d / "manifest.json").read_text(encoding="utf-8"))
+            temat = mf.get("temat") or mf.get("prompt") or mf.get("tytul") or ""
+        except Exception:
+            pass
+        try:
+            kiedy = time.strftime("%Y-%m-%d %H:%M", time.localtime(d.stat().st_mtime))
+        except Exception:
+            kiedy = ""
+        out.append({"id": d.name, "temat": str(temat)[:120], "zarchiwizowano": kiedy})
+    return {"reels": out}
+
+
+@router.post("/reels-archiwum/{reel_id}/przywroc")
+def reels_archiwum_przywroc(reel_id: str):
+    """M2: przywraca rolke z archiwum do data/reels (shutil.move z powrotem)."""
+    from src.naprawa import znajdz_folder
+    folder = znajdz_folder(str(ARCH_DIR), reel_id)
+    if folder is None:
+        raise HTTPException(status_code=404, detail="Nie ma takiej rolki w archiwum")
+    cel = REELS_DIR / folder.name
+    if cel.exists():
+        raise HTTPException(status_code=409, detail="W rolkach istnieje juz folder o tej nazwie")
+    shutil.move(str(folder), str(cel))
+    return {"status": "ok", "przywrocono": folder.name}
+
+
+# ═══ PANEL-CONFIG (D-0158, 27.08.2026): JEDNO zrodlo prawdy dla panelu ═══
+PANEL_CONFIG = {
+    "silniki_obrazow": [
+        {"value": "", "label": "FLUX.2 [max] ($0.07/obraz)", "cena_usd": 0.07},
+        {"value": "nano_banana_pro", "label": "Nano Banana Pro / Gemini 3 (domy\u015blnie, $0.15/obraz)", "cena_usd": 0.15, "domyslny": True},
+    ],
+    "drogi_generowania": [
+        {"value": "pl", "label": "PL \u2014 zwyk\u0142a rolka", "aktywna": True},
+        {"value": "czysty", "label": "CZYSTA DROGA (Qwen, EN\u2192PL)", "aktywna": False,
+         "powod": "modelu Qwen3:14B nie ma w ollama (pomiar 27.08.2026)"},
+        {"value": "czysty_bielik", "label": "CZYSTA DROGA BIELIK (PL, zero EN)", "aktywna": True, "domyslna": True},
+    ],
+    "zarty": {
+        "obsada": "BOHATER (Tomek) \u2014 gospodarz ~50 lat, kucyk i szpakowata broda, spokojny, suchy humor; JANUSZ \u2014 stra\u017cnik dzia\u0142kowych przepis\u00f3w 60+, w\u0105sik, okulary na sznurku, kamizelka i notesik.",
+        "cena_klip_usd": 1.20,  # Veo fast 1080p+audio (zarty_produkcja.py:128); zwiad lite=0.40
+        "klipy_typowy_zart": 3,
+    },
+}
+
+
+@router.get("/panel-config")
+def panel_config():
+    """D-0158: panel renderuje modele/ceny/drogi/obsade z API zamiast sztywnych w HTML."""
+    return PANEL_CONFIG
 
 
 @router.post("/generate-scenes")
@@ -1007,6 +1078,30 @@ def publikuj_fb_reel(reel_id: str, opis: str = _FBBody("", embed=True)):
     V = "v21.0"
     base_id = reel_id.zfill(6) if reel_id.isdigit() else reel_id
     folder = os.path.join("/root/rod-ai-studio/data/reels", base_id)
+
+    # M3 (D-0156): idempotencja publikacji - jesli rolka juz oznaczona jako
+    # opublikowana, NIE publikuj ponownie. Swiadoma ponowna publikacja wymaga
+    # najpierw cofniecia oznaczenia (DELETE /reels/{id}/opublikowano).
+    opublikowano_path = os.path.join(folder, "opublikowano.txt")
+    if os.path.isfile(opublikowano_path):
+        _vid = None
+        try:
+            _tresc = open(opublikowano_path, encoding="utf-8").read().strip()
+            if "video_id=" in _tresc:
+                _vid = _tresc.rsplit("video_id=", 1)[1].strip() or None
+        except Exception:
+            _vid = None
+        _odp = {
+            "ok": True,
+            "juz_opublikowana": True,
+            "detail": ("Rolka juz opublikowana. Aby opublikowac ponownie, "
+                       "najpierw cofnij oznaczenie "
+                       f"(DELETE /reels/{base_id}/opublikowano)."),
+        }
+        if _vid:
+            _odp["video_id"] = _vid
+        return _odp
+
     have_video = any(os.path.isfile(os.path.join(folder, "video", n))
                      for n in ("final_napisy_muzyka.mp4", "final_with_music.mp4", "final.mp4"))
     if not have_video:
@@ -1151,3 +1246,173 @@ def opis_przez_claude(reel_id: str, data: dict = Body(...)):
         raise HTTPException(status_code=502, detail=f"Claude API: {e.response.status_code} - {e.response.text[:200]}")
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Claude API blad: {e}")
+
+
+@router.get("/panel-summary")
+def panel_summary():
+    """D-0158: jeden najwazniejszy krok dla Tomasza na gorze panelu.
+
+    Priorytety (malejaco):
+      (a) aktywna produkcja        -> stan "produkcja"
+      (b) checkpoint czekajacy     -> stan "checkpoint"
+      (c) gotowa NIEopublikowana   -> stan "do_publikacji"
+      (d) nic                      -> stan "pusto"
+
+    Skanuje data/reels bezposrednio (jak /aktywne-generowanie), zeby nie
+    zalezec od /reels (limit 20 + filtr po scenes.txt, przez co checkpointy
+    w trybie en_pl/czysty z samym scenes_en.txt by wypadaly)."""
+    import time as _time
+
+    def _status(folder):
+        sp = folder / "status.json"
+        if not sp.is_file():
+            return None
+        try:
+            dane = json.loads(sp.read_text(encoding="utf-8"))
+            return (dane, sp.stat().st_mtime)
+        except Exception:
+            return None
+
+    KONCOWE = {"gotowe", "blad", "zatrzymano_walidacja", "przerwano"}
+    PROG_MAX_WIEK_S = 20 * 60  # jak /aktywne-generowanie
+
+    produkcja = None      # (folder, mtime)
+    checkpoint = None     # (folder, mtime)
+    do_publikacji = None  # (folder, mtime)
+
+    if REELS_DIR.is_dir():
+        for d in REELS_DIR.iterdir():
+            if not d.is_dir() or not d.name.isdigit():
+                continue
+            res = _status(d)
+            if res is None:
+                continue
+            dane, mtime = res
+            etap = dane.get("etap", "")
+
+            if etap in KONCOWE:
+                if etap == "gotowe":
+                    video_dir = d / "video"
+                    has_video = bool(video_dir.is_dir()) and any(
+                        (video_dir / n).is_file()
+                        for n in ("final_napisy_muzyka.mp4", "final_with_music.mp4", "final.mp4")
+                    )
+                    if has_video and not (d / "opublikowano.txt").is_file():
+                        if do_publikacji is None or mtime > do_publikacji[1]:
+                            do_publikacji = (d, mtime)
+                continue
+
+            if etap == "checkpoint":
+                if (d / "STOP.flag").exists() or (d / "PAUZA.flag").exists():
+                    continue  # wstrzymany/martwy - nie czeka na czlowieka
+                if checkpoint is None or mtime > checkpoint[1]:
+                    checkpoint = (d, mtime)
+                continue
+
+            # etap w trakcie (sceny/lektor/obrazy/napisy/render/...) - realna produkcja
+            wiek = _time.time() - mtime
+            if wiek <= PROG_MAX_WIEK_S:
+                if produkcja is None or mtime > produkcja[1]:
+                    produkcja = (d, mtime)
+
+    if produkcja is not None:
+        reel_id = produkcja[0].name
+        return {
+            "stan": "produkcja",
+            "reel_id": reel_id,
+            "opis": "Rolka #" + reel_id + " generuje się teraz.",
+            "akcja": {"label": "Kontynuuj", "typ": "produkcja"},
+        }
+    if checkpoint is not None:
+        reel_id = checkpoint[0].name
+        return {
+            "stan": "checkpoint",
+            "reel_id": reel_id,
+            "opis": "Rolka #" + reel_id + " czeka na weryfikację scenariusza.",
+            "akcja": {"label": "Kontynuuj", "typ": "checkpoint"},
+        }
+    if do_publikacji is not None:
+        reel_id = do_publikacji[0].name
+        return {
+            "stan": "do_publikacji",
+            "reel_id": reel_id,
+            "opis": "Rolka #" + reel_id + " jest gotowa i czeka na publikację.",
+            "akcja": {"label": "Kontynuuj", "typ": "do_publikacji"},
+        }
+    return {
+        "stan": "pusto",
+        "reel_id": None,
+        "opis": "Brak aktywnych zadań — zacznij nową rolkę.",
+        "akcja": {"label": "Nowa rolka", "typ": "nowa"},
+    }
+
+# ═══ SSE (D-0161, 27.08.2026): jedno polaczenie zamiast pollingu ═══
+# Panel dostaje strumien text/event-stream; eventy wysylane TYLKO gdy dane
+# sie zmienily (per-typ porownanie serializacji). Zrodla = istniejace
+# funkcje endpointow (zero dublowania logiki). Klient znika -> uvicorn
+# przerywa generator (CancelledError NIE jest lapany ponizej — celowo).
+
+@router.get("/panel-events")
+async def panel_events():
+    import asyncio
+    import time as _t
+
+    async def strumien():
+        ostatnie = {}
+        licz = {"health": 0.0, "aktywna": 0.0, "status": 0.0, "log": 0.0, "summary": 0.0, "ping": 0.0}
+        aktywna_id = None
+
+        def _ev(typ, dane):
+            s = json.dumps(dane, ensure_ascii=False)
+            if ostatnie.get(typ) == s:
+                return None
+            ostatnie[typ] = s
+            return "event: " + typ + "\ndata: " + s + "\n\n"
+
+        while True:
+            teraz = _t.monotonic()
+            try:
+                if teraz - licz["aktywna"] >= 5:
+                    licz["aktywna"] = teraz
+                    akt = aktywne_generowanie_endpoint()
+                    aktywna_id = akt.get("aktywna") if isinstance(akt, dict) else None
+                    ch = _ev("aktywna", akt)
+                    if ch:
+                        yield ch
+                if teraz - licz["health"] >= 5:
+                    licz["health"] = teraz
+                    ch = _ev("health", system_health_endpoint())
+                    if ch:
+                        yield ch
+                if teraz - licz["log"] >= (1.5 if aktywna_id else 5.0):
+                    licz["log"] = teraz
+                    ch = _ev("log", live_log_endpoint())
+                    if ch:
+                        yield ch
+                if aktywna_id and teraz - licz["status"] >= 2:
+                    licz["status"] = teraz
+                    st = reel_status_endpoint(aktywna_id)
+                    if isinstance(st, dict):
+                        st = {**st, "reel_id": aktywna_id}
+                    ch = _ev("status", st)
+                    if ch:
+                        yield ch
+                if teraz - licz["summary"] >= 10:
+                    licz["summary"] = teraz
+                    ch = _ev("summary", panel_summary())
+                    if ch:
+                        yield ch
+                if teraz - licz["ping"] >= 15:
+                    licz["ping"] = teraz
+                    yield ": ping\n\n"
+            except Exception:
+                pass  # zrodlo chwilowo pada -> strumien zyje dalej
+            await asyncio.sleep(0.5)
+
+    from fastapi.responses import StreamingResponse
+    return StreamingResponse(
+        strumien(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
