@@ -32,4 +32,4 @@ W 2026 roku nasz ogród dostał własną sieć elektryczną: kable w alejkach, p
 </div>
 :::
 
-Filmy z budowy i ogłoszenia wideo publikujemy na [stronie ROD Woźniki na Facebooku](https://www.facebook.com/profile.php?id=61576190289486).
+Filmy z budowy i ogłoszenia wideo publikujemy na [stronie ROD Woźniki na Facebooku](https://www.facebook.com/1174205105781401).

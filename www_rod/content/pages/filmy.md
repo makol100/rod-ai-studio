@@ -20,4 +20,4 @@ slug: filmy
 
 ## Ogłoszenia wideo
 
-Krótkie rolki z ogłoszeniami zarządu (czyta je awatar AI prezesa i prezenterka Izabela) publikujemy na [stronie ROD Woźniki na Facebooku](https://www.facebook.com/profile.php?id=61576190289486). Najnowsze: [Zakończenie sezonu 2026](https://www.facebook.com/reel/1072180219009887).
+Krótkie rolki z ogłoszeniami zarządu (czyta je awatar AI prezesa i prezenterka Izabela) publikujemy na [stronie ROD Woźniki na Facebooku](https://www.facebook.com/1174205105781401). Najnowsze: [Zakończenie sezonu 2026](https://www.facebook.com/reel/1072180219009887).
