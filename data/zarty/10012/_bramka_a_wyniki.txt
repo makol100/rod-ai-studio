@@ -1,0 +1,46 @@
+KOMENDA: docker exec fabryka-api /app/venv/bin/python /root/rod-ai-studio/data/zarty/10012/_bramka_a.py
+EXIT_CODE=0
+
+/app/venv/lib/python3.14/site-packages/insightface/utils/face_align.py:23: FutureWarning: `estimate` is deprecated since version 0.26 and will be removed in version 2.2. Please use `SimilarityTransform.from_estimate` class constructor instead.
+  tform.estimate(lmk, dst)
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /root/.insightface/models/buffalo_l/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /root/.insightface/models/buffalo_l/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /root/.insightface/models/buffalo_l/det_10g.onnx detection [1, 3, '?', '?'] 127.5 128.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /root/.insightface/models/buffalo_l/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /root/.insightface/models/buffalo_l/w600k_r50.onnx recognition ['None', 3, 112, 112] 127.5 127.5
+set det-size: (640, 640)
+REFERENCJA JANUSZ plik:/root/rod-ai-studio/assets/zarty/karty/janusz_baza.jpg twarze:1 det:0.898886
+REFERENCJA BOHATER plik:/root/rod-ai-studio/assets/zarty/karty/bohater_baza.jpg twarze:1 det:0.874821
+KONFIG model:qwen2.5vl:7b url:http://172.17.0.1:11434/api/generate prompt:'describe what you see' det>=0.6 sim>=0.35 oczekiwane_twarze:1
+=== k01 [JANUSZ] plik:/root/rod-ai-studio/data/zarty/10012/kadry/k01.jpg 1536x2752 prop:OK twarze:1 liczba:OK det:[0.825398] sim:[0.783681] tozsamosc:OK
+VLM_PROMPT k01: describe what you see
+VLM_RESPONSE_BEGIN k01
+The image shows an older man in a garden setting, kneeling next to a lawn mower that appears to be old and slightly rusted. He is holding the cord of the lawn mower with one hand while looking at it closely. The man is wearing a plaid shirt under a beige vest and dark pants. In the background, there are various plants and trees, including what looks like an apple tree with some fruit on it. There is also a wooden shed to the left side of the image, and several gardening tools and containers are visible around him. The scene suggests that he might be inspecting or fixing something related to his lawn mower in his garden.
+VLM_RESPONSE_END k01
+=== k02 [BOHATER] plik:/root/rod-ai-studio/data/zarty/10012/kadry/k02.jpg 1536x2752 prop:OK twarze:1 liczba:OK det:[0.846219] sim:[0.641319] tozsamosc:OK
+VLM_PROMPT k02: describe what you see
+VLM_RESPONSE_BEGIN k02
+The image shows an older man with long, gray hair tied back and a beard, wearing a black t-shirt. He is standing outdoors in a garden or backyard setting, surrounded by greenery and a wooden shed. The man appears to be inspecting or working on a rusted lawnmower. Attached around his neck is a multimeter, suggesting he might be checking the electrical components of the mower. The scene conveys a sense of practical work and outdoor activity.
+VLM_RESPONSE_END k02
+=== k03 [BOHATER] plik:/root/rod-ai-studio/data/zarty/10012/kadry/k03.jpg 1536x2752 prop:OK twarze:1 liczba:OK det:[0.868582] sim:[0.760596] tozsamosc:OK
+VLM_PROMPT k03: describe what you see
+VLM_RESPONSE_BEGIN k03
+The image shows an older man with long gray hair tied back and a full beard, standing outdoors in a garden setting. He is wearing a black T-shirt and has a digital multimeter hanging around his neck on a lanyard. The man appears to be pointing towards something off-camera with his right hand while speaking or explaining something.
+
+In the background, there is a wooden shed or small structure partially covered by greenery. To the right of the man, there is an old, rusted lawnmower leaning against the shed. The garden around him is lush and filled with various plants and flowers, suggesting it might be spring or summer. The overall scene gives off a rustic and natural vibe.
+VLM_RESPONSE_END k03
+=== k04 [JANUSZ] plik:/root/rod-ai-studio/data/zarty/10012/kadry/k04.jpg 1536x2752 prop:OK twarze:1 liczba:OK det:[0.850282] sim:[0.773683] tozsamosc:OK
+VLM_PROMPT k04: describe what you see
+VLM_RESPONSE_BEGIN k04
+The image shows an older man standing in a garden setting, holding a coiled hose in his hands. He is wearing a beige vest over a plaid shirt and dark pants. The background features lush greenery with various plants and flowers, including tomatoes on the vine. There is also a wooden shed to the right of the man, and part of an old lawnmower can be seen in front of him. The overall scene suggests that he might have been working or preparing to work in his garden.
+VLM_RESPONSE_END k04
+=== k05 [JANUSZ] plik:/root/rod-ai-studio/data/zarty/10012/kadry/k05.jpg 1536x2752 prop:OK twarze:1 liczba:OK det:[0.835486] sim:[0.579741] tozsamosc:OK
+VLM_PROMPT k05: describe what you see
+VLM_RESPONSE_BEGIN k05
+The image shows an older man standing in a garden, plugging in the cord of a lawn mower into an electrical outlet on a wooden shed. The man is wearing a beige vest over a blue and brown plaid shirt, along with dark cargo pants. The background features lush greenery, including trees and flowers, indicating that it is likely spring or summer. The scene suggests that he is preparing to use the lawn mower for gardening tasks.
+VLM_RESPONSE_END k05

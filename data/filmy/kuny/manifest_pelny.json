@@ -1,0 +1,120 @@
+{
+ "sceny": [
+  {
+   "media": "pilot/intro_izabela_open.mp4",
+   "audio": "pilot/intro_open.mp3"
+  },
+  {
+   "media": "pilot/intro_veo.mp4",
+   "audio": "pilot/intro_broll.mp3"
+  },
+  {
+   "media": "pilot/intro_izabela_close.mp4",
+   "audio": "pilot/intro_close.mp3"
+  },
+  {
+   "media": "video/veo_cz1.mp4",
+   "audio": "audio/c1a.mp3"
+  },
+  {
+   "media": "obrazy/04.png",
+   "audio": "audio/c1b.mp3"
+  },
+  {
+   "media": "obrazy/05.png",
+   "audio": "audio/c1c.mp3"
+  },
+  {
+   "media": "obrazy/06.png",
+   "audio": "audio/c2a.mp3"
+  },
+  {
+   "media": "obrazy/07.png",
+   "audio": "audio/c2b.mp3"
+  },
+  {
+   "media": "obrazy/08.png",
+   "audio": "audio/c2c.mp3"
+  },
+  {
+   "media": "obrazy_montaz/09.png",
+   "audio": "audio/c3a.mp3"
+  },
+  {
+   "media": "obrazy_montaz/10.png",
+   "audio": "audio/c3b.mp3"
+  },
+  {
+   "media": "obrazy_montaz/11.png",
+   "audio": "audio/c3c.mp3"
+  },
+  {
+   "media": "video/veo_cz4.mp4",
+   "audio": "audio/c4a.mp3"
+  },
+  {
+   "media": "obrazy/13.png",
+   "audio": "audio/c4b.mp3"
+  },
+  {
+   "media": "obrazy/14.png",
+   "audio": "audio/c4c.mp3"
+  },
+  {
+   "media": "obrazy/15.png",
+   "audio": "audio/c4d.mp3"
+  },
+  {
+   "media": "obrazy/16.png",
+   "audio": "audio/c5a.mp3"
+  },
+  {
+   "media": "obrazy/17.png",
+   "audio": "audio/c5b.mp3"
+  },
+  {
+   "media": "obrazy/18.png",
+   "audio": "audio/c5c.mp3"
+  },
+  {
+   "media": "obrazy/24.png",
+   "audio": "audio/j1.mp3"
+  },
+  {
+   "media": "obrazy/20.png",
+   "audio": "audio/j2.mp3"
+  },
+  {
+   "media": "obrazy/24.png",
+   "audio": "audio/j3.mp3"
+  },
+  {
+   "media": "obrazy/19.png",
+   "audio": "audio/j4.mp3"
+  },
+  {
+   "media": "obrazy_montaz/25.png",
+   "audio": "audio/c7a.mp3"
+  },
+  {
+   "media": "obrazy/21.png",
+   "audio": "audio/c7b.mp3"
+  },
+  {
+   "media": "obrazy/21.png",
+   "audio": "audio/c7c.mp3"
+  },
+  {
+   "media": "obrazy_montaz/25.png",
+   "audio": "audio/c7d.mp3"
+  },
+  {
+   "media": "video/veo_cz7.mp4",
+   "audio": "audio/c7e.mp3"
+  },
+  {
+   "media": "obrazy/23.png",
+   "audio": "audio/c8a.mp3"
+  }
+ ]
+}

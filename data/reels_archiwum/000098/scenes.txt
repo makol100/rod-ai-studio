@@ -1,0 +1,31 @@
+SCENA 1:
+UJĘCIE: Z bliska na białą stację pogodową zamontowaną na drewnianym maszcie, z trzema czaszami anemometru poruszającymi się lekko. W tle grządka warzyw w pełnym słońcu.
+LEKTOR: "Podlewasz o złej porze? Twoja działka może Ci to powiedzieć."
+
+SCENA 2:
+UJĘCIE: Szeroki plan na altankę z dużym kolorowym ekranem LCD przypiętym do ściany. Na ekranie widać wykres temperatury i wilgotności. W tle stół ogrodowy z narzędziami.
+LEKTOR: "Stacja mierzy temperaturę powietrza - widzisz na żywo, czy jest upał."
+
+SCENA 3:
+UJĘCIE: Zbliżenie na zintegrowany czujnik stacji na maszcie, w tle liście kapusty pokryte kroplami rosy w lekkim porannym świetle.
+LEKTOR: "I wilgotność powietrza - wiesz, kiedy rośnie ryzyko chorób grzybowych."
+
+SCENA 4:
+UJĘCIE: Ujęcie z dołu na anemometr i wiatrowskaz wirujący szybko przy silnym podmuchu. W tle pochylone trzciny ozdobne, niebo z chmurami.
+LEKTOR: "Widzi siłę oraz kierunek wiatru - chronisz młode sadzonki przed wyłamaniem."
+
+SCENA 5:
+UJĘCIE: Makro na czujnik opadów z pełną tacką deszczu. Kropelki spływające po plastikowej obudowie, mokra trawa w tle.
+LEKTOR: "Rejestruje każdy milimetr deszczu - wiesz, czy podlewać, czy odpuścić."
+
+SCENA 6:
+UJĘCIE: Półzbliżenie na ekran smartfona z otwartą aplikacją Wunderground. Wykres ciśnienia atmosferycznego spada gwałtownie, ostrzeżenie o burzy w prawym rogu.
+LEKTOR: "A nagłe skoki ciśnienia uprzedzają o zbliżającej się ulewie."
+
+SCENA 7:
+UJĘCIE: Działkowiec (w roboczym fartuchu) sprawdza dane na telefonie, po czym idzie w stronę tunelu foliowego z nożycami ogrodowymi. Słońce nisko nad horyzontem.
+LEKTOR: "Decydujesz precyzyjnie kiedy podlewać, przycinać czy okrywać rośliny."
+
+SCENA 8:
+UJĘCIE: Powrót do stacji pogodowej na maszcie - teraz widać panel słoneczny i zielony liść dębu obok. Złota godzina, ciepłe światło.
+LEKTOR: "Masz to pod kontrolą przez cały sezon."

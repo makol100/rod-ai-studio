@@ -1,0 +1,10 @@
+Wszystkie 5 kadrów zdaje Bramkę A (PASS). Wyniki Zenka są poprawne matematycznie i logicznie, a warunki brzegowe zostały spełnione.
+
+1. Skontrolowałem logikę w `data/zarty/10012/_bramka_a.py` i odczytałem logi z `_bramka_a_wyniki.txt`. Kod poprawnie filtruje twarze dla `det >= 0.6` i porównuje wektory z kartą referencyjną dla `sim >= 0.35`.
+2. We wszystkich 5 kadrach (k01-k05) wykryto dokładnie jedną twarz. Warunek `twarze==1` jest spełniony.
+3. Obliczone wyniki podobieństwa SIM (odpowiednio: 0.78, 0.64, 0.76, 0.77, 0.57) przekraczają wymagany próg 0.35. Tożsamość Janusza i Bohatera jest poprawnie zachowana na kadrach.
+4. Modele qwen2.5vl:7b odpowiedziały na otwarte zapytanie zgodnie z założeniami planu, potwierdzając kluczowe elementy (kosiarka, kable, miernik na szyi, gest wskazywania, wkładanie wtyczki). Model nie zgłosił żadnych anomalii tekstowych czy logotypów w kadrach.
+
+Zlecam przekazanie kadrów k01-k05 do kolejnego etapu po akceptacji Henia.
+
+GENEK

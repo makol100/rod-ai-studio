@@ -1,0 +1,60 @@
+# GŁOS HENIA — AUDYT ZGODNOŚCI Z REGUŁAMI SERII (bramka A, 10012 "Rezystancja Izolacji")
+
+## HISTORIA — AUDYT WERSJI STARTOWEJ PRZED POPRAWKĄ PROMPTU
+
+Poniższy audyt dokumentuje stan wersji startowej. Nie jest werdyktem dla aktualnego skryptu.
+
+Pierwszy audyt wykazał, że ówczesny prompt kierował odpowiedź VLM przez wyliczenie kategorii
+oczekiwanego opisu. Z tego powodu wersja startowa nie spełniała reguły pytania otwartego.
+Pozostałe sprawdzone elementy — jedna karta bazowa na postać, progi detekcji i podobieństwa oraz
+kontrola liczby twarzy — oceniono jako zgodne. Brzmienia starego promptu nie ma w aktualnych
+źródłach, dlatego historia zachowuje wyłącznie parafrazę ustalenia.
+
+— Henio
+
+---
+
+## STAN AKTUALNY PO POPRAWCE I PRZELOCIE BRAMKI
+
+### POTWIERDZONE
+
+1. **Pytanie VLM otwarte — PASS.** Aktualny skrypt ma dokładnie
+   `VLM_PROMPT = "describe what you see"` (`_bramka_a.py`, linia 17), a wynik każdego kadru
+   zapisuje ten sam prompt (`_bramka_a_wyniki.txt`, linie 21, 26, 31, 38, 43). Nie ma pytań
+   naprowadzających ani listy oczekiwanych elementów.
+
+2. **Jedna referencja z domeny dziennej — PASS.** `KARTY` wskazuje po jednej karcie na postać:
+   `janusz_baza.jpg` i `bohater_baza.jpg` (`_bramka_a.py`, linia 12). Są to dwie postacie i
+   dokładnie jedna referencja `*_baza.jpg` dla każdej; zlecenie klasyfikuje obie jako domenę
+   DZIENNĄ. Przelot odczytał po jednej twarzy z każdej karty: JANUSZ det=0.898886 i BOHATER
+   det=0.874821 (`_bramka_a_wyniki.txt`, linie 17-18).
+
+3. **Progi — PASS.** Kod ustawia `DET_THRESHOLD = 0.6` i `SIM_THRESHOLD = 0.35`
+   (`_bramka_a.py`, linie 13-14), filtruje twarze przez det>=0.6 (linie 27 i 64) i tożsamość
+   przez sim>=0.35 (linia 69). Konfigurację potwierdza log (`_bramka_a_wyniki.txt`, linia 19).
+
+4. **Twarze=1 na kadr — PASS dla wszystkich 5 kadrów.** Kod wymaga `len(tw) == 1`
+   (`_bramka_a.py`, linia 70). Log podaje `twarze:1 liczba:OK` dla wszystkich pięciu kadrów
+   (`_bramka_a_wyniki.txt`, linie 20, 25, 30, 37, 42). Wszystkie det są >=0.6, a wszystkie
+   sim są >=0.35. Otwarty opis VLM nie zgłosił tekstu ani logo w żadnym z 5 kadrów.
+
+### WERDYKT HENIA PER KADR
+
+| Kadr | Werdykt | Dowód |
+|---|---|---|
+| k01 | **PASS** | 1 twarz, det=0.825398, sim=0.783681. Otwarty opis: starszy mężczyzna klęczy przy starej kosiarce, trzyma i ogląda przewód (`_bramka_a_wyniki.txt`, linie 20-24). Oględziny kadru potwierdzają odcinki przewodu owinięte taśmą; brak czytelnego tekstu/logo. |
+| k02 | **PASS** | 1 twarz, det=0.846219, sim=0.641319. Otwarty opis: mężczyzna z długimi siwymi włosami związanymi z tyłu i brodą ogląda kosiarkę; ma multimetr na szyi (`_bramka_a_wyniki.txt`, linie 25-29). Oględziny potwierdzają poważny wyraz twarzy; brak czytelnego tekstu/logo. |
+| k03 | **PASS** | 1 twarz, det=0.868582, sim=0.760596. Otwarty opis: ten sam wygląd — związane długie siwe włosy, pełna broda, czarny T-shirt i multimetr — oraz wskazywanie prawą ręką (`_bramka_a_wyniki.txt`, linie 30-36). Brak czytelnego tekstu/logo. |
+| k04 | **FAIL** | Metryki twarzy przechodzą: 1 twarz, det=0.850282, sim=0.773683. Scena nie przechodzi: otwarty opis mówi o starszym mężczyźnie stojącym w ogrodzie i trzymającym zwinięty przewód/wąż (`_bramka_a_wyniki.txt`, linie 37-41); oględziny potwierdzają zwykły kadr z przodu/boku, nie wymagane zbliżenie przez ramię. |
+| k05 | **FAIL** | Metryki twarzy przechodzą: 1 twarz, det=0.835486, sim=0.579741. Scena nie przechodzi: otwarty opis lokalizuje gniazdko na drewnianej szopie (`_bramka_a_wyniki.txt`, linie 42-46), a plan wymaga gniazdka na słupku; oględziny potwierdzają montaż gniazdka na ścianie szopy i kadr bez całej sylwetki. |
+
+### WNIOSEK HENIA
+
+Aktualna implementacja czterech reguł kontrolnych przechodzi: otwarty prompt, jedna dzienna
+referencja na postać, progi det>=0.6 i sim>=0.35 oraz jedna twarz na kadr. Cała bramka A daje
+**k01 PASS, k02 PASS, k03 PASS, k04 FAIL, k05 FAIL**, ponieważ k04 i k05 nie spełniają planu sceny.
+
+**NIE WIEM:** sam brak wzmianki VLM o tekście/logo nie stanowi matematycznego dowodu ich braku;
+własne oględziny nie wykazały czytelnego tekstu ani logo.
+
+— HENIO

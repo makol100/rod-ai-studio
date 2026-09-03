@@ -1,0 +1,43 @@
+GŁOS GENKA — niezależna kontrola BRAMKI A, odcinek 10012
+
+WERDYKT GENKA: k01 PASS, k02 PASS, k03 PASS, k04 FAIL, k05 FAIL.
+Wynik zestawu według koniunkcji z briefu: FAIL (3/5 PASS, 2/5 FAIL).
+
+POTWIERDZONE
+
+1. Kryterium pochodzi z `data/zarty/10012/_brief_bramka_a.md:4-5,15`: dokładnie 1 twarz, det>=0.6, sim>=0.35, zgodność sceny z planem i zero tekstu/logo. `wiedza/DROGA_ROLKA_HUMOR.md:86-87` niezależnie potwierdza cosine>=0.35 oraz kontrolę VLM ubioru, liczby osób i tekstu.
+
+2. Własny przelot Genka został wykonany przed odczytem pliku Zenka. ŚLAD: `docker exec -i fabryka-api /app/venv/bin/python -`, `FaceAnalysis(name='buffalo_l', providers=['CPUExecutionProvider'])`, `ctx_id=-1`, `det_size=(640,640)`, filtr `det_score>=0.6`, po jednej dziennej karcie właściwej postaci, cosine z `normed_embedding`. Karty: JANUSZ faces=1 det=0.8989; BOHATER faces=1 det=0.8748. Kadry:
+   k01 JANUSZ: faces=1, det=0.825398, sim=0.783681;
+   k02 BOHATER: faces=1, det=0.846219, sim=0.641319;
+   k03 BOHATER: faces=1, det=0.868582, sim=0.760596;
+   k04 JANUSZ: faces=1, det=0.850282, sim=0.773683;
+   k05 JANUSZ: faces=1, det=0.835486, sim=0.579741.
+   Wszystkie 5/5 spełniają część twarze==1 AND det>=0.6 AND sim>=0.35.
+
+3. ŚLAD VLM: lokalny `qwen2.5vl:7b` przez `http://172.17.0.1:11434/api/generate`, osobno na każdym pełnym JPG, dostał to samo pytanie otwarte bez treści planu: `Describe exactly what you see in this image. Include how many people are visible, their appearance and clothing, their actions, important objects, and every visible word, logo, or symbol. Do not infer from any expected scene; report only visible evidence.` Wyniki: k01 — starszy mężczyzna klęczy przy starej kosiarce i trzyma przewód, brak słów/logo/symboli; k02 — mężczyzna z kucykiem i brodą, miernik na szyi, skupiony przy kosiarce, brak innych osób; k03 — ten wygląd, miernik na szyi, wskazuje poza kadr/w stronę sprzętu, brak rozpoznawalnego tekstu/logo; k04 — starszy mężczyzna stoi i trzyma zwinięty przewód przy kosiarce; k05 — starszy mężczyzna podłącza coś do gniazdka przymocowanego do drewnianej altany/struktury, brak tekstu/logo.
+
+4. ŚLAD oglądu: narzędziem view_image otwarto każdy z 5 plików 1536x2752 w pełnej rozdzielczości. k01: starszy mężczyzna kuca przy kosiarce, kilka odcinków kabla jest owiniętych taśmą. k02: poważny/skupiony brodaty mężczyzna z kucykiem i miernikiem. k03: ta sama postać wskazuje kosiarkę. k04: ujęcie od przodu/lekko z boku od głowy do kolan; brak ramienia drugiej osoby na pierwszym planie. k05: gniazdko na ścianie altany; sylwetka ucięta poniżej kolan. W żadnym kadrze nie stwierdziłem czytelnego napisu ani rozpoznawalnego logo.
+
+5. Werdykty per kadr i porównanie z Zenkiem po pojawieniu się `_bramka_a_wyniki.txt` oraz `zenek.txt`:
+   k01 PASS — 1 twarz, sim=0.783681; starszy pan kuca przy kosiarce, kabel ma taśmę. Zgodne z Zenkiem.
+   k02 PASS — 1 twarz, sim=0.641319; kucyk, broda, miernik i skupione/poważne spojrzenie. Zgodne z Zenkiem.
+   k03 PASS — 1 twarz, sim=0.760596; ta sama postać z miernikiem wskazuje. Zgodne z Zenkiem.
+   k04 FAIL — 1 twarz i sim=0.773683 przechodzą, ale nie ma zbliżenia przez ramię: to ujęcie postaci od przodu/lekko z boku, od głowy do kolan. Rozbieżność: Zenek dał PASS i nazwał to spojrzeniem przez ramię; pełny kadr nie pokazuje ramienia na pierwszym planie ani kompozycji over-the-shoulder.
+   k05 FAIL — 1 twarz i sim=0.579741 przechodzą, lecz gniazdko jest na ścianie altany, nie na słupku, a cała sylwetka nie mieści się w kadrze. Zgodny FAIL z Zenkiem; Genek dodatkowo odnotowuje ucięcie sylwetki.
+
+HIPOTEZY
+
+Brak. Werdykty opierają się na pomiarze InsightFace, otwartym opisie VLM i oglądzie pełnej rozdzielczości.
+
+NIE WIEM
+
+Nie wiem, czy nieczytelne mikronapisy techniczne na mierniku lub zatarta etykieta kosiarki mają być traktowane jak zakazany tekst/logo. VLM nie odczytał z nich żadnych słów ani logo, a ogląd pełnego obrazu nie wykazał czytelnego napisu ani rozpoznawalnego znaku.
+
+ŚLAD KOLIZJI
+
+Pierwszy pełny zapis Genka miał 4012 bajtów i został odczytany z dysku. Następnie `stat` wykazał, że o 11:20:26 UTC `genek.txt` został nadpisany do 746 bajtów przez równoległy proces raportem obejmującym wyłącznie similarity; obok powstał nieutworzony przeze mnie `genek_sim.py`. Koordynator wydał zgodę na ponowny zapis pełnego własnego głosu. Nie zmieniłem żadnego innego pliku.
+
+Nie wiem, który równoległy proces wykonał nadpisanie; nie przypisuję autorstwa bez dowodu.
+
+Podpis: GENEK

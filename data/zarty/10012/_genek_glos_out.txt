@@ -1,0 +1,47 @@
+## 1. ROZBICIE NA KLIPY
+Odcinek dzielę na 4 klipy (k01..k04) z następującą zawartością:
+1. **k01 (Tomek):** Tomek wchodzi zza kadru w planie średnim i mówi do Janusza. Kwestia Tomka ma 22 słowa (nie 23) i w tempie Veo (~2.5 słowa/s) zajęłaby około 8.8 s, co przekracza 8-sekundowy limit wideo i grozi ucięciem mowy. Dlatego tnę ją na granicy zdań kanonu na dwa klipy: k01 i k02. Kwestia k01 (14 słów): "Janusz, badałeś ty kiedyś ciągłość przewodu ochronnego i rezystancję izolacji na tym kablu YKY?".
+2. **k02 (Tomek):** Zbliżenie na poważną twarz Tomka mówiącego drugą część kwestii (8 słów): "Przecież tu ci zaraz różnicówkę wywali w kosmos.".
+3. **k03 (Janusz):** Plan średni na Janusza. Puenta Janusza ma 17 słów, co w tempie 2.5 słowa/s zajmie około 6.8 s – mieści się idealnie w jednym 8-sekundowym klipie. Janusz wygłasza kwestię: "Panie, to ma prąd przewodzić, a nie mieć jakąś... rezystancję. Od 30 lat działa!".
+4. **k04 (Akcja, niemy):** Zbliżenie na gniazdko. Janusz wciska wtyczkę do gniazdka, następuje komediowy błysk zwarcia, kadr gaśnie. Dzielenie puenty na k03 (mowa) i k04 (akcja) jest konieczne, bo połączenie mowy, spluwania i precyzyjnego wkładania wtyczki w jednym klipie 8s doprowadziłoby do przepełnienia czasu, zniekształcenia rąk i asynchroniczności mowy.
+
+## 2. RYZYKA VEO I ROZBROJENIE
+1. **Owijanie taśmą (palce):** Veo fatalnie renderuje precyzyjny ruch palców owijających cienki przewód. Rozbrajam to w k01 poprzez pokazanie Janusza w statycznej, pasywnej pozie – stoi, trzymając w dłoniach przedłużacz z już nawiniętą szarą taśmą i rolkę, unikając zbliżeń na dłonie.
+2. **Spluwanie przez ramię (paraliż fizyki):** Veo nie potrafi poprawnie wygenerować plucia śliną, co wywoła artefakty wokół ust lub blokadę safety. Rozbrajam to w k03, zastępując plucie komediowym, lekceważącym i energicznym machnięciem ręką połączonym z pogardliwym prychnięciem.
+3. **Wkładanie wtyczki (precyzyjny gest):** Precyzyjne spasowanie bolców wtyczki z dziurkami gniazdka przekracza możliwości fizyczne Veo. Rozbrajam to w k04 poprzez zastosowanie dynamicznego zbliżenia z boku z efektem motion blur na dłoni, co zamaskuje sam moment styku szybkim, zdecydowanym ruchem wciskającym.
+4. **Miernik Sonel (logotypy):** Nazwa handlowa "Sonel" grozi wygenerowaniem zniekształconego tekstu i blokadą znaku towarowego. Rozbrajam to w k01 i k02, opisując urządzenie jako uniwersalny żółto-czarny miernik cyfrowy na pasku bez jakichkolwiek napisów, logotypów czy tekstu na obudowie.
+
+## 3. KANAREK
+Jako klip-kanarek wybieram **k01**. Zawiera on najtrudniejszą frazę mowy o najwyższym zagęszczeniu specjalistycznych polskich słów technicznych ("ciągłość przewodu ochronnego", "rezystancję izolacji", "kabel YKY"). Jest to kluczowy test dla lektora pod kątem wymowy skrótowca "YKY" (musi brzmieć "igrek ka igrek") i naturalności polskiego akcentu w trudnej nomenklaturze, zanim wydamy środki na resztę batcha.
+
+## 4. HUK WYBIJANYCH KORKÓW
+Dźwięk wybuchu/zwarcia musi być dodany jako **SFX w montażu**, a nie audio-prompt w Veo, co zapewnia precyzyjną, klatkową synchronizację z błyskiem wizualnym i stabilną głośność.
+Źródła z licencją Public Domain/CC0 (zero atrybucji):
+1. Skan bazy Wikimedia Commons / Freesound.org pod hasłem "Electric Spark, Short Circuit" lub "Circuit Breaker Trip" (np. pliki na licencji CC0 autora InspectorJ lub kwahmah_02).
+2. Proceduralna generacja czystego efektu w post-processingu za pomocą skryptu Python (użycie biblioteki `scipy.io.wavfile` do wygenerowania 1.5s białego szumu o wykładniczym zaniku zmieszanego z niskim przesterowanym buczeniem 50Hz i szybkim pikiem tonalnym, co daje perfekcyjny, autorski i darmowy efekt komediowego zwarcia).
+
+## 5. PROMPTY EN
+
+### k01 [BOHATER] [mówiący plan średni] [dzień]
+Bright sunny midday in a lush green Polish allotment garden, lighthearted comedy sketch, mockumentary style. In the background, a tall thin man in his mid-sixties with a grey mustache, reading glasses on a cord, and a beige multi-pocket vest is standing on the grass, holding a grey-wrapped electrical cord. In the foreground, a man with a long ponytail, full salt-and-pepper beard, and a black t-shirt, who has a professional yellow-and-black digital multimeter on a strap around his neck with no text or logos, walks into the medium shot. He looks with serious, exaggerated mock-concern at the lawnmower, then looks at Janusz and says in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: "Janusz, badałeś ty kiedyś ciągłość przewodu ochronnego i rezystancję izolacji na tym kablu YKY?" Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text.
+
+### k02 [BOHATER] [mówiący zbliżenie] [dzień]
+Bright sunny midday in a lush green Polish allotment garden, lighthearted comedy sketch, mockumentary style. A medium close-up shot of a man with a long ponytail, full salt-and-pepper beard, and a black t-shirt, who has a professional yellow-and-black digital multimeter on a strap around his neck. He has a very serious, deadpan expression, gesturing with his index finger warningly towards the camera, and says in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native Polish with a natural Polish accent: "Przecież tu ci zaraz różnicówkę wywali w kosmos." Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text.
+
+### k03 [JANUSZ] [mówiący plan średni] [dzień]
+Bright sunny midday in a lush green Polish allotment garden, lighthearted comedy sketch, mockumentary style. A medium shot of a tall thin man in his mid-sixties with a grey mustache, reading glasses on a cord, a beige multi-pocket vest, and a beige sun hat. He stands on the grass, holding a grey-wrapped electrical cord, and stops his work. He looks at Tomek with complete incomprehension and exaggerated mock-disdain, makes an energetic and dismissive hand wave, and says in Polish, in a dry, officious elderly Polish male voice, speaking fluent native Polish with a natural Polish accent: "Panie, to ma prąd przewodzić, a nie mieć jakąś... rezystancję. Od 30 lat działa!" Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text.
+
+### k04 [JANUSZ] [niemy zbliżenie] [dzień]
+Bright sunny midday in a lush green Polish allotment garden, lighthearted comedy sketch. A close-up shot of a man's hand holding a black electrical plug at the end of a grey-wrapped cord and pushing it in a single quick, decisive motion into an outdoor green electrical outlet on a wooden post. There is motion blur on the hand. As soon as the plug goes in, a brief bright yellow comical electric spark and puff of smoke flash from the outlet, and the frame immediately blacks out. No speech, silent action with ambient garden sounds. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text.
+
+## 6. BUDŻET
+Wycena mojego rozbicia na 4 klipy:
+- **Koszty kadrów startowych (NB Pro):** 4 kadry × $0.15 = $0.60
+- **Koszty klipów wideo (Veo 3.1 fast):** 4 klipy × $1.20 = $4.80
+- **Bazowy koszt odcinka (bez poprawek):** $0.60 + $4.80 = **$5.40**
+Zapas na poprawki (re-rolle) wynosi dokładnie **$6.60** ($12.00 limit - $5.40 koszt bazowy), co pozwala na bezpieczne wykonanie do 5 pełnych poprawek wideo ($1.20/klip) lub kombinację poprawek kadrów i wideo w ramach dopuszczalnego standardu serii $12.
+
+KONKRETNA CZYNNOŚĆ DO ZROBIENIA:
+Wygenerować kadr startowy dla klipu k01 za pomocą tools/zenek_obraz.py w celu zatwierdzenia przez Tomasza i przeprowadzenia testu kanarka.
+
+GENEK

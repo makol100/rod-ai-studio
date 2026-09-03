@@ -1,0 +1,25 @@
+KLAUDEK — GŁOS WŁASNY
+
+POTWIERDZONE
+
+1. Odczyt `_bramka_a_wyniki.txt` potwierdza EXIT_CODE=0. Wszystkie 5 kadrów ma dokładnie 1 twarz, det>=0.6 i sim>=0.35. Zmierzone sim: k01=0.783681, k02=0.641319, k03=0.760596, k04=0.773683, k05=0.579741. Skrypt użył promptu literalnego `describe what you see` i po jednej karcie bazowej właściwej postaci.
+
+2. Mój niezależny odczyt pięciu obrazów źródłowych daje werdykty względem literalnych warunków zlecenia:
+
+   - k01 PASS — jeden starszy mężczyzna kuca przy kosiarce i trzyma przewód owinięty szarą taśmą; nie widzę tekstu ani logo.
+   - k02 FAIL — postać, miernik i poważny wyraz twarzy są zgodne, ale na panelu miernika widać drukowane oznaczenia wokół pokrętła. Literalny warunek wymaga zera tekstu/logo w obrazie.
+   - k03 FAIL — ten sam mężczyzna wskazuje, lecz panel miernika ponownie ma widoczne drukowane oznaczenia. Literalny warunek wymaga zera tekstu/logo w obrazie.
+   - k04 FAIL — jest starszy mężczyzna z przewodem, ale ujęcie pokazuje go od przodu/lekko z boku od głowy do kolan; nie jest zbliżeniem przez ramię.
+   - k05 FAIL — wtyczka trafia do gniazdka na ścianie drewnianej altany, nie na słupku; kadr ucina sylwetkę poniżej łydek, więc nie pokazuje całej sylwetki.
+
+3. Otwarty VLM spontanicznie opisał treść wszystkich pięciu scen, ale nie podał informacji o tekście/logo. Z tego opisu nie wynika potwierdzenie warunku „zero tekstu/logo”.
+
+HIPOTEZY
+
+- Brak hipotezy użytej do pomiarów twarzy. Rozbieżność dotycząca drugiego i trzeciego kadru obejmuje ścisłe znaczenie „zero tekstu” dla fabrycznych oznaczeń na rekwizycie, a nie wynik InsightFace.
+
+NIE WIEM
+
+- NIE WIEM, czy Tomasz zamierza traktować drobne oznaczenia funkcyjne miernika jako dozwolony element rekwizytu mimo literalnego warunku „zero tekstu/logo”. Decyzja należy wyłącznie do Tomasza; mój literalny werdykt pozostaje FAIL.
+
+Podpis: KLAUDEK

@@ -1,0 +1,5 @@
+file '/root/rod-ai-studio/data/zarty/10012/trim_k01.mp4'
+file '/root/rod-ai-studio/data/zarty/10012/trim_k02.mp4'
+file '/root/rod-ai-studio/data/zarty/10012/trim_k03.mp4'
+file '/root/rod-ai-studio/data/zarty/10012/trim_k04.mp4'
+file '/root/rod-ai-studio/data/zarty/10012/trim_k05.mp4'
