@@ -249,10 +249,6 @@ def main() -> int:
     return 0
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
-    _cache_bust()
-
 # CACHE_BUST (03.09): po kazdym buildzie podmien ?v= na skrot CSS+JS, zeby telefony nie trzymaly starych plikow
 def _cache_bust():
     import hashlib, re as _re
@@ -260,6 +256,16 @@ def _cache_bust():
     v = hashlib.md5((dist / "static/styles.css").read_bytes() + (dist / "static/app.js").read_bytes()).hexdigest()[:8]
     for html in dist.rglob("*.html"):
         s = html.read_text(encoding="utf-8")
-        s = _re.sub(r'(/static/(?:styles\.css|app\.js|img/logo\.png))(\?v=\w+)?', lambda m: m.group(1) + "?v=" + v, s)
+        s = _re.sub(r'/static/styles(?:\.[0-9a-f]{8})?\.css(\?v=\w+)?', "/static/styles." + v + ".css", s)
+        s = _re.sub(r'/static/app(?:\.[0-9a-f]{8})?\.js(\?v=\w+)?', "/static/app." + v + ".js", s)
         html.write_text(s, encoding="utf-8")
+    import shutil as _sh
+    _sh.copy2(dist / "static/styles.css", dist / ("static/styles." + v + ".css"))
+    _sh.copy2(dist / "static/app.js", dist / ("static/app." + v + ".js"))
     print("cache-bust v=" + v)
+
+
+if __name__ == "__main__":
+    _rc = main()
+    _cache_bust()
+    raise SystemExit(_rc)
