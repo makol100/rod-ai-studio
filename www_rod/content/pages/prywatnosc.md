@@ -20,6 +20,10 @@ Strona nie używa plików cookie śledzących, analityki ani reklam. Serwer zapi
 
 Podgląd z kamer parkingu działa w osobnej strefie chronionej hasłem, dostępnej tylko dla członków ROD. Szczegółowa informacja o monitoringu (cel, podstawa, okres przechowywania nagrań, prawa osób) jest dostępna na stronie kamer po zalogowaniu.
 
+## Licznik odwiedzin
+
+W stopce pokazujemy prosty licznik odwiedzin. Nie używa plików cookie: gość dzienny jest liczony na podstawie jednorazowego skrótu (adres IP + przeglądarka + data), którego nie da się odwrócić i który nie jest przechowywany.
+
 ## Twoje prawa
 
 Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo sprzeciwu oraz prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych. W sprawach danych pisz na [rodwozniki@gmail.com](mailto:rodwozniki@gmail.com).
