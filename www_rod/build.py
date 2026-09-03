@@ -148,7 +148,7 @@ def build() -> list[Path]:
     shutil.copytree(ROOT / "static", static_dest, dirs_exist_ok=True)
     image_dest = static_dest / "img"
     image_dest.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(ROOT.parent / "assets/branding/rod_profilowe.png", image_dest / "logo.png")
+    shutil.copy2(ROOT.parent / "assets/branding/rod_logo_kolo.png", image_dest / "logo.png")
     shutil.copy2(ROOT.parent / "data/rolka-prad/do-rolki/00-MAPA-OGRODU.jpg", image_dest / "mapa-ogrodu.jpg")
     shutil.copy2(ROOT.parent / "data/rolka-prad/do-rolki/ZK-z-tablica-ROD.jpg", image_dest / "elektryfikacja.jpg")
 
