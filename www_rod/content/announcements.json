@@ -1,22 +1,12 @@
 [
   {
-    "id": "20260903-1437-test-bota-ogoszen",
-    "title": "TEST bota ogłoszeń",
-    "date": "2026-09-03T14:37+02:00",
-    "display_date": "03.09.2026",
-    "place": "ROD Woźniki",
-    "body": "Wpis testowy z bota — do usunięcia.",
-    "featured": true,
-    "autor": "Klaudek-test"
-  },
-  {
     "id": "zakonczenie-sezonu-2026",
     "title": "Zakończenie sezonu",
     "date": "2026-09-05T17:00:00+02:00",
     "display_date": "Sobota, 5 września 2026, godz. 17:00",
     "place": "Dom Działkowca",
     "body": "Zapraszamy całe rodziny do Domu Działkowca na terenie naszego ogrodu. Zarząd stawia kiełbaskę, chleb i kawę. Do zobaczenia!",
-    "featured": false,
+    "featured": true,
     "video_fb": "https://www.facebook.com/reel/1072180219009887"
   }
 ]
