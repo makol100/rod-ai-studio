@@ -115,7 +115,7 @@ def announcement_html(item: dict) -> str:
     return (
         f'<div><h2 id="pilne-tytul">{html.escape(item["title"])}</h2>'
         f'<p>{html.escape(item["display_date"])} · {html.escape(item["place"])}</p></div>'
-        '<a class="button" href="/ogloszenia/">Szczegóły</a>'
+        '<a class="button" href="/ogloszenia/">Szczegóły' + (' i film' if item.get("video_fb") else '') + '</a>'
     )
 
 
@@ -127,7 +127,15 @@ def announcements_page(items: list[dict]) -> str:
             f'<time datetime="{html.escape(item["date"])}">{html.escape(item["display_date"])}</time>'
             f'<h2>{html.escape(item["title"])}</h2>'
             f'<p><strong>{html.escape(item["place"])}</strong></p>'
-            f'<p>{html.escape(item["body"])}</p></li>'
+            f'<p>{html.escape(item["body"])}</p>'
+            + (
+                '<div class="fb-wideo"><iframe src="https://www.facebook.com/plugins/video.php?href='
+                + html.escape(item["video_fb"]) + '&show_text=false&t=0" width="360" height="640" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" '
+                'allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" title="Film z ogłoszeniem"></iframe>'
+                '<p><a class="text-link" href="' + html.escape(item["video_fb"]) + '" rel="noopener">Zobacz film na Facebooku →</a></p></div>'
+                if item.get("video_fb") else ""
+            )
+            + '</li>'
         )
     return '<header class="page-hero shell"><p class="eyebrow">Bądź na bieżąco</p><h1>Ogłoszenia</h1></header><section class="page-content"><ul class="announcement-list">' + "".join(cards) + "</ul></section>"
 

@@ -219,3 +219,6 @@ button { font: inherit; }
 @media (max-width: 420px) { .budowa-pasek p { font-size: .9rem; padding: 8px 12px; } }
 .budowa-pasek .znak-budowa { flex: none; width: 46px !important; height: 41px !important; max-width: 46px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
 @media (max-width: 640px) { .budowa-pasek .znak-budowa:last-child { display: none; } .budowa-dopisek { display: none; } }
+
+.fb-wideo { margin-top: 14px; }
+.fb-wideo iframe { max-width: 100%; border-radius: 16px; }
