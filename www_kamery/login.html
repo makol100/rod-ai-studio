@@ -7,24 +7,12 @@
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#2e7d4f">
   <link rel="stylesheet" href="/styles.css">
-  <style>
-    .login-wrap { max-width: 520px; margin: 40px auto; padding: 0 18px; }
-    .login-card { padding: 28px 24px; border-radius: 24px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 24px 70px rgba(24,58,38,.14); }
-    .login-card h1 { margin: 0 0 6px; font-size: 1.7rem; }
-    .login-card p.opis { margin: 0 0 22px; color: var(--muted); }
-    .login-card label { display: block; font-weight: 700; font-size: 1.05rem; margin: 16px 0 6px; }
-    .login-card input { width: 100%; box-sizing: border-box; font-size: 1.35rem; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--line); background: var(--page); color: var(--text); letter-spacing: .04em; }
-    .login-card input:focus { outline: none; border-color: var(--accent); }
-    .login-card button { width: 100%; margin-top: 22px; padding: 16px; font-size: 1.25rem; font-weight: 800; border: 0; border-radius: 999px; background: var(--accent); color: #fffdf6; cursor: pointer; }
-    .login-card .blad { margin: 0 0 8px; padding: 12px 14px; border-radius: 12px; background: #fde8e6; color: #8a1f14; font-weight: 600; display: none; }
-    .login-card .podpow { margin-top: 12px; color: var(--muted); font-size: .95rem; }
-    .login-logo { width: 84px; height: 84px; border-radius: 50%; display: block; margin: 0 auto 14px; }
-  </style>
+  <link rel="stylesheet" href="/login.css">
 </head>
 <body>
   <main class="login-wrap">
     <form class="login-card" method="post" action="/kamery/login" autocomplete="on">
-      <img class="login-logo" src="/logo.png" alt="" onerror="this.style.display='none'">
+      <img class="login-logo" src="/logo.png" alt="">
       <h1>Kamery ROD Woźniki</h1>
       <p class="opis">Podgląd dla członków ogrodu. Wpisz swoje dane i naciśnij „Wejdź".</p>
       <p class="blad" id="blad">Nie udało się zalogować — sprawdź login i hasło (małe litery).</p>
@@ -36,10 +24,6 @@
       <p class="podpow">Hasło dostajesz od zarządu ROD. Po zalogowaniu telefon zapamięta Cię na rok.</p>
     </form>
   </main>
-  <script>
-    const q = new URLSearchParams(location.search);
-    if (q.get('blad')) { document.getElementById('blad').style.display = 'block'; }
-    if (q.get('login')) { document.getElementById('login').value = q.get('login'); }
-  </script>
+  <script src="/login.js" defer></script>
 </body>
 </html>
