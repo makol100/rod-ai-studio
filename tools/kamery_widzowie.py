@@ -1,27 +1,25 @@
 #!/usr/bin/env python3
-"""Co 5 s zapisuje widzowie.json dla strony kamer: ilu oglada (go2rtc) + kto (login z dziennika Caddy, ostatnie 3 min)."""
+"""Co 5 s zapisuje widzowie.json dla strony kamer: ilu oglada (go2rtc) + kto (dziennik /kamery/auth z ostatnich 60 s)."""
 import json, time, datetime, urllib.request, os, collections
-LOG='/var/lib/docker/volumes/caddy_mcp_data/_data/kamery_access.log'
+LOG='/root/rod-ai-studio/data/kamery_dostepy.jsonl'
 OUT='/var/lib/docker/volumes/caddy_mcp_data/_data/www_kamery/widzowie.json'
 NAZWY={'parking_wjazd':'Wjazd','parking_wejscie':'Wejście','parking_smietnik':'Śmietnik'}
 def kto(od):
     who=collections.defaultdict(set)
     try:
         with open(LOG,'rb') as f:
-            f.seek(0,2); size=f.tell(); f.seek(max(0,size-400000)); tail=f.read().decode('utf-8','ignore')
+            f.seek(0,2); size=f.tell(); f.seek(max(0,size-200000)); tail=f.read().decode('utf-8','ignore')
         for l in tail.splitlines():
             try: d=json.loads(l)
             except Exception: continue
-            if d.get('ts',0)<od: continue
-            uri=d.get('request',{}).get('uri','')
-            if '/api/ws' not in uri: continue
-            _c=d.get('request',{}).get('headers',{}).get('Cookie',[''])[0]; who[uri.split('src=')[-1]].add(d.get('user_id') or (_c.split('kamery_auth=')[1].split(':')[0] if 'kamery_auth=' in _c else '?'))
+            if d.get('ts',0)<od or '/api/ws' not in d.get('uri',''): continue
+            who[d['uri'].split('src=')[-1]].add(d.get('user') or '?')
     except FileNotFoundError: pass
     return who
 while True:
     try:
         d=json.load(urllib.request.urlopen('http://127.0.0.1:1984/api/streams',timeout=5))
-        who=kto(time.time()-60); kam=[]; razem=0   # sesje WS z ostatnich 60 s licza sie jako widzowie (player laczy sie ponownie)
+        who=kto(time.time()-60); kam=[]; razem=0
         for k,n in NAZWY.items():
             c=max(len((d.get(k) or {}).get('consumers') or []), len(who.get(k,[]))); razem+=c
             kam.append({'kamera':n,'widzow':c,'kto':sorted(who.get(k,[])) if c else []})
