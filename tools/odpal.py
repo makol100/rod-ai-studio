@@ -18,6 +18,7 @@ krotkim wywolaniem: --stan
 import argparse
 import json
 import os
+import shlex
 import subprocess
 import time
 from pathlib import Path
@@ -28,6 +29,7 @@ ZNACZNIK = Path("/tmp/zaloga_biezace.json")
 
 def odpal(zadanie, kto, katalog, wykonanie=False):
     Path(katalog).mkdir(parents=True, exist_ok=True)
+    os.chmod(katalog, 0o777)  # 31.08: Hermes (user hermes) nie mogl pisac do katalogu roota — glos Henia z n_yt2 wyladowal w /tmp/_henio.txt
     polecenie = [
         "python3", str(KATALOG / "tools/zaloga.py"),
         "--zadanie", zadanie,
@@ -45,10 +47,10 @@ def odpal(zadanie, kto, katalog, wykonanie=False):
     # razem z reszta — Tomasz musial pytac o stan sam. Teraz dzwonek idzie ZAWSZE po zakonczeniu.
     dzwonek = str(KATALOG / "tools/dzwonek.py")
     tytul = f"ZALOGA: {Path(katalog).name}"
+    komunikat = f"Zaloga skonczyla: {Path(katalog).name}. Glosy w {katalog}"
     powloka = (
-        f"timeout 1500 {' '.join(polecenie)} >> {log} 2>&1; "
-        f"python3 {dzwonek} \"Zaloga skonczyla: {Path(katalog).name}. "
-        f"Glosy w {katalog}\" --tytul \"{tytul}\" >> {log} 2>&1"
+        f"timeout 3000 {' '.join(shlex.quote(x) for x in polecenie)} >> {shlex.quote(log)} 2>&1; "
+        f"python3 {shlex.quote(dzwonek)} {shlex.quote(komunikat)} --tytul {shlex.quote(tytul)} >> {shlex.quote(log)} 2>&1"
     )
     with open(log, "w") as f:
         p = subprocess.Popen(

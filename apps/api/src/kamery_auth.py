@@ -29,6 +29,13 @@ def kamery_auth(req: Request):
         if req.headers.get("x-forwarded-uri", "").startswith("/api/") or "text/html" not in req.headers.get("accept", ""):
             return PlainTextResponse("zaloguj", status_code=401)
         return RedirectResponse("/login.html", status_code=302)
+    uri = req.headers.get("x-forwarded-uri", "")
+    if "/api/ws" in uri or "/api/frame.jpeg" in uri or uri in ("/", "/index.html"):
+        try:  # dziennik "kto oglada" — Caddy redaguje Cookie w logach, wiec zapis idzie stad
+            with open("/root/rod-ai-studio/data/kamery_dostepy.jsonl", "a", encoding="utf-8") as f:
+                f.write(json.dumps({"ts": time.time(), "user": user, "uri": uri, "ip": req.headers.get("x-forwarded-for", "").split(",")[0].strip()}) + "\n")
+        except Exception:
+            pass
     return Response(status_code=200, headers={"X-Kamery-User": user})
 @router.post("/kamery/login")
 def kamery_login(login: str = Form(""), haslo: str = Form("")):
