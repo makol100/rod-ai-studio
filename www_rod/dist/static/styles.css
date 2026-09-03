@@ -581,3 +581,19 @@ button { font: inherit; }
 .mapa-lightbox.aktywny { display: flex; }
 .mapa-lightbox img { max-width: 98vw; max-height: 96vh; border-radius: 10px; object-fit: contain; }
 .mapa-close { position: absolute; top: 16px; right: 20px; background: none; border: 0; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; }
+
+/* Ogrodnik ROD — wpisy FB */
+.card-ogrodnik { background: linear-gradient(150deg, #eaf3e4, #dcebd3); }
+.fb-skrot-tyt { font-weight: 800; margin: 10px 0 6px; font-size: 1.05rem; }
+.fb-skrot-tresc { color: var(--muted); font-size: .9rem; margin: 0 0 12px; line-height: 1.5; }
+.fb-lista { display: grid; gap: 16px; margin-top: 18px; }
+.fb-wpis { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 20px 22px; box-shadow: 0 8px 24px rgba(24,58,38,.06); }
+.fb-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.fb-head time { color: var(--muted); font-size: .82rem; }
+.fb-wpis h3 { margin: 4px 0 10px; font-size: 1.2rem; }
+.fb-tresc { line-height: 1.6; margin-bottom: 12px; white-space: normal; }
+.fb-ostrzezenie { border-color: #e5b744; background: #fff8e6; }
+/* Porady miesiąca w karcie pogody */
+.porady-box { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.porady-lista { margin: 8px 0 0; padding-left: 18px; font-size: .92rem; line-height: 1.55; }
+.porady-lista li { margin-bottom: 4px; }
