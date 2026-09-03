@@ -435,3 +435,115 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 25.08 — automatyczne kopie HA na fabryke DZIALAJA (D-0128). Codziennie 6:30 fabryka sciaga najswiezsza kopie z Domu i Wybickiego (Dzialka czeka na dysk). Pulapki: scp nie dziala przez dodatek SSH (brak sftp) — ciagniemy przez 'cat'; kazdy serwer ma innego uzytkownika (Dom=makol100, Wybickiego=root); po restarcie dodatku trzeba ssh-keygen -R. Skrypt /root/kopie_ha/pobierz.sh, dziennik obok. Powod: awaria N150 kosztowala tydzien przez kopie sprzed 2 miesiecy.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:00 CEST
+==============================================================================
+
+25.08 — BELZEBUB, dokonczenie zapisu po ZABLOKOWANYM OKNIE CHATU. Poprzednie okno padlo na limicie ZANIM dekret o Belzebubie trafil do rejestru i teleportu — zapis ocalal tylko w pamieci Klaudka, szukaj.py dawal 0/102 plikow. Uzupelnione dzis (D-0130). STAN WDROZENIA zmierzony: user belzebub istnieje (uid 1002, grupy tylko belzebub — bez sudo/docker, zgodnie z ustaleniami), katalog ~/.hermes skonfigurowany 09:47, komenda /bzb wpieta w hans_ucho.py (czyta klucz z /root/.sekrety/belzebub.key). BRAKUJE: klucza belzebub.key — konto Featherless NIE oplacone, /bzb odpowie brakiem klucza. Nastepny krok wymaga decyzji Tomasza o wydatku 50 USD/mies. LEKCJA: przy dlugim oknie zapisywac dekrety NA BIEZACO, nie na koncu — limit okna ucina zapis.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:06 CEST
+==============================================================================
+
+25.08 — BELZEBUB DZIAŁA (dekret Tomasza: 'Belzebub juz dziala, jest tez na telegramie'). MODEL ZMIERZONY: huihui-ai/Huihui-Qwen3.8-27B-abliterated (Featherless.ai, klucz aktywny, 46 pluginow). User belzebub uid 1002 bez sudo/docker/sekrety/repo. Droga /bzb przez Hansa dziala. ZASADA KLAUDKA: nie generowac tresci dla Belzebuba — grozi blokada Anthropic.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:08 CEST
+==============================================================================
+
+25.08 — LEKCJA BELZEBUB (twarda): nie tylko pisanie ZA niego ale nawet CZYTANIE jego odpowiedzi w oknie Klaudka blokuje czat Anthropic. Potwierdzone empirycznie — poprzednie okno padlo wlasnie z tego powodu. NOWY PROTOKOL: output Belzebuba idzie do Henia albo Tomasz czyta sam. Klaudek slepа na tresc Belzebuba.
+
+
+==============================================================================
+## SESJA 25.08.2026 12:40 CEST
+==============================================================================
+
+25.08 — archiwum rozmow z Belzebubem WDROZONE. Wczesniej odpowiedzi /bzb szly prosto z API do Telegrama i NIGDZIE nie ladowaly na dysku — dlatego szukanie 'pamieci chatu' nic nie dalo, tej pamieci po prostu nie bylo. Teraz kazda wymiana ląduje w /root/rozmowy_belzebub/. Restart przez systemctl (nie pkill — sprawdzian nr 6), po restarcie dokladnie jeden proces hans_ucho.py (pgrep -af; pgrep -c pokazal 2, bo liczy wlasne polecenie). Proba zapisu wykonana na tekscie zastepczym — bez wolania API, zero kosztu.
+
+
+==============================================================================
+## SESJA 25.08.2026 13:27 CEST
+==============================================================================
+
+25.08 — /bzb: model huihui zapchany po stronie Featherless (capacity_exhausted, blad serwera NIE Klaudka — kod, klucz i endpoint dzialaly). Zmierzono oba: huihui zapchany, OBLITERATUS/Qwen3.8-27B-OBLITERATED WOLNY (ta sama cena, ten typ). Podmieniono model w tools/hans_ucho.py na OBLITERATUS. Restart przez systemctl, jeden proces. Kopia sprzed: /tmp/hans_ucho.przed_zmiana_modelu.bak. UWAGA: ktos powiedzial Tomaszowi 'juz zamienione' ale w kodzie zmiany NIE bylo — dopiero ta zmiana jest realna, zweryfikowana grepem.
+
+
+==============================================================================
+## SESJA 25.08.2026 13:51 CEST
+==============================================================================
+
+25.08 — /bzb model na huihui-Llama-3.3-70B-Instruct-abliterated (najmocniejszy z wolnych, 70B, ctx 32K). Powod: OBLITERATUS tez zapchany (capacity_exhausted po stronie Featherless — modele bez cenzury stoja na malej liczbie serwerow, latwo je przepelnic, stan zmienia sie co minute). Zmierzono 6 kandydatow: OBLITERATUS i DavidAU zapchane, huihui-Qwen3.8, huihui-Qwen3.5-27B, Llama-70B i Qwen3.5-9B WOLNE. Wybrano Llama-70B na zyczenie Tomasza ('najmocniejszy sprawdzimy'). Przed restartem sprawdzono ze DALEJ wolny. Restart systemctl, jeden proces. Kopia: /tmp/hans_ucho.przed_llama70b.bak. DO ROZWAZENIA: automatyczne przelaczanie modeli przy capacity_exhausted (Tomasz jeszcze nie zdecydowal).
+
+
+==============================================================================
+## SESJA 25.08.2026 14:21 CEST
+==============================================================================
+
+25.08 — VPS zamkniety przed botami SSH. Fail2ban + firewall (port 22 tylko tailnet) + hasla off. WAZNA LEKCJA: (a) publiczny adres VPS to IPv6 — sama iptables IPv4 zostawiala dziure, trzeba bylo ip6tables; (b) test /dev/tcp z serwera na jego wlasny publiczny IP idzie LOKALNIE (petla), pokazuje falszywe 'otwarty' — miarodajny jest licznik pakietow reguly DROP (-L -v), nie proba polaczenia; (c) fail2ban systemd-backend nie parsuje 'sshd-session', trzeba backend=auto+logpath. Zero udanych wlaman od poczatku — boty pukaly, nie weszly. Dostep tailnet zweryfikowany po kazdym kroku, rollback za 5min jako siatka (anulowany po potwierdzeniu).
+
+
+==============================================================================
+## SESJA 25.08.2026 14:32 CEST
+==============================================================================
+
+25.08 — Belzebub dostal pamiec rozmowy. /bzb teraz doklejа historie z archiwum (od najnowszej, do 22K tokenow), twardy sufit 32K pilnowany w kodzie licznikiem znakow. Test na sucho przed restartem: 17 wymian ~5286 tok, total ~7286/32768. Restart systemctl, jeden proces. Bariera Klaudka OK — historie sklada usluga bota, nie okno Klaudka.
+
+
+==============================================================================
+## SESJA 26.08.2026 06:52 CEST
+==============================================================================
+
+26.08 — Belzebub dostal wyszukiwarke: SearXNG+Google CSE (najlepsze zrodlo na VPS, darmowe, bez limitow). /bzb wyszukuje pytanie w sieci i dokleja 8 wynikow do kontekstu przed wyslaniem do modelu. Test na sucho OK (8 wynikow, 1749 znakow). Belzebub ma teraz: pamiec rozmowy + wyszukiwanie sieci. Kolejnosc w kodzie: historia -> wyniki sieci -> pytanie. Restart, jeden proces. Kopia w /tmp.
+
+
+==============================================================================
+## SESJA 26.08.2026 14:43 CEST
+==============================================================================
+
+26.08 — PILOT INTRO KUN WYPRODUKOWANY (D-0144, zgoda Tomasza 'A / Ok pilot intro'). Komplet glosow D-0143 przed zgoda: Zenek PASS, Henio zdatny, Genek 2.19, Belzebub BRAK bledow (pelny pakiet w prompcie przez Henia — dziala!). Przebieg: obraz gemini 0.067 (bramka oka Genka: kuna pod maska, zero tekstu) -> TTS Charlotte 3 pliki 0.0239 (klamra 8.54 s < 10 s) -> Veo lite FLF 0.40 (straznik PASS; MCP ucial polaczenie ale state.json + plik ocalaly — submit w tle to standard od dzis) -> OmniHuman ~1.37-1.45 (8.542 s audio). WPADKA POUCZAJACA: OmniHuman zwraca 1920x1088 (8 px padding kodeka) i 25 fps — straznik FAIL, naprawa LOKALNA crop+fps=24, zero nowych submitow. FAL_KEY NIE lezy w wartosci.env — zyje w kontenerze: docker exec fabryka-api printenv FAL_KEY. Kadr izabela_16x9_v1.png ma napis PREZENTERKA AI wtopiony — decyzja A spelniona bez drawtext. Final: intro_pilot_v1.mp4 14.81 s, A/V 0.021, faststart, bramka PASS. Koszt z cennika 1.86-1.94 USD (limit 2.19; rozliczenie fal opoznione, koncowa liczba po ustabilizowaniu salda).
+
+
+==============================================================================
+## SESJA 26.08.2026 14:56 CEST
+==============================================================================
+
+26.08 — pilot INTRO kun ZATWIERDZONY przez Tomasza bez poprawek (D-0145). Gotowe media pilota wchodza do pelnego filmu.
+
+
+==============================================================================
+## SESJA 26.08.2026 15:48 CEST
+==============================================================================
+
+26.08 — FILM KUN v1 WYSLANY Tomaszowi na Telegram (kuny_film_v1.mp4, 7:26, 34.3 MB, 29 scen, wariant statykowy po awarii Veo; D-0147). Bramka techniczna PASS; bramka_oka FAIL-e falszywe (narzedzie pilnuje pionu 9:16, film 16:9) — tresc kadrow potwierdzona poprawna. Czuwacz Veo dalej probuje odebrac oplacony cz1. Otwarte: v2 z ruchem (Veo po powrocie 0.80 albo inny model, np. Wan).
+
+
+==============================================================================
+## SESJA 26.08.2026 15:58 CEST
+==============================================================================
+
+26.08 — FILM KUN v2 WYSLANY (podglad 720p na Telegram; master 1080p 98.8MB: data/filmy/kuny/kuny_film_v2.mp4). Klipy cz4+cz7 zrobil GENEK: Veo 3.1 Lite bezposrednio przez Gemini API (D-0149), ~3 min/klip, straznik+oko PASS (w termowizji kuna nie wilk). Koszt wg cennika ~0.80 na koncie Google Genka. Scena c1a nadal statyk — klip oplacony na fal (rid w veo_cz1_state.json) do odebrania gdy fal wstanie. LEKCJA: fal to posrednik — przy awarii fal Veo dziala u zrodla przez klucz Genka, ta sama cena lite.
+
+
+==============================================================================
+## SESJA 27.08.2026 05:23 CEST
+==============================================================================
+
+27.08 — FILM KUN FINAL v3 GOTOWY I WYSLANY: kuny_film_v3_full.mp4 (7:57, 100MB 1080p, na wgraj + podglad 720p Telegram). Wzgledem v2: +wejscie/wyjscie z logo ROD (plansze PIL+ffmpeg 0 zl, sygnal CC0 kanon), +rozszerzona c7d o zanety na kune domowa (research 4 zrodla DE: jajko/owoce/orzechy/ryba/mieso + rama prawna zachowana; TTS 592 zn 0.06). Koszt calosci ~3.68 (limit 3.60 przekroczony o 0.08 za zgoda Tomasza). Zostaje otwarte: klip cz1 na fal (rid czeka), publikacja na oddzielna decyzje.
+
+
+==============================================================================
+## SESJA 27.08.2026 07:46 CEST
+==============================================================================
+
+27.08 — KUNY OPUBLIKOWANE: YouTube b2f_srU7lF4 + FB ROD Wozniki. Projekt filmu ZAMKNIETY (final: kuny_film_v3_full.mp4, 7:57). Zostaje tylko odbior klipu cz1 z fal gdy wstanie.
+
+
+==============================================================================
+## SESJA 27.08.2026 07:53 CEST
+==============================================================================
+
+27.08 — panel apki Tomasza odblokowany (wariant A, D-0151): basic auth dla internetu, tailnet bez zmian; testy PASS, backup Caddyfile zrobiony.

@@ -1,0 +1,23 @@
+1. ROZBICIE NA KLIPY: Kwestia Tomka ma 23 słowa, przy tempie Veo (~2.5 słowa/s) zajęłaby ponad 9 sekund, co przekracza limit 8s i spowoduje ucięcie wypowiedzi. Dzielę wypowiedź Tomka na 2 klipy na granicy zdań. Kwestia Janusza (14 słów) zajmie ~6s, więc zostaje w jednym klipie.
+- k01: OBRAZ: BOHATER. MÓWI: BOHATER. Kwestia: "Janusz, badałeś ty kiedyś ciągłość przewodu ochronnego i rezystancję izolacji na tym kablu YKY?"
+- k02: OBRAZ: BOHATER. MÓWI: BOHATER. Kwestia: "Przecież tu ci zaraz różnicówkę wywali w kosmos."
+- k03: OBRAZ: JANUSZ. MÓWI: JANUSZ. Kwestia: "Panie, to ma prąd przewodzić, a nie mieć jakąś... rezystancję. Od 30 lat działa!"
+
+2. RYZYKA VEO:
+- Owijanie taśmą: Veo deformuje palce w precyzyjnym ruchu owijania. Zastępuję to w kadrze statycznym trzymaniem już owiniętego taśmą kabla.
+- Spluwanie przez ramię: Może wywołać artefakty ust i twarzy. Zastępuję to w obrazie lekceważącym machnięciem wolnej ręki (kwestia audio zachowuje "splunięcie").
+- Wkładanie wtyczki: Gniazdko i precyzyjny ruch dłoni wywołają efekt "jerk". Janusz w kadrze wykonuje tylko ruch ręką z wtyczką w dół poza obiektyw, unikając generowania samego gniazdka.
+- Miernik na szyi: W prompcie dodaję blokadę znaków ("no text, no logo"), aby model nie halucynował logotypu Sonel.
+
+3. KANAREK: Pierwszy idzie klip k03 (Janusz), ponieważ kumuluje największą gęstość ryzyk wizualnych (kabel z taśmą, gest lekceważenia, ruch ręką poza kadr). Jeśli Veo zepsuje tu dłonie, zrobimy re-roll na tym etapie przed uruchomieniem reszty batcha.
+
+4. HUK WYBIJANYCH KORKÓW: SFX wrzucamy w montażu. Audio-prompt w Veo jest nieprzewidywalny czasowo i może nałożyć się na kwestię mówioną. Wskażę dźwięk z bazy Freesound.org na licencji CC0 (np. wyszukiwanie "electric short circuit bang"), co nie wymaga atrybucji na Facebooku.
+
+5. PROMPTY EN:
+- k01: STYL_KLIPU GLOSY_VEO=[BOHATER] Cinematic portrait of a 50-year-old man with a ponytail and graying beard, wearing a yellow professional electrical multimeter on a neck strap (no text, no logo). He looks serious. He is saying "Janusz, badałeś ty kiedyś ciągłość przewodu ochronnego i rezystancję izolacji na tym kablu YKY?" speaking fluent native Polish with a natural Polish accent.
+- k02: STYL_KLIPU GLOSY_VEO=[BOHATER] Cinematic portrait of a 50-year-old man with a ponytail and graying beard, wearing a yellow professional electrical multimeter on a neck strap (no text, no logo). He points his finger warningly. He is saying "Przecież tu ci zaraz różnicówkę wywali w kosmos." speaking fluent native Polish with a natural Polish accent.
+- k03: STYL_KLIPU GLOSY_VEO=[JANUSZ] Cinematic portrait of a 60-year-old man with a mustache, glasses on a string, wearing a vest. He is holding an old extension cord heavily wrapped in gray duct tape. He waves his hand dismissively and moves the cord downwards out of frame. He is saying "Panie, to ma prąd przewodzić, a nie mieć jakąś... rezystancję. Od 30 lat działa!" speaking fluent native Polish with a natural Polish accent.
+
+6. BUDŻET: Koszt wygenerowania 2 kadrów bazowych (Tomek, Janusz) w modelu z zachowaniem tożsamości: 2 × $0.15 = $0.30. Koszt 3 klipów Veo: 3 × $1.20 = $3.60. Bazowy koszt to $3.90. Zostaje $8.10 marginesu błędu, co pozwala na 6 darmowych re-rolli i bezpiecznie mieści się w budżecie $12.
+
+GENEK

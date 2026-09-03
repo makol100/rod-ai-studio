@@ -1,0 +1,25 @@
+ZENEK — GLOS WLASNY
+
+POTWIERDZONE
+
+1. Przebieg lokalny zakonczyl sie EXIT_CODE=0. Komenda i pelny surowy stdout sa w `_bramka_a_wyniki.txt`. Uzyto `buffalo_l`, CPU, `det_size=(640, 640)`, det>=0.6, sim>=0.35 oraz jednego dziennego wzorca postaci: `janusz_baza.jpg` albo `bohater_baza.jpg`.
+
+2. Werdykty Zenka per kadr:
+
+   - k01 PASS — 1 twarz, det=0.825398, sim Janusz=0.783681. Otwarty opis VLM: starszy pan kleczy przy starej kosiarce i trzyma jej przewod. Bezposredni odczyt kadru potwierdza szara tasme na przewodzie; nie widze czytelnego tekstu ani logo.
+   - k02 PASS — 1 twarz, det=0.846219, sim Bohater=0.641319. Otwarty opis VLM: siwy mezczyzna z dlugimi wlosami spietymi z tylu, broda, czarna koszulka, miernik na szyi, kontrola kosiarki. Nie widze czytelnego logo ani tekstu ekranowego.
+   - k03 PASS — 1 twarz, det=0.868582, sim Bohater=0.760596. Otwarty opis VLM: ten sam typ postaci z miernikiem wskazuje reka i tlumaczy. Nie widze czytelnego logo ani tekstu ekranowego.
+   - k04 PASS — 1 twarz, det=0.850282, sim Janusz=0.773683. Otwarty opis VLM: starszy pan w bezowej kamizelce w ogrodzie, z przewodem i kosiarka; bezposredni odczyt kadru potwierdza plan sredni-zblizony i spojrzenie przez ramie. Nie widze czytelnego tekstu ani logo.
+   - k05 FAIL — 1 twarz, det=0.835486, sim Janusz=0.579741, pelna sylwetka i czynność wkladania wtyczki sa zgodne. Otwarty opis VLM lokuje jednak gniazdko na drewnianej szopie; bezposredni odczyt kadru potwierdza montaz na scianie szopy, nie na slupku wymaganym w planie.
+
+3. Wszystkie 5 obrazow ma 1536x2752 i przechodzi prog proporcji ~9:16. Wszystkie 5 przechodzi warunki twarze==1, det>=0.6 oraz sim>=0.35. Bramka A jako komplet: FAIL przez k05.
+
+HIPOTEZY
+
+- Nie ma hipotezy potrzebnej do werdyktu: rozbieznosc k05 jest opisana przez otwarty VLM i widoczna w pliku zrodlowym.
+
+NIE WIEM
+
+- Nie wiem, czy Tomasz zaakceptuje sciane szopy jako funkcjonalny odpowiednik slupka. Decyzja nalezy wylacznie do Tomasza; wedlug literalnego warunku zlecenia k05 jest FAIL.
+
+Podpis: ZENEK

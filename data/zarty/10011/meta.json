@@ -1,0 +1,17 @@
+{
+ "id": "10011",
+ "temat": "sąsiad wiecznie pożycza kosiarkę i nigdy nie oddaje",
+ "stan": "checkpoint",
+ "ts": 1787824652.749575,
+ "klipy_sparsowane": 3,
+ "wycena": {
+  "klipy": 3,
+  "sekundy": 24,
+  "koszt_klipy_usd": 3.6,
+  "koszt_kadr_usd": 0.0,
+  "koszt_razem_usd": 3.6,
+  "model": "fal-ai/veo3.1/fast (t2v + audio)",
+  "cena_za_sekunde": 0.15,
+  "postacie": "gotowe (koszt zero)"
+ }
+}

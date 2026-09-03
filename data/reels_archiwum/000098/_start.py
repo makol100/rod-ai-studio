@@ -1,0 +1,18 @@
+from pathlib import Path
+from src.reels.pipeline import generate_reel
+
+PROMPT = (
+    "Amatorska stacja pogodowa na dzialce w ROD - bialy zestaw 7 w 1: "
+    "anemometr z trzema czaszami, wiatrowskaz, zintegrowany czujnik z panelem "
+    "slonecznym zamontowany na maszcie, duzy kolorowy wyswietlacz LCD w altanie "
+    "oraz aplikacja Wunderground w telefonie pokazujaca dane stacji. "
+    "Opowiedz dzialkowcom: co taka stacja mierzy (temperatura, wilgotnosc, "
+    "sila i kierunek wiatru, opady, cisnienie), jak te dane pomagaja na dzialce "
+    "na co dzien - kiedy podlewac, kiedy uwazac na przymrozek, jak przewidziec "
+    "burze - oraz jak stacja wysyla dane przez Wi-Fi do internetu i do telefonu, "
+    "dzieki czemu dzialke mozna sprawdzic nawet bedac daleko od niej."
+)
+
+generate_reel(PROMPT, 8, tryb="sprzet",
+              folder=Path("/root/rod-ai-studio/data/reels/000098"),
+              tryb_jezykowy="czysty_bielik")

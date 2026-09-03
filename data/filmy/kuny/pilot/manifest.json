@@ -1,0 +1,7 @@
+{
+  "sceny": [
+    {"media": "intro_izabela_open.mp4", "audio": "intro_open.mp3"},
+    {"media": "intro_veo.mp4", "audio": "intro_broll.mp3"},
+    {"media": "intro_izabela_close.mp4", "audio": "intro_close.mp3"}
+  ]
+}

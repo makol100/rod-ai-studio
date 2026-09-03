@@ -1,0 +1,139 @@
+# GŁOS HENIA — NARADA PRODUKCYJNA D-0170, ODCINEK 10012 "Rezystancja Izolacji"
+
+## 1. ROZBICIE NA KLIPY (5 klipów)
+
+Pomiary (python3, 27.08, word count):
+- Kwestia Tomka CAŁA = 22 słowa. Tempo Veo: 3 słowa/s = 7.33 s (mieści się NA STYK),
+  2.5 słowa/s = 8.80 s (PRZEKRACZA 8 s). WNIOSEK: NIE mieści się bezpiecznie — ciąć.
+- Cięcie na GRANICY ZDAŃ kanonu (bez zmiany ani jednego słowa): po "YKY?" (koniec zdania 1).
+  - S1 "Janusz, badałeś ty kiedyś ciągłość przewodu ochronnego i rezystancję izolacji na tym kablu YKY?"
+    = 14 słów -> 4.7-5.6 s (bezpieczne)
+  - S2 "Przecież tu ci zaraz różnicówkę wywali w kosmos." = 8 słów -> 2.7-3.2 s (bezpieczne)
+
+Lista klipów:
+- k01 [NIEMY, hook] — Sytuacja. OBRAZ: Janusz kuca przy rozklekotanej kosiarce, owija stary
+  popękany przedłużacz szarą taśmą izolacyjną. Nikt nie mówi.
+- k02 [TOMEK] — Akcja + zd.1. OBRAZ: zza kadru wyłania się Tomek z miernikiem na szyi (bez logo).
+  Kwestia (14 słów): "Janusz, badałeś ty kiedyś ciągłość przewodu ochronnego i rezystancję
+  izolacji na tym kablu YKY?"
+- k03 [TOMEK] — zd.2. OBRAZ: Tomek (miernik dalej na szyi) wskazuje na kosiarkę.
+  Kwestia (8 słów): "Przecież tu ci zaraz różnicówkę wywali w kosmos."
+- k04 [JANUSZ] — puenta cz.1. OBRAZ: Janusz patrzy na Tomka jakby ten mówił w obcym języku,
+  spluwa przez ramię. Kwestia (14 słów): "Panie, to ma prąd przewodzić, a nie mieć jakąś...
+  rezystancję. Od 30 lat działa!"
+- k05 [NIEMY, puenta cz.2] — OBRAZ: Janusz wkłada wtyczkę do gniazdka. Nikt nie mówi.
+  Huk korków = SFX w montażu (pkt 4), nie w Veo.
+
+Puenta Janusza = DWA klipy (k04 + k05), nie jeden. Powody: (a) kwestia 14 słów sama zajmuje
+4.7-5.6 s, nie ma miejsca na "patrzy obcym językiem" + "spluwa" w tym samym 8 s;
+(b) "wkładanie wtyczki" to precyzyjny gest dłonią, który Veo psuje — osobny klip izoluje ryzyko
+(re-roll wtyczki bez re-rolla kwestii); (c) huk idzie jako SFX, więc k05 może być niemy.
+
+## 2. RYZYKA VEO PER KLIP + ROZBROJENIE W OBRAZIE
+- k01 (owijanie taśmą = palce/precyzyjny chwyt): Veo psuje dłonie. Rozbrojenie: kadr SZEROKI na
+  całą sylwetkę, dłonie NIE w zbliżeniu; ruch wolny, jednostajny (reżim statyczny, zero "JERK");
+  popękanie przedłużacza pokazać wizualnie na kablu (przetarty, pęknięta izolacja), żeby
+  "prowizorka" czytała się nawet przy niedoskonałym ruchu rąk.
+- k02 (wyłanianie się + miernik na szyi + mowa 14 słów): (a) miernik BEZ logo — prompt "plain
+  black digital multimeter, no logo, no markings"; (b) wyłanianie się + 14 słów w 8 s = napięte;
+  rozbrojenie: wyłanianie krótkie (jeden krok), główny czas na kwestię; jeśli kanarek wykaże, że
+  się nie mieści — awaryjnie rozbić na niemy beat wejścia + kwestia (doda 1 klip).
+- k03 (krótkie zdanie + wskazanie): niskie ryzyko. Wskazywanie palcem = prosty gest, nie
+  precyzyjny chwyt. Bez zmian.
+- k04 (spluwanie przez ramię + zdziwione spojrzenie + mowa): spluwanie to akcja głowy/ust, NIE
+  dłoni — mniej ryzykowne niż chwyt, ale Veo może je wyrenderować słabo lub pominąć. Rozbrojenie
+  W KADRZE: ująć jako powolny obrót głowy przez ramię + zaciśnięte usta + wzruszenie ramion —
+  komediowa "rezygnacja" niesie rytm nawet gdy sam strumień wyjdzie słabo. Awaryjna podmiana BEZ
+  zmiany kwestii (jeśli Veo nie umie splunąć): lekceważące machnięcie ręką / przewrócenie oczami
+  przez ramię — znaczenie "mówisz od rzeczy" zostaje, słowa kanonu VERBATIM nietknięte. Zasada
+  kanonu "spluwa przez ramię ZOSTAJE" = zakaz autocenzury treści, nie zakaz technicznego
+  uproszczenia gestu w kadrze.
+- k05 (wkładanie wtyczki = precyzyjny gest dłonią): NAJWYŻSZE ryzyko z listy Veo ("precyzyjne
+  gesty dłońmi"). Rozbrojenie: kadr SZEROKI, cała ręka + gniazdko, NIE makro na dłonie/wtyczkę;
+  akcja czyta się z pozycji ciała (schyla się, wyciąga rękę), nie z precyzji palców; klip niemy ->
+  zero ryzyka audio; huk dokłada montaż.
+
+## 3. KANAREK = k04 (puenta Janusza, cz.1)
+Dlaczego: największa gęstość ryzyk w jednym klipie — (a) najdłuższa kwestia (14 słów),
+(b) "spluwa przez ramię" (jedyna akcja z realnym ryzykiem, że Veo jej nie umie), (c) zdziwione
+spojrzenie + rezygnacja (gra aktorska), (d) głos Janusza (suchy, urzędniczy — postać komediowa,
+najważniejsza dla puenty), (e) to PUENTA — najważniejszy beat żartu. PASS kanarka na k04 = dowód,
+że (i) Veo umie splunąć albo wiem, że trzeba podmiany na machnięcie, (ii) głos Janusza przechodzi
+bramkę językową, (iii) reszta klipów (krótsze linie, prostsze akcje) jest łatwiejsza. Jeśli k04
+przejdzie, batch k01-k03+k05 jest niskiego ryzyka.
+
+## 4. HUK = SFX w montażu (NIE audio-prompt w Veo)
+Uzasadnienie: huk to dźwięk off-screen, niesynchroniczny z ustami. Veo audio jest sprzężone z mową
+(lip-sync) — precyzyjny SFX "strzału korka" nie zadziała w punkcie czasowym na słowo tekstu; albo
+go nie będzie, albo padnie w złym momencie. SFX w montażu = darmowy, dokładny (trafiasz dokładnie
+w klatkę wpięcia wtyczki), zero ryzyka dla obrazu. Zasada "decyzja zapada na najtańszym etapie" —
+dźwięk dokładamy tam, gdzie nic nie kosztuje.
+KONKRETNY sposób wygenerowania (PD/CC0, zero atrybucji — ZWERYFIKOWANY, wygenerowane i zmierzone
+27.08):
+  ffmpeg -y -f lavfi -i "anoisesrc=d=0.35:c=white:a=0.9" -f lavfi -i "sine=frequency=50:duration=0.3" \
+    -filter_complex "[0:a]highpass=f=300,afade=t=out:st=0.0:d=0.32[a];[1:a]afade=t=out:st=0.0:d=0.28,volume=0.8[b];[a][b]amix=inputs=2:duration=shortest,alimiter=limit=0.9[c]" \
+    -map "[c]" -ar 48000 -ac 1 huk_korkow.wav
+  Wynik pomiaru (ffprobe): WAV 48000 Hz, mono, 0.30 s, 28878 B — plik poprawny, gotowy do
+  doklejenia. Charakter "trzask + niski dudnienie 50 Hz" (pękający bezpiecznik). Zero atrybucji
+  (synteza, nie nagranie). Alternatywa nagraniowa: freesound.org tag "circuit breaker"/"fuse"
+  filtr CC0 — ale licencję weryfikować przy pobraniu (nie podaję URL bez sprawdzenia licencji,
+  zasada śladu).
+
+## 5. PROMPTY EN (kwestie PL verbatim)
+Voice block (GLOSY_VEO, stały): BOHATER = "a low, gruff, determined middle-aged Polish male
+voice"; JANUSZ = "a dry, officious elderly Polish male voice". Każdy mówiący klip dostaje dopisek
+"speaking fluent native Polish with a natural Polish accent". Didaskalia EN, kwestia PL w
+cudzysłowie, miernik bez logo.
+
+[k01 — niemy, Janusz owija przedłużacz]
+"Bright sunny day in a lush Polish allotment garden, lighthearted comedy sketch, mockumentary
+style. The tall thin man in his mid-sixties with a grey mustache, reading glasses on a cord and a
+beige multi-pocket vest crouches beside a rickety old lawnmower, slowly wrapping grey electrical
+tape around a frayed, cracked old extension cord, trying to patch it up. He does not speak.
+Natural ambient garden sounds. Cinematic realistic footage, warm golden summer light. Vertical
+9:16. Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen
+text."
+
+[k02 — Tomek, S1]
+"Bright sunny day in a lush Polish allotment garden, lighthearted comedy sketch, mockumentary
+style. The man with a long ponytail, full salt-and-pepper beard and a black t-shirt steps into
+frame, a plain black digital multimeter with no logo hanging from a strap around his neck, looks
+at the cord with grave seriousness, and says in Polish, in a low, gruff, determined middle-aged
+Polish male voice, speaking fluent native Polish with a natural Polish accent: "Janusz, badałeś ty
+kiedyś ciągłość przewodu ochronnego i rezystancję izolacji na tym kablu YKY?" Natural handheld
+camera, continuous single take. No captions, no subtitles, no on-screen text."
+
+[k03 — Tomek, S2]
+"Bright sunny day in a lush Polish allotment garden, lighthearted comedy sketch, mockumentary
+style. The man with a long ponytail, full salt-and-pepper beard and a black t-shirt, still with
+the plain black multimeter hanging from his neck, points toward the mower with concern, and says
+in Polish, in a low, gruff, determined middle-aged Polish male voice, speaking fluent native
+Polish with a natural Polish accent: "Przecież tu ci zaraz różnicówkę wywali w kosmos." Natural
+handheld camera, continuous single take. No captions, no subtitles, no on-screen text."
+
+[k04 — Janusz, puenta cz.1]
+"Bright sunny day in a lush Polish allotment garden, lighthearted comedy sketch, mockumentary
+style. The tall thin man in his mid-sixties with a grey mustache, reading glasses on a cord and a
+beige multi-pocket vest stares at the other man as if he were speaking a foreign language, slowly
+turns his head and spits over his shoulder, then shrugs dismissively, and says in Polish, in a
+dry, officious elderly Polish male voice, speaking fluent native Polish with a natural Polish
+accent: "Panie, to ma prąd przewodzić, a nie mieć jakąś... rezystancję. Od 30 lat działa!" Natural
+handheld camera, continuous single take. No captions, no subtitles, no on-screen text."
+
+[k05 — niemy, wtyczka + huk (SFX w montażu)]
+"Bright sunny day in a lush Polish allotment garden, lighthearted comedy sketch, mockumentary
+style. The tall thin man in his mid-sixties with a grey mustache, reading glasses on a cord and a
+beige multi-pocket vest confidently plugs the taped extension cord into the wall socket beside the
+rickety old lawnmower, full wide shot showing his whole body and arm. He does not speak. Natural
+ambient garden sounds. Cinematic realistic footage, warm golden summer light. Vertical 9:16.
+Natural handheld camera, continuous single take. No captions, no subtitles, no on-screen text."
+
+## 6. BUDŻET (limit $12)
+- 5 klipów × $1.20 = $6.00
+- 5 kadrów × $0.15 = $0.75
+- RAZEM: $6.75
+- Zapas na re-rolle: $12 − $6.75 = $5.25 ≈ 4 re-rolle ($1.20) + 2 zapasowe kadry ($0.15).
+Mieści się z zapasem. Ceny wg kontekstu zlecenia; przed faktycznym wydatkiem zweryfikować na
+fal.ai/pricing (DROGA: "ceny weryfikować przy każdej sesji z wydatkami").
+
+— Henio

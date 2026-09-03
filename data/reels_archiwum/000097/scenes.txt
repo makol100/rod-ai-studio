@@ -1,0 +1,27 @@
+SCENA 1:
+UJĘCIE: Zbliżenie na stację pogodową zamontowaną na drewnianym słupku wśród grządek, z anemometrem wirującym lekko pod wpływem delikatnego wiatru.
+LEKTOR: 
+SCENA 2:
+UJĘCIE: Szeroki kadr pokazujący działkę z altaną w tle i słupkiem ze stacją, kamera skierowana lekko pod górę.
+LEKTOR: "Spójrz na to - tańsza o 80%, a mierzy dokładnie tak samo."
+SCENA 3:
+UJĘCIE: Zbliżenie na ekran stacji, wyświetlający aktualną temperaturę i wilgotność. W tle widoczne krzewy malinowe kołyszące się delikatnie.
+LEKTOR: "Pokazuje temp., wilgoć... a nawet ciśnienie."
+SCENA 4:
+UJĘCIE: Ujęcie z dołu na słupek stacji, anemometr wyraźnie widoczny podczas obrotu. W tle alejka działki i narzędzia ogrodowe oparte o płotek.
+LEKTOR: "I prędkość wiatru - z dokładnością do 0,1 m/s."
+SCENA 5:
+UJĘCIE: Zbliżenie na panel słoneczny stacji podłączony kablem do głównej jednostki. W tle bezchmurne niebo i altana z drewnianym stołem piknikowym.
+LEKTOR: "Zasilanie solarne - zero rachunków za prąd."
+SCENA 6:
+UJĘCIE: Szeroki plan działki o poranku, rosa na trawie i liściach krzewów. Stacja pogodowa widoczna w lewym dolnym rogu kadru jako mały biały element pośród zieleni.
+LEKTOR: "Dane dostępne od razu - bez czekania na prognozę."
+SCENA 7:
+UJĘCIE: Detal rąk ogrodnika trzymającego smartfon, pokazujący aplikację z danymi ze stacji (temperatura, wilgotność). W tle grządka pomidorów i konewka oparta o płot.
+LEKTOR: "Synchronizacja przez Wi-Fi - sprawdzasz gdziekolwiek jesteś."
+SCENA 8:
+UJĘCIE: Wieczorne ujęcie działki, stacja podświetlona delikatnym światłem latarni. Anemometr nieruchomy - cisza przed zmierzchem.
+LEKTOR: "Odporna na mróz i upały... pracuje non-stop."
+SCENA 9:
+UJĘCIE: Powtórzenie ujęcia z SCENY 1, ale teraz kamera lekko oddalona pokazująca większy fragment działki. Stacja pogodowa wygląda na integralną część ogrodu.
+LEKTOR: "Nie przepłacaj za to samo - sprawdź tę stację już dziś!"

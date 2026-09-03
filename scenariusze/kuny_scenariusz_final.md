@@ -39,13 +39,19 @@ Zanim jednak cokolwiek zamkniesz - zrob test gazety. Wcisnij w otwor zgnieciona 
 I odetnij drogi wspinaczki: galezie odsun od budynku na poltora do trzech metrow, na rynny zaloz gladkie kolnierze, usun stare gniazdo."
 
 ## [CZESC 6: MAM JUZ KUNE - CO WOLNO]
-(Grafika: telefon do kola lowieckiego, przekreslona trutka i pulapka smiertelna)
-"A jesli kuna juz sie zadomowila? Tu najwazniejsza rzecz w calym filmie. Obie kuny - domowa i lesna - sa w Polsce zwierzetami lownymi. To znaczy, ze jako osoba prywatna NIE mozesz kuny zabic. Trutka jest nielegalna i zabija tez inne zwierzeta. Co wiecej - odlow drapieznikow w pulapki, zgodnie z Prawem lowieckim, jest zadaniem zarzadcy albo dzierzawcy obwodu lowieckiego, a nie wlasciciela domu. Wiec nie zastawiaj pulapki na wlasna reke.
-Co robic? Zadzwon do miejscowego kola lowieckiego albo do zarzadcy obwodu lowieckiego - to oni maja prawo dzialac. Moze pomoc tez wyspecjalizowana firma, ale zawsze w porozumieniu z zarzadca obwodu. Oni wiedza, co wolno i jak to zrobic zgodnie z prawem. Twoja rola to zabezpieczyc budynek, zeby nastepna kuna juz nie weszla - bo osierocone miejsce szybko zajmuje kolejna."
+(Janusz przy biurku zarzadu, okulary na sznurku, kamizelka z kieszeniami; czyta kolejne punkty z notesika. Przebitki: telefon do kola lowieckiego, przekreslona trutka i pulapka smiertelna)
+[JANUSZ, sucho i urzedowo] "Punkt pierwszy. Obie kuny - domowa i lesna - sa w Polsce zwierzetami lownymi. Podstawa: rozporzadzenie, Dziennik Ustaw 2023, pozycja 2454."
+[JANUSZ, kartkuje notesik] "Punkt drugi. Osoba prywatna nie moze kuny zabic. Trutka jest nielegalna i zabija tez inne zwierzeta."
+[JANUSZ, oficjalnym tonem] "Punkt trzeci. Artykul 44a Prawa lowieckiego: odlow drapieznikow w zywolapki prowadzi dzierzawca albo zarzadca obwodu lowieckiego, nie wlasciciel domu. Nie zastawia pan pulapki na wlasna reke."
+[JANUSZ, zapisuje w notesiku] "Procedura. Telefon do miejscowego kola lowieckiego albo zarzadcy obwodu. Wyspecjalizowana firma moze pomoc, ale zawsze w porozumieniu z zarzadca. Panska rola to zabezpieczyc budynek, bo puste miejsce szybko zajmie kolejna kuna."
 
 ## [CZESC 7: SKANDYNAWIA - JAK ROBIA TO TAM, GDZIE WOLNO]
 (Mapa, pulapki, las zima)
-"Spojrzmy tam, gdzie z kuna walczy sie inaczej. W Szwecji kuna domowa to gatunek obcy i inwazyjny, w Norwegii - zwykla zwierzyna lowna. Tam wolno ja odlawiac na smierc. Uzywa sie wylacznie pulapek usmiercajacych w jednej chwili - klasykiem jest szwedzki Trapper 90 ze stali nierdzewnej. Finlandia poszla w technologie - od dwa tysiace dwudziestego czwartego roku wolno polowac na inwazyjne drapiezniki z dronem termowizyjnym. Przynety? Szwedzkie zwiazki lowieckie polecaja miod, owoce i podroby. Ale u nas to wszystko odpada - w Polsce osoba prywatna kuny zabic nie moze."
+"W Szwecji trzeba rozroznic dwa gatunki. Skogsmård to rodzima kuna lesna, czyli mård ze szwedzkich materialow lowieckich. Stenmård to obca kuna domowa, znana ze szkod w autach.
+Na skogsmård wolno stosowac tylko typy zatwierdzone przez Naturvardsverket. Praktycy uzywaja pulapek uderzeniowych zabijajacych natychmiast, na przyklad Trapper mård 90. Ustawiaja je na stalej trasie kuny. Stockfälla musi wisiec co najmniej poltora metra nad ziemia; czesc pulapek ustawianych nizej wymaga zatwierdzonego tunelu wejsciowego. Trafienie w trase jest wazniejsze od zanety.
+Co wkladaja? Resztki zajaca, ptaka lesnego albo losia z miodem, glowe ptaka, dzem i owoce. Praktycy wymieniaja tez gravad lax, czyli peklowanego lososia. Olej krewetkowy pozostaje popularnym mitem - nie potwierdzilo go zadne sprawdzone szwedzkie zrodlo.
+A stenmård od samochodow? W specjalnym programie urzedowym opisano przelotowa zywolapke Fuchsfalle Fox 1 DeLuxe o dlugosci stu piecdziesieciu centymetrow. To wyjatek dla imiennie upowaznionego personelu, nie pulapka ogolnie zatwierdzona i nie metoda do samodzielnego uzycia. Konkretnej zanety tego programu nie znamy.
+Finlandia poszla w technologie - od dwa tysiace dwudziestego czwartego roku wolno polowac na inwazyjne drapiezniki z dronem termowizyjnym. Ale w Polsce osoba prywatna kuny zabic ani samodzielnie odlowic nie moze."
 
 ## [CZESC 8: PUENTA]
 (Zestawienie: pastuch, siatka, nozyce do galezi)

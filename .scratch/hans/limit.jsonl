@@ -143,3 +143,47 @@
 {"czas": 1787470908.69385, "czas_iso": "2026-08-23T07:41:48.693866+00:00", "powod": "message_id=175", "wyslane": true}
 {"czas": 1787482021.816583, "czas_iso": "2026-08-23T10:47:01.816599+00:00", "powod": "message_id=176", "wyslane": true}
 {"czas": 1787642958.272447, "czas_iso": "2026-08-25T07:29:18.272463+00:00", "powod": "message_id=179", "wyslane": true}
+{"czas": 1787647998.297626, "czas_iso": "2026-08-25T08:53:18.297642+00:00", "powod": "message_id=198", "wyslane": true}
+{"czas": 1787648065.196925, "czas_iso": "2026-08-25T08:54:25.196942+00:00", "powod": "message_id=199", "wyslane": true}
+{"czas": 1787649454.613156, "czas_iso": "2026-08-25T09:17:34.613174+00:00", "powod": "message_id=203", "wyslane": true}
+{"czas": 1787732841.410913, "czas_iso": "2026-08-26T08:27:21.410926+00:00", "powod": "message_id=389", "wyslane": true}
+{"czas": 1787740303.24766, "czas_iso": "2026-08-26T10:31:43.247678+00:00", "powod": "message_id=390", "wyslane": true}
+{"czas": 1787745744.810504, "czas_iso": "2026-08-26T12:02:24.810522+00:00", "powod": "message_id=391", "wyslane": true}
+{"czas": 1787746843.052679, "czas_iso": "2026-08-26T12:20:43.052694+00:00", "powod": "message_id=392", "wyslane": true}
+{"czas": 1787750099.136139, "czas_iso": "2026-08-26T13:14:59.136153+00:00", "powod": "message_id=394", "wyslane": true}
+{"czas": 1787751309.969426, "czas_iso": "2026-08-26T13:35:09.969444+00:00", "powod": "message_id=395", "wyslane": true}
+{"czas": 1787813176.096475, "czas_iso": "2026-08-27T06:46:16.096491+00:00", "powod": "message_id=400", "wyslane": true}
+{"czas": 1787814553.974026, "czas_iso": "2026-08-27T07:09:13.974044+00:00", "powod": "message_id=401", "wyslane": true}
+{"czas": 1787815563.663629, "czas_iso": "2026-08-27T07:26:03.663647+00:00", "powod": "message_id=402", "wyslane": true}
+{"czas": 1787818156.172621, "czas_iso": "2026-08-27T08:09:16.172639+00:00", "powod": "message_id=403", "wyslane": true}
+{"czas": 1787819081.055976, "czas_iso": "2026-08-27T08:24:41.055993+00:00", "powod": "message_id=404", "wyslane": true}
+{"czas": 1787819593.682324, "czas_iso": "2026-08-27T08:33:13.682345+00:00", "powod": "message_id=405", "wyslane": true}
+{"czas": 1787821035.33303, "czas_iso": "2026-08-27T08:57:15.333046+00:00", "powod": "message_id=406", "wyslane": true}
+{"czas": 1787821673.998155, "czas_iso": "2026-08-27T09:07:53.998174+00:00", "powod": "message_id=407", "wyslane": true}
+{"czas": 1787823154.713049, "czas_iso": "2026-08-27T09:32:34.713066+00:00", "powod": "message_id=408", "wyslane": true}
+{"czas": 1787824022.815687, "czas_iso": "2026-08-27T09:47:02.815703+00:00", "powod": "message_id=409", "wyslane": true}
+{"czas": 1787827204.757102, "czas_iso": "2026-08-27T10:40:04.757115+00:00", "powod": "message_id=427", "wyslane": true}
+{"czas": 1787827208.818107, "czas_iso": "2026-08-27T10:40:08.818126+00:00", "powod": "message_id=428", "wyslane": true}
+{"czas": 1787827834.413696, "czas_iso": "2026-08-27T10:50:34.413710+00:00", "powod": "message_id=429", "wyslane": true}
+{"czas": 1787830836.233972, "czas_iso": "2026-08-27T11:40:36.233983+00:00", "powod": "message_id=430", "wyslane": true}
+{"czas": 1787996550.22742, "czas_iso": "2026-08-29T09:42:30.227437+00:00", "powod": "message_id=433", "wyslane": true}
+{"czas": 1787998219.992559, "czas_iso": "2026-08-29T10:10:19.992577+00:00", "powod": "message_id=434", "wyslane": true}
+{"czas": 1788002028.630649, "czas_iso": "2026-08-29T11:13:48.630666+00:00", "powod": "message_id=435", "wyslane": true}
+{"czas": 1788166725.92775, "czas_iso": "2026-08-31T08:58:45.927756+00:00", "powod": "brak HANS_BOT_TOKEN lub HANS_CHAT_ID w konfiguracji", "wyslane": false}
+{"czas": 1788167962.172381, "czas_iso": "2026-08-31T09:19:22.172401+00:00", "powod": "message_id=438", "wyslane": true}
+{"czas": 1788168392.124567, "czas_iso": "2026-08-31T09:26:32.124584+00:00", "powod": "message_id=439", "wyslane": true}
+{"czas": 1788239095.280246, "czas_iso": "2026-09-01T05:04:55.280252+00:00", "powod": "brak HANS_BOT_TOKEN lub HANS_CHAT_ID w konfiguracji", "wyslane": false}
+{"czas": 1788239800.688371, "czas_iso": "2026-09-01T05:16:40.688405+00:00", "powod": "message_id=441", "wyslane": true}
+{"czas": 1788243140.483737, "czas_iso": "2026-09-01T06:12:20.483915+00:00", "powod": "message_id=442", "wyslane": true}
+{"czas": 1788271394.328489, "czas_iso": "2026-09-01T14:03:14.328509+00:00", "powod": "message_id=445", "wyslane": true}
+{"czas": 1788342675.477333, "czas_iso": "2026-09-02T09:51:15.477350+00:00", "powod": "message_id=463", "wyslane": true}
+{"czas": 1788344876.670588, "czas_iso": "2026-09-02T10:27:56.670591+00:00", "powod": "brak HANS_BOT_TOKEN lub HANS_CHAT_ID w konfiguracji", "wyslane": false}
+{"czas": 1788345120.341554, "czas_iso": "2026-09-02T10:32:00.341619+00:00", "powod": "message_id=480", "wyslane": true}
+{"czas": 1788345673.107846, "czas_iso": "2026-09-02T10:41:13.107862+00:00", "powod": "message_id=481", "wyslane": true}
+{"czas": 1788346172.64048, "czas_iso": "2026-09-02T10:49:32.640501+00:00", "powod": "message_id=482", "wyslane": true}
+{"czas": 1788414848.561719, "czas_iso": "2026-09-03T05:54:08.561745+00:00", "powod": "message_id=550", "wyslane": true}
+{"czas": 1788419742.517508, "czas_iso": "2026-09-03T07:15:42.517526+00:00", "powod": "message_id=552", "wyslane": true}
+{"czas": 1788428546.5287, "czas_iso": "2026-09-03T09:42:26.528717+00:00", "powod": "message_id=571", "wyslane": true}
+{"czas": 1788433851.62301, "czas_iso": "2026-09-03T11:10:51.623026+00:00", "powod": "message_id=573", "wyslane": true}
+{"czas": 1788443956.075931, "czas_iso": "2026-09-03T13:59:16.075949+00:00", "powod": "message_id=584", "wyslane": true}
+{"czas": 1788451827.612669, "czas_iso": "2026-09-03T16:10:27.612682+00:00", "powod": "message_id=586", "wyslane": true}

@@ -1,0 +1,63 @@
+{
+ "video": "data/filmy/kuny/kuny_film_v1.mp4",
+ "model": "gemini-2.5-flash",
+ "kiedy": "2026-08-26 13:39:08",
+ "zasada": "fail-closed; pelna rozdzielczosc; prompt bez opisu tresci",
+ "klatki": [
+  {
+   "opis": "Na obrazie widać kobietę w białej marynarce i czarnej bluzce, stojącą przed niebieskim tłem z siatką i abstrakcyjnymi kształtami po lewej stronie, a także napisy \"PREZENTERKA AI IZABELA\" u góry po lewej i logo \"ROD\" u góry po prawej.",
+   "orientacja_tresci": "lezaca",
+   "artefakty": [],
+   "verdict": "FAIL",
+   "powod": "Treść jest zorientowana poziomo, a obraz jest klatką wideo 9:16, co oznacza, że treść jest leżąca.",
+   "_faza": "ok",
+   "_jpeg_bytes": 234658,
+   "t": 1.9
+  },
+  {
+   "opis": "Na zdjęciu widać kunę siedzącą na silniku samochodu obok urządzenia odstraszającego kuny, z czerwonym paskiem tekstowym na dole z napisem \"NIE DZIAŁA\".",
+   "orientacja_tresci": "lezaca",
+   "artefakty": [],
+   "verdict": "FAIL",
+   "powod": "Treść obrazu jest zorientowana poziomo, co jest niezgodne z wymaganą orientacją pionową dla wideo 9:16.",
+   "_faza": "ok",
+   "_jpeg_bytes": 423265,
+   "t": 100.0
+  },
+  {
+   "opis": "Starszy mężczyzna z wąsami siedzi przy biurku, ubrany w koszulę w kratę i kamizelkę, trzymając notes i ołówek, wskazując na coś w notesie.",
+   "orientacja_tresci": "lezaca",
+   "artefakty": [],
+   "verdict": "FAIL",
+   "powod": "Treść wideo jest zorientowana poziomo, co jest niezgodne z wymaganą orientacją pionową (9:16).",
+   "_faza": "ok",
+   "_jpeg_bytes": 223247,
+   "t": 258.2
+  },
+  {
+   "opis": "Obraz przedstawia dwa kadry: po lewej kunę leśną przy pułapce na drzewie w zaśnieżonym lesie, a po prawej kunę domową obok samochodu i długiej czarnej skrzyni na śniegu, z napisami u góry i na dole.",
+   "orientacja_tresci": "lezaca",
+   "artefakty": [],
+   "verdict": "FAIL",
+   "powod": "Treść obrazu jest leżąca, co oznacza, że horyzont jest obrócony o 90 stopni.",
+   "_faza": "ok",
+   "_jpeg_bytes": 410088,
+   "t": 310.8
+  },
+  {
+   "opis": "Z lotu ptaka widać ośnieżony las iglasty z drogą pośrodku, na której świeci się biały lis.",
+   "orientacja_tresci": "pion",
+   "artefakty": [],
+   "verdict": "OK",
+   "powod": "Obraz jest poprawnie zorientowany i nie zawiera żadnych artefaktów.",
+   "_faza": "ok",
+   "_jpeg_bytes": 549260,
+   "t": 396.6
+  }
+ ],
+ "podsumowanie": {
+  "klatek": 5,
+  "fail": 4,
+  "werdykt": "FAIL"
+ }
+}

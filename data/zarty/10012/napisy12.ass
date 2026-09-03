@@ -1,0 +1,16 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,64,&H00FFFFFF,&H00FFFFFF,&H00101010,&H88000000,-1,0,0,0,100,100,0,0,1,4,2,2,60,60,220,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.40,0:00:07.70,Default,,0,0,0,,{\c&HFFFFFF&}Rezystancja izolacji...
+Dialogue: 0,0:00:08.10,0:00:15.95,Default,,0,0,0,,{\c&H5AC8FA&}TOMEK: Janusz, badałeś ty kiedyś ciągłość przewodu ochronnego i rezystancję izolacji na tym kablu YKY?
+Dialogue: 0,0:00:16.10,0:00:20.40,Default,,0,0,0,,{\c&H5AC8FA&}TOMEK: Przecież tu ci zaraz różnicówkę wywali w kosmos.
+Dialogue: 0,0:00:20.55,0:00:26.35,Default,,0,0,0,,{\c&H6AD9A8&}JANUSZ: Panie, to ma prąd przewodzić, a nie mieć jakąś... rezystancję. Od 30 lat działa!

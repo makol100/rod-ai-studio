@@ -1,4 +1,4 @@
-import {VideoRTC} from '/video-rtc.js';
+import {VideoRTC} from '/video-rtc.js?v=1fd3b652';
 
 const cameras = {
   parking_wjazd: 'Wjazd na parking',
@@ -77,7 +77,7 @@ function startHealthCheck() {
   clearInterval(healthTimer);
   healthTimer = window.setInterval(() => {
     if (!lastFrameAt) return;
-    if (Date.now() - lastFrameAt > 12_000) {
+    if (Date.now() - lastFrameAt > 25_000) {
       setStatus('offline', 'Brak sygnału');
       signalMessage.hidden = false;
     }
@@ -108,11 +108,18 @@ function selectCamera(name) {
   const player = document.createElement('video-rtc');
   player.mode = 'mse';
   player.media = 'video';
-  player.visibilityCheck = true;
-  player.visibilityThreshold = 0.15;
+  player.visibilityCheck = false;      // nie zrywaj przy chwilowym ukryciu
+  player.background = true;            // trzymaj polaczenie w tle
+  player.pliveThreshold = 10;         // duzy bufor, plynnie mimo porcji co ~4 s z chmury
   player.src = `/api/ws?src=${encodeURIComponent(name)}`;
   activePlayer = player;
   host.replaceChildren(player);
+  // bufor + lagodne doganianie: gdy narosnie zaleglosc, przyspiesz odtwarzanie zamiast skakac/restartowac
+  player.addEventListener('loadeddata', () => {
+    const v = player.querySelector('video'); if (!v) return;
+    v.playsInline = true; v.playbackRate = 1.0;
+    // predkosc i bufor obsluguje wlasny video-rtc.js (spokojny)
+  });
   observeVideoFrames(player);
   startHealthCheck();
 }
