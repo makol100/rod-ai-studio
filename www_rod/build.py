@@ -251,6 +251,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+    _cache_bust()
 
 # CACHE_BUST (03.09): po kazdym buildzie podmien ?v= na skrot CSS+JS, zeby telefony nie trzymaly starych plikow
 def _cache_bust():
@@ -262,4 +263,3 @@ def _cache_bust():
         s = _re.sub(r'(/static/(?:styles\.css|app\.js|img/logo\.png))(\?v=\w+)?', lambda m: m.group(1) + "?v=" + v, s)
         html.write_text(s, encoding="utf-8")
     print("cache-bust v=" + v)
-_cache_bust()
