@@ -55,19 +55,7 @@
       box.setAttribute('aria-expanded', String(!otw)); dni.hidden = otw;
       const et = box.querySelector('.pogoda-rozwin'); if (et) et.textContent = otw ? 'Prognoza 8 dni ▾' : 'Zwiń ▴';
     });
-    // RADAR OPADOW — 12h w przod (slupki opadu + szansa%)
-    if (radar && Array.isArray(p.godziny) && p.godziny.length) {
-      const maxOpad = Math.max(0.5, ...p.godziny.map(g => g.opad_mm));
-      const jestOpad = p.godziny.some(g => g.opad_mm > 0 || g.szansa >= 30);
-      radar.innerHTML =
-        `<div class="radar-tytul">Radar opadów · 12 h${jestOpad ? '' : ' · sucho'}</div>` +
-        `<div class="radar-slupki">` + p.godziny.map(g => {
-          const h = Math.round((g.opad_mm / maxOpad) * 100);
-          const kolor = g.szansa >= 60 ? 'mokro' : (g.szansa >= 30 ? 'mzawka' : 'sucho');
-          return `<div class="radar-godz" title="${g.godz} · ${g.opad_mm} mm · ${g.szansa}%"><div class="radar-bar ${kolor}" style="height:${Math.max(4,h)}%"></div><div class="radar-g">${g.godz.slice(0,2)}</div></div>`;
-        }).join('') + `</div>` +
-        `<div class="radar-legenda"><span><i class="mokro"></i>deszcz</span><span><i class="mzawka"></i>mżawka</span><span><i class="sucho"></i>sucho</span></div>`;
-    }
+    // (slupki radaru usuniete — radar to teraz mapa Leaflet nizej)
     document.querySelector('#pogoda-stopka').textContent = `Aktualizacja ${p.aktualizacja} · dane Open-Meteo dla Woźnik`;
   } catch (e) { box.innerHTML = '<p class="muted">Prognoza chwilowo niedostępna.</p>'; }
 })();
@@ -87,4 +75,46 @@
     const d = await r.json();
     el.textContent = `Odwiedziny: dziś ${d.dzis_goscie} · łącznie ${d.lacznie_goscie} gości (${d.lacznie_odslony} odsłon) od ${d.od.split('-').reverse().join('.')}`;
   } catch (e) { /* cicho */ }
+})();
+
+// Radar opadów — mapa Leaflet z animacją (LibreWXR przez /radar proxy: przeszłość + prognoza 60 min)
+(function initRadar() {
+  const host = document.querySelector('#radar-mapa');
+  if (!host || typeof L === 'undefined') { if (host && typeof L === 'undefined') setTimeout(initRadar, 300); return; }
+  const LAT = 50.588, LON = 18.989;
+  const mapa = L.map(host, { zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false, keyboard: false }).setView([LAT, LON], 8);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: '© OpenStreetMap · radar: RainViewer/LibreWXR' }).addTo(mapa);
+  L.circleMarker([LAT, LON], { radius: 5, color: '#2e7d4f', fillColor: '#2e7d4f', fillOpacity: 1, weight: 2 }).addTo(mapa);
+  let klatki = [], warstwy = {}, idx = 0, gra = true, timer = null;
+  const czasEl = document.querySelector('#radar-czas'), playEl = document.querySelector('#radar-play');
+  function warstwaDla(fr) {
+    if (warstwy[fr.time]) return warstwy[fr.time];
+    const w = L.tileLayer(`/radar/kafel/${fr.time}/256/{z}/{x}/{y}/4/1_0.png`, { opacity: 0, maxZoom: 12, tileSize: 256 });
+    w.addTo(mapa); warstwy[fr.time] = w; return w;
+  }
+  function pokaz(i) {
+    if (!klatki.length) return;
+    idx = (i + klatki.length) % klatki.length;
+    klatki.forEach((fr, k) => { const w = warstwaDla(fr); w.setOpacity(k === idx ? 0.75 : 0); });
+    const fr = klatki[idx]; const d = new Date(fr.time * 1000);
+    const g = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
+    czasEl.textContent = fr.przyszlosc ? `${g} · prognoza` : (k => k)(g);
+    czasEl.classList.toggle('prognoza', !!fr.przyszlosc);
+  }
+  function nastepna() { pokaz(idx + 1); }
+  function pętla() { clearInterval(timer); if (gra) timer = setInterval(nastepna, 700); }
+  async function wczytaj() {
+    try {
+      const r = await fetch('/radar/meta', { cache: 'no-store' }); if (!r.ok) throw 0;
+      const d = await r.json();
+      const past = (d.past || []).slice(-8).map(f => ({ ...f, przyszlosc: false }));
+      const now = (d.nowcast || []).map(f => ({ ...f, przyszlosc: true }));
+      const nowe = [...past, ...now];
+      if (!nowe.length) { host.parentElement.style.display = 'none'; return; }
+      klatki = nowe; idx = Math.max(0, past.length - 1); pokaz(idx); pętla();
+    } catch (e) { if (host.parentElement) host.parentElement.style.display = 'none'; }
+  }
+  if (playEl) playEl.addEventListener('click', () => { gra = !gra; playEl.textContent = gra ? '⏸' : '▶'; playEl.setAttribute('aria-label', gra ? 'Pauza' : 'Odtwórz'); pętla(); });
+  wczytaj();
+  setInterval(wczytaj, 5 * 60 * 1000); // odswiez klatki co 5 min
 })();
