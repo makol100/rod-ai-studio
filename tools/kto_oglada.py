@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Kto oglada kamery ROD: dziennik Caddy (uzytkownik, kamera, IP, czas) + go2rtc (widzowie teraz). Uzycie: kto_oglada.py [godzin wstecz]"""
+"""Kto oglada kamery ROD: dziennik /kamery/auth (user, kamera, IP, czas) + go2rtc (widzowie teraz). Uzycie: kto_oglada.py [godzin wstecz]"""
 import json, sys, datetime, urllib.request, collections
-LOG='/var/lib/docker/volumes/caddy_mcp_data/_data/kamery_access.log'
+LOG='/root/rod-ai-studio/data/kamery_dostepy.jsonl'
 godz=float(sys.argv[1]) if len(sys.argv)>1 else 24
 od=datetime.datetime.now().timestamp()-godz*3600
 sesje=collections.OrderedDict()
@@ -9,12 +9,9 @@ try:
     for l in open(LOG,encoding='utf-8'):
         try: d=json.loads(l)
         except Exception: continue
-        if d.get('ts',0)<od: continue
-        r=d.get('request',{}); uri=r.get('uri','')
-        if '/api/ws' not in uri and '/api/frame.jpeg' not in uri: continue
-        user=d.get('user_id') or (d.get('request',{}).get('headers',{}).get('Cookie',[''])[0].split('kamery_auth=')[1].split(':')[0] if 'kamery_auth=' in d.get('request',{}).get('headers',{}).get('Cookie',[''])[0] else '?'); kam=uri.split('src=')[-1] if 'src=' in uri else '?'
-        ip=r.get('client_ip') or r.get('remote_ip','?'); t=datetime.datetime.fromtimestamp(d['ts']).strftime('%d.%m %H:%M')
-        k=(user,kam,ip,t); sesje[k]=sesje.get(k,0)+1
+        if d.get('ts',0)<od or '/api/ws' not in d.get('uri',''): continue
+        k=(d.get('user','?'), d['uri'].split('src=')[-1], d.get('ip','?'), datetime.datetime.fromtimestamp(d['ts'],datetime.timezone(datetime.timedelta(hours=2))).strftime('%d.%m %H:%M'))
+        sesje[k]=sesje.get(k,0)+1
 except FileNotFoundError: print('brak dziennika')
 print(f'=== ostatnie {godz:g} h: kto / kamera / IP / kiedy / polaczen ===')
 for (user,kam,ip,t),n in list(sesje.items())[-40:]: print(f'{user:10s} {kam:17s} {ip:16s} {t}  x{n}')
