@@ -140,3 +140,15 @@
 })();
 
 // Data + godzina pod logo — pełna, czytelna (dla starszych)
+
+// Data pod logo (sama data, godzinę pokazuje zegar)
+(function dataHero() {
+  const el = document.querySelector('#zegar-data'); if (!el) return;
+  const DNI = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
+  const MIES = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
+  function odswiez() {
+    const t = new Date();
+    el.textContent = `${DNI[t.getDay()]}, ${t.getDate()} ${MIES[t.getMonth()]} ${t.getFullYear()}`;
+  }
+  odswiez(); setInterval(odswiez, 60000);
+})();
