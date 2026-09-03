@@ -152,3 +152,15 @@
   }
   odswiez(); setInterval(odswiez, 60000);
 })();
+
+// Mapa ogrodu — lightbox
+(function initMapa() {
+  const lb=document.querySelector('#mapa-lightbox'); if(!lb) return;
+  const open=()=>{ lb.classList.add('aktywny'); document.body.style.overflow='hidden'; };
+  const close=()=>{ lb.classList.remove('aktywny'); document.body.style.overflow=''; };
+  document.querySelector('#mapa-zoom')?.addEventListener('click',open);
+  document.querySelector('#mapa-img')?.addEventListener('click',open);
+  document.querySelector('#mapa-close')?.addEventListener('click',close);
+  lb.addEventListener('click',e=>{ if(e.target===lb) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+})();
