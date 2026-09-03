@@ -521,3 +521,14 @@ button { font: inherit; }
   .g-szukaj { order: -1; width: 100%; }
   .g-pole { width: 100%; }
 }
+
+/* Pasek Google — własny rząd pod nagłówkiem, duży i wyśrodkowany */
+.g-pasek-rzad { display: flex; justify-content: center; padding: 4px 20px 18px; }
+.g-pasek-rzad .g-szukaj { width: min(640px, 100%); padding: 16px 26px; gap: 14px; border-radius: 999px; box-shadow: 0 6px 22px rgba(24,58,38,.08); }
+.g-pasek-rzad .g-pole { width: 100%; font-size: 1.15rem; }
+.g-pasek-rzad .g-ikona { width: 26px; height: 26px; }
+@media (max-width: 640px) {
+  .g-pasek-rzad { padding: 2px 16px 14px; }
+  .g-pasek-rzad .g-szukaj { padding: 13px 20px; }
+  .g-pasek-rzad .g-pole { font-size: 1.05rem; }
+}
