@@ -20,10 +20,15 @@
   <div class="pogoda" id="pogoda" aria-labelledby="pogoda-tytul">
     <div class="section-head">
       <p class="eyebrow">Pogoda w ogrodzie · Woźniki</p>
-      <h2 id="pogoda-tytul">Teraz i na cały tydzień</h2>
+      <h2 id="pogoda-tytul">Teraz w ogrodzie</h2>
     </div>
-    <div class="pogoda-teraz" id="pogoda-teraz"><p class="muted">Ładuję prognozę…</p></div>
-    <div class="pogoda-dni" id="pogoda-dni"></div>
+    <div class="pogoda-glowna">
+      <button class="pogoda-teraz" id="pogoda-teraz" type="button" aria-expanded="false" aria-controls="pogoda-dni">
+        <p class="muted">Ładuję prognozę…</p>
+      </button>
+      <div class="pogoda-radar" id="pogoda-radar" aria-label="Radar opadów — najbliższe 12 godzin"></div>
+    </div>
+    <div class="pogoda-dni" id="pogoda-dni" hidden></div>
     <p class="muted pogoda-stopka" id="pogoda-stopka"></p>
   </div>
   <aside class="announcement-card" aria-labelledby="pilne-tytul">

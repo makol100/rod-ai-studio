@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" sizes="64x64" href="/static/img/favicon.png">
   <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
   <link rel="preload" href="/static/fonts/fraunces-pl.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/static/styles.ba9bcb76.css">
+  <link rel="stylesheet" href="/static/styles.33ed9f21.css">
   <title>ROD im. Józefa Lompy | ROD im. Józefa Lompy w Woźnikach</title>
 </head>
 <body class="home">
@@ -70,10 +70,15 @@
   <div class="pogoda" id="pogoda" aria-labelledby="pogoda-tytul">
     <div class="section-head">
       <p class="eyebrow">Pogoda w ogrodzie · Woźniki</p>
-      <h2 id="pogoda-tytul">Teraz i na cały tydzień</h2>
+      <h2 id="pogoda-tytul">Teraz w ogrodzie</h2>
     </div>
-    <div class="pogoda-teraz" id="pogoda-teraz"><p class="muted">Ładuję prognozę…</p></div>
-    <div class="pogoda-dni" id="pogoda-dni"></div>
+    <div class="pogoda-glowna">
+      <button class="pogoda-teraz" id="pogoda-teraz" type="button" aria-expanded="false" aria-controls="pogoda-dni">
+        <p class="muted">Ładuję prognozę…</p>
+      </button>
+      <div class="pogoda-radar" id="pogoda-radar" aria-label="Radar opadów — najbliższe 12 godzin"></div>
+    </div>
+    <div class="pogoda-dni" id="pogoda-dni" hidden></div>
     <p class="muted pogoda-stopka" id="pogoda-stopka"></p>
   </div>
   <aside class="announcement-card" aria-labelledby="pilne-tytul">
@@ -168,6 +173,6 @@
     <p class="licznik-odwiedzin" id="licznik-odwiedzin" aria-live="polite"></p>
     <p class="copyright">Rodzinny Ogród Działkowy im. Józefa Lompy w Woźnikach · od 1948 roku · © <span data-year>2026</span></p>
   </footer>
-  <script src="/static/app.ba9bcb76.js" defer></script>
+  <script src="/static/app.33ed9f21.js" defer></script>
 </body>
 </html>

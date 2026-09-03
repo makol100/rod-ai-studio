@@ -459,3 +459,34 @@ button { font: inherit; }
 .film-mini:hover img { transform: scale(1.03); opacity: 1; }
 .film-play { position: absolute; left: 50%; top: 46%; transform: translate(-50%,-50%); width: 66px; height: 66px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,253,246,.92); color: var(--forest-900); font-size: 1.7rem; padding-left: 5px; }
 .film-podpis { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px; text-align: center; color: #fffdf6; font-weight: 700; font-size: .92rem; background: linear-gradient(transparent, rgba(0,0,0,.7)); }
+
+/* Pogoda: teraz + radar obok, prognoza rozwijana */
+.pogoda-glowna { display: grid; grid-template-columns: 1fr minmax(180px, 260px); gap: 16px; align-items: stretch; }
+.pogoda-teraz { display: flex; align-items: center; gap: 16px; width: 100%; text-align: left; border: 1px solid var(--line); border-radius: 18px; background: var(--cream-100); padding: 18px; cursor: pointer; position: relative; font: inherit; color: inherit; }
+.pogoda-teraz .ikona { font-size: 2.6rem; line-height: 1; }
+.pogoda-teraz .temp { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+.pogoda-teraz .opis { color: var(--muted); margin-top: 2px; }
+.pogoda-teraz .detale { color: var(--muted); font-size: .82rem; margin-top: 6px; }
+.pogoda-rozwin { position: absolute; right: 16px; bottom: 12px; font-size: .78rem; font-weight: 800; color: var(--forest-800); }
+.pogoda-dni[hidden] { display: none; }
+.pogoda-dni { margin-top: 14px; }
+/* Radar opadów */
+.pogoda-radar { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; }
+.radar-tytul { font-size: .74rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; color: var(--forest-800); margin-bottom: 8px; }
+.radar-slupki { flex: 1; display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; align-items: end; min-height: 64px; }
+.radar-godz { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+.radar-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 4px; }
+.radar-bar.sucho { background: #cfe3d4; }
+.radar-bar.mzawka { background: #7fb2d6; }
+.radar-bar.mokro { background: #2f6fb0; }
+.radar-g { font-size: .58rem; color: var(--muted); margin-top: 3px; }
+.radar-legenda { display: flex; gap: 12px; margin-top: 8px; font-size: .68rem; color: var(--muted); }
+.radar-legenda span { display: inline-flex; align-items: center; gap: 4px; }
+.radar-legenda i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.radar-legenda i.sucho { background: #cfe3d4; }
+.radar-legenda i.mzawka { background: #7fb2d6; }
+.radar-legenda i.mokro { background: #2f6fb0; }
+@media (max-width: 640px) {
+  .pogoda-glowna { grid-template-columns: 1fr; }
+  .pogoda-radar { min-height: 120px; }
+}
