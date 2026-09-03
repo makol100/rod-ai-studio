@@ -152,6 +152,7 @@ def build() -> list[Path]:
     shutil.copy2(ROOT.parent / "data/rolka-prad/do-rolki/00-MAPA-OGRODU.jpg", image_dest / "mapa-ogrodu.jpg")
     shutil.copy2(ROOT.parent / "data/rolka-prad/do-rolki/ZK-z-tablica-ROD.jpg", image_dest / "elektryfikacja.jpg")
     shutil.copy2(ROOT / "static/img/jozef_lompa.jpg", image_dest / "jozef_lompa.jpg")
+    shutil.copy2(ROOT / "static/img/a14.svg", image_dest / "a14.svg")
 
     layout = (ROOT / "templates/page.html").read_text(encoding="utf-8")
     home = (ROOT / "templates/home.html").read_text(encoding="utf-8")
