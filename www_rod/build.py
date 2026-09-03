@@ -40,7 +40,7 @@ def inline(text: str) -> str:
     escaped = html.escape(text, quote=False)
     escaped = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", escaped)
     escaped = re.sub(r"`(.+?)`", r"<code>\1</code>", escaped)
-    escaped = re.sub(r"\[([^]]+)]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', escaped)
+    escaped = re.sub(r"\[([^]]+)]\(((?:https?://|mailto:|/)[^)]+)\)", r'<a href="\2">\1</a>', escaped)
     return escaped
 
 
@@ -60,8 +60,15 @@ def markdown(text: str) -> str:
             output.append(f"</{list_type}>")
             list_type = None
 
+    raw_html = False
     for raw_line in text.splitlines():
         line = raw_line.strip()
+        if line == ":::html":
+            flush_paragraph(); close_list(); raw_html = True; continue
+        if line == ":::" and raw_html:
+            raw_html = False; continue
+        if raw_html:
+            output.append(raw_line); continue
         if not line:
             flush_paragraph()
             close_list()
