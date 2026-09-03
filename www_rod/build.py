@@ -209,7 +209,7 @@ def build() -> list[Path]:
     image_dest = static_dest / "img"
     image_dest.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT.parent / "assets/branding/rod_logo_kolo.png", image_dest / "logo.png")
-    shutil.copy2(ROOT.parent / "data/rolka-prad/do-rolki/00-MAPA-OGRODU.jpg", image_dest / "mapa-ogrodu.jpg")
+    shutil.copy2(ROOT.parent / "data/rolka-prad/mapy-16x9/MAPA-OGRODU-16x9.jpg", image_dest / "mapa-ogrodu.jpg")
     shutil.copy2(ROOT.parent / "data/rolka-prad/do-rolki/ZK-z-tablica-ROD.jpg", image_dest / "elektryfikacja.jpg")
     shutil.copy2(ROOT / "static/img/jozef_lompa.jpg", image_dest / "jozef_lompa.jpg")
     shutil.copy2(ROOT / "static/img/a14.svg", image_dest / "a14.svg")
