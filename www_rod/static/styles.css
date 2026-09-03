@@ -206,3 +206,9 @@ button { font: inherit; }
 .pogoda-dzien .t span { color: var(--muted); font-weight: 400; }
 .pogoda-dzien .o { color: var(--muted); font-size: .82rem; margin-top: 4px; }
 .pogoda-stopka { margin-top: 10px; font-size: .85rem; }
+
+/* Patron — podstrona */
+.patron-portret { float: right; width: min(300px, 42%); margin: 0 0 16px 24px; padding: 10px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.patron-portret img { width: 100%; height: auto; border-radius: 12px; display: block; }
+.patron-portret figcaption { margin-top: 8px; font-size: .8rem; color: var(--muted); }
+@media (max-width: 640px) { .patron-portret { float: none; width: 100%; margin: 0 0 18px; } }
