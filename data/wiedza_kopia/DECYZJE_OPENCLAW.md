@@ -40,3 +40,6 @@ DEKRET 12.08 ("Wszystko" po przegladzie warsztatu): A) wlasny klient Gemini Imag
 DEKRET E 12.08 ("Dzialamy"): wlasny klucz fal.ai dla Henia (osobny klucz, srodowisko FAL_KEY w jego .env) + fal_client i whisper w jego venv (0 zl) + wlasne tools Henia do Veo (submit TYLKO z jawna flaga kosztowa). Weryfikacja klucza bez kosztu: 401 vs 404 na queue.fal.run.
 E WYKONANE 12.08: klucz fal Henia w jego .env (600), weryfikacja darmowa OK (200 vs 401), fal_client+whisper zainstalowane (exit=0), veo_henio.py zbudowany PRZEZ HENIA (bramka --zaplac dziala: dry-run $0.64 zatrzymany; --sprawdz-klucz 405 -> poprawka u Henia).
 ZGODA TOMASZA 12.08 ("Daje"): dwa testy klienta obrazow Zenka — imagen-4.0-fast ~$0.02 + gemini-3.1-flash-image ~$0.067 (razem ~$0.09). Koszt infrastrukturalny (walidacja klienta), nie odcinkowy.
+
+## 03.09.2026 — ZAMKNIECIE (dekret 'Porzadek')
+OpenClaw/Molty usuniety z VPS (user, home, /root/.openclaw, npm, gateway). Kopia konfiguracji: /root/.sekrety/archiwum/openclaw_konfig_0309.tar.gz. Bot @Rodmoltybot do skasowania w BotFather przez Tomasza. Rola Molty'ego = Hans (od 12.08).

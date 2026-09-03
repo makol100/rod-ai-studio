@@ -24,3 +24,5 @@ Założona 02.09.2026 (dekret Tomasza „Kończ Belzebuba"). Zasada teczek: wpis
 ## 02.09.2026 — narada tauron_kdt (2.0)
 - BLAD: 'PPE to uprawnienia elektryka' — FALSZ (PPE = Punkt Poboru Energii, numer w KDT). Reszta glosu rzeczowa: 5 pytan dzialkowcow, zdanie-zapalnik + data graniczna, 3 pominiecia zarzadow z 3 odwiedzonych zrodel.
 - TECHNIKA: 2 puste odpowiedzi z rzedu = tryb reasoning zjadal max_tokens; naprawione (/no_think, 6000).
+
+## 03.09.2026 — ZASLUGA: niezaleznie wskazal pyEzvizApi VTM/VTDU (TCP relay) z odwiedzonymi zrodlami — to byla wlasciwa droga; EZVIZ Open Platform HLS jako droga B (platna po probie).

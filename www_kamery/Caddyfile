@@ -1,0 +1,91 @@
+# Kandydat do dopisania po decyzji Tomasza. Ten plik NIE jest aktywną konfiguracją.
+# Kontener caddy-mcp wymaga dodatkowego montowania tylko do odczytu:
+# /root/rod-ai-studio/www_kamery:/srv/www_kamery:ro
+# Przed walidacją ustawić KAMERY_USER i bcryptowy KAMERY_PASSWORD_HASH.
+
+kamery.157-90-155-155.sslip.io {
+	encode zstd gzip
+
+	basic_auth {
+		{$KAMERY_USER} {$KAMERY_PASSWORD_HASH}
+	}
+
+	header {
+		Content-Security-Policy "default-src 'self'; connect-src 'self' wss:; img-src 'self' data:; media-src 'self' blob:; script-src 'self'; style-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+		Referrer-Policy "no-referrer"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	route {
+		@ws_wjazd {
+			path /api/ws
+			query src=parking_wjazd
+		}
+		handle @ws_wjazd {
+			reverse_proxy 127.0.0.1:1984
+		}
+
+		@ws_wejscie {
+			path /api/ws
+			query src=parking_wejscie
+		}
+		handle @ws_wejscie {
+			reverse_proxy 127.0.0.1:1984
+		}
+
+		@ws_smietnik {
+			path /api/ws
+			query src=parking_smietnik
+		}
+		handle @ws_smietnik {
+			reverse_proxy 127.0.0.1:1984
+		}
+
+		@frame_wjazd {
+			path /api/frame.jpeg
+			query src=parking_wjazd
+		}
+		handle @frame_wjazd {
+			reverse_proxy 127.0.0.1:1984
+		}
+
+		@frame_wejscie {
+			path /api/frame.jpeg
+			query src=parking_wejscie
+		}
+		handle @frame_wejscie {
+			reverse_proxy 127.0.0.1:1984
+		}
+
+		@frame_smietnik {
+			path /api/frame.jpeg
+			query src=parking_smietnik
+		}
+		handle @frame_smietnik {
+			reverse_proxy 127.0.0.1:1984
+		}
+
+		@player_assets path /video-rtc.js /video-webcodecs.js /video-renderer.js
+		handle @player_assets {
+			reverse_proxy 127.0.0.1:1984
+		}
+
+		@blocked_api path /api/*
+		handle @blocked_api {
+			respond "Nie ma tu nic." 404
+		}
+
+		@page_assets path / /index.html /app.js /styles.css
+		handle @page_assets {
+			root * /srv/www_kamery
+			file_server
+		}
+
+		handle {
+			respond "Nie ma tu nic." 404
+		}
+	}
+}

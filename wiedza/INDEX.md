@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 02.09.2026 13:32.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 03.09.2026 10:10.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 02.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-02 15:05:38 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 03.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-03 12:05:55 CEST |
+| `DECYZJE_OPENCLAW.md` | 03.09 | 4K | DECYZJA TOMASZA (2026-08-12): OpenClaw WDROZYC — pilotaz proaktywnosci 24/7 |
 | `PREZENTER_TOMASZ_KANON_0.1.md` | 02.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
 | `BANK_KWESTII_PREZENTER_TOMASZ.md` | 02.09 | 6K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
 | `GRATULACJE_0109_naprawa_ogloszenia.md` | 01.09 | 1K | Tomasz 01.09.2026 po v7: 'Jest zajebiscie. Gratulacje dla grupy calej.' — za naprawe 0 USD ogloszenia Prezente |
@@ -32,7 +33,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `DECYZJE_KUNY.md` | 12.08 | 1K | DECYZJE TOMASZA — FILM O KUNACH (append-only) |
 | `PRZEGLAD_WARSZTATU_2026-08-12.md` | 12.08 | 5K | PRZEGLAD WARSZTATU ZALOGI (12.08.2026) — "czego CI brakuje do produkcji" |
 | `GENEROWANIE_OBRAZU.md` | 12.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
-| `DECYZJE_OPENCLAW.md` | 12.08 | 4K | DECYZJA TOMASZA (2026-08-12): OpenClaw WDROZYC — pilotaz proaktywnosci 24/7 |
 | `BANK_PROMPTOW.md` | 12.08 | 1K | BANK PROMPTOW-ZWYCIEZCOW (dekret 23.07 pkt 3, wdrozony 12.08 dekretem "Wszystko") |
 | `PILOT_MOST_PLAN.md` | 12.08 | 2K | PILOT MOSTU MIEDZYSESYJNEGO — PLAN v2 (po opiniach zalogi, 12.08.2026) |
 | `MOST_MIEDZYSESYJNY.md` | 12.08 | 2K | MOST MIEDZYSESYJNY CLAUDE CODE — ZWERYFIKOWANY 12.08.2026 |
