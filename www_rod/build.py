@@ -127,11 +127,18 @@ def announcement_html(item: dict) -> str:
     )
 
 
+def ostatnie_ogloszenia_html(items: list[dict]) -> str:
+    rows = []
+    for item in sorted(items, key=lambda row: row["date"], reverse=True)[:3]:
+        rows.append(f'<li><time datetime="{html.escape(item["date"])}">{html.escape(item["display_date"])}</time><a href="/ogloszenia/#{html.escape(item["id"])}">{html.escape(item["title"])}</a></li>')
+    return '<ul class="ogl-lista">' + "".join(rows) + '</ul>'
+
+
 def announcements_page(items: list[dict]) -> str:
     cards = []
     for item in sorted(items, key=lambda row: row["date"], reverse=True):
         cards.append(
-            '<li class="announcement-item">'
+            '<li class="announcement-item" id="' + html.escape(item["id"]) + '">'
             f'<time datetime="{html.escape(item["date"])}">{html.escape(item["display_date"])}</time>'
             f'<h2>{html.escape(item["title"])}</h2>'
             f'<p><strong>{html.escape(item["place"])}</strong></p>'
