@@ -15,7 +15,7 @@ def kto(od):
             if d.get('ts',0)<od: continue
             uri=d.get('request',{}).get('uri','')
             if '/api/ws' not in uri: continue
-            who[uri.split('src=')[-1]].add(d.get('user_id') or '?')
+            _c=d.get('request',{}).get('headers',{}).get('Cookie',[''])[0]; who[uri.split('src=')[-1]].add(d.get('user_id') or (_c.split('kamery_auth=')[1].split(':')[0] if 'kamery_auth=' in _c else '?'))
     except FileNotFoundError: pass
     return who
 while True:

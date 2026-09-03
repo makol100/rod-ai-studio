@@ -12,7 +12,7 @@ try:
         if d.get('ts',0)<od: continue
         r=d.get('request',{}); uri=r.get('uri','')
         if '/api/ws' not in uri and '/api/frame.jpeg' not in uri: continue
-        user=d.get('user_id') or '?'; kam=uri.split('src=')[-1] if 'src=' in uri else '?'
+        user=d.get('user_id') or (d.get('request',{}).get('headers',{}).get('Cookie',[''])[0].split('kamery_auth=')[1].split(':')[0] if 'kamery_auth=' in d.get('request',{}).get('headers',{}).get('Cookie',[''])[0] else '?'); kam=uri.split('src=')[-1] if 'src=' in uri else '?'
         ip=r.get('client_ip') or r.get('remote_ip','?'); t=datetime.datetime.fromtimestamp(d['ts']).strftime('%d.%m %H:%M')
         k=(user,kam,ip,t); sesje[k]=sesje.get(k,0)+1
 except FileNotFoundError: print('brak dziennika')

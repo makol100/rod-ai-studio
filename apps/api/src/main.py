@@ -14,9 +14,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# M1 (D-0156, 27.08.2026): mutacje WYLACZNIE z sekretem podawanym przez Caddy.
+# Fail-closed: brak pliku sekretu = wszystkie POST/PUT/DELETE/PATCH -> 401.
+# GET-y otwarte (boot N150 /ipxe.efi, /barometr HA, /panel). OPTIONS obsluguje CORS.
+from fastapi import Request
+from fastapi.responses import JSONResponse
+_AUTH_PLIK = "/app/.fabryka_auth"
+try:
+    FABRYKA_AUTH = open(_AUTH_PLIK, encoding="utf-8").read().strip() or None
+except Exception:
+    FABRYKA_AUTH = None
+
+@app.middleware("http")
+async def auth_mutacji(request: Request, call_next):
+    if request.method in ("POST", "PUT", "DELETE", "PATCH") and request.url.path != "/kamery/login":  # /kamery/login = formularz logowania dzialkowcow (03.09), sam sprawdza haslo
+        if not FABRYKA_AUTH or request.headers.get("X-Fabryka-Auth") != FABRYKA_AUTH:
+            return JSONResponse({"detail": "Brak autoryzacji mutacji (X-Fabryka-Auth)."}, status_code=401)
+    return await call_next(request)
+
 app.include_router(topics_router)
 from src.zarty import router as zarty_router
+from src.kamery_auth import router as kamery_auth_router
 app.include_router(zarty_router)
+app.include_router(kamery_auth_router)
 
 
 @app.get("/health")
