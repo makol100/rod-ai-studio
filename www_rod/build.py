@@ -251,3 +251,15 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+# CACHE_BUST (03.09): po kazdym buildzie podmien ?v= na skrot CSS+JS, zeby telefony nie trzymaly starych plikow
+def _cache_bust():
+    import hashlib, re as _re
+    dist = ROOT / "dist"
+    v = hashlib.md5((dist / "static/styles.css").read_bytes() + (dist / "static/app.js").read_bytes()).hexdigest()[:8]
+    for html in dist.rglob("*.html"):
+        s = html.read_text(encoding="utf-8")
+        s = _re.sub(r'(/static/(?:styles\.css|app\.js|img/logo\.png))(\?v=\w+)?', lambda m: m.group(1) + "?v=" + v, s)
+        html.write_text(s, encoding="utf-8")
+    print("cache-bust v=" + v)
+_cache_bust()
