@@ -35,3 +35,10 @@
     document.querySelector('#pogoda-stopka').textContent = `Aktualizacja ${p.aktualizacja} · dane Open-Meteo dla Woźnik`;
   } catch (e) { box.innerHTML = '<p class="muted">Prognoza chwilowo niedostępna.</p>'; }
 })();
+
+// Formularz kontaktowy: komunikaty po powrocie z /kontakt/wyslij
+(() => {
+  const q = new URLSearchParams(location.search);
+  if (q.get('wyslano')) document.querySelector('#wyslano')?.classList.add('widoczny');
+  if (q.get('blad')) document.querySelector('#blad')?.classList.add('widoczny');
+})();

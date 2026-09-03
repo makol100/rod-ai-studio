@@ -27,7 +27,7 @@ except Exception:
 
 @app.middleware("http")
 async def auth_mutacji(request: Request, call_next):
-    if request.method in ("POST", "PUT", "DELETE", "PATCH") and request.url.path != "/kamery/login":  # /kamery/login = formularz logowania dzialkowcow (03.09), sam sprawdza haslo
+    if request.method in ("POST", "PUT", "DELETE", "PATCH") and request.url.path not in ("/kamery/login", "/kontakt/wyslij"):  # /kamery/login = formularz logowania dzialkowcow (03.09), sam sprawdza haslo
         if not FABRYKA_AUTH or request.headers.get("X-Fabryka-Auth") != FABRYKA_AUTH:
             return JSONResponse({"detail": "Brak autoryzacji mutacji (X-Fabryka-Auth)."}, status_code=401)
     return await call_next(request)
@@ -35,8 +35,10 @@ async def auth_mutacji(request: Request, call_next):
 app.include_router(topics_router)
 from src.zarty import router as zarty_router
 from src.kamery_auth import router as kamery_auth_router
+from src.kontakt_rod import router as kontakt_rod_router
 app.include_router(zarty_router)
 app.include_router(kamery_auth_router)
+app.include_router(kontakt_rod_router)
 
 
 @app.get("/health")
