@@ -212,3 +212,9 @@ button { font: inherit; }
 .patron-portret img { width: 100%; height: auto; border-radius: 12px; display: block; }
 .patron-portret figcaption { margin-top: 8px; font-size: .8rem; color: var(--muted); }
 @media (max-width: 640px) { .patron-portret { float: none; width: 100%; margin: 0 0 18px; } }
+
+/* Pasek: strona w budowie (dekret 03.09) */
+.budowa-pasek { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 10px 16px; background: repeating-linear-gradient(135deg, #f6c000 0 18px, #1b1b1b 18px 36px); }
+.budowa-pasek p { margin: 0; padding: 8px 16px; border-radius: 999px; background: #fffdf6; color: #1b1b1b; font-size: .95rem; text-align: center; }
+.budowa-pasek .znak-budowa { flex: none; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+@media (max-width: 560px) { .budowa-pasek .znak-budowa:last-child { display: none; } }
