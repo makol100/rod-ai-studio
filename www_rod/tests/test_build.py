@@ -48,11 +48,20 @@ class BuildTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_expected_outputs(self):
-        for relative in ("index.html", "ogloszenia/index.html", "dla-dzialkowcow/index.html", "sitemap.xml", "robots.txt", "static/app.js", "static/styles.css"):
+        for relative in ("index.html", "ogloszenia/index.html", "dla-dzialkowcow/index.html", "sitemap.xml", "robots.txt", "static/app.js", "static/styles.css", "static/fonts/fraunces-pl.woff2"):
             self.assertTrue((BUILD.DIST / relative).is_file(), relative)
+
+    def test_v2_font_and_patron_render(self):
+        font = BUILD.DIST / "static/fonts/fraunces-pl.woff2"
+        self.assertLessEqual(font.stat().st_size, 80_000)
+        patron = (BUILD.DIST / "patron/index.html").read_text(encoding="utf-8")
+        self.assertIn('<figure class="patron-portret">', patron)
+        self.assertNotIn('&lt;figure class="patron-portret"', patron)
 
     def test_html_has_metadata_and_accessible_images(self):
         for page in BUILD.DIST.rglob("*.html"):
+            if page.relative_to(BUILD.DIST).parts[0] == "static":
+                continue
             text = page.read_text(encoding="utf-8")
             self.assertIn('<meta name="description"', text, page)
             self.assertIn('property="og:title"', text, page)

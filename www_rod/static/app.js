@@ -18,6 +18,19 @@
     navToggle.setAttribute("aria-expanded", String(!open));
     menu?.classList.toggle("is-open", !open);
   });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || navToggle?.getAttribute("aria-expanded") !== "true") return;
+    navToggle.setAttribute("aria-expanded", "false");
+    menu?.classList.remove("is-open");
+    navToggle.focus();
+  });
+  const currentPath = location.pathname.replace(/index\.html$/, "");
+  menu?.querySelectorAll('a[href^="/"]').forEach((link) => {
+    const linkPath = new URL(link.href, location.origin).pathname;
+    if (linkPath === currentPath || (linkPath !== "/" && currentPath.startsWith(linkPath))) {
+      link.setAttribute("aria-current", "page");
+    }
+  });
   document.querySelectorAll("[data-year]").forEach((el) => { el.textContent = String(new Date().getFullYear()); });
 })();
 

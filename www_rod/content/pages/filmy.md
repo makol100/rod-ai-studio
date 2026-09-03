@@ -6,6 +6,12 @@ slug: filmy
 
 # Filmy z naszego ogrodu
 
+## Prąd w ROD Woźniki — od szafki do własnej umowy z Tauronem
+
+:::html
+<div class="yt-wideo yt-pion"><iframe src="https://www.youtube-nocookie.com/embed/4tfLWG4fxHY" title="Prąd w ROD Woźniki — Etap 3" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+:::
+
 ## Przebudowa prądu w ogrodzie — i co teraz musisz zrobić u siebie
 
 :::html
