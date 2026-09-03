@@ -490,3 +490,13 @@ button { font: inherit; }
   .pogoda-glowna { grid-template-columns: 1fr; }
   .pogoda-radar { min-height: 120px; }
 }
+
+/* Poprawka: przycisk pogody bez nachodzenia "Prognoza 8 dni" na detale */
+#pogoda-teraz.pogoda-teraz { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 20px 22px 16px; position: relative; }
+#pogoda-teraz .ikona { font-size: 2.8rem; }
+#pogoda-teraz .teraz-tresc { width: 100%; }
+#pogoda-teraz .detale { padding-right: 0; }
+#pogoda-teraz .pogoda-rozwin { position: static; align-self: flex-end; margin-top: 8px; padding: 6px 12px; border: 1px solid var(--forest-800); border-radius: 999px; background: rgba(255,253,246,.65); }
+@media (max-width: 640px) {
+  #pogoda-teraz .pogoda-rozwin { align-self: stretch; text-align: center; }
+}
