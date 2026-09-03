@@ -14,6 +14,7 @@ E-mail: **[rodwozniki@gmail.com](mailto:rodwozniki@gmail.com)**
 
 ## Napisz do zarządu
 
+:::html
 <p class="form-ok" id="wyslano">Dziękujemy — wiadomość dotarła do zarządu. Odpowiemy na podany e-mail.</p>
 <p class="form-blad" id="blad">Nie udało się wysłać — wpisz treść wiadomości i zaznacz zgodę (adres e-mail musi być poprawny).</p>
 
@@ -28,3 +29,4 @@ E-mail: **[rodwozniki@gmail.com](mailto:rodwozniki@gmail.com)**
   <label class="zgoda"><input name="zgoda" type="checkbox" value="tak" required> Wyrażam zgodę na przetwarzanie podanych danych w celu odpowiedzi na moją wiadomość (administrator: Zarząd ROD im. Józefa Lompy w Woźnikach, ul. Młyńska 40c; szczegóły w <a href="/prywatnosc/">polityce prywatności</a>).</label>
   <button class="button button-primary" type="submit">Wyślij wiadomość</button>
 </form>
+:::
