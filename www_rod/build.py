@@ -135,6 +135,7 @@ def announcements_page(items: list[dict]) -> str:
             f'<h2>{html.escape(item["title"])}</h2>'
             f'<p><strong>{html.escape(item["place"])}</strong></p>'
             f'<p>{html.escape(item["body"])}</p>'
+            + (f'<img class="ogl-foto" src="/static/img/{html.escape(item["image"])}" alt="" loading="lazy">' if item.get("image") else "")
             + (
                 '<a class="fb-wideo" href="' + html.escape(item["video_fb"]) + '" rel="noopener" aria-label="Obejrzyj film na Facebooku">'
                 '<img src="/static/img/' + html.escape(item.get("video_img", "ogloszenie_sezon.jpg")) + '" width="720" height="1280" alt="Kadr z filmu z ogłoszeniem" loading="lazy">'
