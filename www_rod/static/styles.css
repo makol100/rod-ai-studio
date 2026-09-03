@@ -535,8 +535,8 @@ button { font: inherit; }
 .hero-visual { position: relative; }
 .zegar-hero { position: absolute; left: 50%; top: 43%; width: 30%; height: 30%; transform: translate(-50%, -50%); z-index: 4; pointer-events: none; overflow: visible; }
 .zegar-hero line { stroke-linecap: round; transform-box: fill-box; transform-origin: 50% 100%; }
-.wsk-godz { stroke: #f3ead2; stroke-width: 3.4; opacity: .92; }
-.wsk-min { stroke: #f3ead2; stroke-width: 2.2; opacity: .92; }
-.wsk-sek { stroke: #e5b744; stroke-width: 1.1; opacity: .95; }
-.wsk-srodek { fill: #e5b744; }
+.wsk-godz { stroke: #111; stroke-width: 3.2; opacity: .9; }
+.wsk-min { stroke: #111; stroke-width: 2; opacity: .9; }
+.wsk-sek { stroke: #111; stroke-width: 1; opacity: .8; }
+.wsk-srodek { fill: #111; }
 @media (prefers-reduced-motion: reduce) { .wsk-sek { display: none; } }
