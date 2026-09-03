@@ -83,14 +83,14 @@
   if (!host || typeof L === 'undefined') { if (host && typeof L === 'undefined') setTimeout(initRadar, 300); return; }
   const LAT = 50.588, LON = 18.989;
   const mapa = L.map(host, { zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false, keyboard: false }).setView([LAT, LON], 8);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: '© OpenStreetMap · radar: RainViewer/LibreWXR' }).addTo(mapa);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: '© OpenStreetMap · radar i prognoza: IMGW-PIB' }).addTo(mapa);
   L.circleMarker([LAT, LON], { radius: 5, color: '#2e7d4f', fillColor: '#2e7d4f', fillOpacity: 1, weight: 2 }).addTo(mapa);
   let klatki = [], warstwy = {}, idx = 0, gra = true, timer = null;
   const czasEl = document.querySelector('#radar-czas'), playEl = document.querySelector('#radar-play');
   function warstwaDla(fr) {
-    if (warstwy[fr.time]) return warstwy[fr.time];
-    const w = L.tileLayer(`/radar/kafel/${fr.time}/256/{z}/{x}/{y}/4/1_0.png`, { opacity: 0, maxZoom: 12, tileSize: 256 });
-    w.addTo(mapa); warstwy[fr.time] = w; return w;
+    if (warstwy[fr.ts]) return warstwy[fr.ts];
+    const w = L.tileLayer(`/radar/kafel/${fr.ts}/{z}/{x}/{y}.png`, { opacity: 0, maxZoom: 12, minZoom: 5, tileSize: 256 });
+    w.addTo(mapa); warstwy[fr.ts] = w; return w;
   }
   function pokaz(i) {
     if (!klatki.length) return;
