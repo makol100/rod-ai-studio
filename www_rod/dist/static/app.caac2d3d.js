@@ -118,3 +118,23 @@
   wczytaj();
   setInterval(wczytaj, 5 * 60 * 1000); // odswiez klatki co 5 min
 })();
+
+// Zegar analogowy na logo ROD — same wskazówki (nie zasłaniają napisu)
+(function zegarHero() {
+  const svg = document.querySelector('#zegar-hero'); if (!svg) return;
+  const g = svg.querySelector('.wsk-godz'), m = svg.querySelector('.wsk-min'), s = svg.querySelector('.wsk-sek');
+  function tik() {
+    const t = new Date();
+    const sek = t.getSeconds() + t.getMilliseconds() / 1000;
+    const min = t.getMinutes() + sek / 60;
+    const godz = (t.getHours() % 12) + min / 60;
+    g.style.transform = `rotate(${godz * 30}deg)`;
+    m.style.transform = `rotate(${min * 6}deg)`;
+    s.style.transform = `rotate(${sek * 6}deg)`;
+    requestAnimationFrame(tik);
+  }
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { // bez sekundnika, ale ustaw godzinę+minutę raz
+    const t = new Date(); g.style.transform = `rotate(${((t.getHours()%12)+t.getMinutes()/60)*30}deg)`; m.style.transform = `rotate(${t.getMinutes()*6}deg)`;
+  } else tik();
+})();
