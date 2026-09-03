@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Filmy ROD im. Józefa Lompy w Woźnikach — prąd w ogrodzie, kuny na parkingu, ogłoszenia wideo.">
+  <meta name="description" content="Tablica ogłoszeń działkowców ROD im. Józefa Lompy w Woźnikach — sprzedam, oddam, kupię, szukam pomocy, zguby i znaleziska.">
   <meta name="theme-color" content="#2e7d4f">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pl_PL">
-  <meta property="og:title" content="Filmy">
-  <meta property="og:description" content="Filmy ROD im. Józefa Lompy w Woźnikach — prąd w ogrodzie, kuny na parkingu, ogłoszenia wideo.">
-  <meta property="og:url" content="https://rodwozniki.pl/filmy/">
+  <meta property="og:title" content="Tablica ogłoszeń">
+  <meta property="og:description" content="Tablica ogłoszeń działkowców ROD im. Józefa Lompy w Woźnikach — sprzedam, oddam, kupię, szukam pomocy, zguby i znaleziska.">
+  <meta property="og:url" content="https://rodwozniki.pl/tablica/">
   <meta property="og:image" content="https://rodwozniki.pl/static/img/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://rodwozniki.pl/filmy/">
+  <link rel="canonical" href="https://rodwozniki.pl/tablica/">
   <link rel="icon" type="image/png" sizes="64x64" href="/static/img/favicon.png">
   <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
   <link rel="preload" href="/static/fonts/fraunces-pl.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="/static/styles.c9e045dd.css">
-  <title>Filmy | ROD im. Józefa Lompy w Woźnikach</title>
+  <title>Tablica ogłoszeń | ROD im. Józefa Lompy w Woźnikach</title>
 </head>
 <body class="">
   <a class="skip-link" href="#tresc">Przejdź do treści</a>
@@ -54,14 +54,34 @@
         <input class="g-pole" type="search" name="q" placeholder="Szukaj w Google…" aria-label="Wpisz zapytanie">
       </form></div>
   <main id="tresc">
-    <header class="page-hero shell"><p class="eyebrow">ROD Woźniki</p><h1>Filmy</h1></header><article class="page-content"><h2>Prąd w ROD Woźniki — od szafki do własnej umowy z Tauronem</h2>
-<div class="yt-wideo yt-pion"><iframe src="https://www.youtube-nocookie.com/embed/4tfLWG4fxHY" title="Prąd w ROD Woźniki — Etap 3" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-<h2>Przebudowa prądu w ogrodzie — i co teraz musisz zrobić u siebie</h2>
-<div class="yt-wideo"><iframe src="https://www.youtube-nocookie.com/embed/xKHxqNi02MQ" title="Przebudowa prądu w naszym ogrodzie" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-<h2>O kunach na parkingu</h2>
-<div class="yt-wideo"><iframe src="https://www.youtube-nocookie.com/embed/b2f_srU7lF4" title="O kunach" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-<h2>Ogłoszenia wideo</h2>
-<p>Krótkie rolki z ogłoszeniami zarządu (czyta je awatar AI prezesa i prezenterka Izabela) publikujemy na <a href="https://www.facebook.com/1174205105781401">stronie ROD Woźniki na Facebooku</a>. Najnowsze: <a href="https://www.facebook.com/reel/1072180219009887">Zakończenie sezonu 2026</a>.</p></article>
+    <header class="page-hero shell"><p class="eyebrow">ROD Woźniki</p><h1>Tablica ogłoszeń</h1></header><article class="page-content"><p>Miejsce na drobne ogłoszenia sąsiedzkie: sprzedam, oddam, kupię, szukam pomocy, zguby i znaleziska. Każde ogłoszenie sprawdza zarząd, zanim pojawi się na tablicy.</p>
+<p class="form-ok" id="wyslano">Dziękujemy — ogłoszenie trafiło do zarządu. Po zatwierdzeniu pojawi się na tablicy.</p>
+<p class="form-blad" id="blad">Nie udało się wysłać — wpisz tytuł, treść i zaznacz zgodę.</p>
+
+<form class="kontakt-form tablica-form" method="post" action="/tablica/wyslij">
+  <label>Kategoria
+    <select name="kategoria" required>
+      <option value="sprzedam">Sprzedam</option>
+      <option value="oddam">Oddam za darmo</option>
+      <option value="kupie">Kupię</option>
+      <option value="pomoc">Szukam pomocy</option>
+      <option value="zguby">Zguby i znaleziska</option>
+      <option value="inne">Inne</option>
+    </select>
+  </label>
+  <label>Tytuł ogłoszenia<input name="tytul" type="text" maxlength="100" required placeholder="np. Sprzedam kosiarkę spalinową"></label>
+  <label>Treść<textarea name="tresc" rows="4" maxlength="600" required placeholder="Opisz krótko, czego dotyczy ogłoszenie"></textarea></label>
+  <label>Kontakt (telefon lub e-mail)<input name="kontakt" type="text" maxlength="80" placeholder="żeby zainteresowani mogli się odezwać"></label>
+  <div class="form-para">
+    <label>Imię<input name="imie" type="text" maxlength="50" placeholder="opcjonalnie"></label>
+    <label>Nr działki<input name="dzialka" type="text" maxlength="20" placeholder="opcjonalnie"></label>
+  </div>
+  <label class="form-zgoda"><input name="zgoda" type="checkbox" value="tak" required> Zgadzam się na publikację ogłoszenia z podanym kontaktem na stronie ROD.</label>
+  <input class="pulapka" name="www" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <button class="button button-primary" type="submit">Wyślij ogłoszenie</button>
+</form>
+<h2>Aktualne ogłoszenia</h2>
+<p><p class="muted">Na razie brak ogłoszeń. Bądź pierwszy — wyślij swoje powyżej.</p></p></article>
   </main>
   <footer class="site-footer">
     <div>

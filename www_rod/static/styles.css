@@ -548,3 +548,21 @@ button { font: inherit; }
 /* Data pod logo */
 .hero-visual { display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
 .hero-data { margin: 14px 0 0; text-align: center; font-weight: 700; font-size: 1.05rem; color: var(--forest-800); letter-spacing: .01em; }
+
+/* Tablica ogłoszeń */
+.tablica-form .form-para { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ogl-tablica { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 14px; }
+.ogl-tab { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 18px 20px; box-shadow: 0 8px 24px rgba(24,58,38,.06); }
+.ogl-tab-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
+.ogl-tab-head time { color: var(--muted); font-size: .82rem; }
+.ogl-kat { font-size: .72rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--cream-100); color: var(--forest-800); }
+.ogl-kat-sprzedam { background: #e7f3ea; color: #1f5a37; }
+.ogl-kat-oddam { background: #eaf6df; color: #3a6b1f; }
+.ogl-kat-kupie { background: #fff3d6; color: #8a6a1a; }
+.ogl-kat-pomoc { background: #fde8e0; color: #a2432a; }
+.ogl-kat-zguby { background: #e6eef8; color: #2a4d80; }
+.ogl-tab h3 { margin: 4px 0 6px; font-size: 1.25rem; }
+.ogl-tab p { margin: 0; }
+.ogl-kontakt { margin-top: 8px; font-weight: 600; color: var(--forest-800); }
+.ogl-od { margin-top: 6px; color: var(--muted); font-size: .84rem; }
+@media (max-width: 640px) { .tablica-form .form-para { grid-template-columns: 1fr; } }
