@@ -715,3 +715,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 D-0309: Tomasz zglasza ze podwojne tapniecie NIE dziala na Foldzie i kaze ZOSTAWIC strzalki (mniejsze niz 120px) — strzalki przywrocone w 88px pastel, dblclick+touchend zostaje jako dodatek na komputer; dowod renderu i oko OK. Do modelu spaceru: nawigacja podstawowa = STRZALKI, nie podwojny tap
+
+
+==============================================================================
+## SESJA 04.09.2026 13:47 CEST
+==============================================================================
+
+04.09 D-0311 WDROZONE Z DOWODEM: proba spaceru laduje CALOSC na starcie (pasek % po bajtach, fetch->blob), potem zero pobran (licznik jpg=0); podwojny TAP dziala na dotyku (puppeteer touchscreen.tap x2 -> plac) i podwojny KLIK na myszy (-> parking); wymagane w CSP: connect-src blob: (Pannellum ciagnie panorame XHR-em) + img-src blob: — oba w Caddyfile:292, po edycji restart caddy-mcp; ignoreGPanoXMP true; strzalki 88px zostaly. Backupy Caddyfile: .bak-spacer-csp, .bak-spacer-csp2
