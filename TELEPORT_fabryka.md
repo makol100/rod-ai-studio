@@ -729,3 +729,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 KOREKTA: strzalki spaceru = 120 px pastel (Tomasz: 'wieksze strzalki pastelowe'), zapisane w modelu jako rozmiar zatwierdzony — nie zmniejszac
+
+
+==============================================================================
+## SESJA 04.09.2026 13:56 CEST
+==============================================================================
+
+04.09 PRZYCZYNA '0%' U TOMASZA: /static/ ma max-age=604800 (7 dni) — jego Chrome trzymal stary proba.js pod nowym HTML z loaderem. Naprawa: wszystkie odwolania js/css w proba.html z ?v=epoch (kazda zmiana = nowa wersja), fallback paska na liczbe plikow. ZASADA W TECZCE I MODELU: zmiana plikow spaceru zawsze z nowym ?v=. Retest pelny OK (tap, klik, 0 pobran)
