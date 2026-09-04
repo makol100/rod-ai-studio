@@ -25,6 +25,11 @@ Wypełniony wniosek oddaj Zarządowi ROD albo wyślij na **rodwozniki@gmail.com*
 - Zgłoszenie zamiaru budowy, nadbudowy lub rozbudowy altany działkowej (§ 45 Regulaminu ROD) — [PDF do druku](/static/dokumenty/zgloszenie-budowy-altany.pdf) · [DOCX do wypełnienia](/static/dokumenty/zgloszenie-budowy-altany.docx). Do zgłoszenia dołącz rysunek z powierzchnią zabudowy, wysokością i usytuowaniem na działce (wymóg § 45 ust. 1).
 - Zgłoszenie budowy lub montażu bezodpływowego zbiornika na nieczystości ciekłe (§ 43 Regulaminu ROD) — [PDF do druku](/static/dokumenty/zgloszenie-budowy-zbiornika.pdf) · [DOCX do wypełnienia](/static/dokumenty/zgloszenie-budowy-zbiornika.docx)
 
+## Prąd — przyłącza Tauron
+
+- **Informacja dla działkowców w sprawie utrzymania instalacji elektrycznych zasilających działki** — [PDF](/static/dokumenty/informacja-instalacje-elektryczne.pdf). Gdzie przebiega granica z Tauronem, za co odpowiada działkowiec (kabel, skrzynka, instalacja), awarie sieci do Tauronu (991), prace ziemne uzgadniać z Zarządem; z potwierdzeniem zapoznania się.
+- Jak przejść na własną umowę z Tauronem — [film „Przebudowa prądu w naszym ogrodzie"](/elektryfikacja/) i [poradnik dla działkowców](/dla-dzialkowcow/).
+
 ## Przepisy
 
 - [Statut Polskiego Związku Działkowców](/static/dokumenty/statut-pzd-2024.pdf) — uchwalony 4 grudnia 2024 r., zarejestrowany w KRS 15 kwietnia 2025 r. (PDF)
