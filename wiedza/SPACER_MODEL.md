@@ -36,3 +36,15 @@ DECYZJA TOMASZA (otwarta): 10 m czy 15 m między sferami.
 120 px, środek CAŁKOWICIE przezroczysty, obwódka 3 px biała rgba(255,255,255,.75),
 grot \27A4 BIAŁY rgba(255,255,255,.92), cień 0 2px 10px rgba(0,0,0,.30).
 NIE zmieniać rozmiaru ani kolorów bez polecenia Tomasza.
+
+## PRZEJŚCIA I TRASA SESJI (Tomasz 04.09.2026, D-0313: sfery co 10 m)
+Przejścia poprzeczne (pion na mapie):
+- 36|37: Alejka Północna -> Alejka Środkowa (koło wschodniego rogu Domu Działkowca)
+- 21|22 -> 16|15: Alejka Środkowa -> Alejka Południowa (jedna linia)
+- 43|44: Alejka Północna -> Parking nr 2 (trójkąt na górze mapy)
+TRASA (kolejność zdjęć = kolejność sąsiedztwa): 1 Brama1+Parking2 wschód -> 2 przejście 43|44 w dół ->
+3 Północna na zachód do Bramy2 -> (powrót do 36|37) -> 4 przejście w dół -> 5 Środkowa zachód: Dom Działkowca,
+Parking1, Brama3 -> (powrót) -> 6 Środkowa wschód do końca -> (powrót do 21|22) -> 7 przejście w dół ->
+8 Południowa zachód do Bramy4 -> (powrót) -> 9 Południowa wschód do końca. Zdjęcia co 10 m (~13 kroków),
+obowiązkowo: bramy, skrzyżowania, końce alejek, oba końce + środek każdego przejścia.
+Rysunek trasy przekazany Tomaszowi (trasa-spaceru.jpg, lokalnie u Klaudka).
