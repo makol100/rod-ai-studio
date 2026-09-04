@@ -14,9 +14,21 @@
     box-shadow:0 2px 12px rgba(0,0,0,.55)}
   div.strzalka::after{content:'\27A4';color:#1b5e20;font-size:50px;line-height:82px;
     display:block;text-align:center}
+  #ladowanie{position:fixed;inset:0;background:#101810;color:#eaf5ea;z-index:50;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:system-ui,sans-serif;transition:opacity .5s}
+  #ladowanie h1{font-size:1.15rem;font-weight:600;margin:0 0 18px}
+  #pasek{width:min(74vw,420px);height:14px;background:#28402c;border-radius:9px;overflow:hidden}
+  #pasek-w{height:100%;width:0%;background:linear-gradient(90deg,#7cc98f,#b7e1c3);border-radius:9px;transition:width .2s}
+  #procent{margin-top:12px;font-size:1rem;color:#b7e1c3}
 </style>
 </head>
 <body>
+<div id="ladowanie">
+  <h1>Ładowanie spaceru…</h1>
+  <div id="pasek"><div id="pasek-w"></div></div>
+  <div id="procent">0%</div>
+</div>
 <div id="panorama"></div>
 <script src="/static/spacer/pannellum.js"></script>
 <script src="/static/spacer/proba.js"></script>
