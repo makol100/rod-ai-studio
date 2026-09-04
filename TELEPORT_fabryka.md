@@ -736,3 +736,17 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 PRZYCZYNA '0%' U TOMASZA: /static/ ma max-age=604800 (7 dni) — jego Chrome trzymal stary proba.js pod nowym HTML z loaderem. Naprawa: wszystkie odwolania js/css w proba.html z ?v=epoch (kazda zmiana = nowa wersja), fallback paska na liczbe plikow. ZASADA W TECZCE I MODELU: zmiana plikow spaceru zawsze z nowym ?v=. Retest pelny OK (tap, klik, 0 pobran)
+
+
+==============================================================================
+## SESJA 04.09.2026 14:05 CEST
+==============================================================================
+
+04.09 STRZAŁKA ZATWIERDZONA (Brawo): 120px, srodek przezroczysty, biala obwodka 3px, bialy grot .92 — wzor w SPACER_MODEL.md, nie zmieniac bez polecenia
+
+
+==============================================================================
+## SESJA 04.09.2026 14:06 CEST
+==============================================================================
+
+04.09 DECYZJA TOMASZA: sfery co 10 m (D w rejestrze). Pytanie Tomasza o polaczenie mapy ze spacerem — wyjasnienie: na mapie tylko ~10 duzych punktow wejscia, nie wszystkie sfery
