@@ -172,6 +172,23 @@ def _fb_tresc_bez_tytulu(it) -> str:
     return tresc
 
 
+def wideo_html(kategoria: str) -> str:
+    try:
+        items = [x for x in load_json(CONTENT / "wideo.json") if x.get("kategoria") == kategoria]
+    except Exception:
+        items = []
+    if not items:
+        return '<p class="muted">Wkrótce pojawią się tu nagrania.</p>'
+    karty = []
+    for it in items[:12]:
+        mini = f'<img src="{html.escape(it.get("miniaturka",""))}" alt="" loading="lazy">' if it.get("miniaturka") else ""
+        karty.append(f'<a class="wideo-karta" href="{html.escape(it["link"])}" rel="noopener">'
+                     f'<span class="wideo-mini">{mini}<span class="wideo-play" aria-hidden="true">▶</span></span>'
+                     f'<span class="wideo-tyt">{html.escape(it["tytul"])}</span>'
+                     f'<span class="wideo-data">{html.escape(it.get("display_date",""))} · Facebook</span></a>')
+    return '<div class="wideo-lista">' + "".join(karty) + '</div>'
+
+
 def fb_posty_html() -> str:
     try:
         items = load_json(CONTENT / "fb_posty.json")
@@ -303,7 +320,7 @@ def build() -> list[Path]:
             title=meta["title"],
             description=meta["description"],
             canonical=f'{site["url"]}/{meta["slug"]}/',
-            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{fb_posty}}", fb_posty_html())),
+            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{fb_posty}}", fb_posty_html()).replace("{{wideo_rolki}}", wideo_html("rolki")).replace("{{wideo_wiadomosci}}", wideo_html("wiadomosci"))),
         )
 
     paths = ["/", "/ogloszenia/"] + [f"/{parse_page(path)[0]['slug']}/" for path in sorted((CONTENT / "pages").glob("*.md"))]
