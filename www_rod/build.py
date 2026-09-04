@@ -182,11 +182,15 @@ def wideo_html(kategoria: str) -> str:
     karty = []
     for it in items[:12]:
         mini = f'<img src="{html.escape(it.get("miniaturka",""))}" alt="" loading="lazy">' if it.get("miniaturka") else ""
-        karty.append(f'<a class="wideo-karta" href="{html.escape(it["link"])}" rel="noopener">'
+        wid = it.get("wideo") or ""
+        atr = f' data-wideo="{html.escape(wid)}" data-mini="{html.escape(it.get("miniaturka",""))}"' if wid else ' rel="noopener"'
+        dopisek = "" if wid else " · Facebook"
+        karty.append(f'<a class="wideo-karta" href="{html.escape(it["link"])}"{atr}>'
                      f'<span class="wideo-mini">{mini}<span class="wideo-play" aria-hidden="true">▶</span></span>'
                      f'<span class="wideo-tyt">{html.escape(it["tytul"])}</span>'
-                     f'<span class="wideo-data">{html.escape(it.get("display_date",""))} · Facebook</span></a>')
-    return '<div class="wideo-lista">' + "".join(karty) + '</div>'
+                     f'<span class="wideo-data">{html.escape(it.get("display_date",""))}{dopisek}</span></a>')
+    return ('<div class="wideo-lista">' + "".join(karty) + '</div>'
+            + '<script defer src="/static/js/film-okno.js?v=20260904a"></script>')
 
 
 def fb_posty_html() -> str:
