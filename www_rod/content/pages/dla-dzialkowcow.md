@@ -18,10 +18,10 @@ slug: dla-dzialkowcow
 ## Film: jak to działa
 
 :::html
-<a class="film-mini" href="https://youtu.be/4tfLWG4fxHY" rel="noopener" aria-label="Zobacz film: Prąd w ROD Woźniki">
+<a class="film-mini" href="https://www.youtube-nocookie.com/embed/4tfLWG4fxHY?rel=0&modestbranding=1&playsinline=1" data-yt="4tfLWG4fxHY" data-pion="1" aria-label="Zobacz film: Prąd w ROD Woźniki">
   <img src="/static/img/film_tauron_thumb.jpg" alt="Kadr z filmu o prądzie w ROD Woźniki" loading="lazy" width="1080" height="1920">
   <span class="film-play" aria-hidden="true">▶</span>
-  <span class="film-podpis">Obejrzyj film na YouTube</span>
+  <span class="film-podpis">Obejrzyj film</span>
 </a>
 :::
 
