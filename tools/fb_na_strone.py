@@ -55,7 +55,19 @@ def pobierz_wideo(tok):
                     if len(dane_m) > 5000: cel.write_bytes(dane_m)
                 except Exception as e: print("miniaturka", v["id"], "blad:", e)
             if cel.is_file() and cel.stat().st_size >= 5000: mini = f"/static/wideo/{v['id']}.jpg"
-        wyn.append({"id": v["id"], "tytul": tytul, "kategoria": kat, "link": link,
+        # wlasny plik mp4 (dekret D-0314: filmy graja w oknie na stronie, nie na FB)
+        mp4 = WWW / f"static/wideo/{v['id']}.mp4"
+        if not mp4.is_file():
+            try:
+                qs = urllib.parse.urlencode({"fields": "source", "access_token": tok})
+                zr = json.load(urllib.request.urlopen(f"https://graph.facebook.com/{V}/{v['id']}?{qs}", timeout=30)).get("source")
+                if zr:
+                    rq = urllib.request.Request(zr, headers={"User-Agent": "Mozilla/5.0"})
+                    with urllib.request.urlopen(rq, timeout=180) as rr, open(mp4, "wb") as fo:
+                        shutil.copyfileobj(rr, fo)
+            except Exception as e: print("mp4", v["id"], "blad pobierania:", e)
+        wid = f"/static/wideo/{v['id']}.mp4" if mp4.is_file() and mp4.stat().st_size > 200_000 else ""
+        wyn.append({"id": v["id"], "tytul": tytul, "kategoria": kat, "link": link, "wideo": wid,
                     "miniaturka": mini, "date": ct.isoformat(timespec="minutes"), "display_date": ct.strftime("%d.%m.%Y")})
     wyn.sort(key=lambda x: x["date"], reverse=True)
     plik = WWW / "content/wideo.json"

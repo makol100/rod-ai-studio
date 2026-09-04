@@ -750,3 +750,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 DECYZJA TOMASZA: sfery co 10 m (D w rejestrze). Pytanie Tomasza o polaczenie mapy ze spacerem — wyjasnienie: na mapie tylko ~10 duzych punktow wejscia, nie wszystkie sfery
+
+
+==============================================================================
+## SESJA 04.09.2026 14:17 CEST
+==============================================================================
+
+04.09 Tomasz podal przejscia: 36|37 (Polnocna-Srodkowa), 21|22->16|15 (Srodkowa-Poludniowa), 43|44 (Polnocna-Parking2). Trasa sesji 9 segmentow zapisana w SPACER_MODEL.md, rysunek na mapie przekazany Tomaszowi
