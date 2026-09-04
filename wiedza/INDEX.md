@@ -85,3 +85,4 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 Jeden fakt ma jedno miejsce. Nowy zapis idzie do `wiedza/`, nie do teleportu.
 Teleporty sa ARCHIWUM historycznym — czyta sie je wyszukiwarka, nie w calosci.
 | `STRONA_ROD_0309.md` | 03.09 | 5K | rodwozniki.pl pełny stan: radar IMGW 6h, zegar, pogoda, SEO, bot ogłoszeń, źródło postów FB Ogrodnik ROD, dekrety wizualne, lekcje git/Caddy |
+- wiedza/STRONA_FILMY.md — filmy na rodwozniki.pl: dekrety D-0314/D-0315, okno na stronie (własne mp4 + osadzenie YouTube wg Genka), CSP, HTTP/3 off, bramka (04.09.2026)

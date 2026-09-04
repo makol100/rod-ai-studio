@@ -251,3 +251,9 @@ Klaudek zameldował Tomaszowi "straciłem łączność z serwerem Działki" jak 
 
 ## 04.09.2026 — BŁĄD: spacer "0%" u Tomasza, a u Klaudka działał
 Caddy serwuje /static/ z cache 7 dni (max-age=604800). Telefon Tomasza trzymał STARY proba.js — nowy HTML pokazał ekran ładowania, a stary skrypt pod spodem nic o nim nie wiedział → wieczne 0%. Testy headless zawsze startują z pustym cache, więc "u mnie działa" nic nie dowodzi przy zmianach plików. NAUKA: każda zmiana js/css spaceru = nowy ?v= w HTML (strona główna ma to z build.py, pliki ręczne NIE). Dodany też zapasowy licznik postępu plikami, gdyby zabrakło Content-Length.
+
+## 04.09.2026 — trzy lekcje jednego dnia (Tomasz: „zapisuj wszystko wszędzie")
+1. Zacząłem ŚCIĄGAĆ filmy z YouTube na VPS (nawet przez łącze Wybickiego), zamiast osadzić łącze — Tomasz: „zapytaj Gienka bo on jest od Google". Gdy istnieje standardowy embed, nie kopiować cudzych zasobów; najpierw pytać Genka o Google/YouTube/FB.
+2. „U mnie działa" po ośmiu godzinach walk z cache: telefon Tomasza trzyma /static/ 7 dni; headless zawsze ma pusty cache. Wersjonować pliki, sprawdzać nagłówki.
+3. Zgłosiłem „straciłem łączność z Działką" jako nowinę — Działka leży od 16.08 (w pamięci). Alarm najpierw zderzyć z listą znanych awarii.
+Techniczne: `pkill -f` z wzorcem zawartym we własnej komendzie zabija samą komendę (exit -15) — zabijać po PID; nowe style kart sprawdzać w OBU motywach (ostrzeżenie nieczytelne w ciemnym).
