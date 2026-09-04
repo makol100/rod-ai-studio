@@ -163,6 +163,15 @@ def write(path: Path, content: str) -> None:
 KATEGORIE_TABLICA = {"sprzedam": "Sprzedam", "oddam": "Oddam za darmo", "kupie": "Kupię", "pomoc": "Szukam pomocy", "zguby": "Zguby i znaleziska", "inne": "Inne"}
 
 
+def _fb_tresc_bez_tytulu(it) -> str:
+    """Tytul to pierwsza linia tresci — nie pokazywac jej drugi raz."""
+    tresc = it.get("tresc", "")
+    tytul = it.get("tytul", "")
+    if tytul and tresc.startswith(tytul):
+        tresc = tresc[len(tytul):].lstrip("\n ")
+    return tresc
+
+
 def fb_posty_html() -> str:
     try:
         items = load_json(CONTENT / "fb_posty.json")
@@ -170,10 +179,10 @@ def fb_posty_html() -> str:
         items = []
     if not isinstance(items, list) or not items:
         return '<p class="muted">Wpisy pojawią się wkrótce.</p>'
-    ETYK = {"powitanie": "Dzień dobry", "porada": "Porada dnia", "ostrzezenie": "Ostrzeżenie"}
+    ETYK = {"powitanie": "Dzień dobry", "porada": "Porada dnia", "ostrzezenie": "Ostrzeżenie", "ogloszenie": "Ogłoszenie"}
     rows = []
     for it in items:
-        tresc = html.escape(it.get("tresc", "")).replace("\n", "<br>")
+        tresc = html.escape(_fb_tresc_bez_tytulu(it)).replace("\n", "<br>")
         rows.append(f'<article class="fb-wpis fb-{it.get("typ","porada")}"><div class="fb-head"><span class="ogl-kat">{ETYK.get(it.get("typ"),"Wpis")}</span><time>{html.escape(it.get("display_date",""))} · {html.escape(it.get("godz",""))}</time></div>'
                     f'<h3>{html.escape(it["tytul"])}</h3><div class="fb-tresc">{tresc}</div><a class="text-link" href="{html.escape(it["link"])}" rel="noopener">Zobacz na Facebooku <span aria-hidden="true">→</span></a></article>')
     return '<div class="fb-lista">' + "".join(rows) + '</div>'
@@ -187,7 +196,7 @@ def fb_posty_skrot() -> str:
     if not isinstance(items, list) or not items:
         return '<p class="muted">Codzienne wpisy Ogrodnika ROD.</p>'
     it = items[0]
-    return f'<p class="fb-skrot-tyt">{html.escape(it["tytul"])}</p><p class="fb-skrot-tresc">{html.escape(it.get("tresc","")[:140])}…</p>'
+    return f'<p class="fb-skrot-tyt">{html.escape(it["tytul"])}</p><p class="fb-skrot-tresc">{html.escape(_fb_tresc_bez_tytulu(it)[:140])}…</p>'
 
 
 def porady_miesiaca_html() -> str:
