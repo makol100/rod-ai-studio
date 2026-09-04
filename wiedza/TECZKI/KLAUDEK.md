@@ -236,3 +236,6 @@ Fakty z transkryptu narady o filmie kun: RUNDA 1 — Klaudek poszedł prosto do 
 - 03.09 BLAD: cache-busting w build.py dopisany PO 'raise SystemExit(main())' — nigdy sie nie wykonal; dwa razy zameldowalem naprawe paska budowy na podstawie zrzutu z serwera (bez cache), a telefon Tomasza trzymal stary CSS. Naprawa: CSS/JS pod nazwa z hashem. Lekcja: sprawdzac wyjscie buildu ('cache-bust v=') i nazwe pliku CSS w HTML z serwera, nie zakladac.
 
 - 03.09 BLAD: wpisalem na strone link do FB 'profile.php?id=61576190289486' z glowy (nie z danych) — cudzy/nieistniejacy profil. Poprawione linkiem z Graph API strony 1174205105781401. Lekcja: linki do naszych kont tylko z API/wiedzy, nigdy z pamieci.
+
+## 04.09.2026 — BŁĄD: zameldował "tablica ma 0 ogłoszeń" sprawdziwszy tylko kolejkę
+Klaudek dwukrotnie (raport poranny + propozycja rozruchu) podał Tomaszowi "0 ogłoszeń na tablicy", patrząc wyłącznie w data/tablica/oczekujace.json (kolejka moderacji). Opublikowane wpisy leżą w www_rod/content/tablica.json — tam od 03.09 17:31 wisiało ogłoszenie Tomasza "Szukamy pomocy do elektryfikacji alejki północnej". Poprawił go Tomasz ("Jest moje ogłoszenie"). Wzorzec z teczki: melduje przed sprawdzeniem CAŁOŚCI. Nauka: tablica = DWA pliki (kolejka + opublikowane), liczyć oba.
