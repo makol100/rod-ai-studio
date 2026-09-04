@@ -547,3 +547,136 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 27.08 — panel apki Tomasza odblokowany (wariant A, D-0151): basic auth dla internetu, tailnet bez zmian; testy PASS, backup Caddyfile zrobiony.
+
+
+==============================================================================
+## SESJA 04.09.2026 05:49 CEST
+==============================================================================
+
+04.09 ~05:50 poranny pomiar dla Tomasza: rodwozniki.pl od startu pod domena (03.09 ~19:27 CEST) 7650 zapytan, 127 IP, po odsianiu botow/AWS/ekipy ~8-10 realnych gosci z PL; glowna 49 odslon, mapa 10, ogloszenia 9, tablica 7. Kamery: 100 polaczen ze strumieniami, 6/7 kont (tomasz 57, czeslaw 14 — ogladal ~00:11, marian 12, miroslaw 9, robert 5, wiktoria 3; alfred 0). Kontakt: 4 wpisy, wszystkie testowe. Tablica: 0 ogloszen. Zrodla: /data/rodwozniki_access.log, /data/kamery_access.log, data/kamery_dostepy.jsonl, data/kontakt/, data/tablica/oczekujace.json
+
+
+==============================================================================
+## SESJA 04.09.2026 06:45 CEST
+==============================================================================
+
+04.09 ~06:00: Tomasz pyta 'Poszlo na strone?' — TAK: 'Co robic teraz — wrzesien' i 'Ogrodnik ROD' (automat fb_na_strone.py co 30 min, 30 postow, na FB poszlo ogloszenie o starcie strony) juz zyly na rodwozniki.pl. Naprawiony dubel tytulu wpisu FB (tytul=1. linia tresci pokazywany 2x): www_rod/build.py helper _fb_tresc_bez_tytulu, backup build.py.bak-fbdubel-0409, rebuild + atomowa podmiana w wolumenie caddy_mcp_data, sprawdzone na zywo curl-em (glowna i /aktualnosci/)
+
+
+==============================================================================
+## SESJA 04.09.2026 06:47 CEST
+==============================================================================
+
+04.09 06:50 reklamacja Tomasza 'Co poszlo' — na /aktualnosci/ o 06:45 nie bylo dzisiejszego powitania. PRZYCZYNA: wyscig o 2 minuty — FB publikuje 06:32/09:02, cron fb_na_strone chodzil o :00/:30, wiec post z 06:32 wskoczylby dopiero 07:00. NAPRAWA: reczny fetch (powitanie 'Piatek, 4 wrzesnia' JUZ na zywo na glownej i /aktualnosci/, curl-check) + cron przestawiony na 5,35 * * * * (3 min po publikacji FB). Do poprawy pozniej: etykieta 'PORADA DNIA' na poscie-ogloszeniu o starcie strony (typ domyslny) i mylacy log 'dodano 8 postow'
+
+
+==============================================================================
+## SESJA 04.09.2026 06:50 CEST
+==============================================================================
+
+04.09 ~07:00 dekret 'Ok': typ OGLOSZENIE dla postow FB wdrozony — klasyfikacja slow (oglaszamy/komunikat/informujemy/zapraszamy na/walne) w fb_na_strone.py, etykieta w build.py, styl .fb-ogloszenie (zielen #2e7d4f); stare wpisy przeklasyfikowywane automatycznie (post o starcie strony = Ogloszenie, sprawdzone curl na zywo). Przy okazji naprawiona petla 'dodano 8 postow' co 30 min (fetch 40 > magazyn 30 — posty starsze niz najnowszy w magazynie pomijane). Backupy: fb_na_strone.py.bak-0409, build.py.bak-fbdubel-0409
+
+
+==============================================================================
+## SESJA 04.09.2026 06:59 CEST
+==============================================================================
+
+04.09 ~07:10: obieg tablicy POTWIERDZONY w boju — Tomasz kliknal Zatwierdz, test opublikowal sie sam; test zdjety z tablicy (curl: 0 wystapien, zostalo ogloszenie Tomasza 'Szukamy pomocy do elektryfikacji alejki polnocnej' z 03.09). Auto-kasowanie po 7 dniach ISTNIEJE: tools/tablica_sprzataj.py, cron 15 4 UTC (6:15 CEST) codziennie, przebudowa strony po usunieciu. Blad Klaudka do teczki: meldowal '0 ogloszen' patrzac tylko w oczekujace.json
+
+
+==============================================================================
+## SESJA 04.09.2026 07:03 CEST
+==============================================================================
+
+04.09 ~07:20 dekret 'Przygotuj z grafika pokaz mi i po zatwierdzeniu wystawisz': PROJEKT posta FB o tablicy gotowy i wyslany Tomaszowi na Telegram (foto+tekst, oba ok:True). Grafika: ilustracja Genka gemini-2.5-flash-image (1 generacja, tablica ogloszen w ogrodzie, bez tekstu) + naklad PIL 0 zl (TABLICA OGLOSZEN DZIALKOWCOW, plakietka rodwozniki.pl/tablica, logo kolo); kontrola wzrokowa Genka PASS (napisy litera w litere poprawne, zero artefaktow, logo czyste). Pliki: /tmp/tablica_fb.jpg, /tmp/tablica_fb_post.txt. CZEKAMY NA TAK Tomasza — publikacja na FB dopiero po zatwierdzeniu
+
+
+==============================================================================
+## SESJA 04.09.2026 07:07 CEST
+==============================================================================
+
+04.09 ~07:30 'Tak' Tomasza: post o tablicy OPUBLIKOWANY na FB ROD Wozniki ze zdjeciem przez Graph API (post_id 1174205105781401_122120295651379813, weryfikacja published_posts: jest, ma full_picture). WAZNE ODKRYCIE: upload zdjecia przez API DZIALA (multipart /photos z message+source, token z data/.secrets/fb_page_token) — obala zapis wiedzy 'API publikuje sam tekst, grafiki recznie'; do aktualizacji PAMIEC_INFRASTRUKTURA.md (BYLO/JEST)
+
+
+==============================================================================
+## SESJA 04.09.2026 07:37 CEST
+==============================================================================
+
+04.09 ROLKA 000097 DESZCZOWKA GOTOWA (dekrety 'Robimy z tego rolke' + 'Generuj z poprawionym scenariuszem, Gienek albo nano banana co tansze'): scenariusz poprawiony Klaudka (Bielik zgubil przepisy — 5 m3 bez formalnosci, 5-15 zgloszenie, >15 pozwolenie, sumowanie, odleglosci, oczko poza limitem; scenes.txt.bielik zachowany), obrazy 8/8 GENEK gemini-3.1-flash-image 9:16 (~0,54 USD, tansze od fal NBP 1,20), Marek edge-tts, napisy 8/8, render 57,7 s z intro/outro i Morning.mp3, bramka oka 0/8 FAIL. Pipeline z checkpointu UBITY przed podmiana (zeby panel nie odpalil fal na stary scenariusz). Podglad wyslany Tomaszowi na Telegram. CZEKA: ocena + oddzielne slowo o publikacji
+
+
+==============================================================================
+## SESJA 04.09.2026 07:50 CEST
+==============================================================================
+
+04.09 'Z opisem wystawic na FB i dokonczyc polaczenie': (1) ROLKA 000097 deszczowka OPUBLIKOWANA na FB przez /reels/publikuj-fb z opisem (video_id 2243144636473430, https://www.facebook.com/reel/2243144636473430; naglowek X-Fabryka-Auth z /app/.fabryka_auth w kontenerze). (2) AUTOMAT WIDEO FB->STRONA GOTOWY: fb_na_strone.py pobiera tez /{page}/videos (dlugie >150s pomija — te zyja na YT), klasyfikacja wiadomosci po slowach (ogloszenie/zarzad/zakonczenie sezonu/komunikat), www_rod/content/wideo.json; /filmy/ ma 3 KATEGORIE: Rolki (karty miniaturka+link FB, deszczowka juz wisi), Filmy (YT embeds), Wiadomosci (zakonczenie sezonu trafilo poprawnie); CSS .wideo-karta; ten sam cron 5,35. Zweryfikowane curl na zywo. Commit z tej tury
+
+
+==============================================================================
+## SESJA 04.09.2026 07:59 CEST
+==============================================================================
+
+04.09 reklamacja Tomasza (zrzut /filmy/ — karty nie dzialaja): DWIE PRZYCZYNY zmierzone: (1) Graph /videos daje permalink_url WZGLEDNY /reel/ID/ -> klik szedl na rodwozniki.pl/reel = nic; (2) pole picture to ~700 B smieciowy plik, a URL-e fbcdn wygasaja (oe=). NAPRAWA w fb_na_strone.py: link absolutny na facebook.com, miniaturka = preferowany kadr z thumbnails{uri,is_preferred} POBIERANY na nasz serwer (static/wideo/ID.jpg, prog 5 KB). Zweryfikowane na zywo: 22/22 miniaturki lokalne, href https://www.facebook.com/reel/..., przykladowa miniaturka 200/12461 B. Teczka: weryfikowac dzialanie linku/zasobu, nie obecnosc w HTML
+
+
+==============================================================================
+## SESJA 04.09.2026 08:03 CEST
+==============================================================================
+
+04.09 D-0305 'humor do humoru': czwarta kategoria HUMOR na /filmy/ — klasyfikacja po video_id z data/zarty/[0-9]*/opublikowano (10008/10009/10010) + slowa serii (tomek i janusz/janusz/odcinek/nowa seria); 6 rolek humoru przenioslo sie z Rolek (w tym Helena z cukiniami i odc.2), zostalo 15 rolek poradowych + 1 wiadomosc; sekcja Humor na zywo z 6 kartami, w Rolkach zero Tomka i Janusza (curl-check). Kolejnosc sekcji: Rolki, Humor, Filmy, Wiadomosci
+
+
+==============================================================================
+## SESJA 04.09.2026 08:13 CEST
+==============================================================================
+
+04.09 D-0306: (1) rolka deszczowki udostepniona do grup przez Tomasza; (4) pasek 'Strona w trakcie budowy' USUNIETY z page.html, wdrozone atomowo, curl: 0 wystapien na /, /filmy/, /tablica/; (2) Gmail app password — droga pokazana Tomaszowi (2FA -> apppasswords -> /sekret GMAIL_APP_PASSWORD=xxx u Hansa, format KLUCZ=WARTOSC potwierdzony w hans_ucho.py:189); (3) bot ogloszen dla zarzadu — CZEKAMY az sie odezwia; (5) Search Console w toku — czekam na meta google-site-verification od Tomasza (metoda Tag HTML, potem wstawka w head + sitemap.xml)
+
+
+==============================================================================
+## SESJA 04.09.2026 08:26 CEST
+==============================================================================
+
+04.09 GMAIL PODPIETY: haslo aplikacji od Tomasza przez /sekret (Hans, wartosci.env 08:24) -> przepisane bez spacji (16 zn.) do data/.secrets/smtp.env (0600, GMAIL_USER=rodwozniki@gmail.com); kontakt_rod.py czyta ten plik per-request, restart NIEpotrzebny. DWA TESTY OK: bezposredni SMTP smtp.gmail.com:587 login+wyslanie przyjete (odrzuceni={}) oraz pelny obieg formularza na zywo (POST /kontakt/wyslij -> 303 wyslano=1, telegram 200, zero 'e-mail nie poszedl' w logach). ODKRYCIE z konektora Gmail (konto tomasz.maxisch@gmail.com, NIE rodwozniki): mail Google 03.09 13:38 'Zacznij korzystac z Search Console... zweryfikowales witryne' — rodwozniki.pl JUZ ZWERYFIKOWANE w Search Console na koncie osobistym Tomasza; zostalo tylko zgloszenie sitemap.xml recznie przez Tomasza
+
+
+==============================================================================
+## SESJA 04.09.2026 08:30 CEST
+==============================================================================
+
+04.09 SEARCH CONSOLE ZAMKNIETE: witryna byla juz zweryfikowana (konto tomasz.maxisch, mail Google 03.09), Tomasz przeslal sitemap.xml w Mapach witryn — komunikat 'Mapa witryny zostala przeslana pomyslnie' (zrzut). Pkt 5 z listy DONE. Z listy otwartych na Tomasza zostalo: przekazanie bota ogloszen zarzadowi (czekamy az sie odezwia) + alfred bez dostepu do kamer
+
+
+==============================================================================
+## SESJA 04.09.2026 08:32 CEST
+==============================================================================
+
+04.09 Tomasz potwierdzil: dwa testowe e-maile DOSZLY na rodwozniki@gmail.com — formularz kontaktowy potwierdzony OD KONCA DO KONCA (strona -> API -> Telegram + SMTP Gmail -> skrzynka ROD). Lista poranna zamknieta w 100%: rolka udostepniona, Gmail podpiety, pasek budowy zdjety, Search Console zweryfikowane + sitemap przetworzona (13/13 stron zgodnie z sitemap.xml, odczyt Googlebota w logach). Czekamy tylko: zarzad/bot ogloszen, alfred/kamery. Wieczorem meldunek z ruchu
+
+
+==============================================================================
+## SESJA 04.09.2026 08:35 CEST
+==============================================================================
+
+04.09 GOOGLE: rodwozniki.pl POZYCJA 1 na 'rod wozniki' z logo (zaindeksowane '15 godzin temu', czyli samo przed sitemapa); Tomasz zarzadza wizytowka Google Business ogrodu (4,5 gwiazdki/35 opinii) i potwierdzil ze przycisk 'Strona' prowadzi na rodwozniki.pl — 'Tak dziala'. Widocznosc: FB + wizytowka Maps + wyszukiwarka, wszystko spina sie na domene
+
+
+==============================================================================
+## SESJA 04.09.2026 12:11 CEST
+==============================================================================
+
+04.09 NARADA 'wirtualna wycieczka po ogrodzie' (/tmp/narada_spacer, pelne glosy tamze): research — firmy licza od 500 zl/5 panoram; Samsung nie ma trybu fotosfery (potrzebna apka z Play); stary Street View app wycofany, publikacja fotosfer przez apke Mapy Google; darmowe viewery self-hosted: Pannellum/Marzipano. GLOSY: Henio A z twardym testem 2-3 sfer przed sesja, 12 punktow; Zenek A-pilot (3 probne sfery w Linzu), 8 punktow, pulapka prywatnosc/RODO; Genek A, 6 punktow, test w Austrii. KONSENSUS 3/3: opcja A (telefon+apka fotosfer+Pannellum na rodwozniki.pl/spacer/, 0 zl), NAJPIERW test szwow jeszcze w Austrii, jak zle -> B uzywana kamera 360 (400-700 zl) za zgoda Tomasza; Google Maps TAK po kontroli prywatnosci (bez ludzi/tabliczek, tylko czesci wspolne); rozbieznosc liczby punktow 6/8/12 zostaje. Czeka na decyzje Tomasza
+
+
+==============================================================================
+## SESJA 04.09.2026 12:44 CEST
+==============================================================================
+
+04.09 SPACER: Tomasz otworzyl strone testowa ZANIM przyszly pliki sfer (czekaly na Telegram do Hansa) -> czarny ekran -> dekret 'wypierdol to ze strony' — test.html ZDJETY (curl 404), pannellum zostaje w static/spacer. Teczka: nie dawac linku przed zawartoscia. Jego polecenie 'sklej zdjecia w jedno' = zbudowac JEDEN spacer z wielu sfer (hotspoty przejsc) — do zrobienia gdy sfery dojda przez Telegram do Hansa (skrzynka pusta o 12:45). Sfery testowe OCENIONE z chatu: 4096x2048, szwy czyste, test zaliczony, kamera 360 niepotrzebna
+
+
+==============================================================================
+## SESJA 04.09.2026 12:56 CEST
+==============================================================================
+
+04.09 SPACER SKLEJONY: pelne sfery 8192x4096 (14,7+12,8 MB) sciagniete z Folda DROGA: My Files UI -> nazwy plikow (Parking_2.jpg, Parking_proba.jpg w Pictures/My360s) -> android_share_file_via_web(location+path DZIALA, w przeciwienstwie do list/read) -> curl z VPS po tailnecie (transfer zrywa sie w polowie na LTE — wznowien Range brak, ratuje ponawianie CALOSCI az przejdzie; sfera1 za 2. proba, sfera2 za 1.). Oryginaly w data/spacer_oryginaly/; web 4096x2048 q85. JEDEN spacer z hotspotami przejscia (autoobrot, bez przyciskow scen): rodwozniki.pl/static/spacer/proba.html — zweryfikowane WSZYSTKIE zasoby z zywej strony (html/js/css 200, oba jpg pobrane i otwarte PIL). Telefon sprzatniety (BACK+HOME). Dekret D-0307 w mocy: nie komentowac okolicznosci Tomasza
