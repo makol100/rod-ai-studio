@@ -12,6 +12,30 @@ def klasyfikuj(tytul: str, msg: str, godzina: int) -> str:
     if any(w in msg.lower() for w in OGL_SLOWA): return "ogloszenie"
     return "porada"
 
+
+WIAD_SLOWA = ("ogłoszenie", "ogłaszamy", "zarząd", "zakończenie sezonu", "wiadomości działkowe", "komunikat")
+def pobierz_wideo(tok):
+    """Rolki i wiadomosci wideo ze strony FB -> www_rod/content/wideo.json. Zwraca True gdy plik sie zmienil."""
+    q = urllib.parse.urlencode({"fields": "id,description,created_time,permalink_url,picture,length", "limit": 25, "access_token": tok})
+    d = json.load(urllib.request.urlopen(f"https://graph.facebook.com/{V}/{PAGE}/videos?{q}", timeout=30))
+    wyn = []
+    for v in d.get("data", []):
+        opis = (v.get("description") or "").strip()
+        dl = v.get("length") or 0
+        if dl > 150: continue  # dlugie filmy zyja na YouTube, sekcja statyczna
+        ct = datetime.datetime.fromisoformat(v["created_time"].replace("+0000", "+00:00")).astimezone(datetime.timezone(datetime.timedelta(hours=2)))
+        tytul = next((re.sub(r"#\w+", "", l).strip() for l in opis.splitlines() if l.strip()), "Rolka ROD")[:110]
+        kat = "wiadomosci" if any(w in opis.lower() for w in WIAD_SLOWA) else "rolki"
+        wyn.append({"id": v["id"], "tytul": tytul, "kategoria": kat, "link": v.get("permalink_url", f"https://www.facebook.com/reel/{v['id']}"),
+                    "miniaturka": v.get("picture", ""), "date": ct.isoformat(timespec="minutes"), "display_date": ct.strftime("%d.%m.%Y")})
+    wyn.sort(key=lambda x: x["date"], reverse=True)
+    plik = WWW / "content/wideo.json"
+    nowy = json.dumps(wyn, ensure_ascii=False, indent=1)
+    stary = plik.read_text(encoding="utf-8") if plik.exists() else ""
+    if nowy == stary: return False
+    plik.write_text(nowy, encoding="utf-8")
+    return True
+
 def main():
     tok = (ROOT / "data/.secrets/fb_page_token").read_text().strip()
     q = urllib.parse.urlencode({"fields": "id,created_time,message,status_type,permalink_url", "limit": 40, "access_token": tok})
@@ -35,7 +59,9 @@ def main():
         typ = klasyfikuj(tytul, msg, ct.hour)
         nowe.append({"id": p["id"], "tytul": tytul, "tresc": msg[:2500], "typ": typ, "link": p.get("permalink_url", f"https://www.facebook.com/{p['id'].replace('_','/posts/')}"),
                      "date": ct.isoformat(timespec="minutes"), "display_date": ct.strftime("%d.%m.%Y"), "godz": ct.strftime("%H:%M")})
-    if not nowe and not zmiany: print("fb_na_strone: nic nowego"); return
+    try: wideo_zmiana = pobierz_wideo(tok)
+    except Exception as e: wideo_zmiana = False; print("wideo: blad pobierania:", e)
+    if not nowe and not zmiany and not wideo_zmiana: print("fb_na_strone: nic nowego"); return
     dane = sorted(nowe + stare, key=lambda x: x["date"], reverse=True)[:30]
     PLIK.write_text(json.dumps(dane, ensure_ascii=False, indent=1), encoding="utf-8")
     r = subprocess.run(["python3", "build.py"], cwd=WWW, capture_output=True, text=True)
@@ -48,5 +74,5 @@ def main():
     subprocess.run(["python3", str(ROOT / "tools/pogoda_rod.py")], capture_output=True)
     subprocess.run(["git", "-C", str(ROOT), "add", "-A", "www_rod/content/fb_posty.json"], capture_output=True)
     subprocess.run(["git", "-C", str(ROOT), "commit", "--no-verify", "-qm", f"Auto: {len(nowe)} postow FB na strone"], capture_output=True)
-    print(f"fb_na_strone: nowych {len(nowe)}, przeklasyfikowanych {zmiany}")
+    print(f"fb_na_strone: nowych {len(nowe)}, przeklasyfikowanych {zmiany}, wideo_zmiana {wideo_zmiana}")
 if __name__ == "__main__": main()
