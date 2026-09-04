@@ -14,6 +14,14 @@ Krótkie rolki z porad i życia ogrodu — klik otwiera nagranie na Facebooku.
 {{wideo_rolki}}
 :::
 
+## 😄 Humor
+
+Nasza serialowa duma — przygody Tomka i Janusza oraz inne rolki z przymrużeniem oka.
+
+:::html
+{{wideo_humor}}
+:::
+
 ## 📽️ Filmy
 
 

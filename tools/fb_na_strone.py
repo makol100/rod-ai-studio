@@ -13,19 +13,33 @@ def klasyfikuj(tytul: str, msg: str, godzina: int) -> str:
     return "porada"
 
 
+HUMOR_SLOWA = ("tomek i janusz", "janusz", "odcinek", "nowa seria startuje")
+def _idy_z_folderow(wzor):
+    import glob as _g
+    idy=set()
+    for f in _g.glob(f"/root/rod-ai-studio/data/zarty/{wzor}/opublikowano*"):
+        for lin in open(f, encoding="utf-8", errors="ignore"):
+            if "video_id=" in lin: idy.add(lin.split("video_id=")[1].split()[0].split("|")[0].strip())
+    return idy
 WIAD_SLOWA = ("ogłoszenie", "ogłaszamy", "zarząd", "zakończenie sezonu", "wiadomości działkowe", "komunikat")
 def pobierz_wideo(tok):
     """Rolki i wiadomosci wideo ze strony FB -> www_rod/content/wideo.json. Zwraca True gdy plik sie zmienil."""
     q = urllib.parse.urlencode({"fields": "id,description,created_time,permalink_url,picture,length,thumbnails{uri,is_preferred}", "limit": 25, "access_token": tok})
     d = json.load(urllib.request.urlopen(f"https://graph.facebook.com/{V}/{PAGE}/videos?{q}", timeout=30))
     wyn = []
+    humor_idy = _idy_z_folderow("[0-9]*"); wiad_idy = _idy_z_folderow("awatar*")
     for v in d.get("data", []):
         opis = (v.get("description") or "").strip()
         dl = v.get("length") or 0
         if dl > 150: continue  # dlugie filmy zyja na YouTube, sekcja statyczna
         ct = datetime.datetime.fromisoformat(v["created_time"].replace("+0000", "+00:00")).astimezone(datetime.timezone(datetime.timedelta(hours=2)))
         tytul = next((re.sub(r"#\w+", "", l).strip() for l in opis.splitlines() if l.strip()), "Rolka ROD")[:110]
-        kat = "wiadomosci" if any(w in opis.lower() for w in WIAD_SLOWA) else "rolki"
+        if v["id"] in wiad_idy or any(w in opis.lower() for w in WIAD_SLOWA):
+            kat = "wiadomosci"
+        elif v["id"] in humor_idy or any(w in opis.lower() for w in HUMOR_SLOWA):
+            kat = "humor"
+        else:
+            kat = "rolki"
         link = v.get("permalink_url") or f"/reel/{v['id']}/"
         if link.startswith("/"): link = "https://www.facebook.com" + link  # Graph zwraca sciezki wzgledne
         # miniaturka: najlepszy kadr z thumbnails (picture bywa smieciem ~700 B), cache lokalny bo URL-e fbcdn wygasaja
