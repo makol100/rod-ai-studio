@@ -52,3 +52,9 @@ Rysunek trasy przekazany Tomaszowi (trasa-spaceru.jpg, lokalnie u Klaudka).
 ## WYMIARY (Tomasz 04.09.2026, „mniej więcej")
 Każda działka 20 m × 25 m; 25 m liczone od strony alejki (w głąb), 20 m wzdłuż alejki. Przejścia biegną wzdłuż boku 25 m — jedna kondygnacja działek w przejściu = 25 m.
 Wyliczenia (co 10 m): alejka 9 działek × 20 m ≈ 180 m → 19 sfer; trzy alejki 57; Parking 2 wzdłuż ≈ 180 m → ~19 (można rzadziej, płasko); przejścia 36|37 i 21|22→16|15 po 2 kondygnacje ≈ 50 m → 6 sfer każde, 43|44 ≈ 25 m → 3; Parking 1 + Dom Działkowca 3–4. RAZEM ≈ 90 sfer, sesja 2–3 h. (Do potwierdzenia przez Tomasza — „mniej więcej".)
+
+## KONWENCJA NAZW SFER (Tomasz 04.09.2026: „nazwanie tych zdjęć z tymi numerami żeby było łatwiej to poskładać")
+Punkty z tools/spacer_punkty.py (92, co 10 m, numer = kolejność trasy; data/spacer_oryginaly/punkty.json z x_proc/y_proc).
+Sfera = numer punktu: oryginał data/spacer_oryginaly/pNN.jpg, web www_rod/static/spacer/pNN.jpg, scena Pannellum "pNN".
+Tomasz robi zdjęcia w kolejności numerów bez pomijania; apka zapisuje z czasem → kolejność czasowa = numer; powtórka punktu = ostatnie zdjęcie z tego miejsca zastępuje poprzednie. Jeśli podpisuje numerem przy wysyłce — tym lepiej, ale nie musi.
+Graf sąsiadów: kolejne numery w obrębie odcinka sąsiadują; na skrzyżowaniach (18/22/42/47/73 i bramy) dokładam połączenia poprzeczne wg trasy.
