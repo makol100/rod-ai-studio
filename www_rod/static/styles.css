@@ -593,6 +593,7 @@ button { font: inherit; }
 .fb-wpis h3 { margin: 4px 0 10px; font-size: 1.2rem; }
 .fb-tresc { line-height: 1.6; margin-bottom: 12px; white-space: normal; }
 .fb-ostrzezenie { border-color: #e5b744; background: #fff8e6; }
+.fb-ogloszenie { border-color: #2e7d4f; background: #f2f9f4; }
 /* Porady miesiąca w karcie pogody */
 .porady-box { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
 .porady-lista { margin: 8px 0 0; padding-left: 18px; font-size: .92rem; line-height: 1.55; }
