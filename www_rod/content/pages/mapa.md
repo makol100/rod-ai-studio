@@ -6,15 +6,15 @@ slug: mapa
 
 :::html
 <div class="mapa-container">
-  <img class="mapa-img" id="mapa-img" src="/static/img/mapa-ogrodu.jpg?v=dbb01565" alt="Mapa ROD im. Józefa Lompy w Woźnikach — 51 działek, alejki, bramy, parkingi, Dom Działkowca" loading="lazy">
+  <img class="mapa-img" id="mapa-img" src="/static/img/mapa-ogrodu.jpg?v=f397ad05" alt="Mapa ROD im. Józefa Lompy w Woźnikach — 51 działek, alejki, bramy, parkingi, Dom Działkowca" loading="lazy">
   <div class="mapa-toolbar">
     <button class="button button-ghost mapa-zoom" id="mapa-zoom" type="button">🔍 Powiększ</button>
-    <a class="button button-primary" href="/static/img/mapa-ogrodu.jpg?v=dbb01565" download="Mapa_ROD_Wozniki.jpg">⬇ Pobierz</a>
+    <a class="button button-primary" href="/static/img/mapa-ogrodu.jpg?v=f397ad05" download="Mapa_ROD_Wozniki.jpg">⬇ Pobierz</a>
   </div>
 </div>
 <div class="mapa-lightbox" id="mapa-lightbox" role="dialog" aria-modal="true" aria-label="Powiększona mapa ogrodu">
   <button class="mapa-close" id="mapa-close" type="button" aria-label="Zamknij">✕</button>
-  <img src="/static/img/mapa-ogrodu.jpg?v=dbb01565" alt="Mapa ogrodu — powiększona">
+  <img src="/static/img/mapa-ogrodu.jpg?v=f397ad05" alt="Mapa ogrodu — powiększona">
 </div>
 :::
 

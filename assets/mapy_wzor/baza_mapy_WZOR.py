@@ -24,6 +24,7 @@ LINIA, DROGA, DROGA_L = "#c9c3b4", "#b6b099", "#fffdf6"
 DOM, DOM_OB = "#f2d9d4", "#c0392b"
 PARK_KOL, PARK_OB = "#f0e6b8", "#d4c176"  # parking (plac) — jasny, scalony
 BRAMA, BLOK, BLOK_OB = "#e5b744", "#dcd3b8", "#c2b892"
+PRZEJSCIE, PRZEJSCIE_OB = "#e9a36a", "#c5701e"  # przejscia poprzeczne miedzy alejkami (Tomasz 04.09.2026)
 
 
 def font(n, r):
@@ -164,6 +165,25 @@ def rysuj_baze(tytul, podtytul, przed_dzialkami=None):
     srodek(d, (_dxa + 24, Y_R4 + 22), "0", font("Bold", 18), "#c0392b")
     srodek(d, ((_dxa + _dxb) / 2, Y_R4 + DZ_H / 2 + 14), "DOM", F_BLOK, "#a02818")
     srodek(d, ((_dxa + _dxb) / 2, Y_R4 + DZ_H / 2 + 36), "DZIAŁKOWCA", font("Medium", 14), "#a02818")
+
+    # PRZEJSCIA POPRZECZNE (Tomasz 04.09.2026): 36|37 Polnocna->Srodkowa, 21|22 -> 16|15 Srodkowa->Poludniowa,
+    # 43|44 Polnocna->Parking nr 2. Waskie pasy w szczelinie miedzy kolumnami, rysowane NA dzialkach.
+    _, _x2b = x_kol(2); _x3a, _ = x_kol(3)
+    _xp = (_x2b + _x3a) / 2            # szczelina 36|37 = 21|22 = 16|15 (ta sama linia)
+    _, _x7b = x_kol(7); _x8a, _ = x_kol(8)
+    _xe = (_x7b + _x8a) / 2            # szczelina 44|43
+    _pw = 7                            # polowa szerokosci pasa
+    for _x, _ya, _yb in ((_xp, Y_ALN + AL_H / 2, Y_ALS + AL_H / 2),
+                         (_xp, Y_ALS + AL_H / 2, Y_ALP + AL_H / 2),
+                         (_xe, Y_MAPA + PARK2_H / 2, Y_ALN + AL_H / 2)):
+        d.rectangle([_x - _pw, _ya, _x + _pw, _yb], fill=PRZEJSCIE, outline=PRZEJSCIE_OB, width=2)
+    _fp = font("Medium", 16)
+    for _x, _y, _t in ((_xp + 14, Y_R5 + DZ_H + 4, "przejście"),
+                       (_xp + 14, Y_R3 + DZ_H + 4, "przejście"),
+                       (_xe + 14, Y_R6 + 6, "przejście na parking nr 2")):
+        l, t, r, b = d.textbbox((0, 0), _t, font=_fp)
+        d.rectangle([_x - 4, _y - 3, _x + (r - l) + 4, _y + (b - t) + 5], fill=TLO, outline=PRZEJSCIE_OB, width=1)
+        d.text((_x, _y - t + 1), _t, font=_fp, fill="#8a4a0e")
 
     # bramy (na wschodniej krawedzi drogi)
     for yy, nr in ((Y_MAPA + PARK2_H / 2, "1"), (Y_ALN + AL_H / 2, "2"),

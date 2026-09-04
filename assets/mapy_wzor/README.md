@@ -28,3 +28,4 @@ Przy nowej mapie: `from baza_mapy import rysuj_baze` i rysować swoje elementy n
 - „scal parking żeby wyglądało jednym kolorem" → jeden blok zamiast kafli
 - „ten sam odcień co parking nr 1" → parking nr 2 ujednolicony
 - „przedłużyć dom do połowy działki 36" → dom poszerzony
+- 04.09.2026 Tomasz: „Zapisz to jako główna mapa, te przejścia zrób troszeczkę cieńsze" → do kanonu dochodzą 3 PRZEJŚCIA POPRZECZNE (wąskie pomarańczowe pasy w szczelinie między kolumnami, rysowane w rysuj_baze): 36|37 Północna→Środkowa, 21|22→16|15 Środkowa→Południowa, 43|44 Północna→Parking nr 2; wszystkie mapy dziedziczą je automatycznie
