@@ -242,3 +242,6 @@ Klaudek dwukrotnie (raport poranny + propozycja rozruchu) podał Tomaszowi "0 og
 
 ## 04.09.2026 — BŁĄD: karty wideo na /filmy/ wypuszczone bez sprawdzenia że linki i miniaturki DZIAŁAJĄ
 Klaudek zweryfikował curl-em, że karty SĄ w HTML, ale nie sprawdził dokąd prowadzą linki ani czy obrazki się ładują. Graph API zwraca permalink_url WZGLĘDNY (/reel/ID/) — kliknięcia szły na rodwozniki.pl/reel/... donikąd; pole picture to śmieć ~700 B, a URL-e fbcdn wygasają. Wyłapał Tomasz ze zrzutu. Nauka: weryfikacja elementu = przejść link i pobrać zasób (kod+rozmiar), nie tylko obecność w HTML.
+
+## 04.09.2026 — BŁĄD: link do strony testowej spaceru wysłany ZANIM były na niej zdjęcia
+Klaudek postawił test.html spaceru i dał Tomaszowi link, sprawdziwszy tylko HTML i pannellum.js (200) — a pliki sfer jeszcze nie istniały (miały dopiero przyjść Telegramem). Tomasz otworzył → czarny ekran → „wypierdol to, i tak nie działa". TA SAMA klasa błędu co rano z kartami wideo: zweryfikowana skorupa, nie zawartość. Nauka: link idzie do Tomasza dopiero gdy CAŁA ścieżka działa (obrazy wczytane, nie 404) — na stronach z zasobami sprawdzać KAŻDY zasób, którego strona potrzebuje.
