@@ -245,3 +245,6 @@ Klaudek zweryfikował curl-em, że karty SĄ w HTML, ale nie sprawdził dokąd p
 
 ## 04.09.2026 — BŁĄD: link do strony testowej spaceru wysłany ZANIM były na niej zdjęcia
 Klaudek postawił test.html spaceru i dał Tomaszowi link, sprawdziwszy tylko HTML i pannellum.js (200) — a pliki sfer jeszcze nie istniały (miały dopiero przyjść Telegramem). Tomasz otworzył → czarny ekran → „wypierdol to, i tak nie działa". TA SAMA klasa błędu co rano z kartami wideo: zweryfikowana skorupa, nie zawartość. Nauka: link idzie do Tomasza dopiero gdy CAŁA ścieżka działa (obrazy wczytane, nie 404) — na stronach z zasobami sprawdzać KAŻDY zasób, którego strona potrzebuje.
+
+## 04.09.2026 — BŁĄD: fałszywy alarm o "utracie łączności z Działką"
+Klaudek zameldował Tomaszowi "straciłem łączność z serwerem Działki" jak nowinę — a N150 leży od 15/16.08 (padł dysk po wpięciu Corala, sprawa gwarancyjna, nowy dysk w drodze). "Offline 19 dni" w tailscale to DOKŁADNIE czas od tamtej awarii. Pomiar był dobry, wniosek idiotyczny, bo Klaudek nie zderzył go z własną pamięcią (n150-migration: "W CZASIE AWARII NIE DZIAŁA: cała Działka"). Nauka: każdy alarm o infrastrukturze NAJPIERW zderzyć z zapisanym stanem znanych awarii, dopiero potem meldować.
