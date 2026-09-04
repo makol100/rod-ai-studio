@@ -757,3 +757,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 Tomasz podal przejscia: 36|37 (Polnocna-Srodkowa), 21|22->16|15 (Srodkowa-Poludniowa), 43|44 (Polnocna-Parking2). Trasa sesji 9 segmentow zapisana w SPACER_MODEL.md, rysunek na mapie przekazany Tomaszowi
+
+
+==============================================================================
+## SESJA 04.09.2026 14:37 CEST
+==============================================================================
+
+04.09 D-0314 WDROZONE: /filmy/ otwiera filmy w oknie na stronie (wlasne mp4 w /static/wideo/, 22/22 skompletowane: 7 lokalnych finalow + 15 z Graph source). Generator fb_na_strone sam pobiera brakujace mp4 przyszlych rolek. Bramka: klik->gra (5.8s, 1080x1920), X zamyka, pogoda/licznik odtworzone po podmianie katalogu (deploy kasuje generowane json — pamietac!). Narada player: glosy Zenka/Henia jeszcze w drodze

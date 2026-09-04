@@ -145,9 +145,7 @@ def announcements_page(items: list[dict]) -> str:
             f'<p>{html.escape(item["body"])}</p>'
             + (f'<img class="ogl-foto" src="/static/img/{html.escape(item["image"])}" alt="" loading="lazy">' if item.get("image") else "")
             + (
-                '<a class="fb-wideo" href="' + html.escape(item["video_fb"]) + '" rel="noopener" aria-label="Obejrzyj film na Facebooku">'
-                '<img src="/static/img/' + html.escape(item.get("video_img", "ogloszenie_sezon.jpg")) + '" width="720" height="1280" alt="Kadr z filmu z ogłoszeniem" loading="lazy">'
-                '<span class="play" aria-hidden="true">▶</span><span class="fb-podpis">Obejrzyj film na Facebooku</span></a>'
+                _ogl_film_html(item)
                 if item.get("video_fb") else ""
             )
             + '</li>'
@@ -172,6 +170,22 @@ def _fb_tresc_bez_tytulu(it) -> str:
     return tresc
 
 
+def _ogl_film_html(item) -> str:
+    """Film z ogłoszenia: D-0315 — gra w oknie na stronie z własnego mp4, nie na Facebooku."""
+    import re as _re
+    fb = item.get("video_fb", "")
+    m = _re.search(r"(\d{12,})", fb)
+    mini = "/static/img/" + html.escape(item.get("video_img", "ogloszenie_sezon.jpg"))
+    lokalny = (ROOT / "static" / "wideo" / f"{m.group(1)}.mp4") if m else None
+    if lokalny and lokalny.is_file():
+        return (f'<a class="fb-wideo" href="/static/wideo/{m.group(1)}.mp4" data-wideo="/static/wideo/{m.group(1)}.mp4" data-mini="{mini}" aria-label="Obejrzyj film">'
+                f'<img src="{mini}" width="720" height="1280" alt="Kadr z filmu z ogłoszeniem" loading="lazy">'
+                '<span class="play" aria-hidden="true">▶</span><span class="fb-podpis">Obejrzyj film</span></a>')
+    return (f'<a class="fb-wideo" href="{html.escape(fb)}" rel="noopener" aria-label="Obejrzyj film">'
+            f'<img src="{mini}" width="720" height="1280" alt="Kadr z filmu z ogłoszeniem" loading="lazy">'
+            '<span class="play" aria-hidden="true">▶</span><span class="fb-podpis">Obejrzyj film</span></a>')
+
+
 def wideo_html(kategoria: str) -> str:
     try:
         items = [x for x in load_json(CONTENT / "wideo.json") if x.get("kategoria") == kategoria]
@@ -185,12 +199,11 @@ def wideo_html(kategoria: str) -> str:
         wid = it.get("wideo") or ""
         atr = f' data-wideo="{html.escape(wid)}" data-mini="{html.escape(it.get("miniaturka",""))}"' if wid else ' rel="noopener"'
         dopisek = "" if wid else " · Facebook"
-        karty.append(f'<a class="wideo-karta" href="{html.escape(it["link"])}"{atr}>'
+        karty.append(f'<a class="wideo-karta" href="{html.escape(wid or it["link"])}"{atr}>'
                      f'<span class="wideo-mini">{mini}<span class="wideo-play" aria-hidden="true">▶</span></span>'
                      f'<span class="wideo-tyt">{html.escape(it["tytul"])}</span>'
                      f'<span class="wideo-data">{html.escape(it.get("display_date",""))}{dopisek}</span></a>')
-    return ('<div class="wideo-lista">' + "".join(karty) + '</div>'
-            + '<script defer src="/static/js/film-okno.js?v=20260904a"></script>')
+    return '<div class="wideo-lista">' + "".join(karty) + '</div>'
 
 
 def fb_posty_html() -> str:

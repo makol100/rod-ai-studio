@@ -9,8 +9,7 @@ slug: elektryfikacja
 ## Film: Prąd w ROD Woźniki
 
 :::html
-<div class="yt-wideo"><iframe src="https://www.youtube-nocookie.com/embed/xKHxqNi02MQ" title="Prąd w ROD Woźniki — film" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-<p><a class="text-link" href="https://youtu.be/xKHxqNi02MQ" rel="noopener">Otwórz film na YouTube →</a></p>
+<a class="yt-wideo yt-fasada" href="https://www.youtube-nocookie.com/embed/xKHxqNi02MQ?rel=0&modestbranding=1&playsinline=1" data-yt="xKHxqNi02MQ" aria-label="Obejrzyj film: Prąd w ROD Woźniki — film"><img src="https://i.ytimg.com/vi/xKHxqNi02MQ/hqdefault.jpg" alt="Prąd w ROD Woźniki — film" loading="lazy"><span class="film-play" aria-hidden="true">▶</span></a>
 :::
 
 W 2026 roku nasz ogród dostał własną sieć elektryczną: kable w alejkach, przyłącza do działek i złącza Tauronu w granicy ogrodu. Poniżej zdjęcia z budowy. Jak podłączyć swoją działkę krok po kroku — w zakładce [Dla działkowców](/dla-dzialkowcow/).
