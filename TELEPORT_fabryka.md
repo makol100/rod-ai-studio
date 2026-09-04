@@ -708,3 +708,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 D-0308 WDROZONE NA PROBIE: spacer nawiguje podwojnym klikiem/tapnieciem w kierunku ruchu (jak Street View) — graf sasiadow ze wspolrzedna yaw, mouseEventToCoords wybiera sasiada w stozku 90 stopni, wlasny detektor podwojnego tapniecia na touchend (telefony nie zawsze daja dblclick), podgrzewanie sasiednich sfer w tle (Image prefetch). Strzalki USUNIETE z proby. DOWOD: puppeteer dblclick w srodek ekranu przy yaw 118 -> getScene() zmienia parking->plac, oczy Genka potwierdzaja plac zabaw na zrzucie, zero bledow konsoli. Model w wiedza/SPACER_MODEL.md do aktualizacji o ten wzorzec przy budowie /spacer/
+
+
+==============================================================================
+## SESJA 04.09.2026 13:39 CEST
+==============================================================================
+
+04.09 D-0309: Tomasz zglasza ze podwojne tapniecie NIE dziala na Foldzie i kaze ZOSTAWIC strzalki (mniejsze niz 120px) — strzalki przywrocone w 88px pastel, dblclick+touchend zostaje jako dodatek na komputer; dowod renderu i oko OK. Do modelu spaceru: nawigacja podstawowa = STRZALKI, nie podwojny tap
