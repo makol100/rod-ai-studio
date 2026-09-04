@@ -16,8 +16,10 @@ function wczytajWszystko() {
   var klucze = Object.keys(SCENY);
   var pobrane = {}, razem = 0, odebrane = 0, rozmiary = {};
 
+  var gotowePliki = 0, wszystkiePliki = klucze.length;
   function pokaz() {
-    var pr = razem > 0 ? Math.min(99, Math.round(odebrane / razem * 100)) : 0;
+    var pr = razem > 0 ? Math.min(99, Math.round(odebrane / razem * 100))
+                       : Math.min(99, Math.round(gotowePliki / wszystkiePliki * 100));
     document.getElementById('pasek-w').style.width = pr + '%';
     document.getElementById('procent').textContent = pr + '%';
   }
@@ -41,6 +43,7 @@ function wczytajWszystko() {
         }
         return czytaj().then(function () {
           pobrane[k] = URL.createObjectURL(new Blob(czesci, { type: 'image/jpeg' }));
+          gotowePliki++; pokaz();
         });
       });
     }));

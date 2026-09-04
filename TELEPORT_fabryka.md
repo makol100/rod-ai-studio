@@ -722,3 +722,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 D-0311 WDROZONE Z DOWODEM: proba spaceru laduje CALOSC na starcie (pasek % po bajtach, fetch->blob), potem zero pobran (licznik jpg=0); podwojny TAP dziala na dotyku (puppeteer touchscreen.tap x2 -> plac) i podwojny KLIK na myszy (-> parking); wymagane w CSP: connect-src blob: (Pannellum ciagnie panorame XHR-em) + img-src blob: — oba w Caddyfile:292, po edycji restart caddy-mcp; ignoreGPanoXMP true; strzalki 88px zostaly. Backupy Caddyfile: .bak-spacer-csp, .bak-spacer-csp2
+
+
+==============================================================================
+## SESJA 04.09.2026 13:53 CEST
+==============================================================================
+
+04.09 KOREKTA: strzalki spaceru = 120 px pastel (Tomasz: 'wieksze strzalki pastelowe'), zapisane w modelu jako rozmiar zatwierdzony — nie zmniejszac
