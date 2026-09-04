@@ -34,7 +34,7 @@ Wypełniony wniosek oddaj Zarządowi ROD albo wyślij na **rodwozniki@gmail.com*
 
 - [Statut Polskiego Związku Działkowców](/static/dokumenty/statut-pzd-2024.pdf) — uchwalony 4 grudnia 2024 r., zarejestrowany w KRS 15 kwietnia 2025 r. (PDF)
 - [Regulamin Rodzinnego Ogrodu Działkowego](/static/dokumenty/regulamin-rod.pdf) — z 1 października 2015 r. ze zmianami z 28 czerwca 2018 r. (PDF)
-- [Ustawa z dnia 13 grudnia 2013 r. o rodzinnych ogrodach działkowych](https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20140000040) — aktualny tekst w ISAP (Sejm RP)
+- [Ustawa z dnia 13 grudnia 2013 r. o rodzinnych ogrodach działkowych](https://eli.gov.pl/eli/DU/2021/1073/ogl) — tekst jednolity Dz.U. 2021 poz. 1073 (ELI) · [PDF z Dziennika Ustaw](https://dziennikustaw.gov.pl/D2021000107301.pdf)
 - [Informacja o przetwarzaniu danych osobowych (RODO)](/rodo/) · [PDF](/static/dokumenty/informacja-rodo.pdf)
 
 Dokumenty zawierające dane działkowców (uchwały imienne, ewidencja, protokoły) nie są publikowane na stronie — są dostępne u Zarządu ROD.
