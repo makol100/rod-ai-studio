@@ -48,3 +48,7 @@ Parking1, Brama3 -> (powrót) -> 6 Środkowa wschód do końca -> (powrót do 21
 8 Południowa zachód do Bramy4 -> (powrót) -> 9 Południowa wschód do końca. Zdjęcia co 10 m (~13 kroków),
 obowiązkowo: bramy, skrzyżowania, końce alejek, oba końce + środek każdego przejścia.
 Rysunek trasy przekazany Tomaszowi (trasa-spaceru.jpg, lokalnie u Klaudka).
+
+## WYMIARY (Tomasz 04.09.2026, „mniej więcej")
+Każda działka 20 m × 25 m; 25 m liczone od strony alejki (w głąb), 20 m wzdłuż alejki. Przejścia biegną wzdłuż boku 25 m — jedna kondygnacja działek w przejściu = 25 m.
+Wyliczenia (co 10 m): alejka 9 działek × 20 m ≈ 180 m → 19 sfer; trzy alejki 57; Parking 2 wzdłuż ≈ 180 m → ~19 (można rzadziej, płasko); przejścia 36|37 i 21|22→16|15 po 2 kondygnacje ≈ 50 m → 6 sfer każde, 43|44 ≈ 25 m → 3; Parking 1 + Dom Działkowca 3–4. RAZEM ≈ 90 sfer, sesja 2–3 h. (Do potwierdzenia przez Tomasza — „mniej więcej".)
