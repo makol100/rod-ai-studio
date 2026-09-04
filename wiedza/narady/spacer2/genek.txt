@@ -1,0 +1,16 @@
+[GENEK — DROGA 1: wlasny dostep do dysku przez CLI]
+
+1. Na prostych alejkach rób zdjęcia co 15 metrów, to idealny kompromis między zasięgiem wzroku a czasem wykonania.
+2. Punkty OBOWIĄZKOWE do sfotografowania to: wszystkie skrzyżowania alejek, 4 bramy, 2 parkingi oraz front Domu Działkowca.
+3. Łączna liczba punktów dla całego ogrodu wyniesie około 40 sfer (zakładając 3 alejki po ~150 m to 30 punktów + 10 specjalnych).
+4. Przewidywany czas Twojej sesji na miejscu wyniesie około 2 godzin pracy (40 sfer × średnio 3 minuty).
+5. Do sprzężenia z mapą użyj absolutnie pozycjonowanych punktów HTML (współrzędne `top` i `left` w procentach) na kontenerze `relative` obejmującym obraz JPG.
+6. Zwykłe `<map><area>` psuje się na telefonach przy skalowaniu ekranu bez pomocy zewnętrznych skryptów JS, a czysty CSS procentowy działa zawsze.
+7. Nawigację zrealizuj przez zwykłe linki z kotwicą w formacie `<a href="/spacer/#scena=parking1">`.
+8. Zewnętrzny, dozwolony plik JS spaceru musi przy starcie odczytać `window.location.hash` i załadować wskazaną w nim scenę do widza Pannellum.
+9. Znaczniki na telefonie muszą mieć widoczną kropkę (np. czerwoną z białym obrysem) i niewidoczne, ale klikalne pole o wymiarach minimum 44x44 piksele, żeby łatwo było w nie trafić palcem.
+10. Mini-mapę koniecznie umieść również wewnątrz spaceru jako nakładkę HTML umiejscowioną warstwą nad widzem Pannellum, aby uniknąć nawigacji wstecz.
+
+Zbuduj testowy kontener HTML z mapą i nanieś na nią trzy testowe punkty z wartościami procentowymi i linkami wykorzystującymi hash.
+
+GENEK

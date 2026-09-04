@@ -680,3 +680,17 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 SPACER SKLEJONY: pelne sfery 8192x4096 (14,7+12,8 MB) sciagniete z Folda DROGA: My Files UI -> nazwy plikow (Parking_2.jpg, Parking_proba.jpg w Pictures/My360s) -> android_share_file_via_web(location+path DZIALA, w przeciwienstwie do list/read) -> curl z VPS po tailnecie (transfer zrywa sie w polowie na LTE — wznowien Range brak, ratuje ponawianie CALOSCI az przejdzie; sfera1 za 2. proba, sfera2 za 1.). Oryginaly w data/spacer_oryginaly/; web 4096x2048 q85. JEDEN spacer z hotspotami przejscia (autoobrot, bez przyciskow scen): rodwozniki.pl/static/spacer/proba.html — zweryfikowane WSZYSTKIE zasoby z zywej strony (html/js/css 200, oba jpg pobrane i otwarte PIL). Telefon sprzatniety (BACK+HOME). Dekret D-0307 w mocy: nie komentowac okolicznosci Tomasza
+
+
+==============================================================================
+## SESJA 04.09.2026 13:05 CEST
+==============================================================================
+
+04.09 SPACER NAPRAWIONY I UDOWODNIONY: czarny ekran mial DWIE przyczyny w CSP wlasnej strony: (1) script-src 'self' blokowal inline <script> (dlatego tez pierwsza wersja z przyciskami byla martwa) -> kod do /static/spacer/proba.js; (2) img-src bez blob: blokowal teksture Pannellum (KONSOLA: Refused to load blob:) -> dopisane blob: w Caddyfile linia 292 TYLKO dla rodwozniki. UWAGA CADDY: bind-mount Caddyfile jest read-only w kontenerze i przypina INODE — sed -i na hoscie tworzy nowy inode, kontener widzi stary; reload nie wystarcza, trzeba docker restart caddy-mcp (2-5 s przerwy; panel/telefon most sprawdzone po restarcie OK). DOWOD RENDERU (nowy standard bramki oka na strony): docker zenika/alpine-chrome:with-puppeteer, realne 15 s czekania, zrzut -> oczy Genka: 'Widac panorame 360 z parkingiem, ciezarowkami i niebem', zero bledow konsoli. NIEPOKOJ: dzialka webhook 502 + homeassistant-1 offline 19d w tailscale — sprawdzone dalej w tym wpisie
+
+
+==============================================================================
+## SESJA 04.09.2026 13:09 CEST
+==============================================================================
+
+04.09 ODWOLANY falszywy alarm: 'brak lacznosci z Dzialka' to ZNANY stan od 15/16.08 — N150 (serwer HA Dzialka) lezy po padzie dysku, nowy dysk z systemem jedzie od sprzedawcy (gwarancja + 30 USD), po dostawie wymiana i restore z pendrive ratunkowego; offline 19 dni w tailscale = dokladnie od awarii. Wpis w teczce: alarmy zderzac z pamiecia znanych awarii przed meldunkiem
