@@ -239,3 +239,6 @@ Fakty z transkryptu narady o filmie kun: RUNDA 1 — Klaudek poszedł prosto do 
 
 ## 04.09.2026 — BŁĄD: zameldował "tablica ma 0 ogłoszeń" sprawdziwszy tylko kolejkę
 Klaudek dwukrotnie (raport poranny + propozycja rozruchu) podał Tomaszowi "0 ogłoszeń na tablicy", patrząc wyłącznie w data/tablica/oczekujace.json (kolejka moderacji). Opublikowane wpisy leżą w www_rod/content/tablica.json — tam od 03.09 17:31 wisiało ogłoszenie Tomasza "Szukamy pomocy do elektryfikacji alejki północnej". Poprawił go Tomasz ("Jest moje ogłoszenie"). Wzorzec z teczki: melduje przed sprawdzeniem CAŁOŚCI. Nauka: tablica = DWA pliki (kolejka + opublikowane), liczyć oba.
+
+## 04.09.2026 — BŁĄD: karty wideo na /filmy/ wypuszczone bez sprawdzenia że linki i miniaturki DZIAŁAJĄ
+Klaudek zweryfikował curl-em, że karty SĄ w HTML, ale nie sprawdził dokąd prowadzą linki ani czy obrazki się ładują. Graph API zwraca permalink_url WZGLĘDNY (/reel/ID/) — kliknięcia szły na rodwozniki.pl/reel/... donikąd; pole picture to śmieć ~700 B, a URL-e fbcdn wygasają. Wyłapał Tomasz ze zrzutu. Nauka: weryfikacja elementu = przejść link i pobrać zasób (kod+rozmiar), nie tylko obecność w HTML.
