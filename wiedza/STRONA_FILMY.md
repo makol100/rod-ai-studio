@@ -16,4 +16,4 @@
 - Deploy ręczny = podmiana katalogu wolumenu KASUJE pogoda.json i licznik.json → po podmianie odpalić tools/pogoda_rod.py i tools/licznik_rod.py.
 
 ## Otwarte
-- „Z mojego IP OK, z innych adresów IP wywala błędy" — bez zrzutu ekranu błędu od tamtej osoby nierozstrzygnięte (fakty: z IP Orange PL przez HA Wybickiego wszystko 200/206; brak banów fail2ban; brak IPv6).
+- ZAMKNIĘTE 04.09 wieczorem (Tomasz: „4 naprawione") — po wyłączeniu HTTP/3 i poprawce inset filmy działają u innych.
