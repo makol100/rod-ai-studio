@@ -16,7 +16,7 @@ def klasyfikuj(tytul: str, msg: str, godzina: int) -> str:
 WIAD_SLOWA = ("ogłoszenie", "ogłaszamy", "zarząd", "zakończenie sezonu", "wiadomości działkowe", "komunikat")
 def pobierz_wideo(tok):
     """Rolki i wiadomosci wideo ze strony FB -> www_rod/content/wideo.json. Zwraca True gdy plik sie zmienil."""
-    q = urllib.parse.urlencode({"fields": "id,description,created_time,permalink_url,picture,length", "limit": 25, "access_token": tok})
+    q = urllib.parse.urlencode({"fields": "id,description,created_time,permalink_url,picture,length,thumbnails{uri,is_preferred}", "limit": 25, "access_token": tok})
     d = json.load(urllib.request.urlopen(f"https://graph.facebook.com/{V}/{PAGE}/videos?{q}", timeout=30))
     wyn = []
     for v in d.get("data", []):
@@ -26,8 +26,23 @@ def pobierz_wideo(tok):
         ct = datetime.datetime.fromisoformat(v["created_time"].replace("+0000", "+00:00")).astimezone(datetime.timezone(datetime.timedelta(hours=2)))
         tytul = next((re.sub(r"#\w+", "", l).strip() for l in opis.splitlines() if l.strip()), "Rolka ROD")[:110]
         kat = "wiadomosci" if any(w in opis.lower() for w in WIAD_SLOWA) else "rolki"
-        wyn.append({"id": v["id"], "tytul": tytul, "kategoria": kat, "link": v.get("permalink_url", f"https://www.facebook.com/reel/{v['id']}"),
-                    "miniaturka": v.get("picture", ""), "date": ct.isoformat(timespec="minutes"), "display_date": ct.strftime("%d.%m.%Y")})
+        link = v.get("permalink_url") or f"/reel/{v['id']}/"
+        if link.startswith("/"): link = "https://www.facebook.com" + link  # Graph zwraca sciezki wzgledne
+        # miniaturka: najlepszy kadr z thumbnails (picture bywa smieciem ~700 B), cache lokalny bo URL-e fbcdn wygasaja
+        thumbs = (v.get("thumbnails") or {}).get("data") or []
+        turl = next((t["uri"] for t in thumbs if t.get("is_preferred")), thumbs[0]["uri"] if thumbs else v.get("picture", ""))
+        mini = ""
+        if turl:
+            kat_mini = WWW / "static/wideo"; kat_mini.mkdir(parents=True, exist_ok=True)
+            cel = kat_mini / f"{v['id']}.jpg"
+            if not cel.is_file() or cel.stat().st_size < 5000:
+                try:
+                    dane_m = urllib.request.urlopen(urllib.request.Request(turl, headers={"User-Agent": "Mozilla/5.0"}), timeout=20).read()
+                    if len(dane_m) > 5000: cel.write_bytes(dane_m)
+                except Exception as e: print("miniaturka", v["id"], "blad:", e)
+            if cel.is_file() and cel.stat().st_size >= 5000: mini = f"/static/wideo/{v['id']}.jpg"
+        wyn.append({"id": v["id"], "tytul": tytul, "kategoria": kat, "link": link,
+                    "miniaturka": mini, "date": ct.isoformat(timespec="minutes"), "display_date": ct.strftime("%d.%m.%Y")})
     wyn.sort(key=lambda x: x["date"], reverse=True)
     plik = WWW / "content/wideo.json"
     nowy = json.dumps(wyn, ensure_ascii=False, indent=1)
