@@ -58,3 +58,9 @@ Punkty z tools/spacer_punkty.py (92, co 10 m, numer = kolejność trasy; data/sp
 Sfera = numer punktu: oryginał data/spacer_oryginaly/pNN.jpg, web www_rod/static/spacer/pNN.jpg, scena Pannellum "pNN".
 Tomasz robi zdjęcia w kolejności numerów bez pomijania; apka zapisuje z czasem → kolejność czasowa = numer; powtórka punktu = ostatnie zdjęcie z tego miejsca zastępuje poprzednie. Jeśli podpisuje numerem przy wysyłce — tym lepiej, ale nie musi.
 Graf sąsiadów: kolejne numery w obrębie odcinka sąsiadują; na skrzyżowaniach (18/22/42/47/73 i bramy) dokładam połączenia poprzeczne wg trasy.
+
+## ODBIÓR SFER Z TELEFONU (Tomasz 04.09.2026: „Najlepiej jak wejdziesz na telefon po wszystkie zdjęcia z pliku")
+Stan zmierzony: apka MCP widzi tylko korzenie builtin:downloads/pictures/movies/music, podfoldery (np. Pictures/My360s) niewidoczne; sfery testowe przyszły przez Telegram. Dwie drogi na poniedziałek:
+1) ADB po WiFi ogrodu (mesh Działki) przez Tailscale: telefon na WiFi + debugowanie bezprzewodowe + Tailscale → port odczytać z ekranu (MCP: android_get_screen_state w Ustawienia → Opcje programisty → Debugowanie bezprzewodowe) → adb connect 100.101.116.106:PORT → adb pull tylko nowych plików z folderu apki 360 Photo Cam (folder i nazewnictwo do ustalenia przy pierwszym wejściu).
+2) Zapas: w apce MCP dodać własną lokalizację (SAF) wskazującą folder sfer — wtedy list_files/share_file_via_web widzą pliki jako korzeń.
+DO ZROBIENIA dziś wieczorem, gdy Tomasz będzie na działce (WiFi): przetestować drogę 1, zapisać folder + wzorzec nazw, przygotować tools/spacer_odbior.py (pull + nazwanie pNN wg kolejności czasu).
