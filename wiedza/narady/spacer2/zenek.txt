@@ -1,0 +1,27 @@
+**Głos Zenka**
+
+### POTWIERDZONE
+
+1. Obecna `/mapa/` to pojedynczy JPG otwierany w lightboxie, a zapis spaceru przewiduje adres `/spacer/#scena=X` i zewnętrzny JS zgodny z CSP ([mapa.md](/root/rod-ai-studio/www_rod/content/pages/mapa.md:8), [SPACER_MODEL.md](/root/rod-ai-studio/wiedza/SPACER_MODEL.md:19)).
+2. Lokalny Pannellum udostępnia `loadScene`, `getScene` i zdarzenie `scenechange`, więc synchronizacja mapy ze spacerem jest wykonalna bez modyfikowania biblioteki.
+
+### HIPOTEZY — moja rekomendacja
+
+3. **P1: zdjęcie co 10 metrów** na prostej alejce; 5 m byłoby niepotrzebnym podwojeniem pracy względem spaceru pieszego.
+4. Punkt obowiązkowy: wszystkie 4 bramy, każdy zakręt lub skrzyżowanie, koniec alejki, Dom Działkowca oraz środek każdego z 2 parkingów.
+5. Punkt obowiązkowy zastępuje najbliższy punkt regularny, ale odstęp między kolejnymi sferami nie powinien przekroczyć 10 m.
+6. Przy roboczym założeniu 150 m na alejkę wychodzi 16 punktów × 3 alejki + Dom + 2 parkingi = **51 sfer**.
+7. Dla podanego zakresu 100–200 m wychodzi **36–66 sfer**, jeżeli nie pojawią się dodatkowe zakręty lub skrzyżowania.
+8. Dla planu 51 sfer samo fotografowanie zajmie **1 godz. 42 min – 3 godz. 24 min**; na sesję z przechodzeniem i pojedynczymi powtórkami zarezerwowałbym **4 godziny**.
+9. **P2: wybrać responsywną nakładkę z pozycjonowanymi linkami procentowymi**, umieszczoną w tej samej ramce co JPG; nie używać `<map><area>`, bo pikselowe współrzędne komplikują skalowanie na telefonie.
+10. Na mapie wystarczy **10 punktów wejścia**: 4 bramy, 3 środki alejek, 2 parkingi i Dom Działkowca.
+11. Każdy punkt powinien mieć widoczny krążek 28–32 px, kontrastową obwódkę, numer oraz niewidzialne pole dotyku **48×48 px**; pod mapą należy dodać legendę numerów.
+12. Zewnętrzny `spacer.js` powinien odczytać hash, sprawdzić nazwę sceny na liście istniejących scen, ustawić `firstScene`, a po `scenechange` aktualizować hash.
+13. **Mini-mapa powinna być również wewnątrz spaceru**: na komputerze zwinięty panel około 260×146 px, a na telefonie przycisk 48×48 px otwierający mapę na maksymalnie 90% szerokości ekranu.
+
+### NIE WIEM
+
+14. Dokładnej długości alejek nie ma w materiale, dlatego **51 punktów jest liczbą planistyczną, nie pomiarem terenu**.
+15. Tomasz: zatwierdź jeden wariant roboczy — **10 m / plan 51 sfer / 10 punktów wejścia na mapie**.
+
+— **Zenek**

@@ -1,0 +1,19 @@
+HENIO — głos w burzy mózgów (spacer 360, 04.09.2026)
+
+P1 — CO ILE METRÓW:
+1. Co 10 m na prostych alejkach. Nie co 5 m: Cyclomedia/Street View to pomiar geodezyjny z jadącego auta (musi mieć pokrycie do tworzenia cyfrowego bliźniaka ulicy); spacer w ogrodzie ma dawać ciągłość, nie dokumentację. Przy 360° w wąskiej alejce sfery co 5 m pokrywają się ~70% — marnotrawstwo 2 MB i 2-4 min na każdą.
+2. Rzadziej niż 10 m (12-15 m) daje skoki między działkami i utratę orientacji. 10 m to złoty środek.
+3. Punkty OBOWIĄZKOWE (dodają się do siatki 10 m tam, gdzie by ją pominęły): 4 bramy, 2 parkingi, Dom Działkowca, każde skrzyżowanie alejek, oba końce każdej z 3 alejek. Przy bramach i skrzyżowaniach zagęścić do ~5 m.
+4. Liczba sfer: długość alejek / 10 + obowiązkowe. Przy 3 alejkach łącznie ~300 m → 30 regularnych + ~8 obowiązkowych ≈ 38 sfer ≈ 76 MB. Przy górnej granicy 600 m → ~68 sfer, 136 MB — wtedy rozrzedzam długie proste do 12 m.
+5. Czas: 38 sfer × 2-4 min = 76-152 min + przejścia i ustawianie statywu ≈ 2-3 h jednej sesji. Górny wariant 600 m ≈ 4-5 h — dzielić na 2 sesje.
+
+P2 — SPRZĘŻENIE Z MAPĄ:
+6. Technika: pozycjonowane punkty % na obrazie — <div style="position:relative"> + <img mapa-ogrodu.jpg style="width:100%;height:auto"> + linki <a href="/spacer/#scena=X" style="position:absolute;left:XX%;top:YY%">. Współrzędne: left% = (px_x / szerokość_mapy)×100, top% analogicznie.
+7. Odpada <map><area>: area bierze współrzędne w pikselach, nie skaluje się z responsywnym obrazem na telefonie — na mobile punkty trafią obok alejki. SVG overlay zadziała, ale to więcej roboty przy tej samej funkcji.
+8. CSP: zero inline JS zachowane — to czysty HTML+CSS, hash #scena=X czyta kod w tour.js (plik), nie inline. W modelu SPACER_MODEL.md:21 to już zapisane.
+9. Widoczność na telefonie: punkt min 32 px średnicy, tło rgba(183,225,195,.92) pastelowa zieleń + biała obwódka 3 px (spójne ze strzałkami hotspotów), plus cień dla kontrastu na jasnej mapie.
+10. Mini-mapa WEWNĄTRZ spaceru: TAK, ale faza 2. Przy 51 działkach łatwo zgubić orientację; ten sam JPG pomniejszony + kropka "jesteś tu" aktualizowana eventem Pannellum scenechange. Nie blokuje MVP — klik na mapie → skok zamyka główną potrzebę.
+
+Do zrobienia: zmierzyć rzeczywistą łączną długość 3 alejek (z mapy lub pieszo), bo od tego zależy, czy 38 czy ~68 sfer i 2 czy 2 sesje.
+
+— Henio
