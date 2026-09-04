@@ -248,3 +248,6 @@ Klaudek postawił test.html spaceru i dał Tomaszowi link, sprawdziwszy tylko HT
 
 ## 04.09.2026 — BŁĄD: fałszywy alarm o "utracie łączności z Działką"
 Klaudek zameldował Tomaszowi "straciłem łączność z serwerem Działki" jak nowinę — a N150 leży od 15/16.08 (padł dysk po wpięciu Corala, sprawa gwarancyjna, nowy dysk w drodze). "Offline 19 dni" w tailscale to DOKŁADNIE czas od tamtej awarii. Pomiar był dobry, wniosek idiotyczny, bo Klaudek nie zderzył go z własną pamięcią (n150-migration: "W CZASIE AWARII NIE DZIAŁA: cała Działka"). Nauka: każdy alarm o infrastrukturze NAJPIERW zderzyć z zapisanym stanem znanych awarii, dopiero potem meldować.
+
+## 04.09.2026 — BŁĄD: spacer "0%" u Tomasza, a u Klaudka działał
+Caddy serwuje /static/ z cache 7 dni (max-age=604800). Telefon Tomasza trzymał STARY proba.js — nowy HTML pokazał ekran ładowania, a stary skrypt pod spodem nic o nim nie wiedział → wieczne 0%. Testy headless zawsze startują z pustym cache, więc "u mnie działa" nic nie dowodzi przy zmianach plików. NAUKA: każda zmiana js/css spaceru = nowy ?v= w HTML (strona główna ma to z build.py, pliki ręczne NIE). Dodany też zapasowy licznik postępu plikami, gdyby zabrakło Content-Length.
