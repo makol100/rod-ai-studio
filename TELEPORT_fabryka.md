@@ -694,3 +694,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 ODWOLANY falszywy alarm: 'brak lacznosci z Dzialka' to ZNANY stan od 15/16.08 — N150 (serwer HA Dzialka) lezy po padzie dysku, nowy dysk z systemem jedzie od sprzedawcy (gwarancja + 30 USD), po dostawie wymiana i restore z pendrive ratunkowego; offline 19 dni w tailscale = dokladnie od awarii. Wpis w teczce: alarmy zderzac z pamiecia znanych awarii przed meldunkiem
+
+
+==============================================================================
+## SESJA 04.09.2026 13:25 CEST
+==============================================================================
+
+04.09 SPACER — MODEL ZAPISANY (wiedza/SPACER_MODEL.md: apka 360 Photo Cam -> share via web -> VPS -> 4096x2048 q85 -> Pannellum, zero inline JS, blob: w CSP, strzalki 120px pastel, bramka dowodu renderu headless+oczy). NARADA: gestosc sfer Zenek+Henio 10 m vs Genek 15 m (decyzja Tomasza otwarta); punkty obowiazkowe bramy/parkingi/Dom/skrzyzowania/konce alejek, ~38-51 sfer, sesja 2-4 h; przed sesja zmierzyc dlugosc alejek. MAPA->SPACER jednoglosnie: punkty % na JPG mapy -> /spacer/#scena=X, tour.js czyta hash; mini-mapa w spacerze faza 2
