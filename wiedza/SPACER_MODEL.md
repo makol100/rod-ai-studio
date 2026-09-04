@@ -10,7 +10,7 @@ Wzorzec sprawdzony na żywo (proba: parking+plac zabaw, Herzogenburg) — powiel
 - Pliki: static/spacer/pannellum.js, pannellum.css, {tour}.js (konfiguracja scen), {tour}.html.
 - CSP strony wymusza: ZERO inline <script> (kod wyłącznie w plikach .js); img-src musi mieć blob: (JUŻ dopisane w Caddyfile:292 — nie ruszać).
 - Caddyfile: bind-mount read-only przypina inode — po każdej edycji na hoście `docker restart caddy-mcp` (reload NIE wystarcza).
-- Strzałki przejść: hotspot type:'scene', cssClass:'strzalka' — 120 px, tło rgba(183,225,195,.92) pastelowa zieleń, biała obwódka 3 px, glif ➤ #1b5e20 (zaakceptowane przez Tomasza 04.09).
+
 - Sceny: type equirectangular, autoLoad, sceneFadeDuration 900, autoRotate -3 (stop po dotknięciu), hfov 100.
 
 ## Dowód działania (bramka obowiązkowa PRZED wysłaniem linku Tomaszowi)
@@ -29,5 +29,10 @@ DECYZJA TOMASZA (otwarta): 10 m czy 15 m między sferami.
 - Na starcie ekran "Ładowanie spaceru…" z paskiem % liczonym PO BAJTACH (HEAD Content-Length wszystkich sfer → fetch streamem, licznik odebranych): CAŁY spacer wczytuje się z góry do blobów, chodzenie potem BEZ żadnych pobrań (dowód: licznik żądań .jpg po załadowaniu = 0).
 - Sceny dostają blob-URL-e; wymaga w CSP rodwozniki: img-src blob: ORAZ connect-src blob: (oba już w Caddyfile:292; Pannellum czyta panoramę XHR-em, więc sam img-src NIE wystarcza — bez connect-src blob: pada "FileReader parameter 1 is not of type Blob"). Po edycji Caddyfile: docker restart caddy-mcp.
 - ignoreGPanoXMP: true w default (nie parsujemy XMP z blobów).
-- Nawigacja: strzałki 120 px pastel (korekta Tomasza 04.09 „większe strzałki pastelowe" — 120 px to rozmiar zatwierdzony, NIE zmniejszać) + podwójny klik/tap WSZĘDZIE — detektor na pointerdown/move/up (tap = ruch <12 px; drugi tap <500 ms i <60 px), do tego dblclick; ochrona przed podwójnym odpaleniem: cooldown 800 ms w idz(). Dowód puppeteer: touchscreen.tap×2 → zmiana sceny, mouse dblclick → zmiana z powrotem, zero błędów.
+
 - UWAGA SKALA: pełny ogród ~40 sfer × ~2 MB = ~80 MB ładowane z góry (wola Tomasza D-0311). Przy budowie /spacer/ rozważyć web 3072×1536 q80 (~1,2 MB/sfera → ~50 MB) — decyzja przy sesji.
+
+## STRZAŁKA — WZÓR ZATWIERDZONY (Tomasz 04.09.2026, "Brawo brawo")
+120 px, środek CAŁKOWICIE przezroczysty, obwódka 3 px biała rgba(255,255,255,.75),
+grot \27A4 BIAŁY rgba(255,255,255,.92), cień 0 2px 10px rgba(0,0,0,.30).
+NIE zmieniać rozmiaru ani kolorów bez polecenia Tomasza.
