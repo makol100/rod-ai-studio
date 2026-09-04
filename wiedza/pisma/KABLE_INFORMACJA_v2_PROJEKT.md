@@ -25,7 +25,7 @@ Zarząd ROD nie jest stroną umów z operatorem i sprzedawcą energii, nie pośr
 
 Uwaga praktyczna: kable zasilające działki ułożone są w gruncie na terenie ogrodu. Przed rozpoczęciem jakichkolwiek prac ziemnych należy uzgodnić z Zarządem ROD przebieg kabli (dostępna dokumentacja projektowa). Za uszkodzenie kabla podczas prac ziemnych odpowiada na zasadzie winy (art. 415 Kodeksu cywilnego) osoba, która je prowadziła, i jest zobowiązana do naprawienia szkody.
 
-Zasady niniejsze wynikają z § 76 i § 78 Regulaminu ROD i zostały przyjęte uchwałą Walnego Zebrania ROD nr …… z dnia …… [DO UZUPEŁNIENIA — jeśli uchwały nie ma, pismo ma charakter porządkowo-informacyjny].
+Zasady niniejsze wynikają z § 76 i § 78 Regulaminu ROD i zostały przyjęte uchwałą Walnego Zebrania ROD nr …… z dnia …… [Tomasz potwierdził 04.09: uchwała walnego JEST — wpisać numer i datę].
 
 Za Zarząd ROD im. Józefa Lompy …………………… (podpis)
 POTWIERDZENIE ZAPOZNANIA SIĘ — Imię i nazwisko działkowca: …… nr działki: …… Data: …… Podpis: ……
@@ -35,3 +35,7 @@ POTWIERDZENIE ZAPOZNANIA SIĘ — Imię i nazwisko działkowca: …… nr dział
 - Kabel w alejce: ustawa o ROD art. 30 ust. 2 dotyczy tylko urządzeń NA DZIAŁCE; KC art. 47–48 (część składowa gruntu), art. 49 nie ma zastosowania (nie przedsiębiorstwo); art. 2 pkt 9 ustawy o ROD — nie „wspólne używanie" → nie infrastruktura ogrodowa. Dlatego: „instalacja odbiorcza utrzymywana na koszt działkowca", bez rozstrzygania własności.
 - Umocowanie: Regulamin ROD § 78 ust. 1 (zasady korzystania z energii uchwala walne zebranie), § 76 (przyłączenie za zgodą zarządu), § 33 ust. 2 (urządzenia niebędące infrastrukturą ogrodową — zgoda okręgowego zarządu PZD); Statut PZD 2024 § 73 pkt 16–17, § 74 ust. 3.
 - Odpowiedzialność: KC art. 415.
+
+
+## DECYZJA TOMASZA 04.09.2026
+Wniosek do okręgu PZD NIE był i NIE BĘDZIE składany (dosłownie: Nie i nie będzie i jak już to do okręgu w Częstochowie). Właściwy okręg = Częstochowski, nie Śląski. W piśmie v2 NIE powoływać zgody okręgu; umocowanie = uchwała walnego. Ostrzeżenie załogi (Henio/Genek: Regulamin §33 ust. 2, Statut §74 ust. 3, uchwała KR PZD 2/XXII/2023) zostaje zapisane jako ryzyko — decyzja należy do prezesa.
