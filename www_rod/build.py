@@ -300,8 +300,20 @@ def build() -> list[Path]:
 
     layout = (ROOT / "templates/page.html").read_text(encoding="utf-8")
     home = (ROOT / "templates/home.html").read_text(encoding="utf-8")
-    featured = next((item for item in announcements if item.get("featured")), announcements[0])
-    home_body = render(home, {"featured_announcement": announcement_html(featured), "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html()})
+    # Karta na stronie glownej: "Najblizsze wydarzenie" tylko gdy termin przed nami; po imprezie -> "Ostatnie wydarzenie"
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+    _teraz = _dt.now(_tz.utc)
+    def _kiedy(item):
+        try: return _dt.fromisoformat(item["date"])
+        except Exception: return _teraz
+    _przyszle = [a for a in announcements if _kiedy(a) >= _teraz - _td(hours=6)]
+    if _przyszle:
+        featured = next((a for a in _przyszle if a.get("featured")), min(_przyszle, key=_kiedy))
+        featured_kicker = "Najbliższe wydarzenie"
+    else:
+        featured = max(announcements, key=_kiedy)
+        featured_kicker = "Ostatnie wydarzenie"
+    home_body = render(home, {"featured_announcement": announcement_html(featured), "featured_kicker": featured_kicker, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
