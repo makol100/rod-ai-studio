@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Codzienne posty FB 'Ogrodnik ROD' (teksty: powitanie 6:30 + porada 9:00 + ostrzezenia IMGW) -> rodwozniki.pl.
 Cron co 30 min. Pobiera przez Graph API, zapisuje www_rod/content/fb_posty.json (max 30), buduje strone gdy nowe."""
-import json, os, subprocess, shutil, urllib.request, urllib.parse, datetime, re
+import subprocess, json, os, subprocess, shutil, urllib.request, urllib.parse, datetime, re
 from pathlib import Path
 ROOT = Path("/root/rod-ai-studio"); WWW = ROOT / "www_rod"; WOLUMEN = Path("/var/lib/docker/volumes/caddy_mcp_data/_data/www_rod")
 PLIK = WWW / "content/fb_posty.json"; PAGE = "1174205105781401"; V = "v21.0"
@@ -54,6 +54,16 @@ def pobierz_wideo(tok):
                     dane_m = urllib.request.urlopen(urllib.request.Request(turl, headers={"User-Agent": "Mozilla/5.0"}), timeout=20).read()
                     if len(dane_m) > 5000: cel.write_bytes(dane_m)
                 except Exception as e: print("miniaturka", v["id"], "blad:", e)
+            # czarna miniaturka z FB (rolka jeszcze w obrobce) -> wlasna klatka z lokalnego mp4, gdy jest
+            try:
+                if cel.is_file():
+                    from PIL import Image as _Im, ImageStat as _St
+                    if _St.Stat(_Im.open(cel).convert("L")).mean[0] < 8:
+                        _mp4 = WWW / f"static/wideo/{v['id']}.mp4"
+                        if _mp4.is_file():
+                            subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "4", "-i", str(_mp4), "-frames:v", "1", "-vf", "scale=720:-2", "-q:v", "3", str(cel)], capture_output=True)
+                        else: cel.unlink()
+            except Exception as e: print("miniaturka-czarna", v["id"], e)
             if cel.is_file() and cel.stat().st_size >= 5000: mini = f"/static/wideo/{v['id']}.jpg"
         # wlasny plik mp4 (dekret D-0314: filmy graja w oknie na stronie, nie na FB)
         mp4 = WWW / f"static/wideo/{v['id']}.mp4"
@@ -113,6 +123,7 @@ def main():
     if WOLUMEN.exists(): WOLUMEN.rename(old)
     tmp.rename(WOLUMEN); shutil.rmtree(old, ignore_errors=True)
     subprocess.run(["python3", str(ROOT / "tools/pogoda_rod.py")], capture_output=True)
+    subprocess.run(["python3", str(ROOT / "tools/licznik_rod.py")], capture_output=True)
     subprocess.run(["git", "-C", str(ROOT), "add", "-A", "www_rod/content/fb_posty.json"], capture_output=True)
     subprocess.run(["git", "-C", str(ROOT), "commit", "--no-verify", "-qm", f"Auto: {len(nowe)} postow FB na strone"], capture_output=True)
     print(f"fb_na_strone: nowych {len(nowe)}, przeklasyfikowanych {zmiany}, wideo_zmiana {wideo_zmiana}")

@@ -186,6 +186,29 @@ def _ogl_film_html(item) -> str:
             '<span class="play" aria-hidden="true">▶</span><span class="fb-podpis">Obejrzyj film</span></a>')
 
 
+def wiadomosci_skrot() -> str:
+    """Wyróżnienie na stronie głównej: najnowsza wiadomość wideo (Prezenter/Izabela) z odznaką NOWE do 14 dni. Dekret Tomasza 08.09.2026."""
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+    try:
+        items = json.loads((CONTENT / "wideo.json").read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    wiad = [w for w in items if w.get("kategoria") == "wiadomosci" and w.get("wideo")]
+    if not wiad:
+        return ""
+    w = sorted(wiad, key=lambda x: x["date"], reverse=True)[0]
+    try:
+        swieze = (_dt.now(_tz.utc) - _dt.fromisoformat(w["date"])) < _td(days=14)
+    except Exception:
+        swieze = False
+    odznaka = '<span class="wiad-nowe">NOWE</span>' if swieze else ""
+    mini = f'<img src="{html.escape(w.get("miniaturka",""))}" alt="" loading="lazy">' if w.get("miniaturka") else ""
+    return (f'<a class="wiad-skrot" href="{html.escape(w["wideo"])}" data-wideo="{html.escape(w["wideo"])}" data-mini="{html.escape(w.get("miniaturka",""))}">'
+            f'<span class="wiad-mini">{mini}<span class="wideo-play" aria-hidden="true">▶</span>{odznaka}</span>'
+            f'<span class="wiad-tresc"><span class="card-label">Wiadomości z ogrodu</span>'
+            f'<strong>{html.escape(w["tytul"])}</strong><span class="wiad-data">{html.escape(w.get("display_date",""))} · film, kliknij aby obejrzeć</span></span></a>')
+
+
 def wideo_html(kategoria: str) -> str:
     try:
         items = [x for x in load_json(CONTENT / "wideo.json") if x.get("kategoria") == kategoria]
@@ -313,7 +336,7 @@ def build() -> list[Path]:
     else:
         featured = max(announcements, key=_kiedy)
         featured_kicker = "Ostatnie wydarzenie"
-    home_body = render(home, {"featured_announcement": announcement_html(featured), "featured_kicker": featured_kicker, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html()})
+    home_body = render(home, {"featured_announcement": announcement_html(featured), "featured_kicker": featured_kicker, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
