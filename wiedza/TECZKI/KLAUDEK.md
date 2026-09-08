@@ -257,3 +257,7 @@ Caddy serwuje /static/ z cache 7 dni (max-age=604800). Telefon Tomasza trzymał 
 2. „U mnie działa" po ośmiu godzinach walk z cache: telefon Tomasza trzyma /static/ 7 dni; headless zawsze ma pusty cache. Wersjonować pliki, sprawdzać nagłówki.
 3. Zgłosiłem „straciłem łączność z Działką" jako nowinę — Działka leży od 16.08 (w pamięci). Alarm najpierw zderzyć z listą znanych awarii.
 Techniczne: `pkill -f` z wzorcem zawartym we własnej komendzie zabija samą komendę (exit -15) — zabijać po PID; nowe style kart sprawdzać w OBU motywach (ostrzeżenie nieczytelne w ciemnym).
+
+## 08.09.2026 — BŁĄD: wysłałem Tomaszowi rolkę z obrazem urwanym po 32 s
+Sklejka concat-demuxer + filtr (fps/setpts) na częściach o RÓŻNYCH pix_fmt (zdjęcia yuvj420p vs yuv420p) urwała strumień wideo po filmie; kontener miał 74 s (audio), więc ffprobe duration = OK, a wideo miało 978 klatek. Moje „klatki kontrolne" pokazały pusto po 40 s i to ZLEKCEWAŻYŁEM. Tomasz: „nie ma żadnych zdjęć… gdzie prezenterka".
+NAUKA: przed wysłaniem KAŻDEJ rolki liczyć klatki wideo (ffprobe -count_frames nb_read_frames ≈ czas×fps) i wyciągać klatkę z ostatnich 3 s; pusta klatka kontrolna = STOP, nie „pewnie OK". Sklejać przez filter_complex concat z normalizacją (scale, fps, format=yuv420p, aresample), nie concat-demuxerem na mieszanych częściach.
