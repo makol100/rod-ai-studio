@@ -10,7 +10,8 @@ właśnie oświadczenia protokoły do kolejnych osób"* — ten katalog jest źr
 
 ```
 dokumenty/elektryk/
-├── szablony/oswiadczenie_przepiecie.js   generator DOCX (node + docx)
+├── szablony/oswiadczenie_przepiecie.js   przepięcie działki na przyłącze indywidualne
+├── szablony/oswiadczenie_kabel.js        kabel od licznika do punktu przyłączeniowego
 ├── dane/<dzialka>.json                   dane jednego dokumentu (edytujesz TYLKO to)
 ├── assets/                               logo ROD + znak elektryczny (nie podmieniać bez powodu)
 │   ├── logo_rod.png        okrągłe logo ROD (kopia assets/branding/rod_logo_kolo.png)
@@ -46,6 +47,14 @@ Pole puste lub brakujące = w dokumencie zostają kropki do ręcznego wpisania
   - **wewnętrzna sieć działkowa pozostaje pod napięciem** i zasila pozostałe działki
     (odłączona jest tylko ta jedna działka).
 - Dwa podpisy: działkowiec (potwierdza odczyt podlicznika) i elektryk.
+
+## Oświadczenie o kablu (oswiadczenie_kabel.js)
+
+Krótkie pismo: kabel zasilający od złącza kablowo-pomiarowego (licznika) do punktu
+przyłączeniowego na działce jest wykonany, zabezpieczony i nadaje się do przyłączenia
+do sieci. **Dotyczy WYŁĄCZNIE kabla** — dekret Tomasza 14.09.2026: „bez instalacji domku
+i w altanie i na działce". W piśmie stoi to wprost jako zdanie wyłączające odpowiedzialność
+za instalację altany i resztę instalacji działki. Nie rozszerzać tego zakresu.
 
 ## Następne dokumenty do tej rodziny
 

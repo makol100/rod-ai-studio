@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 14.09.2026 14:36.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 14.09.2026 14:49.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 14.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-14 16:09:33 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 14.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-14 16:39:33 CEST |
 | `BANK_KWESTII_PREZENTER_TOMASZ.md` | 08.09 | 7K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
 | `STRONA_FILMY.md` | 04.09 | 2K | STRONA ROD — FILMY (stan 04.09.2026, dekrety D-0314 / D-0315) |
 | `SPACER_MODEL.md` | 04.09 | 7K | MODEL WDROŻENIA SPACERU 360 (zapisany na polecenie Tomasza 04.09.2026) |
