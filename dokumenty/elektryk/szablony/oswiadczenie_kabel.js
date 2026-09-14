@@ -1,4 +1,6 @@
-// Szablon: OŚWIADCZENIE o sprawności instalacji elektrycznej działki
+// Szablon: OŚWIADCZENIE o wykonaniu i zabezpieczeniu KABLA ZASILAJĄCEGO
+// (od złącza kablowo-pomiarowego / licznika do punktu przyłączeniowego na działce).
+// UWAGA: dotyczy WYŁĄCZNIE kabla — nie obejmuje instalacji altany ani instalacji na działce (dekret 14.09.2026).
 // (krótkie pismo — odpowiednik tego, które działkowcy dostają od swoich elektryków;
 //  potrzebne zarządowi przed wydaniem karty danych technicznych / przyłączeniem do Tauronu)
 //
@@ -60,7 +62,7 @@ const naglowek = new Table({
   ] })],
 });
 
-const ZAKRES_DOMYSLNY = 'Zakres wykonanych prac: zabezpieczenie kabla zasilającego od złącza kablowo-pomiarowego (licznika) do działki oraz zabezpieczenie instalacji działki — wykonane zgodnie z obowiązującymi przepisami i zasadami wiedzy technicznej.';
+const ZAKRES_DOMYSLNY = 'Oświadczenie dotyczy wyłącznie kabla zasilającego od licznika do punktu przyłączeniowego. Nie obejmuje instalacji elektrycznej altany (domku) ani pozostałej instalacji na działce.';
 
 const doc = new Document({ sections: [{
   properties: { page: { margin: { top: 1000, bottom: 1134, left: 1418, right: 1418 } } },
@@ -70,14 +72,14 @@ const doc = new Document({ sections: [{
 
     p([t(`Woźniki, dnia ${v('data')}`)], { alignment: AlignmentType.RIGHT, spacing: { after: 300 } }),
     p([t('OŚWIADCZENIE', { bold: true, size: 30 })], { alignment: AlignmentType.CENTER, spacing: { after: 80 } }),
-    p([t('o sprawności instalacji elektrycznej działki', { italics: true })], { alignment: AlignmentType.CENTER, spacing: { after: 340 } }),
+    p([t('o wykonaniu i zabezpieczeniu kabla zasilającego', { italics: true })], { alignment: AlignmentType.CENTER, spacing: { after: 340 } }),
 
     p([
-      t('Oświadczam, że instalacja elektryczna na terenie działki nr '),
+      t('Oświadczam, że kabel zasilający od złącza kablowo-pomiarowego (licznika) do punktu przyłączeniowego na działce nr '),
       t(v('dzialka', '………'), { bold: true }),
       t(' w Rodzinnym Ogrodzie Działkowym im. Józefa Lompy w Woźnikach (użytkownik działki: '),
       t(v('uzytkownik')),
-      t(') jest w pełni sprawna i nadaje się do przyłączenia do sieci energetycznej.'),
+      t(') został wykonany i zabezpieczony zgodnie z obowiązującymi przepisami i zasadami wiedzy technicznej, jest w pełni sprawny i nadaje się do przyłączenia do sieci energetycznej.'),
     ], { alignment: AlignmentType.JUSTIFIED, spacing: { after: 240 } }),
 
     p([t(v('zakres', ZAKRES_DOMYSLNY))], { alignment: AlignmentType.JUSTIFIED, spacing: { after: 300 } }),
@@ -95,7 +97,7 @@ const doc = new Document({ sections: [{
   ],
 }] });
 
-const nazwa = (v('plik', '') || `Oswiadczenie_sprawnosc_dzialka_${v('dzialka', 'X')}`).replace(/\.docx$/i, '') + '.docx';
+const nazwa = (v('plik', '') || `Oswiadczenie_kabel_dzialka_${v('dzialka', 'X')}`).replace(/\.docx$/i, '') + '.docx';
 fs.mkdirSync(outDir, { recursive: true });
 const out = path.join(outDir, nazwa);
 Packer.toBuffer(doc).then((b) => { fs.writeFileSync(out, b); console.log('zapisano:', out); });
