@@ -236,3 +236,28 @@ Fakty z transkryptu narady o filmie kun: RUNDA 1 — Klaudek poszedł prosto do 
 - 03.09 BLAD: cache-busting w build.py dopisany PO 'raise SystemExit(main())' — nigdy sie nie wykonal; dwa razy zameldowalem naprawe paska budowy na podstawie zrzutu z serwera (bez cache), a telefon Tomasza trzymal stary CSS. Naprawa: CSS/JS pod nazwa z hashem. Lekcja: sprawdzac wyjscie buildu ('cache-bust v=') i nazwe pliku CSS w HTML z serwera, nie zakladac.
 
 - 03.09 BLAD: wpisalem na strone link do FB 'profile.php?id=61576190289486' z glowy (nie z danych) — cudzy/nieistniejacy profil. Poprawione linkiem z Graph API strony 1174205105781401. Lekcja: linki do naszych kont tylko z API/wiedzy, nigdy z pamieci.
+
+## 04.09.2026 — BŁĄD: zameldował "tablica ma 0 ogłoszeń" sprawdziwszy tylko kolejkę
+Klaudek dwukrotnie (raport poranny + propozycja rozruchu) podał Tomaszowi "0 ogłoszeń na tablicy", patrząc wyłącznie w data/tablica/oczekujace.json (kolejka moderacji). Opublikowane wpisy leżą w www_rod/content/tablica.json — tam od 03.09 17:31 wisiało ogłoszenie Tomasza "Szukamy pomocy do elektryfikacji alejki północnej". Poprawił go Tomasz ("Jest moje ogłoszenie"). Wzorzec z teczki: melduje przed sprawdzeniem CAŁOŚCI. Nauka: tablica = DWA pliki (kolejka + opublikowane), liczyć oba.
+
+## 04.09.2026 — BŁĄD: karty wideo na /filmy/ wypuszczone bez sprawdzenia że linki i miniaturki DZIAŁAJĄ
+Klaudek zweryfikował curl-em, że karty SĄ w HTML, ale nie sprawdził dokąd prowadzą linki ani czy obrazki się ładują. Graph API zwraca permalink_url WZGLĘDNY (/reel/ID/) — kliknięcia szły na rodwozniki.pl/reel/... donikąd; pole picture to śmieć ~700 B, a URL-e fbcdn wygasają. Wyłapał Tomasz ze zrzutu. Nauka: weryfikacja elementu = przejść link i pobrać zasób (kod+rozmiar), nie tylko obecność w HTML.
+
+## 04.09.2026 — BŁĄD: link do strony testowej spaceru wysłany ZANIM były na niej zdjęcia
+Klaudek postawił test.html spaceru i dał Tomaszowi link, sprawdziwszy tylko HTML i pannellum.js (200) — a pliki sfer jeszcze nie istniały (miały dopiero przyjść Telegramem). Tomasz otworzył → czarny ekran → „wypierdol to, i tak nie działa". TA SAMA klasa błędu co rano z kartami wideo: zweryfikowana skorupa, nie zawartość. Nauka: link idzie do Tomasza dopiero gdy CAŁA ścieżka działa (obrazy wczytane, nie 404) — na stronach z zasobami sprawdzać KAŻDY zasób, którego strona potrzebuje.
+
+## 04.09.2026 — BŁĄD: fałszywy alarm o "utracie łączności z Działką"
+Klaudek zameldował Tomaszowi "straciłem łączność z serwerem Działki" jak nowinę — a N150 leży od 15/16.08 (padł dysk po wpięciu Corala, sprawa gwarancyjna, nowy dysk w drodze). "Offline 19 dni" w tailscale to DOKŁADNIE czas od tamtej awarii. Pomiar był dobry, wniosek idiotyczny, bo Klaudek nie zderzył go z własną pamięcią (n150-migration: "W CZASIE AWARII NIE DZIAŁA: cała Działka"). Nauka: każdy alarm o infrastrukturze NAJPIERW zderzyć z zapisanym stanem znanych awarii, dopiero potem meldować.
+
+## 04.09.2026 — BŁĄD: spacer "0%" u Tomasza, a u Klaudka działał
+Caddy serwuje /static/ z cache 7 dni (max-age=604800). Telefon Tomasza trzymał STARY proba.js — nowy HTML pokazał ekran ładowania, a stary skrypt pod spodem nic o nim nie wiedział → wieczne 0%. Testy headless zawsze startują z pustym cache, więc "u mnie działa" nic nie dowodzi przy zmianach plików. NAUKA: każda zmiana js/css spaceru = nowy ?v= w HTML (strona główna ma to z build.py, pliki ręczne NIE). Dodany też zapasowy licznik postępu plikami, gdyby zabrakło Content-Length.
+
+## 04.09.2026 — trzy lekcje jednego dnia (Tomasz: „zapisuj wszystko wszędzie")
+1. Zacząłem ŚCIĄGAĆ filmy z YouTube na VPS (nawet przez łącze Wybickiego), zamiast osadzić łącze — Tomasz: „zapytaj Gienka bo on jest od Google". Gdy istnieje standardowy embed, nie kopiować cudzych zasobów; najpierw pytać Genka o Google/YouTube/FB.
+2. „U mnie działa" po ośmiu godzinach walk z cache: telefon Tomasza trzyma /static/ 7 dni; headless zawsze ma pusty cache. Wersjonować pliki, sprawdzać nagłówki.
+3. Zgłosiłem „straciłem łączność z Działką" jako nowinę — Działka leży od 16.08 (w pamięci). Alarm najpierw zderzyć z listą znanych awarii.
+Techniczne: `pkill -f` z wzorcem zawartym we własnej komendzie zabija samą komendę (exit -15) — zabijać po PID; nowe style kart sprawdzać w OBU motywach (ostrzeżenie nieczytelne w ciemnym).
+
+## 08.09.2026 — BŁĄD: wysłałem Tomaszowi rolkę z obrazem urwanym po 32 s
+Sklejka concat-demuxer + filtr (fps/setpts) na częściach o RÓŻNYCH pix_fmt (zdjęcia yuvj420p vs yuv420p) urwała strumień wideo po filmie; kontener miał 74 s (audio), więc ffprobe duration = OK, a wideo miało 978 klatek. Moje „klatki kontrolne" pokazały pusto po 40 s i to ZLEKCEWAŻYŁEM. Tomasz: „nie ma żadnych zdjęć… gdzie prezenterka".
+NAUKA: przed wysłaniem KAŻDEJ rolki liczyć klatki wideo (ffprobe -count_frames nb_read_frames ≈ czas×fps) i wyciągać klatkę z ostatnich 3 s; pusta klatka kontrolna = STOP, nie „pewnie OK". Sklejać przez filter_complex concat z normalizacją (scale, fps, format=yuv420p, aresample), nie concat-demuxerem na mieszanych częściach.

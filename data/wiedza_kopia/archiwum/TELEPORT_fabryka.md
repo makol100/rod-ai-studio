@@ -547,3 +547,451 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 27.08 — panel apki Tomasza odblokowany (wariant A, D-0151): basic auth dla internetu, tailnet bez zmian; testy PASS, backup Caddyfile zrobiony.
+
+
+==============================================================================
+## SESJA 04.09.2026 05:49 CEST
+==============================================================================
+
+04.09 ~05:50 poranny pomiar dla Tomasza: rodwozniki.pl od startu pod domena (03.09 ~19:27 CEST) 7650 zapytan, 127 IP, po odsianiu botow/AWS/ekipy ~8-10 realnych gosci z PL; glowna 49 odslon, mapa 10, ogloszenia 9, tablica 7. Kamery: 100 polaczen ze strumieniami, 6/7 kont (tomasz 57, czeslaw 14 — ogladal ~00:11, marian 12, miroslaw 9, robert 5, wiktoria 3; alfred 0). Kontakt: 4 wpisy, wszystkie testowe. Tablica: 0 ogloszen. Zrodla: /data/rodwozniki_access.log, /data/kamery_access.log, data/kamery_dostepy.jsonl, data/kontakt/, data/tablica/oczekujace.json
+
+
+==============================================================================
+## SESJA 04.09.2026 06:45 CEST
+==============================================================================
+
+04.09 ~06:00: Tomasz pyta 'Poszlo na strone?' — TAK: 'Co robic teraz — wrzesien' i 'Ogrodnik ROD' (automat fb_na_strone.py co 30 min, 30 postow, na FB poszlo ogloszenie o starcie strony) juz zyly na rodwozniki.pl. Naprawiony dubel tytulu wpisu FB (tytul=1. linia tresci pokazywany 2x): www_rod/build.py helper _fb_tresc_bez_tytulu, backup build.py.bak-fbdubel-0409, rebuild + atomowa podmiana w wolumenie caddy_mcp_data, sprawdzone na zywo curl-em (glowna i /aktualnosci/)
+
+
+==============================================================================
+## SESJA 04.09.2026 06:47 CEST
+==============================================================================
+
+04.09 06:50 reklamacja Tomasza 'Co poszlo' — na /aktualnosci/ o 06:45 nie bylo dzisiejszego powitania. PRZYCZYNA: wyscig o 2 minuty — FB publikuje 06:32/09:02, cron fb_na_strone chodzil o :00/:30, wiec post z 06:32 wskoczylby dopiero 07:00. NAPRAWA: reczny fetch (powitanie 'Piatek, 4 wrzesnia' JUZ na zywo na glownej i /aktualnosci/, curl-check) + cron przestawiony na 5,35 * * * * (3 min po publikacji FB). Do poprawy pozniej: etykieta 'PORADA DNIA' na poscie-ogloszeniu o starcie strony (typ domyslny) i mylacy log 'dodano 8 postow'
+
+
+==============================================================================
+## SESJA 04.09.2026 06:50 CEST
+==============================================================================
+
+04.09 ~07:00 dekret 'Ok': typ OGLOSZENIE dla postow FB wdrozony — klasyfikacja slow (oglaszamy/komunikat/informujemy/zapraszamy na/walne) w fb_na_strone.py, etykieta w build.py, styl .fb-ogloszenie (zielen #2e7d4f); stare wpisy przeklasyfikowywane automatycznie (post o starcie strony = Ogloszenie, sprawdzone curl na zywo). Przy okazji naprawiona petla 'dodano 8 postow' co 30 min (fetch 40 > magazyn 30 — posty starsze niz najnowszy w magazynie pomijane). Backupy: fb_na_strone.py.bak-0409, build.py.bak-fbdubel-0409
+
+
+==============================================================================
+## SESJA 04.09.2026 06:59 CEST
+==============================================================================
+
+04.09 ~07:10: obieg tablicy POTWIERDZONY w boju — Tomasz kliknal Zatwierdz, test opublikowal sie sam; test zdjety z tablicy (curl: 0 wystapien, zostalo ogloszenie Tomasza 'Szukamy pomocy do elektryfikacji alejki polnocnej' z 03.09). Auto-kasowanie po 7 dniach ISTNIEJE: tools/tablica_sprzataj.py, cron 15 4 UTC (6:15 CEST) codziennie, przebudowa strony po usunieciu. Blad Klaudka do teczki: meldowal '0 ogloszen' patrzac tylko w oczekujace.json
+
+
+==============================================================================
+## SESJA 04.09.2026 07:03 CEST
+==============================================================================
+
+04.09 ~07:20 dekret 'Przygotuj z grafika pokaz mi i po zatwierdzeniu wystawisz': PROJEKT posta FB o tablicy gotowy i wyslany Tomaszowi na Telegram (foto+tekst, oba ok:True). Grafika: ilustracja Genka gemini-2.5-flash-image (1 generacja, tablica ogloszen w ogrodzie, bez tekstu) + naklad PIL 0 zl (TABLICA OGLOSZEN DZIALKOWCOW, plakietka rodwozniki.pl/tablica, logo kolo); kontrola wzrokowa Genka PASS (napisy litera w litere poprawne, zero artefaktow, logo czyste). Pliki: /tmp/tablica_fb.jpg, /tmp/tablica_fb_post.txt. CZEKAMY NA TAK Tomasza — publikacja na FB dopiero po zatwierdzeniu
+
+
+==============================================================================
+## SESJA 04.09.2026 07:07 CEST
+==============================================================================
+
+04.09 ~07:30 'Tak' Tomasza: post o tablicy OPUBLIKOWANY na FB ROD Wozniki ze zdjeciem przez Graph API (post_id 1174205105781401_122120295651379813, weryfikacja published_posts: jest, ma full_picture). WAZNE ODKRYCIE: upload zdjecia przez API DZIALA (multipart /photos z message+source, token z data/.secrets/fb_page_token) — obala zapis wiedzy 'API publikuje sam tekst, grafiki recznie'; do aktualizacji PAMIEC_INFRASTRUKTURA.md (BYLO/JEST)
+
+
+==============================================================================
+## SESJA 04.09.2026 07:37 CEST
+==============================================================================
+
+04.09 ROLKA 000097 DESZCZOWKA GOTOWA (dekrety 'Robimy z tego rolke' + 'Generuj z poprawionym scenariuszem, Gienek albo nano banana co tansze'): scenariusz poprawiony Klaudka (Bielik zgubil przepisy — 5 m3 bez formalnosci, 5-15 zgloszenie, >15 pozwolenie, sumowanie, odleglosci, oczko poza limitem; scenes.txt.bielik zachowany), obrazy 8/8 GENEK gemini-3.1-flash-image 9:16 (~0,54 USD, tansze od fal NBP 1,20), Marek edge-tts, napisy 8/8, render 57,7 s z intro/outro i Morning.mp3, bramka oka 0/8 FAIL. Pipeline z checkpointu UBITY przed podmiana (zeby panel nie odpalil fal na stary scenariusz). Podglad wyslany Tomaszowi na Telegram. CZEKA: ocena + oddzielne slowo o publikacji
+
+
+==============================================================================
+## SESJA 04.09.2026 07:50 CEST
+==============================================================================
+
+04.09 'Z opisem wystawic na FB i dokonczyc polaczenie': (1) ROLKA 000097 deszczowka OPUBLIKOWANA na FB przez /reels/publikuj-fb z opisem (video_id 2243144636473430, https://www.facebook.com/reel/2243144636473430; naglowek X-Fabryka-Auth z /app/.fabryka_auth w kontenerze). (2) AUTOMAT WIDEO FB->STRONA GOTOWY: fb_na_strone.py pobiera tez /{page}/videos (dlugie >150s pomija — te zyja na YT), klasyfikacja wiadomosci po slowach (ogloszenie/zarzad/zakonczenie sezonu/komunikat), www_rod/content/wideo.json; /filmy/ ma 3 KATEGORIE: Rolki (karty miniaturka+link FB, deszczowka juz wisi), Filmy (YT embeds), Wiadomosci (zakonczenie sezonu trafilo poprawnie); CSS .wideo-karta; ten sam cron 5,35. Zweryfikowane curl na zywo. Commit z tej tury
+
+
+==============================================================================
+## SESJA 04.09.2026 07:59 CEST
+==============================================================================
+
+04.09 reklamacja Tomasza (zrzut /filmy/ — karty nie dzialaja): DWIE PRZYCZYNY zmierzone: (1) Graph /videos daje permalink_url WZGLEDNY /reel/ID/ -> klik szedl na rodwozniki.pl/reel = nic; (2) pole picture to ~700 B smieciowy plik, a URL-e fbcdn wygasaja (oe=). NAPRAWA w fb_na_strone.py: link absolutny na facebook.com, miniaturka = preferowany kadr z thumbnails{uri,is_preferred} POBIERANY na nasz serwer (static/wideo/ID.jpg, prog 5 KB). Zweryfikowane na zywo: 22/22 miniaturki lokalne, href https://www.facebook.com/reel/..., przykladowa miniaturka 200/12461 B. Teczka: weryfikowac dzialanie linku/zasobu, nie obecnosc w HTML
+
+
+==============================================================================
+## SESJA 04.09.2026 08:03 CEST
+==============================================================================
+
+04.09 D-0305 'humor do humoru': czwarta kategoria HUMOR na /filmy/ — klasyfikacja po video_id z data/zarty/[0-9]*/opublikowano (10008/10009/10010) + slowa serii (tomek i janusz/janusz/odcinek/nowa seria); 6 rolek humoru przenioslo sie z Rolek (w tym Helena z cukiniami i odc.2), zostalo 15 rolek poradowych + 1 wiadomosc; sekcja Humor na zywo z 6 kartami, w Rolkach zero Tomka i Janusza (curl-check). Kolejnosc sekcji: Rolki, Humor, Filmy, Wiadomosci
+
+
+==============================================================================
+## SESJA 04.09.2026 08:13 CEST
+==============================================================================
+
+04.09 D-0306: (1) rolka deszczowki udostepniona do grup przez Tomasza; (4) pasek 'Strona w trakcie budowy' USUNIETY z page.html, wdrozone atomowo, curl: 0 wystapien na /, /filmy/, /tablica/; (2) Gmail app password — droga pokazana Tomaszowi (2FA -> apppasswords -> /sekret GMAIL_APP_PASSWORD=xxx u Hansa, format KLUCZ=WARTOSC potwierdzony w hans_ucho.py:189); (3) bot ogloszen dla zarzadu — CZEKAMY az sie odezwia; (5) Search Console w toku — czekam na meta google-site-verification od Tomasza (metoda Tag HTML, potem wstawka w head + sitemap.xml)
+
+
+==============================================================================
+## SESJA 04.09.2026 08:26 CEST
+==============================================================================
+
+04.09 GMAIL PODPIETY: haslo aplikacji od Tomasza przez /sekret (Hans, wartosci.env 08:24) -> przepisane bez spacji (16 zn.) do data/.secrets/smtp.env (0600, GMAIL_USER=rodwozniki@gmail.com); kontakt_rod.py czyta ten plik per-request, restart NIEpotrzebny. DWA TESTY OK: bezposredni SMTP smtp.gmail.com:587 login+wyslanie przyjete (odrzuceni={}) oraz pelny obieg formularza na zywo (POST /kontakt/wyslij -> 303 wyslano=1, telegram 200, zero 'e-mail nie poszedl' w logach). ODKRYCIE z konektora Gmail (konto tomasz.maxisch@gmail.com, NIE rodwozniki): mail Google 03.09 13:38 'Zacznij korzystac z Search Console... zweryfikowales witryne' — rodwozniki.pl JUZ ZWERYFIKOWANE w Search Console na koncie osobistym Tomasza; zostalo tylko zgloszenie sitemap.xml recznie przez Tomasza
+
+
+==============================================================================
+## SESJA 04.09.2026 08:30 CEST
+==============================================================================
+
+04.09 SEARCH CONSOLE ZAMKNIETE: witryna byla juz zweryfikowana (konto tomasz.maxisch, mail Google 03.09), Tomasz przeslal sitemap.xml w Mapach witryn — komunikat 'Mapa witryny zostala przeslana pomyslnie' (zrzut). Pkt 5 z listy DONE. Z listy otwartych na Tomasza zostalo: przekazanie bota ogloszen zarzadowi (czekamy az sie odezwia) + alfred bez dostepu do kamer
+
+
+==============================================================================
+## SESJA 04.09.2026 08:32 CEST
+==============================================================================
+
+04.09 Tomasz potwierdzil: dwa testowe e-maile DOSZLY na rodwozniki@gmail.com — formularz kontaktowy potwierdzony OD KONCA DO KONCA (strona -> API -> Telegram + SMTP Gmail -> skrzynka ROD). Lista poranna zamknieta w 100%: rolka udostepniona, Gmail podpiety, pasek budowy zdjety, Search Console zweryfikowane + sitemap przetworzona (13/13 stron zgodnie z sitemap.xml, odczyt Googlebota w logach). Czekamy tylko: zarzad/bot ogloszen, alfred/kamery. Wieczorem meldunek z ruchu
+
+
+==============================================================================
+## SESJA 04.09.2026 08:35 CEST
+==============================================================================
+
+04.09 GOOGLE: rodwozniki.pl POZYCJA 1 na 'rod wozniki' z logo (zaindeksowane '15 godzin temu', czyli samo przed sitemapa); Tomasz zarzadza wizytowka Google Business ogrodu (4,5 gwiazdki/35 opinii) i potwierdzil ze przycisk 'Strona' prowadzi na rodwozniki.pl — 'Tak dziala'. Widocznosc: FB + wizytowka Maps + wyszukiwarka, wszystko spina sie na domene
+
+
+==============================================================================
+## SESJA 04.09.2026 12:11 CEST
+==============================================================================
+
+04.09 NARADA 'wirtualna wycieczka po ogrodzie' (/tmp/narada_spacer, pelne glosy tamze): research — firmy licza od 500 zl/5 panoram; Samsung nie ma trybu fotosfery (potrzebna apka z Play); stary Street View app wycofany, publikacja fotosfer przez apke Mapy Google; darmowe viewery self-hosted: Pannellum/Marzipano. GLOSY: Henio A z twardym testem 2-3 sfer przed sesja, 12 punktow; Zenek A-pilot (3 probne sfery w Linzu), 8 punktow, pulapka prywatnosc/RODO; Genek A, 6 punktow, test w Austrii. KONSENSUS 3/3: opcja A (telefon+apka fotosfer+Pannellum na rodwozniki.pl/spacer/, 0 zl), NAJPIERW test szwow jeszcze w Austrii, jak zle -> B uzywana kamera 360 (400-700 zl) za zgoda Tomasza; Google Maps TAK po kontroli prywatnosci (bez ludzi/tabliczek, tylko czesci wspolne); rozbieznosc liczby punktow 6/8/12 zostaje. Czeka na decyzje Tomasza
+
+
+==============================================================================
+## SESJA 04.09.2026 12:44 CEST
+==============================================================================
+
+04.09 SPACER: Tomasz otworzyl strone testowa ZANIM przyszly pliki sfer (czekaly na Telegram do Hansa) -> czarny ekran -> dekret 'wypierdol to ze strony' — test.html ZDJETY (curl 404), pannellum zostaje w static/spacer. Teczka: nie dawac linku przed zawartoscia. Jego polecenie 'sklej zdjecia w jedno' = zbudowac JEDEN spacer z wielu sfer (hotspoty przejsc) — do zrobienia gdy sfery dojda przez Telegram do Hansa (skrzynka pusta o 12:45). Sfery testowe OCENIONE z chatu: 4096x2048, szwy czyste, test zaliczony, kamera 360 niepotrzebna
+
+
+==============================================================================
+## SESJA 04.09.2026 12:56 CEST
+==============================================================================
+
+04.09 SPACER SKLEJONY: pelne sfery 8192x4096 (14,7+12,8 MB) sciagniete z Folda DROGA: My Files UI -> nazwy plikow (Parking_2.jpg, Parking_proba.jpg w Pictures/My360s) -> android_share_file_via_web(location+path DZIALA, w przeciwienstwie do list/read) -> curl z VPS po tailnecie (transfer zrywa sie w polowie na LTE — wznowien Range brak, ratuje ponawianie CALOSCI az przejdzie; sfera1 za 2. proba, sfera2 za 1.). Oryginaly w data/spacer_oryginaly/; web 4096x2048 q85. JEDEN spacer z hotspotami przejscia (autoobrot, bez przyciskow scen): rodwozniki.pl/static/spacer/proba.html — zweryfikowane WSZYSTKIE zasoby z zywej strony (html/js/css 200, oba jpg pobrane i otwarte PIL). Telefon sprzatniety (BACK+HOME). Dekret D-0307 w mocy: nie komentowac okolicznosci Tomasza
+
+
+==============================================================================
+## SESJA 04.09.2026 13:05 CEST
+==============================================================================
+
+04.09 SPACER NAPRAWIONY I UDOWODNIONY: czarny ekran mial DWIE przyczyny w CSP wlasnej strony: (1) script-src 'self' blokowal inline <script> (dlatego tez pierwsza wersja z przyciskami byla martwa) -> kod do /static/spacer/proba.js; (2) img-src bez blob: blokowal teksture Pannellum (KONSOLA: Refused to load blob:) -> dopisane blob: w Caddyfile linia 292 TYLKO dla rodwozniki. UWAGA CADDY: bind-mount Caddyfile jest read-only w kontenerze i przypina INODE — sed -i na hoscie tworzy nowy inode, kontener widzi stary; reload nie wystarcza, trzeba docker restart caddy-mcp (2-5 s przerwy; panel/telefon most sprawdzone po restarcie OK). DOWOD RENDERU (nowy standard bramki oka na strony): docker zenika/alpine-chrome:with-puppeteer, realne 15 s czekania, zrzut -> oczy Genka: 'Widac panorame 360 z parkingiem, ciezarowkami i niebem', zero bledow konsoli. NIEPOKOJ: dzialka webhook 502 + homeassistant-1 offline 19d w tailscale — sprawdzone dalej w tym wpisie
+
+
+==============================================================================
+## SESJA 04.09.2026 13:09 CEST
+==============================================================================
+
+04.09 ODWOLANY falszywy alarm: 'brak lacznosci z Dzialka' to ZNANY stan od 15/16.08 — N150 (serwer HA Dzialka) lezy po padzie dysku, nowy dysk z systemem jedzie od sprzedawcy (gwarancja + 30 USD), po dostawie wymiana i restore z pendrive ratunkowego; offline 19 dni w tailscale = dokladnie od awarii. Wpis w teczce: alarmy zderzac z pamiecia znanych awarii przed meldunkiem
+
+
+==============================================================================
+## SESJA 04.09.2026 13:25 CEST
+==============================================================================
+
+04.09 SPACER — MODEL ZAPISANY (wiedza/SPACER_MODEL.md: apka 360 Photo Cam -> share via web -> VPS -> 4096x2048 q85 -> Pannellum, zero inline JS, blob: w CSP, strzalki 120px pastel, bramka dowodu renderu headless+oczy). NARADA: gestosc sfer Zenek+Henio 10 m vs Genek 15 m (decyzja Tomasza otwarta); punkty obowiazkowe bramy/parkingi/Dom/skrzyzowania/konce alejek, ~38-51 sfer, sesja 2-4 h; przed sesja zmierzyc dlugosc alejek. MAPA->SPACER jednoglosnie: punkty % na JPG mapy -> /spacer/#scena=X, tour.js czyta hash; mini-mapa w spacerze faza 2
+
+
+==============================================================================
+## SESJA 04.09.2026 13:32 CEST
+==============================================================================
+
+04.09 D-0308 WDROZONE NA PROBIE: spacer nawiguje podwojnym klikiem/tapnieciem w kierunku ruchu (jak Street View) — graf sasiadow ze wspolrzedna yaw, mouseEventToCoords wybiera sasiada w stozku 90 stopni, wlasny detektor podwojnego tapniecia na touchend (telefony nie zawsze daja dblclick), podgrzewanie sasiednich sfer w tle (Image prefetch). Strzalki USUNIETE z proby. DOWOD: puppeteer dblclick w srodek ekranu przy yaw 118 -> getScene() zmienia parking->plac, oczy Genka potwierdzaja plac zabaw na zrzucie, zero bledow konsoli. Model w wiedza/SPACER_MODEL.md do aktualizacji o ten wzorzec przy budowie /spacer/
+
+
+==============================================================================
+## SESJA 04.09.2026 13:39 CEST
+==============================================================================
+
+04.09 D-0309: Tomasz zglasza ze podwojne tapniecie NIE dziala na Foldzie i kaze ZOSTAWIC strzalki (mniejsze niz 120px) — strzalki przywrocone w 88px pastel, dblclick+touchend zostaje jako dodatek na komputer; dowod renderu i oko OK. Do modelu spaceru: nawigacja podstawowa = STRZALKI, nie podwojny tap
+
+
+==============================================================================
+## SESJA 04.09.2026 13:47 CEST
+==============================================================================
+
+04.09 D-0311 WDROZONE Z DOWODEM: proba spaceru laduje CALOSC na starcie (pasek % po bajtach, fetch->blob), potem zero pobran (licznik jpg=0); podwojny TAP dziala na dotyku (puppeteer touchscreen.tap x2 -> plac) i podwojny KLIK na myszy (-> parking); wymagane w CSP: connect-src blob: (Pannellum ciagnie panorame XHR-em) + img-src blob: — oba w Caddyfile:292, po edycji restart caddy-mcp; ignoreGPanoXMP true; strzalki 88px zostaly. Backupy Caddyfile: .bak-spacer-csp, .bak-spacer-csp2
+
+
+==============================================================================
+## SESJA 04.09.2026 13:53 CEST
+==============================================================================
+
+04.09 KOREKTA: strzalki spaceru = 120 px pastel (Tomasz: 'wieksze strzalki pastelowe'), zapisane w modelu jako rozmiar zatwierdzony — nie zmniejszac
+
+
+==============================================================================
+## SESJA 04.09.2026 13:56 CEST
+==============================================================================
+
+04.09 PRZYCZYNA '0%' U TOMASZA: /static/ ma max-age=604800 (7 dni) — jego Chrome trzymal stary proba.js pod nowym HTML z loaderem. Naprawa: wszystkie odwolania js/css w proba.html z ?v=epoch (kazda zmiana = nowa wersja), fallback paska na liczbe plikow. ZASADA W TECZCE I MODELU: zmiana plikow spaceru zawsze z nowym ?v=. Retest pelny OK (tap, klik, 0 pobran)
+
+
+==============================================================================
+## SESJA 04.09.2026 14:05 CEST
+==============================================================================
+
+04.09 STRZAŁKA ZATWIERDZONA (Brawo): 120px, srodek przezroczysty, biala obwodka 3px, bialy grot .92 — wzor w SPACER_MODEL.md, nie zmieniac bez polecenia
+
+
+==============================================================================
+## SESJA 04.09.2026 14:06 CEST
+==============================================================================
+
+04.09 DECYZJA TOMASZA: sfery co 10 m (D w rejestrze). Pytanie Tomasza o polaczenie mapy ze spacerem — wyjasnienie: na mapie tylko ~10 duzych punktow wejscia, nie wszystkie sfery
+
+
+==============================================================================
+## SESJA 04.09.2026 14:17 CEST
+==============================================================================
+
+04.09 Tomasz podal przejscia: 36|37 (Polnocna-Srodkowa), 21|22->16|15 (Srodkowa-Poludniowa), 43|44 (Polnocna-Parking2). Trasa sesji 9 segmentow zapisana w SPACER_MODEL.md, rysunek na mapie przekazany Tomaszowi
+
+
+==============================================================================
+## SESJA 04.09.2026 14:37 CEST
+==============================================================================
+
+04.09 D-0314 WDROZONE: /filmy/ otwiera filmy w oknie na stronie (wlasne mp4 w /static/wideo/, 22/22 skompletowane: 7 lokalnych finalow + 15 z Graph source). Generator fb_na_strone sam pobiera brakujace mp4 przyszlych rolek. Bramka: klik->gra (5.8s, 1080x1920), X zamyka, pogoda/licznik odtworzone po podmianie katalogu (deploy kasuje generowane json — pamietac!). Narada player: glosy Zenka/Henia jeszcze w drodze
+
+
+==============================================================================
+## SESJA 04.09.2026 15:07 CEST
+==============================================================================
+
+04.09 D-0315 WDROZONE (Genek przepis): YouTube = fasada (miniatura i.ytimg) -> klik -> okno z iframe youtube-nocookie autoplay/rel=0/modestbranding/playsinline (NIE sciagamy filmow — zakaz Tomasza); rolki FB + ogloszenie = wlasne mp4 w oknie; zero linkow href na youtube/facebook przy filmach (post-linki tekstowe FB zostaly). film-okno.js v=20260904b (bez inset, kompatybilne ze starymi). CADDY: media-src 'self' + HTTP/3 WYLACZONE globalnie (servers{protocols h1 h2}) — glosy Genka i Henia: QUIC/UDP443 najczestsza przyczyna 'u innych nie dziala'; restart caddy-mcp zrywa tez konektor fabryka na ~10 s. Bramka: 5 miejsc klik->gra, X zamyka. Otwarte: brak zrzutu bledu od osoby z innego IP — nadal potrzebny do rozstrzygniecia
+
+
+==============================================================================
+## SESJA 04.09.2026 15:14 CEST
+==============================================================================
+
+04.09 Tomasz: karta OSTRZEZENIE na stronie nieczytelna w trybie ciemnym (kremowe tlo + jasny tekst). Naprawa CSS: [data-theme=dark] .fb-ostrzezenie tlo #3a2f12, tekst #f6f1e3; pomiar puppeteer OK. LEKCJA: kazdy nowy styl karty sprawdzac w OBU motywach (jasny+ciemny)
+
+
+==============================================================================
+## SESJA 04.09.2026 15:24 CEST
+==============================================================================
+
+04.09 ZAPISANE WSZĘDZIE na dekret 'zapisuj wszystko wszędzie': pamięć Klaudka (strona, spacer, samokontrola sprawdziany 8-10, preferencje), wiedza/STRONA_FILMY.md, teczka, INDEX, rejestr decyzji D-0313..D-0315
+
+
+==============================================================================
+## SESJA 04.09.2026 15:29 CEST
+==============================================================================
+
+04.09 D-0316: MAPA GŁÓWNA ma 3 przejścia poprzeczne (cienkie pomarańczowe pasy, w generatorze baza_mapy.rysuj_baze — dziedziczą wszystkie mapy), wzór assets/mapy_wzor zaktualizowany, /mapa/ na stronie podmieniona (?v=f397ad05). PUŁAPKA: ?v= mapy jest wpisane RĘCZNIE w content/pages/mapa.md — przy zmianie mapy podmienić na nowy md5
+
+
+==============================================================================
+## SESJA 04.09.2026 15:58 CEST
+==============================================================================
+
+04.09 Tomasz: działka 20×25 m (25 m od alejki w głąb), przejście = 25 m na kondygnację; alejka ≈180 m; spacer co 10 m ≈ 90 sfer, sesja 2–3 h
+
+
+==============================================================================
+## SESJA 04.09.2026 16:01 CEST
+==============================================================================
+
+04.09 Mapa z 92 ponumerowanymi punktami sfer (tools/spacer_punkty.py, co 10 m, numer = kolejność trasy, obowiązkowe pomarańczowe) wysłana Tomaszowi na Telegram; data/spacer_oryginaly/punkty.json ma x_proc/y_proc — gotowa baza pod klikalne punkty na /mapa/ i nazwy sfer (nr → scena)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:04 CEST
+==============================================================================
+
+04.09 Tomasz potwierdza: sfery nazywane numerami punktów (pNN) — konwencja w SPACER_MODEL.md; robi po kolei bez pomijania, kolejność czasowa = numer
+
+
+==============================================================================
+## SESJA 04.09.2026 16:08 CEST
+==============================================================================
+
+04.09 Tomasz: sesji 360 dziś nie robi (na działce za 1,5 h, 2-3 min/zdjęcie × 91 = zrobi się ciemno); najlepsza pora 11:00-13:00. Prognoza 11-13 (Open-Meteo): sob 5.09 zmiennie/mżawka 13-31%, wiatr 17-21; niedz 6.09 wiatr 20-22; PON 7.09 NAJLEPIEJ: 0% deszczu, wiatr 6-8, chmury 30-97%; wt 8.09 pełne pochmurno, wiatr 14-16. Rachunek: 92×2,5 min ≈ 3,8 h > okno 2 h → propozycja podziału na 2 sesje (do pkt 47 / od 48)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:10 CEST
+==============================================================================
+
+04.09 Tomasz: SESJA 360 W PONIEDZIAŁEK 7.09 ok. 9:30 (jego decyzja)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:14 CEST
+==============================================================================
+
+04.09 Tomasz: sfery mam ZABIERAĆ SAM z telefonu. MCP nie widzi podfolderów (tylko korzenie builtin:*). Plan: ADB po WiFi ogrodu przez Tailscale (port z ekranu), test dziś wieczorem gdy będzie na działce; zapas: własna lokalizacja SAF w apce MCP. Szczegóły w SPACER_MODEL.md
+
+
+==============================================================================
+## SESJA 04.09.2026 16:18 CEST
+==============================================================================
+
+04.09 PRÓBA: Tomasz robi dziś na działce punkty 47–55 (Środkowa zachód: skrzyżowanie 36|37 → Brama 3, Dom, Parking 1). Gotowy tools/spacer_odbior.py (adb connect PORT → lista jpg >3 MB w folderach 360 → pNN wg czasu → oryginał + web 4096x2048). Czekam na 'jestem na WiFi'
+
+
+==============================================================================
+## SESJA 04.09.2026 16:21 CEST
+==============================================================================
+
+04.09 KOREKTA Tomasza: próba od 45 do 55 (45–46 w przejściu 36|37 idąc na południe, 47 skrzyżowanie, 48–53 Środkowa na zachód do Bramy 3, 54 Dom, 55 Parking 1)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:22 CEST
+==============================================================================
+
+04.09 KOREKTA 2 Tomasza: próba od 42 do 55 (42 skrzyżowanie Północna × 36|37, 43–46 przejście na południe, 47 skrzyżowanie Środkowa, 48–53 do Bramy 3, 54 Dom, 55 Parking 1) — 14 sfer
+
+
+==============================================================================
+## SESJA 04.09.2026 16:35 CEST
+==============================================================================
+
+04.09 ODBIÓR SFER PO 5G DZIAŁA: w apce MCP dodane lokalizacje SAF 'Pictures' i 'Pictures/My360s' (id com.android.externalstorage.documents/primary:Pictures[/My360s]); folder apki 360 Photo Cam = Pictures/My360s (Parking_2.jpg, Parking_próba.jpg); test: share_file_via_web + curl przez Tailscale 14,7 MB w 9,7 s (1,5 MB/s), md5 identyczne z kopią z Telegrama. tools/spacer_odbior.py przepisany na tę drogę (--od, --po, --sucho). tel.sh domyka sesje (DELETE) — wcześniej 'Too many active sessions'
+
+
+==============================================================================
+## SESJA 04.09.2026 17:02 CEST
+==============================================================================
+
+04.09 Tomasz: '3 działa!' — punkt 3 z listy otwartych (wizytówka Google: przycisk 'Strona' → rodwozniki.pl) ZAMKNIĘTY. Zostają: /dokumenty/ (uchwały/opłaty — decyzja Tomasza), bot ogłoszeń dla zarządu (czekamy), błędy z innych IP (potrzebny zrzut)
+
+
+==============================================================================
+## SESJA 04.09.2026 17:03 CEST
+==============================================================================
+
+04.09 Tomasz: '4 naprawione' — błędy 'z innych IP' przy filmach ZAMKNIĘTE (po HTTP/3 off + poprawce inset). Otwarte na stronie tylko: /dokumenty/ (decyzja Tomasza) i bot ogłoszeń dla zarządu (czekamy)
+
+
+==============================================================================
+## SESJA 04.09.2026 17:26 CEST
+==============================================================================
+
+04.09 /dokumenty/ WDROŻONE (dekret 'No to masz'): 7 wzorów PZD (docx z pzd.pl + 2 z rodosa.pl), własne formularze zgłoszeń altany (§45) i zbiornika (§41 pkt 7/§43) ROD Woźniki docx+pdf (reportlab+python-docx, paragrafy sprawdzone w oficjalnym regulaminie), statut PZD 2024 (pzd.pl), regulamin ROD 2015/2018 (pzd.pl), ustawa = link ISAP (blokuje pobieranie z VPS), klauzula RODO jako /rodo/ + pdf (szkic Klaudka — Henio sprawdza). Wszystkie 16 linków 200. Henio równolegle: przegląd 7 stron ROD (zgodny z Klaudka) + zlecenie kontrolne paragrafy/wzory/RODO w toku
+
+
+==============================================================================
+## SESJA 04.09.2026 18:11 CEST
+==============================================================================
+
+04.09 Na /dokumenty/ sekcja 'Prąd — przyłącza Tauron': Informacja dla działkowców ws. własności i utrzymania kabli (plik Tomasza Informacja_utrzymanie_kabli_ROD_1_.docx, treść 1:1, odtworzona na VPS jako docx+pdf w stylu ROD; brak DejaVu-Oblique na VPS → bez kursywy w PDF) + linki do filmu i poradnika
+
+
+==============================================================================
+## SESJA 04.09.2026 21:09 CEST
+==============================================================================
+
+04.09 OCENA PRAWNA PISMA O KABLACH (Henio+Genek, Zenek bez odpowiedzi; głosy w /tmp/narada_prawo_kable/): kierunkowo słuszne, 4 wady — (1) granica 'za licznikiem' → zaciski na wyjściu od zabezpieczenia przedlicznikowego w ZKP (standard Tauron); (2) 'własność działkowca' dla kabla w ALEJCE ryzykowna (art. 30 ust. 2 tylko NA DZIAŁCE; KC 47–48 część składowa gruntu; art. 49 nie; nie infrastruktura ogrodowa bo nie wspólne używanie) → pisać 'instalacja odbiorcza utrzymywana na koszt działkowca'; (3) umocowanie: Regulamin ROD §78 ust. 1 wymaga uchwały WALNEGO; §33 ust. 2 zgoda okręgu na urządzenia niebędące infrastrukturą; (4) odpowiedzialność: dopisać art. 415 KC, zarząd odpowiada za teren ogólny (statut §73 pkt 16). PROJEKT v2 w wiedza/pisma/KABLE_INFORMACJA_v2_PROJEKT.md — czeka na decyzję Tomasza; na stronie nadal v1. Henio dodatkowo: wzory umów dzierżawy z pzd.pl powołują stary §73 statutu (nowy: §78 w zw. §74 ust. 2), deklaracja członkowska sprzed RODO; link do ustawy zmieniony na ELI + PDF Dziennika Ustaw
+
+
+==============================================================================
+## SESJA 04.09.2026 21:22 CEST
+==============================================================================
+
+04.09 DECYZJA TOMASZA: wniosek do okręgu NIE i NIE BĘDZIE; właściwy okręg PZD = CZĘSTOCHOWA (nie Katowice — poprawić wszędzie). Uchwała walnego ws. elektryfikacji JEST (numer do wpisania w pismo v2). Pismo v2 czeka na jego 'publikuj'
+
+
+==============================================================================
+## SESJA 04.09.2026 21:25 CEST
+==============================================================================
+
+04.09 Tomasz: 'Usuń tamto ze strony, daj mi to pismo w pdf' — sekcja Prąd i pismo v1 USUNIĘTE z /dokumenty/ (pliki skasowane, 404); v2 jako PDF data/pisma/informacja-instalacje-elektryczne-v2.pdf (numer uchwały WZ zostawiony kropkami) przekazany Tomaszowi w rozmowie. Na stronie pisma o kablach NIE MA — publikacja tylko na jego polecenie
+
+
+==============================================================================
+## SESJA 04.09.2026 21:31 CEST
+==============================================================================
+
+04.09 Tomasz 'Wystaw mi na stronę' — pismo v2 (Informacja ws. utrzymania instalacji elektrycznych; numer uchwały WZ kropkami) OPUBLIKOWANE na /dokumenty/ sekcja Prąd jako PDF (/static/dokumenty/informacja-instalacje-elektryczne.pdf, 200)
+
+
+==============================================================================
+## SESJA 07.09.2026 23:59 CEST
+==============================================================================
+
+07.09 Tomasz: 'Już po imprezie (Zakończenie sezonu 5.09). Co z tym zrobić?' — build.py: karta na home wybiera wydarzenie po dacie; gdy nic przed nami → 'Ostatnie wydarzenie' (wdrożone, na żywo). Do decyzji Tomasza: relacja z zakończenia sezonu (zdjęcia/film) jako ogłoszenie/aktualność
+
+
+==============================================================================
+## SESJA 08.09.2026 00:03 CEST
+==============================================================================
+
+08.09 Tomasz: 'Zaczęliśmy kopać ostatnią alejkę i kłaść kable' — Etap 3 w toku, ostatnia alejka. Sesja 360 (plan pon 7.09) nie odbyła się — rozkopana alejka; sfery po zakończeniu robót
+
+
+==============================================================================
+## SESJA 08.09.2026 00:17 CEST
+==============================================================================
+
+08.09 DCIM dodane jako lokalizacja SAF w apce MCP na Foldzie (id com.android.externalstorage.documents/primary:DCIM); list_files z path=Camera działa (1230 plików, stronicowanie limit=30 — pełna lista bez limitu przekracza 60 s; do najnowszych zdjęć użyć sortowania/offsetu)
+
+
+==============================================================================
+## SESJA 08.09.2026 07:02 CEST
+==============================================================================
+
+08.09 (noc) Pobrane z Folda 27 plików z 7.09 (26 zdjęć 17:37–18:56 + film 32 s) → data/roboty/2026-09-07/; web: 6 wybranych zdjęć bez twarzy z bliska (01-przyczepa..06-wieczor, 1600 px) + film 550x1280 12,7 MB + plakat. Projekt relacji 'Ostatnia alejka — pierwszy dzień robót' przedstawiony Tomaszowi DO AKCEPTACJI; pytania: która alejka, ile działek, kiedy zasypanie, czy też na FB (osoby na zdjęciach — zgoda). NIC nieopublikowane
+
+
+==============================================================================
+## SESJA 08.09.2026 07:24 CEST
+==============================================================================
+
+08.09 KOREKTA: 'Z twarzami!!!' — zdjęcia/film z robót BEZ zamazywania (Klaudek pomylił sens 'Twarze!!!'); nie anonimizować z własnej inicjatywy. Zamazane wersje w data/roboty/2026-09-07/web/anon zostają tylko jako narzędzie
+
+
+==============================================================================
+## SESJA 08.09.2026 07:29 CEST
+==============================================================================
+
+08.09 Tomasz: 'Bez przyczepy z bębnem' — relacja: 7 zdjęć (02-wykop..08-wieczor) + film; czekam na 'publikuj'
+
+
+==============================================================================
+## SESJA 08.09.2026 07:36 CEST
+==============================================================================
+
+08.09 ROLKA 'Ostatnia alejka — pierwszy dzień robót' v1 GOTOWA (0 USD, 61,6 s, 1080x1920): brand intro → Prezenter Tomasz z BANKU (test1 0,6–6,1 s, żadnej nowej generacji) → plansza tytuł → film 27 s bez audio z rozmytym tłem → 5 zdjęć Ken Burns (bez przyczepy, bez dwóch z kanistrem i przy koparce — dekret) → plansza 'Kable idą w ziemię' → outro; Morning.mp3 ściszone pod mową; plik data/roboty/2026-09-07/rolka/pierwszy_dzien_v1.mp4 wysłany Tomaszowi na Telegram. Czeka na akceptację i 'publikuj' (FB + strona). Jeśli Tomasz chce, żeby Prezenter MÓWIŁ treść relacji — potrzebna nowa generacja Omni (~1 USD/10 s), zakaz D-0218 wymaga jego wyraźnego uchylenia
+
+
+==============================================================================
+## SESJA 08.09.2026 08:18 CEST
+==============================================================================
+
+08.09 ROLKA v2 'Ostatnia alejka — pierwszy dzień robót' (74,6 s) wysłana Tomaszowi na Telegram: Prezenter Tomasz NOWY klip Omni 10 s (kanarek ZIELONY: whisper pełna kwestia, tożsamość 0,65 PASS, usta 7,98 PASS, VLM 3/3; tło = zdjęcie 04-koparka jako IMAGE_REF_1 — Omni wziął koparkę do tła!), mapa Północna, film 27 s, 5 zdjęć, Izabela Kling standard 9 s z Charlotte na kompozycie alejki (data/awatar/relacja_alejka/), plansza z etykietą AI. Koszt ~1,5 USD (Omni ~1,0 + Kling ~0,5 + TTS). Kadr 'obydwoje w jednym ujęciu' PORZUCONY (kompozyt wyszedł słabo — skale; nie pokazywać). Omni limit 10 s/wątek. Czeka na akceptację / 'publikuj'
+
+
+==============================================================================
+## SESJA 08.09.2026 09:03 CEST
+==============================================================================
+
+08.09 WPADKA: v2 wysłana z wideo urwanym po 32,6 s (concat-demuxer + mieszane pix_fmt; audio 74 s maskowało); POPRAWIONE filter_complex concat z normalizacją, 2239 klatek, v2b wysłana na Telegram. Zasada: liczyć klatki + klatka z końca przed wysyłką
+
+
+==============================================================================
+## SESJA 08.09.2026 09:16 CEST
+==============================================================================
+
+08.09 Tomasz odrzucił Izabelę 'uciętą jak za stołem' → NOWY obraz Izabeli STOJĄCEJ w alejce (fal nano-banana-pro/edit, refy: IZABELA_CANON_v2 + zdjęcie 07-alejka; data/awatar/relacja_alejka/izabela_stoi_v1.jpg — twarz i strój z kanonu, koparka i robotnik z prawdziwego zdjęcia za nią) + Kling standard z tym samym audio Charlotte (izabela_C2.mp4). Rolka v3 (74,7 s, 2239 klatek) wysłana na Telegram. Koszt dziś łącznie ~2,2 USD (Omni 1,0 + Kling 2×0,5 + NB 0,15 + TTS). Czeka na akceptację
+
+
+==============================================================================
+## SESJA 08.09.2026 09:23 CEST
+==============================================================================
+
+08.09 RELACJA OPUBLIKOWANA ('Jest bardzo dobrze… wystawić'): FB Reel https://www.facebook.com/reel/1956869291649389 (opis z etykietą AI, 'Wiadomości działkowe' w tytule → kategoria wiadomosci przez awatar*/opublikowano); na rodwozniki.pl: /filmy/ (własny mp4 w oknie) + NOWA KARTA na stronie głównej 'Wiadomości z ogrodu' z odznaką NOWE (build.py wiadomosci_skrot, {{wiadomosci_skrot}} w home.html nad 'Co dzieje się w ogrodzie', CSS .wiad-skrot; klik → gra, test 4,8 s). Naprawy przy okazji: fb_na_strone odtwarza licznik.json po deployu; czarna miniaturka z FB zastępowana klatką z lokalnego mp4. Koszt relacji ~2,2 USD
