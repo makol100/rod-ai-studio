@@ -1,16 +1,22 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 03.09.2026 17:07.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 14.09.2026 14:32.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (58), od najswiezszego
+## Pliki wiedzy (61), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `BRIEF_DLA_KLAUDKA.md` | 14.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-14 16:09:33 CEST |
+| `BANK_KWESTII_PREZENTER_TOMASZ.md` | 08.09 | 7K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
+| `STRONA_FILMY.md` | 04.09 | 2K | STRONA ROD — FILMY (stan 04.09.2026, dekrety D-0314 / D-0315) |
+| `SPACER_MODEL.md` | 04.09 | 7K | MODEL WDROŻENIA SPACERU 360 (zapisany na polecenie Tomasza 04.09.2026) |
+| `PAMIEC_INFRASTRUKTURA.md` | 04.09 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
+| `STRONA_ROD_0309.md` | 03.09 | 4K | rodwozniki.pl — stan po sesji 03.09.2026 (czytać przy pracy nad stroną ROD) |
 | `ZAKUPY_glosnik_pilot.md` | 03.09 | 2K | LISTA ZAKUPOWA — pilot glosnika ultradzwiekowego na kuny (1 glowica) |
 | `YT_dollwet_kdp_2026.md` | 03.09 | 2K | Film Sean Dollwet "The SIMPLEST Way To Make Money Online With Claude AI In 2026" (youtu.be/JrFZ_ky7AzE) — werd |
 | `ZALOGA_SKLAD.md` | 03.09 | 4K | ZAŁOGA FABRYKI — kto jest kim i na czym chodzi |
@@ -30,8 +36,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `DECYZJE_KUNY.md` | 03.09 | 1K | DECYZJE TOMASZA — FILM O KUNACH (append-only) |
 | `AKTYWA_SERII.md` | 03.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `AWATAR_TOMASZ_NARADA_0109.md` | 03.09 | 19K | ODPOWIEDŹ: do zbudowania wiarygodnego awatara Tomasza potrzebujemy od Tomasza 12 zdjęć, jednego 5-minutowego n |
-| `BRIEF_DLA_KLAUDKA.md` | 03.09 | 1K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0182) | wygenerowano 2026-09-03 18:36:01 CEST |
-| `BANK_KWESTII_PREZENTER_TOMASZ.md` | 03.09 | 6K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
 | `GENEROWANIE_OBRAZU.md` | 12.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `BANK_PROMPTOW.md` | 12.08 | 1K | BANK PROMPTOW-ZWYCIEZCOW (dekret 23.07 pkt 3, wdrozony 12.08 dekretem "Wszystko") |
 | `PILOT_MOST_PLAN.md` | 12.08 | 2K | PILOT MOSTU MIEDZYSESYJNEGO — PLAN v2 (po opiniach zalogi, 12.08.2026) |
@@ -61,7 +65,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `PATROLE_HENIA.md` | 29.07 | 2K | PATROLE HENIA — działają od 29.07.2026 (przetestowane, dlatego zapisane) |
 | `FILM_OPUS5_WNIOSEK.md` | 29.07 | 3K | FILM „Ten film w 100% wykonał Claude Opus 5" — wniosek załogi (29.07.2026) |
 | `TEST_ZALOGI_29_07.md` | 29.07 | 2K | TEST ZAŁOGI — 29.07.2026 (polecenie Tomasza: „Zrobić test. Wszyscy!!!") |
-| `PAMIEC_INFRASTRUKTURA.md` | 29.07 | 12K | PAMIĘĆ KLAUDKA — INFRASTRUKTURA (eksport 29.07.2026) |
 | `STANISLAW_CANON_1.0.md` | 29.07 | 5K | STANISLAW_CANON_1.0 — BIBLIA PANA STANISŁAWA |
 | `DECYZJE_0007_bramka_oka.md` | 28.07 | 1K | DECYZJA 0007 — BRAMKA OKA fail-closed (28.07.2026, dekret Tomasza "Naprawiać") |
 | `NAUKI_SERII.md` | 28.07 | 20K | 2026-07-25 (#10009, kosztowała $5.12) | ŻELAZNA ZASADA KODU PRODUKCYJNEGO: każdy skrypt wykonujący PŁATNE oper |
@@ -74,7 +77,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 87K | 03.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 126K | 08.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 69K | 03.09 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
@@ -84,5 +87,3 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 Jeden fakt ma jedno miejsce. Nowy zapis idzie do `wiedza/`, nie do teleportu.
 Teleporty sa ARCHIWUM historycznym — czyta sie je wyszukiwarka, nie w calosci.
-| `STRONA_ROD_0309.md` | 03.09 | 5K | rodwozniki.pl pełny stan: radar IMGW 6h, zegar, pogoda, SEO, bot ogłoszeń, źródło postów FB Ogrodnik ROD, dekrety wizualne, lekcje git/Caddy |
-- wiedza/STRONA_FILMY.md — filmy na rodwozniki.pl: dekrety D-0314/D-0315, okno na stronie (własne mp4 + osadzenie YouTube wg Genka), CSP, HTTP/3 off, bramka (04.09.2026)

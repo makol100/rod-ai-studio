@@ -79,3 +79,11 @@ Bilans: 22 zdań CZYSTYCH, 19 z wadą/flagą. Pliki końcowe wątków zawierają
 | 5.4–9.5 | Sezon dobiega końca, plony zebrane, grządki zasłużyły na odpoczynek. | CZYSTE |
 | 10.1–12.0 | A my na porządną biesiadę. | WADA: kwestia ucięta na 'teren...' |
 | 12.0–20.0 | Sobota, 5 września 2026 roku, godzina 17, dom działkowca, teren... | WADA: kwestia ucięta na 'teren...' | auto: slabe 'dom'@18.72 |
+
+## relacja_alejka/omni_A_1.mp4 — relacja 08.09.2026, 10 s, TŁO ZE ZDJĘCIA ALEJKI (IMAGE_REF_1), nowy wątek (id v1_ChdtcWFm…)
+| od–do | zdanie (whisper) | status |
+|---|---|---|
+| 0.0–2.0 | Dzień dobry, tu Tomasz. | CZYSTE |
+| 2.8–5.4 | Zaczęliśmy kłaść kabel w Górnej Alejce. | CZYSTE (prob. 0.94–1.0) |
+| 5.7–8.1 | Prace ruszyły, spójrzcie na mapę. | CZYSTE |
+Strażnik (kontener): tożsamość PASS 10/10 śr. 0,65; usta PASS 7,98; VLM 3/3 (krótkie włosy, bez brody, biała koszula, alejka z koparką w tle). Koszt ~1,0 USD (57 920 tok wideo). Uwaga: Omni max 10 s na wątek (12 s odrzucone 400).

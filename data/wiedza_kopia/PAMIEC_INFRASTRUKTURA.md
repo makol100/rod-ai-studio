@@ -103,7 +103,7 @@ Ten plik jest kopią pamięci Klaudka na dysk, żeby CAŁA załoga (Zenek, Genek
 - Rolki ogrodnicze/porady → strona + dwie grupy (Rodzinne Ogrody Działkowe 20k, Rodzinne Ogródki Działkowe - Cała Polska 4.8k); w kolejce: Działkowicze i Ogrodnicy 142k
 - Rolki elektryczne/wewnętrzne ROD → TYLKO strona ROD Woźniki
 - ID strony: 1174205105781401. Graph API v25.0. Zdjęcia dwuetapowo: upload nieopublikowany → publikacja z attached_media
-- API publikuje sam tekst — grafiki generować jako pliki do ręcznego wrzucenia
+- BYŁO: „API publikuje sam tekst — grafiki ręcznie". JEST (sprawdzone w boju 04.09.2026): API publikuje TAKŻE zdjęcia — multipart POST /{page}/photos z polami message+source+published, token data/.secrets/fb_page_token, dowód post 1174205105781401_122120295651379813 (post o tablicy ogłoszeń)
 - Przy każdym opisie rolki przypominać Tomaszowi o udostępnieniu do grup (poza rolkami wewnętrznymi)
 - Alerty burzowe burze.dzis.net: SOAP https://burze.dzis.net/soap.php, metoda szukaj_burzy, współrzędne Woźniki y=50.588 / x=18.989; przepływ Node-RED na ogr_tab, progi ≤10 km czerwony / ≤25 km pomarańczowy
 
