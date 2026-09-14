@@ -278,6 +278,10 @@ def _pobierz_zalacznik(wiadomosc: dict, token: str) -> str | None:
     bezpieczna = "".join(z for z in nazwa if z.isalnum() or z in "._-") or "plik"
     chwila = datetime.now(STREFA_TOMASZA)
     cel = SKRZYNKA / "pliki" / f"{chwila:%Y%m%d_%H%M%S}_{bezpieczna}"
+    # 14.09: album z Telegrama zapisywal kilka zdjec w tej samej sekundzie -> nadpisywanie (11 -> 6). Unikalna nazwa.
+    _n = 1
+    while cel.exists():
+        cel = SKRZYNKA / "pliki" / f"{chwila:%Y%m%d_%H%M%S}_{_n:02d}_{bezpieczna}"; _n += 1
     try:
         cel.write_bytes(dane)
         os.chmod(cel, 0o600)
