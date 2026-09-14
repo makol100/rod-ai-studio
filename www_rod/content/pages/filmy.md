@@ -6,6 +6,18 @@ slug: filmy
 
 # Filmy z naszego ogrodu
 
+
+## Wiadomości: Alejka północna gotowa — kable w ziemi (14.09.2026)
+
+:::html
+<figure class="film-wlasny">
+  <video controls playsinline preload="metadata" poster="/static/video/alejka-gotowa-2026-09-14.jpg" style="width:100%;border-radius:16px;background:#000">
+    <source src="/static/video/alejka-gotowa-2026-09-14.mp4" type="video/mp4">
+  </video>
+  <figcaption>Trzeci etap elektryfikacji: górna (północna) alejka gotowa — kabel leży w ziemi, zasypany. Relacja z dni 2–4 robót. Prezenter Tomasz i Izabela to awatary AI, za zgodą prezesa ROD.</figcaption>
+</figure>
+:::
+
 ## 🎬 Rolki
 
 Krótkie rolki z porad i życia ogrodu — klik otwiera nagranie na Facebooku.
