@@ -1,0 +1,20 @@
+# Kwestie Prezentera Tomasza — wariant A (D-0364/D-0365/D-0366). Fakty: film TAURON 'Jak zalozyc konto' (0kykdIeY57c), regulamin eLicznik §5, strony logowania.
+KWESTIE = {
+ "W1_1": "Dzień dobry, tu Tomasz. Podpisaliście własną umowę z Tauronem? Dziś pokażę, jak mieć ją w telefonie — aplikacja Mój Tauron.",
+ "W1_2": "Krok pierwszy. Otwórz Sklep Play, na iPhonie App Store. Wpisz: Mój Tauron i kliknij Zainstaluj. Aplikacja jest darmowa.",
+ "W1_3": "Krok drugi. Weź fakturę od Taurona. Wszystko, czego potrzebujesz, jest na niej — na ekranie pokazuję, gdzie szukać.",
+ "W1_4": "Krok trzeci. Otwórz aplikację, kliknij Zarejestruj się, wybierz serwis Mój Tauron i zaznacz: klient indywidualny.",
+ "W1_5": "Formularz poprowadzi Cię sam: przepisujesz dane z faktury, podajesz e-mail i wymyślasz hasło. Ściąga jest na ekranie.",
+ "W1_6": "Zaznacz zgody i kliknij Zatwierdź. Na e-mail przyjdzie link aktywacyjny — kliknij w niego. Konto gotowe.",
+ "W1_7": "Logujesz się e-mailem i hasłem. W aplikacji ustaw czterocyfrowy pin — i wchodzisz jednym ruchem.",
+ "W1_8": "Masz tam umowę, wszystkie faktury, płatność jednym kliknięciem i czat z doradcą. Jak coś nie wychodzi — pytaj w zarządzie. Do zobaczenia.",
+ "W2_1": "Dzień dobry, tu Tomasz. Liczniki w naszym ogrodzie są zdalnego odczytu. Stan licznika i zużycie prądu zobaczysz w telefonie.",
+ "W2_2": "Służy do tego aplikacja eLicznik. Uwaga — to inna aplikacja niż Mój Tauron, wydaje ją Tauron Dystrybucja.",
+ "W2_3": "Krok pierwszy. W Sklepie Play albo App Store wpisz: Tauron, e-Licznik. Kliknij Zainstaluj. Aplikacja jest darmowa.",
+ "W2_4": "Krok drugi. Miej pod ręką ostatnią fakturę. Z niej przepiszesz to, o co poprosi aplikacja. Ściąga jest na ekranie.",
+ "W2_5": "Krok trzeci. Otwórz aplikację, kliknij Zarejestruj się i wybierz serwis eLicznik. Wpisz e-mail, wymyśl hasło i uzupełnij dane z faktury.",
+ "W2_6": "Na e-mail przyjdzie link aktywacyjny — kliknij w niego i zaloguj się. Jedno konto obsługuje jedną umowę.",
+ "W2_7": "Jeśli aplikacja nie pokaże Twojego licznika od razu — spokojnie. Tauron musi najpierw włączyć zdalny odczyt. Zgłoś to w zarządzie.",
+ "W2_8": "Na ekranie startowym widzisz stan licznika i zużycie. W zakładce Zużycie — wykres na dzień, miesiąc i rok, godzina po godzinie.",
+ "W2_9": "Możesz porównać zużycie z innym okresem i ustawić strażnika, który powiadomi, gdy zużyjesz więcej niż planowałeś. Do zobaczenia w ogrodzie.",
+}
