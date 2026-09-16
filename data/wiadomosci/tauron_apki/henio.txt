@@ -1,0 +1,72 @@
+# ODPOWIEDŹ HENIA — RESEARCH „MÓJ TAURON + MÓJ LICZNIK" (D-0360)
+
+## POTWIERDZONE (dziś, 16.09.2026, narzędziami: szukaj_net grounding + szukaj_www SearXNG + curl iTunes/Google Play/YouTube)
+
+1. KLUCZOWE USTALENIE — „Mój Licznik" to NIE Tauron.
+   W App Store „Mój Licznik" wydaje ENERGA-OPERATOR SA (apps.apple.com/pl/app/mój-licznik/id703344048). Apka Taurona na licznik nazywa się **eLicznik TAURON** (w sklepach: „eLicznik TAURON" na iOS, „TAURON eLicznik" na Google Play). Dekret Tomasza „aplikacja mój licznik z Tauronu" trzeba przełożyć na: **eLicznik TAURON**.
+
+2. „Mój TAURON" — spółka sprzedażowa.
+   - Wydawca: TAURON POLSKA ENERGIA S.A. (weryfikacja: iTunes search + lookup id1414805668).
+   - Co daje (opis apki + oficjalna strona): zarządzanie umowami, faktury/e-faktura, płatności online (0 zł za płatność za prąd/gaz z e-fakturą), podawanie odczytu licznika — ale tylko dla usługi „telerachunek".
+   - Pobranie:
+     - Google Play: https://play.google.com/store/apps/details?id=pl.tauron.mtauron (HTTP 200, title „Mój Tauron"; link potwierdzony też na oficjalnej stronie tauron.pl)
+     - App Store: https://apps.apple.com/pl/app/m%C3%B3j-tauron/id1414805668
+   - Konto: PESEL + numer ewidencyjny lub numer płatnika (oba są na umowie/fakturze). Logowanie: https://logowanie.tauron.pl/ (to samo konto co strona Mój Tauron).
+   - Wymaganie iOS: **minimum 17.6** (lookup iTunes) — starsze iPhone'y odpadają. Android: wersja 2.11.2 (dobreprogramy). iOS wersja 2.22.0, wydanie od 17.12.2018.
+
+3. „eLicznik TAURON" — spółka dystrybucyjna.
+   - Wydawca: TAURON OBSŁUGA KLIENTA GZE SP. Z O.O. (App Store) / „TAURON Dystrybucja" (Google Play). Serwis prowadzi TAURON Dystrybucja S.A.
+   - Co daje: dane pomiarowe z rozliczeniowego licznika (LZO), zużycie dzienne/miesięczne/roczne, porównania okresów, profil zużycia.
+   - Pobranie:
+     - Google Play: https://play.google.com/store/apps/details?id=tauron.ui (HTTP 200, title „TAURON eLicznik")
+     - App Store: https://apps.apple.com/pl/app/elicznik-tauron/id577050364
+   - Rejestracja: wymaga licznika zdalnego odczytu (LZO) + uruchomionej komunikacji automatycznej z Systemem Zdalnego Odczytu. Numer PPE (18 cyfr, zaczyna się od 5903224…) to kluczowy identyfikator — jest na fakturze. Numer licznika ≠ numer PPE.
+   - Wymaganie iOS: minimum 15.0. Wersja 3.2.0, wydanie od 16.11.2012.
+   - ⚠️ RYZYKO DOSTĘPU: opis apki mówi wprost, że dostęp mają „klienci objęci projektami AMI, mikrowytwórcy, odbiorcy przemysłowi C2x/Bxx/Axx" — to może NIE obejmować gospodarstw domowych (taryfy G11/G12), czyli działkowców. Dostępność sprawdza się na stronie eLicznik dla danej lokalizacji.
+
+4. Relacja: DWA osobne konta, DWIE spółki, DWIE bramki logowania — logowanie.tauron.pl (Mój Tauron/Sprzedaż) vs logowanie.tauron-dystrybucja.pl (eLicznik/Dystrybucja). Jedno konto NIE starcza. Czy działkowiec potrzebuje obu — zależy od punktu 3 (czy eLicznik w ogóle go obejmuje).
+
+5. Liczniki zdalnego odczytu — komunikacja (grounding, gramwzielone.pl + tauron-dystrybucja.pl): Tauron używa PLC (standard OSGP, Wrocław ~368 tys. liczników), testował radiowe LoRa/SigFox (868 MHz) i NB-IoT/LTE-M; są też pilotaże PLC G3 i GSM. Szyfrowanie DLMS/COSEM AES-128. Która technologia jest konkretnie w ROD Woźniki (Lubliniec/Klonowa 1) — **NIE WIEM** (trzeba zobaczyć licznik na miejscu).
+
+## GOTOWE PORADNIKI (zweryfikowane linki YouTube, autor + tytuł przez oEmbed)
+
+Oficjalny kanał TAURON (@TAURONPolskaEnergiaSAKatowice, 10,2 tys. sub, ~1,1 tys. filmów):
+- „TAURON – Jak założyć konto w serwisie Mój TAURON?" — https://youtu.be/0kykdIeY57c
+- „Aplikacja Mój TAURON – wszędzie tam, gdzie Ty!" — https://youtu.be/4PMs-qPdIWQ
+- „Mój TAURON – Jak aktywować e-fakturę?" — https://youtu.be/PryXREkvco4
+- „Mój TAURON – Jak sprawdzić umowę i zmienić dane?" — https://youtu.be/vg4eD42boiI
+- „Aplikacja Mój TAURON? Wejdź i korzystaj!" — https://youtu.be/qqflEv2ORaA
+
+Oficjalny kanał TAURON Dystrybucja (@TAURON_Dystrybucja, 379 sub, 109 filmów):
+- „Co to jest eLicznik?" — https://youtu.be/beH_F4gF_tU
+- „AMIplus | Aplikacja TAURON eLicznik" — https://youtu.be/UDLYHyG-FCc
+- „AMIplus | Instalacja" — https://youtu.be/2lGo9VZZd3g
+- „eLicznik Wnioskowanie o dostęp do danych pomiarowych" — https://youtu.be/abbgJ_zS3DA
+- „Jakie możliwości daje eLicznik Klastrom Energii?" — https://youtu.be/dHlvtklhAYY (8 min 18 s)
+
+Nieoficjalne (po polsku, przydatne): „@Alfa Foton – instalacja aplikacji Tauron E-licznik" https://youtu.be/ljRU8KKwC88; „TAURON eLicznik – Moje zużycie prądu" (Robert Pisula) https://youtu.be/u0B9huoQXo8; „MojTAURON – Podawanie stan licznika" (wiktor bartel) https://youtu.be/OoywLE0ByCQ.
+
+Ocena dla starszych: oficjalne filmy Taurona to krótkie, czyste animacje/ekrany po polsku — dobre. Większość pokazuje SERWIS (przeglądarkę), nie samą apkę; dla działkowców i tak liczy się apka, więc nasz film jest potrzebny.
+
+## HIPOTEZY / PROPOZYCJE (do decyzji Tomasza)
+
+1. FORMA: realne zrzuty z apki na Fold7 Tomasza (ADB) = 0 zł i najbardziej wiarygodne dla starszych; nagranie ekranu (scrcpy przez ADB) jako podkład. Ryzyko prawne: screeny cudzej apki Taurona w naszym filmie — to wizerunek marki Tauron w kontekście naszego wydania. Nie handlujemy tym, to materiał edukacyjny dla działkowców, ale do decyzji Tomasza (czy chce grafikę własną jako bezpieczniejszą).
+2. STRUKTURA: dwa osobne wydania, bo to dwie apki/dwa konta i eLicznik ma ryzyko niedostępności. Proponuję: Wydanie 1 = „Mój Tauron" (instalacja + konto + faktura/płatność) ~60–90 s; Wydanie 2 = „eLicznik Tauron" (czy Twój licznik jest zdalnego odczytu + jak sprawdzić dostęp + rejestracja) ~60–90 s. Prezenter Tomasz mówi kroki na żywo, plansze pokazują: krok po kroku numerowany, gdzie szukać PPE/faktury.
+3. KOSZT: zrzuty/plansze/nagranie ADB = 0 zł; Omni Tomasza ~1 USD/10 s → wydanie 90 s ≈ 9 USD.
+4. PRZED PRODUKCJĄ trzeba rozstrzygnąć (ryzyka): (a) czy działkowcy (gospodarstwa G11/G12) w ogóle mają dostęp do eLicznik; (b) jaka technologia licznika jest w ROD Woźniki; (c) zgodę na screeny apki Tauron. Bez (a) Wydanie 2 może pokazywać apkę, do której odbiorca się nie zaloguje.
+
+## NIE WIEM
+
+- Czy liczniki w ROD Woźniki są objęte projektem AMI i czy działkowiec dostanie konto eLicznik (opis apki sugeruje ograniczenie do AMI/mikrowytwórców/przemysłowych C2x–Bxx–Axx; G11/G12 nie są wymienione).
+- Dokładna technologia (radio/LTE/PLC) konkretnych liczników w ROD — bez wglądu w licznik na miejscu.
+- Dokładne długości oficjalnych filmów (YouTube nie zwrócił lengthSeconds przy tym UA) — poza jednym zmierzonym (8m18s).
+
+— Henio
+
+Research zakończony. Raport w całości wyżej. Kluczowe trzy rzeczy dla Tomasza:
+
+1. „Mój Licznik" to apka Energi, nie Taurona — apka Taurona na licznik to **eLicznik TAURON** (Google Play id=tauron.ui, App Store id577050364).
+2. To dwie osobne apki i dwa osobne konta: Mój Tauron (logowanie.tauron.pl, wyd. TAURON POLSKA ENERGIA, min iOS 17.6) vs eLicznik (logowanie.tauron-dystrybucja.pl, wyd. TAURON OBSŁUGA KLIENTA GZE, min iOS 15.0).
+3. Ryzyko do rozstrzygnięcia przed etapem 2: opis eLicznik ogranicza dostęp do „AMI, mikrowytwórców, odbiorców przemysłowych C2x/Bxx/Axx" — nie ma tam gospodarstw domowych G11/G12, więc działkowiec może się nie zalogować.
+
+Zapis do pamięci poszedł (oczekuje na zatwierdzenie — bramka pending).

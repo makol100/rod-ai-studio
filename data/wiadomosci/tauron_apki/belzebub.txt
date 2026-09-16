@@ -1,0 +1,58 @@
+# GLOS BELZEBUBA 2.0 — doslownie, bez parafrazy (model huihui-ai/Huihui-Qwen3.8-27B-abliterated, narzedzia: web_search+fetch_page)
+
+ODPOWIEDŹ — najpierw to, co zmienia całe wydanie:
+
+**W dekrecie są dwie apki „z Taurona". W sieci jest tylko jedna. „Mój Licznik" to apka ENERGA‑OPERATOR (komunikat 01.10.2013), nie Taurona. Własną apkę do licznika zdalnego odczytu Tauron nazywa „eLicznik" (Tauron Dystrybucja).** Zanim ruszysz produkcję, musisz rozstrzygnąć, którą parę uczymy: „Mój Tauron" + „eLicznik" (obie Tauron) czy „Mój Tauron" + „Mój Licznik" (ta druga to Energa).
+
+---
+
+1. **FAKTY — „Mój TAURON"** (przeczytałem cała stronę App Store):
+   - Wydawca: **TAURON POLSKA ENERGIA S.A.** (nie „Tauron Sprzedaż" jako osobny podmiot w apce).
+   - Co daje: przegląd umów, faktur i najbliższych płatności; płatność pojedyncza i koszykowa w apce; powiadomienia (nowa faktura, termin); kontakt z infolinią; najbliższy punkt obsługi; **podanie odczytu licznika — ale tylko jeśli masz usługę „telerachunek"**.
+   - Gdzie pobrać: Google Play `id=pl.tauron.mtauron`, App Store `id1414805668`, AppGallery. Rozmiar 134,5 MB.
+   - Konto: logujesz loginem+hasłem z serwisu Mój Tauron (eBOK: `moj.tauron.pl`). Bez konta zakładasz w apce przez **PESEL + nr ewidencyjny lub nr płatnika** (numery z umowy/faktury). Nie jest wymagany e‑mail ani PPE do założenia.
+   - Oceny: iOS 4,6 (36 tys.), Android 4,0 (60,7 tys., 1 mln+ pobrań).
+
+2. **FAKTY — „Mój Licznik"**: to **aplikacja ENERGA‑OPERATOR** dla inteligentnych liczników (Google Play + App Store, komunikat 01.10.2013). **NIE ZNALAZŁEM** apki o tej nazwie wydanej przez Tauron.
+
+3. **FAKTY — „eLicznik" (Tauron Dystrybucja)**: strona `tauron‑dystrybucja.pl/liczniki‑zdalnego‑odczytu/elicznik`. Z opisu: „aplikacja, która umożliwia wizualizację i monitoring zużycia energii". **NIE ZNALAZŁEM** (nie przeczytałem strony do końca): dokładnej nazwy w sklepie, wymagań rejestracji (PPE? nr licznika?), typu komunikacji licznika (PLC / LTE / radio) i czy to osobna apka czy moduł.
+
+4. **Relacja między apkami**: NIE WIEM z pewności — to dwa różne podmioty (Tauron Sprzedaż = umowa/faktury; Tauron Dystrybucja = licznik/odczyt), więc prawdopodobnie **dwa osobne konta**. Potwierdzę po przeczytaniu strony eLicznik.
+
+5. **GOTOWE PORADNIKI**: oficjalne strony Tauron istnieją (patrz źródła). **NIE ZNALAZŁEM** konkretnych filmów YouTube z długościami — nie wyszukałem YouTube wprost, więc nie podaję linków „z pamięci".
+
+---
+
+FORMA WYDANIA (9:16):
+1. Zrzuty z Fold7 przez ADB (Twoje konto) — realne, 0 zł, najwiarygodniejsze dla starszych.
+2. Nagranie ekranu ADB — 0 zł, pokazuje ruch palca.
+3. Ryzyko prawne screenów cudzej apki: **NIE WIEM** dokładnie (nie znalazłem polityki Tauron) — bezpieczniej: własne zrzuty z własnego konta + zamazane dane (PESEL, nr umowy), nie cudze nagrania z internetu.
+
+STRUKTURA (propozycja, rozstrzygasz Ty):
+1. **2 części** — „Mój Tauron" (umowa/faktury/płatności) i „eLicznik" (odczyty/zużycie). Bo to dwa podmioty i dwa konta — mieszanie w jednej rolce myli starszego widza.
+2. Długość: szacunek 45–75 s na część, 1 krok = 1 ekran.
+3. Tomasz mówi: co klika i po co. Plansze: nazwa apki, sklep, wymagane numery (PESEL, nr ewidencyjny/płatnika).
+
+KOSZT:
+1. 0 zł: zrzuty ADB, plansze, nagranie ekranu.
+2. Płatne: Omni ~1 USD/10 s (tylko jeśli generujesz awatar/voice, nie zrzuty).
+
+---
+
+JEDNA RZECZ DO ZROBIENIA: **odpowiedz, którą parę uczymy — „Mój Tauron + eLicznik" (obie Tauron) czy „Mój Tauron + Mój Licznik" (druga to Energa).** Od tego zależy cała produkcja; po Twojej decyzji czytam stronę eLicznik do końca i zamykam fakt 3 i 4.
+
+---
+
+ŹRÓDŁA (odwiedzone narzędziem):
+- Mój TAURON — App Store (przeczytałem całość): https://apps.apple.com/pl/app/mój-tauron/id1414805668 (link NIESPRAWDZONY — nie pochodzi z narzędzi)
+- Mój Tauron — Google Play: https://play.google.com/store/apps/details?id=pl.tauron.mtauron
+- Tauron — Aplikacja mobilna (Mój TAURON): https://www.tauron.pl/dla-domu/obsluga-i-pomoc/jestem-klientem/aplikacja-mobilna
+- Tauron — Mój TAURON (serwis): https://www.tauron.pl/dla-domu/obsluga-i-pomoc/moj-tauron
+- Tauron Dystrybucja — eLicznik: https://www.tauron-dystrybucja.pl/liczniki-zdalnego-odczytu/elicznik
+- Tauron Dystrybucja — Liczniki zdalnego odczytu: https://www.tauron-dystrybucja.pl/liczniki-zdalnego-odczytu
+- Energa — „Mój Licznik" (apka ENERGA‑OPERATOR): https://media.energa.pl/pr/255504/energa-operator-z-aplikacja-mobilna-dla-uzytkownikow-inteligentnych-licznikow
+
+Belzebub
+
+🔎 szukał: aplikacja "Mój Tauron" Google Play Tauron Sprzedaż | aplikacja "Mój Licznik" Tauron Dystrybucja licznik zdalnego odczytu | "Mój Tauron" aplikacja play.google.com Tauron | Tauron aplikacja "Mój licznik" smart meter zdalny odczyt PPE | tauron.pl "mój tauron" aplikacja mobile | "Mój Tauron" play.google.com/store/apps | Tauron Dystrybucja aplikacja mobilna odczyt licznika zdalnego "Mój licznik" | "Mój licznik" aplikacja Energa Google Play licznik
+📄 czytał: https://apps.apple.com/pl/app/m%C3%B3j-tauron/id1414805668
