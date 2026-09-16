@@ -8,8 +8,10 @@ import urllib.request
 from pathlib import Path
 
 WY = Path("/root/rod-ai-studio/data/wiadomosci/alejka2/plansze")
-LOGO = "file:///root/rod-ai-studio/assets/branding/rod_logo_kolo.png"
-FONT = "file:///root/rod-ai-studio/www_rod/static/fonts/fraunces-pl.woff2"
+import base64 as _b64
+# D-0357: logo i font jako data URI — file:// w set_content NIE laduje sie (v1/v2 bez logo)
+LOGO = "data:image/png;base64," + _b64.b64encode(Path("/root/rod-ai-studio/assets/branding/rod_logo_kolo.png").read_bytes()).decode()
+FONT = "data:font/woff2;base64," + _b64.b64encode(Path("/root/rod-ai-studio/www_rod/static/fonts/fraunces-pl.woff2").read_bytes()).decode()
 
 # (numer, tytuł, objaśnienie/druga linia, wyróżnienie)
 PLANSZE = [
@@ -22,6 +24,7 @@ PLANSZE = [
     ("!", "ZA LICZNIKIEM", "Kabel, szafka i instalacja za licznikiem są po Twojej stronie.", "TYLKO UPRAWNIONY ELEKTRYK"),
     ("!", "AWARIA?", "Sieć, złącze albo licznik — dzwoń.", "991"),
     ("", "PEŁNA INSTRUKCJA", "Wszystko krok po kroku na naszej stronie.", "rodwozniki.pl/dla-dzialkowcow/"),
+    ("", "PRZYGOTOWAŁ", "Wydanie przygotował", "TOMASZ MAKSYŚ"),
 ]
 
 HTML = """<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><style>
@@ -64,8 +67,8 @@ def render() -> list[Path]:
                                wyr_top=1420 if ma_nr else 1220,
                                wyr_size=64 if len(wyr) <= 20 else 46)
             pg.set_content(html)
-            pg.evaluate("document.fonts.ready")
-            pg.wait_for_timeout(250)
+            pg.evaluate("document.fonts.ready.then(()=>window._f=1)"); pg.wait_for_function("window._f===1")
+            pg.wait_for_timeout(400)
             f = WY / f"plansza_{i:02d}.png"
             pg.screenshot(path=str(f))
             pliki.append(f)
