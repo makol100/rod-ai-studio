@@ -74,12 +74,12 @@ def main():
     plansza(PL / "plansza_01.png", P / "02.mp4", 3.0); seq.append("02")
     mowca(OM / "omni_K2.mp4", P / "03.mp4", "PREZENTER AI"); seq.append("03")
     plansza(PL / "plansza_02.png", P / "04.mp4", 3.0); seq.append("04")
-    mowca(IZ / "izabela_I1.mp4", P / "05.mp4", "PREZENTERKA AI"); seq.append("05")
+    mowca(IZ / "izabela_I1_v2.mp4", P / "05.mp4", "PREZENTERKA AI"); seq.append("05")
     plansza(PL / "plansza_03.png", P / "06.mp4", d("I3"), IZ / "izabela_I3.mp3"); seq.append("06")
     k4_bez_do_mnie(P / "07.mp4"); seq.append("07")   # D-0356: bez "do mnie", plansza 4 maskuje ciecie
     plansza(PL / "plansza_05.png", P / "09.mp4", d("I5"), IZ / "izabela_I5.mp3"); seq.append("09")
     plansza(PL / "plansza_06.png", P / "10.mp4", d("I6"), IZ / "izabela_I6.mp3"); seq.append("10")
-    mowca(IZ / "izabela_I7.mp4", P / "11.mp4", "PREZENTERKA AI"); seq.append("11")
+    mowca(IZ / "izabela_I7_v2.mp4", P / "11.mp4", "PREZENTERKA AI"); seq.append("11")
     plansza(PL / "plansza_07.png", P / "12.mp4", 2.5); seq.append("12")
     plansza(PL / "plansza_08.png", P / "13.mp4", 2.5); seq.append("13")
     outro(P / "14.mp4"); seq.append("14")
@@ -89,11 +89,11 @@ def main():
         ins += ["-i", str(P / f"{s}.mp4")]
         fc += f"[{i}:v]{NORM}[v{i}];[{i}:a]{AUD}[a{i}];"
     fc += "".join(f"[v{i}][a{i}]" for i in range(len(seq))) + f"concat=n={len(seq)}:v=1:a=1[v][a]"
-    bez = B / "alejka2_bez_intro_v3.mp4"
+    bez = B / "alejka2_bez_intro_v4.mp4"
     run([*ins, "-filter_complex", fc, "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "30",
          "-c:a", "aac", "-ar", "48000", "-b:a", "192k", "-movflags", "+faststart", str(bez)])
     print("bez intro:", round(dur(bez), 2), "s")
-    r = subprocess.run(["python3", "/root/rod-ai-studio/tools/dolacz_intro.py", str(bez), "--wyjscie", str(B / "ALEJKA2_v3.mp4")],
+    r = subprocess.run(["python3", "/root/rod-ai-studio/tools/dolacz_intro.py", str(bez), "--wyjscie", str(B / "ALEJKA2_v4.mp4")],
                        capture_output=True, text=True)
     print(r.stdout.strip() or r.stderr.strip())
     sys.exit(r.returncode)
