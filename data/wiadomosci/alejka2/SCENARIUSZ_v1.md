@@ -7,7 +7,7 @@ Wspólny wniosek z głosów: Zenek, Henio, Genek (awaryjny, bez dysku). Belzebub
 - Dodatki (ze źródeł na dysku: dla-dzialkowcow.md L30, tauron_kdt/MATERIALY.md L18-20): 991; za licznikiem kabel/szafka/instalacja = po stronie działkowca, tylko uprawniony elektryk; pełna instrukcja rodwozniki.pl/dla-dzialkowcow/. (Zenek dodatkowo: „przed kopaniem zapytaj zarząd o przebieg kabli" — do decyzji.)
 - Forma dla starszych: jedna plansza = jeden krok, duża cyfra, max 2 linie tekstu naraz; „KDT" czytane „ka-de-te" + na planszy „KDT = legitymacja Twojej działki dla prądu" (Henio); umowa „jak na telefon", licznik „taki jak w domu", „przepięcie = przełączenie prądu na nowy kabel".
 - Jeden mówca na klip; pkt 6 (26 słów) NIE mieści się w 10 s Omni → 2 klipy albo mówi go Izabela nad planszą.
-- Wymowa nazwiska prezesa — rozstrzyga Tomasz przed generacją; kontrola odsłuchem (Gemini), nie samym whisperem.
+- Nazwisko i słowo „prezes" NIE PADAJĄ nigdzie (D-0353); kontrola odsłuchem (Gemini), nie samym whisperem.
 - Tła: gotowa alejka (2026-09-14/dzien4_grabienie/11_...jpg), zasypywanie (dzien3_zasypywanie/09_...jpg); Izabela z istniejącego izabela_stoi_v1.jpg (0 USD).
 
 ## ROZBIEŻNOŚĆ (widoczna, rozstrzyga Tomasz): ILE MÓWI TOMASZ = KOSZT
@@ -27,11 +27,11 @@ Wspólny wniosek z głosów: Zenek, Henio, Genek (awaryjny, bez dysku). Belzebub
 | 32-46 | zdjęcie kabla/wykopu; plansza „3 · TWÓJ ELEKTRYK → PROTOKÓŁ" → „DO SZAFKI TYLKO UPRAWNIONY ELEKTRYK" | IZABELA (głos nad planszą) | „Krok trzeci. We własnym zakresie zabezpieczacie Państwo nowy kabel przyłączeniowy u siebie na działce. Musi to zrobić wykwalifikowany elektryk. Odbieracie od niego oświadczenie — protokół elektryka o zabezpieczeniu przyłącza." |
 | 46-56 | Tomasz; plansza „4 · ZARZĄD → KDT" → „KDT = LEGITYMACJA TWOJEJ DZIAŁKI DLA PRĄDU" | TOMASZ (Omni 3) | „Z tym pismem przychodzą Państwo do zarządu, do mnie. Wydam kartę danych technicznych, w skrócie ka-de-te." |
 | 56-66 | plansza „5 · UMOWA Z TAURONEM" + duży adres „LUBLINIEC, UL. KLONOWA 1" | IZABELA (głos) | „Krok piąty. Z kartą danych technicznych, ka-de-te, podpisujecie Państwo umowę z Tauronem w Lublińcu, przy ulicy Klonowej 1. To umowa na prąd — jak na telefon albo internet." |
-| 66-82 | plansza „6 · LICZNIK OD TAURONA → ZGŁOŚ PREZESOWI" → „PRZEPIĘCIE · STARY LICZNIK · OSTATNI STAN" | IZABELA (głos) | „Krok szósty. Gdy Tauron zamontuje licznik — taki jak w domu — zgłaszacie Państwo ten fakt prezesowi Tomaszowi. Wtedy nowe zasilanie zostanie przepięte do istniejącego zasilania działki, licznik sieci wewnętrznej zdemontowany, a jego ostatni stan spisany." |
+| 66-82 | plansza „6 · LICZNIK OD TAURONA → ZGŁOŚ TOMASZOWI" → „PRZEPIĘCIE · STARY LICZNIK · OSTATNI STAN" | IZABELA (głos) | „Krok szósty. Gdy Tauron zamontuje licznik — taki jak w domu — zgłaszacie Państwo ten fakt Tomaszowi. Wtedy nowe zasilanie zostanie przepięte do istniejącego zasilania działki, licznik sieci wewnętrznej zdemontowany, a jego ostatni stan spisany." |
 | 82-96 | Izabela w alejce; plansze „ZA LICZNIKIEM — TWOJA STRONA" · „AWARIA? 991" · „rodwozniki.pl/dla-dzialkowcow/" | IZABELA (Kling 2) | „I jeszcze trzy rzeczy. Za licznikiem kabel, szafka i instalacja są po Państwa stronie. Awaria sieci, złącza albo licznika — dzwońcie pod dziewięć dziewięć jeden. Pełna instrukcja jest na stronie rodwozniki.pl, zakładka Dla działkowców." |
-| 96-100 | outro: gotowa alejka, logo, „Prezenter Tomasz i Izabela to awatary AI — za zgodą prezesa" | — | — |
+| 96-100 | outro: gotowa alejka, logo, „Prezenter Tomasz i Izabela to awatary AI — za zgodą Tomasza" | — | — |
 
-Kontrola treści: pkt 1-6 dekretu obecne W CAŁOŚCI (pkt 2 w pierwszej osobie zarządu „podłączymy" — merytoryka bez zmian; pkt 4 Tomasz mówi „do mnie" zamiast o sobie w 3. osobie; nazwisko prezesa NIE pada w mowie — pada „prezesowi Tomaszowi"; może paść na planszy — decyzja Tomasza).
+Kontrola treści: pkt 1-6 dekretu obecne W CAŁOŚCI (pkt 2 w pierwszej osobie zarządu „podłączymy" — merytoryka bez zmian; pkt 4 Tomasz mówi „do mnie" zamiast o sobie w 3. osobie; nazwisko NIE pada w mowie — pada „Tomaszowi"; może paść na planszy — decyzja Tomasza).
 
 ## KOSZTORYS DUET
 Omni 3 × ~1 USD = ~3 USD · Kling 2 × ~0,5 = ~1 USD · TTS Charlotte grosze · plansze/zdjęcia/intro/montaż 0 → **~4 USD** (+ ewentualne poprawki klipów).
@@ -39,5 +39,5 @@ Omni 3 × ~1 USD = ~3 USD · Kling 2 × ~0,5 = ~1 USD · TTS Charlotte grosze ·
 ## DO ROZSTRZYGNIĘCIA PRZEZ TOMASZA
 1. Wariant: OSZCZĘDNY (~1,5) / DUET (~4) / PEŁNY (~6).
 2. Tekst kwestii — zatwierdzić lub poprawić słowo po słowie.
-3. Nazwisko prezesa: ma paść w mowie/na planszy? Pisownia i wymowa.
+3. ROZSTRZYGNIĘTE 16.09 „Bez prezesa!!!" (D-0353): słowo prezes i nazwisko nie padają nigdzie.
 4. Dodatek „przed kopaniem zapytaj zarząd o przebieg kabli" — dokładać?
