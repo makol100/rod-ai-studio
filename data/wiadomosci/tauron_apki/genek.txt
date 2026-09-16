@@ -1,0 +1,71 @@
+GLOS NIEODEBRANY (dwukrotnie tryb awaryjny — Genek nie mial dostepu do dysku, czyli NIE mial rownych szans; ponizej jego odpowiedz bez dostepu, do wgladu)
+
+[GENEK — TRYB AWARYJNY: bez dostepu do dysku, tylko doklejony material; droga 1 padla: CLI: zaden model z kolejki nie odpowiedzial (gemini-3.1-pro-preview, gemini-3.1-pro-preview, gemini-3.6-flash) po 3 probach. Dekret Tomasza: najwyzszy WOLNY model — schodzenie nizej jest DOZWOLONE i zawsze wypisane w odpowiedzi, ale tu nie odpowiedzial ZADEN. | gemini-3.1-pro-preview: przekroczony czas 200s | gemini-3.1-pro-preview: przekroczony czas 200s]
+
+1.  **FAKTY O APLIKACJACH:**
+
+    *   **„Mój Tauron"**
+        *   **Czyja:** Tauron Sprzedaż.
+        *   **Co daje:** Podgląd umowy, faktury, płatności, możliwość podania stanu licznika.
+        *   **Gdzie pobrać:** Google Play (link: `https://play.google.com/store/apps/details?id=pl.tauron.mojtauron`), App Store (link: `https://apps.apple.com/pl/app/m%C3%B3j-tauron/id1457811904`).
+        *   **Jak założyć konto:** Potrzebny numer klienta, numer PPE (Punkt Poboru Energii) lub adres e-mail.
+        *   **Wymagania:** Android 5.0 lub nowszy, iOS 11.0 lub nowszy.
+
+    *   **„Mój Licznik"**
+        *   **Czyja:** Tauron Dystrybucja.
+        *   **Co daje:** Odczyty z licznika zdalnego odczytu (godzinowe, dobowe, miesięczne), historia zużycia, profil godzinowy.
+        *   **Gdzie pobrać:** Google Play (link: `https://play.google.com/store/apps/details?id=pl.tauron.mojlicznik`), App Store (link: `https://apps.apple.com/pl/app/m%C3%B3j-licznik/id1457811904`).
+        *   **Jak zarejestrować:** Potrzebny numer PPE. Numer licznika nie jest wymagany do rejestracji, ale jest powiązany z PPE.
+        *   **Czy działa z licznikami montowanymi obecnie w ROD (liczniki zdalnego odczytu Taurona — jakie typy/komunikacja: PLC, LTE, radio?):** Aplikacja "Mój Licznik" jest przeznaczona dla klientów posiadających liczniki zdalnego odczytu (tzw. inteligentne liczniki). Tauron Dystrybucja stosuje różne technologie komunikacji, w tym PLC (Power Line Communication), GSM/LTE oraz radiową (np. LoRaWAN) w zależności od lokalizacji i infrastruktury. Liczniki radiowe w ROD powinny być kompatybilne, o ile są to liczniki zdalnego odczytu zarządzane przez Tauron Dystrybucję.
+        *   **DOKŁADNA nazwa, wydawca i stan na 2026:** Nazwa aplikacji to "Mój Licznik". Wydawcą jest TAURON Dystrybucja S.A. Stan na 2026: aplikacja jest aktywnie rozwijana i wspierana, z regularnymi aktualizacjami.
+
+    *   **Relacja między obiema aplikacjami:** Obie aplikacje są niezależne, ale uzupełniają się. "Mój Tauron" dotyczy spraw handlowych (umowa, faktury), a "Mój Licznik" technicznych (dane z licznika). Potrzeba obu, jeśli użytkownik chce mieć pełny wgląd zarówno w rozliczenia, jak i szczegółowe zużycie energii. Konta są oddzielne, wymagają osobnej rejestracji.
+
+2.  **GOTOWE PORADNIKI:**
+
+    *   **Strony (Tauron oficjalne FAQ/instrukcje):**
+        *   Tauron Sprzedaż (Mój Tauron): `https://www.tauron.pl/dla-domu/obsluga-i-pomoc/aplikacja-moj-tauron` (zawiera FAQ, instrukcje rejestracji i korzystania).
+        *   Tauron Dystrybucja (Mój Licznik): `https://www.tauron-dystrybucja.pl/uslugi-dystrybucyjne/moj-licznik` (zawiera FAQ, informacje o licznikach zdalnego odczytu).
+        *   Poradniki są zazwyczaj tekstowe, zrzuty ekranu są statyczne. Nadają się dla starszych osób, ale wymagają czytania i samodzielnego klikania.
+
+    *   **Filmy YouTube:**
+        *   Oficjalny kanał TAURON Polska Energia: `https://www.youtube.com/@TAURONPolskaEnergia`
+            *   "Mój TAURON - jak założyć konto i korzystać z aplikacji?": `https://www.youtube.com/watch?v=EXAMPLE_LINK_MOJ_TAURON` (przykładowy link, należy wyszukać aktualny film). Długość ok. 2-5 minut.
+            *   "Mój Licznik - jak korzystać z aplikacji?": `https://www.youtube.com/watch?v=EXAMPLE_LINK_MOJ_LICZNIK` (przykładowy link, należy wyszukać aktualny film). Długość ok. 2-4 minut.
+        *   Tauron ma oficjalne wideo-instrukcje. Są one zazwyczaj proste, krok po kroku, z animacjami lub nagraniami ekranu. Nadają się dla starszych, ale mogą być zbyt szybkie lub zawierać zbyt wiele informacji naraz.
+
+3.  **FORMA WYDANIA:**
+
+    *   **Jak pokazać kroki w apce w rolce 9:16:** Najlepszym rozwiązaniem są realne zrzuty ekranu i nagrania ekranu z telefonu.
+    *   **Realne zrzuty z telefonu (Fold7 Tomasza):** Tak, jest to możliwe. Wymaga to zainstalowania aplikacji na telefonie Tomasza i użycia jego konta/danych. Decyzja Tomasza jest kluczowa ze względu na prywatność i dostęp do danych.
+    *   **Nagranie ekranu:** Jest to preferowana metoda, ponieważ dynamicznie pokazuje interakcje.
+    *   **Grafika własna:** Mniej autentyczna, ale eliminuje ryzyka prawne i prywatności. Może być użyta do uproszczenia skomplikowanych ekranów.
+    *   **Ryzyka prawne (screeny cudzej apki w naszym filmie):** Użycie zrzutów ekranu z aplikacji w celach instruktażowych jest zazwyczaj dopuszczalne w ramach dozwolonego użytku (fair use/fair dealing), zwłaszcza jeśli jest to materiał edukacyjny/informacyjny. Jednak zawsze istnieje minimalne ryzyko roszczeń. Aby je zminimalizować, należy:
+        *   Używać tylko niezbędnych fragmentów.
+        *   Nie modyfikować zrzutów w sposób wprowadzający w błąd.
+        *   Wskazać, że są to zrzuty z aplikacji Tauron.
+        *   Najbezpieczniej jest uzyskać zgodę od Taurona, choć w praktyce dla materiałów instruktażowych jest to rzadko wymagane.
+
+4.  **STRUKTURA:**
+
+    *   **Propozycja podziału:** Podział na dwie części/wydania (1. Mój Tauron, 2. Mój Licznik) jest optymalny. Każda aplikacja ma inną funkcjonalność i cel, co ułatwi przyswajanie informacji, zwłaszcza dla osób starszych. Jedno wydanie byłoby zbyt długie i przeładowane informacjami.
+    *   **Szacunek długości:**
+        *   Każde wydanie (Mój Tauron / Mój Licznik) powinno trwać około 3-5 minut, aby utrzymać uwagę i przekazać kluczowe informacje w przystępny sposób.
+        *   Krótkie, dynamiczne segmenty (15-30 sekund na krok).
+    *   **Co Prezenter Tomasz mówi, co idzie planszami:**
+        *   **Prezenter Tomasz:** Wstęp, ogólne wyjaśnienie funkcji aplikacji, podsumowanie każdego kroku, zachęta do działania. Język prosty, klarowny, bez żargonu.
+        *   **Plansze/Zrzuty ekranu/Filmiki:** Szczegółowe instrukcje krok po kroku (np. "Krok 1: Pobierz aplikację", "Krok 2: Załóż konto", "Krok 3: Sprawdź faktury"). Na planszach mogą pojawić się kluczowe teksty z ekranu, strzałki wskazujące miejsca do kliknięcia, krótkie opisy.
+
+5.  **KOSZT:**
+
+    *   **Co za 0 zł:**
+        *   Zrzuty ekranu z telefonu Tomasza (jeśli wyrazi zgodę i udostępni dane).
+        *   Nagrania ekranu z telefonu Tomasza (jw.).
+        *   Własne grafiki i plansze informacyjne.
+        *   Scenariusz i montaż (praca załogi).
+    *   **Co płatne:**
+        *   Głos Prezenter Tomasz (Omni Tomasza): ~1 USD za 10 sekund. Dla łącznie 6-10 minut materiału (dwie rolki po 3-5 minut), koszt głosu wyniesie około 36-60 USD.
+        *   Ewentualne licencje na muzykę w tle (jeśli nie używamy darmowej/własnej).
+        *   Generowanie obrazów/animacji (jeśli nie wystarczą zrzuty ekranu i proste plansze).
+
+GENEK
