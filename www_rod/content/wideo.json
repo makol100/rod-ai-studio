@@ -238,5 +238,15 @@
   "miniaturka": "/static/wideo/1579293520296084.jpg",
   "date": "2026-06-27T09:54+02:00",
   "display_date": "27.06.2026"
+ },
+ {
+  "id": "1084864281067088",
+  "tytul": "ALEJKA PÓŁNOCNA — CIĄG DALSZY 🟢 Co dalej krok po kroku",
+  "kategoria": "wiadomosci",
+  "link": "https://www.facebook.com/reel/1084864281067088/",
+  "wideo": "/static/wideo/1084864281067088.mp4",
+  "miniaturka": "/static/wideo/1084864281067088.jpg",
+  "date": "2026-09-16T14:54+02:00",
+  "display_date": "16.09.2026"
  }
 ]
