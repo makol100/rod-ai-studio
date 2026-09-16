@@ -135,22 +135,45 @@ def ostatnie_ogloszenia_html(items: list[dict]) -> str:
 
 
 def announcements_page(items: list[dict]) -> str:
-    cards = []
-    for item in sorted(items, key=lambda row: row["date"], reverse=True):
-        cards.append(
-            '<li class="announcement-item" id="' + html.escape(item["id"]) + '">'
-            f'<time datetime="{html.escape(item["date"])}">{html.escape(item["display_date"])}</time>'
-            f'<h2>{html.escape(item["title"])}</h2>'
-            f'<p><strong>{html.escape(item["place"])}</strong></p>'
-            f'<p>{html.escape(item["body"])}</p>'
-            + (f'<img class="ogl-foto" src="/static/img/{html.escape(item["image"])}" alt="" loading="lazy">' if item.get("image") else "")
-            + (
-                _ogl_film_html(item)
-                if item.get("video_fb") else ""
+    # D-0346 (16.09.2026): nadchodzace jako aktualne, minione w sekcji "Archiwum wydarzen".
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+    _teraz = _dt.now(_tz.utc)
+
+    def _kiedy(it):
+        try:
+            return _dt.fromisoformat(it["date"])
+        except Exception:
+            return _teraz
+
+    def _cards(lst: list[dict]) -> str:
+        cards = []
+        for item in sorted(lst, key=lambda row: row["date"], reverse=True):
+            cards.append(
+                '<li class="announcement-item" id="' + html.escape(item["id"]) + '">'
+                f'<time datetime="{html.escape(item["date"])}">{html.escape(item["display_date"])}</time>'
+                f'<h2>{html.escape(item["title"])}</h2>'
+                f'<p><strong>{html.escape(item["place"])}</strong></p>'
+                f'<p>{html.escape(item["body"])}</p>'
+                + (f'<img class="ogl-foto" src="/static/img/{html.escape(item["image"])}" alt="" loading="lazy">' if item.get("image") else "")
+                + (
+                    _ogl_film_html(item)
+                    if item.get("video_fb") else ""
+                )
+                + '</li>'
             )
-            + '</li>'
-        )
-    return '<header class="page-hero shell"><p class="eyebrow">Bądź na bieżąco</p><h1>Ogłoszenia</h1></header><section class="page-content"><ul class="announcement-list">' + "".join(cards) + "</ul></section>"
+        return "".join(cards)
+
+    aktualne = [i for i in items if _kiedy(i) >= _teraz - _td(hours=6)]
+    archiwalne = [i for i in items if _kiedy(i) < _teraz - _td(hours=6)]
+    out = '<header class="page-hero shell"><p class="eyebrow">Bądź na bieżąco</p><h1>Ogłoszenia</h1></header>'
+    if aktualne:
+        out += '<section class="page-content"><ul class="announcement-list">' + _cards(aktualne) + '</ul></section>'
+    else:
+        out += '<section class="page-content"><p class="muted">Nowe ogłoszenia i wydarzenia pojawią się tutaj.</p></section>'
+    if archiwalne:
+        out += ('<section class="page-content"><h2 class="archiwum-tytul">Archiwum wydarzeń</h2>'
+                '<ul class="announcement-list">' + _cards(archiwalne) + '</ul></section>')
+    return out
 
 
 def write(path: Path, content: str) -> None:
@@ -330,13 +353,18 @@ def build() -> list[Path]:
         try: return _dt.fromisoformat(item["date"])
         except Exception: return _teraz
     _przyszle = [a for a in announcements if _kiedy(a) >= _teraz - _td(hours=6)]
+    # D-0346 (16.09.2026): minione wydarzenie NIE pokazuje sie na glownej — karta tylko
+    # dla nadchodzacych; minione zostaja w archiwum na /ogloszenia/.
     if _przyszle:
         featured = next((a for a in _przyszle if a.get("featured")), min(_przyszle, key=_kiedy))
-        featured_kicker = "Najbliższe wydarzenie"
+        featured_card = ('<aside class="announcement-card" aria-labelledby="pilne-tytul">'
+                         '<p class="announcement-kicker">Najbliższe wydarzenie</p>'
+                         + announcement_html(featured) + '</aside>')
+        bento_mod = ""
     else:
-        featured = max(announcements, key=_kiedy)
-        featured_kicker = "Ostatnie wydarzenie"
-    home_body = render(home, {"featured_announcement": announcement_html(featured), "featured_kicker": featured_kicker, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot()})
+        featured_card = ""
+        bento_mod = " today-solo"
+    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
