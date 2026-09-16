@@ -1,5 +1,5 @@
 # SCENARIUSZ v1 — WIADOMOŚCI „ALEJKA PÓŁNOCNA — CIĄG DALSZY" (D-0351)
-STATUS: PROPOZYCJA DO ZATWIERDZENIA PRZEZ TOMASZA. Produkcja i wydatki zatrzymane.
+STATUS: WARIANT DUET WYBRANY 16.09 (D-0354). Nazwisko Tomasz Maksyś ZOSTAJE (bez słowa prezes). Dodatek „przed kopaniem" ODRZUCONY. Plansze do pokazania; generacje płatne po akceptacji plansz i „Rób".
 Wspólny wniosek z głosów: Zenek, Henio, Genek (awaryjny, bez dysku). Belzebub nie odpowiedział.
 
 ## ZGODNE U WSZYSTKICH
@@ -25,9 +25,9 @@ Wspólny wniosek z głosów: Zenek, Henio, Genek (awaryjny, bez dysku). Belzebub
 | 15-23 | Tomasz; plansza „2 · PODŁĄCZENIE DO MIEJSC LICZNIKOWYCH" | TOMASZ (Omni 2) | „Potem podłączymy kable do poszczególnych zabezpieczonych miejsc licznikowych, przypisanych do danej działki." |
 | 23-32 | Izabela stojąca w alejce, PREZENTERKA AI | IZABELA (Kling 1) | „Jestem Izabela. A teraz krok po kroku, co należy do Państwa — jak przepis. Najważniejsze słowa będą też na ekranie." |
 | 32-46 | zdjęcie kabla/wykopu; plansza „3 · TWÓJ ELEKTRYK → PROTOKÓŁ" → „DO SZAFKI TYLKO UPRAWNIONY ELEKTRYK" | IZABELA (głos nad planszą) | „Krok trzeci. We własnym zakresie zabezpieczacie Państwo nowy kabel przyłączeniowy u siebie na działce. Musi to zrobić wykwalifikowany elektryk. Odbieracie od niego oświadczenie — protokół elektryka o zabezpieczeniu przyłącza." |
-| 46-56 | Tomasz; plansza „4 · ZARZĄD → KDT" → „KDT = LEGITYMACJA TWOJEJ DZIAŁKI DLA PRĄDU" | TOMASZ (Omni 3) | „Z tym pismem przychodzą Państwo do zarządu, do mnie. Wydam kartę danych technicznych, w skrócie ka-de-te." |
+| 46-56 | Tomasz; plansza „4 · ZARZĄD · TOMASZ MAKSYŚ → KDT" → „KDT = LEGITYMACJA TWOJEJ DZIAŁKI DLA PRĄDU" | TOMASZ (Omni 3) | „Z tym pismem przychodzą Państwo do zarządu, do mnie — Tomasza Maksysia. Wydam kartę danych technicznych, w skrócie ka-de-te." |
 | 56-66 | plansza „5 · UMOWA Z TAURONEM" + duży adres „LUBLINIEC, UL. KLONOWA 1" | IZABELA (głos) | „Krok piąty. Z kartą danych technicznych, ka-de-te, podpisujecie Państwo umowę z Tauronem w Lublińcu, przy ulicy Klonowej 1. To umowa na prąd — jak na telefon albo internet." |
-| 66-82 | plansza „6 · LICZNIK OD TAURONA → ZGŁOŚ TOMASZOWI" → „PRZEPIĘCIE · STARY LICZNIK · OSTATNI STAN" | IZABELA (głos) | „Krok szósty. Gdy Tauron zamontuje licznik — taki jak w domu — zgłaszacie Państwo ten fakt Tomaszowi. Wtedy nowe zasilanie zostanie przepięte do istniejącego zasilania działki, licznik sieci wewnętrznej zdemontowany, a jego ostatni stan spisany." |
+| 66-82 | plansza „6 · LICZNIK OD TAURONA → ZGŁOŚ TOMASZOWI MAKSYSIOWI" → „PRZEPIĘCIE · STARY LICZNIK · OSTATNI STAN" | IZABELA (głos) | „Krok szósty. Gdy Tauron zamontuje licznik — taki jak w domu — zgłaszacie Państwo ten fakt Tomaszowi Maksysiowi. Wtedy nowe zasilanie zostanie przepięte do istniejącego zasilania działki, licznik sieci wewnętrznej zdemontowany, a jego ostatni stan spisany." |
 | 82-96 | Izabela w alejce; plansze „ZA LICZNIKIEM — TWOJA STRONA" · „AWARIA? 991" · „rodwozniki.pl/dla-dzialkowcow/" | IZABELA (Kling 2) | „I jeszcze trzy rzeczy. Za licznikiem kabel, szafka i instalacja są po Państwa stronie. Awaria sieci, złącza albo licznika — dzwońcie pod dziewięć dziewięć jeden. Pełna instrukcja jest na stronie rodwozniki.pl, zakładka Dla działkowców." |
 | 96-100 | outro: gotowa alejka, logo, „Prezenter Tomasz i Izabela to awatary AI — za zgodą Tomasza" | — | — |
 
