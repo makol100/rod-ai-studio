@@ -23,7 +23,7 @@
   </div>
 </section>
 
-<section class="today-bento shell" aria-label="Dzisiaj w ogrodzie">
+<section class="today-bento shell{{bento_mod}}" aria-label="Dzisiaj w ogrodzie">
   <div class="pogoda" id="pogoda" aria-labelledby="pogoda-tytul">
     <div class="section-head">
       <p class="eyebrow">Pogoda w ogrodzie · Woźniki</p>
@@ -41,10 +41,7 @@
     <div class="pogoda-dni" id="pogoda-dni" hidden></div>
     <p class="muted pogoda-stopka" id="pogoda-stopka"></p>
   </div>
-  <aside class="announcement-card" aria-labelledby="pilne-tytul">
-    <p class="announcement-kicker">{{featured_kicker}}</p>
-    {{featured_announcement}}
-  </aside>
+  {{featured_card}}
 </section>
 
 <section id="na-dzis" class="section shell" aria-labelledby="dzis-tytul">
