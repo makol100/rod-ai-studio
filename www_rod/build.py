@@ -275,13 +275,14 @@ def podziekowania_html() -> str:
         return ""
     osoby = sorted(d.get("osoby_wg_tomasza", []), key=lambda o: _klucz_pl(o.split()[-1] + " " + o.split()[0]))
     lista = "".join(f'<li>{html.escape(o)}</li>' for o in osoby)
+    dodatkowe = "".join(f'<p class="podz-dodatkowe">{html.escape(x.get("tekst",""))}</p>' for x in d.get("dodatkowe", []))
     return (f'<section class="podziekowania shell" aria-labelledby="podz-tytul">'
             f'<p class="eyebrow">{html.escape(d.get("podtytul",""))}</p>'
             f'<h2 id="podz-tytul">{html.escape(d.get("tytul","Podziękowania"))}</h2>'
             f'<p class="podz-wstep">{html.escape(d.get("wstep",""))}</p>'
             f'<ol class="podz-lista">{lista}</ol>'
             f'<p class="podz-tresc">{html.escape(d.get("tresc",""))}</p>'
-            + "".join(f'<p class="podz-dodatkowe">{html.escape(x.get("tekst",""))}</p>' for x in d.get("dodatkowe", []))
+            f'{dodatkowe}'
             f'<p class="podz-koniec">{html.escape(d.get("zakonczenie",""))}</p>'
             f'<p class="podz-podpis">{html.escape(d.get("podpis",""))} · {html.escape(d.get("data",""))}</p></section>')
 
