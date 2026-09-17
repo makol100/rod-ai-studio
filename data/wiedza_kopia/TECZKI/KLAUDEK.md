@@ -280,3 +280,8 @@ Klaudek odczytał ze zrzutu umowy w oknie czatu nazwisko jako „MAKRYŚ" i podn
 ## 17.09.2026 — ZNOWU POMINĄŁEM BELZEBUBA (Tomasz: „Co z belzebubem? Kurwa zawsze zanim o nim zapomnisz")
 - Narada pzd_news odpalona na henio,genek,zenek — bez Belzebuba, mimo dekretu 02.09 (pełnoprawny głos w naradach). Dołożony osobno (/tmp/narada_pzd_news_bzb).
 - ZASADA: pełny skład narady to ZAWSZE `--kto henio,genek,zenek,belzebub`. Bez wyjątków, bez pytania. Przed każdym odpal.py sprawdzić, czy w --kto są cztery nazwiska.
+
+## 17.09.2026 — WYSŁAŁEM TOMASZOWI KLON Z UKRAIŃSKIM AKCENTEM („Nie rób mnie w chuja")
+- Klon Chatterbox N0: whisper 1.00, ucho Gemini na OGÓLNE pytanie „naturalnie? artefakty?" → „bez zastrzeżeń", porównanie 8/10. Tomasz: „darmowy jakiś huj z ukraińskim akcentem". Gemini zapytane WPROST o akcent: „TAK, ukraiński" z przykładami (miękkie sz/cz/dz).
+- LEKCJA: ucho Gemini odpowiada tylko na to, o co się pyta. BRAMKA AKCENTU obowiązkowa przed każdą próbką głosu do Tomasza: pytanie „czy rodowity Polak / jaki obcy akcent / które głoski" + whisper. Ogólne „czy brzmi naturalnie" NIE jest bramką. Do Tomasza idą tylko próbki z „akcent NIE".
+- Zapisane w decyzjach D-0407/D-0408. Kandydaci dalej: XTTS-v2, VoxCPM2 (Zenek, /tmp/narada_voxcpm), MOSS-Nano odpadł (whisper: przekręcone słowa).
