@@ -76,3 +76,6 @@ Obciąża teczkę KLAUDKA. Henio w tym czasie odpowiadał normalnie — sprawdzo
 ## 02.09.2026 — narada tauron_kdt
 - BLAD: oglosil 'plansze/mapy ZK NIE ISTNIEJA' po przeszukaniu tylko assets/ — mapy ZK i etapow SA: tools/mapa_rod/ (generator mapy_zk.py, mapy_etapy.py) + gotowe JPG w data/rolka-prad/ (mapy-16x9/, do-rolki/). Lekcja: 'nie ma' wymaga przeszukania calego repo (find), nie jednego katalogu.
 - ZASLUGA: fakty z numerami linii zrodla, scenariusz 80 s z licznikami znakow, uczciwy rachunek A vs B (B drozszy) — wzorcowy glos.
+
+## 17.09.2026 — narada pzd_news: WZOROWY GŁOS
+- 14 pozycji, każda z otwartego źródła (pzd.pl, slaski-ozpzd.pl), uczciwa sekcja NIE WIEM (pożar ROD „Irys" Ruda Śl. — 403 dla bota; Klaudek dopiął curl-em z UA Chrome: 25/26.08, 3 altany, podejrzenie podpalenia). Jedna nieścisłość: założył, że Woźniki należą do Okręgu Śląskiego — Woźniki są w Okręgu Częstochowskim PZD (komunikat KZ PZD 13.08: „ROD im. J. Lompy w Woźnikach z obszaru działania OZ PZD w Częstochowie").

@@ -276,3 +276,7 @@ Rozbicie (ślad: response.json + katalogi stare_alejka/, v1_faktura/): 17 klipó
 
 ## 17.09.2026 — BŁĄD ODCZYTU: nazwisko z obrazu umowy w czacie
 Klaudek odczytał ze zrzutu umowy w oknie czatu nazwisko jako „MAKRYŚ" i podniósł to Tomaszowi jako rozbieżność z opublikowanymi wydaniami. Tomasz: „Maksyś" — odczyt był zły. LEKCJA: własne OCR obrazu w czacie to nie źródło — przy literach/cyfrach z obrazu wymagać pliku na VPS i odczytu narzędziem (Gemini/tesseract) albo pisać „nie jestem pewien odczytu", nie stawiać tezy. (wpis: Klaudek)
+
+## 17.09.2026 — ZNOWU POMINĄŁEM BELZEBUBA (Tomasz: „Co z belzebubem? Kurwa zawsze zanim o nim zapomnisz")
+- Narada pzd_news odpalona na henio,genek,zenek — bez Belzebuba, mimo dekretu 02.09 (pełnoprawny głos w naradach). Dołożony osobno (/tmp/narada_pzd_news_bzb).
+- ZASADA: pełny skład narady to ZAWSZE `--kto henio,genek,zenek,belzebub`. Bez wyjątków, bez pytania. Przed każdym odpal.py sprawdzić, czy w --kto są cztery nazwiska.

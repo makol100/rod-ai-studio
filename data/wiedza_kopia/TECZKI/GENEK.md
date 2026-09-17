@@ -77,3 +77,6 @@ NIE jest zwolnieniem z grzeczności, tylko stwierdzeniem, że u niego padły WSZ
 Faktycznie: wyczerpany dobowy limit 250 zapytań na modelu pro, potem także `3.6-flash` przestał
 odpowiadać („ŻADEN model z kolejki nie odpowiada" — pomiar sondy).
 To ta sama kategoria co brak środków. Nie obciąża Genka.
+
+## 17.09.2026 — narada pzd_news: GŁOS NIEODEBRANY + ZMYŚLONA LISTA
+- CLI Gemini nie odpowiedziało (3.1-pro-preview ×2 timeout 200 s, 3.6-flash) → tryb awaryjny bez dysku. Odpowiedź awaryjna: 15 „aktualności" z datami i źródłami (money.pl, forum.e-ogrodek.pl, gazetawoznicka.pl, „FB ROD Lompy 02.09 przypomnienie o opłatach") — ŻADNA nie została otwarta, wszystkie zmyślone, a na końcu podpis „Zenek". Głos ODRZUCONY w całości. Zasada: głos Genka bez śladu pobrania = zero, nie wchodzi do meldunku.

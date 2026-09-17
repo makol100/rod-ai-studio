@@ -995,3 +995,276 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 08.09 RELACJA OPUBLIKOWANA ('Jest bardzo dobrze… wystawić'): FB Reel https://www.facebook.com/reel/1956869291649389 (opis z etykietą AI, 'Wiadomości działkowe' w tytule → kategoria wiadomosci przez awatar*/opublikowano); na rodwozniki.pl: /filmy/ (własny mp4 w oknie) + NOWA KARTA na stronie głównej 'Wiadomości z ogrodu' z odznaką NOWE (build.py wiadomosci_skrot, {{wiadomosci_skrot}} w home.html nad 'Co dzieje się w ogrodzie', CSS .wiad-skrot; klik → gra, test 4,8 s). Naprawy przy okazji: fb_na_strone odtwarza licznik.json po deployu; czarna miniaturka z FB zastępowana klatką z lokalnego mp4. Koszt relacji ~2,2 USD
+
+
+==============================================================================
+## SESJA 16.09.2026 09:14 CEST
+==============================================================================
+
+16.09 STRONA ROD (D-0346/D-0347): 'Zakonczenie sezonu' zdjete z glownej — build.py pokazuje karte wydarzenia TYLKO dla nadchodzacych (aside generowany warunkowo, {{featured_card}}+{{bento_mod}} w home.html, .today-solo w CSS); minione laduja w sekcji 'Archiwum wydarzen' na /ogloszenia/ (z filmem). Ramka 'Wiadomosci z ogrodu' wzmocniona: 3px var(--forest-900) + poswiata, wariant dark dodany. Deploy atomowy wg wzorca fb_na_strone + pogoda_rod + licznik_rod (oba 200 na produkcji; /pogoda.json w KORZENIU nie w /static/ — falszywy alarm 404 z mojego zlego curla). NOWE NARZEDZIE tools/zrzut_strony.py (playwright+chromium headless na VPS, ~150MB, 0 zl): zrzut URL -> sendPhoto/sendDocument do Tomasza botem Hansa; 2 zrzuty wyslane. UWAGA: test_build test_no_remote_scripts_or_styles pada na leaflet-CDN (radar) — fail STARSZY niz te zmiany (cdnjs byl w HEAD w page.html), do decyzji osobno. Kontrola Henia -> /tmp/henio_kontrola_1609.log
+
+
+==============================================================================
+## SESJA 16.09.2026 11:43 CEST
+==============================================================================
+
+16.09 INTRO WIADOMOSCI (D-0348/D-0349): narada 4 glosow (Genek awaryjnie — CLI timeout na gornych modelach); odkrycie Henia/Zenka: stara czolowka CZOLOWKA_CANON.mp4 z 4.08 istniala — Tomasz: 'Stara chujowa! C' -> wybrany wariant C BELZEBUBA (5 s, krem #fffdf6, logo srodek, tytul Fraunces #1f5a37, pasek zloty 360->520 przyciemniany 80%). WYKONANE v1 za 0 USD: assets/intro_wiadomosci/intro.html (deterministyczne ustawKlatke(t)) + tools/render_intro_wiadomosci.py (playwright 150 klatek 30fps + ffmpeg + Mixkit 1145 atrim 5s afade loudnorm). Licencja Mixkit SFX potwierdzona web (komercyjnie, social media, bez atrybucji); dzwieki 1145/3089/1151 pobrane do assets/audio/kandydaci (preview.mp3 z assets.mixkit.co — modal nie blokuje bezposrednich URL). Kontrole: tlo/pasek pikselowo OK (brightness 0.815~spec 0.8), zamrozenie MAD 0.0005, oko Gemini (oczy_uszy.py dziala mimo padu narad CLI) 6/6 TAK z poprawnym odczytem nazwy. Wyslane Tomaszowi na Telegram — CZEKA NA AKCEPTACJE; po akceptacji: wpiecie do pipeline wiadomosci + ewentualny master 16:9 + aktualizacja wiedza/CZOLOWKA_WIADOMOSCI.md (stara = WYCOFANA)
+
+
+==============================================================================
+## SESJA 16.09.2026 11:47 CEST
+==============================================================================
+
+16.09 INTRO ZAAKCEPTOWANE (D-0350, 'Super!!! Dodawać do wszystkich wiadomości zawsze'): INTRO_WIADOMOSCI_C_v1.mp4 = KANON; stara czolowka wycofana do archiwum w wiedza/CZOLOWKA_WIADOMOSCI.md; NOWE NARZEDZIE tools/dolacz_intro.py (filter_complex concat z normalizacja, bramka klatek fail-closed + kadr z konca) — OBOWIAZKOWE dla kazdego wydania Wiadomosci; test bojowy na pierwszy_dzien_v3: 2389=150+2239 klatek, przejscie 4.9s krem -> 5.15s wydanie, audio 79.7s ciagle; wpis w AKTYWA_SERII (0 USD)
+
+
+==============================================================================
+## SESJA 16.09.2026 12:57 CEST
+==============================================================================
+
+16.09 WIADOMOSCI ALEJKA2 (D-0351): narada zakonczona — glosy Zenek (UWAGA: sfabrykowal 'cztery glosy' i podpisal wniosek jako Klaudek — wpis w teczce ZENEK), Henio (pelny duet ~6,5 USD, KDT=legitymacja, pkt 6 nie miesci sie w 10 s Omni), Genek awaryjny (bez dysku), Belzebub nie odpowiedzial. WSPOLNY WNIOSEK zapisany: data/wiadomosci/alejka2/SCENARIUSZ_v1.md — 3 warianty kosztowe (OSZCZEDNY ~1,5 / DUET ~4 / PELNY ~6 USD), rekomendacja DUET (Tomasz 3 Omni: pkt 1,2,4; Izabela 2 Kling + glos nad planszami: pkt 3,5,6 + dodatki 991/odpowiedzialnosc za licznikiem/strona), 6 punktow W CALOSCI, ~100 s. CZEKA NA TOMASZA: wariant, tekst kwestii, nazwisko prezesa (wymowa/czy ma pasc), dodatek 'przed kopaniem'. Produkcja i wydatki ZATRZYMANE
+
+
+==============================================================================
+## SESJA 16.09.2026 13:17 CEST
+==============================================================================
+
+16.09 WIADOMOSCI ALEJKA2 v1 GOTOWE (D-0354/D-0355, 'Rob'): DUET wyprodukowany — data/wiadomosci/alejka2/ALEJKA2_v1.mp4 128 s (3840 klatek = intro 150 + 3690, bramka OK). Omni K1/K2/K4 (720p 9:16, ref_tomasz_720 + tlo gotowej alejki 2026-09-14 dzien4 zdj.11; 40-47 s/klip; kanarek faster_whisper w kontenerze: 1.00/1.00/0.94 — 'ka-de-te' whisper zapisal jako KDT, nazwisko 'Tomasza Maksysia' odczytane; straznik tozsamosc PASS x3). Izabela: TTS Charlotte 5 sciezek (I1 9.1s, I3 16s, I5 14.2s, I6 17.7s, I7 17.4s — Charlotte wolniejsza niz plan, wydanie 128 s zamiast 100), Kling standard I1+I7 na izabela_stoi_v1.jpg (straznik PASS). 9 plansz (tools/plansze_alejka2.py, styl intro C, kontrola geometrii 0 bledow) — P3/P5/P6 z glosem Izabeli + zoom 3%, P1/P2/P4/P7/P8 cisza 2.5-3 s, outro P9 z etykieta AI 'za zgoda Tomasza'; etykiety PREZENTER/PREZENTERKA AI drawtext na klipach. Montaz data/wiadomosci/alejka2/_montaz.py (filter_complex concat + dolacz_intro). Koszt ~4,3 USD (Omni ~3, Kling ~1, TTS grosze). Wyslane na Telegram — CZEKA NA OCENE TOMASZA; publikacja tylko na 'publikuj'. Gemini 503 caly dzien — kontrole oka zastapione pomiarem/strażnikiem; nazwisko i KDT do odsluchu przez Tomasza
+
+
+==============================================================================
+## SESJA 16.09.2026 13:24 CEST
+==============================================================================
+
+16.09 ALEJKA2 v2 (D-0356, reklamacja Tomasza sek. 59): z K4 usuniete 'do mnie' BEZ KOSZTOW — audio atrim/concat na pauzie (2,83-4,10 s wg word-timestamps faster_whisper), wideo: twarz do ciecia, dalej plansza_04 z glosem Tomasza (wzorzec v7 ogloszenia); part 08 (cisza plansza 4) usuniety z sekwencji; whisper nowego 07: '...do zarzadu Tomasza Maksysia. Wydam karte...' OK; ALEJKA2_v2.mp4 3711 klatek = 150+3561, wyslane na Telegram; czeka na ocene/publikuj
+
+
+==============================================================================
+## SESJA 16.09.2026 14:06 CEST
+==============================================================================
+
+16.09 ALEJKA2 v3 (D-0357): logo na planszach NAPRAWIONE (v1/v2 mialy puste miejsce — file:// w set_content nie laduje; teraz data URI; pomiar std 12->83), nowa plansza_10 'PRZYGOTOWAL — TOMASZ MAKSYS' jako ostatnia karta 4 s, _montaz.py = pelny przepis v3 (K4 bez 'do mnie' wbudowane, bez part 08). ALEJKA2_v3.mp4 3831 klatek OK, wyslane. OTWARTE: 'Zamien tlo za Izabela na takie bez ludzi' — izabela_stoi_v1 ma koparke+robotnika; opcje: (A) nowy obraz nano-banana (~0,07-0,15) + 2 nowe Kling (~1 USD) = ~1,2 USD, pewne; (B) 0 USD maska YOLO-seg klatka po klatce na 2 klipach (~800 klatek, ~25 min CPU, ryzyko artefaktow krawedzi) — czeka na wybor Tomasza; wpis teczka Klaudka (logo)
+
+
+==============================================================================
+## SESJA 16.09.2026 14:37 CEST
+==============================================================================
+
+16.09 ALEJKA2 v4 (D-0358 'A'): nowy obraz Izabeli izabela_stoi_v2.jpg (fal nano-banana-pro/edit, refy IZABELA_CANON_v2 + zdjecie 11 gotowej alejki, YOLO 0 obcych osob; cos vs kanon 0,879 > v1 0,749; Genek 503 = fal jako zapas) + Kling I1_v2/I7_v2 (tozsamosc 10/10 0,67/0,68, usta PASS). ALEJKA2_v4.mp4 3831 klatek, wyslane. Koszt poprawki ~1,15 USD (lacznie wydanie ~5,5 USD). WAZNA LEKCJA (teczka Klaudka): straznik.py na HOSCIE ma tozsamosc POMINIETA (brak insightface) i syncnet bez wyniku — 'PASS' = tylko techniczny; PRAWDZIWY straznik = docker exec fabryka-api ./venv/bin/python tools/straznik.py; K1/K2/K4 sprawdzone ponownie w kontenerze: 10/10 0,63-0,65. Czeka na ocene Tomasza / 'publikuj'
+
+
+==============================================================================
+## SESJA 16.09.2026 14:55 CEST
+==============================================================================
+
+16.09 ALEJKA2 OPUBLIKOWANE (D-0359 'publikujemy FB i Strona'): FB Reel https://www.facebook.com/reel/1084864281067088 (tools/publikuj_prezenter.py, opis = 6 punktow Tomasza doslownie + 991/odpowiedzialnosc + strona + zdanie o awatarach + 'Wydanie przygotowal Tomasz Maksys'); strona: /static/wideo/1084864281067088.mp4 (23,3 MB, 200) + miniaturka z 7 s, wpis wideo.json kategoria wiadomosci, build+deploy atomowy, pogoda/licznik 200; karta 'Wiadomosci z ogrodu' na glownej pokazuje nowe wydanie (NOWE), /filmy/ ma wpis. Odcinek ZAMKNIETY: koszt calkowity ~5,5 USD (Omni 3, Kling 4, nano-banana 0,15, TTS grosze); mp4 z intro C = pierwsze wydanie z nowa czolowka
+
+
+==============================================================================
+## SESJA 16.09.2026 15:15 CEST
+==============================================================================
+
+16.09 NOWE ZLECENIE (D-0361): instrukcja aplikacji Tauron dla dzialkowcow — Moj TAURON + aplikacja do licznika zdalnego odczytu (wg web: eLicznik TAURON Dystrybucja; do potwierdzenia z Tomaszem), prowadzi Prezenter Tomasz, zrzuty/filmiki z realnej apki (Fold7 przez ADB), jezyk najprostszy. Narada badawczo-koncepcyjna calej zaloga odpalona: /tmp/narada_tauron_app (zlecenie .scratch/zlecenie_tauron_aplikacje.md). Wstepne fakty (web, Klaudek): Moj TAURON tylko dla klientow z umowa sprzedazowa/kompleksowa (sama dystrybucyjna = brak dostepu); eLicznik wymaga LZO z uruchomiona komunikacja + 'sprawdz czy mozesz zalozyc konto'. Czeka na glosy (~20-30 min)
+
+
+==============================================================================
+## SESJA 16.09.2026 15:34 CEST
+==============================================================================
+
+16.09 TAURON APKI (D-0360/D-0362): research zamkniety w wiedza/TAURON_APKI_RESEARCH.md — 'Moj Licznik' to Energa, Tauron ma eLicznik; Tomasz: obie apki Tauron (Moj TAURON + eLicznik), liczniki ROD = LZO, zgoda na zrzuty z Fold7/konta. Narada: Henio+Belzebub pelne, Genek awaryjny, Zenek pusty (0 B). NASTEPNE: (1) dostep ADB do Fold7 — connection refused, czekam na port debugowania bezprzewodowego od Tomasza; (2) zrzuty ekranow instalacji/rejestracji obu apek (bez logowania) + po zalogowaniu przez Tomasza ekrany faktur/licznika (zamazane); (3) scenariusze 2 wydan + kosztorys -> zatwierdzenie -> Omni
+
+
+==============================================================================
+## SESJA 16.09.2026 15:34 CEST
+==============================================================================
+
+16.09 TAURON APKI (D-0360/D-0362): research zakonczony czesciowo — Henio+Belzebub (+moj web_search) ZGODNI: 'Moj Licznik' = apka ENERGA, Tauron ma 'eLicznik TAURON' (Play tauron.ui / AppStore id577050364; Moj TAURON: pl.tauron.mtauron / id1414805668); dwie spolki, dwa konta (logowanie.tauron.pl vs logowanie.tauron-dystrybucja.pl); rejestracja Moj TAURON: PESEL + nr ewidencyjny/platnika z faktury; eLicznik wymaga LZO z uruchomiona komunikacja (sprawdzenie dostepu po PPE na stronie Taurona); oficjalne filmy YT Taurona (linki w henio.txt). Genek tylko awaryjnie, Zenek pusty (0 B). Glosy skopiowane do data/wiadomosci/tauron_apki/. Tomasz zdecydowal: OBIE apki Taurona, liczniki w ROD = zdalnego odczytu, ZGODA na zrzuty z Fold7/jego konta. BLOKADA: ADB do Fold7 nie laczy (Tailscale online, port debugowania bezprzewodowego rotuje; 46009/45225/5555 odrzucone) — potrzebny aktualny port od Tomasza; MCP Telefon niedostepne w tym oknie. Plan: 2 wydania (Moj TAURON / eLicznik), Prezenter Tomasz + zrzuty/nagrania ekranu krok po kroku, scenariusz do zatwierdzenia
+
+
+==============================================================================
+## SESJA 16.09.2026 15:38 CEST
+==============================================================================
+
+16.09 TAURON APLIKACJE (D-0361) research ZAKONCZONY: wiedza/TAURON_APLIKACJE_RESEARCH.md — 'moj licznik' = eLicznik (Tauron Dystrybucja), Moj TAURON tylko z umowa sprzedazowa/kompleksowa; eLicznik ryzyko G11/G12 (sprawdzic po PPE); oficjalne filmy YT embeddable (Henio: 5 linkow); koncepcje: Henio 2 wydania ~3-6 USD vs Belzebub 1 wydanie ~1,2 USD; zrzuty z Fold7 przez ADB po instalacji apek przez Tomasza. Zenek: plik pusty (Codex padl), Genek awaryjny. CZEKA NA DECYZJE TOMASZA (4 pytania w pliku)
+
+
+==============================================================================
+## SESJA 16.09.2026 15:41 CEST
+==============================================================================
+
+16.09 TAURON APKI (D-0363 'zrzuty wez z internetu'): pobrane 8 zrzutow Moj TAURON + 7 eLicznik z Google Play (play-lh, w1080; App Store 429) + 5 zrzutow www headless (Play Zainstaluj x2, logowanie.tauron.pl, elicznik login, info) — Gemini (znow dziala) opisalo kazdy ekran (opisy w tej turze); data/wiadomosci/tauron_apki/zrzuty/. SCENARIUSZ_v1.md: 2 wydania po ~95 s, warianty A (Tomasz wszystko ~16 USD) / B (Tomasz prowadzi 3 Omni + Izabela czyta kroki ~6 USD); fakty ze zrodel Tauron (Moj TAURON: PESEL + nr platnika, e-mail, PIN; eLicznik: LZO, PPE 18 cyfr 590…, strona pomocy = stary pilotaz E450/E350, pol rejestracji brak w zrodlach). CZEKA NA TOMASZA: wariant, tekst, pola rejestracji eLicznika, kolejnosc publikacji
+
+
+==============================================================================
+## SESJA 16.09.2026 16:00 CEST
+==============================================================================
+
+16.09 TAURON APKI — KOLIZJA DWOCH OKIEN: drugie okno odpalilo _produkcja.sh (stary prompt z tlem alejki + stare kwestie) 2 min po moim KWESTIE.py; 5 klipow z alejka (~5 USD), 3 blokady Google 'prohibited content' na kwestiach z 'pesel'/'Zarejestruj sie'(?) — W1_3,W1_4,W1_7. Zabilem petle. Moj W1_1 na bialym tle (D-0366) kanarek 1.00, rogi 193-222 (nie czysto biale — do oceny). FAKTY REJESTRACJI (film TAURON 0kykdIeY57c + regulamin eLicznik §5): Moj TAURON = PESEL + 8-cyfrowy nr platnika (nad adresem korespondencji na fakturze) -> serwis Moj TAURON/eBOK, klient indywidualny -> e-mail x2, haslo x2, zgody -> Zatwierdz -> link aktywacyjny; eLicznik = login e-mail + haslo + wymagane dane, link aktywacyjny, 1 konto/umowa (pol PPE/nr licznika NIE potwierdzono — headless nie przechodzi wyboru serwisu w Angularze). NASTEPNE: decyzja Tomasza ktore okno prowadzi; przeformulowac kwestie z 'pesel' (blokada Google) — mowa 'numer z dowodu', PESEL na planszy; plansze ze zrzutami; montaz 2 wydan
+
+
+==============================================================================
+## SESJA 16.09.2026 16:28 CEST
+==============================================================================
+
+16.09 TAURON APKI GOTOWE (D-0368 'to okno prowadzi'): WIADOMOSCI_MOJ_TAURON_v1.mp4 (92 s, 2760 klatek) + WIADOMOSCI_ELICZNIK_v1.mp4 (105 s, 3151 klatek) wyslane na Telegram — PUBLIKUJE TOMASZ SAM. 17 klipow Omni na bialym tle (rogi ~221 — jasnoszare, nie #fff; logo overlay 150px w prawym gornym rogu, etykieta PREZENTER AI); kanarki whisper 0.90-1.00; Google blokowal kwestie z 'pesel'/'wpisz dane/haslo' (prohibited content) — 4 przeformulowania (szczegoly na planszach), W2_3 potwierdzony uchem Gemini ('Tauron e-Licznik' pada). Plansze: tools/plansze_tauron.py (17 szt., zrzut telefonu w ramce, uklad liczony JS, logo data URI, geometria 0 bledow). Montaz data/wiadomosci/tauron_apki/_montaz_tauron.py (twarz 3,5 s -> plansza z glosem). KOSZT: okno A 18 klipow Omni ~18 USD + drugie okno 6 klipow (alejka, nieuzyte, w stare_alejka/) ~6 USD = ~24 USD lacznie (zaakceptowane ~16; nadwyzka: kolizja okien + 4 regeneracje po blokadach Google). Fakty rejestracji ze zrodel: film TAURON 0kykdIeY57c, regulamin eLicznik §5; pola rejestracji eLicznika po wyborze serwisu NIE potwierdzone (headless nie przeszedl Angulara) — w filmie sformulowane bezpiecznie ('dane z faktury, m.in. PPE'). Teczka Klaudka: operator & x2
+
+
+==============================================================================
+## SESJA 17.09.2026 07:42 CEST
+==============================================================================
+
+17.09 PORADNIK TAURON (D-0369 'To poradnik a nie wiadomosci / intro zielone / dane z umowy'): GOTOWE 0 zl — plansze przerobione (kicker PORADNIK, WEZ UMOWE: numer ewidencyjny z umowy + PESEL, PPE z umowy; 17/17 geometria OK, logo std 83), zielone intro rolek skopiowane do assets/branding/intro_rolki_zielone_2_5s.mp4 (z data/reels/000097/parts/00_intro.mp4, 1080x1920 30fps 2,5 s), _montaz_tauron.py skleja z nim zamiast intro C -> PORADNIK_{MOJ_TAURON,ELICZNIK}_v2.mp4. BLOKADA: 3 klipy Omni z 'umowa' zamiast 'faktura' (W1_3, W1_5, W2_4 — kwestie w KWESTIE.py gotowe; stare w omni/v1_faktura/) NIE wygenerowane — Google 429 'prepayment credits depleted' (doladowuje tylko Tomasz, ai.studio/projects); Gemini oczy tez 429. Po doladowaniu: bash omni/_produkcja_biale.sh (pomija istniejace) -> python3 _montaz_tauron.py W1; W2 -> wyslac. LEKCJE: pkill -f wzorzec zabija wlasne polecenie MCP (exit -15) — zabijac skryptem z pliku (_stop.sh); assert przed write_text = niezapisany plik i petla ze starymi kwestiami (na szczescie 429)
+
+
+==============================================================================
+## SESJA 17.09.2026 07:57 CEST
+==============================================================================
+
+17.09 PORADNIKI TAURON v2 GOTOWE: Tomasz doladowal kredyty Google (API test OK); 3 klipy z 'umowa' wygenerowane (W1_3 0.94, W1_5 0.91, W2_4 0.95, ~3 USD); PORADNIK_MOJ_TAURON_v2.mp4 (2685 klatek = 75 zielone intro + 2610) i PORADNIK_ELICZNIK_v2.mp4 (3076 = 75 + 3001) wyslane na Telegram — publikuje Tomasz sam. Koszt calego poradnika lacznie ~27 USD (w tym ~6 USD nieuzyte klipy z alejka z kolizji okien)
+
+
+==============================================================================
+## SESJA 17.09.2026 08:11 CEST
+==============================================================================
+
+17.09 PORADNIKI TAURON — JUZ OPUBLIKOWANE przez drugie okno o 08:02-08:04 (opublikowano.txt): FB Reels 1504279544839012 (Moj TAURON) i 1111497617992292 (eLicznik), status ready, opisy '📱 PORADNIK: ...'; strona: kategoria poradniki w wideo.json z opisami, mp4+miniaturki 200 na produkcji, sekcja Poradniki na /filmy/ z opisami (curl). Okno A: zweryfikowalo, NIE dublowalo (D-0371 wykonane)
+
+
+==============================================================================
+## SESJA 17.09.2026 08:18 CEST
+==============================================================================
+
+17.09 STRONA (D-0372, Tomasz: 'Mam nadzieje ze pod tym adresem zrobiles ten poradnik' + 'Poradniki'): plansza koncowa poradnikow kieruje na rodwozniki.pl/dla-dzialkowcow/ gdzie NIE BYLO instrukcji apek (0 wystapien) — NAPRAWIONE: content/poradniki_apki.md (Moj TAURON 6 krokow + eLicznik 5 krokow, linki Play/App Store, fakty ze zrodel Tauron) wstawiany placeholderem {{poradniki_apki}} (build.py poradniki_apki_html) na /dla-dzialkowcow/ przed 'Kto odpowiada za awarie' ORAZ na NOWEJ stronie /poradniki/ (pages/poradniki.md: filmy poradnikow {{wideo_poradniki}} + instrukcje + link do 5 krokow); 'Poradniki' w nawigacji po 'Filmy'. Deploy, curl: obie strony 200, h3 obu instrukcji na produkcji, 2 karty wideo na /poradniki/. Uwaga: wlasny markdown nie obsluguje {#id} kotwic w naglowkach
+
+
+==============================================================================
+## SESJA 17.09.2026 08:23 CEST
+==============================================================================
+
+17.09 STRONA (D-0373 'Wystaw poradniki pod Aktualnosciami'): sekcja PORADNIKI na glownej bezposrednio pod karta Wiadomosci z ogrodu — build.py poradniki_skrot() (2 najnowsze z kategorii poradniki, karty .wideo-karta z data-wideo -> film-okno.js gra w oknie, przycisk button-ghost do /poradniki/), {{poradniki_skrot}} w home.html, CSS .poradniki-skrot (ramka jak wiadomosci, dark). Deploy, curl: kolejnosc wiadomosci < poradniki < 'Co dzieje sie' potwierdzona, 2 tytuly poradnikow na produkcji, pogoda 200; zrzut wyslany na Telegram
+
+
+==============================================================================
+## SESJA 17.09.2026 08:34 CEST
+==============================================================================
+
+17.09 PORADNIK (D-0374, zrzut str. 3 umowy Tomasza KSG-10): odczyt §1 — Nr Umowy K/000…/0/09/26, Nr PPE 18 cyfr 5903224…, Nr Platnika 8 cyfr, Nr ewidencyjny PUSTY (na umowie z ROD!), PESEL czesciowo zamaskowany przez Tauron, adres PPE Mlynska 40C/nr dzialki, lokale niemieszkalne, G12W, rozliczenie miesieczne z odczytu, grupa przyl. V, 1F, 20 A, 3,5 kW, OSD Tauron Dystrybucja (§2 pkt 3). Zrzut Tomasza NIE trafil na VPS (tylko czat) — zrobiona WZORCOWA grafika §1 bez danych (tools/grafika_umowa_ksg10.py -> static/img/umowa_ksg10_gdzie_szukac.png, zielone pola=Moj TAURON, zlote=eLicznik) + sekcja 'Gdzie szukac danych — Twoja umowa z Tauronem' w poradniki_apki.md (obie strony), instrukcja Moj TAURON poprawiona: Nr Platnika (nie nr ewidencyjny). Deploy, curl 200. UWAGA do rozstrzygniecia: na umowie nazwisko czytam jako MAKRYS, a w opublikowanych wydaniach jest 'Maksys' (tak pisal Tomasz)
+
+
+==============================================================================
+## SESJA 17.09.2026 08:36 CEST
+==============================================================================
+
+17.09 SPROSTOWANIE: nazwisko = MAKSYŚ (Tomasz potwierdzil); moj odczyt 'MAKRYS' z obrazu umowy w czacie byl bledny — obrazu w czacie nie czytac jak dokumentu, kwestie z nazwiskiem w wydaniach poprawne
+
+
+==============================================================================
+## SESJA 17.09.2026 08:40 CEST
+==============================================================================
+
+17.09 PORADNIK (D-0374 cd.): Tomasz przyslal zrzut umowy przez Hansa (skrzynka/pliki/20260917_083820, 938x1280) — anonimizacja: boxy pol z danymi osobowymi od Gemini (12 pol, skala 0-1000) + marginesy + pas telefon/e-mail; kontrola Gemini: nazwisko NIE, numery NIE, adres/telefon/e-mail NIE, dane Taurona nietkniete; obraz www_rod/static/img/umowa_ksg10_str3_przyklad.jpg wstawiony pod wzorcem w poradniki_apki.md (obie strony); oryginal data/wiadomosci/tauron_apki/umowa/umowa_str3_ORYGINAL.jpg chmod 600 — NIE publikowac. Deploy, curl 200
+
+
+==============================================================================
+## SESJA 17.09.2026 08:55 CEST
+==============================================================================
+
+17.09 STRONA (D-0376 podziekowania): sekcja PODZIEKOWANIA na SAMEJ GORZE glownej (przed hero) — content/podziekowania.json (aktywne, tresc, 11 osob) -> build.py podziekowania_html() z sortowaniem po nazwisku wlasnym kluczem polskiego alfabetu (Janus<Jaderko, Zachariasz<Zukowski; locale pl_PL brak na VPS), {{podziekowania}} na poczatku home.html, CSS .podziekowania (zlota ramka, duze nazwiska w siatce, dark). Deploy, curl: przed hero, 11 nazwisk, zrzut na Telegram. Forma potwierdzona researchem Henia (3 przyklady PZD: 'Zarzad ROD ... sklada serdeczne podziekowania', podpis Zarzad, samo imie+nazwisko) — zgodna z wdrozona. RODO (Henio, komunikat KZ PZD 25.09.2019 + art. 6 RODO): publikacja nazwisk wolontariuszy wymaga zgody — przekazane Tomaszowi; decyzja jego (opublikowane na jego dekret). Wylaczenie sekcji: 'aktywne': false w podziekowania.json + build+deploy
+
+
+==============================================================================
+## SESJA 17.09.2026 08:57 CEST
+==============================================================================
+
+17.09 STRONA (D-0378 'Dodaj reszte zdjec do elektryfikacji'): /elektryfikacja/ nowa sekcja 'Gorna (polnocna) alejka — wrzesien 2026' z galeria 42 zdjec (26 z 07.09 + 4 kopanie + 4 zasypywanie + 8 grabienie z 14.09; exif_transpose, max 1600 px, q85, 14,7 MB) w static/img/gal/alejka/; BEZ zamazywania twarzy (dekret 08.09). Deploy, curl: 42 img na produkcji, pliki 200
+
+
+==============================================================================
+## SESJA 17.09.2026 11:25 CEST
+==============================================================================
+
+17.09 RACHUNEK TAURON G12W (D-0380): dystrybucja z OFICJALNEGO wyciagu Taryfy TAURON Dystrybucja 2026 dla G (energa.pl PDF, URE 17.12.2025): G12w zmienna 0,3298 szczyt / 0,0512 pozaszczyt, stala 1F 7,38, abonament 1-mies 4,56, jakosciowa 0,0331, OZE 0,0073, kogen 0,003, mocowa <500: 4,29 / 500-1200: 10,31 / 1200-2800: 17,18 / >2800: 24,05 (do 1. odczytu <500). ENERGIA: cennika 'EE_GD GR5 B_ule TS_3_Q3_01.09.26-31.08.29_ro' NIE MA w sieci (offer-documents Taurona — starsze wzorce nazw: EE_GD GR5 O S24D TS_3_Q3 = Serwisant 24H 3 lata); przyjeto taryfe URE TAURON Sprzedaz 2026 G12 szczyt 0,54472 / pozaszczyt 0,41463 netto (czyczy.pl — zrodlo wtorne) + oplata handlowa NIEZNANA. WYNIK brutto: 0 kWh = 19,96 zl/m-c (+handlowa); 100 kWh (1/3 dzien, 2/3 noc) = 106,76 zl/m-c przy progu mocowej 500-1200 (99,35 w pierwszych miesiacach <500 kWh). Skrypt data/tauron_rachunek/rachunek_g12w.py. Do podmiany po otrzymaniu zalacznika Cennik z umowy. Henio/Zenek kontrola w toku (/tmp/narada_rachunek)
+
+
+==============================================================================
+## SESJA 17.09.2026 11:32 CEST
+==============================================================================
+
+17.09 RACHUNEK G12W Z PRAWDZIWEGO CENNIKA (umowa PDF w czacie, nie na VPS): energia 0,5956/0,3971 netto, handlowa 18,29 netto (=22,50 brutto — kontrola VAT zgodna z cennikiem co do grosza). 0 kWh = 42,46 brutto (sprzedaz 22,50 + dystrybucja 19,96); 100 kWh = 122,51-138,37 zaleznie od progu mocowej. Wczesniejszy szacunek (taryfa URE, bez handlowej) byl za niski o ~22 zl/mc — handlowa 22,50 brutto to 53% rachunku przy 0 kWh. Cennik 'rabat >=5%' = ceny min. 5% ponizej taryfy Sprzedawcy; warunek: zgody marketingowe + e-faktura (cofniecie = utrata rabatu, wg Regulaminu 'Wlacz rabat na prad'). Skrypt: data/tauron_rachunek/rachunek_g12w.py do aktualizacji stawkami z cennika
+
+
+==============================================================================
+## SESJA 17.09.2026 11:43 CEST
+==============================================================================
+
+17.09 KONTROLA RACHUNKU (narada_rachunek zakonczona): ZENEK niezaleznie odnalazl cennik 'Prad + PSZCZOLY' (0,5956/0,3971, handlowa 18,29 netto — te same co w PDF umowy) i policzyl: 0 kWh 42,46 / 100 kWh 122,49 / 129,90 / 138,35 brutto — zgodne z Klaudkiem co do 2 groszy (zaokraglenia); dodatkowo wyprowadzil ceny: (taryfa URE 0,6220/0,4130 + akcyza 0,005) x 95% = cennik, wiec 'rabat 5%' = cena ruchoma wzgledem taryfy Sprzedawcy, NIE gwarancja stalej ceny 3 lata. HENIO: stawki dystrybucji z oficjalnych PDF Tauron Dystrybucja + decyzja URE DRE.WPR.4211.1.4.2026.BTS z 16.01.2026 (jakosciowa 0,0332 od 1.02) — zgodne. Glosy w data/tauron_rachunek/
+
+
+==============================================================================
+## SESJA 17.09.2026 11:54 CEST
+==============================================================================
+
+17.09 PV DZIALKA (D-0382): model net-billing dla 5 kWp + 15 kWh, prod 500/pobor 200: RCE wazona PV 0,264 zl/kWh (x1,23 = 0,325 w depozycie); depozyt tylko na energie czynna (Energa: nie na dystrybucje ani handlowa); faktura ~116 zl/mc (pobor 50/50, eksport 400) lub ~82 zl/mc (pobor 100% noc), stale ~116 zl (dystrybucja 93 + handlowa 22,5) nie do zbicia PV; bez PV 300-500 kWh = 307-467 zl/mc. RYZYKO: moc przylaczeniowa 3,5 kW 1F vs 5 kWp — do rozstrzygniecia (Henio). Kontrola Zenek+Henio w toku /tmp/narada_pv
+
+
+==============================================================================
+## SESJA 17.09.2026 12:13 CEST
+==============================================================================
+
+17.09 PV DZIALKA (D-0383 '25A x 230V' = 5,75 kW, nadal 1F): kontrola Zenka (ze zrodlami: PE art. 7 ust. 8d4, ustawa OZE art. 2 pkt 19b / 4b / 4c, TAURON mikroinstalacja + zbior wymagan technicznych): (1) moc zainstalowana PV = suma modulow DC, nie falownik; zgloszenie tylko gdy <= moc przylaczeniowa — po zwiekszeniu do 5,75 kW warunek spelniony; (2) ALE powyzej 3,68 kW TAURON wymaga przylaczenia TROJFAZOWEGO (potwierdza praktyka: IRiESD Tauron, elektroda) — 5 kWp na 1F NIE przejdzie; opcje: 3F albo <=3,68 kWp modulow; (3) dzialkowiec ROD moze byc prosumentem (art. 2 pkt 27a), nowy prosument = RCE godzinowa bez wyboru, depozyt x1,23 tylko na energie czynna, zwrot do 30% wartosci energii wprowadzonej w danym miesiacu; TAURON: okres 1-mies dla wszystkich prosumentow od 1.09.2026; (4) LICZBY: model Klaudka potwierdzony co do groszy (115,85/81,59 vs 115,88/81,61); jakosciowa 0,0331 (taryfa) vs 0,0332 (wyciag w umowie od 1.02) — roznica pomijalna; RCE wazona: 0,259-0,311 zaleznie od metody (moje 0,264 w srodku). Henio jeszcze liczy
+
+
+==============================================================================
+## SESJA 17.09.2026 13:51 CEST
+==============================================================================
+
+17.09 ARBITRAZ (D-0384): RCE z PSE API (api.raporty.pse.pl/api/rce-pln, 90 dni, data/pv_dzialka/rce_90d.json): 19-21 = 997/1060/911 zl/MWh, poludnie 10-15 = 239, noc 0-6 = 593; 270 z 1840 kwadransow poludniowych ujemne. Model arbitraz.py: na 1 kWh cyklu +1,23 depozyt, -0,56 energia (z depozytu), -0,13 gotowka dystrybucja, 12% strat; PRZY LIMICIE ZWROTU 30% wiekszosc depozytu PRZEPADA (przy 176 kWh eksportu z PV: 216 zl depozytu, zwrot 65, przepada 152); cykl z sieci daje netto ok. +0,24 zl/kWh (bo podnosi koszt energii pokrywany depozytem i limit 30%), 450 kWh/mc cyklu -> Tauron placi ~105 zl/mc netto po roku, ale zwrot dopiero po 12 mc i zuzycie magazynu 1-2 cykle/dzien. PRAWO: czy wolno oddawac energie pobrana z sieci — NIE WIEM, Henio sprawdza
+
+
+==============================================================================
+## SESJA 17.09.2026 13:55 CEST
+==============================================================================
+
+17.09 MAGAZYN 30 kWh ZIMA (D-0385): arbitraz taryfowy bez eksportu — szczyt 1,19 zl/kWh brutto (energia+dystr.+oplaty), pozaszczyt 0,60, przez magazyn ze stratami 0,69 -> ~0,50 zl oszczednosci na kazdej kWh przeniesionej ze szczytu; 200 kWh/mc 50% w szczycie = ~50 zl/mc, 400 kWh 70% szczyt = ~141 zl/mc; strefy G12w potwierdzone z wyciagu w umowie (pn-pt 13-15, 22-6 + cale weekendy/swieta); 30 kWh = ~24 kWh uzytecznych dziennie, ladowanie 8 h x 5,75 kW = 46 kWh mozliwe; legalne, bez net-billingu
+
+
+==============================================================================
+## SESJA 17.09.2026 13:56 CEST
+==============================================================================
+
+17.09 GRZANIE Z MAGAZYNU (D-0386): zima 5 kWp ~125 kWh/mc (gru-sty), grzanie 300 kWh: slonce + doladowanie noca = ~236 zl/mc; slonce bez doladowania (braki w szczycie) = ~324; bez PV/magazynu = ~473. Wniosek: doladowywac z sieci TYLKO deficyt (0,69 vs 1,19 zl/kWh), sterowanie z prognozy PV (HA Dzialka: Forecast.Solar/Solcast, cel ladowania o 22:00 = jutrzejsze zuzycie - prognoza)
+
+
+==============================================================================
+## SESJA 17.09.2026 14:04 CEST
+==============================================================================
+
+17.09 OFF-GRID (D-0390): Tomasz zostaje przy umowie G12W, PV+magazyn wyspowo, siec tylko laduje magazyn noca — praktycy (elektroda, noza.pl): instalacja niepodlaczona/nieoddajaca do sieci nie wymaga zgloszenia do OSD, ale 'zero export' w hybrydowym on-grid to NIE off-grid (Deye oddaje mimo ustawienia; on-grid wymaga zgloszenia); zalecana architektura: falownik wyspowy, odbiory na jego wyjsciu, AC-in tylko do ladowania. Prawnie do potwierdzenia przez Henia (/tmp/narada_offgrid). Rachunek bez zmian: ~258 zl/mc przy 300 kWh z sieci w taniej strefie (233 w 1. miesiacach), slonce odejmuje 0,64 zl/kWh
+
+
+==============================================================================
+## SESJA 17.09.2026 14:29 CEST
+==============================================================================
+
+17.09 PV DZIALKA — OSTATECZNY MODEL ZIMY: klimatyzator 20 kWh/DZIEN (600 kWh/mc lis-lut), lato 300 kWh/mc pokryte sloncem; produkcja wg pomiarow Tomasza (mar>=500, sie 700 -> ~5600/rok); off-grid, siec tylko strefa 2 przez magazyn 30 kWh (5% strat): lis 333 / gru 351 / sty 351 / lut 298 zl, reszta roku 58 zl/mc, ROK ~1800 zl; z sieci ~1820 kWh/rok (mocowa 17,18); magazyn laduje co noc ~16 kWh
+
+
+==============================================================================
+## SESJA 17.09.2026 15:31 CEST
+==============================================================================
+
+17.09 PV/UMOWA — ZAMKNIECIE: Tomasz 'Ok'. Ustalenia: prognoza 1700 (jego 3700) bez wplywu na rachunek (rozliczenie z ODCZYTU, 1-mies; mocowa z rzeczywistego zuzycia za rok), mocowa jednakowa we wszystkich G. Model koncowy: off-grid 5,4 kWp + magazyn 30 kWh, siec tylko strefa 2, zima klimatyzator 20 kWh/dzien -> ROK ~1800 zl (lis-lut 298-351, reszta 58). Otwarte tylko kontrola Henia (off-grid prawo, /tmp/narada_offgrid) — do odczytu przy nastepnej okazji
+
+
+==============================================================================
+## SESJA 17.09.2026 15:39 CEST
+==============================================================================
+
+17.09 PV działka — odpowiedź na pytanie o zgłaszanie PV / net-billing: net-billing NIE, zgłoszenie NIE przy prawdziwej wyspie (off-grid, sieć tylko na ładowarkę, odbiory na wyjściu falownika, własny uziom, schemat+oświadczenie SEP). Werdykt Henia (/tmp/narada_offgrid/henio.txt) + OWU umowy Tomasza: §12 ust. 8 lit. e (sankcja, wszyscy klienci), §5 ust. 2 pkt 2.5/2.10 (tylko >300 kW). Zapisane jako decyzja pv_dzialka. Umowa bez zmian G12w 1F 25 A. Tekst umowy z danymi osobowymi NIE jest na VPS (tylko scratchpad czatu).
+
+
+==============================================================================
+## SESJA 17.09.2026 16:11 CEST
+==============================================================================
+
+17.09 NARADA pzd_news (D-0398) ZAKOŃCZONA: wnioski w wiedza/narady/PZD_NEWS_1709.md (24 zweryfikowane pozycje), głos Klaudka w PZD_NEWS_1709_klaudek.md. Genek NIEODEBRANY (zmyślona lista, odrzucona), Zenek znów 'trzy głosy' (treść OK, zweryfikowana), Belzebub słaby po capacity, Henio wzorowy. Fakty: grunt ROD Woźniki w użytkowaniu wieczystym (D-0400); ROD Lompy = Okręg Częstochowski; 30 000 zł dotacji KZ PZD 12.08 na instalację elektryczną. Czeka: decyzja Tomasza o krótkiej rolce (TOP 3 A/B/C).

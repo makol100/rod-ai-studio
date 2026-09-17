@@ -26,3 +26,6 @@ Założona 02.09.2026 (dekret Tomasza „Kończ Belzebuba"). Zasada teczek: wpis
 - TECHNIKA: 2 puste odpowiedzi z rzedu = tryb reasoning zjadal max_tokens; naprawione (/no_think, 6000).
 
 ## 03.09.2026 — ZASLUGA: niezaleznie wskazal pyEzvizApi VTM/VTDU (TCP relay) z odwiedzonymi zrodlami — to byla wlasciwa droga; EZVIZ Open Platform HLS jako droga B (platna po probie).
+
+## 17.09.2026 — narada pzd_news: CAPACITY + SŁABY GŁOS
+- Pierwsze wywołanie: Featherless „capacity_exhausted" (Qwen3.8-27B) → GŁOS NIEODEBRANY. Retry (/tmp/narada_pzd_news_bzb/_retry.py, 230 s) dał odpowiedź, ale: otworzył JEDNĄ stronę (ozpzd-wroclaw.pl/nowa/page/7, lipiec 2026), pzd.pl zgłosił jako „BŁĄD SSL", i sam napisał „trzy głosy Henio/Genek/Zenek" zamiast własnego. Uczciwie oznaczył braki NIE ZNALAZŁEM. Do meldunku wszedł tylko jako „głos słaby, bez świeżych źródeł". Wniosek techniczny: przy capacity odpal.py powinien sam ponawiać (2×, 20 s) i mieć fallback modelu — TODO w zaloga.py.
