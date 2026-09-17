@@ -1,17 +1,21 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 14.09.2026 15:24.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 17.09.2026 14:11.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (61), od najswiezszego
+## Pliki wiedzy (63), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 14.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-14 17:09:33 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 17.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 16:10:32 CEST |
+| `TAURON_APLIKACJE_RESEARCH.md` | 16.09 | 3K | APLIKACJE TAURON DLA DZIAŁKOWCÓW — RESEARCH ZAŁOGI 16.09.2026 (D-0361) |
+| `TAURON_APKI_RESEARCH.md` | 16.09 | 2K | APLIKACJE TAURONA — RESEARCH (16.09.2026, D-0360/D-0362) |
+| `AKTYWA_SERII.md` | 16.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
+| `CZOLOWKA_WIADOMOSCI.md` | 16.09 | 4K | CZOLOWKA WIADOMOSCI — KANON (wariant C, Belzebub) |
 | `BANK_KWESTII_PREZENTER_TOMASZ.md` | 08.09 | 7K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
 | `STRONA_FILMY.md` | 04.09 | 2K | STRONA ROD — FILMY (stan 04.09.2026, dekrety D-0314 / D-0315) |
 | `SPACER_MODEL.md` | 04.09 | 7K | MODEL WDROŻENIA SPACERU 360 (zapisany na polecenie Tomasza 04.09.2026) |
@@ -34,7 +38,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `KAMERA_ROG_INSTRUKCJA.md` | 03.09 | 5K | KAMERA ROG (.113) — INSTRUKCJA WLACZENIA DO CALEGO SYSTEMU |
 | `DECYZJE_OPENCLAW.md` | 03.09 | 4K | DECYZJA TOMASZA (2026-08-12): OpenClaw WDROZYC — pilotaz proaktywnosci 24/7 |
 | `DECYZJE_KUNY.md` | 03.09 | 1K | DECYZJE TOMASZA — FILM O KUNACH (append-only) |
-| `AKTYWA_SERII.md` | 03.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `AWATAR_TOMASZ_NARADA_0109.md` | 03.09 | 19K | ODPOWIEDŹ: do zbudowania wiarygodnego awatara Tomasza potrzebujemy od Tomasza 12 zdjęć, jednego 5-minutowego n |
 | `GENEROWANIE_OBRAZU.md` | 12.08 | 2K | GENEROWANIE OBRAZU — KANON DRÓG I CEN |
 | `BANK_PROMPTOW.md` | 12.08 | 1K | BANK PROMPTOW-ZWYCIEZCOW (dekret 23.07 pkt 3, wdrozony 12.08 dekretem "Wszystko") |
@@ -51,7 +54,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `ZACZEP_W_MOSCIE.md` | 05.08 | 3K | ZACZEP W MOSCIE — NIEMY REJESTRATOR (5.08.2026) |
 | `CLAWMEM_ROZPOZNANIE.md` | 05.08 | 2K | CLAWMEM — ROZPOZNANIE (5.08.2026, na polecenie Tomasza) |
 | `GDZIE_SIE_ZAPISUJE.md` | 05.08 | 5K | GDZIE SIĘ ZAPISUJE — JEDNO MIEJSCE NA JEDNĄ RZECZ |
-| `CZOLOWKA_WIADOMOSCI.md` | 04.08 | 2K | CZOLOWKA WIADOMOSCI DZIALKOWYCH — KANON |
 | `IZABELA_KANON_0.1.md` | 04.08 | 27K | IZABELA — KANON 0.1 (decyzja Tomasza, 29.07.2026) |
 | `LISTA_PRACOWNIKOW.md` | 04.08 | 6K | LISTA PRACOWNIKÓW FABRYKI — załoga stała |
 | `ARCHITEKTURA.md` | 04.08 | 6K | ARCHITEKTURA — jak jest teraz |
@@ -77,7 +79,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 126K | 08.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 159K | 17.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 69K | 03.09 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |

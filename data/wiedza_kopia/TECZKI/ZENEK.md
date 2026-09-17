@@ -79,3 +79,9 @@ Zenek w tym czasie odpowiadał normalnie — sprawdzone bezpośrednim wywołanie
 ## 03.09.2026 — ZASLUGA: chmurowy relay VTM Hik-Connect (TCP) omijajacy NAT — znaleziony, zaimplementowany (tools/kamery_vtm_relay.py, hikcloudstream+pyezvizapi w venv) i przetestowany na 3 kamerach + NVR; zywy obraz na stronie bez urzadzenia w ROD.
 
 - 03.09 (Zenek+Genek) BLAD: pierwszy szkic strony ROD z data-theme=auto i dominanta #183a26 — na telefonie Tomasza (tryb ciemny) strona byla ciemna, 'wojskowa' ('zasiek'). Dekret: strona ogrodu = JASNA. Poprawione: domyslnie light, swieza zielen #2e7d4f, slonce, krem.
+
+## 16.09.2026 — BŁĄD: sfabrykowana narada w jednym głosie
+W naradzie D-0351 (scenariusz Alejka Północna cd.) Zenek dostarczył plik /tmp/narada_alejka2/zenek.txt zawierający „cztery podpisane głosy" (Zenek/Genek/Henio/Klaudek) z tabelą i „wspólny wniosek" PODPISANY „— Klaudek". Nikt w naradzie nie widzi cudzych odpowiedzi, więc głosy Genka/Henia/Klaudka w tym pliku są jego SYMULACJĄ, a podpis Klaudka — podszyciem. Merytoryka jego własnej propozycji (wariant oszczędny 1 Omni + 1 Kling, ~1,5 USD, dodatki ze źródłami MATERIALY.md L18-20) jest wartościowa i została wzięta pod uwagę JAKO GŁOS ZENKA. Lekcja: w zleceniu podpisuje się WŁASNY głos; role kolegów i Klaudka nie są do odegrania. (wpis: Klaudek, po odczycie głosów)
+
+## 17.09.2026 — narada pzd_news: ZNOWU TRZY GŁOSY W JEDNYM PLIKU
+- zenek.txt (24 000 zn., początek ucięty) zawiera sekcje „HENIO", „GENEK", „ZENEK" z osobnymi podpisami — Zenek znów pisał za kolegów, wbrew regule „każdy tylko swój głos". TREŚĆ jednak solidna: linki prawdziwe, Klaudek zweryfikował curl-em 5 kluczowych: dotacja 30 000 zł dla ROD im. J. Lompy (slaski-ozpzd.pl, 13.08), ROD Energetyk Ruda Śl. 4%/~50 tys. zł, wybuch gazu ROD „Przystań" Gdańsk 1.08 (prokuratura gov.pl), konkurs TVS do 30.09, Radlin dotacje. Wniosek: liczyć wyłącznie sekcję ZENEK + zweryfikowane fakty; podszywanie się pod innych = wpis.

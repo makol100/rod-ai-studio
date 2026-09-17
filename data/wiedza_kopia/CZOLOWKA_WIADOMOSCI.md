@@ -1,3 +1,37 @@
+# CZOLOWKA WIADOMOSCI — KANON (wariant C, Belzebub)
+
+**STATUS: OBOWIAZUJE. Zatwierdzona przez Tomasza 16.09.2026 („Super!!!").**
+**DEKRET D-0350: doklejac do KAZDEGO wydania Wiadomosci z ogrodu, ZAWSZE.**
+
+**PLIK:** `assets/intro_wiadomosci/INTRO_WIADOMOSCI_C_v1.mp4` · SHA-256 (24): `996b664b2887d444504c4f8c`
+5,0 s · 1080x1920 · 30 fps · 150 klatek · z dzwiekiem · koszt 0 USD
+
+## PRZEBIEG (spec Belzebuba, D-0349)
+| czas | co widac |
+|---|---|
+| 0,0–0,8 s | tlo krem #fffdf6, logo ROD na srodku, skala 0,92→1,0 |
+| 0,8–2,4 s | tytul dwuliniowy WIADOMOSCI / Z OGRODU, Fraunces 96 px, #1f5a37 |
+| 2,4–3,8 s | podtytul „ROD im. Jozefa Lompy w Wozniakach" 34 px + zloty pasek #e5b744 wyjezdza do 360 px |
+| 3,8–4,6 s | pasek rozszerza sie do 520 px i przygasa do 80% |
+| 4,6–5,0 s | zamrozenie, twarde ciecie na wydanie |
+
+## JAK DOKLEJAC (obowiazkowo kazde wydanie)
+`python3 tools/dolacz_intro.py WYDANIE.mp4` — filter_complex concat z pelna
+normalizacja (NIE concat-demuxer!), bramka klatek + kadr z konca. Test bojowy
+16.09 na pierwszy_dzien_v3: 2389 = 150 + 2239 klatek, przejscie czyste.
+
+## JAK POWSTALA (do odtworzenia)
+- Scena: `assets/intro_wiadomosci/intro.html` — deterministyczne `ustawKlatke(t)`
+- Render: `tools/render_intro_wiadomosci.py` (playwright headless 150 klatek + ffmpeg)
+- Dzwiek: Mixkit sfx 1145 „Musical news presentation intro" (7,3 s → atrim 5 s,
+  afade out 0,8 s, loudnorm). Licencja Mixkit SFX: komercyjnie, social media,
+  BEZ atrybucji (potwierdzona 16.09). Zapasy: sfx 3089, 1151 w assets/audio/kandydaci/
+- 30 fps (nie 24 ze spec) — spojnosc montazowa z rolkami; zaakceptowane w v1
+
+---
+
+# ARCHIWUM — STARA CZOLOWKA (WYCOFANA 16.09.2026, Tomasz: „Stara chujowa!")
+
 # CZOLOWKA WIADOMOSCI DZIALKOWYCH — KANON
 
 **Zatwierdzona przez Tomasza 4.08.2026 20:2x.**
