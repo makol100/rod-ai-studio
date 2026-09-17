@@ -1275,3 +1275,24 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 17.09 Tomasz do rolki PZD-news: obowiązkowo 30 000 zł dla ROD Lompy (zaznaczyć), abisynki, zakaz spalania; czeka na listę tematów od załogi (D-0401).
+
+
+==============================================================================
+## SESJA 17.09.2026 18:04 CEST
+==============================================================================
+
+17.09 KLON GŁOSU PREZENTERA TOMASZA (0 zł): venv /root/klon_venv (chatterbox-tts, Chatterbox Multilingual, MIT, 'pl' na liście; łatki: setuptools<81 dla perth/pkg_resources, perth.DummyWatermarker fallback, zapis scipy zamiast torchaudio.save). Skrypt data/wiadomosci/pzd_news/glos/_klon.py <ref.wav> <N...>; referencja ref_W1_1.wav (audio z omni_W1_1.mp4, 24 kHz mono, czyste). Próbka N0: 7,9 s audio w 22 s CPU; whisper 1.00; ucho Gemini: naturalnie, bez artefaktów; porównanie z oryginałem 8/10 'zwykły widz uzna, że ten sam prezenter, nieco bardziej monotonny'. Wysłane Tomaszowi na Telegram (oryginał 1009, klon 1010) — czeka na decyzję.
+
+
+==============================================================================
+## SESJA 17.09.2026 18:32 CEST
+==============================================================================
+
+17.09 KLON GŁOSU — runda 2 po odrzuceniu Chatterbox (ukraiński akcent, D-0407): BRAMKA AKCENTU (Gemini pytane wprost + whisper) przed wysyłką. XTTS-v2 (/root/xtts_venv; łatki: transformers<5, torchcodec z indeksu CPU; 77 s/kwestię): akcent NIE, 7/10, 'Przegląd' OK — TG 1012. VoxCPM2 (Zenek, llama.cpp-omni GGUF, /tmp/klon_voxcpm, LOG.md): whisper 1,00, akcent NIE, 7/10 — TG 1013?. MOSS-Nano odpadł (whisper przekręca słowa). Czeka: ucho Tomasza.
+
+
+==============================================================================
+## SESJA 17.09.2026 19:13 CEST
+==============================================================================
+
+17.09 D-0410: GŁOS TOMASZA = klon VoxCPM2 V2 (tools/glos_tomasz.py, /root/modele/voxcpm2, 0 zł). Generuję 15 kwestii rolki PZD-news do data/wiadomosci/pzd_news/glos/final/ (log _final.log). D-0411: zdjęcia z internetu — narada /tmp/narada_pzd_zdjecia (henio,zenek,belzebub). Dalej: bramka akcentu na 15 kwestiach, plansze, montaż z intro C, karta Maksyś.

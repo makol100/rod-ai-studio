@@ -19,3 +19,6 @@ księgi po odmrożeniu, na słowo Tomasza.
 ## 01.09.2026 — PREZENTER TOMASZ (drugi prezenter, dekret Tomasza)
 - kanon: wiedza/PREZENTER_TOMASZ_KANON_0.1.md; referencja data/awatar_tomasz/test1/ref_tomasz_720.jpg; wzorzec omni_test1_1.mp4; narzedzie Gemini Omni 1.1 Flash ~0,10 USD/s
 - **INTRO WIADOMOSCI C v1** (16.09.2026): assets/intro_wiadomosci/INTRO_WIADOMOSCI_C_v1.mp4, 5 s, koszt 0 USD (HTML+playwright+ffmpeg, dzwiek Mixkit bez atrybucji); doklejane do kazdego wydania Wiadomosci przez tools/dolacz_intro.py (D-0350)
+
+## 17.09.2026 — KLON GŁOSU PREZENTERA TOMASZA (0 zł, lokalnie)
+- Narzędzie: Chatterbox Multilingual (chatterbox-tts, MIT) w /root/klon_venv, CPU 12 rdzeni: ~2,8 s liczenia na 1 s mowy. Skrypt: data/wiadomosci/pzd_news/glos/_klon.py, referencja: ref_W1_1.wav (z omni_W1_1.mp4). Pomiar 17.09: whisper 1.00, ucho Gemini 8/10 podobieństwa do Omni. STATUS: próbka u Tomasza — decyzja czy zastępuje Omni w rolkach bez twarzy.

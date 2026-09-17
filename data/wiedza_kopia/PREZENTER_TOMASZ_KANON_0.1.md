@@ -19,3 +19,9 @@ Status: DRUGI PREZENTER ROD obok Izabeli (wiedza/IZABELA_KANON_0.1.md — bez zm
 - Formula jawnosci AI dla Prezentera Tomasza (u Izabeli: deklaracja w intro).
 - SPOJNOSC miedzy klipami (twarz + glos): test #2 = extend w tym samym watku (previous_interaction_id) + porownanie; potem test 'nowy watek z VIDEO_REF'.
 - Zakaz tematow w ustach awatara prezesa (ustalenie zalogi): przelewy, kody, spory, nagle wypadki, "prezes prosi".
+
+## 17.09.2026 — GŁOS PREZENTERA TOMASZA BEZ OMNI (dekret D-0410, doslownie: „Kandydat 3 poprawiony od teraz jako głos Tomasz")
+- Do rolek BEZ mowiacej twarzy (plansze + lektor) glos Tomasza robi KLON VoxCPM2 lokalnie, 0 zl: tools/glos_tomasz.py (modele /root/modele/voxcpm2, GGUF, CPU ~60 s na kwestie 25 slow). Przepis V2: referencja data/glos_tomasz/ref_W1_1.wav + jej tekst, seed 7, timesteps 30, cfg 2.0; wzorzec brzmienia: data/glos_tomasz/WZORZEC_V2_N0.wav.
+- Historia wyboru: Chatterbox ODRZUCONY przez Tomasza („ukraiński akcent"), MOSS-Nano przekreca slowa, XTTS-v2 7/10 (licencja CPML), VoxCPM2 V2 = 7–8/10 uchem Gemini (slepy ranking 5 wersji), akcent NIE. Tomasz zaakceptowal po odsluchu.
+- BRAMKA OBOWIAZKOWA przed uzyciem kazdej kwestii: whisper (tekst 1.00) + ucho Gemini pytane WPROST o akcent i bledy wymowy. Ogolne „czy naturalnie" nie jest bramka (lekcja 17.09, teczka Klaudka).
+- Twarz + glos w jednym (mowiacy awatar) nadal tylko Omni (~1 USD/10 s) — decyzja Tomasza kazdorazowo.

@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 17.09.2026 15:03.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 17.09.2026 17:13.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,10 +11,11 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 17.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 16:40:32 CEST |
+| `PREZENTER_TOMASZ_KANON_0.1.md` | 17.09 | 3K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
+| `BRIEF_DLA_KLAUDKA.md` | 17.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 19:10:34 CEST |
+| `AKTYWA_SERII.md` | 17.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `TAURON_APLIKACJE_RESEARCH.md` | 16.09 | 3K | APLIKACJE TAURON DLA DZIAŁKOWCÓW — RESEARCH ZAŁOGI 16.09.2026 (D-0361) |
 | `TAURON_APKI_RESEARCH.md` | 16.09 | 2K | APLIKACJE TAURONA — RESEARCH (16.09.2026, D-0360/D-0362) |
-| `AKTYWA_SERII.md` | 16.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `CZOLOWKA_WIADOMOSCI.md` | 16.09 | 4K | CZOLOWKA WIADOMOSCI — KANON (wariant C, Belzebub) |
 | `BANK_KWESTII_PREZENTER_TOMASZ.md` | 08.09 | 7K | BANK KWESTII PREZENTERA TOMASZA — inwentaryzacja 02.09.2026 (D-0213), 0 USD |
 | `STRONA_FILMY.md` | 04.09 | 2K | STRONA ROD — FILMY (stan 04.09.2026, dekrety D-0314 / D-0315) |
@@ -28,7 +29,6 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 | `GRATULACJE_0109_naprawa_ogloszenia.md` | 03.09 | 1K | Tomasz 01.09.2026 po v7: 'Jest zajebiscie. Gratulacje dla grupy calej.' — za naprawe 0 USD ogloszenia Prezente |
 | `GENEK_OMNI_1.1_FLASH.md` | 03.09 | 2K | Gemini Omni 1.1 Flash — fakty z dokumentacji Google (sprawdzone 01.09.2026 przez Klaudka; Genek NIE ODDAL wiar |
 | `DECYZJE_SERIA_HUMOR.md` | 03.09 | 13K | DECYZJE TOMASZA — SERIA HUMOR (obsada, zasady ponadodcinkowe) |
-| `PREZENTER_TOMASZ_KANON_0.1.md` | 03.09 | 2K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
 | `LEKCJE_INFRA.md` | 03.09 | 1K | 27.08.2026 — fail2ban + Caddy access log (S3, wdrozone i przetestowane zywym banem) |
 | `OMNI_1_1_FLASH_fakty_0109.md` | 03.09 | 1K | Gemini Omni 1.1 Flash — fakty zweryfikowane 01.09.2026 (Klaudek-czat: changelog + docs/omni 30.08 + pricing +  |
 | `KONTROLA_KLAUDKA.md` | 03.09 | 8K | KONTROLA KLAUDKA — LISTA OBOWIĄZKOWA |
@@ -79,7 +79,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 160K | 17.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 162K | 17.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 69K | 03.09 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
