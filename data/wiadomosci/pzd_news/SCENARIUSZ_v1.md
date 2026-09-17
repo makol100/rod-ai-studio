@@ -15,7 +15,7 @@ N4  Temat czwarty — zakaz spalania. W ogrodzie nie wolno palić liści, gałę
 N5a Temat piąty — bezpieczeństwo na jesień. W Rudzie Śląskiej jednej nocy spłonęły trzy altany, policja sprawdza, czy to podpalenie. U nas działają kamery — zamykajcie altany i zabierajcie narzędzia.
 N5b W Gdańsku w altanie wybuchł gaz, zginęły dwie osoby. Przed zimą sprawdźcie butle, węże i kuchenki. Jak coś podejrzanego — dzwońcie sto dwanaście.
 N6a Temat szósty — dobre wieści ze Śląska. Najpiękniejsza działka w Polsce jest w tym roku w Piekarach Śląskich, a ogród z Łazisk Górnych stanął na podium konkursu na najlepszy ogród.
-N6b Jedenastego września Związek świętował czterdzieści pięć lat. Gratulujemy sąsiadom — i do zobaczenia w naszym ogrodzie.
+N6b Jedenastego września Związek świętował czterdzieści pięć lat. Gratulujemy działkowcom z Piekar i Łazisk — i do zobaczenia w naszym ogrodzie.
 
 ## PLANSZE (0 zł) — wcięcie po ~3,5 s twarzy, głos leci dalej (jak w poradnikach)
 P1 „30 000 zł — ROD im. J. Lompy w Woźnikach — nowa instalacja elektryczna" (cytat z komunikatu KZ PZD 13.08.2026)
