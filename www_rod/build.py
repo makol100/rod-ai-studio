@@ -281,6 +281,7 @@ def podziekowania_html() -> str:
             f'<p class="podz-wstep">{html.escape(d.get("wstep",""))}</p>'
             f'<ol class="podz-lista">{lista}</ol>'
             f'<p class="podz-tresc">{html.escape(d.get("tresc",""))}</p>'
+            + "".join(f'<p class="podz-dodatkowe">{html.escape(x.get("tekst",""))}</p>' for x in d.get("dodatkowe", []))
             f'<p class="podz-koniec">{html.escape(d.get("zakonczenie",""))}</p>'
             f'<p class="podz-podpis">{html.escape(d.get("podpis",""))} · {html.escape(d.get("data",""))}</p></section>')
 
