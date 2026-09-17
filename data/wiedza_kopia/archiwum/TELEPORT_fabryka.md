@@ -1268,3 +1268,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 17.09 NARADA pzd_news (D-0398) ZAKOŃCZONA: wnioski w wiedza/narady/PZD_NEWS_1709.md (24 zweryfikowane pozycje), głos Klaudka w PZD_NEWS_1709_klaudek.md. Genek NIEODEBRANY (zmyślona lista, odrzucona), Zenek znów 'trzy głosy' (treść OK, zweryfikowana), Belzebub słaby po capacity, Henio wzorowy. Fakty: grunt ROD Woźniki w użytkowaniu wieczystym (D-0400); ROD Lompy = Okręg Częstochowski; 30 000 zł dotacji KZ PZD 12.08 na instalację elektryczną. Czeka: decyzja Tomasza o krótkiej rolce (TOP 3 A/B/C).
+
+
+==============================================================================
+## SESJA 17.09.2026 16:14 CEST
+==============================================================================
+
+17.09 Tomasz do rolki PZD-news: obowiązkowo 30 000 zł dla ROD Lompy (zaznaczyć), abisynki, zakaz spalania; czeka na listę tematów od załogi (D-0401).

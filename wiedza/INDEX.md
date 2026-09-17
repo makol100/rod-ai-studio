@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 17.09.2026 14:11.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 17.09.2026 14:43.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 17.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 16:10:32 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 17.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 16:40:32 CEST |
 | `TAURON_APLIKACJE_RESEARCH.md` | 16.09 | 3K | APLIKACJE TAURON DLA DZIAŁKOWCÓW — RESEARCH ZAŁOGI 16.09.2026 (D-0361) |
 | `TAURON_APKI_RESEARCH.md` | 16.09 | 2K | APLIKACJE TAURONA — RESEARCH (16.09.2026, D-0360/D-0362) |
 | `AKTYWA_SERII.md` | 16.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
@@ -79,7 +79,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 159K | 17.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 160K | 17.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 69K | 03.09 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |

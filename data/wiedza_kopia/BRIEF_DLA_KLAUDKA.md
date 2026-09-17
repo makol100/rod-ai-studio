@@ -1,5 +1,5 @@
-1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 16:10:32 CEST
-2. OSTATNIA DECYZJA: D-0400 | 2026-09-17 | 17.09 Tomasz (dosłownie): 'Użytkowanie wieczyste' — odpowiedź na pytanie Klaudka: grunt ROD im. J. Lompy…
+1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 16:40:32 CEST
+2. OSTATNIA DECYZJA: D-0401 | 2026-09-17 | 17.09 Tomasz (dosłownie, dyktowane): 'Co proponujecie podać mi tematy co ustaliliście w dyskusji na pewn…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
