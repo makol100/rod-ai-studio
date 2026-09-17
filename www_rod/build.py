@@ -260,6 +260,31 @@ def poradniki_skrot() -> str:
             '<p><a class="button button-ghost" href="/poradniki/">Wszystkie poradniki i instrukcje →</a></p></div>')
 
 
+_PL = "aąbcćdeęfghijklłmnńoópqrsśtuvwxyzźż"
+def _klucz_pl(s: str):
+    return [(_PL.index(c) if c in _PL else 100 + ord(c)) for c in s.lower()]
+
+
+def podziekowania_html() -> str:
+    """D-0376: PODZIEKOWANIA na samej gorze strony glownej — lista alfabetycznie po nazwisku (polski alfabet)."""
+    try:
+        d = load_json(CONTENT / "podziekowania.json")
+    except Exception:
+        return ""
+    if not d or not d.get("aktywne"):
+        return ""
+    osoby = sorted(d.get("osoby_wg_tomasza", []), key=lambda o: _klucz_pl(o.split()[-1] + " " + o.split()[0]))
+    lista = "".join(f'<li>{html.escape(o)}</li>' for o in osoby)
+    return (f'<section class="podziekowania shell" aria-labelledby="podz-tytul">'
+            f'<p class="eyebrow">{html.escape(d.get("podtytul",""))}</p>'
+            f'<h2 id="podz-tytul">{html.escape(d.get("tytul","Podziękowania"))}</h2>'
+            f'<p class="podz-wstep">{html.escape(d.get("wstep",""))}</p>'
+            f'<ol class="podz-lista">{lista}</ol>'
+            f'<p class="podz-tresc">{html.escape(d.get("tresc",""))}</p>'
+            f'<p class="podz-koniec">{html.escape(d.get("zakonczenie",""))}</p>'
+            f'<p class="podz-podpis">{html.escape(d.get("podpis",""))} · {html.escape(d.get("data",""))}</p></section>')
+
+
 def wideo_html(kategoria: str) -> str:
     try:
         items = [x for x in load_json(CONTENT / "wideo.json") if x.get("kategoria") == kategoria]
@@ -393,7 +418,7 @@ def build() -> list[Path]:
     else:
         featured_card = ""
         bento_mod = " today-solo"
-    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot(), "poradniki_skrot": poradniki_skrot()})
+    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot(), "poradniki_skrot": poradniki_skrot(), "podziekowania": podziekowania_html()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
