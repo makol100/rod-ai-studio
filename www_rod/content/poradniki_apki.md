@@ -19,6 +19,10 @@ Poniżej wzorzec § 1 bez danych osobowych — zielone pola idą do Mój TAURON,
 
 ![Wzorzec § 1 umowy kompleksowej TAURON (KSG-10): gdzie są Nr PPE, Nr Płatnika i PESEL](/static/img/umowa_ksg10_gdzie_szukac.png)
 
+A tak wygląda prawdziwa strona 3 umowy z naszego ogrodu (dane osobowe zamazane) — Nr PPE w pierwszym wierszu po prawej, Nr Płatnika w drugim wierszu po prawej, PESEL w trzecim wierszu po lewej:
+
+![Strona 3 umowy kompleksowej TAURON (KSG-10) z ogrodu — przykład z zamazanymi danymi osobowymi](/static/img/umowa_ksg10_str3_przyklad.jpg)
+
 W § 1 znajdziesz też: adres punktu poboru (ul. Młyńska 40C z numerem działki), grupę taryfową (np. G12W), miesięczny okres rozliczeniowy, rozliczenie **z odczytu**, układ pomiarowy (1F/3F), zabezpieczenie przedlicznikowe i moc umowną — a w § 2 pkt 3 informację, że operatorem sieci (OSD) jest TAURON Dystrybucja S.A.
 
 ### Mój TAURON — umowa i rachunki w telefonie
