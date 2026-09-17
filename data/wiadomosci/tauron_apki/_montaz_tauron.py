@@ -71,8 +71,13 @@ def main(w):
     bez = B / f"{w}_bez_intro.mp4"
     run([*ins, "-filter_complex", fc, "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-ar", "48000", "-b:a", "192k", "-movflags", "+faststart", str(bez)])
     nazwa = {"W1": "MOJ_TAURON", "W2": "ELICZNIK"}[w]
-    r = subprocess.run(["python3", "/root/rod-ai-studio/tools/dolacz_intro.py", str(bez), "--wyjscie", str(B / f"WIADOMOSCI_{nazwa}_v1.mp4")], capture_output=True, text=True)
-    print(w, "bez intro:", round(dur(bez), 1), "s |", r.stdout.strip() or r.stderr.strip())
+    # D-0369: PORADNIK — zielone intro rolek (2,5 s) zamiast intro C Wiadomosci
+    ZIEL = "/root/rod-ai-studio/assets/branding/intro_rolki_zielone_2_5s.mp4"
+    fin = B / f"PORADNIK_{nazwa}_v2.mp4"
+    run(["-i", ZIEL, "-i", str(bez), "-filter_complex", f"[0:v]{NORM}[v0];[0:a]{AUD}[a0];[1:v]{NORM}[v1];[1:a]{AUD}[a1];[v0][a0][v1][a1]concat=n=2:v=1:a=1[v][a]",
+         "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-ar", "48000", "-b:a", "192k", "-movflags", "+faststart", str(fin)])
+    k = subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v", "-show_entries", "stream=nb_read_frames", "-of", "csv=p=0", str(fin)], capture_output=True, text=True).stdout.strip()
+    print(w, "bez intro:", round(dur(bez), 1), "s | FINAL:", fin, "| klatki:", k)
 
 
 if __name__ == "__main__":

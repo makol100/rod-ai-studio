@@ -18,9 +18,9 @@ def img(nazwa):
 PLANSZE = {
  "W1": [
   ("W1_01", "MÓJ TAURON", "1", "ZAINSTALUJ", ["play_mojtauron.png"], ["Sklep Play · App Store", "wpisz: Mój TAURON"], "ZAINSTALUJ — DARMOWA"),
-  ("W1_02", "MÓJ TAURON", "2", "WEŹ FAKTURĘ", [], ["NUMER PŁATNIKA — 8 cyfr,", "nad adresem do korespondencji", "+ Twój PESEL"], "NUMER PŁATNIKA · PESEL"),
+  ("W1_02", "MÓJ TAURON", "2", "WEŹ UMOWĘ", [], ["NUMER EWIDENCYJNY — z umowy", "(na fakturze: numer płatnika)", "+ Twój PESEL"], "NUMER Z UMOWY · PESEL"),
   ("W1_03", "MÓJ TAURON", "3", "ZAREJESTRUJ SIĘ", ["www_mojtauron_logowanie.png"], ["Serwis: Mój TAURON / eBOK", "Klient indywidualny"], "ZAREJESTRUJ SIĘ"),
-  ("W1_04", "MÓJ TAURON", "4", "WPISZ DANE", [], ["PESEL · NUMER PŁATNIKA → Dalej", "E-MAIL (dwa razy)", "HASŁO (dwa razy)"], "ZGODY → ZATWIERDŹ"),
+  ("W1_04", "MÓJ TAURON", "4", "WPISZ DANE", [], ["PESEL · NUMER Z UMOWY → Dalej", "E-MAIL (dwa razy)", "HASŁO (dwa razy)"], "ZGODY → ZATWIERDŹ"),
   ("W1_05", "MÓJ TAURON", "5", "AKTYWUJ KONTO", [], ["Na e-mail przyjdzie", "LINK AKTYWACYJNY", "— kliknij w niego"], "KONTO GOTOWE"),
   ("W1_06", "MÓJ TAURON", "6", "ZALOGUJ SIĘ", ["mojtauron_android_01.png"], ["e-mail + hasło", "ustaw PIN — 4 cyfry"], "WCHODZISZ JEDNYM RUCHEM"),
   ("W1_07", "MÓJ TAURON", "", "CO MASZ W APLIKACJI", ["mojtauron_android_03.png", "mojtauron_android_07.png", "mojtauron_android_04.png"], ["UMOWA · FAKTURY", "PŁATNOŚĆ JEDNYM KLIKNIĘCIEM · CZAT"], "PYTAJ W ZARZĄDZIE — POMOŻEMY"),
@@ -28,8 +28,8 @@ PLANSZE = {
  ],
  "W2": [
   ("W2_01", "eLICZNIK", "1", "ZAINSTALUJ", ["play_elicznik.png"], ["Sklep Play · App Store", "wpisz: TAURON eLicznik"], "INNA APLIKACJA NIŻ MÓJ TAURON"),
-  ("W2_02", "eLICZNIK", "2", "PRZYGOTUJ FAKTURĘ", [], ["Twój E-MAIL", "NUMER PPE — 18 cyfr", "(punkt poboru energii)"], "E-MAIL · NUMER PPE"),
-  ("W2_03", "eLICZNIK", "3", "ZAREJESTRUJ SIĘ", ["www_elicznik_logowanie.png"], ["Serwis: eLicznik", "e-mail · hasło · dane z faktury"], "ZAREJESTRUJ SIĘ"),
+  ("W2_02", "eLICZNIK", "2", "PRZYGOTUJ UMOWĘ", [], ["Twój E-MAIL", "NUMER PPE — 18 cyfr,", "z umowy (punkt poboru energii)"], "E-MAIL · NUMER PPE Z UMOWY"),
+  ("W2_03", "eLICZNIK", "3", "ZAREJESTRUJ SIĘ", ["www_elicznik_logowanie.png"], ["Serwis: eLicznik", "e-mail · hasło · dane z umowy"], "ZAREJESTRUJ SIĘ"),
   ("W2_04", "eLICZNIK", "4", "AKTYWUJ I ZALOGUJ", [], ["LINK AKTYWACYJNY na e-mail", "→ Zaloguj się"], "1 KONTO = 1 UMOWA"),
   ("W2_05", "eLICZNIK", "!", "NIE WIDZISZ LICZNIKA?", [], ["Tauron musi najpierw", "włączyć zdalny odczyt"], "ZGŁOŚ W ZARZĄDZIE"),
   ("W2_06", "eLICZNIK", "", "CO WIDZISZ", ["elicznik_android_01.png"], ["STAN LICZNIKA", "ZUŻYCIE"], "EKRAN STARTOWY"),
@@ -56,7 +56,7 @@ body{{font-family:"Fraunces ROD",serif;color:#172019;position:relative}}
 .wyr{{position:absolute;left:60px;right:60px;top:{wyr_top}px;text-align:center;font-size:{wyr_size}px;font-weight:800;color:#fffdf6;background:#2e7d4f;padding:30px 36px;border-radius:26px;line-height:1.2}}
 .stopka{{position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:28px;color:#59635b;letter-spacing:.08em}}
 </style></head><body>
-<img class="logo" src="{logo}"><div class="kicker">WIADOMOŚCI Z OGRODU · {kicker}</div>
+<img class="logo" src="{logo}"><div class="kicker">PORADNIK · {kicker}</div>
 <div class="naglowek"><div class="nr {nr_klasa}">{nr}</div><div class="tytul">{tytul}</div></div>
 <div class="zrzuty">{zrzuty}</div><div class="pasek"></div>
 <div class="opis">{opis}</div><div class="wyr">{wyr}</div>
