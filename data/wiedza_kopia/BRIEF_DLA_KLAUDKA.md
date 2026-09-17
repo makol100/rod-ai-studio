@@ -1,5 +1,5 @@
-1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 19:10:34 CEST
-2. OSTATNIA DECYZJA: D-0410 | 2026-09-17 | 17.09 Tomasz (dosłownie): 'Kandydat 3 poprawiony od teraz jako głos Tomasz' — KANON: głos Prezentera Tom…
+1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-17 20:10:35 CEST
+2. OSTATNIA DECYZJA: D-0411 | 2026-09-17 | 17.09 Tomasz (dosłownie): 'Zdjęcia do tej rolki wyszukać w internecie' — ilustracje do 7 tematów szukać…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
