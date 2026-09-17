@@ -1296,3 +1296,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 17.09 D-0410: GŁOS TOMASZA = klon VoxCPM2 V2 (tools/glos_tomasz.py, /root/modele/voxcpm2, 0 zł). Generuję 15 kwestii rolki PZD-news do data/wiadomosci/pzd_news/glos/final/ (log _final.log). D-0411: zdjęcia z internetu — narada /tmp/narada_pzd_zdjecia (henio,zenek,belzebub). Dalej: bramka akcentu na 15 kwestiach, plansze, montaż z intro C, karta Maksyś.
+
+
+==============================================================================
+## SESJA 17.09.2026 19:37 CEST
+==============================================================================
+
+17.09 ROLKA PZD_NEWS v1 GOTOWA (0 zł): data/wiadomosci/pzd_news/PZD_NEWS_v1.mp4 (180,5 s, 1080x1920, 30 fps; body 175,5 s + intro C). 15 kwestii klonem V2 (bramka: whisper OK — różnice to cyfry vs słowa; ucho Gemini: akcent NIE, artefakty BRAK, NRb/N4/N2a 'wszystko poprawnie'); plansze tools/plansze_pzd_news.py (geometria sprawdzona JS, bez nakładania); zdjęcia: pzd.pl (KDD, laureaci, Gwarki, skan pisma), rudaslaska.com.pl (ROD Irys), Wikimedia Commons (Sejm, pompa, liście, kompost), pl.wikipedia (Katowice, Częstochowa, Wieliczka, butla), własne (alejka), zrzut komunikatu KZ PZD; montaż _montaz_pzd.py (zoompan, concat filter_complex). Uwaga: dolacz_intro bramka klatek 5415 vs 5409 (+6 klatek = 0,2 s przy konkatenacji) — plik sprawdzony ffprobe (5415 klatek, audio=video 180,5 s), ostatnia klatka OUTRO. Wysłane Tomaszowi TG. Czeka: akceptacja / 'publikuj'.
