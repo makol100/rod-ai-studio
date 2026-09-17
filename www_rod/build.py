@@ -232,6 +232,14 @@ def wiadomosci_skrot() -> str:
             f'<strong>{html.escape(w["tytul"])}</strong><span class="wiad-data">{html.escape(w.get("display_date",""))} · film, kliknij aby obejrzeć</span></span></a>')
 
 
+def poradniki_apki_html() -> str:
+    """D-0372: instrukcje aplikacji Taurona — jeden fragment, wstawiany na /dla-dzialkowcow/ (adres z filmu) i /poradniki/."""
+    try:
+        return markdown((CONTENT / "poradniki_apki.md").read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+
+
 def wideo_html(kategoria: str) -> str:
     try:
         items = [x for x in load_json(CONTENT / "wideo.json") if x.get("kategoria") == kategoria]
@@ -248,7 +256,8 @@ def wideo_html(kategoria: str) -> str:
         karty.append(f'<a class="wideo-karta" href="{html.escape(wid or it["link"])}"{atr}>'
                      f'<span class="wideo-mini">{mini}<span class="wideo-play" aria-hidden="true">▶</span></span>'
                      f'<span class="wideo-tyt">{html.escape(it["tytul"])}</span>'
-                     f'<span class="wideo-data">{html.escape(it.get("display_date",""))}{dopisek}</span></a>')
+                     + (f'<span class="wideo-opis">{html.escape(it["opis"]).replace(chr(10), "<br>")}</span>' if it.get("opis") else "")
+                     + f'<span class="wideo-data">{html.escape(it.get("display_date",""))}{dopisek}</span></a>')
     return '<div class="wideo-lista">' + "".join(karty) + '</div>'
 
 
@@ -400,7 +409,7 @@ def build() -> list[Path]:
             title=meta["title"],
             description=meta["description"],
             canonical=f'{site["url"]}/{meta["slug"]}/',
-            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{fb_posty}}", fb_posty_html()).replace("{{wideo_rolki}}", wideo_html("rolki")).replace("{{wideo_wiadomosci}}", wideo_html("wiadomosci")).replace("{{wideo_humor}}", wideo_html("humor"))),
+            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{fb_posty}}", fb_posty_html()).replace("{{wideo_rolki}}", wideo_html("rolki")).replace("{{wideo_wiadomosci}}", wideo_html("wiadomosci")).replace("{{wideo_humor}}", wideo_html("humor")).replace("{{wideo_poradniki}}", wideo_html("poradniki")).replace("{{poradniki_apki}}", poradniki_apki_html())),
         )
 
     paths = ["/", "/ogloszenia/"] + [f"/{parse_page(path)[0]['slug']}/" for path in sorted((CONTENT / "pages").glob("*.md"))]

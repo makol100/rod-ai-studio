@@ -25,6 +25,10 @@ slug: dla-dzialkowcow
 </a>
 :::
 
+{{poradniki_apki}}
+
+Filmy z tymi poradnikami: [Poradniki](/poradniki/).
+
 ## Kto odpowiada za awarię
 
 Awarię sieci, złącza lub licznika zgłoś bezpośrednio pod numer **991**. Kabel, szafka i instalacja za licznikiem należą do działkowca; ich utrzymanie i naprawa są po jego stronie.
