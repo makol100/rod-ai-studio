@@ -240,6 +240,26 @@ def poradniki_apki_html() -> str:
         return ""
 
 
+def poradniki_skrot() -> str:
+    """D-0373: PORADNIKI na stronie glownej pod karta Wiadomosci — 2 najnowsze filmy poradnikow + link do /poradniki/."""
+    try:
+        items = [x for x in load_json(CONTENT / "wideo.json") if x.get("kategoria") == "poradniki" and x.get("wideo")]
+    except Exception:
+        items = []
+    if not items:
+        return ""
+    items = sorted(items, key=lambda r: r.get("date", ""), reverse=True)[:2]
+    karty = []
+    for it in items:
+        karty.append(f'<a class="wideo-karta" href="{html.escape(it["wideo"])}" data-wideo="{html.escape(it["wideo"])}" data-mini="{html.escape(it.get("miniaturka",""))}">'
+                     f'<span class="wideo-mini"><img src="{html.escape(it.get("miniaturka",""))}" alt="" loading="lazy"><span class="wideo-play" aria-hidden="true">▶</span></span>'
+                     f'<span class="wideo-tyt">{html.escape(it["tytul"])}</span>'
+                     f'<span class="wideo-data">{html.escape(it.get("display_date",""))} · film, kliknij aby obejrzeć</span></a>')
+    return ('<div class="poradniki-skrot"><div class="section-heading"><p class="eyebrow">Poradniki</p>'
+            '<h2>Krok po kroku — jak najprościej</h2></div><div class="wideo-lista">' + "".join(karty) + '</div>'
+            '<p><a class="button button-ghost" href="/poradniki/">Wszystkie poradniki i instrukcje →</a></p></div>')
+
+
 def wideo_html(kategoria: str) -> str:
     try:
         items = [x for x in load_json(CONTENT / "wideo.json") if x.get("kategoria") == kategoria]
@@ -373,7 +393,7 @@ def build() -> list[Path]:
     else:
         featured_card = ""
         bento_mod = " today-solo"
-    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot()})
+    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot(), "poradniki_skrot": poradniki_skrot()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
