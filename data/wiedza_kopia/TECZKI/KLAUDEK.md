@@ -285,3 +285,7 @@ Klaudek odczytał ze zrzutu umowy w oknie czatu nazwisko jako „MAKRYŚ" i podn
 - Klon Chatterbox N0: whisper 1.00, ucho Gemini na OGÓLNE pytanie „naturalnie? artefakty?" → „bez zastrzeżeń", porównanie 8/10. Tomasz: „darmowy jakiś huj z ukraińskim akcentem". Gemini zapytane WPROST o akcent: „TAK, ukraiński" z przykładami (miękkie sz/cz/dz).
 - LEKCJA: ucho Gemini odpowiada tylko na to, o co się pyta. BRAMKA AKCENTU obowiązkowa przed każdą próbką głosu do Tomasza: pytanie „czy rodowity Polak / jaki obcy akcent / które głoski" + whisper. Ogólne „czy brzmi naturalnie" NIE jest bramką. Do Tomasza idą tylko próbki z „akcent NIE".
 - Zapisane w decyzjach D-0407/D-0408. Kandydaci dalej: XTTS-v2, VoxCPM2 (Zenek, /tmp/narada_voxcpm), MOSS-Nano odpadł (whisper: przekręcone słowa).
+
+## 17.09.2026 — ZNOWU „PREZES" W WYDANIU („Kurwa ile razy mam bez prezesowania")
+- Karta końcowa PZD_NEWS_v1: „Głos prezentera to awatar AI wygenerowany za zgodą prezesa" + N2c „Prezesi naszego okręgu…" + podpis zdjęcia „pismo Prezesa PZD". Dekret 16.09 „Bez prezesa!!!" złamany drugi raz.
+- ZASADA TWARDA: przed każdym montażem wydania `grep -i prezes` po scenariuszu, kwestiach, planszach i podpisach — wynik musi być PUSTY. Etykieta AI bez tytułów: „Głos to awatar AI Tomasza Maksysia, wygenerowany za jego zgodą". Dopisać do tools jako bramkę (test_bramki).

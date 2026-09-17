@@ -1303,3 +1303,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 17.09 ROLKA PZD_NEWS v1 GOTOWA (0 zł): data/wiadomosci/pzd_news/PZD_NEWS_v1.mp4 (180,5 s, 1080x1920, 30 fps; body 175,5 s + intro C). 15 kwestii klonem V2 (bramka: whisper OK — różnice to cyfry vs słowa; ucho Gemini: akcent NIE, artefakty BRAK, NRb/N4/N2a 'wszystko poprawnie'); plansze tools/plansze_pzd_news.py (geometria sprawdzona JS, bez nakładania); zdjęcia: pzd.pl (KDD, laureaci, Gwarki, skan pisma), rudaslaska.com.pl (ROD Irys), Wikimedia Commons (Sejm, pompa, liście, kompost), pl.wikipedia (Katowice, Częstochowa, Wieliczka, butla), własne (alejka), zrzut komunikatu KZ PZD; montaż _montaz_pzd.py (zoompan, concat filter_complex). Uwaga: dolacz_intro bramka klatek 5415 vs 5409 (+6 klatek = 0,2 s przy konkatenacji) — plik sprawdzony ffprobe (5415 klatek, audio=video 180,5 s), ostatnia klatka OUTRO. Wysłane Tomaszowi TG. Czeka: akceptacja / 'publikuj'.
+
+
+==============================================================================
+## SESJA 17.09.2026 20:37 CEST
+==============================================================================
+
+17.09 D-0412: podziękowania na rodwozniki.pl uzupełnione o Zofię Zachariasz, Halinę Perek i Gabrysię Rybak (jedzenie dla ekipy z górnej alejki) — build + deploy, sprawdzone curl na żywej stronie.

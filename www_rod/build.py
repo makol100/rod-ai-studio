@@ -219,17 +219,20 @@ def wiadomosci_skrot() -> str:
     wiad = [w for w in items if w.get("kategoria") == "wiadomosci" and w.get("wideo")]
     if not wiad:
         return ""
-    w = sorted(wiad, key=lambda x: x["date"], reverse=True)[0]
-    try:
-        swieze = (_dt.now(_tz.utc) - _dt.fromisoformat(w["date"])) < _td(days=14)
-    except Exception:
-        swieze = False
-    odznaka = '<span class="wiad-nowe">NOWE</span>' if swieze else ""
-    mini = f'<img src="{html.escape(w.get("miniaturka",""))}" alt="" loading="lazy">' if w.get("miniaturka") else ""
-    return (f'<a class="wiad-skrot" href="{html.escape(w["wideo"])}" data-wideo="{html.escape(w["wideo"])}" data-mini="{html.escape(w.get("miniaturka",""))}">'
+    # D-0414 (17.09.2026, Tomasz: „na naszą stronę obok wiadomości z ogrodu cz.2"): DWA najnowsze wydania obok siebie
+    out = []
+    for w in sorted(wiad, key=lambda x: x["date"], reverse=True)[:2]:
+        try:
+            swieze = (_dt.now(_tz.utc) - _dt.fromisoformat(w["date"])) < _td(days=14)
+        except Exception:
+            swieze = False
+        odznaka = '<span class="wiad-nowe">NOWE</span>' if swieze else ""
+        mini = f'<img src="{html.escape(w.get("miniaturka",""))}" alt="" loading="lazy">' if w.get("miniaturka") else ""
+        out.append(f'<a class="wiad-skrot" href="{html.escape(w["wideo"])}" data-wideo="{html.escape(w["wideo"])}" data-mini="{html.escape(w.get("miniaturka",""))}">'
             f'<span class="wiad-mini">{mini}<span class="wideo-play" aria-hidden="true">▶</span>{odznaka}</span>'
             f'<span class="wiad-tresc"><span class="card-label">Wiadomości z ogrodu</span>'
             f'<strong>{html.escape(w["tytul"])}</strong><span class="wiad-data">{html.escape(w.get("display_date",""))} · film, kliknij aby obejrzeć</span></span></a>')
+    return "".join(out)
 
 
 def poradniki_apki_html() -> str:
