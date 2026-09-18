@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 18.09.2026 06:39.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 18.09.2026 06:51.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,8 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `KARTKA_QR_rodwozniki.md` | 18.09 | 5K | Kartka z QR do rodwozniki.pl + plakat na bramę (D-0419, 18.09.2026) |
-| `BRIEF_DLA_KLAUDKA.md` | 18.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-18 08:10:45 CEST |
+| `KARTKA_QR_rodwozniki.md` | 18.09 | 6K | Kartka z QR do rodwozniki.pl + plakat na bramę (D-0419, 18.09.2026) |
+| `BRIEF_DLA_KLAUDKA.md` | 18.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-18 08:40:45 CEST |
 | `PREZENTER_TOMASZ_KANON_0.1.md` | 17.09 | 3K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
 | `AKTYWA_SERII.md` | 17.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
 | `TAURON_APLIKACJE_RESEARCH.md` | 16.09 | 3K | APLIKACJE TAURON DLA DZIAŁKOWCÓW — RESEARCH ZAŁOGI 16.09.2026 (D-0361) |
