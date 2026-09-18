@@ -18,6 +18,12 @@ slug: filmy
 </figure>
 :::
 
+## 📱 Poradniki
+
+Krótkie filmy krok po kroku — jak załatwić sprawy związane z prądem i aplikacjami. Prowadzi Prezenter Tomasz (awatar AI).
+
+{{wideo_poradniki}}
+
 ## 🎬 Rolki
 
 Krótkie rolki z porad i życia ogrodu — klik otwiera nagranie na Facebooku.
