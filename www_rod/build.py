@@ -235,6 +235,63 @@ def wiadomosci_skrot() -> str:
     return "".join(out)
 
 
+def stan_robot_html(tylko_ostatni: bool = False) -> str:
+    """Kącik „Stan robót” (D-0430, 18.09.2026, pkt 6 narady): zrobione / trwa / następne z datą i źródłem (content/stan_robot.json)."""
+    try:
+        d = json.loads((CONTENT / "stan_robot.json").read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    wpisy = d.get("wpisy", [])
+    if not wpisy:
+        return ""
+    def _dd(iso: str) -> str:
+        try:
+            y, m, dd = iso.split("-"); return f"{int(dd)}.{int(m):02d}.{y}"
+        except Exception:
+            return iso
+    ety = {"zrobione": "Zrobione", "trwa": "Trwa", "nastepne": "Następne"}
+    if tylko_ostatni:
+        w = sorted(wpisy, key=lambda x: (x.get("status") != "trwa", x.get("data", "")), reverse=False)[0]
+        return (f'<span class="dzis-etykieta">Stan robót</span><strong>{html.escape(w["tytul"])}</strong>'
+                f'<span class="dzis-mala"><span class="stan-znak stan-{html.escape(w["status"])}">{ety.get(w["status"], w["status"])}</span> · {_dd(w.get("data",""))}</span>')
+    kolejnosc = {"trwa": 0, "nastepne": 1, "zrobione": 2}
+    out = ['<div class="stan-robot-lista">']
+    for w in sorted(wpisy, key=lambda x: (kolejnosc.get(x.get("status"), 9), x.get("data", "")), reverse=False):
+        if w.get("status") == "zrobione":
+            pass
+        out.append(f'<article class="stan-wpis stan-{html.escape(w["status"])}">'
+                   f'<span class="stan-znak">{ety.get(w["status"], w["status"])}</span>'
+                   f'<h3>{html.escape(w["tytul"])}</h3><p>{html.escape(w.get("opis",""))}</p>'
+                   f'<p class="stan-meta"><time datetime="{html.escape(w.get("data",""))}">{_dd(w.get("data",""))}</time>'
+                   + (f' · <a class="text-link" href="{html.escape(w["link"])}">więcej →</a>' if w.get("link") else "") + '</p></article>')
+    out.append('</div>')
+    out.append(f'<p class="muted stan-stopka">Stan na {_dd(d.get("stan_na",""))}. Wykaz prowadzi zarząd ogrodu.</p>')
+    return "".join(out)
+
+
+def dzis_w_rod_html() -> str:
+    """Pasek „Dziś w ROD” na samej górze strony (D-0430, pkt 2 narady): pogoda jednym zdaniem (JS z pogoda.json),
+    najnowsze Wiadomości z ogrodu, stan robót. Sekcja POGODY niżej zostaje bez zmian (Tomasz 18.09: „nie kasuj mi tej pogody z główne!”)."""
+    wiad = ""
+    try:
+        items = json.loads((CONTENT / "wideo.json").read_text(encoding="utf-8"))
+        w = sorted([x for x in items if x.get("kategoria") == "wiadomosci" and x.get("wideo")], key=lambda x: x["date"], reverse=True)
+        if w:
+            w = w[0]
+            wiad = (f'<a class="dzis-kafel" href="{html.escape(w["wideo"])}" data-wideo="{html.escape(w["wideo"])}" data-mini="{html.escape(w.get("miniaturka",""))}">'
+                    f'<span class="dzis-etykieta">Wiadomości z ogrodu</span><strong>{html.escape(w["tytul"])}</strong>'
+                    f'<span class="dzis-mala">{html.escape(w.get("display_date",""))} · film</span></a>')
+    except Exception:
+        wiad = ""
+    robota = stan_robot_html(tylko_ostatni=True)
+    robota_html = f'<a class="dzis-kafel" href="#stan-robot">{robota}</a>' if robota else ""
+    return ('<section class="dzis-pasek shell" aria-label="Dziś w ROD">'
+            '<div class="dzis-naglowek"><p class="eyebrow">Dziś w ROD</p><p class="dzis-data" id="dzis-data"></p></div>'
+            '<div class="dzis-kafle">'
+            '<a class="dzis-kafel" href="#pogoda"><span class="dzis-etykieta">Pogoda teraz</span><strong id="dzis-pogoda">Ładuję…</strong><span class="dzis-mala" id="dzis-pogoda-dzien"></span></a>'
+            + wiad + robota_html + '</div></section>')
+
+
 def poradniki_apki_html() -> str:
     """D-0372: instrukcje aplikacji Taurona — jeden fragment, wstawiany na /dla-dzialkowcow/ (adres z filmu) i /poradniki/."""
     try:
@@ -423,7 +480,7 @@ def build() -> list[Path]:
     else:
         featured_card = ""
         bento_mod = " today-solo"
-    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot(), "poradniki_skrot": poradniki_skrot(), "podziekowania": podziekowania_html()})
+    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot(), "poradniki_skrot": poradniki_skrot(), "podziekowania": podziekowania_html(), "dzis_w_rod": dzis_w_rod_html(), "stan_robot": stan_robot_html()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:

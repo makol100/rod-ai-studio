@@ -57,6 +57,12 @@
     });
     // (slupki radaru usuniete — radar to teraz mapa Leaflet nizej)
     document.querySelector('#pogoda-stopka').textContent = `Aktualizacja ${p.aktualizacja} · dane Open-Meteo dla Woźnik`;
+    // Pasek „Dziś w ROD” (D-0430): to samo pogoda.json, jedno zdanie
+    const dp = document.querySelector('#dzis-pogoda'); if (dp && p.teraz) {
+      dp.textContent = `${p.teraz.ikona} ${p.teraz.temp}°C, ${String(p.teraz.opis).toLowerCase()}`;
+      const dz = (p.dni && p.dni[0]) ? p.dni[0] : null; const dpd = document.querySelector('#dzis-pogoda-dzien');
+      if (dz && dpd) dpd.textContent = `dziś ${dz.min}° / ${dz.max}°` + (dz.opad_mm != null ? ` · opady ${dz.opad_mm} mm` : '') + ' · pełna prognoza niżej';
+    }
   } catch (e) { box.innerHTML = '<p class="muted">Prognoza chwilowo niedostępna.</p>'; }
 })();
 
@@ -73,7 +79,7 @@
   try {
     const r = await fetch('/licznik.json', { cache: 'no-store' }); if (!r.ok) return;
     const d = await r.json();
-    el.textContent = `Odwiedziny: dziś ${d.dzis_goscie} · łącznie ${d.lacznie_goscie} gości (${d.lacznie_odslony} odsłon) od ${d.od.split('-').reverse().join('.')}`;
+    el.textContent = `Odwiedziny: dziś ${d.dzis_goscie} · od ${d.od.split('-').reverse().join('.')}: ${d.lacznie_goscie} odwiedzin (${d.lacznie_odslony} odsłon). Liczymy odwiedziny dzienne po adresie sieci, bez robotów i bez ciasteczek.`;
   } catch (e) { /* cicho */ }
 })();
 
@@ -144,6 +150,7 @@
 // Data pod logo (sama data, godzinę pokazuje zegar)
 (function dataHero() {
   const el = document.querySelector('#zegar-data'); if (!el) return;
+  const dd = document.querySelector('#dzis-data'); if (dd) { const t = new Date().toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); dd.textContent = t.charAt(0).toUpperCase() + t.slice(1); }
   const DNI = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
   const MIES = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
   function odswiez() {
