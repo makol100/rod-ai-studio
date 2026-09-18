@@ -1,0 +1,22 @@
+{
+ "qr": {
+  "adres": "https://rodwozniki.pl",
+  "wersja": "3-H",
+  "moduly_z_cisza": 37
+ },
+ "kartka_A6": {
+  "qr_mm": 42.0,
+  "wady": []
+ },
+ "plakat_A4": {
+  "qr_mm": 110.0,
+  "wady": []
+ },
+ "plakat_A3": {
+  "qr_mm": 170.0,
+  "wady": []
+ },
+ "arkusz_A4_4xA6": {
+  "kartek": 4
+ }
+}

@@ -31,3 +31,7 @@ Głosy: r1 Henio, Zenek (podpisany błędnie „Belzebub"), Belzebub; Genek bez 
 7. Poza FB: kartka z QR do 51 działek + plakat przy bramie (Zenek; Belzebub: po cyfrowym; koszt druku NIE WIEM).
 Do wyrzucenia (4/4): codzienny post „Dzień dobry" w obecnej długiej formie (i jego karta na stronie głównej — Belzebub; Henio: to karta {{fb_skrot}} „Ogrodnik ROD · dziś", nie sekcja).
 Wszystko 0 zł. Decyduje Tomasz.
+
+## DECYZJA TOMASZA 18.09 08:02 (D-0418, dosłownie)
+„Nic do usunięcia. Tylko do dodania!!!!!!"
+Skutek: z rankingu wypadają wszystkie propozycje usuwania/wyłączania — punkt 2 (stop „Dzień dobry"), odchudzanie strony głównej i skracanie menu 13→5 z punktu 3, cały akapit „Do wyrzucenia". ZOSTAJĄ jako kandydaci do „rób" wyłącznie dodatki: pole website FB + przypięty post; moduł „Dziś w ROD" DODANY nad resztą (nic nie schodzi); strony „Opłaty" i „Zarząd"; kąciki; brakujące treści (walne, wolne działki, śmieci, woda, dyżur); kartka z QR. Czcionka mobile i błędy prawdy = zmiany, nie usunięcia — do potwierdzenia przez Tomasza osobno. Nic nie wdrażać bez „rób".

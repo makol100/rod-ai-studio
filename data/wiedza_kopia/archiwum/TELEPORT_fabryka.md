@@ -1338,3 +1338,45 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 18.09 narada www/FB (D-0416) zakończona: wnioski wiedza/narady/WWW_FB_narada_1809.md. Czeka na decyzje Tomasza (co wdrażać). Znane błędy strony do naprawy od ręki po jego 'rób': [DO POTWIERDZENIA] w dla-dzialkowcow.md:36, filmy.md:29, pasek Google page.html:50, licznik etykieta, FB website.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:02 CEST
+==============================================================================
+
+D strona_rod 18.09: Tomasz 'Nic do usunięcia. Tylko do dodania!!!!!!' — narada www/FB: tylko dodatki, nic nie wyłączać/usuwać (Dzień dobry zostaje, menu zostaje). Czekam na 'rób' na konkretne pozycje.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:09 CEST
+==============================================================================
+
+D-0419 strona_rod: Tomasz 'rób' na pkt 14 — kartka z QR do rodwozniki.pl (51 działek) + plakat na bramę; projekt 0 zł, druk nie zamawiać. Reszta listy czeka.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:21 CEST
+==============================================================================
+
+D-0419 kartka QR: ZROBIONE i wysłane Tomaszowi (Telegram 1023–1026). Narzędzia: tools/kartka_qr.py, tools/test_kartka_qr.py, tools/wyslij_tomaszowi.py. Wiedza: wiedza/KARTKA_QR_rodwozniki.md. Czekam na decyzję Tomasza.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:29 CEST
+==============================================================================
+
+D-0421: kartka QR v2 z grafikami (FB tablica + alejka) wysłana Tomaszowi (1027–1030); assets/grafiki_fb/ = kopie 13 grafik z FB na VPS. Czekam na decyzję: drukować / poprawki.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:33 CEST
+==============================================================================
+
+D-0422: kartka QR v3 bez zdjęć (ilustracja FB + własne SVG konewka) wysłana (1033–1036). Czekam na decyzję Tomasza.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:37 CEST
+==============================================================================
+
+D-0419/0421/0422 ZAMKNIĘTE: Tomasz 'Dzięki super' na kartkę QR v3. Pliki: data/kartka_qr/, narzędzia tools/kartka_qr.py + grafika_konewka.py + test_kartka_qr.py + wyslij_tomaszowi.py. Zostają otwarte punkty 1–13 listy dodatków (czekają na 'rób').
