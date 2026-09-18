@@ -1380,3 +1380,52 @@ D-0422: kartka QR v3 bez zdjęć (ilustracja FB + własne SVG konewka) wysłana 
 ==============================================================================
 
 D-0419/0421/0422 ZAMKNIĘTE: Tomasz 'Dzięki super' na kartkę QR v3. Pliki: data/kartka_qr/, narzędzia tools/kartka_qr.py + grafika_konewka.py + test_kartka_qr.py + wyslij_tomaszowi.py. Zostają otwarte punkty 1–13 listy dodatków (czekają na 'rób').
+
+
+==============================================================================
+## SESJA 18.09.2026 08:55 CEST
+==============================================================================
+
+Pkt 1 (FB website): API #283 brak pages_manage_metadata — Tomasz zmienia ręcznie; post do przypięcia przygotowany (data/kartka_qr/post_fb_*), czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 18.09.2026 09:13 CEST
+==============================================================================
+
+FB website = rodwozniki.pl (API potwierdza, wpisał Tomasz). Lekcja: przed sterowaniem telefonem sprawdzić, czy Tomasz nie robi tego samego ręcznie (kolizja). Post do przypięcia czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 18.09.2026 09:19 CEST
+==============================================================================
+
+FB strona: website=rodwozniki.pl, e-mail=rodwozniki@gmail.com (API potwierdza; wpisał Tomasz). Post do przypięcia dalej czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 18.09.2026 16:12 CEST
+==============================================================================
+
+16:11 Tomasz 'Już gotowe sam zrobiłem' — pkt 1 (FB) zamknięty w całości; przygotowanego posta nie publikować. Tomasz w Polsce (strefa Warszawa).
+
+
+==============================================================================
+## SESJA 18.09.2026 16:15 CEST
+==============================================================================
+
+Tomasz: rób 2, 6, 12, 13; 'nie kasuj mi tej pogody z główne!' — pogoda na głównej nietykalna.
+
+
+==============================================================================
+## SESJA 18.09.2026 16:16 CEST
+==============================================================================
+
+Tomasz podał skład zarządu ROD do strony (pkt 4): Prezes Roman Sitko, Zastępca Dariusz Żukowski, Skarbnik Zofia Zachariasz, Sekretarz Tomasz Maksyś, Członek Czesław Perek. Robię 2, 4, 6, 12, 13.
+
+
+==============================================================================
+## SESJA 18.09.2026 16:24 CEST
+==============================================================================
+
+D-0430 wdrożone: Dziś w ROD, /zarzad/, Stan robót, mobile 18/44, poprawki prawdy — live, test zielony, bramka załogi w toku. Zostały pkt 3, 5, 7–11.

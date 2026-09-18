@@ -26,7 +26,7 @@ Krótkie filmy krok po kroku — jak załatwić sprawy związane z prądem i apl
 
 ## 🎬 Rolki
 
-Krótkie rolki z porad i życia ogrodu — klik otwiera nagranie na Facebooku.
+Krótkie rolki z porad i życia ogrodu — kliknięcie otwiera nagranie w oknie na tej stronie.
 
 :::html
 {{wideo_rolki}}

@@ -19,7 +19,7 @@
   <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
   <link rel="preload" href="/static/fonts/fraunces-pl.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="/static/styles.afba7999.css">
+  <link rel="stylesheet" href="/static/styles.8f164a2c.css">
   <title>ROD im. Józefa Lompy | ROD im. Józefa Lompy w Woźnikach</title>
 </head>
 <body class="home">
@@ -38,20 +38,24 @@
       <a href="/dokumenty/">Dokumenty</a>
       <a href="/elektryfikacja/">Elektryfikacja</a>
       <a href="/filmy/">Filmy</a>
+      <a href="/poradniki/">Poradniki</a>
       <a href="/mapa/">Mapa ogrodu</a>
       <a href="/o-ogrodzie/">O ogrodzie</a>
+      <a href="/zarzad/">Zarząd</a>
       <a href="/patron/">Patron</a>
       <a href="https://ogrodnik-rod.pages.dev/" rel="noopener">Asystent regulaminu</a>
       <a href="/kontakt/">Kontakt</a>
       <button class="theme-toggle" type="button" aria-label="Zmień motyw" title="Zmień motyw"><span aria-hidden="true">◑</span></button>
     </nav>
   </header>
-  <div class="g-pasek-rzad"><form class="g-szukaj" action="https://www.google.com/search" method="get" target="_blank" role="search" aria-label="Szukaj w Google">
+  <div class="g-pasek-rzad"><form class="g-szukaj" action="https://www.google.com/search" method="get" target="_blank" role="search" aria-label="Szukaj na rodwozniki.pl (przez Google)">
         <svg class="g-ikona" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1Z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.15-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.85 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.67-2.84Z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.67 2.84C6.71 7.3 9.14 5.38 12 5.38Z"/></svg>
-        <input class="g-pole" type="search" name="q" placeholder="Szukaj w Google…" aria-label="Wpisz zapytanie">
+        <input type="hidden" name="as_sitesearch" value="rodwozniki.pl"><input class="g-pole" type="search" name="q" placeholder="Szukaj na tej stronie…" aria-label="Wpisz, czego szukasz na rodwozniki.pl">
       </form></div>
   <main id="tresc">
-    <section class="hero shell">
+    <section class="podziekowania shell" aria-labelledby="podz-tytul"><p class="eyebrow">Górna alejka — kabel w ziemi dzięki Wam</p><h2 id="podz-tytul">Podziękowania</h2><p class="podz-wstep">Zarząd Rodzinnego Ogrodu Działkowego im. Józefa Lompy w Woźnikach składa serdeczne podziękowania Kolegom Działkowcom, którzy własnymi rękami położyli kabel w górnej (północnej) alejce — ostatniej alejce naszego ogrodu.</p><ol class="podz-lista"><li>Mariusz Janus</li><li>Sebastian Jąderko</li><li>Edward Matusiak</li><li>Szczepan Mędrzycki</li><li>Damian Osiński</li><li>Czesław Perek</li><li>Stanisław Rybak</li><li>Józef Rzepka</li><li>Roman Sitko</li><li>Marcin Stemplowski</li><li>Robert Zachariasz</li><li>Dariusz Żukowski</li></ol><p class="podz-tresc">Kilka dni ciężkiej fizycznej pracy — kopanie, układanie kabla, zasypywanie i grabienie — wykonaliście z siłą, zaangażowaniem i w tempie, jakiego nie powstydziłaby się żadna firma. Nikt nie liczył godzin, każdy przyszedł z własnej woli i z własnymi rękami. Dzięki Wam kabel w ostatniej alejce leży w ziemi szybciej, niż ktokolwiek zakładał.</p><p class="podz-dodatkowe">Osobne podziękowania dla Mirosława Moskala — za nieodpłatne wypożyczenie sprzętu, bez którego ta robota trwałaby wielokrotnie dłużej.</p><p class="podz-dodatkowe">Serdeczne podziękowania dla Zofii Zachariasz, Haliny Perek i Gabrysi Rybak — za przygotowanie jedzenia dla osób pracujących przy górnej alejce. Nakarmiona ekipa to szybsza ekipa.</p><p class="podz-koniec">Dziękujemy! Taka pomoc to najlepszy dowód, że nasz ogród jest jedną wspólną przestrzenią.</p><p class="podz-podpis">Zarząd ROD im. Józefa Lompy w Woźnikach · wrzesień 2026</p></section>
+<section class="dzis-pasek shell" aria-label="Dziś w ROD"><div class="dzis-naglowek"><p class="eyebrow">Dziś w ROD</p><p class="dzis-data" id="dzis-data"></p></div><div class="dzis-kafle"><a class="dzis-kafel" href="#pogoda"><span class="dzis-etykieta">Pogoda teraz</span><strong id="dzis-pogoda">Ładuję…</strong><span class="dzis-mala" id="dzis-pogoda-dzien"></span></a><a class="dzis-kafel" href="/static/wideo/939504039207311.mp4" data-wideo="/static/wideo/939504039207311.mp4" data-mini="/static/wideo/939504039207311.jpg"><span class="dzis-etykieta">Wiadomości z ogrodu</span><strong>WIADOMOŚCI Z OGRODU 🟢 Przegląd z ogrodów działkowych — wrzesień 2026</strong><span class="dzis-mala">17.09.2026 · film</span></a><a class="dzis-kafel" href="#stan-robot"><span class="dzis-etykieta">Stan robót</span><strong>Przyłączanie działek — własne umowy z Tauronem</strong><span class="dzis-mala"><span class="stan-znak stan-trwa">Trwa</span> · 18.09.2026</span></a></div></section>
+<section class="hero shell">
   <div class="hero-copy">
     <p class="eyebrow">Rodzinny Ogród Działkowy · Woźniki · od 1948 roku</p>
     <h1>Nasz ogród<br>w Woźnikach.</h1>
@@ -98,7 +102,8 @@
 </section>
 
 <section id="na-dzis" class="section shell" aria-labelledby="dzis-tytul">
-  <a class="wiad-skrot" href="/static/wideo/1034264916320393.mp4" data-wideo="/static/wideo/1034264916320393.mp4" data-mini="/static/wideo/1034264916320393.jpg"><span class="wiad-mini"><img src="/static/wideo/1034264916320393.jpg" alt="" loading="lazy"><span class="wideo-play" aria-hidden="true">▶</span><span class="wiad-nowe">NOWE</span></span><span class="wiad-tresc"><span class="card-label">Wiadomości z ogrodu</span><strong>ALEJKA PÓŁNOCNA GOTOWA 🟢</strong><span class="wiad-data">14.09.2026 · film, kliknij aby obejrzeć</span></span></a>
+  <a class="wiad-skrot" href="/static/wideo/939504039207311.mp4" data-wideo="/static/wideo/939504039207311.mp4" data-mini="/static/wideo/939504039207311.jpg"><span class="wiad-mini"><img src="/static/wideo/939504039207311.jpg" alt="" loading="lazy"><span class="wideo-play" aria-hidden="true">▶</span><span class="wiad-nowe">NOWE</span></span><span class="wiad-tresc"><span class="card-label">Wiadomości z ogrodu</span><strong>WIADOMOŚCI Z OGRODU 🟢 Przegląd z ogrodów działkowych — wrzesień 2026</strong><span class="wiad-data">17.09.2026 · film, kliknij aby obejrzeć</span></span></a><a class="wiad-skrot" href="/static/wideo/1084864281067088.mp4" data-wideo="/static/wideo/1084864281067088.mp4" data-mini="/static/wideo/1084864281067088.jpg"><span class="wiad-mini"><img src="/static/wideo/1084864281067088.jpg" alt="" loading="lazy"><span class="wideo-play" aria-hidden="true">▶</span><span class="wiad-nowe">NOWE</span></span><span class="wiad-tresc"><span class="card-label">Wiadomości z ogrodu</span><strong>WIADOMOŚCI Z OGRODU 🟢 Alejka Północna — ciąg dalszy</strong><span class="wiad-data">16.09.2026 · film, kliknij aby obejrzeć</span></span></a>
+  <div class="poradniki-skrot"><div class="section-heading"><p class="eyebrow">Poradniki</p><h2>Krok po kroku — jak najprościej</h2></div><div class="wideo-lista"><a class="wideo-karta" href="/static/wideo/1111497617992292.mp4" data-wideo="/static/wideo/1111497617992292.mp4" data-mini="/static/wideo/1111497617992292.jpg"><span class="wideo-mini"><img src="/static/wideo/1111497617992292.jpg" alt="" loading="lazy"><span class="wideo-play" aria-hidden="true">▶</span></span><span class="wideo-tyt">📱 PORADNIK: aplikacja TAURON eLicznik — Twój licznik w telefonie</span><span class="wideo-data">17.09.2026 · film, kliknij aby obejrzeć</span></a><a class="wideo-karta" href="/static/wideo/1504279544839012.mp4" data-wideo="/static/wideo/1504279544839012.mp4" data-mini="/static/wideo/1504279544839012.jpg"><span class="wideo-mini"><img src="/static/wideo/1504279544839012.jpg" alt="" loading="lazy"><span class="wideo-play" aria-hidden="true">▶</span></span><span class="wideo-tyt">📱 PORADNIK: aplikacja Mój TAURON — Twoja umowa i rachunki w telefonie</span><span class="wideo-data">17.09.2026 · film, kliknij aby obejrzeć</span></a></div><p><a class="button button-ghost" href="/poradniki/">Wszystkie poradniki i instrukcje →</a></p></div>
   <div class="section-heading">
     <p class="eyebrow">Najważniejsze na skróty</p>
     <h2 id="dzis-tytul">Co dzieje się w ogrodzie</h2>
@@ -130,10 +135,18 @@
     <article class="feature-card card-ogrodnik">
       <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22c4-4 8-8 8-13a8 8 0 0 0-16 0c0 5 4 9 8 13Zm0-9a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg></div>
       <p class="card-label">Ogrodnik ROD · dziś</p>
-      <p class="fb-skrot-tyt">🤝 Razem raźniej — ogród to też ludzie!</p><p class="fb-skrot-tresc">Wrzesień to czas podsumowań i wzajemnej pomocy. Jeśli sąsiad ma nadmiar pomidorów, cukinii czy jabłek — wymień się! Działkowa wymiana to naj…</p>
+      <p class="fb-skrot-tyt">🔌 Bezpieczna instalacja elektryczna na działce — sprawdź to przed zimą!</p><p class="fb-skrot-tresc">Sezon dobiega końca, ale zanim zamkniemy altanę na zimę, warto zadbać o instalację elektryczną. Najważniejszy element to wyłącznik różnicowo…</p>
       <a class="text-link" href="/aktualnosci/">Wszystkie wpisy <span aria-hidden="true">→</span></a>
     </article>
   </div>
+</section>
+
+<section id="stan-robot" class="section shell" aria-labelledby="stan-robot-tytul">
+  <div class="section-heading">
+    <p class="eyebrow">Kącik · Stan robót</p>
+    <h2 id="stan-robot-tytul">Co zrobione, co trwa, co następne</h2>
+  </div>
+  <div class="stan-robot-lista"><article class="stan-wpis stan-trwa"><span class="stan-znak">Trwa</span><h3>Przyłączanie działek — własne umowy z Tauronem</h3><p>Każdy działkowiec załatwia KDT i umowę z Tauronem (5 kroków). Instrukcja i poradniki wideo na stronie.</p><p class="stan-meta"><time datetime="2026-09-18">18.09.2026</time> · <a class="text-link" href="/dla-dzialkowcow/">więcej →</a></p></article><article class="stan-wpis stan-nastepne"><span class="stan-znak">Następne</span><h3>Dotacja 30 000 zł z Krajowego Zarządu PZD na instalację elektryczną</h3><p>Przyznana uchwałą Krajowego Zarządu PZD z 12 sierpnia 2026 r. dla ROD im. J. Lompy w Woźnikach (pakiet dotacji dla ogrodów 1 631 750 zł).</p><p class="stan-meta"><time datetime="2026-08-12">12.08.2026</time> · <a class="text-link" href="/filmy/">więcej →</a></p></article><article class="stan-wpis stan-zrobione"><span class="stan-znak">Zrobione</span><h3>Sieć elektryczna ogrodu — etap 3</h3><p>Kable w alejkach, przyłącza do działek i złącza Tauronu w granicy ogrodu.</p><p class="stan-meta"><time datetime="2026-09-01">1.09.2026</time> · <a class="text-link" href="/elektryfikacja/">więcej →</a></p></article><article class="stan-wpis stan-zrobione"><span class="stan-znak">Zrobione</span><h3>Górna (północna) alejka — kabel położony i zasypany</h3><p>Ostatnia alejka ogrodu: kabel ułożony i zasypany w kilka dni własnymi rękami działkowców (7–14 września 2026).</p><p class="stan-meta"><time datetime="2026-09-14">14.09.2026</time> · <a class="text-link" href="/elektryfikacja/">więcej →</a></p></article></div><p class="muted stan-stopka">Stan na 18.09.2026. Wykaz prowadzi zarząd ogrodu.</p>
 </section>
 
 <section class="section section-electric">
@@ -191,6 +204,7 @@
     </div>
     <div class="footer-links">
       <a href="/prywatnosc/">Prywatność i RODO</a>
+      <a href="/zarzad/">Zarząd ogrodu</a>
       <a href="/patron/">Nasz patron — Józef Lompa</a>
       <a href="https://ogrodnik-rod.pages.dev/" rel="noopener">Asystent regulaminu ROD (AI)</a>
       <a href="/dokumenty/">Dokumenty</a>
@@ -200,7 +214,7 @@
     <p class="copyright">Rodzinny Ogród Działkowy im. Józefa Lompy w Woźnikach · od 1948 roku · © <span data-year>2026</span></p>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-  <script src="/static/app.afba7999.js" defer></script>
+  <script src="/static/app.8f164a2c.js" defer></script>
   <script src="/static/js/film-okno.js?v=20260904b" defer></script>
 </body>
 </html>

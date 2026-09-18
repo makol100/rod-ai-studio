@@ -33,4 +33,4 @@ Filmy z tymi poradnikami: [Poradniki](/poradniki/).
 
 Awarię sieci, złącza lub licznika zgłoś bezpośrednio pod numer **991**. Kabel, szafka i instalacja za licznikiem należą do działkowca; ich utrzymanie i naprawa są po jego stronie.
 
-Terminy wydawania KDT i sposób umawiania elektryka: **[DO POTWIERDZENIA]**.
+Terminy wydawania KDT i sposób umawiania elektryka ustalisz z zarządem: napisz na **rodwozniki@gmail.com** albo przez [formularz kontaktowy](/kontakt/).

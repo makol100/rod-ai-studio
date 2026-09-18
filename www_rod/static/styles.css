@@ -649,3 +649,42 @@ button { font: inherit; }
 [data-theme="dark"] .podz-lista li { background: rgba(88,176,118,.16); }
 
 .podz-dodatkowe { font-family: "Fraunces", serif; font-size: 1.25rem; font-weight: 700; color: var(--forest-950); max-width: 60ch; margin: 6px auto 12px; padding: 12px 18px; border-radius: 12px; background: rgba(229,183,68,.22); }
+
+/* D-0430 (18.09.2026) — pkt 2 narady: pasek „Dziś w ROD” nad hero (DODATEK, sekcja pogody niżej zostaje) */
+.dzis-pasek { margin: 14px auto 0; padding: 18px 22px; border: 2px solid var(--forest-900); border-radius: 22px; background: var(--surface); box-shadow: 0 10px 30px rgba(24,58,38,.08); }
+.dzis-naglowek { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.dzis-naglowek .eyebrow { margin: 0; }
+.dzis-data { margin: 0; color: var(--muted); font-weight: 700; }
+.dzis-kafle { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
+.dzis-kafel { display: flex; flex-direction: column; gap: 4px; min-height: 44px; padding: 12px 14px; border-radius: 14px; background: var(--cream-100); color: var(--ink); text-decoration: none; border: 1px solid var(--line); }
+.dzis-kafel:hover { border-color: var(--forest-700); }
+.dzis-kafel strong { font-size: 1.05rem; line-height: 1.3; }
+.dzis-etykieta { text-transform: uppercase; letter-spacing: .14em; font-size: .68rem; font-weight: 900; color: var(--forest-900); }
+.dzis-mala { color: var(--muted); font-size: .9rem; }
+/* pkt 6: kącik „Stan robót” */
+.stan-robot-lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.stan-wpis { padding: 20px 22px; border: 1px solid var(--line); border-left-width: 6px; border-radius: 18px; background: var(--surface); }
+.stan-wpis h3 { margin: 10px 0 8px; font-size: 1.35rem; }
+.stan-wpis p { margin: 0 0 8px; }
+.stan-meta { color: var(--muted); font-size: 1rem; }
+.stan-znak { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; }
+.stan-zrobione { border-left-color: #2e7d4f; } .stan-zrobione .stan-znak, .stan-znak.stan-zrobione { background: #d9efdf; color: #1f5b38; }
+.stan-trwa { border-left-color: #e5b744; } .stan-trwa .stan-znak, .stan-znak.stan-trwa { background: #fbeec7; color: #6b4e00; }
+.stan-nastepne { border-left-color: #8fa6b8; } .stan-nastepne .stan-znak, .stan-znak.stan-nastepne { background: #e3ebf2; color: #2f4a5e; }
+.stan-stopka { margin-top: 14px; font-size: 1rem; }
+/* pkt 4: strona Zarząd */
+.zarzad-lista { list-style: none; margin: 12px 0 24px; padding: 0; display: grid; gap: 10px; max-width: 640px; }
+.zarzad-lista li { display: grid; grid-template-columns: minmax(150px, 40%) 1fr; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 14px; background: var(--cream-100); border: 1px solid var(--line); }
+.zarzad-funkcja { text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 900; color: var(--forest-900); }
+.zarzad-lista strong { font-size: 1.2rem; }
+/* pkt 12 (narada: mobile 18 px, przyciski 44 px, Fraunces zostaje) — DODATEK, tylko telefony */
+@media (max-width: 640px) {
+  body { font-size: 18px; }
+  .site-nav { font-size: 1rem; gap: 6px; }
+  .site-nav a { display: flex; align-items: center; min-height: 44px; padding: 0 10px; border-radius: 10px; }
+  .text-link, .footer-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .button { min-height: 50px; padding-inline: 22px; }
+  .card-label { font-size: .78rem; }
+  .dzis-kafel { min-height: 56px; }
+  .zarzad-lista li { grid-template-columns: 1fr; gap: 2px; }
+}

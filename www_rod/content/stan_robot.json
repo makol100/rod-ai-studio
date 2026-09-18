@@ -1,0 +1,38 @@
+{
+  "stan_na": "2026-09-18",
+  "uwaga": "Kącik „Stan robót” (D-0430, 18.09.2026, pkt 6 narady www/FB). Każdy wpis ma źródło; status: zrobione / trwa / nastepne. Aktualizuje zarząd — dopisz wpis i przebuduj stronę.",
+  "wpisy": [
+    {
+      "status": "zrobione",
+      "data": "2026-09-14",
+      "tytul": "Górna (północna) alejka — kabel położony i zasypany",
+      "opis": "Ostatnia alejka ogrodu: kabel ułożony i zasypany w kilka dni własnymi rękami działkowców (7–14 września 2026).",
+      "link": "/elektryfikacja/",
+      "zrodlo": "content/pages/elektryfikacja.md, sekcja „Górna (północna) alejka — wrzesień 2026”"
+    },
+    {
+      "status": "zrobione",
+      "data": "2026-09-01",
+      "tytul": "Sieć elektryczna ogrodu — etap 3",
+      "opis": "Kable w alejkach, przyłącza do działek i złącza Tauronu w granicy ogrodu.",
+      "link": "/elektryfikacja/",
+      "zrodlo": "content/pages/elektryfikacja.md, akapit „W 2026 roku nasz ogród dostał własną sieć elektryczną”"
+    },
+    {
+      "status": "trwa",
+      "data": "2026-09-18",
+      "tytul": "Przyłączanie działek — własne umowy z Tauronem",
+      "opis": "Każdy działkowiec załatwia KDT i umowę z Tauronem (5 kroków). Instrukcja i poradniki wideo na stronie.",
+      "link": "/dla-dzialkowcow/",
+      "zrodlo": "templates/home.html sekcja „Od szafki do własnej umowy”; content/pages/dla-dzialkowcow.md"
+    },
+    {
+      "status": "nastepne",
+      "data": "2026-08-12",
+      "tytul": "Dotacja 30 000 zł z Krajowego Zarządu PZD na instalację elektryczną",
+      "opis": "Przyznana uchwałą Krajowego Zarządu PZD z 12 sierpnia 2026 r. dla ROD im. J. Lompy w Woźnikach (pakiet dotacji dla ogrodów 1 631 750 zł).",
+      "link": "/filmy/",
+      "zrodlo": "slaski-ozpzd.pl/krajowy-zarzad-pzd-przyznal-fundusze-na-inwestycje-i-remonty-w-rod-2/ (13.08.2026) — komunikat KZ PZD 12.08.2026; wiedza/narady/PZD_NEWS_1709.md poz. 1"
+    }
+  ]
+}
