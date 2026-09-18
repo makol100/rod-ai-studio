@@ -289,3 +289,7 @@ Klaudek odczytał ze zrzutu umowy w oknie czatu nazwisko jako „MAKRYŚ" i podn
 ## 17.09.2026 — ZNOWU „PREZES" W WYDANIU („Kurwa ile razy mam bez prezesowania")
 - Karta końcowa PZD_NEWS_v1: „Głos prezentera to awatar AI wygenerowany za zgodą prezesa" + N2c „Prezesi naszego okręgu…" + podpis zdjęcia „pismo Prezesa PZD". Dekret 16.09 „Bez prezesa!!!" złamany drugi raz.
 - ZASADA TWARDA: przed każdym montażem wydania `grep -i prezes` po scenariuszu, kwestiach, planszach i podpisach — wynik musi być PUSTY. Etykieta AI bez tytułów: „Głos to awatar AI Tomasza Maksysia, wygenerowany za jego zgodą". Dopisać do tools jako bramkę (test_bramki).
+
+## 18.09.2026 — „GOTOWE" ZNIKNĘŁO PO GODZINIE (Tomasz: „Gdzie dałeś ostatnie wiadomości z kraju pzd? Na naszej stronie?")
+- 17.09 20:52 wpis PZD_NEWS ręcznie do wideo.json + deploy, curl potwierdził. 21:05 cron fb_na_strone.py (co 30 min) przepisał wideo.json z FB i WYRZUCIŁ film: filtr `dl > 150 s` (rolka ma 180 s). Rano 06:19 mój deploy podziękowań wypchnął stronę już bez filmu.
+- NAPRAWA: limit 300 s w fb_na_strone.py, film wrócił przez automat (kategoria wiadomosci z opisu). LEKCJA: przy publikacji na stronie sprawdzić, czy AUTOMAT (cron) zostawi wpis — uruchomić fb_na_strone.py ręcznie PO publikacji i sprawdzić curl po nim; „gotowe" = także po następnym ticku crona. Dopisać do SZEŚCIU SPRAWDZIANÓW.

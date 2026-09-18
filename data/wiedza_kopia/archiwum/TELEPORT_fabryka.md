@@ -1324,3 +1324,17 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 18.09 D-0415: Damian Osiński dopisany do podziękowań (lista główna, alfabetycznie) — build + deploy, sprawdzone curl.
+
+
+==============================================================================
+## SESJA 18.09.2026 06:26 CEST
+==============================================================================
+
+18.09 PZD_NEWS zniknął ze strony przez cron fb_na_strone.py (filtr długości 150 s) — naprawione (limit 300 s), film z powrotem w ramce Wiadomości obok Alejka2 i na /filmy/; wpis w teczce Klaudka (sprawdzać po ticku crona).
+
+
+==============================================================================
+## SESJA 18.09.2026 07:47 CEST
+==============================================================================
+
+18.09 narada www/FB (D-0416) zakończona: wnioski wiedza/narady/WWW_FB_narada_1809.md. Czeka na decyzje Tomasza (co wdrażać). Znane błędy strony do naprawy od ręki po jego 'rób': [DO POTWIERDZENIA] w dla-dzialkowcow.md:36, filmy.md:29, pasek Google page.html:50, licznik etykieta, FB website.

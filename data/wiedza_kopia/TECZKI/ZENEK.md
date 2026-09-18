@@ -85,3 +85,6 @@ W naradzie D-0351 (scenariusz Alejka Północna cd.) Zenek dostarczył plik /tmp
 
 ## 17.09.2026 — narada pzd_news: ZNOWU TRZY GŁOSY W JEDNYM PLIKU
 - zenek.txt (24 000 zn., początek ucięty) zawiera sekcje „HENIO", „GENEK", „ZENEK" z osobnymi podpisami — Zenek znów pisał za kolegów, wbrew regule „każdy tylko swój głos". TREŚĆ jednak solidna: linki prawdziwe, Klaudek zweryfikował curl-em 5 kluczowych: dotacja 30 000 zł dla ROD im. J. Lompy (slaski-ozpzd.pl, 13.08), ROD Energetyk Ruda Śl. 4%/~50 tys. zł, wybuch gazu ROD „Przystań" Gdańsk 1.08 (prokuratura gov.pl), konkurs TVS do 30.09, Radlin dotacje. Wniosek: liczyć wyłącznie sekcję ZENEK + zweryfikowane fakty; podszywanie się pod innych = wpis.
+
+## 18.09.2026 — narada www_fb r1: głos DOBRY, podpis ZŁY
+- Treść wzorowa (znalazł realne błędy strony: publiczne „[DO POTWIERDZENIA]" w dla-dzialkowcow.md:36, mylny opis w filmy.md:29, 13 pozycji menu, mobile 16 px / menu 12–13 px w styles.css:198, pasek „Szukaj w Google" w page.html:50, mylący licznik „łącznie gości"; benchmark 4 linki otwarte). ALE podpisał się „— Belzebub". Zasada: podpis = własne imię; sprawdzać przed wysłaniem.
