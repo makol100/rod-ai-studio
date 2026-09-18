@@ -1310,3 +1310,10 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 17.09 D-0412: podziękowania na rodwozniki.pl uzupełnione o Zofię Zachariasz, Halinę Perek i Gabrysię Rybak (jedzenie dla ekipy z górnej alejki) — build + deploy, sprawdzone curl na żywej stronie.
+
+
+==============================================================================
+## SESJA 17.09.2026 20:52 CEST
+==============================================================================
+
+17.09 PZD_NEWS v2 OPUBLIKOWANE: FB reel https://www.facebook.com/reel/939504039207311 (opis z 7 tematami, źródła, etykieta AI bez 'prezesa'); strona rodwozniki.pl: /static/wideo/939504039207311.mp4, ramka Wiadomości pokazuje teraz 2 najnowsze wydania obok siebie (build.py wiadomosci_skrot [:2], D-0414). Poprawka v2 = tylko karta końcowa (D-0413/D-0414: 'Tylko prezes z samego końca'); N2c wrócił do oryginału (seed 7 = identyczne 12,5 s). Koszt rolki: 0 zł.
