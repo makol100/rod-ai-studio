@@ -31,10 +31,12 @@ def pobierz_wideo(tok):
     for v in d.get("data", []):
         opis = (v.get("description") or "").strip()
         dl = v.get("length") or 0
-        if dl > 150: continue  # dlugie filmy zyja na YouTube, sekcja statyczna
+        if dl > 300: continue  # dlugie filmy (>5 min) zyja na YouTube; D-0414: wydania Wiadomosci maja ~3 min (PZD_NEWS 180 s wypadal przy limicie 150)
         ct = datetime.datetime.fromisoformat(v["created_time"].replace("+0000", "+00:00")).astimezone(datetime.timezone(datetime.timedelta(hours=2)))
         tytul = next((re.sub(r"#\w+", "", l).strip() for l in opis.splitlines() if l.strip()), "Rolka ROD")[:110]
-        if v["id"] in wiad_idy or any(w in opis.lower() for w in WIAD_SLOWA):
+        if "poradnik" in opis.lower()[:200]:   # D-0369/D-0370: poradniki to NIE wiadomosci — osobna kategoria
+            kat = "poradniki"
+        elif v["id"] in wiad_idy or any(w in opis.lower() for w in WIAD_SLOWA):
             kat = "wiadomosci"
         elif v["id"] in humor_idy or any(w in opis.lower() for w in HUMOR_SLOWA):
             kat = "humor"
@@ -77,7 +79,13 @@ def pobierz_wideo(tok):
                         shutil.copyfileobj(rr, fo)
             except Exception as e: print("mp4", v["id"], "blad pobierania:", e)
         wid = f"/static/wideo/{v['id']}.mp4" if mp4.is_file() and mp4.stat().st_size > 200_000 else ""
-        wyn.append({"id": v["id"], "tytul": tytul, "kategoria": kat, "link": link, "wideo": wid,
+        # D-0370: poradniki z opisami — pelny opis FB bez linii tytulu i hashtagow
+        opis_www = ""
+        if kat == "poradniki":
+            linie = [l.rstrip() for l in opis.splitlines()]
+            linie = [l for l in linie if l.strip() and not l.strip().startswith("#")]
+            opis_www = "\n".join(linie[1:])[:1200]
+        wyn.append({"id": v["id"], "tytul": tytul, "opis": opis_www, "kategoria": kat, "link": link, "wideo": wid,
                     "miniaturka": mini, "date": ct.isoformat(timespec="minutes"), "display_date": ct.strftime("%d.%m.%Y")})
     wyn.sort(key=lambda x: x["date"], reverse=True)
     plik = WWW / "content/wideo.json"
