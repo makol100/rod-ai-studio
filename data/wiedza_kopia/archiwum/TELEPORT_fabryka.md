@@ -1429,3 +1429,31 @@ Tomasz podał skład zarządu ROD do strony (pkt 4): Prezes Roman Sitko, Zastęp
 ==============================================================================
 
 D-0430 wdrożone: Dziś w ROD, /zarzad/, Stan robót, mobile 18/44, poprawki prawdy — live, test zielony, bramka załogi w toku. Zostały pkt 3, 5, 7–11.
+
+
+==============================================================================
+## SESJA 19.09.2026 00:13 CEST
+==============================================================================
+
+N150 dysk gwarancyjny: sprzedawca FUCHU (AliExpress) NIE wysłał — brak trackingu, obietnica 24.08, 12.09 'nie otrzymaliśmy', 13.09 pytanie Tomasza bez odpowiedzi, 15.09 AE odmówił zwrotu. Czeka na decyzję Tomasza (ponaglenie / spór z dowodami z czatu).
+
+
+==============================================================================
+## SESJA 19.09.2026 00:17 CEST
+==============================================================================
+
+N150 reklamacja: wiadomość do sprzedawcy (EN+ZH) w data/n150_reklamacja/, e-mail odwołania = wersja robocza w Gmailu. Czeka na 'wyślij' Tomasza.
+
+
+==============================================================================
+## SESJA 19.09.2026 05:12 CEST
+==============================================================================
+
+Belzebub o reklamacji N150: appeal odrzuconego sporu (item not as described) + oś na niespełnionej obietnicy; teksty v2 w data/n150_reklamacja/, e-mail = wersja robocza w Gmailu. Do sprawdzenia: kupiony wariant SKU.
+
+
+==============================================================================
+## SESJA 19.09.2026 16:43 CEST
+==============================================================================
+
+19.09: reklamacja N150 WYSŁANA — e-mail do AliExpress (SENT, wątek sprawy 2053808791215177) + 4 wiadomości w czacie do FUCHU. Termin 21.09. Czekamy na tracking albo idziemy w appeal/Buyer Protection.

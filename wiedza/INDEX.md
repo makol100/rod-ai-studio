@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 18.09.2026 14:29.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 19.09.2026 17:01.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,8 +11,8 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
+| `BRIEF_DLA_KLAUDKA.md` | 19.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-19 18:41:13 CEST |
 | `WWW_DODATKI_1809.md` | 18.09 | 3K | Dodatki na rodwozniki.pl z 18.09.2026 (D-0430) — pkt 2, 4, 6, 12, 13 narady www/FB |
-| `BRIEF_DLA_KLAUDKA.md` | 18.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-18 16:10:51 CEST |
 | `KARTKA_QR_rodwozniki.md` | 18.09 | 6K | Kartka z QR do rodwozniki.pl + plakat na bramę (D-0419, 18.09.2026) |
 | `PREZENTER_TOMASZ_KANON_0.1.md` | 17.09 | 3K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
 | `AKTYWA_SERII.md` | 17.09 | 2K | KSIĘGA AKTYWÓW SERII HUMOR |
@@ -81,7 +81,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 170K | 18.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 171K | 19.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 69K | 03.09 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
