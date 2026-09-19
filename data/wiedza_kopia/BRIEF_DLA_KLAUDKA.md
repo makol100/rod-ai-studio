@@ -1,4 +1,4 @@
-1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-19 19:41:14 CEST
+1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-19 20:11:14 CEST
 2. OSTATNIA DECYZJA: D-0441 | 2026-09-19 | 19.09 16:4x Tomasz (dosłownie): 'Wyślij maila i na czacie' — WYKONANE: (1) e-mail odwoławczy WYSŁANY do…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
