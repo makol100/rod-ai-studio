@@ -39,6 +39,11 @@ Pole puste lub brakujące = w dokumencie zostają kropki do ręcznego wpisania
 - Znak elektryczny = **oryginalny ISO 7010 W012** wstawiany **wektorowo** (svg + fallback png),
   proporcje 600×524 — nie rozciągać do kwadratu (od tego robił się rozmyty).
 - Uprawnienia wypisane **osobno dla E i osobno dla D** + pomiary ochronne (kontrolno-pomiarowe) do 1 kV.
+- **NUMERY UPRAWNIEŃ WPISYWAĆ ZAWSZE** (dekret Tomasza 19.09.2026: „To są moje dane. Wpisuj za każdym
+  razem w oświadczenia"). Z jego pieczątki: *Tomasz Maksyś – Elektryk, Uprawnienia SEP G1 (E + D + Pomiary)*,
+  nr **G1/E/470/1081/2025** (eksploatacja) i nr **G1/D/470/1082/2025** (dozór). Oba numery są wpisane
+  na stałe w szablony — JSON ich nie potrzebuje. Dat ważności na pieczątce NIE MA, więc dokument ich nie
+  drukuje; pojawią się tylko wtedy, gdy ktoś poda `wazne_e` / `wazne_d` w JSON.
 - **Żadnych danych z TAURONA**: nr umowy, nr licznika Tauronu, nr PPE — nikogo to nie interesuje
   i to dane wrażliwe.
 - Podlicznik ogrodowy: typ, numer i **stan na dzień odłączenia** (do rozliczenia z zarządem).
