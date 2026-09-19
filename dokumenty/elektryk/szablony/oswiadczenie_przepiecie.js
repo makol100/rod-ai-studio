@@ -27,6 +27,13 @@
 //  - żadnych danych wrażliwych z TAURONA (nr umowy, nr licznika Tauronu, PPE)
 //  - uprawnienia: osobno E, osobno D + pomiary ochronne do 1 kV
 
+// DANE ELEKTRYKA (pieczątka Tomasza, dekret 19.09.2026 „To są moje dane. Wpisuj za każdym razem"):
+//   Tomasz Maksyś – Elektryk, Uprawnienia SEP G1 (E + D + Pomiary)
+//   Nr G1/E/470/1081/2025   (eksploatacja)
+//   Nr G1/D/470/1082/2025   (dozór)
+// Numery wchodzą automatycznie; pola swiadectwo_e / swiadectwo_d w JSON tylko je nadpisują.
+// Daty ważności drukują się TYLKO gdy podane w JSON (wazne_e / wazne_d) — na pieczątce ich nie ma.
+
 const fs = require('fs');
 const path = require('path');
 const {
@@ -98,9 +105,11 @@ const doc = new Document({
         t(', posiadający świadectwa kwalifikacyjne SEP dla urządzeń, instalacji i sieci elektroenergetycznych o napięciu do 1 kV, wraz z uprawnieniami do wykonywania pomiarów ochronnych (kontrolno-pomiarowych) do 1 kV:'),
       ], { alignment: AlignmentType.JUSTIFIED, spacing: { after: 120 } }),
 
-      p([t('•  eksploatacja (E) — świadectwo nr ', { bold: true }), t(v('swiadectwo_e')), t(', ważne do dnia '), t(v('wazne_e', '………………………')), t(';')],
+      p([t('•  eksploatacja (E) — świadectwo nr ', { bold: true }), t(v('swiadectwo_e', 'G1/E/470/1081/2025'), { bold: true }),
+         ...(v('wazne_e', '') ? [t(', ważne do dnia '), t(v('wazne_e'))] : []), t(';')],
         { alignment: AlignmentType.LEFT, spacing: { after: 60 }, indent: { left: 360 } }),
-      p([t('•  dozór (D) — świadectwo nr ', { bold: true }), t(v('swiadectwo_d')), t(', ważne do dnia '), t(v('wazne_d', '………………………')), t(';')],
+      p([t('•  dozór (D) — świadectwo nr ', { bold: true }), t(v('swiadectwo_d', 'G1/D/470/1082/2025'), { bold: true }),
+         ...(v('wazne_d', '') ? [t(', ważne do dnia '), t(v('wazne_d'))] : []), t(';')],
         { alignment: AlignmentType.LEFT, spacing: { after: 200 }, indent: { left: 360 } }),
 
       p([
