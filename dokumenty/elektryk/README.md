@@ -42,6 +42,9 @@ Pole puste lub brakujące = w dokumencie zostają kropki do ręcznego wpisania
 - **Żadnych danych z TAURONA**: nr umowy, nr licznika Tauronu, nr PPE — nikogo to nie interesuje
   i to dane wrażliwe.
 - Podlicznik ogrodowy: typ, numer i **stan na dzień odłączenia** (do rozliczenia z zarządem).
+- **STAN LICZNIKA ZAWSZE ZAOKRĄGLAĆ W GÓRĘ** do pełnych kWh (dekret Tomasza 19.09.2026: „Stan licznika
+  to 535 zawsze zaokrąglaj do góry"). Czerwony bęben = dziesiąte części; jeśli pokazuje cokolwiek
+  powyżej zera, do pełnych kWh dodaje się 1 (534,9 → 535; 17 377,5 → 17 378). Nigdy w dół, nigdy z przecinkiem.
 - Sformułowania, na które Tomasz zwracał uwagę:
   - przewody **zaizolowałem** (nie „odizolowałem"), są **zabezpieczone przed porażeniem**;
   - **wewnętrzna sieć działkowa pozostaje pod napięciem** i zasila pozostałe działki
