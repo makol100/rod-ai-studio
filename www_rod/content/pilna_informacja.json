@@ -1,0 +1,15 @@
+{
+  "aktywne": true,
+  "eyebrow": "NAJWAŻNIEJSZA INFORMACJA",
+  "tytul": "30 listopada 2026 — wyłączenie wewnętrznej sieci działkowej",
+  "wstep": "Z dniem 30 listopada 2026 r. wewnętrzna sieć działkowa w naszym ogrodzie zostanie wyłączona. Od tego dnia energia elektryczna płynie wyłącznie z indywidualnych przyłączy TAURON — każdy na podstawie własnej umowy i własnego licznika w złączu przy alejce.",
+  "punkty": [
+    "Masz już umowę z TAURONEM — nic nie musisz robić.",
+    "Nie masz jeszcze umowy — załatw ją przed tym terminem. Po 30 listopada działka bez własnej umowy zostanie bez prądu.",
+    "W razie pytań zgłoś się do Zarządu ROD."
+  ],
+  "plakat_podglad": "/static/plakaty/Plakat_wylaczenie_sieci_30-11-2026_podglad.jpg",
+  "plakat_pdf": "/static/plakaty/Plakat_wylaczenie_sieci_30-11-2026.pdf",
+  "plakat_alt": "Plakat informacyjny: 30 listopada 2026 wyłączenie wewnętrznej sieci działkowej ROD im. Józefa Lompy w Woźnikach",
+  "przycisk": "Pobierz plakat A4 (PDF)"
+}

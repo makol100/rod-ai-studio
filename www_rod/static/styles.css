@@ -650,6 +650,20 @@ button { font: inherit; }
 
 .podz-dodatkowe { font-family: "Fraunces", serif; font-size: 1.25rem; font-weight: 700; color: var(--forest-950); max-width: 60ch; margin: 6px auto 12px; padding: 12px 18px; border-radius: 12px; background: rgba(229,183,68,.22); }
 
+/* D-0450 (20.09.2026) — NAJWAZNIEJSZA INFORMACJA w ramce, nad podziekowaniami (dekret Tomasza) */
+.pilne { margin: 22px auto 30px; padding: 28px 30px 24px; border: 4px solid var(--terracotta); border-radius: 22px; background: linear-gradient(180deg, #fdf0ea 0%, var(--surface) 72%); box-shadow: 0 0 0 6px rgba(173,81,51,.18), 0 16px 40px rgba(24,58,38,.12); text-align: center; }
+.pilne-eyebrow { color: var(--terracotta); font-weight: 800; letter-spacing: .18em; }
+.pilne h2 { font-size: clamp(1.6rem, 4.4vw, 2.5rem); margin: 6px 0 14px; color: var(--forest-950); line-height: 1.2; }
+.pilne-wstep { font-size: 1.12rem; max-width: 66ch; margin: 0 auto 16px; line-height: 1.55; }
+.pilne-punkty { list-style: none; margin: 0 auto 20px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; max-width: 900px; text-align: left; }
+.pilne-punkty li { padding: 12px 16px; border-radius: 14px; background: rgba(173,81,51,.09); font-size: 1rem; line-height: 1.45; }
+.pilne-plakat { display: block; max-width: 420px; margin: 4px auto 18px; border-radius: 14px; overflow: hidden; box-shadow: 0 12px 34px rgba(24,58,38,.18); }
+.pilne-plakat img { display: block; width: 100%; height: auto; }
+.pilne-akcje { margin: 0; }
+[data-theme="dark"] .pilne { background: linear-gradient(180deg, #3c2119 0%, var(--surface) 72%); border-color: #c9714f; box-shadow: 0 0 0 6px rgba(201,113,79,.2); }
+[data-theme="dark"] .pilne-punkty li { background: rgba(201,113,79,.16); }
+[data-theme="dark"] .pilne-eyebrow { color: #e3916d; }
+
 /* D-0430 (18.09.2026) — pkt 2 narady: pasek „Dziś w ROD” nad hero (DODATEK, sekcja pogody niżej zostaje) */
 .dzis-pasek { margin: 14px auto 0; padding: 18px 22px; border: 2px solid var(--forest-900); border-radius: 22px; background: var(--surface); box-shadow: 0 10px 30px rgba(24,58,38,.08); }
 .dzis-naglowek { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
