@@ -325,6 +325,35 @@ def _klucz_pl(s: str):
     return [(_PL.index(c) if c in _PL else 100 + ord(c)) for c in s.lower()]
 
 
+def pilna_informacja_html() -> str:
+    """Dekret Tomasza 20.09.2026: NAJWAZNIEJSZA informacja w ramce, zaraz NAD podziekowaniami.
+    Tresc w content/pilna_informacja.json; "aktywne": false chowa sekcje."""
+    try:
+        d = load_json(CONTENT / "pilna_informacja.json")
+    except Exception:
+        return ""
+    if not d or not d.get("aktywne"):
+        return ""
+    punkty = "".join(f'<li>{html.escape(x)}</li>' for x in d.get("punkty", []))
+    plakat = ""
+    if d.get("plakat_podglad"):
+        plakat = (f'<a class="pilne-plakat" href="{html.escape(d.get("plakat_pdf") or d["plakat_podglad"])}" '
+                  f'target="_blank" rel="noopener">'
+                  f'<img src="{html.escape(d["plakat_podglad"])}" alt="{html.escape(d.get("plakat_alt",""))}" '
+                  f'width="900" height="1273" loading="lazy"></a>')
+    przycisk = ""
+    if d.get("plakat_pdf"):
+        przycisk = (f'<p class="pilne-akcje"><a class="button button-primary" '
+                    f'href="{html.escape(d["plakat_pdf"])}" target="_blank" rel="noopener">'
+                    f'{html.escape(d.get("przycisk","Pobierz plakat (PDF)"))}</a></p>')
+    return (f'<section class="pilne shell" aria-labelledby="pilne-tytul">'
+            f'<p class="eyebrow pilne-eyebrow">{html.escape(d.get("eyebrow","WAŻNA INFORMACJA"))}</p>'
+            f'<h2 id="pilne-tytul">{html.escape(d.get("tytul",""))}</h2>'
+            f'<p class="pilne-wstep">{html.escape(d.get("wstep",""))}</p>'
+            f'<ul class="pilne-punkty">{punkty}</ul>'
+            f'{plakat}{przycisk}</section>')
+
+
 def podziekowania_html() -> str:
     """D-0376: PODZIEKOWANIA na samej gorze strony glownej — lista alfabetycznie po nazwisku (polski alfabet)."""
     try:
@@ -480,7 +509,7 @@ def build() -> list[Path]:
     else:
         featured_card = ""
         bento_mod = " today-solo"
-    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot(), "poradniki_skrot": poradniki_skrot(), "podziekowania": podziekowania_html(), "dzis_w_rod": dzis_w_rod_html(), "stan_robot": stan_robot_html()})
+    home_body = render(home, {"featured_card": featured_card, "bento_mod": bento_mod, "ostatnie_ogloszenia": ostatnie_ogloszenia_html(announcements), "tablica_skrot": tablica_skrot(), "fb_skrot": fb_posty_skrot(), "porady_miesiaca": porady_miesiaca_html(), "wiadomosci_skrot": wiadomosci_skrot(), "poradniki_skrot": poradniki_skrot(), "pilna_informacja": pilna_informacja_html(), "podziekowania": podziekowania_html(), "dzis_w_rod": dzis_w_rod_html(), "stan_robot": stan_robot_html()})
     generated: list[Path] = []
 
     def make_page(path: Path, *, title: str, description: str, canonical: str, content: str, body_class: str = "") -> None:
