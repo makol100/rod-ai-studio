@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 19.09.2026 18:33.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 20.09.2026 09:02.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 19.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-19 20:11:14 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 20.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-20 10:41:26 CEST |
 | `WWW_DODATKI_1809.md` | 18.09 | 3K | Dodatki na rodwozniki.pl z 18.09.2026 (D-0430) — pkt 2, 4, 6, 12, 13 narady www/FB |
 | `KARTKA_QR_rodwozniki.md` | 18.09 | 6K | Kartka z QR do rodwozniki.pl + plakat na bramę (D-0419, 18.09.2026) |
 | `PREZENTER_TOMASZ_KANON_0.1.md` | 17.09 | 3K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
