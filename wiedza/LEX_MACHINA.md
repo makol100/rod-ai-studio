@@ -16,7 +16,10 @@
 4. Pisma mają status DRAFT do akceptacji Tomasza. Lex-Machina = informacja prawna, nie porada.
 
 ## Akty kluczowe dla ROD (do weryfikacji w ISAP przy każdym użyciu)
-- ustawa z 13.12.2013 o rodzinnych ogrodach działkowych — Dz.U. 2014 poz. 40 (t.j.)
+- ustawa z 13.12.2013 o rodzinnych ogrodach działkowych — akt bazowy Dz.U. 2014 poz. 40; OBOWIĄZUJĄCY TEKST JEDNOLITY: Dz.U. 2021 poz. 1073 (obwieszczenie 21.05.2021; brak nowelizacji po t.j. — stan wg ELI 22.09.2026). Wzorzec cytatu: art. 30 ust. 2 ustawy z dnia 13 grudnia 2013 r. o rodzinnych ogrodach działkowych (t.j. Dz.U. z 2021 r. poz. 1073). API tekstu: https://api.sejm.gov.pl/eli/acts/DU/2021/1073/text.html
 - ustawa o gospodarce nieruchomościami (użytkowanie wieczyste) — Dz.U. 1997 nr 115 poz. 741 (t.j.)
 - Prawo energetyczne — Dz.U. 1997 nr 54 poz. 348 (t.j.)
 - RODO — Rozporządzenie (UE) 2016/679 (EUR-Lex)
+
+## Kontrola Henia 22.09.2026 (POTWIERDZONE)
+Skille działają w Claude Code 2.1.228 bez zmian w plikach; poprawki wdrożone w /root/rod-ai-studio/CLAUDE.md (trigger prawny = odpowiednik User Preferences z claude.ai, mapa ścieżek shared/, view→Read, allowlista domen nie dotyczy Claude Code, isap.sejm.gov.pl pętla 302 → api.sejm.gov.pl/eli). Łańcuch weryfikacji t.j.: akt bazowy → references 'Inf. o tekście jednolitym' → text.html najnowszego t.j. Genek: błąd #37 (orzeczenia SAOS) w stabilnej 8.09, PR #53 → aktualizacja po scaleniu.
