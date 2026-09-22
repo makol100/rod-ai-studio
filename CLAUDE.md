@@ -13,3 +13,7 @@ Szukanie: `python3 tools/szukaj.py <slowo>` — przeszukuje wiedzę, archiwum i 
 
 TELEPORT_fabryka.md i /root/TELEPORT_HA.md to ARCHIWUM (127 KB i 43 KB) — NIE czytać na starcie,
 przeszukiwać wyszukiwarką.
+
+## PRAWO POLSKIE — Lex-Machina (dekret 22.09.2026, D-0455)
+Każdą sprawę prawną (pisma do Taurona/PZD/gminy, uchwały, RODO, umowy, opłaty, spory) zaczynaj od wczytania `/root/.claude/skills/prawny-router-v3/SKILL.md` i wykonaj HARD GATE (`/root/.claude/skills/shared/PRAWO-HARDGATE.md`) PRZED każdym cytatem przepisu lub sygnatury: weryfikacja online w tym samym kroku (api.sejm.gov.pl/eli → tekst jednolity przez `/references`; saos.org.pl dla sygnatur), ślad `✅ [VER: źródło, data]`. Brak numeru artykułu > błędny numer.
+Mapa ścieżek skilli: `shared/` = `/root/.claude/skills/shared/`; `references/`, `modules/`, `assets/` = podkatalog bieżącego skilla; operacja `view` = Read z absolutną ścieżką. Allowlista domen z claude.ai NIE dotyczy Claude Code (WebFetch/curl działa). Kanał maszynowy isap.sejm.gov.pl jest martwy (pętla 302) — używać api.sejm.gov.pl/eli. Konektor `mcp-isap` w .mcp.json (search_acts, get_act, get_act_text). Orzeczenia (SAOS) w wersji stabilnej 8.09 mają otwarty błąd #37 — sygnatury sprawdzać ręcznie na saos.org.pl do czasu aktualizacji.
