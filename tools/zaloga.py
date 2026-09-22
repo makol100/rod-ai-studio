@@ -139,6 +139,18 @@ def zenek(zadanie: str, _material: str, wynik: dict) -> None:
         for znacznik in ("\ntokens used", "\nTokens used"):
             if znacznik in tresc:
                 tresc = tresc.split(znacznik)[0].strip()
+        # 22.09: pusty stdout = Codex skonczyl z bledem (limit subskrypcji ChatGPT) — powod jest w stderr.
+        # Wczesniej zapisywalismy pusty plik i Tomasz widzial "Zenek padl bez sladu" (4x tego dnia).
+        if not tresc.strip():
+            err = (w.stderr or "")
+            pow = "LIMIT SUBSKRYPCJI ChatGPT/Codex (usage limit) — doladowac na https://chatgpt.com/codex/settings/usage" if "usage limit" in err.lower() else (err.strip().splitlines()[-1][:300] if err.strip() else f"exit={w.returncode}")
+            tresc = f"GLOS NIEODEBRANY — Codex zwrocil pusta odpowiedz. Powod: {pow}"
+            try:
+                import sys as _s; _s.path.insert(0, "/root/rod-ai-studio/tools"); import hans_ucho as _h, urllib.request as _u, json as _j
+                _t, _c = _h._wczytaj_token_hansa()
+                _u.urlopen(_u.Request(f"https://api.telegram.org/bot{_t}/sendMessage", data=_j.dumps({"chat_id": _c, "text": "⚠️ ZENEK: " + tresc[:300]}).encode(), headers={"Content-Type": "application/json"}), timeout=15)
+            except Exception:
+                pass
         wynik["zenek"] = tresc[-24000:] if len(tresc) > 24000 else tresc
     except Exception as e:
         wynik["zenek"] = f"GLOS NIEODEBRANY ({e})"
