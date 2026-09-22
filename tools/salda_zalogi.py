@@ -24,6 +24,13 @@ try:
 except urllib.error.HTTPError as e:
     wyn.append(("Google (Genek)", f"HTTP {e.code}" + (" — kredyty wyczerpane" if "depleted" in e.read().decode() else ""), True))
 except Exception: wyn.append(("Google (Genek)", "błąd", True))
+# Codex (Zenek) — limit subskrypcji: ostatnia sesja z bledem 'usage limit' w ciagu 24 h
+try:
+    import glob, os, time
+    fs = sorted(glob.glob(os.path.expanduser("~/.codex/sessions/*/*/*/*.jsonl")), key=os.path.getmtime)[-5:]
+    lim = any("usage limit" in open(f, errors="ignore").read().lower() and time.time() - os.path.getmtime(f) < 86400 for f in fs)
+    wyn.append(("Codex (Zenek)", "LIMIT SUBSKRYPCJI — chatgpt.com/codex/settings/usage" if lim else "OK", lim))
+except Exception: wyn.append(("Codex (Zenek)", "?", False))
 alarm = any(a for _, _, a in wyn)
 lin = "\n".join(f"{'⚠️' if a else '✅'} {n}: {b if not isinstance(b, float) else f'{b:.2f} USD'}" for n, b, a in wyn)
 print(lin)
