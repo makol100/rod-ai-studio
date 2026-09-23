@@ -1,5 +1,16 @@
 [
  {
+  "id": "1589285226330940",
+  "tytul": "⚡ 30 LISTOPADA GAŚNIE PRĄD W OGRODZIE. Masz umowę z Tauronem?",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1589285226330940/",
+  "wideo": "/static/wideo/1589285226330940.mp4",
+  "miniaturka": "/static/wideo/1589285226330940.jpg",
+  "date": "2026-09-23T18:05+02:00",
+  "display_date": "23.09.2026"
+ },
+ {
   "id": "1977168269908432",
   "tytul": "🍂 NIE WYRZUCAJ LIŚCI! Za pół roku to najlepsza ziemia na działce",
   "opis": "",
@@ -7,7 +18,7 @@
   "link": "https://www.facebook.com/reel/1977168269908432/",
   "wideo": "/static/wideo/1977168269908432.mp4",
   "miniaturka": "/static/wideo/1977168269908432.jpg",
-  "date": "2026-09-23T17:31+02:00",
+  "date": "2026-09-23T17:30+02:00",
   "display_date": "23.09.2026"
  },
  {
@@ -273,16 +284,5 @@
   "miniaturka": "/static/wideo/1839659757018910.jpg",
   "date": "2026-07-13T21:59+02:00",
   "display_date": "13.07.2026"
- },
- {
-  "id": "1529720511368192",
-  "tytul": "☕ Nie wyrzucaj fusów z kawy — Twój ogród je pokocha!",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1529720511368192/",
-  "wideo": "/static/wideo/1529720511368192.mp4",
-  "miniaturka": "/static/wideo/1529720511368192.jpg",
-  "date": "2026-07-10T21:06+02:00",
-  "display_date": "10.07.2026"
  }
 ]

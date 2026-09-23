@@ -10,3 +10,6 @@ Wzorzec: profil FB „Mądry Jan" (24 tys. obs., rolki 8–145 tys. odtworzeń) 
 
 ## NIE WDROŻONE (Tomasz nie wybrał): 5 (jeden temat = jedna rolka — i tak stosujemy), 6 (pilność w tytule — zalecane), 8 (obietnica rytmu w opisie strony).
 ## Kontrola: każdy scenariusz przed produkcją przechodzi test: tytuł wg reguły 1? scena 1 wg reguły 2? napis-haczyk wg 3? zdjęcia prawdziwe i zatwierdzone wg 4? pytanie na końcu wg 7?
+
+## ZASADA (dekret 23.09.2026, D-0522): KAŻDY obraz NATYCHMIAST na Telegram do podglądu
+Każdy wygenerowany obraz i każde zdjęcie do produkcji wysyłać Tomaszowi na Telegram **od razu po powstaniu, pojedynczo, na bieżąco** (z podpisem: co to, do której sceny) — żeby mógł zareagować, zanim wejdzie do montażu. Obowiązuje Klaudka i całą załogę. Narzędzie: `tools/tg_foto.py <plik> "<podpis>"`.
