@@ -1,13 +1,35 @@
 [
  {
+  "id": "1445848644081283",
+  "tytul": "🍄 BOROWIK CZY SOBOWTÓR? Sprawdź, zanim włożysz do koszyka",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1445848644081283/",
+  "wideo": "/static/wideo/1445848644081283.mp4",
+  "miniaturka": "/static/wideo/1445848644081283.jpg",
+  "date": "2026-09-23T11:00+02:00",
+  "display_date": "23.09.2026"
+ },
+ {
+  "id": "991744893228722",
+  "tytul": "🧄 CZOSNEK ZIMOWY — sadzimy jesienią, nie wiosną",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/991744893228722/",
+  "wideo": "/static/wideo/991744893228722.mp4",
+  "miniaturka": "/static/wideo/991744893228722.jpg",
+  "date": "2026-09-23T11:00+02:00",
+  "display_date": "23.09.2026"
+ },
+ {
   "id": "1113602751023813",
-  "tytul": "WIADOMOŚCI Z OGRODU 🟢 Przegląd z ogrodów działkowych — wydanie 2 (22.09.2026)",
+  "tytul": "WIADOMOŚCI Z OGRODU 🟢 Przegląd z ogrodów działkowych — wydanie 2 (22 września 2026)",
   "opis": "",
   "kategoria": "wiadomosci",
   "link": "https://www.facebook.com/reel/1113602751023813/",
   "wideo": "/static/wideo/1113602751023813.mp4",
   "miniaturka": "/static/wideo/1113602751023813.jpg",
-  "date": "2026-09-22T14:44+02:00",
+  "date": "2026-09-22T14:42+02:00",
   "display_date": "22.09.2026"
  },
  {
@@ -273,16 +295,5 @@
   "miniaturka": "/static/wideo/2007862369870612.jpg",
   "date": "2026-07-09T01:10+02:00",
   "display_date": "09.07.2026"
- },
- {
-  "id": "1558538239210185",
-  "tytul": "🌱 Coś nowego rusza na naszej stronie! 🌱",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1558538239210185/",
-  "wideo": "/static/wideo/1558538239210185.mp4",
-  "miniaturka": "/static/wideo/1558538239210185.jpg",
-  "date": "2026-07-07T14:29+02:00",
-  "display_date": "07.07.2026"
  }
 ]
