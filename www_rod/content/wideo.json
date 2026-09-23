@@ -1,5 +1,16 @@
 [
  {
+  "id": "1977168269908432",
+  "tytul": "🍂 NIE WYRZUCAJ LIŚCI! Za pół roku to najlepsza ziemia na działce",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1977168269908432/",
+  "wideo": "/static/wideo/1977168269908432.mp4",
+  "miniaturka": "/static/wideo/1977168269908432.jpg",
+  "date": "2026-09-23T17:31+02:00",
+  "display_date": "23.09.2026"
+ },
+ {
   "id": "1610922353859098",
   "tytul": "🦔 JEŻ JESIENIĄ — jak mu pomóc na działce",
   "opis": "",
@@ -7,7 +18,7 @@
   "link": "https://www.facebook.com/reel/1610922353859098/",
   "wideo": "/static/wideo/1610922353859098.mp4",
   "miniaturka": "/static/wideo/1610922353859098.jpg",
-  "date": "2026-09-23T11:06+02:00",
+  "date": "2026-09-23T11:05+02:00",
   "display_date": "23.09.2026"
  },
  {
@@ -272,17 +283,6 @@
   "wideo": "/static/wideo/1529720511368192.mp4",
   "miniaturka": "/static/wideo/1529720511368192.jpg",
   "date": "2026-07-10T21:06+02:00",
-  "display_date": "10.07.2026"
- },
- {
-  "id": "1359124919695688",
-  "tytul": "Skoszona trawa to nie problem – to darmowy skarb dla Twojego ogrodu! 🌿✨",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1359124919695688/",
-  "wideo": "/static/wideo/1359124919695688.mp4",
-  "miniaturka": "/static/wideo/1359124919695688.jpg",
-  "date": "2026-07-10T15:53+02:00",
   "display_date": "10.07.2026"
  }
 ]

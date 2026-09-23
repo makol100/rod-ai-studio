@@ -93,3 +93,4 @@ Jeden fakt ma jedno miejsce. Nowy zapis idzie do `wiedza/`, nie do teleportu.
 Teleporty sa ARCHIWUM historycznym — czyta sie je wyszukiwarka, nie w calosci.
 | `LEX_MACHINA.md` | 22.09 | 3K | Lex-Machina w fabryce: 33 skille prawa PL w /root/.claude/skills + konektor mcp-isap; jak używać, dziedziny dla ROD, akty kluczowe |
 | `INCYDENT_OLLAMA_0818.md` | 23.09 | 3K | Włamanie do Ollamy przez otwarte API (2–18.08): obce modele/okup, skasowany qwen3:14b; co zrobiono, zasady |
+| `STYL_MADRY_JAN.md` | 23.09 | 2K | Styl rolek „jak Mądry Jan” — reguły 1–4, 7 (tytuł-haczyk, 2 s straszak, czerwony prostokąt, prawdziwe ujęcia, zaczep do komentarzy) |
