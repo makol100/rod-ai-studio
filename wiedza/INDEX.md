@@ -92,3 +92,4 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 Jeden fakt ma jedno miejsce. Nowy zapis idzie do `wiedza/`, nie do teleportu.
 Teleporty sa ARCHIWUM historycznym — czyta sie je wyszukiwarka, nie w calosci.
 | `LEX_MACHINA.md` | 22.09 | 3K | Lex-Machina w fabryce: 33 skille prawa PL w /root/.claude/skills + konektor mcp-isap; jak używać, dziedziny dla ROD, akty kluczowe |
+| `INCYDENT_OLLAMA_0818.md` | 23.09 | 3K | Włamanie do Ollamy przez otwarte API (2–18.08): obce modele/okup, skasowany qwen3:14b; co zrobiono, zasady |

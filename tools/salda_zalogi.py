@@ -31,6 +31,22 @@ try:
     lim = any("usage limit" in open(f, errors="ignore").read().lower() and time.time() - os.path.getmtime(f) < 86400 for f in fs)
     wyn.append(("Codex (Zenek)", "LIMIT SUBSKRYPCJI — chatgpt.com/codex/settings/usage" if lim else "OK", lim))
 except Exception: wyn.append(("Codex (Zenek)", "?", False))
+# /tmp (tmpfs w RAM) — >6 GB = ryzyko OOM dla Bielika (23.09.2026)
+try:
+    import shutil as _sh
+    u = _sh.disk_usage("/tmp").used / 1e9; wyn.append(("/tmp (RAM)", f"{u:.1f} GB", u > 6.0))
+except Exception: pass
+# Ollama (po incydencie 08.2026): obce modele lub obce IP w logu = alarm
+try:
+    import subprocess as _sp
+    mods = [m["name"] for m in json.load(urllib.request.urlopen("http://127.0.0.1:11434/api/tags", timeout=10))["models"]]
+    KANON = {"SpeakLeash/bielik-11b-v3.0-instruct:Q8_0", "qwen3:14b", "qwen2.5vl:7b", "glm-5.2:cloud", "kimi-k2.7-code:cloud"}
+    obce = [m for m in mods if m not in KANON]
+    lg = _sp.run(["journalctl", "-u", "ollama", "--since", "24 hours ago", "--no-pager"], capture_output=True, text=True).stdout
+    ip = sorted({l.split("|")[3].strip() for l in lg.splitlines() if "[GIN]" in l and l.count("|") >= 4} - {"127.0.0.1"})
+    ip = [i for i in ip if not (i.startswith("172.") or i.startswith("100.") or i.startswith("10."))]
+    wyn.append(("Ollama obce modele/IP", (f"MODELE: {obce} " if obce else "") + (f"IP: {ip}" if ip else "") or "OK", bool(obce or ip)))
+except Exception as e: wyn.append(("Ollama", "?", False))
 alarm = any(a for _, _, a in wyn)
 lin = "\n".join(f"{'⚠️' if a else '✅'} {n}: {b if not isinstance(b, float) else f'{b:.2f} USD'}" for n, b, a in wyn)
 print(lin)
