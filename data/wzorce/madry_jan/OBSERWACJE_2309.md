@@ -1,0 +1,8 @@
+# „Mądry Jan” — obserwacje z profilu FB (23.09.2026, przez telefon Tomasza, apka FB)
+- Profil: „Mądry Jan”, blog osobisty, **24 tys. obserwujących**, 0 obserwowanych. Bio: „Twój przewodnik po praktycznych trikach i sprytnych rozwiązaniach w domu i ogrodzie…”.
+- Zakładka Rolki (pierwsze 9): 1,6 tys. · **145 tys.** · 68 tys. · 28 tys. · 10 tys. · 73 tys. · 24 tys. · 8,3 tys. · 73 tys. odtworzeń.
+- Miniatury = DUŻY NAPIS-HACZYK na kolorowym tle, bez ludzi: „Nie wyrzucaj kartonów!”, „Pilne: opryskaj sad jesienią, 100 razy lepiej niż miedzian”, „To nie jest rosa!”.
+- Rolka #1 (145 434 odtw., 3 673 reakcje, 153 komentarze, 172 udostępnienia): tytuł „Czosnek jak pięść. Wsyp to pilnie w październiku” — prawdziwe wideo (ręce wykopują cebule/czosnek z ziemi), duże białe litery w CZERWONYM prostokącie na czarnym pasku; słowa „pilnie”, „jak pięść” (obietnica efektu + presja czasu).
+- Rolka #2 (2 437 reakcji, 432 komentarze, 387 udostępnień): „AJENJO_ Roślina_ Której Przez Wieki Się Obawiano _ Dlaczego” (piołun/absynt) — ujęcia filmowe (stroje z epoki, zielony napój), napisy karaoke białe na czarnym + akcenty w czerwieni: „DWIEŚCIE LAT PÓŹNIEJ…”, „KTÓREGO VAN GOGH…”. Tytuł wygląda jak nazwa pliku z hiszpańskiego („ajenjo” = piołun) → treść tłumaczona/reużyta, materiał stockowy/filmowy, najpewniej lektor AI.
+- Wspólny mianownik: (1) tytuł = konkretna obietnica + pilność („pilnie”, „w październiku”, „nie wyrzucaj”), (2) napisy duże, kontrastowe, czerwony prostokąt, (3) prawdziwe/filmowe ujęcia zamiast grafik, (4) tematy sezonowe i „sekrety”, (5) mocne CTA w komentarzach (setki komentarzy).
+- Zrzuty: fb_profil.png, fb_rolki1.png, rolka_1.png (czosnek), rolkaN_1.png / rolkaN_2b.png (piołun).

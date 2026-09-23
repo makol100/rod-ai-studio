@@ -10,13 +10,13 @@ RETRIES = 1
 PLAY_RES_X = 1080
 PLAY_RES_Y = 1920
 FONT_NAME = "DejaVu Sans"
-FONT_SIZE = 54
+FONT_SIZE = 66  # 23.09.2026 STYL_MADRY_JAN: wieksze napisy
 MARGIN_V = 180
 WORDS_PER_LINE = 6
 
 COLOR_TEXT = "&H00FFFFFF"
 COLOR_OUTLINE = "&H00000000"
-COLOR_BACK = "&H80000000"
+COLOR_BACK = "&H001A1AE6"  # 23.09.2026 STYL_MADRY_JAN: czerwone pudelko (ASS &HAABBGGRR: E6 1A 1A = #E61A1A)
 
 
 def _sec_to_ass_time(t):
@@ -122,7 +122,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Napis,{FONT_NAME},{FONT_SIZE},{COLOR_TEXT},{COLOR_TEXT},{COLOR_OUTLINE},{COLOR_BACK},0,0,0,0,100,100,0,0,4,3,0,2,60,60,{MARGIN_V},1
+Style: Napis,{FONT_NAME},{FONT_SIZE},{COLOR_TEXT},{COLOR_TEXT},{COLOR_BACK},{COLOR_BACK},-1,0,0,0,100,100,0,0,3,14,0,2,60,60,{MARGIN_V},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, Effect, Text
