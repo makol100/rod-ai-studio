@@ -1,5 +1,16 @@
 [
  {
+  "id": "1610922353859098",
+  "tytul": "🦔 JEŻ JESIENIĄ — jak mu pomóc na działce",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1610922353859098/",
+  "wideo": "/static/wideo/1610922353859098.mp4",
+  "miniaturka": "/static/wideo/1610922353859098.jpg",
+  "date": "2026-09-23T11:06+02:00",
+  "display_date": "23.09.2026"
+ },
+ {
   "id": "1445848644081283",
   "tytul": "🍄 BOROWIK CZY SOBOWTÓR? Sprawdź, zanim włożysz do koszyka",
   "opis": "",
@@ -7,7 +18,7 @@
   "link": "https://www.facebook.com/reel/1445848644081283/",
   "wideo": "/static/wideo/1445848644081283.mp4",
   "miniaturka": "/static/wideo/1445848644081283.jpg",
-  "date": "2026-09-23T11:00+02:00",
+  "date": "2026-09-23T10:59+02:00",
   "display_date": "23.09.2026"
  },
  {
@@ -18,7 +29,7 @@
   "link": "https://www.facebook.com/reel/991744893228722/",
   "wideo": "/static/wideo/991744893228722.mp4",
   "miniaturka": "/static/wideo/991744893228722.jpg",
-  "date": "2026-09-23T11:00+02:00",
+  "date": "2026-09-23T10:59+02:00",
   "display_date": "23.09.2026"
  },
  {
@@ -273,27 +284,5 @@
   "miniaturka": "/static/wideo/1359124919695688.jpg",
   "date": "2026-07-10T15:53+02:00",
   "display_date": "10.07.2026"
- },
- {
-  "id": "1347323756760115",
-  "tytul": "🛠️ Bezpieczeństwo i Infrastruktura | Rozdzielnica zmodernizowana",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1347323756760115/",
-  "wideo": "/static/wideo/1347323756760115.mp4",
-  "miniaturka": "/static/wideo/1347323756760115.jpg",
-  "date": "2026-07-10T09:15+02:00",
-  "display_date": "10.07.2026"
- },
- {
-  "id": "2007862369870612",
-  "tytul": "🌿 Startujemy z nową serią rolek o naszej działce!",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/2007862369870612/",
-  "wideo": "/static/wideo/2007862369870612.mp4",
-  "miniaturka": "/static/wideo/2007862369870612.jpg",
-  "date": "2026-07-09T01:10+02:00",
-  "display_date": "09.07.2026"
  }
 ]
