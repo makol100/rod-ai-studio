@@ -19,3 +19,5 @@ Każdą sprawę prawną (pisma do Taurona/PZD/gminy, uchwały, RODO, umowy, opł
 Mapa ścieżek skilli: `shared/` = `/root/.claude/skills/shared/`; `references/`, `modules/`, `assets/` = podkatalog bieżącego skilla; operacja `view` = Read z absolutną ścieżką. Allowlista domen z claude.ai NIE dotyczy Claude Code (WebFetch/curl działa). Kanał maszynowy isap.sejm.gov.pl jest martwy (pętla 302) — używać api.sejm.gov.pl/eli. Konektor `mcp-isap` w .mcp.json (search_acts, get_act, get_act_text). Orzeczenia (SAOS) w wersji stabilnej 8.09 mają otwarty błąd #37 — sygnatury sprawdzać ręcznie na saos.org.pl do czasu aktualizacji.
 
 ## ZASADA D-0522 (23.09.2026): kazdy wygenerowany obraz/zdjecie do produkcji -> NATYCHMIAST na Telegram Tomasza (tools/tg_foto.py <plik> "podpis"), pojedynczo, na biezaco.
+
+## ZASADA (24.09.2026): przed kazdym platnym krokiem czytaj wiedza/MOZLIWOSCI_ZALOGI.md i pytaj zaloge o darmowa droge (obrazy AI = Zenek za darmo).

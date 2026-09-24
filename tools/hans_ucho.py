@@ -6,6 +6,7 @@ from __future__ import annotations
 import os
 import subprocess
 import sys
+import json as _json_r
 import time
 import json
 import json as _json
@@ -672,7 +673,7 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
 
     # 2. Odpytanie Telegram getUpdates przy użyciu requests
     url = f"https://api.telegram.org/bot{token}/getUpdates"
-    params = {"offset": offset + 1, "timeout": 20}
+    params = {"offset": offset + 1, "timeout": 20, "allowed_updates": _json_r.dumps(["message","edited_message","channel_post","callback_query","message_reaction"])}  # 24.09: reakcje 👍/👎 Tomasza na zdjecia
     try:
         res = requests.get(url, params=params, timeout=45)
         res.raise_for_status()
@@ -714,6 +715,14 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
             pass
 
         # Callback (przyciski inline) — np. zatwierdzanie ogloszen tablicy TAK/NIE
+        # 24.09.2026 (Tomasz: "lapka w gore / w dol i po tym akceptuje"): reakcje na zdjecia -> .scratch/hans/reakcje.jsonl
+        mr = aktualizacja.get("message_reaction")
+        if mr:
+            try:
+                emo = [r.get("emoji") for r in (mr.get("new_reaction") or []) if r.get("type") == "emoji"]
+                Path(".scratch/hans/reakcje.jsonl").open("a", encoding="utf-8").write(_json_r.dumps({"message_id": mr.get("message_id"), "emoji": emo, "date": mr.get("date")}, ensure_ascii=False) + "\n")
+            except Exception as e:
+                print(f"Hans ucho: blad zapisu reakcji: {e}", file=sys.stderr)
         cbq = aktualizacja.get("callback_query")
         if isinstance(cbq, dict):
             try:
