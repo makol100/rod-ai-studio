@@ -702,3 +702,4 @@ button { font: inherit; }
   .dzis-kafel { min-height: 56px; }
   .zarzad-lista li { grid-template-columns: 1fr; gap: 2px; }
 }
+.ns-cena{font-size:1.35rem;margin:.2rem 0}

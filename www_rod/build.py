@@ -474,6 +474,24 @@ def tablica_html() -> str:
     return '<ul class="ogl-tablica">' + "".join(rows) + '</ul>'
 
 
+def na_sprzedaz_html() -> str:
+    """24.09.2026 (Tomasz: 'Chcialem osobny dzial Na sprzedaz!') — karty ogloszen sprzedazy dzialek."""
+    try:
+        items = load_json(CONTENT / "na_sprzedaz.json")
+    except Exception:
+        items = []
+    if not isinstance(items, list) or not items:
+        return '<p class="muted">Na razie brak ogłoszeń sprzedaży.</p>'
+    rows = []
+    for it in items:
+        foto = (f'<a class="ogl-foto" href="{html.escape(it.get("link") or it["zdjecie"])}" target="_blank" rel="noopener"><img src="{html.escape(it["zdjecie"])}" alt="{html.escape(it["tytul"])}" loading="lazy"></a>' if it.get("zdjecie") else "")
+        fakty = " · ".join(html.escape(x) for x in [it.get("powierzchnia",""), it.get("miejsce","")] if x)
+        cena = f'<p class="ns-cena"><strong>{html.escape(it.get("cena",""))}</strong>' + (f' <span class="muted">({html.escape(it["cena_uwaga"])})</span>' if it.get("cena_uwaga") else "") + '</p>' if it.get("cena") else ""
+        link = (f'<p class="ogl-link"><a href="{html.escape(it["link"])}" target="_blank" rel="noopener">{html.escape(it.get("link_tekst") or "Zobacz ogłoszenie")} →</a></p>' if it.get("link") else "")
+        rows.append(f'<li class="ogl-tab ns-karta">{foto}<h3>{html.escape(it["tytul"])}</h3>{cena}<p class="muted">{fakty}</p><p>{html.escape(it.get("tresc",""))}</p>{link}<p class="ogl-od"><time>dodano {html.escape(it.get("display_date",""))}</time></p></li>')
+    return '<ul class="ogl-tablica ns-lista">' + "".join(rows) + '</ul>'
+
+
 def build() -> list[Path]:
     site = load_json(CONTENT / "site.json")
     announcements = load_json(CONTENT / "announcements.json")
@@ -547,7 +565,7 @@ def build() -> list[Path]:
             title=meta["title"],
             description=meta["description"],
             canonical=f'{site["url"]}/{meta["slug"]}/',
-            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{fb_posty}}", fb_posty_html()).replace("{{wideo_rolki}}", wideo_html("rolki")).replace("{{wideo_wiadomosci}}", wideo_html("wiadomosci")).replace("{{wideo_humor}}", wideo_html("humor")).replace("{{wideo_poradniki}}", wideo_html("poradniki")).replace("{{poradniki_apki}}", poradniki_apki_html())),
+            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{na_sprzedaz}}", na_sprzedaz_html()).replace("{{fb_posty}}", fb_posty_html()).replace("{{wideo_rolki}}", wideo_html("rolki")).replace("{{wideo_wiadomosci}}", wideo_html("wiadomosci")).replace("{{wideo_humor}}", wideo_html("humor")).replace("{{wideo_poradniki}}", wideo_html("poradniki")).replace("{{poradniki_apki}}", poradniki_apki_html())),
         )
 
     paths = ["/", "/ogloszenia/"] + [f"/{parse_page(path)[0]['slug']}/" for path in sorted((CONTENT / "pages").glob("*.md"))]
