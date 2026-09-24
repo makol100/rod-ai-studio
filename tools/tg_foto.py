@@ -10,6 +10,10 @@ def wyslij(plik, podpis=""):
     ext = os.path.splitext(plik)[1].lower(); mime = "image/png" if ext == ".png" else "image/jpeg"
     data += f'--{b}\r\nContent-Disposition: form-data; name="photo"; filename="{os.path.basename(plik)}"\r\nContent-Type: {mime}\r\n\r\n'.encode() + open(plik, "rb").read() + f"\r\n--{b}--\r\n".encode()
     r = urllib.request.Request(f"https://api.telegram.org/bot{tok}/sendPhoto", data=data, headers={"Content-Type": f"multipart/form-data; boundary={b}"})
-    return json.load(urllib.request.urlopen(r, timeout=60)).get("ok")
+    odp = json.load(urllib.request.urlopen(r, timeout=60))
+    try:  # 24.09: mapa message_id -> plik, zeby reakcje 👍/👎 Tomasza wiedzialy ktorego zdjecia dotycza
+        open("/root/rod-ai-studio/.scratch/hans/wyslane_foto.jsonl", "a", encoding="utf-8").write(json.dumps({"message_id": odp["result"]["message_id"], "plik": os.path.abspath(plik), "podpis": podpis[:200]}, ensure_ascii=False) + "\n")
+    except Exception: pass
+    return odp.get("ok")
 if __name__ == "__main__":
     print("na Telegram:", wyslij(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else ""))
