@@ -1,17 +1,23 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 20.09.2026 14:20.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 24.09.2026 15:51.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
 
 **ZACZNIJ OD `START.md`** — zasada nadrzedna, kolejnosc pracy, kto jest kim, narzedzia.
 
-## Pliki wiedzy (65), od najswiezszego
+## Pliki wiedzy (71), od najswiezszego
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 20.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-20 16:11:30 CEST |
+| `STYL_MADRY_JAN.md` | 24.09 | 3K | STYL ROLEK „JAK MĄDRY JAN" — obowiązuje od 23.09.2026 (dekret Tomasza: „Wdrażamy 1–4 i 7") |
+| `BRIEF_DLA_KLAUDKA.md` | 24.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-24 17:42:53 CEST |
+| `MOZLIWOSCI_ZALOGI.md` | 24.09 | 2K | MOŻLIWOŚCI ZAŁOGI — kto co umie i ile to kosztuje (24.09.2026, dekret: „Takie coś masz wiedzieć sam… zapytać s |
+| `SA_ODCZYT_2309.md` | 23.09 | 6K | Solar Assistant — odczyt z apki na telefonie Tomasza (23.09.2026 11:26–11:32), TYLKO ODCZYT, nic nie zmieniano |
+| `INCYDENT_OLLAMA_0818.md` | 23.09 | 2K | INCYDENT: włamanie do Ollamy przez otwarte API 11434 (2–18.08.2026) — wykryte i posprzątane 23.09.2026 |
+| `LEX_MACHINA.md` | 22.09 | 3K | LEX-MACHINA W FABRYCE (zainstalowane 22.09.2026, dekret D-0455 „Instaluj teraz. Mamy polskie prawo u siebie") |
+| `TECZKA_REKLAMACJA_SSD.md` | 22.09 | 11K | 20.09.2026 ~23:59 — APELACJA ZŁOŻONA W CENTRUM POMOCY (przez telefon, Klaudek na zlecenie Tomasza "Wejdź") |
 | `WWW_DODATKI_1809.md` | 18.09 | 3K | Dodatki na rodwozniki.pl z 18.09.2026 (D-0430) — pkt 2, 4, 6, 12, 13 narady www/FB |
 | `KARTKA_QR_rodwozniki.md` | 18.09 | 6K | Kartka z QR do rodwozniki.pl + plakat na bramę (D-0419, 18.09.2026) |
 | `PREZENTER_TOMASZ_KANON_0.1.md` | 17.09 | 3K | PREZENTER TOMASZ — KANON 0.1 (dekret Tomasza 01.09.2026) |
@@ -81,7 +87,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | rozmiar | zmiana | rola |
 |---|---|---|---|
-| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 171K | 19.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
+| `/root/rod-ai-studio/TELEPORT_fabryka.md` | 185K | 23.09 | teleport fabryki — ARCHIWUM, nie czytac w calosci, szukac przez szukaj.py |
 | `/root/TELEPORT_HA.md` | 69K | 03.09 | teleport HA — ARCHIWUM, jw. |
 | `/root/rod-ai-studio/AGENTS.md` | 6K | 02.08 | regulamin pracy agentow w repo — CZYTAC ZAWSZE |
 | `/root/.claude/CLAUDE.md` | 2K | 04.08 | konfiguracja Claude Code na VPS |
@@ -91,7 +97,3 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 Jeden fakt ma jedno miejsce. Nowy zapis idzie do `wiedza/`, nie do teleportu.
 Teleporty sa ARCHIWUM historycznym — czyta sie je wyszukiwarka, nie w calosci.
-| `LEX_MACHINA.md` | 22.09 | 3K | Lex-Machina w fabryce: 33 skille prawa PL w /root/.claude/skills + konektor mcp-isap; jak używać, dziedziny dla ROD, akty kluczowe |
-| `INCYDENT_OLLAMA_0818.md` | 23.09 | 3K | Włamanie do Ollamy przez otwarte API (2–18.08): obce modele/okup, skasowany qwen3:14b; co zrobiono, zasady |
-| `STYL_MADRY_JAN.md` | 23.09 | 2K | Styl rolek „jak Mądry Jan” — reguły 1–4, 7 (tytuł-haczyk, 2 s straszak, czerwony prostokąt, prawdziwe ujęcia, zaczep do komentarzy) |
-| `MOZLIWOSCI_ZALOGI.md` | 24.09 | 2K | Kto z załogi co umie i za ile — darmowe drogi najpierw (obrazy AI = Zenek) |
