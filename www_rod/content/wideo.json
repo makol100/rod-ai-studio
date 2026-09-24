@@ -1,5 +1,16 @@
 [
  {
+  "id": "2153539518907899",
+  "tytul": "❄️ KAPIE Z KRANU? Zobacz, co zrobi mróz — przedmuchaj instalację przed zimą",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/2153539518907899/",
+  "wideo": "/static/wideo/2153539518907899.mp4",
+  "miniaturka": "/static/wideo/2153539518907899.jpg",
+  "date": "2026-09-24T14:15+02:00",
+  "display_date": "24.09.2026"
+ },
+ {
   "id": "1388955856229485",
   "tytul": "✂️ OSTATNIE KOSZENIE: 4 CM, NIE 1,5 — trawnik nie zgnije we mgle",
   "opis": "",
@@ -7,29 +18,29 @@
   "link": "https://www.facebook.com/reel/1388955856229485/",
   "wideo": "/static/wideo/1388955856229485.mp4",
   "miniaturka": "/static/wideo/1388955856229485.jpg",
-  "date": "2026-09-24T13:08+02:00",
+  "date": "2026-09-24T13:07+02:00",
   "display_date": "24.09.2026"
  },
  {
   "id": "1061834783328181",
-  "tytul": "🌱 ROZSYP TEN BIAŁY PROSZEK W PAŹDZIERNIKU — mech zniknie z trawnika",
+  "tytul": "🌱 ROZSYP TEN BIAŁY PROSZEK W PAŹDZIERNIKU — mech zniknie z trawnika do wiosny",
   "opis": "",
   "kategoria": "rolki",
   "link": "https://www.facebook.com/reel/1061834783328181/",
   "wideo": "/static/wideo/1061834783328181.mp4",
   "miniaturka": "/static/wideo/1061834783328181.jpg",
-  "date": "2026-09-24T13:08+02:00",
+  "date": "2026-09-24T13:07+02:00",
   "display_date": "24.09.2026"
  },
  {
   "id": "2369271656813232",
   "tytul": "💧 JEDEN OTWARTY ZAWÓR = PĘKNIĘTA RURA. Zakręć wodę na zimę w 3 krokach",
   "opis": "",
-  "kategoria": "rolki",
+  "kategoria": "wiadomosci",
   "link": "https://www.facebook.com/reel/2369271656813232/",
   "wideo": "/static/wideo/2369271656813232.mp4",
   "miniaturka": "/static/wideo/2369271656813232.jpg",
-  "date": "2026-09-24T13:08+02:00",
+  "date": "2026-09-24T13:07+02:00",
   "display_date": "24.09.2026"
  },
  {
@@ -40,7 +51,7 @@
   "link": "https://www.facebook.com/reel/1091005136981068/",
   "wideo": "/static/wideo/1091005136981068.mp4",
   "miniaturka": "/static/wideo/1091005136981068.jpg",
-  "date": "2026-09-24T13:08+02:00",
+  "date": "2026-09-24T13:07+02:00",
   "display_date": "24.09.2026"
  },
  {
@@ -273,49 +284,5 @@
   "miniaturka": "/static/wideo/1351291620429094.jpg",
   "date": "2026-07-15T19:58+02:00",
   "display_date": "15.07.2026"
- },
- {
-  "id": "822932044118807",
-  "tytul": "🌱 Cukinie atakowane przez mączniaka? 😱 Sprawdź, jak chronić swoje plony! 🌿",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/822932044118807/",
-  "wideo": "/static/wideo/822932044118807.mp4",
-  "miniaturka": "/static/wideo/822932044118807.jpg",
-  "date": "2026-07-15T07:24+02:00",
-  "display_date": "15.07.2026"
- },
- {
-  "id": "1746818933119044",
-  "tytul": "🌿 **NATURALNY OPYRSK NA MSZYCE I INNE SZKODNIKI!** 🌿",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1746818933119044/",
-  "wideo": "/static/wideo/1746818933119044.mp4",
-  "miniaturka": "/static/wideo/1746818933119044.jpg",
-  "date": "2026-07-14T21:11+02:00",
-  "display_date": "14.07.2026"
- },
- {
-  "id": "1329142642766866",
-  "tytul": "Tępisz mrówki chemią? Robisz ogrodowi krzywdę.",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1329142642766866/",
-  "wideo": "/static/wideo/1329142642766866.mp4",
-  "miniaturka": "/static/wideo/1329142642766866.jpg",
-  "date": "2026-07-14T09:44+02:00",
-  "display_date": "14.07.2026"
- },
- {
-  "id": "27217400991264986",
-  "tytul": "Lipiec w ROD: trzy rzeczy, które trzeba załatwić teraz",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/27217400991264986/",
-  "wideo": "/static/wideo/27217400991264986.mp4",
-  "miniaturka": "/static/wideo/27217400991264986.jpg",
-  "date": "2026-07-14T06:58+02:00",
-  "display_date": "14.07.2026"
  }
 ]
