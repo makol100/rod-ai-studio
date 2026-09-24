@@ -1457,3 +1457,206 @@ Belzebub o reklamacji N150: appeal odrzuconego sporu (item not as described) + o
 ==============================================================================
 
 19.09: reklamacja N150 WYSŁANA — e-mail do AliExpress (SENT, wątek sprawy 2053808791215177) + 4 wiadomości w czacie do FUCHU. Termin 21.09. Czekamy na tracking albo idziemy w appeal/Buyer Protection.
+
+
+==============================================================================
+## SESJA 22.09.2026 14:16 CEST
+==============================================================================
+
+Brama: Tomasz 14:14 — budżetowa kamera blisko bramy, byle się zgrała z Frigate LPR + Shelly. Szukam 150-400 zł.
+
+
+==============================================================================
+## SESJA 22.09.2026 16:58 CEST
+==============================================================================
+
+Brama D: Reolink na środku bramy, przez naprawiony HA Działka (bez N100). Brakuje: kamera, moduł SIM, napęd.
+
+
+==============================================================================
+## SESJA 22.09.2026 17:39 CEST
+==============================================================================
+
+Brama: P324 (MediaMarkt AT 55,90 EUR) = następca RLC-520A, 2,8 mm/110°, 2880x1616; ≥130 px do ~4 m (Zenek); Anti-Smearing i HA dla P324 niepotwierdzone.
+
+
+==============================================================================
+## SESJA 22.09.2026 17:41 CEST
+==============================================================================
+
+Brama: Tomasz 17:41 'Zostaje RLC-520A' — kamera wybrana (HomeBrainz 300,45 zł / dmtrade 299 zł). Nic nie kupione.
+
+
+==============================================================================
+## SESJA 22.09.2026 18:41 CEST
+==============================================================================
+
+Protokół pomiarów kabla (ZK→szafka przyłączeniowa, YKY 10mm2, 75m): NOWY szablon szablony/protokol_pomiarow_kabla.js + dane/protokol_kabel_ZK.json, DOCX w wystawione/, wysłany Tomaszowi Hansem (msg 1073). Wyniki 19.09 (MPI-525): izolacja 2 GΩ @500V ✔, ciągłość pętli par żył 0,23 Ω (obl. 0,26) ✔. DECYZJA Tomasza 22.09: zabezpieczenie B20 (nie A20, nie C20) → warunek Zs ≤ 1,84 Ω (z 0,8). Pętla do pomiaru po podaniu napięcia; nr działki/użytkownik do uzupełnienia. Bezpiecznik 20A za licznikiem = Taurona, nie liczymy go.
+
+
+==============================================================================
+## SESJA 22.09.2026 19:21 CEST
+==============================================================================
+
+Protokoły kabli działek 1-3 (arkusz Tomasza, pomiar 19.09, MPI-525): dz1 10mm²/30m pętla max 1,696Ω; dz2 6mm²/40m pętla max 1,412Ω; dz3 10mm²/60m pętla max 1,79Ω (zapas 3%) — wszystkie ≤1,84Ω (B20), izolacja 2GΩ, ciągłość zgodna z obl. DOCX wysłane Hansem (1078-1080). Bez nazwisk (D-0465). Interpretacja arkusza potwierdzona przez Tomasza po dz.13: AB1/AB2=pętla w 2 pkt (po 2 pomiary), R/RF/RR=ciągłość dwukierunkowa, prawy róg=przekrój+długość. Dz.2 N-PE izolacja wpisana jako 'GΩ' bez cyfry — przyjęto 2 GΩ. Protokół 13 wystawiony wcześniej (msg 1077).
+
+
+==============================================================================
+## SESJA 22.09.2026 19:28 CEST
+==============================================================================
+
+Protokoły PDF działek 4-6 wysłane (Hans): dz4 6mm²/65m pętla 1,392Ω (ciągłość 0,43-0,65 — żyły zróżnicowane, powtarzalne); dz5 6mm²/100m pętla 1,382Ω; dz6 10mm²/110m pętla 1,525Ω (izolacja N-PE na kartce 'GΩ' bez cyfry — przyjęto 2 GΩ jak dz.2). Wszystkie ≤1,84Ω B20, 1 strona, TN-C, tylko PDF (D-0467). Razem wystawione: 1-6 i 13.
+
+
+==============================================================================
+## SESJA 22.09.2026 19:30 CEST
+==============================================================================
+
+Protokoły PDF działek 7,9,10,11,12 wysłane (arkusze bez przekroju/długości — pola kropkowane, czekamy na dane od Tomasza). Pętle L–PE max: 7=1,398; 9=1,335; 10=1,263; 11=1,302 (rozrzut ciągłości L–PE do 0,80); 12=1,554 — wszystkie ≤1,84 B20. Dz.12 N–PE izolacja 'GΩ' bez cyfry → przyjęto 2 GΩ. DZIAŁKA 8 WSTRZYMANA: kolumna B–ZZ (L–PE) izolacji zapisana jako '2Ω' (bez G) ×3 — czeka na potwierdzenie Tomasza; reszta dz.8 odczytana (AB1 1,441/1,435/1,405; AB2 1,24/1,237/1,214; ciągłość 0,58-0,60).
+
+
+==============================================================================
+## SESJA 22.09.2026 19:39 CEST
+==============================================================================
+
+Dz.8 odblokowana słowem Tomasza ('wszystko 2Gomy' — zapis '2Ω' na kartce = 2 GΩ), protokół 8 PDF wysłany (pętla 1,435Ω, Ik 160A). Wystawione łącznie: 1-13 KOMPLET oprócz przekrojów/długości dla 7-12 (Tomasz mówi że są 'na środku' kartek — na zdjęciach nieczytelne, poproszono o podyktowanie).
+
+
+==============================================================================
+## SESJA 22.09.2026 19:43 CEST
+==============================================================================
+
+KOMPLET ZAMKNIĘTY: protokoły pomiarów kabli działek 1-13 (13 szt.) wystawione jako PDF i wysłane Tomaszowi Hansem. Długości od Tomasza: 7=140m, 8=155m, 9=170m, 10=170m, 11=155m, 12=140m, wszystkie 10mm² (potwierdzone zgodnością ciągłości z obliczeniem). Wszystkie pętle ≤1,84Ω (B20), izolacje 2GΩ, 1 strona, TN-C, bez nazwisk. Źródła: dane/protokol_dzialka_N.json + szablon protokol_pomiarow_kabla.js.
+
+
+==============================================================================
+## SESJA 22.09.2026 19:59 CEST
+==============================================================================
+
+ALEJKA POŁUDNIOWA KOMPLET: 18 protokołów indywidualnych (1-18) + PROTOKÓŁ ZBIORCZY dla Zarządu wysłane PDF Hansem (msg do 1110). Nowe kartki: 13=110m/10mm² (zaktualizowany), 14=100m/6, 15=65m/6 (ciągłość 0,66-0,69 vs obl. 0,38 — uwaga o dłuższej trasie w protokole), 16=60m/6, 17=40m/6 (rozrzut L-N 0,27-0,47 — uwaga o kontroli połączeń; pętla 1,779 zapas 3%), 18=30m/6. Zbiorczy: szablony/protokol_zbiorczy.js (auto-tabela z JSONów). Wszystkie pętle ≤1,84Ω, wszystkie POZYTYWNE.
+
+
+==============================================================================
+## SESJA 22.09.2026 20:03 CEST
+==============================================================================
+
+Zestawienie zbiorcze WSZYSTKICH wyników pomiarów 1-18 Alejka Południowa wystawione: szablony/zestawienie_wynikow.js (landscape A4, 1 strona) + dane/zestawienie_1-18.json (auto-parsowane z protokol_dzialka_N.json, 18/18 bez błędów parsera). Wysłane Hansem. Komplet dokumentów elektryka: 18 protokołów + zbiorczy dla Zarządu + zestawienie szczegółowe.
+
+
+==============================================================================
+## SESJA 22.09.2026 20:32 CEST
+==============================================================================
+
+Wzór protokołów alejek ZATWIERDZONY i spisany: dokumenty/elektryk/WZOR_PROTOKOLY_ALEJKI.md (konwencja arkuszy, 3 dokumenty, procedura, weryfikacje). Alejka Południowa wydrukowana. CZEKAJĄ: Alejka Środkowa i Alejka Północna — ten sam wzór.
+
+
+==============================================================================
+## SESJA 23.09.2026 11:13 CEST
+==============================================================================
+
+G12w ładowanie: sterowanie = ustawienia falownika InfiniSolar V; Tomasz pozwolił podejrzeć apkę SA na telefonie BEZ ZMIAN.
+
+
+==============================================================================
+## SESJA 23.09.2026 11:16 CEST
+==============================================================================
+
+G12w LOGIKA Tomasza: szczyt pn-pt 6-13/15-22 = bateria, zero sieci; 13-15 doładować żeby wytrzymać do 22; 22-6 ładować z sieci i zużywać po niższej stawce; weekend/święta tanio cały czas.
+
+
+==============================================================================
+## SESJA 23.09.2026 11:45 CEST
+==============================================================================
+
+G12w: plan SA gotowy do zatwierdzenia (Zenek): 00-06 SUB+sieć do 60%, 06-13 SBU tylko słońce, 13-15 SUB+sieć do 45%, 15-22 SBU tylko słońce, 22-24 SUB+sieć do 60%. Obecnie ładowanie 'Solary i sieć' na stałe = sieć może ładować w szczycie. Nic nie zmieniono.
+
+
+==============================================================================
+## SESJA 23.09.2026 12:10 CEST
+==============================================================================
+
+SA 12:08: próba 20 A ładowania z sieci → falownik 'Rejected', zostało 40 A; nic innego nie zmienione; Tomasz przejął telefon (SmartESS).
+
+
+==============================================================================
+## SESJA 23.09.2026 18:00 CEST
+==============================================================================
+
+N150: 23.09 17:56 dysk Intenso M.2 SATA 256 GB jest u Tomasza; odbudowa na działce weekend 27-28.09; Zenek przygotowuje procedurę (wiedza/narady/n150_odbudowa).
+
+
+==============================================================================
+## SESJA 23.09.2026 18:06 CEST
+==============================================================================
+
+Druga alejka START: protokoły 19 (6mm²/23m, Zs 1,259, uwaga: para L-N 0,33-0,39 z rozrzutem — kontrola połączeń), 20 (6mm²/47m, Zs 1,254), 21 (6mm²/61m, Zs 1,263) wysłane PDF. Daty wg dekretu jak Południowa (pomiar 19.09, wystawienie 22.09). NAZWA ALEJKI jeszcze niepotwierdzona (obiekt bez nazwy — uzupełnić przed zbiorczym). Na kartce notacja '2/21','2/19' — możliwe ZK2/działka.
+
+
+==============================================================================
+## SESJA 23.09.2026 19:48 CEST
+==============================================================================
+
+Środkowa: protokoły 22 (6mm²/83m wg Tomasza, Zs 1,266, Ik 182A) i 23 (6mm²/56-58m wg Tomasza — NIE 95m z kartki; Zs 1,553, Ik 148A; Rt czasy 30/60/90s; izolacja L-N nie zapisana na kartce → wpisano 2 GΩ wg dekretu 'wszystko 2Gomy', do potwierdzenia) wysłane PDF. Środkowa ma już 19-23.
+
+
+==============================================================================
+## SESJA 23.09.2026 19:50 CEST
+==============================================================================
+
+Środkowa: protokoły 22 (6mm²/83m, ciągłość 0,52-0,56, Zs 1,266, Ik 182A) i 23 (6mm²/95m, ciągłość 0,56-0,58 wg Tomasza — jego '56-58' znaczyło OMY nie metry; Zs 1,553, Ik 148A, Rt 30/60/90s; izolacja L-N nie zapisana na kartce → 2 GΩ wg dekretu 'wszystko 2Gomy') wysłane PDF. Tabelka 0,34-0,36 z trzeciego zdjęcia NIE należy do 23. Środkowa: 19-23 gotowe.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:22 CEST
+==============================================================================
+
+Środkowa: protokoły 24,26,27,28,30,31,32 wysłane PDF (metry z karteczki: 24/121,26/177,27/180,28/182; 30/156,31/125,32/98 z kartek). WYKRYTO: kartka wcześniej podpisana '23' to działka 28 (10mm²/182m, '23' skreślone) — protokół 23 (msg 1197) ma pętle/izolację 28 i CZEKA NA POPRAWĘ (ciągłość 0,56-0,58 od Tomasza może być OK, pętle 23 nieznane). WSTRZYMANE do odpowiedzi: 23 (pętle?), 25 (B-N AB1 1,303/1,393?), 29 (163/169m?), 33 (B-N AB1 po skreśleniach?). Nazwisko MAROŃ z kartki 30 NIE weszło do protokołu (D-0465). 26 i 27: pierwsze odczyty AB odrzucone jako niestabilne, powtórzone — odnotowane w uwagach.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:29 CEST
+==============================================================================
+
+Środkowa: 25 (10/151m, L-N AB1=1,303 wg Tomasza, Zs 1,480), 29 (10/163m wg Tomasza, Zs 1,530), 33 (6/86m, L-N AB1=1,254/1,175 wg Tomasza, Zs 1,267) wysłane PDF. Dz.23: ciągłość poprawiona na 0,54-0,55 (najnowsze słowo, obl 0,55 dla 6/95m pasuje) w JSON — protokół NIE przegenerowany, bo PĘTLE 23 wciąż nieznane (te z msg 1197 należą do 28). Środkowa ma 19-22, 24-33; brakuje pętli 23 i kartek 34-36.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:30 CEST
+==============================================================================
+
+Dz.23 ZAMKNIĘTA: Tomasz przysłał kartkę 23 ponownie z '95m' — pętle 1,553/1,589/1,604 jednak należą do 23 (te same wartości figurują też na kartce 28; obie potwierdzone przez Tomasza). Protokół 23 finalny wysłany (ci 0,54-0,55). Środkowa: 19-33 KOMPLET, czekają kartki 34-36.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:33 CEST
+==============================================================================
+
+ALEJKA ŚRODKOWA ZAMKNIĘTA: 15 protokołów (19-33) + zbiorczy dla Zarządu + zestawienie landscape wysłane PDF (msg do 1210). Szablony sparametryzowane: node protokol_zbiorczy.js OD DO 'Alejka' PLIK; node zestawienie_wynikow.js JSON 'TYTUŁ' PLIK (domyślne = Południowa 1-18). Parser ci z fallbackiem zakresowym (dz.23,26). Następna: Alejka Północna.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:56 CEST
+==============================================================================
+
+Paczka zbiorcza do druku wysłana Tomaszowi: KOMPLET_Protokoly_Alejka_Poludniowa_i_Srodkowa.pdf (pdfunite, weryfikacja: liczba stron = liczba dokumentów). Zawartość: 2 zbiorcze + 2 zestawienia + 33 protokoły działek + 2 protokoły ZK. Tomasz drukuje na miejscu i podbija pieczątkami.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:56 CEST
+==============================================================================
+
+Korekta paczki: pierwsza wysyłka (msg 1211, 37 str.) nie zawierała protokołów ZK mimo podpisu — DOCX-y ZK nie miały PDF (sprzed dekretu D-0467). Skonwertowane, paczka finalna 39 stron wysłana z adnotacją 'drukuj tę'.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:57 CEST
+==============================================================================
+
+Paczka FINALNA 39 stron wysłana (msg 1213) po dwóch błędnych (1211/1212 bez ZK — soffice zrobił z ZK 2 strony, assert ubił skrypt, a wysyłka poszła bo była za newline zamiast w łańcuchu &&; LEKCJA: wysyłkę zawsze wiązać && z weryfikacją). ZK przegenerowane aktualnym szablonem → 1 strona. Weryfikacja paczki: 39 plików × 1 strona = 39 stron, 2327 KB.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:58 CEST
+==============================================================================
+
+Paczka sama Środkowa (17 stron: zbiorczy+zestawienie+19-33) wysłana na prośbę Tomasza, msg 1214. Weryfikacja 17×1 strona przed pdfunite.
