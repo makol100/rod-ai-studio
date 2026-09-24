@@ -1,9 +1,53 @@
 [
  {
+  "id": "1388955856229485",
+  "tytul": "✂️ OSTATNIE KOSZENIE: 4 CM, NIE 1,5 — trawnik nie zgnije we mgle",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1388955856229485/",
+  "wideo": "/static/wideo/1388955856229485.mp4",
+  "miniaturka": "/static/wideo/1388955856229485.jpg",
+  "date": "2026-09-24T13:08+02:00",
+  "display_date": "24.09.2026"
+ },
+ {
+  "id": "1061834783328181",
+  "tytul": "🌱 ROZSYP TEN BIAŁY PROSZEK W PAŹDZIERNIKU — mech zniknie z trawnika",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1061834783328181/",
+  "wideo": "/static/wideo/1061834783328181.mp4",
+  "miniaturka": "/static/wideo/1061834783328181.jpg",
+  "date": "2026-09-24T13:08+02:00",
+  "display_date": "24.09.2026"
+ },
+ {
+  "id": "2369271656813232",
+  "tytul": "💧 JEDEN OTWARTY ZAWÓR = PĘKNIĘTA RURA. Zakręć wodę na zimę w 3 krokach",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/2369271656813232/",
+  "wideo": "/static/wideo/2369271656813232.mp4",
+  "miniaturka": "/static/wideo/2369271656813232.jpg",
+  "date": "2026-09-24T13:08+02:00",
+  "display_date": "24.09.2026"
+ },
+ {
+  "id": "1091005136981068",
+  "tytul": "🌷 TULIPANY: 10 CM W DÓŁ, DO 15 PAŹDZIERNIKA — inaczej wiosną pusto",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1091005136981068/",
+  "wideo": "/static/wideo/1091005136981068.mp4",
+  "miniaturka": "/static/wideo/1091005136981068.jpg",
+  "date": "2026-09-24T13:08+02:00",
+  "display_date": "24.09.2026"
+ },
+ {
   "id": "1589285226330940",
   "tytul": "⚡ 30 LISTOPADA GAŚNIE PRĄD W OGRODZIE. Masz umowę z Tauronem?",
   "opis": "",
-  "kategoria": "rolki",
+  "kategoria": "wiadomosci",
   "link": "https://www.facebook.com/reel/1589285226330940/",
   "wideo": "/static/wideo/1589285226330940.mp4",
   "miniaturka": "/static/wideo/1589285226330940.jpg",
@@ -273,16 +317,5 @@
   "miniaturka": "/static/wideo/27217400991264986.jpg",
   "date": "2026-07-14T06:58+02:00",
   "display_date": "14.07.2026"
- },
- {
-  "id": "1839659757018910",
-  "tytul": "Pod Twoją alejką leży osiemnaście kabli. Jeden z nich idzie prosto do Twojej działki.",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1839659757018910/",
-  "wideo": "/static/wideo/1839659757018910.mp4",
-  "miniaturka": "/static/wideo/1839659757018910.jpg",
-  "date": "2026-07-13T21:59+02:00",
-  "display_date": "13.07.2026"
  }
 ]

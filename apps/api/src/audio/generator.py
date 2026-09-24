@@ -58,6 +58,25 @@ def extract_narration(scenes: str) -> list[str]:
     return lines
 
 
+# 24.09.2026 (Tomasz: "Czyta tuli peny"): SLOWNIK WYMOWY tylko dla lektora (edge-tts Marek), NIE dla napisow.
+# Kazdy wpis zweryfikowany Whisperem: Marek czytal 'tulipany' jako 'tulipeni'; 'tulipány' -> Whisper: 'tulipany'.
+WYMOWA = {"tulipany": "tulipány", "Tulipany": "Tulipány", "TULIPANY": "TULIPÁNY", "rozsadzi": "ros-sadzi", "altany": "al-tany", "Altany": "Al-tany",}
+def wymowa(text: str) -> str:
+    # 24.09: r+z osobno w rdzeniu "marz" przed n (zamarznie, przemarzną, marznąć) — Tomasz: "Nie przez rz!", "Przemar zną nie ż"
+    text = re.sub(r"marz(?=n)", "mar-z", text)
+    text = re.sub(r"\bMarz(?=n)", "Mar-z", text)
+    for a, b in WYMOWA.items():
+        text = re.sub(r"\b" + re.escape(a) + r"\b", b, text)
+    for a, b in FRAZY.items():
+        text = text.replace(a, b)
+    return text
+
+
+# 24.09 Tomasz: "Woda roz sa dzi, Altany nie altyny" (+ ucho: "mróz łamie" -> "Mrusła mnie") — kazda poprawka potwierdzona Whisperem
+FRAZY = {"mróz łamie": "mróz, łamie", "Mróz łamie": "Mróz, łamie",
+         "Krany ogrodowe i instalację podlewania opróżnij": "Krany ogrodowe, i instalację podlewania, opróżnij"}  # ucho: "instalacji ... opróżni" bez przecinkow
+
+
 def generate_audio(folder: Path, scenes: str) -> list[dict]:
     audio_dir = folder / "audio"
     audio_dir.mkdir(parents=True, exist_ok=True)
@@ -81,7 +100,7 @@ def generate_audio(folder: Path, scenes: str) -> list[dict]:
             [
                 EDGE_TTS_BIN,
                 "--voice", EDGE_TTS_VOICE,
-                "--text", text,
+                "--text", wymowa(text),
                 "--write-media", str(mp3_tmp),
             ],
             check=True,
