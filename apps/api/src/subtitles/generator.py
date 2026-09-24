@@ -90,7 +90,23 @@ def transcribe_scene(wav, oczekiwany_tekst=None):
                         w["text"] = znane
                     print(f"[napisy] {wav.name}: podstawiono znany tekst (liczba slow zgadza sie: {len(words)})", flush=True)
                 else:
-                    print(f"[napisy] {wav.name}: liczba slow NIE zgadza sie (Whisper={len(words)}, znany={len(znane_slowa)}) - zostaje tekst Whispera", flush=True)
+                    # 24.09.2026 (Tomasz: "W trzech rolkach bledy ortograficzne!!!"): NIGDY tekst Whispera w napisach
+                    # (Whisper pisal 'zamaznie wroze', 'tulipeni', ucinal koncowki). Zawsze ZNANY tekst ze scenariusza;
+                    # czasy: rozklad slow proporcjonalnie do dlugosci w oknie [pierwsze slowo Whispera .. dlugosc audio].
+                    import wave as _wave
+                    try:
+                        with _wave.open(str(wav)) as _w: _dl = _w.getnframes() / float(_w.getframerate())
+                    except Exception:
+                        _dl = (words[-1]["end"] if words else 3.0)
+                    t0 = words[0]["start"] if words else 0.0
+                    t1 = max(_dl - 0.05, t0 + 0.5)
+                    wagi = [len(z) + 2 for z in znane_slowa]; suma = float(sum(wagi)) or 1.0
+                    nowe = []; t = t0
+                    for z, wg in zip(znane_slowa, wagi):
+                        d = (t1 - t0) * wg / suma
+                        nowe.append({"start": t, "end": t + d, "text": z}); t += d
+                    words = nowe
+                    print(f"[napisy] {wav.name}: liczba slow NIE zgadza sie (Whisper={len(words)}, znany={len(znane_slowa)}) - ZNANY tekst, czasy rozlozone proporcjonalnie", flush=True)
 
             groups = []
             for k in range(0, len(words), WORDS_PER_LINE):
