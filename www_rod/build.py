@@ -448,7 +448,7 @@ def tablica_skrot() -> str:
     rows = []
     for it in items[:3]:
         kat = KATEGORIE_TABLICA.get(it.get("kategoria", "inne"), "Inne")
-        rows.append(f'<li><span class="ogl-kat ogl-kat-{html.escape(it.get("kategoria","inne"))}">{kat}</span> {html.escape(it["tytul"])}</li>')
+        rows.append(f'<li><span class="ogl-kat ogl-kat-{html.escape(it.get("kategoria","inne"))}">{kat}</span> <a href="/tablica/">{html.escape(it["tytul"])}</a></li>')
     return '<ul class="tablica-skrot">' + "".join(rows) + '</ul>'
 
 
@@ -467,7 +467,9 @@ def tablica_html() -> str:
         rows.append(
             f'<li class="ogl-tab"><div class="ogl-tab-head"><span class="ogl-kat ogl-kat-{html.escape(it.get("kategoria","inne"))}">{kat}</span>'
             f'<time>{html.escape(it.get("display_date",""))}</time></div>'
-            f'<h3>{html.escape(it["tytul"])}</h3><p>{html.escape(it["tresc"])}</p>{kontakt}'
+            + (f'<a class="ogl-foto" href="{html.escape(it.get("link") or it["zdjecie"])}" target="_blank" rel="noopener"><img src="{html.escape(it["zdjecie"])}" alt="{html.escape(it["tytul"])}" loading="lazy"></a>' if it.get("zdjecie") else "")
+            + f'<h3>{html.escape(it["tytul"])}</h3><p>{html.escape(it["tresc"])}</p>{kontakt}'
+            + (f'<p class="ogl-link"><a href="{html.escape(it["link"])}" target="_blank" rel="noopener">{html.escape(it.get("link_tekst") or "Zobacz ogłoszenie")} →</a></p>' if it.get("link") else "")
             + (f'<p class="ogl-od">{podpis}</p>' if podpis else "") + '</li>')
     return '<ul class="ogl-tablica">' + "".join(rows) + '</ul>'
 
