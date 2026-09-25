@@ -357,6 +357,10 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
     # udokumentowany (NIST) i dotyczy takze modeli Z zabezpieczeniami — model po ablacji
     # nie ma hamulca w ogole. Belzebub PROPONUJE, wykonuje Henio albo Klaudek.
     if komenda == "/bzb":
+        # 25.09 D-0625 (Tomasz: „Usuń /bzb u hansa"): Belzebub mieszka tylko w @BelzebubV2_bot (tools/belzebub_bot.py).
+        # Dotyczy tez Wikusi (jej zwykly tekst u Hansa byl zamieniany na /bzb). Stary kod ponizej zostaje nieuzywany.
+        _odpowiedz(token, czat, "Belzebub ma teraz własny czat: @BelzebubV2_bot — pisz tam normalnie, bez komend (t.me/BelzebubV2_bot).")
+        return True
         # 25.08: /sekret zapisuje do zbiorczego wartosci.env, nie do osobnego pliku
         def _klucz_bzb() -> str:
             for sc in ("/root/.sekrety/belzebub.key", "/root/.sekrety/wartosci.env"):
@@ -783,10 +787,9 @@ def uruchom_ucho(token: str | None = None, chat_id: str | None = None) -> bool:
                 # 02.09 dekret: Wiktoria pisze do Belzebuba BEZ komendy — kazdy jej zwykly tekst = /bzb
                 if tekst.strip().lower().startswith("/start"):
                     if kto == "tomasz":
-                        _odpowiedz(token, id_czatu, "Hans slucha. Komendy: /bzb, /henio, /sekret.")
+                        _odpowiedz(token, id_czatu, "Hans slucha. Komendy: /henio, /sekret. Belzebub: @BelzebubV2_bot.")
                     else:
-                        _odpowiedz(token, id_czatu, f"Czesc {kto}! Tu Hans. Piszesz prosto do Belzebuba — zadaj pytanie zwyklym tekstem, "
-                                   "bez zadnych komend. Odpowiedz przychodzi po 1-5 minutach (Belzebub szuka i czyta w sieci).")
+                        _odpowiedz(token, id_czatu, f"Czesc {kto}! Belzebub ma teraz własny czat: @BelzebubV2_bot (t.me/BelzebubV2_bot) — pisz tam normalnie, bez komend.")
                     ostatni_offset = up_id
                     _zapisz_offset(ostatni_offset, offset_path)
                     continue
