@@ -1,7 +1,18 @@
 [
  {
+  "id": "1127381026639789",
+  "tytul": "🌸 MIECZYKI 4 TYGODNIE PO KWITNIENIU, DALIE DOPIERO PO MROZIE — a ten fioletowy kwiat truje",
+  "opis": "",
+  "kategoria": "rolki",
+  "link": "https://www.facebook.com/reel/1127381026639789/",
+  "wideo": "/static/wideo/1127381026639789.mp4",
+  "miniaturka": "/static/wideo/1127381026639789.jpg",
+  "date": "2026-09-25T11:24+02:00",
+  "display_date": "25.09.2026"
+ },
+ {
   "id": "2244824996307318",
-  "tytul": "🧪 JAK ZMIERZYĆ pH GLEBY? 4 metody — i jeden błąd, który psuje każdy wynik",
+  "tytul": "🧪 JAK ZMIERZYĆ pH GLEBY? 4 metody — i jeden błąd, który psuje każdy wynik.",
   "opis": "",
   "kategoria": "rolki",
   "link": "https://www.facebook.com/reel/2244824996307318/",
@@ -273,16 +284,5 @@
   "miniaturka": "/static/wideo/1533495218368660.jpg",
   "date": "2026-07-18T10:30+02:00",
   "display_date": "18.07.2026"
- },
- {
-  "id": "1055255273615281",
-  "tytul": "🎬 Nowa seria startuje DZIŚ! Od teraz na naszą działkę zaglądają regularnie Tomek i Janusz — dwóch działkowców,",
-  "opis": "",
-  "kategoria": "humor",
-  "link": "https://www.facebook.com/reel/1055255273615281/",
-  "wideo": "/static/wideo/1055255273615281.mp4",
-  "miniaturka": "/static/wideo/1055255273615281.jpg",
-  "date": "2026-07-17T22:00+02:00",
-  "display_date": "17.07.2026"
  }
 ]
