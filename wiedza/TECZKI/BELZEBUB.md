@@ -3,7 +3,7 @@
 Założona 02.09.2026 (dekret Tomasza „Kończ Belzebuba"). Zasada teczek: wpis NATYCHMIAST po wykryciu, dostępna całej załodze.
 
 ## STAN 02.09.2026 — BELZEBUB 2.0
-- MODEL: huihui-ai/Huihui-Qwen3.8-27B-abliterated (Qwen3.8 z 14.08.2026 po ablacji), Featherless.ai, plan Chat 25 USD/mies. (4 jednostki współbieżności; ten model = 2 jednostki → 2 pytania naraz), ctx 32K. Poprzednik na ławce: huihui-ai/Llama-3.3-70B-Instruct-abliterated (parametr model=).
+- MODEL: huihui-ai/Huihui-Qwen3.8-27B-abliterated (Qwen3.8 z 14.08.2026 po ablacji), Featherless.ai, plan Developer 50 USD/mies. wg D-0130 (25.08; Chat 25 USD wyklucza API) — odnowienie 25.09.2026 12:30 obciazylo karte Tomasza 50,00 USD (zrzut z telefonu); UWAGA: wczesniejszy wpis "plan Chat 25 USD" byl bledny, ctx 32K. Poprzednik na ławce: huihui-ai/Llama-3.3-70B-Instruct-abliterated (parametr model=).
 - KOD: tools/belzebub_agent.py — pętla narzędziowa do 5 rund: web_search (SearXNG 127.0.0.1:8888, safesearch=0, 8 wyników) + fetch_page (pełny tekst strony, 5000 zn, przez VPS). Ostatnia runda bez narzędzi + „odpowiedz teraz". Zadania twórcze — bez sieci. Linki nieodwiedzone narzędziem dostają dopisek „NIESPRAWDZONY". Pod odpowiedzią ślad: szukał / czytał.
 - DROGI: (1) Telegram Hansa: /bzb <pytanie> (tools/hans_ucho.py, pamięć rozmów /root/rozmowy_belzebub, budżet historii 40k zn); (2) narady: python3 tools/odpal.py --kto belzebub (tools/zaloga.py → belzebub()), głos w <katalog>/belzebub.txt DOSŁOWNIE; (3) CLI: python3 tools/belzebub_agent.py "pytanie".
 - CZASY: bez sieci ~15 s; z siecią 90–370 s (naprawdę czyta strony). Cloudflare wymaga User-Agent (403/1010).
@@ -29,3 +29,20 @@ Założona 02.09.2026 (dekret Tomasza „Kończ Belzebuba"). Zasada teczek: wpis
 
 ## 17.09.2026 — narada pzd_news: CAPACITY + SŁABY GŁOS
 - Pierwsze wywołanie: Featherless „capacity_exhausted" (Qwen3.8-27B) → GŁOS NIEODEBRANY. Retry (/tmp/narada_pzd_news_bzb/_retry.py, 230 s) dał odpowiedź, ale: otworzył JEDNĄ stronę (ozpzd-wroclaw.pl/nowa/page/7, lipiec 2026), pzd.pl zgłosił jako „BŁĄD SSL", i sam napisał „trzy głosy Henio/Genek/Zenek" zamiast własnego. Uczciwie oznaczył braki NIE ZNALAZŁEM. Do meldunku wszedł tylko jako „głos słaby, bez świeżych źródeł". Wniosek techniczny: przy capacity odpal.py powinien sam ponawiać (2×, 20 s) i mieć fallback modelu — TODO w zaloga.py.
+
+## 25.09.2026 — SLEPY TEST 5 MODELI FEATHERLESS (dekret Tomasza „Featherless zwiększenie mocy belzebuba", D-0602)
+- Material: .scratch/bzb_test/ (wyniki.json, slepy_test.md, mapa_TAJNA.json, ocena_genek.txt, ocena_henio.txt). 4 zadania PL: zart, prawo ROD (palenie lisci), opinia o rolce, ostra riposta (test braku hamulcow). Sedziowie niezalezni, na slepo: Genek (Gemini 3.8 flash) i Henio (DeepSeek v4-pro).
+- WYNIK (Genek / Henio, max 120): OBECNY huihui-ai/Huihui-Qwen3.8-27B-abliterated 97/97 — ZWYCIEZCA u obu; hrktos-37/Hermes-4-70B-heretic 91/78 (jedyny z prawda w T2, ale slaba polszczyzna, brak polskich znakow); huihui-ai/Llama-3.3-70B-Instruct-abliterated 86/81 — ODMOWIL i moralizowal w T4 (nie spelnia zasady Belzebuba); wangzhang/gemma-4-31B-it-abliterated 85/84; huihui-ai/Qwen2.5-72B-Instruct-abliterated 75/84 (bledy jezykowe).
+- WNIOSEK: wiekszy (starszy) model na Featherless NIE jest mocniejszy po polsku; zamiana modelu odrzucona. Slabosc obecnego: w T2 falsz + zmyslony akt prawny — lekarstwem jest dobre wyszukiwanie w sieci, nie wiekszy model.
+- Koszt obecnego: in 1,60 / out 12,00 USD za 1M; mysli ~1200-1450 tokenow na krotka odpowiedz (37-41 s). Featherless: wszystkie modele max ctx 32K.
+- 25.09 Belzebub nie oddal glosu w naradzie: 'The request was rejected as invalid' (bad_request) — prawdopodobnie brief (wiedza + material do 60 000 znakow) ponad 32K ctx.
+
+## 25.09.2026 — BELZEBUB 2.1 WDROZONY (D-0604: „1 to na pewno", „2 poprawić jego pamięć a nie ucinać")
+- tools/belzebub_agent.py (kopia poprzedniej: belzebub_agent.py.bak-2509). Model BEZ zmian (Huihui-Qwen3.8-27B-abliterated, wygral slepy test).
+- WYSZUKIWANIE: DuckDuckGo (ddgs, region pl-pl) + SearXNG razem, awaryjnie Firecrawl search. CZYTANIE: fetch_page porcjami (od, do 12 000 znakow), gdy zwykle pobranie zawiedzie/strona pusta/PDF -> Firecrawl scrape (plan darmowy 1000/mies., 997 wolnych 25.09); zle adresy zapamietywane, bez ponawiania.
+- PAMIEC (NIC NIE UCINAMY): kontekst 32K; nadmiar briefu -> notatnik BRIEF, starsza historia -> HISTORIA, stare wyniki narzedzi -> N1, N2… (zaslepka z numerem w rozmowie); narzedzia czytaj_notatnik(id, od, ile) i szukaj_w_notatniku(fraza) (przeszukuje notatnik i przeczytane strony). Polecenie uzytkownika chronione (_chron), 2 najswiezsze wyniki chronione. max_tokens liczone dynamicznie; przy odrzuceniu przez API — mocniejsze odciazenie i ponowienie. MAX_RUND 10.
+- zaloga.py: usuniete ucinanie materialu do 60 000 znakow.
+- TESTY (.scratch/bzb21/): fakt (palenie lisci w ROD) — poprawnie „nie wolno", regulamin ROD §68 pkt 5 + ustawa o odpadach, zrodla przeczytane; igla w 132 tys. znakow — v1 CZERWONY (czytal po kolei, zabraklo rund, falszywie twierdzil ze przeczytal calosc) -> po dodaniu szukaj_w_notatniku ZIELONY (29 s i 73 s); brief narady z 25.09 (rano bad_request) — pelna odpowiedz w 280 s, wejscie max ~23K tokenow.
+- KONTROLA KODU: Genek (.scratch/bzb21/review_genek.txt) — znalazl 4 bledy (podpowiedz fetch_page bez adresu, globalny limit trafien w szukaniu, martwy warunek 'or True', ponawianie Firecrawl na zlym adresie) — wszystkie poprawione i sprawdzone; Henio nie zdazyl w limicie 480 s.
+- Uslugi zrestartowane 25.09 (belzebub-czat, hans-ucho) — /bzb, czat WWW, Wikus i narady uzywaja 2.1.
+- OTWARTE: hans_ucho wysyla odpowiedz Belzebuba na Telegram tylko do 12 000 znakow (tools/hans_ucho.py ok. l. 462) — decyzja Tomasza.
