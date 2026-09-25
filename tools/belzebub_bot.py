@@ -109,7 +109,7 @@ def main():
                 print("obcy", uid, flush=True); continue
             if not q: wyslij(TOK, czat, "Na razie rozumiem tylko tekst."); continue
             if q == "/start": wyslij(TOK, czat, "Belzebub słucha. Pisz normalnie — bez /bzb. Obraz (Stable Diffusion na naszym serwerze): „obraz: opis\"."); continue
-            if q.lower().startswith(("obraz:", "obraz ", "sd:")):   # 25.09 D-0622: tylko Stable Diffusion, sciezka Zenka usunieta
+            if q.lower().startswith(("obraz:", "obraz ")):   # 25.09 D-0622: tylko Stable Diffusion; alias sd: usuniety (Tomasz: „Po co ten sd:")
                 threading.Thread(target=obraz, args=(czat, LUDZIE[uid], q.split(":", 1)[1].strip() if ":" in q.split()[0] else q.split(None, 1)[1] if " " in q else ""), daemon=True).start(); continue
             threading.Thread(target=obsluz, args=(czat, LUDZIE[uid], q), daemon=True).start()
 if __name__ == "__main__": main()
