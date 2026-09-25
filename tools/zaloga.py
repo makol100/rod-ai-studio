@@ -258,9 +258,9 @@ def belzebub(zadanie: str, material: str, wynik: dict) -> None:
         if not klucz:
             wynik["belzebub"] = "GLOS NIEODEBRANY (brak klucza Featherless)"
             return
-        tresc_zad = zadanie + ("\n\n[MATERIAL Z DYSKU — dostarczony przez Klaudka, Belzebub nie ma dysku]\n" + material[:60000] if material else "") + STOPKA
+        tresc_zad = zadanie + ("\n\n[MATERIAL Z DYSKU — dostarczony przez Klaudka, Belzebub nie ma dysku]\n" + material if material else "") + STOPKA
         odp, slad = _b.odpowiedz(tresc_zad, [], klucz)
-        wynik["belzebub"] = ("# GLOS BELZEBUBA 2.0 — doslownie, bez parafrazy (model %s, narzedzia: web_search+fetch_page)\n\n" % _b.MODEL_DOMYSLNY) + odp + ("\n\n" + slad if slad else "")
+        wynik["belzebub"] = ("# GLOS BELZEBUBA 2.0 — doslownie, bez parafrazy (model %s, narzedzia: web_search DDG+SearXNG, fetch_page porcjami + Firecrawl, notatnik-pamiec)\n\n" % _b.MODEL_DOMYSLNY) + odp + ("\n\n" + slad if slad else "")
     except Exception as e:
         wynik["belzebub"] = f"GLOS NIEODEBRANY ({e})"
 
