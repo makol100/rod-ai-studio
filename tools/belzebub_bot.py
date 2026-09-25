@@ -45,7 +45,7 @@ def obsluz(czat, kto, q):
             stop.wait(4)
     threading.Thread(target=pisze, daemon=True).start()
     try:
-        importlib.reload(bzb); a, slad = bzb.odpowiedz(q, historia(kto), KLUCZ)
+        importlib.reload(bzb); a, slad = bzb.odpowiedz(q, historia(kto), KLUCZ, obraz_cb=sd_callback(czat, kto))
         if slad: a += "\n\n" + slad
     except Exception as e: a = f"Belzebub: błąd {str(e)[:300]}"
     finally: stop.set()
@@ -78,6 +78,20 @@ def wyslij_zdjecie(czat, plik, podpis):
             f"--{b}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"obraz.png\"\r\nContent-Type: image/png\r\n\r\n").encode() + open(plik, "rb").read() + f"\r\n--{b}--\r\n".encode()
     r = urllib.request.Request(f"https://api.telegram.org/bot{TOK}/sendPhoto", data=dane, headers={"Content-Type": f"multipart/form-data; boundary={b}"})
     with urllib.request.urlopen(r, timeout=120) as o: return json.load(o)
+def sd_callback(czat, kto):
+    """25.09 D-0624 („Po co obraz?"): Belzebub SAM wola generuj_obraz w rozmowie — bez komendy."""
+    def cb(pr):
+        try: wyslij(TOK, czat, "🎨 Maluję (Stable Diffusion)…")
+        except Exception: pass
+        os.makedirs("/tmp/bzb_img", exist_ok=True); cel = f"/tmp/bzb_img/bzb_sd_{datetime.datetime.now():%Y%m%d_%H%M%S}.png"
+        with SD_LOCK:
+            r = subprocess.run(["timeout", "400", "/root/rod-ai-studio/tools/sd_gen.py", pr, cel], stdin=subprocess.DEVNULL, capture_output=True, text=True, env={**os.environ, "HF_HUB_OFFLINE": "1"})
+        if not os.path.isfile(cel): return "BŁĄD: Stable Diffusion nie wygenerował obrazu: " + (r.stderr or r.stdout)[-200:]
+        wyslij_zdjecie(czat, cel, "[Stable Diffusion] Prompt: " + pr)
+        try: archiwizuj(kto, "[obraz]", f"[OBRAZ {cel}]\nPrompt: {pr}")
+        except Exception: pass
+        return "OK — obraz wygenerowany i już wysłany rozmówcy."
+    return cb
 SD_LOCK = threading.Lock()   # jeden obraz SD naraz (RAM: SD ~6 GB + Bielik ~12 GB)
 def obraz(czat, kto, opis):
     # 25.09 D-0618: „Generowanie zdjęć daj belzebubowi przez diffusiona"; D-0622: „Usuń belzebubowi generowanie zdjęc u zenka" — TYLKO Stable Diffusion na VPS
@@ -108,8 +122,6 @@ def main():
                 if czat: wyslij(TOK, czat, "Brak dostępu.")
                 print("obcy", uid, flush=True); continue
             if not q: wyslij(TOK, czat, "Na razie rozumiem tylko tekst."); continue
-            if q == "/start": wyslij(TOK, czat, "Belzebub słucha. Pisz normalnie — bez /bzb. Obraz (Stable Diffusion na naszym serwerze): „obraz: opis\"."); continue
-            if q.lower().startswith(("obraz:", "obraz ")):   # 25.09 D-0622: tylko Stable Diffusion; alias sd: usuniety (Tomasz: „Po co ten sd:")
-                threading.Thread(target=obraz, args=(czat, LUDZIE[uid], q.split(":", 1)[1].strip() if ":" in q.split()[0] else q.split(None, 1)[1] if " " in q else ""), daemon=True).start(); continue
+            if q == "/start": wyslij(TOK, czat, "Belzebub słucha. Pisz normalnie — bez /bzb. Chcesz zdjęcie — po prostu poproś, Belzebub sam je namaluje (Stable Diffusion na naszym serwerze)."); continue
             threading.Thread(target=obsluz, args=(czat, LUDZIE[uid], q), daemon=True).start()
 if __name__ == "__main__": main()
