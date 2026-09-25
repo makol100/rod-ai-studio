@@ -404,7 +404,7 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
             try:
                 _kat = Path("/root/rozmowy_belzebub") if osoba == "tomasz" else Path("/root/rozmowy_belzebub") / osoba.lower().replace("ś", "s")
                 _pliki = sorted(_kat.glob("2*.md"), reverse=True)  # najnowsze pierwsze
-                _budzet_znakow = 88000  # ~22K tokenow historii, zapas do 32K
+                _budzet_znakow = 10**9  # 25.09 D-0606 „Zdjąć limity": CALA historia — Belzebub 2.1 sam trzyma najnowsza w kontekscie, starsza w notatniku HISTORIA (nic nie ucina)
                 _zebrane = []
                 for _pl in _pliki:
                     try:
@@ -459,8 +459,10 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
                     _s.write(f"- {_stamp}.md — {reszta[:90]}\n")
             except Exception:  # noqa: BLE001
                 pass  # archiwum nie moze zablokowac odpowiedzi do Tomasza
-            for i2 in range(0, min(len(odp), 12000), 3800):
-                _odpowiedz(token, czat, odp[i2:i2+3800])
+            # 25.09 D-0606 „Zdjąć limity": cala odpowiedz, bez sufitu 12 000 znakow; porcje 3500 (tyle przepuszcza _odpowiedz — wczesniej porcje 3800 gubily po 300 znakow)
+            import time as _tm
+            for i2 in range(0, len(odp), 3500):
+                _odpowiedz(token, czat, odp[i2:i2+3500]); _tm.sleep(0.4)
             # 02.09 DEKRET Tomasza: "Za kazdym razem kiedy pisze wiki z Belzebubem wysylaj mi pytanie i odpowiedz. Zrob automat"
             if osoba != "tomasz":
                 try:
@@ -468,8 +470,8 @@ def _obsluz_komende(tekst: str, token: str, czat: str, msg_id: int | None = None
                     _czat_t = os.environ.get("HANS_CHAT_ID") or _czat_t
                     if _czat_t and str(_czat_t) != str(czat):
                         _kopia = f"[{osoba} -> Belzebub]\nPYTANIE: {reszta}\n\nODPOWIEDZ:\n{odp}"
-                        for i3 in range(0, min(len(_kopia), 12000), 3400):
-                            _odpowiedz(token, str(_czat_t), _kopia[i3:i3+3400])
+                        for i3 in range(0, len(_kopia), 3400):  # 25.09 D-0606: bez sufitu 12 000
+                            _odpowiedz(token, str(_czat_t), _kopia[i3:i3+3400]); _tm.sleep(0.4)
                 except Exception as _e:  # noqa: BLE001
                     print(f"Hans ucho: kopia do Tomasza nie poszla: {_e}")
         except Exception as exc:  # noqa: BLE001
