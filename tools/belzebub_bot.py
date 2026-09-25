@@ -61,9 +61,11 @@ def obsluz(czat, kto, q):
 
 # 25.09 D-0612: "obraz: ..." -> Belzebub pisze prompt EN -> Zenek (Codex image_gen, 0 zl) -> zdjecie do czatu
 import subprocess, uuid, os
-def prompt_en(opis):
+def prompt_en(opis, sd=False):
+    instr = ("You write prompts for Stable Diffusion 1.5. Output ONLY one English prompt: comma-separated descriptive tags, max 55 words, most important subject first, then setting, lighting, style (e.g. photorealistic, detailed, 35mm photo). No quotes, no comments. /no_think" if sd else
+             "You write prompts for an image generator. Output ONLY one English prompt (60-120 words): subject, setting, composition, lighting, style, camera. No quotes, no comments. /no_think")
     body = {"model": bzb.MODEL_DOMYSLNY, "max_tokens": 3000, "temperature": 0.7, "messages": [
-        {"role": "system", "content": "You write prompts for an image generator. Output ONLY one English prompt (60-120 words): subject, setting, composition, lighting, style, camera. No quotes, no comments. /no_think"},
+        {"role": "system", "content": instr},
         {"role": "user", "content": opis}]}
     d = bzb._api(body, KLUCZ)
     t = ((d.get("choices") or [{}])[0].get("message", {}).get("content") or "").strip()
@@ -76,17 +78,25 @@ def wyslij_zdjecie(czat, plik, podpis):
             f"--{b}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"obraz.png\"\r\nContent-Type: image/png\r\n\r\n").encode() + open(plik, "rb").read() + f"\r\n--{b}--\r\n".encode()
     r = urllib.request.Request(f"https://api.telegram.org/bot{TOK}/sendPhoto", data=dane, headers={"Content-Type": f"multipart/form-data; boundary={b}"})
     with urllib.request.urlopen(r, timeout=120) as o: return json.load(o)
-def obraz(czat, kto, opis):
-    wyslij(TOK, czat, "Belzebub układa prompt, Zenek maluje… (1–3 min)")
+SD_LOCK = threading.Lock()   # jeden obraz SD naraz (RAM: SD ~6 GB + Bielik ~12 GB)
+def obraz(czat, kto, opis, silnik="sd"):
+    # 25.09 D-0618: „Generowanie zdjęć daj belzebubowi przez diffusiona" -> domyslnie Stable Diffusion na VPS; "zenek:" = ChatGPT
+    wyslij(TOK, czat, "Belzebub układa prompt, Stable Diffusion maluje na naszym serwerze… (1–3 min)" if silnik == "sd" else "Belzebub układa prompt, Zenek (ChatGPT) maluje… (1–3 min)")
     try:
-        pr = prompt_en(opis)
-        os.makedirs("/tmp/zenek_img", exist_ok=True); cel = f"/tmp/zenek_img/bzb_{datetime.datetime.now():%Y%m%d_%H%M%S}.png"
-        subprocess.run(["timeout", "300", "codex", "exec", "--skip-git-repo-check", "-s", "workspace-write",
-            f"Wygeneruj JEDEN obraz narzedziem do generowania obrazow wedlug promptu: {pr} Zapisz jako {cel} i napisz tylko sciezke."],
-            cwd="/root/rod-ai-studio", stdin=subprocess.DEVNULL, capture_output=True, text=True)
-        if not os.path.isfile(cel):
-            wyslij(TOK, czat, "Zenek nie wygenerował obrazu (odmowa generatora albo limit Codexa). Prompt był:\n" + pr); return
-        wyslij_zdjecie(czat, cel, "Prompt: " + pr)
+        pr = prompt_en(opis, sd=(silnik == "sd"))
+        os.makedirs("/tmp/zenek_img", exist_ok=True); cel = f"/tmp/zenek_img/bzb_{silnik}_{datetime.datetime.now():%Y%m%d_%H%M%S}.png"
+        if silnik == "sd":
+            with SD_LOCK:
+                r = subprocess.run(["timeout", "400", "/root/rod-ai-studio/tools/sd_gen.py", pr, cel], stdin=subprocess.DEVNULL, capture_output=True, text=True, env={**os.environ, "HF_HUB_OFFLINE": "1"})
+            if not os.path.isfile(cel):
+                wyslij(TOK, czat, "Stable Diffusion nie wygenerował obrazu: " + (r.stderr or r.stdout)[-300:] + "\nPrompt:\n" + pr); return
+        else:
+            subprocess.run(["timeout", "300", "codex", "exec", "--skip-git-repo-check", "-s", "workspace-write",
+                f"Wygeneruj JEDEN obraz narzedziem do generowania obrazow wedlug promptu: {pr} Zapisz jako {cel} i napisz tylko sciezke."],
+                cwd="/root/rod-ai-studio", stdin=subprocess.DEVNULL, capture_output=True, text=True)
+            if not os.path.isfile(cel):
+                wyslij(TOK, czat, "Zenek nie wygenerował obrazu (odmowa generatora albo limit Codexa). Prompt był:\n" + pr); return
+        wyslij_zdjecie(czat, cel, ("[Stable Diffusion] " if silnik == "sd" else "[Zenek/ChatGPT] ") + "Prompt: " + pr)
         archiwizuj(kto, "obraz: " + opis, f"[OBRAZ {cel}]\nPrompt: {pr}")
         if kto != "tomasz":
             import hans_ucho; ht, hc = hans_ucho._wczytaj_token_hansa(); wyslij(ht, hc, f"[Wikuś -> Belzebub] obraz: {opis}\nPrompt: {pr}")
@@ -105,8 +115,9 @@ def main():
                 if czat: wyslij(TOK, czat, "Brak dostępu.")
                 print("obcy", uid, flush=True); continue
             if not q: wyslij(TOK, czat, "Na razie rozumiem tylko tekst."); continue
-            if q == "/start": wyslij(TOK, czat, "Belzebub słucha. Pisz normalnie — bez /bzb. Obraz: napisz „obraz: opis\"."); continue
-            if q.lower().startswith(("obraz:", "obraz ")):
-                threading.Thread(target=obraz, args=(czat, LUDZIE[uid], q.split(None, 1)[1] if " " in q else ""), daemon=True).start(); continue
+            if q == "/start": wyslij(TOK, czat, "Belzebub słucha. Pisz normalnie — bez /bzb. Obraz (Stable Diffusion na naszym serwerze): „obraz: opis\". Obraz od Zenka (ChatGPT): „zenek: opis\"."); continue
+            if q.lower().startswith(("obraz:", "obraz ", "sd:", "zenek:")):
+                silnik = "zenek" if q.lower().startswith("zenek:") else "sd"
+                threading.Thread(target=obraz, args=(czat, LUDZIE[uid], q.split(":", 1)[1].strip() if ":" in q.split()[0] else q.split(None, 1)[1] if " " in q else "", silnik), daemon=True).start(); continue
             threading.Thread(target=obsluz, args=(czat, LUDZIE[uid], q), daemon=True).start()
 if __name__ == "__main__": main()
