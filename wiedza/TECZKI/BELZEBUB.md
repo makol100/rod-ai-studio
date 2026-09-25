@@ -46,3 +46,8 @@ Założona 02.09.2026 (dekret Tomasza „Kończ Belzebuba"). Zasada teczek: wpis
 - KONTROLA KODU: Genek (.scratch/bzb21/review_genek.txt) — znalazl 4 bledy (podpowiedz fetch_page bez adresu, globalny limit trafien w szukaniu, martwy warunek 'or True', ponawianie Firecrawl na zlym adresie) — wszystkie poprawione i sprawdzone; Henio nie zdazyl w limicie 480 s.
 - Uslugi zrestartowane 25.09 (belzebub-czat, hans-ucho) — /bzb, czat WWW, Wikus i narady uzywaja 2.1.
 - OTWARTE: hans_ucho wysyla odpowiedz Belzebuba na Telegram tylko do 12 000 znakow (tools/hans_ucho.py ok. l. 462) — decyzja Tomasza.
+
+## 25.09.2026 — ZDJETE LIMITY (D-0606 „Zdjąć limity")
+- tools/hans_ucho.py (kopia: hans_ucho.py.bak-2509): (1) historia rozmowy dla Belzebuba bez sufitu 88 000 znakow — cala (2.1 trzyma najnowsza w kontekscie, starsza w notatniku HISTORIA); (2) odpowiedz na Telegram bez sufitu 12 000 znakow — cala, w porcjach po 3500 (bylo 3800 -> gubilo po 300 znakow), pauza 0,4 s; to samo dla kopii Wikus->Tomasz.
+- /root/belzebub_czat/serwer.py (kopia: serwer.py.bak-2509): historia czatu WWW bez ograniczenia [-40:] — cala.
+- Test: 130 wiadomosci historii (~105 000 znakow) podane do odpowiedz(); Belzebub przez szukaj/HISTORIA poprawnie zacytowal najstarsze pytanie. Uslugi zrestartowane.
