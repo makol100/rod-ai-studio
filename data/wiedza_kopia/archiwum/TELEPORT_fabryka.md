@@ -1814,3 +1814,10 @@ ALEJKA PÓŁNOCNA KOMPLET: 18 protokołów (34-51) + zbiorczy + zestawienie + ok
 ==============================================================================
 
 Dz. 40 Roman Sitko: protokół zdjęcia licznika 40/L/2026 + Oświadczenie Licznik wystawione (PAFAL A52 24838080-1995, stan 12624,4 kWh, data 28.09.2026 z karteczki 'Sitko-40'). Bębenek dziesiętnych odczytany jako 4 — zastrzeżone Tomaszowi w podpisie.
+
+
+==============================================================================
+## SESJA 28.09.2026 17:47 CEST
+==============================================================================
+
+Protokoły zdjęcia licznika: KOMPLET 8 szt. (14,16,17,18,22,23,30,40), sześć z fotografiami liczników wklejonymi do dokumentu (kanał: Tomasz->Hans->getUpdates na VPS; identyfikacja hash+oględziny; obie 'nieznane' fotki = dz.18 Jąderko - potwierdzone przez Tomasza). 14 i 23 bez fotek - czekają na dosyłkę. Wszystkie 1 strona, wysłane msg 1379-1386. Transfer tmp_transfer.enc przez GitHub posprzątany (git rm).
