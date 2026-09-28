@@ -1849,3 +1849,17 @@ Dz. 14 (licznik 24835310): fotki nie ma nigdzie (ta rozmowa, VPS, Hans, Drive; o
 ==============================================================================
 
 Dz. 14: fotka licznika dosłana (Hans msg 1396). UWAGA NA PRZYSZŁOŚĆ: hans_ucho.py zjada getUpdates co 60 s i odkłada zdjęcia do /root/skrzynka/pliki/ (+ surowe_aktualizacje.jsonl) — TAM szukać fotek od Tomasza. Zweryfikowana wzrokowo: 24835310-1995, liczydło 534,8-9 -> 535 po zaokrągleniu w górę. Wklejona, 14/L wysłany. KOMPLET 8/8 protokołów L ze zdjęciami.
+
+
+==============================================================================
+## SESJA 28.09.2026 20:44 CEST
+==============================================================================
+
+Protokoły L: nowy układ zatwierdzony próbą (duże zdjęcie ~8,7 cm wys., kadr na tabliczkę) + klauzula 'Granica odpowiedzialności' (elektryk do punktu przyłączenia, dalej użytkownik/dzierżawca). Tekst ściśnięty (marginesy, fonty 8,5-9,5 pt), wszystkie 8 na 1 stronie z pełnym rozmiarem zdjęcia. Wysłana 22/L do akceptacji treści klauzuli; 7 pozostałych gotowych w wystawione/.
+
+
+==============================================================================
+## SESJA 28.09.2026 20:50 CEST
+==============================================================================
+
+Protokoły L: KOMPLET 8 szt. przebudowany (duże foto, granica odpowiedzialności, stany zaokrąglone w górę wg dekretu 28.09) i wysłany jedną paczką PACZKA_Protokoly_zdjecia_licznika.pdf (8 str.). Dane Oświadczeń Licznik zaktualizowane (zaokrąglone), PDF-y NIE przegenerowane — czekają na decyzję Tomasza czy dopisać klauzulę granicy odpowiedzialności.
