@@ -1821,3 +1821,24 @@ Dz. 40 Roman Sitko: protokół zdjęcia licznika 40/L/2026 + Oświadczenie Liczn
 ==============================================================================
 
 Protokoły zdjęcia licznika: KOMPLET 8 szt. (14,16,17,18,22,23,30,40), sześć z fotografiami liczników wklejonymi do dokumentu (kanał: Tomasz->Hans->getUpdates na VPS; identyfikacja hash+oględziny; obie 'nieznane' fotki = dz.18 Jąderko - potwierdzone przez Tomasza). 14 i 23 bez fotek - czekają na dosyłkę. Wszystkie 1 strona, wysłane msg 1379-1386. Transfer tmp_transfer.enc przez GitHub posprzątany (git rm).
+
+
+==============================================================================
+## SESJA 28.09.2026 17:58 CEST
+==============================================================================
+
+Dz. 23: fotka licznika dosłana przez Hansa (msg 1393), zweryfikowana wzrokowo (nr 24785695, liczydło 017377, naklejka 23), wklejona do protokołu 23/L, wysłany. Czeka: fotka licznika dz. 14 (24835310).
+
+
+==============================================================================
+## SESJA 28.09.2026 18:11 CEST
+==============================================================================
+
+Protokół 14/L (Dorota Zachariasz, 535 kWh) zostaje BEZ zdjęcia — jedyny wyjątek od D-0634: fotka licznika 24835310 wysłana w czacie z 19.09 nie została zapisana (błąd Klaudka), u Tomasza w telefonie jej nie ma; Tomasz 28.09: 'Chcesz, to szukaj' — temat zamknięty. 7 z 8 protokołów L ma zdjęcia (16,17,18,22,23,30,40).
+
+
+==============================================================================
+## SESJA 28.09.2026 18:12 CEST
+==============================================================================
+
+Dz. 14 (licznik 24835310): fotki nie ma nigdzie (ta rozmowa, VPS, Hans, Drive; oświadczenie powstało 19.09 w innym czacie). Tomasz 28.09: 'Chuj wie skąd dostałem... koło chuja mi to lata' — protokół 14/L zostaje BEZ zdjęcia jako jedyny wyjątek od D-0634; jeśli fotka się znajdzie, dokleić.
