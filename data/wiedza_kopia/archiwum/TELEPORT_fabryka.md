@@ -1660,3 +1660,157 @@ Paczka FINALNA 39 stron wysłana (msg 1213) po dwóch błędnych (1211/1212 bez 
 ==============================================================================
 
 Paczka sama Środkowa (17 stron: zbiorczy+zestawienie+19-33) wysłana na prośbę Tomasza, msg 1214. Weryfikacja 17×1 strona przed pdfunite.
+
+
+==============================================================================
+## SESJA 24.09.2026 20:22 CEST
+==============================================================================
+
+Paczka Alejka Południowa (zbiorczy+zestawienie+protokoły 1-18, 20 stron, weryfikacja 20×1) wysłana Tomaszowi na żądanie 24.09 ('od 1 do 19' — 19 należy do Środkowej, zaznaczone w podpisie).
+
+
+==============================================================================
+## SESJA 24.09.2026 20:37 CEST
+==============================================================================
+
+Strony tytułowe alejek zrobione (szablon strona_tytulowa.js), paczki przebudowane z okładkami: Południowa 21 str. (msg 1304), Środkowa 18 str. (msg 1305). Weryfikacja: pdftotext okładki + każdy plik 1 strona przed pdfunite.
+
+
+==============================================================================
+## SESJA 26.09.2026 11:51 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 18 (Anna Jonderko, stan 3076,9 kWh, PAFAL A52 24622948-1995) wystawiony i wysłany. Odczyt z fotki licznika: liczydło 003076 + czerwony bębenek 9. Weryfikacja: 1 strona + pdftotext.
+
+
+==============================================================================
+## SESJA 26.09.2026 11:54 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 18 przepisany na wzór D-0469 + nazwisko poprawione na Anna Jąderko (przez ą), wysłany ponownie. Stara wersja (msg 1342) do skasowania przez Tomasza.
+
+
+==============================================================================
+## SESJA 26.09.2026 14:10 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 29 (Marian Maroń — działka wg oświadczenia kabel_29.json, potwierdzona pytaniem Tomasza; stan 5894,7 kWh, PAFAL A52 24654675-1995) wystawiony wzorem D-0627 i wysłany. Bębenek dziesiętnych między 6 a 7 — przyjęte 7, zastrzeżone Tomaszowi. Odczyt weryfikowany powiększeniem wycinków fotki.
+
+
+==============================================================================
+## SESJA 27.09.2026 10:36 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 22 (Edward Matusiak, stan 5023,1 kWh, PAFAL A52 25037772-1995) wystawiony wzorem D-0627, data 27.09.2026, wysłany. Odczyt zweryfikowany powiększeniem, bębenek=1 jednoznaczny.
+
+
+==============================================================================
+## SESJA 27.09.2026 11:00 CEST
+==============================================================================
+
+Protokoły zdjęcia liczników dz. 16 (Janusz Radosz, 1606,2 kWh, PAFAL 24624807-1995) i dz. 17 (Paweł Słota, 1362,9 kWh, nr fabryczny nieczytelny — kropki, uwaga w protokole; dziesiętne na przełomie 9/0) wystawione wzorem D-0627 i wysłane. Liczniki zdemontowane, podpisane taśmą 16 RADOSZ / 17 Słota — zgodne z dyktowanym przydziałem.
+
+
+==============================================================================
+## SESJA 27.09.2026 19:40 CEST
+==============================================================================
+
+Oświadczenia kablowe wystawione i wysłane: dz. 49 Józef Żepka, dz. 34 Halina Tylus, dz. 35 Damian Osiński (wzór oswiadczenie_kabel.js, data 27.09.2026, po 1 stronie, zweryfikowane pdftotext). Dz. 47 z wcześniejszej listy Tomasza nadal BEZ nazwiska — nie wystawione.
+
+
+==============================================================================
+## SESJA 27.09.2026 19:52 CEST
+==============================================================================
+
+Oświadczenie elektryka dz. 23 (odłączenie od sieci ROD) przegenerowane z numerami świadectw SEP (stary PDF z 14.09 miał kropki). ROZBIEŻNOŚĆ: JSON miał stan 17 378 kWh, PDF Tomasza 17 377 — wpisano 17 377 za jego dokumentem, zgłoszone mu do potwierdzenia. Linia 'ważne do dnia' już nie drukuje się pusta (szablon aktualny).
+
+
+==============================================================================
+## SESJA 27.09.2026 19:56 CEST
+==============================================================================
+
+Oświadczenie Licznik dz. 14 (Dorota Zachariasz) przegenerowane z numerami SEP wzorem D-0628 i wysłane. Dz. 23 poprawiona już wcześniej (msg 1353). Obie pozycje z listy Tomasza 'do poprawy' zamknięte.
+
+
+==============================================================================
+## SESJA 27.09.2026 19:59 CEST
+==============================================================================
+
+Oświadczenia Licznik (wzór D-0628) wystawione dla dz. 16 Radosz, 17 Słota (nr licznika kropki — nieczytelny), 18 Jąderko — dane i stany przeniesione z protokołów zdjęcia liczników 16/17/18-L, daty = daty zdjęcia (16-17: 27.09, 18: 26.09). Interpretacja 'Popraw 18,17,16' = wystawić im Oświadczenia Licznik jak dla 23 i 14.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:01 CEST
+==============================================================================
+
+Oświadczenie Licznik dz. 22 Edward Matusiak wystawione — wariant z zasilaniem z sąsiedniej działki: szablon oswiadczenie_przepiecie.js rozszerzony o pola punkt3 (nadpisanie treści pkt 3) i uwagi (sekcja przed podpisami), wstecznie zgodny. Zasilanie dz. 22 z dz. 15 (Ewa Matusiak) — w pkt 3 i Uwagach. Po korekcie odstępu 1 strona, zweryfikowane.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:12 CEST
+==============================================================================
+
+Oświadczenie dz. 19 Mariusz Janus (wariant BEZ licznika: wpięcie instalacji + rozdzielnica bezpiecznikowa) wystawione. Szablon oswiadczenie_przepiecie.js rozszerzony: podtytul, prace[] (nadpisanie listy punktów), bez_odczytu — wstecznie zgodny (dz. 22 przegenerowana kontrolnie, nadal 1 strona). ROZBIEŻNOŚĆ NAZWISKA zgłoszona Tomaszowi: teraz 'Janus', w kabel_19.json 'Mariusz Janusz' — czeka na rozstrzygnięcie.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:18 CEST
+==============================================================================
+
+KOREKTA Tomasza: Marian Maroń = dz. 30 (nie 29). Protokół zdjęcia licznika przepisany 29/L→30/L (5894,7 kWh, PAFAL 24654675), błędne pliki 29 skasowane (dane+wystawione, msg 1344 do kosza u Tomasza). Wystawione też Oświadczenie Licznik dz. 30 Maroń. OTWARTE: oświadczenie kablowe kabel_29.json (Maroń, dz. 29) — spytano Tomasza czy przepisać na 30; nazwisko Janus/Janusz dz. 19 nadal bez odpowiedzi.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:21 CEST
+==============================================================================
+
+Rozstrzygnięcia Tomasza wykonane: oświadczenie kablowe Maroń przepisane 29→30, dz. 19 Janus (nie Janusz) poprawione w kablowym; błędne pliki skasowane, oba PDF wysłane (1362-1363 wg kolejności OK). Otwartych pytań brak.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:44 CEST
+==============================================================================
+
+Rozstrzygnięcia Tomasza 27.09 wieczorem: dz. 47 ZAMKNIĘTE na teraz ('będzie potem' — nazwisko przyjdzie później), nr fabryczny licznika dz. 17 poda innym razem (kropki w dokumentach zostają do tego czasu), dz. 23 stan 17 377 kWh POTWIERDZONY ('wszystko się zgadza'). Otwarte w temacie elektryka: tylko Alejka Północna (kartki) + te dwa odłożone uzupełnienia.
+
+
+==============================================================================
+## SESJA 28.09.2026 08:11 CEST
+==============================================================================
+
+ALEJKA PÓŁNOCNA KOMPLET: 18 protokołów (34-51) + zbiorczy + zestawienie + okładka = paczka 21 stron (weryfikacja 21×1 strona + pdftotext wyrywkowo 34/42/50/51 + zbiorczy + zestawienie), wysłana jedną paczką. Wszystkie POZYTYWNE, max Zs 1,690 (dz. 50). Trzy alejki ZAMKNIĘTE: Południowa 1-18, Środkowa 19-33, Północna 34-51.
+
+
+==============================================================================
+## SESJA 28.09.2026 14:38 CEST
+==============================================================================
+
+28.09.2026 NARADA JEV (film YouTube WHkC4OU3Op8, Julia Jakubowska; dekret Tomasza: 'Wszyscy... czy wdrażamy jako następnego pomocnika', 'Cała załoga ogląda to samo', 'Nie ty sam im przedstawiasz'). Każdy oglądał sam (oczy_uszy.py; Belzebub tylko sieć). Głosy w .scratch/jev/narada/: Zenek NIE, Genek NIE, Henio NIE (jako członek; ew. narzędzie warunkowo), Belzebub WARUNKOWO (tania warstwa decyzji, test w darmowym playground 0 zł), Klaudek NIE jako pomocnik. Rozbieżność: obsługa polskiego (Zenek: docs - angielski główny, inne nierówno; Henio: NIE WIEM; Belzebub: działa wg important.is). Decyzja należy do Tomasza. Wcześniej tego dnia: VPS odcięty przez Hetzner ~13:24-14:12 za nieopłaconą fakturę 082001138340 (karta odrzucona 06.09); Tomasz zapłacił, blokada zdjęta, uptime 42 dni bez restartu.
+
+
+==============================================================================
+## SESJA 28.09.2026 14:52 CEST
+==============================================================================
+
+28.09.2026 14:52 DECYZJA TOMASZA: „Nie wdrażamy” — Jev (TypeSafe AI) odrzucony, ani pomocnik, ani narzędzie; żadnego konta/waitlisty/testu. Zapis w rejestrze decyzji.
+
+
+==============================================================================
+## SESJA 28.09.2026 16:00 CEST
+==============================================================================
+
+28.09.2026 15:49 NARADA FILM 3sTDNiIcuAo (Julia Jakubowska, Agent SDK: Claude Agent SDK / Codex SDK — agent na subskrypcji zamiast klucza API; dekret 'To samo zadanie'). Każdy oglądał sam (Belzebub tylko strona YouTube + transkrypt). Głosy w .scratch/film_3sTD/narada/: Zenek NIE (to drugie wejście do tego samego Zenka; codex exec już działa; limit współdzielony; auth.json = hasło), Genek NIE (już to mamy: Klaudek na Max, Zenek na Plus), Henio NIE (nie nowy członek; oszczędność nas nie dotyczy — wideo/obraz to i tak API; autorka sama: produkcja 24/7 = klucz API), Belzebub WARUNKOWO (test 0 zł: skrypt na Agent SDK podsumowuje 10 komentarzy FB, mierzymy zużycie okna), Klaudek NIE. Czeka na decyzję Tomasza.
+
+
+==============================================================================
+## SESJA 28.09.2026 16:06 CEST
+==============================================================================
+
+28.09.2026 16:05 DECYZJA TOMASZA: „Pierdolić to” — Agent SDK (film 3sTDNiIcuAo) odrzucony, bez testu Belzebuba; zostaje obecny układ (Claude Code na Max, codex exec na Plus). Zapis w rejestrze decyzji.
+
+
+==============================================================================
+## SESJA 28.09.2026 16:36 CEST
+==============================================================================
+
+Dz. 40 Roman Sitko: protokół zdjęcia licznika 40/L/2026 + Oświadczenie Licznik wystawione (PAFAL A52 24838080-1995, stan 12624,4 kWh, data 28.09.2026 z karteczki 'Sitko-40'). Bębenek dziesiętnych odczytany jako 4 — zastrzeżone Tomaszowi w podpisie.

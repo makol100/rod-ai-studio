@@ -18,3 +18,8 @@ Każdy wygenerowany obraz i każde zdjęcie do produkcji wysyłać Tomaszowi na 
 - Dokumentacja Meta Reels Publishing API podaje 3–90 s, ale rolka pH gleby (133,4 s, #000108) przeszła przez /{page}/video_reels jako Reel: Graph API status ready, publish_status published, length 133.366 → https://www.facebook.com/reel/2244824996307318
 - Wymogi techniczne z dokumentacji Meta do pilnowania: 1080×1920, 24–60 fps, H.264, GOP 2–5 s (-g 60 przy 30 fps), audio AAC 48 kHz STEREO ≥128 kb/s (loudnorm podbija do 96 kHz mono → zawsze -ar 48000 -ac 2).
 - Układ „pełny ekran" (dekret Tomasza 24.09, D-0586): bez slajdów/„kartek" u góry — zdjęcie na cały kadr z przesuwem, nagłówek części u góry, napisy narracji słowo w słowo na dole (czerwone pudełka).
+
+## 25.09.2026 — INTRO I OUTRO ROLEK (Tomasz: „Gdzie kurwa intro", „Rolki mają inne intro", D-0596/D-0597)
+- Rolka = intro ROLEK + tresc + outro. Intro rolek: assets/branding/intro_rolki_zielone_2_5s.mp4 (2,5 s, logo ROD wylania sie z czerni; identyczne z make_intro_animated w apps/api/src/video/renderer.py). Outro: make_outro_animated(assets/branding/rod_profilowe.png) — 3 s.
+- Intro „WIADOMOŚCI Z OGRODU" (tools/dolacz_intro.py) jest TYLKO dla wydan Wiadomosci — NIE do rolek.
+- Pipeline render_video dokleja intro/outro sam; rolki skladane recznie (Scrimba, Flow, montaz wlasny) trzeba sklejac recznie: filter_complex concat z normalizacja (scale/fps/format/48 kHz stereo), kontrola liczby klatek. Zmierzone: 000107 (film woda) i 000108 (pH) opublikowane BEZ intro/outro.

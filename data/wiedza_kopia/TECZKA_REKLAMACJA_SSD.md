@@ -71,3 +71,8 @@
 - NASTĘPNY KROK: przy najbliższym wyjeździe na działkę — wymiana dysku w N150 (slot M.2, w miejsce starego), instalacja HAOS x86-64 z Ubuntu Live USB, restore z pendrive'a ratunkowego SanDisk (komplet: apps, homeassistant, ssl, storage.tar, mariadb.tar), Tailscale Start on boot + Watchdog, weryfikacja trasy 192.168.3.0/24 (NVR); STAREGO dysku nie wyrzucać (awaryjne źródło danych)
 - BILANS DNIA: chargeback Revolut wypłacony +159,71 € (warunkowo, do ~50 dni), dysk −38,51 € → Tomasz na plusie 121,20 €, a Działka rusza po ~5 tygodniach przestoju
 - 22.09 15:48 Tomasz: "W weekend bede" — wymiana dysku i odbudowa N150 zaplanowana na weekend 27-28.09 na działce
+
+## 24.09.2026 05:06 UTC — REVOLUT: USŁUGODAWCA ZAKWESTIONOWAŁ CHARGEBACK
+- Mail no-reply@revolut.com "Informacje w sprawie Twojego zgłoszenia": AliExpress odpowiedział na chargeback i ZAKWESTIONOWAŁ zgłoszenie; Revolut przegląda jego dowody — jeśli nieprzekonujące, odeśle do ponownej weryfikacji; kolejna odpowiedź 3–20 dni; "Na razie nie musisz robić nic więcej"; proces sterowany przez Mastercard, nie da się przyspieszyć
+- Warunkowy zwrot 159,71 € pozostaje na koncie (mail nie wspomina o cofnięciu)
+- Nasza pozycja: pisemne uznanie wady przez FUCHU 24.08 + kolaż oryginalnych zdjęć awarii w aktach — mocne kontr-dowody, gdyby Revolut poprosił o uzupełnienie
