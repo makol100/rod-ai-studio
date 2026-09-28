@@ -1842,3 +1842,10 @@ Protokół 14/L (Dorota Zachariasz, 535 kWh) zostaje BEZ zdjęcia — jedyny wyj
 ==============================================================================
 
 Dz. 14 (licznik 24835310): fotki nie ma nigdzie (ta rozmowa, VPS, Hans, Drive; oświadczenie powstało 19.09 w innym czacie). Tomasz 28.09: 'Chuj wie skąd dostałem... koło chuja mi to lata' — protokół 14/L zostaje BEZ zdjęcia jako jedyny wyjątek od D-0634; jeśli fotka się znajdzie, dokleić.
+
+
+==============================================================================
+## SESJA 28.09.2026 18:41 CEST
+==============================================================================
+
+Dz. 14: fotka licznika dosłana (Hans msg 1396). UWAGA NA PRZYSZŁOŚĆ: hans_ucho.py zjada getUpdates co 60 s i odkłada zdjęcia do /root/skrzynka/pliki/ (+ surowe_aktualizacje.jsonl) — TAM szukać fotek od Tomasza. Zweryfikowana wzrokowo: 24835310-1995, liczydło 534,8-9 -> 535 po zaokrągleniu w górę. Wklejona, 14/L wysłany. KOMPLET 8/8 protokołów L ze zdjęciami.
