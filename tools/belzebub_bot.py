@@ -56,7 +56,22 @@ def terminal_callback(czat, kto):
         except Exception: pass
         return f"kod wyjścia: {kod}\n" + str(wyj)[-12000:]
     return cb
-def obsluz(czat, kto, q):
+def obsluz(czat, kto, q, pliki=None):
+    pliki = list(pliki or []); obrazy = []; dopisek = ""
+    if not pliki and q:   # 15 min po zdjeciu: kolejne pytanie widzi ostatnie obrazy (pytania uzupelniajace)
+        t_ost, p_ost = OSTATNIE.get(kto, (0, []))
+        if p_ost and time.time() - t_ost < OKNO_OBRAZU:
+            pliki = [x for x in p_ost if os.path.isfile(x)]
+            if pliki: dopisek = f"[Dołączam ponownie obraz(y) przysłane {int((time.time() - t_ost) // 60)} min temu — dla kontekstu; użyj ich tylko, jeśli pytanie ich dotyczy.]\n\n"
+    elif pliki:
+        OSTATNIE[kto] = (time.time(), pliki[:MAX_OBRAZOW])
+    if len(pliki) > MAX_OBRAZOW:
+        dopisek += f"[Przysłano {len(pliki)} obrazów — widzisz pierwsze {MAX_OBRAZOW}.]\n\n"; pliki = pliki[:MAX_OBRAZOW]
+    for pl in pliki:
+        try: obrazy.append(data_url(pl))
+        except Exception as e: dopisek += f"[Obrazu {os.path.basename(pl)} nie udało się otworzyć: {str(e)[:120]}]\n\n"
+    if not q: q = "[Rozmówca przysłał obraz bez podpisu.] Powiedz krótko, co na nim widzisz."
+    q_model = dopisek + q + ((f"\n\n[Obrazy zapisane na serwerze: " + ", ".join(pliki) + "]") if (pliki and kto == "tomasz") else "")
     stop = threading.Event()
     def pisze():
         while not stop.is_set():
@@ -65,18 +80,22 @@ def obsluz(czat, kto, q):
             stop.wait(4)
     threading.Thread(target=pisze, daemon=True).start()
     try:
-        importlib.reload(bzb); a, slad = bzb.odpowiedz(q, historia(kto), KLUCZ, obraz_cb=sd_callback(czat, kto), terminal_cb=(terminal_callback(czat, kto) if kto == "tomasz" else None))
+        importlib.reload(bzb); a, slad = bzb.odpowiedz(q_model, historia(kto), KLUCZ, obraz_cb=sd_callback(czat, kto), terminal_cb=(terminal_callback(czat, kto) if kto == "tomasz" else None), obrazy=obrazy or None)
         if slad: a += "\n\n" + slad
     except Exception as e: a = f"Belzebub: błąd {str(e)[:300]}"
     finally: stop.set()
     wyslij(TOK, czat, a)
-    try: archiwizuj(kto, q, a)
+    q_arch = q + (("\n\n[OBRAZY: " + ", ".join(pliki) + "]") if pliki else "")
+    try: archiwizuj(kto, q_arch, a)
     except Exception as e: print("archiwum blad", e, flush=True)
     if kto != "tomasz":
         try:
             sys.path.insert(0, "/root/rod-ai-studio/tools"); import hans_ucho
             ht, hc = hans_ucho._wczytaj_token_hansa()
-            wyslij(ht, hc, f"[Wikuś -> Belzebub]\nPYTANIE: {q}\n\nODPOWIEDZ:\n{a}")
+            for pl in (pliki if not dopisek.startswith("[Dołączam ponownie") else []):
+                try: wyslij_zdjecie(hc, pl, "[Wikuś -> Belzebub] obraz", tok=ht)
+                except Exception as e: print("kopia foto blad", e, flush=True)
+            wyslij(ht, hc, f"[Wikuś -> Belzebub]\nPYTANIE: {q_arch}\n\nODPOWIEDZ:\n{a}")
         except Exception as e: print("kopia blad", e, flush=True)
 
 # 25.09 D-0612: "obraz: ..." -> Belzebub pisze prompt EN -> Zenek (Codex image_gen, 0 zl) -> zdjecie do czatu
@@ -91,12 +110,12 @@ def prompt_en(opis, sd=False):
     t = ((d.get("choices") or [{}])[0].get("message", {}).get("content") or "").strip()
     import re as _re
     return _re.sub(r"(?s)<think>.*?</think>", "", t).strip() or opis
-def wyslij_zdjecie(czat, plik, podpis):
-    b = uuid.uuid4().hex
+def wyslij_zdjecie(czat, plik, podpis, tok=None):
+    tok = tok or TOK; b = uuid.uuid4().hex
     dane = (f"--{b}\r\nContent-Disposition: form-data; name=\"chat_id\"\r\n\r\n{czat}\r\n"
             f"--{b}\r\nContent-Disposition: form-data; name=\"caption\"\r\n\r\n{podpis[:1000]}\r\n"
             f"--{b}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"obraz.png\"\r\nContent-Type: image/png\r\n\r\n").encode() + open(plik, "rb").read() + f"\r\n--{b}--\r\n".encode()
-    r = urllib.request.Request(f"https://api.telegram.org/bot{TOK}/sendPhoto", data=dane, headers={"Content-Type": f"multipart/form-data; boundary={b}"})
+    r = urllib.request.Request(f"https://api.telegram.org/bot{tok}/sendPhoto", data=dane, headers={"Content-Type": f"multipart/form-data; boundary={b}"})
     with urllib.request.urlopen(r, timeout=120) as o: return json.load(o)
 def sd_callback(czat, kto):
     """25.09 D-0624 („Po co obraz?"): Belzebub SAM wola generuj_obraz w rozmowie — bez komendy."""
@@ -130,6 +149,38 @@ def obraz(czat, kto, opis):
     except Exception as e:
         wyslij(TOK, czat, f"Błąd obrazu: {str(e)[:300]}")
 
+# 29.09 D-0667 („Zrób tak żeby Belzebub widział obrazy w czacie w telegramie"): zdjecia -> model Belzebuba (Qwen-VL na Featherless)
+import io, base64
+MAX_OBRAZOW = 6; OKNO_OBRAZU = 15 * 60; OSTATNIE = {}; ALBUMY = {}; ALBUM_LOCK = threading.Lock()
+def file_id_obrazu(m):
+    if m.get("photo"): return m["photo"][-1]["file_id"]          # najwieksza wersja
+    d = m.get("document") or {}
+    if str(d.get("mime_type", "")).startswith("image/"): return d["file_id"]
+    return None
+def pobierz_obraz(fid, kto):
+    info = api(TOK, "getFile", file_id=fid)["result"]; sciezka = info["file_path"]
+    kat = ARCH[kto] / "obrazy"; kat.mkdir(mode=0o700, parents=True, exist_ok=True)
+    ext = os.path.splitext(sciezka)[1].lower() or ".jpg"
+    cel = kat / f"{datetime.datetime.now():%Y%m%d_%H%M%S}_{uuid.uuid4().hex[:6]}{ext}"
+    with urllib.request.urlopen(f"https://api.telegram.org/file/bot{TOK}/{sciezka}", timeout=60) as o: cel.write_bytes(o.read())
+    cel.chmod(0o600); return str(cel)
+def data_url(plik, bok=1280):
+    from PIL import Image, ImageOps
+    im = ImageOps.exif_transpose(Image.open(plik)).convert("RGB"); im.thumbnail((bok, bok))
+    buf = io.BytesIO(); im.save(buf, "JPEG", quality=85)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+def do_albumu(mgid, czat, kto, q, pliki):
+    """Album (kilka zdjec naraz) przychodzi jako osobne wiadomosci — zbieramy 3 s i wysylamy Belzebubowi razem."""
+    with ALBUM_LOCK:
+        g = ALBUMY.setdefault(mgid, {"czat": czat, "kto": kto, "q": "", "pliki": [], "t": None})
+        if q: g["q"] = (g["q"] + "\n" + q).strip()
+        g["pliki"] += pliki
+        if g["t"]: g["t"].cancel()
+        g["t"] = threading.Timer(3.0, _wypusc_album, args=(mgid,)); g["t"].daemon = True; g["t"].start()
+def _wypusc_album(mgid):
+    with ALBUM_LOCK: g = ALBUMY.pop(mgid, None)
+    if g: obsluz(g["czat"], g["kto"], g["q"], g["pliki"])
+
 def main():
     off = 0; print("belzebub_bot start", flush=True)
     while True:
@@ -141,7 +192,19 @@ def main():
             if uid not in LUDZIE:
                 if czat: wyslij(TOK, czat, "Brak dostępu.")
                 print("obcy", uid, flush=True); continue
-            if not q: wyslij(TOK, czat, "Na razie rozumiem tylko tekst."); continue
-            if q == "/start": wyslij(TOK, czat, "Belzebub słucha. Pisz normalnie — bez /bzb. Chcesz zdjęcie — po prostu poproś, Belzebub sam je namaluje (Stable Diffusion na naszym serwerze)."); continue
-            threading.Thread(target=obsluz, args=(czat, LUDZIE[uid], q), daemon=True).start()
+            kto = LUDZIE[uid]; pliki = []; fid = None
+            try:
+                fid = file_id_obrazu(m)
+                if fid: pliki.append(pobierz_obraz(fid, kto))
+                rep = m.get("reply_to_message") or {}
+                fid_r = file_id_obrazu(rep) if rep else None
+                if fid_r and not fid: pliki.append(pobierz_obraz(fid_r, kto))   # pytanie w odpowiedzi na zdjecie
+            except Exception as e:
+                wyslij(TOK, czat, f"Nie udało się pobrać obrazu: {str(e)[:200]}"); print("obraz blad", e, flush=True)
+                if not q: continue
+            if not q and not pliki: wyslij(TOK, czat, "Rozumiem tekst i obrazy (zdjęcia, także wysłane jako plik). Tego typu wiadomości jeszcze nie."); continue
+            if q == "/start": wyslij(TOK, czat, "Belzebub słucha. Pisz normalnie — bez /bzb. Możesz przysłać zdjęcie (albo kilka naraz) — Belzebub je zobaczy. Chcesz zdjęcie — po prostu poproś, Belzebub sam je namaluje (Stable Diffusion na naszym serwerze)."); continue
+            if m.get("media_group_id") and fid:
+                do_albumu(m["media_group_id"], czat, kto, q, pliki); continue
+            threading.Thread(target=obsluz, args=(czat, kto, q, pliki), daemon=True).start()
 if __name__ == "__main__": main()

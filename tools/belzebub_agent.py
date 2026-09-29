@@ -42,10 +42,17 @@ SYSTEM_TERMINAL = (" MASZ PEŁNY DOSTĘP DO SERWERA (narzędzie terminal = bash 
  "Dekret Tomasza 2.08: NIKT NICZEGO NIE USUWA bez jego wyraźnego polecenia — nie kasuj plików, katalogów, baz ani kontenerów, nie restartuj serwera. "
  "Sekretów (tokeny, klucze, hasła) nigdy nie wypisuj w odpowiedzi. Po każdej zmianie sprawdź wynik i podaj go wprost (albo NIE WIEM).")
 TOOL_OBRAZ = {"type":"function","function":{"name":"generuj_obraz","description":"Generuje zdjęcie/obraz (Stable Diffusion na naszym serwerze, ok. 30–60 s) i SAM wysyła je rozmówcy. Wołaj, gdy rozmówca prosi o zdjęcie, obraz, grafikę, rysunek, ilustrację. prompt = po ANGIELSKU, tagi oddzielone przecinkami, max 55 słów, najpierw główny obiekt, potem otoczenie, światło, styl.","parameters":{"type":"object","properties":{"prompt":{"type":"string"}},"required":["prompt"]}}}
+SYSTEM_WZROK = (" ROZMÓWCA DOŁĄCZYŁ OBRAZ(Y) — widzisz je bezpośrednio w jego wiadomości (D-0667). Opisuj wyłącznie to, co naprawdę na nich widać; "
+ "tekst, numery i liczby przepisuj dokładnie znak po znaku; czego nie da się odczytać — napisz NIECZYTELNE, nie zgaduj. Przy kilku obrazach odnoś się do nich po numerze (obraz 1, obraz 2…).")
 SYSTEM_OBRAZ = " Masz też narzędzie generuj_obraz(prompt): gdy rozmówca prosi o zdjęcie, obraz, grafikę lub rysunek — wywołaj je z angielskim promptem; obraz trafia do rozmówcy automatycznie, a ty odpisz krótko po polsku, co namalowałeś."
 
 def _tok(s): return int(len(s) / ZN_NA_TOKEN) + 4
-def _tok_msgs(msgs): return NARZUT_NARZEDZI + sum(_tok(str(m.get("content") or "")) + (_tok(json.dumps(m.get("tool_calls"), ensure_ascii=False)) if m.get("tool_calls") else 0) for m in msgs)
+TOK_OBRAZ = 1700            # 29.09 D-0667: obraz <=1280 px w modelu Qwen-VL ~ (w/32)*(h/32) <= 1600 tokenow + narzut
+def _tok_tresc(c):
+    if isinstance(c, list):   # tresc wieloczesciowa: tekst + obrazy (base64 NIE liczy sie jako tekst)
+        return sum(_tok(str(p.get("text") or "")) if p.get("type") == "text" else TOK_OBRAZ for p in c if isinstance(p, dict))
+    return _tok(str(c or ""))
+def _tok_msgs(msgs): return NARZUT_NARZEDZI + sum(_tok_tresc(m.get("content")) + (_tok(json.dumps(m.get("tool_calls"), ensure_ascii=False)) if m.get("tool_calls") else 0) for m in msgs)
 
 def _klucz_env(nazwa):
     for p in ("/root/rod-ai-studio/.env", "/root/.sekrety/wartosci.env"):
@@ -214,8 +221,9 @@ def _wywolaj(msgs, ses, klucz, model, narzedzia=True, tools=None):
         return d
     return d
 
-def odpowiedz(pytanie, historia, klucz, model=None, obraz_cb=None, terminal_cb=None):
-    """Zwraca (odpowiedz, slad). historia = lista wiadomosci user/assistant z archiwum (najstarsze pierwsze)."""
+def odpowiedz(pytanie, historia, klucz, model=None, obraz_cb=None, terminal_cb=None, obrazy=None):
+    """Zwraca (odpowiedz, slad). historia = lista wiadomosci user/assistant z archiwum (najstarsze pierwsze).
+    obrazy = lista adresow data:image/...;base64 (29.09 D-0667: Belzebub widzi obrazy z czatu Telegram)."""
     model = model or MODEL_DOMYSLNY; ses = Sesja()
     # historia: najnowsza w kontekscie, starsza do notatnika (NIE ucinamy)
     hist = []; budzet = BUDZET_HIST_TOK; starsze = []
@@ -236,7 +244,10 @@ def odpowiedz(pytanie, historia, klucz, model=None, obraz_cb=None, terminal_cb=N
                f"czytaj_notatnik('BRIEF', od={granica}). Spis dalszej części: " + " | ".join(naglowki) + "]")
     tools = TOOLS + ([TOOL_OBRAZ] if obraz_cb else []) + ([TOOL_TERMINAL] if terminal_cb else [])
     max_rund = MAX_RUND * 3 if terminal_cb else MAX_RUND  # prace na serwerze wymagaja wiecej krokow
-    msgs = [{"role": "system", "content": SYSTEM.format(data=time.strftime("%d.%m.%Y")) + (SYSTEM_OBRAZ if obraz_cb else "") + (SYSTEM_TERMINAL if terminal_cb else "")}] + hist + [{"role": "user", "content": wstep + pyt, "_chron": True}]
+    tresc_user = wstep + pyt
+    if obrazy:
+        tresc_user = [{"type": "text", "text": tresc_user}] + [{"type": "image_url", "image_url": {"url": u}} for u in obrazy]
+    msgs = [{"role": "system", "content": SYSTEM.format(data=time.strftime("%d.%m.%Y")) + (SYSTEM_WZROK if obrazy else "") + (SYSTEM_OBRAZ if obraz_cb else "") + (SYSTEM_TERMINAL if terminal_cb else "")}] + hist + [{"role": "user", "content": tresc_user, "_chron": True}]
     szukal = []; czytal = []; znane_urls = set(); notatki = []
     for runda in range(max_rund + 1):
         if runda < max_rund:
