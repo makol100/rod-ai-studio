@@ -68,3 +68,11 @@ Ogłoszenia wideo zarządu — czytają je nasi prezenterzy AI: Izabela i awatar
 :::html
 {{wideo_wiadomosci}}
 :::
+
+## 💡 Ciekawostki
+
+Ciekawostki z ogrodu — mało znane fakty o działkach z Polski i ze świata. Czyta głos Tomasza (awatar AI, za jego zgodą).
+
+:::html
+{{wideo_ciekawostki}}
+:::
