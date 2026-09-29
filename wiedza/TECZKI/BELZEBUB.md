@@ -59,3 +59,10 @@ Tomasz (dosłownie): „Dać pełen dostęp belzebubowi do WPS. NATYCHMIAST".
 - Dziennik każdego polecenia: `/root/rozmowy_belzebub/terminal.log` (0600).
 - W instrukcji Belzebuba: kopia przed zmianą, NIKT NICZEGO NIE USUWA bez polecenia Tomasza, nie wypisywać sekretów.
 - Test 29.09 12:27: sam wykonał `uptime && df -h /`, odpowiedź zgodna ze stanem serwera.
+
+## D-0667 (29.09.2026) — Belzebub widzi obrazy w czacie Telegram
+Tomasz: „Zrób tak żeby Belzebub widział obrazy w czacie w telegramie".
+- Model Belzebuba (huihui-ai/Huihui-Qwen3.8-27B-abliterated na Featherless) przyjmuje obrazy (format OpenAI image_url, base64) — test 29.09: poprawnie odczytał tabliczki i liczydła liczników PAFAL A52 (nr 24785695-1, 017377,x kWh, naklejka „23").
+- tools/belzebub_bot.py: zdjęcie, obraz wysłany jako plik, album (do 6 obrazów, zbierany 3 s), pytanie w odpowiedzi na zdjęcie (także na obraz namalowany przez SD), 15 min po zdjęciu kolejne pytania widzą ostatni obraz. Obrazy zapisywane: /root/rozmowy_belzebub/obrazy (Tomasz), /root/rozmowy_belzebub/wikus/obrazy (Wikuś), pliki 0600; w rozmowie Tomasza Belzebub dostaje też ścieżkę (może na nich pracować terminalem). Zdjęcia Wikusi idą kopią do Tomasza botem Hansa.
+- tools/belzebub_agent.py: odpowiedz(..., obrazy=[data-url]), SYSTEM_WZROK (opisuj tylko to, co widać; nieczytelne = NIECZYTELNE), liczenie tokenów obrazu TOK_OBRAZ=1700 (base64 nie liczy się jako tekst). Obraz zmniejszany do 1280 px, JPEG 85. Koszt 0 zł (abonament Featherless).
+- Kopie: tools/belzebub_bot.py.bak-2909wzrok, tools/belzebub_agent.py.bak-2909wzrok. Test: .scratch/test_bzb_wzrok.py.
