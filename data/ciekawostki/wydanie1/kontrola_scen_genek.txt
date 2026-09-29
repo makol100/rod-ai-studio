@@ -1,0 +1,19 @@
+[GENEK — DROGA 1: wlasny dostep do dysku przez CLI]
+
+1. Weryfikacja ze źródłami (a):
+Kwestie C1a, C1b, C3, C4, C5: OK.
+Kwestia C2: BŁĄD. Cytat ze źródła: "W Katowicach w 1906 r. kopalnia »Wujek« wydzierżawiła swoim pracownikom teren o powierzchni 1,7 ha". Poprawione zdanie: "Rok później kopalnia Wujek w Katowicach wydzierżawiła swoim pracownikom jeden i siedem dziesiątych hektara ziemi pod uprawę."
+Kwestie C6, C7, C8, C9, C10: OK.
+
+2. Zakazane słowa (b):
+Słowo "prezes" nie występuje w żadnym zdaniu scenariusza.
+
+3. Zapis pod lektora TTS (c):
+Wszystkie liczby, daty i waluty zapisano słownie. "Szreber" i "szrebergarten" posiadają prawidłowy zapis fonetyczny. Błąd może wystąpić w kwestii C9 przez dosłowny zapis angielskiego miasta. Poprawione zdanie C9: "Już w tysiąc siedemset trzydziestym drugim roku angielskie Bermingam otaczały ogródki, a w Danii ziemię pod działki wydzielono w tysiąc siedemset siedemdziesiątym ósmym."
+
+4. Szczegóły dla C1, C2, C3, C7, C9 (d):
+Data życia Lompy, 16 dzieci, uprawy w Lubszy i los gruszy (C1) są w 100% zgodne ze źródłami. Daty z życia Schrebera, otwarcie placu zabaw, rola nauczyciela i milion ogrodów w Niemczech (C3) również zgadzają się ze stanem faktycznym. Ceny przejęcia z września i rekordowa kwota z marca (C7) oraz 9-letni czas oczekiwania w Anglii i daty z XVIII wieku (C9) zgadzają się z linkami. Rozbieżność w C2 ("ponad półtora hektara" zamiast dokładnych "1,7 ha") została sprawdzona i naprawiona w kroku pierwszym.
+
+Wprowadź powyższe poprawki dla kwestii C2 i C9 bezpośrednio do pliku `/root/rod-ai-studio/data/ciekawostki/wydanie1/SCENARIUSZ_v1.md`.
+
+GENEK

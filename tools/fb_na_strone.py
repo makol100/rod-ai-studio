@@ -36,6 +36,8 @@ def pobierz_wideo(tok):
         tytul = next((re.sub(r"#\w+", "", l).strip() for l in opis.splitlines() if l.strip()), "Rolka ROD")[:110]
         if "poradnik" in opis.lower()[:200]:   # D-0369/D-0370: poradniki to NIE wiadomosci — osobna kategoria
             kat = "poradniki"
+        elif "ciekawostki z ogrodu" in opis.lower()[:200]:   # D-0652: nowy dzial Ciekawostki (glos Tomasza, jak Wiadomosci)
+            kat = "ciekawostki"
         elif v["id"] in wiad_idy or any(w in opis.lower() for w in WIAD_SLOWA):
             kat = "wiadomosci"
         elif v["id"] in humor_idy or any(w in opis.lower() for w in HUMOR_SLOWA):

@@ -51,3 +51,11 @@ Założona 02.09.2026 (dekret Tomasza „Kończ Belzebuba"). Zasada teczek: wpis
 - tools/hans_ucho.py (kopia: hans_ucho.py.bak-2509): (1) historia rozmowy dla Belzebuba bez sufitu 88 000 znakow — cala (2.1 trzyma najnowsza w kontekscie, starsza w notatniku HISTORIA); (2) odpowiedz na Telegram bez sufitu 12 000 znakow — cala, w porcjach po 3500 (bylo 3800 -> gubilo po 300 znakow), pauza 0,4 s; to samo dla kopii Wikus->Tomasz.
 - /root/belzebub_czat/serwer.py (kopia: serwer.py.bak-2509): historia czatu WWW bez ograniczenia [-40:] — cala.
 - Test: 130 wiadomosci historii (~105 000 znakow) podane do odpowiedz(); Belzebub przez szukaj/HISTORIA poprawnie zacytowal najstarsze pytanie. Uslugi zrestartowane.
+
+## 29.09.2026 — PEŁNY DOSTĘP DO VPS (D-0659)
+Tomasz (dosłownie): „Dać pełen dostęp belzebubowi do WPS. NATYCHMIAST".
+- Narzędzie `terminal` w `tools/belzebub_agent.py` (parametr `terminal_cb`): bash jako root, katalog /root/rod-ai-studio, timeout domyślnie 120 s (max 600), limit rund ×3.
+- Bot @BelzebubV2_bot przekazuje `terminal_cb` WYŁĄCZNIE w rozmowach Tomasza (8339659505). Wikuś — bez terminala, dopóki Tomasz nie zdecyduje inaczej.
+- Dziennik każdego polecenia: `/root/rozmowy_belzebub/terminal.log` (0600).
+- W instrukcji Belzebuba: kopia przed zmianą, NIKT NICZEGO NIE USUWA bez polecenia Tomasza, nie wypisywać sekretów.
+- Test 29.09 12:27: sam wykonał `uptime && df -h /`, odpowiedź zgodna ze stanem serwera.

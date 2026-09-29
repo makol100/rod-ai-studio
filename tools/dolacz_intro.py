@@ -75,7 +75,10 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("wydanie")
     ap.add_argument("--wyjscie", default="")
+    ap.add_argument("--intro", default="", help="inne intro (np. Ciekawostki z ogrodu, D-0653); domyslnie kanon Wiadomosci")
     a = ap.parse_args()
+    if a.intro:
+        INTRO = Path(a.intro)
     wydanie = Path(a.wydanie)
     wyjscie = Path(a.wyjscie) if a.wyjscie else wydanie.with_name(
         wydanie.stem + "_z_intro.mp4")
