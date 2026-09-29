@@ -1,0 +1,29 @@
+Wszystkie 6 sprawdzone na żywych źródłach (curl, bez wydatków, bez zmian w repo). Poniżej werdykty.
+
+T1 — POTWIERDZONE | data na stronie: „Redakcja GL 24 września, 2026, 14:13" (uwaga: na stronie jest też stopka bieżąca portalu „niedziela, 27 września 2026", ale datą artykułu jest 24.09) |
+CYTAT: „roczną opłatą za użytkowanie wieczyste gruntu w wysokości 21 072 zł. (…) Kwota 21 072,94 zł dotyczy całego terenu ogrodu, a nie pojedynczej działki. (…) Daje to około 160 zł rocznie na jedną działkę."
+Liczby 21 072,94 zł i ~160 zł/działkę zgadzają się co do grosza i per-działka.
+
+T2 — POTWIERDZONE | PDF „Informator działkowca", PAŹDZIERNIK 2026, nr 326 (tytuł PDF-a; data publikacji 23.09.2026 na pzd.pl — nie weryfikowałem osobno z pzd.pl, bo treść PDF wystarcza) |
+CYTAT (dosłowny): „W jednym z ROD w Wieliczce jest to ok. 900 zł rocznie na każdą działkę. W większych miastach grunty są droższe. Tam obciążenie rzędu 3 tysięcy zł. rocznie jest jak najbardziej realne. Dla wielu rodzin będzie to wydatek nie do udźwignięcia. W Wieliczce niektórzy zapowiadają porzucanie działek."
+Wszystkie trzy elementy (900 zł/działkę w Wieliczce, „rzędu 3 tysięcy zł rocznie", zapowiedzi porzucania) są w PDF.
+
+T3 — POTWIERDZONE | ten sam PDF (PAŹDZIERNIK 2026, nr 326) |
+CYTAT: „Zgodnie z § 79 ust. 1 Regulaminu ROD w uzasadnionych przypadkach działkowiec może wystąpić do zarządu ROD o ustanowienie opiekuna działki na okres nieprzekraczający dwóch lat. Ustanowienie opiekuna wymaga zgody zarządu ROD. (…) Opiekun działki nie zastępuje działkowca w wykonywaniu praw członkowskich – w szczególności nie może w jego imieniu korzystać z prawa udziału w walnym zebraniu ROD."
+Trzy elementy twierdzenia (dwa lata, zgoda zarządu, zakaz udziału w walnym) — wszystkie obecne.
+
+T4 — POTWIERDZONE (z drobną uwagą co do sformułowania przyczyny) | data na stronie: 25.09.2026, autor Leszek Zarembski |
+CYTAT: „w Śródmieściu przepadło aż czternaście zgłoszeń, w tym modernizacja alejki w ROD Kościuszki z 1 112 głosami – projekt wart 475 000 zł, na który po prostu zabrakło miejsca."
+1 112 głosów ✓, 475 000 zł ✓, przepadł/nie wszedł ✓. UWAGA: strona pisze „zabrakło miejsca" (w puli dzielnicowej Śródmieście, bo „konkurencja między zgłoszeniami jest największa w mieście"), a nie dosłownie „zabrakło pieniędzy w puli" — mechanizm ten sam, ale cytat różni się sformułowaniem. bo.katowice.eu odpowiada (HTTP 200), ale konkretny projekt XIII edycji wymaga nawigacji po aplikacji głosowania (JS) — nie docierałem tam do karty projektu; werdykt opieram na silesion (główne wskazane źródło).
+
+T5 — POTWIERDZONE | data na stronie: „Opublikowano: 27 września 2026 - 19:10" |
+CYTAT: „Zarząd Rodzinnego Ogrodu Działkowego Bystrzyca w Lublinie uruchomił procedurę wypowiadania umów dzierżawy działkowej wobec dłużników. (…) zaległości w opłatach za bieżący rok ma 60 użytkowników działek, a 17 osób nie uregulowało także należności za poprzedni rok."
+60 za bieżący rok, 17 też za poprzedni — zgadza się.
+
+T6 — POTWIERDZONE | data na stronie (w tytule wpisu): „…u Burmistrza Nysy Kordiana Kolbiarza - 23.09.2026"; w treści „W dniu 17 września 2026r. odbyło się spotkanie" |
+CYTAT: „W dalszej części spotkania poruszono kwestię możliwości pozyskania przez PZD terenu pod utworzenie nowego Rodzinnego Ogrodu Działkowego na terenie Nysy. Zwrócono uwagę na duże zainteresowanie mieszkańców działkami oraz rosnące zapotrzebowanie na tego rodzaju tereny."
+Okręg Opolski (OZ PZD w Opolu), burmistrz Nysy Kordian Kolbiarz, nowy ROD w Nysie, duże zainteresowanie — wszystkie elementy zgodne.
+
+PODSUMOWANIE: 6/6 POTWIERDZONE. Jedyna różnica względem wersji z twierdzenia to sformułowanie przyczyny w T4 („zabrakło miejsca" vs „zabrakło pieniędzy w puli") — fakty i liczby się zgadzają. Do publikacji bez poprawek merytorycznych; przy T4 proponuję zacytować dosłownie „zabrakło miejsca".
+
+— Henio
