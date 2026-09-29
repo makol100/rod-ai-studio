@@ -18,7 +18,7 @@ def img(p):
 
 # (klucz_kwestii, nr, tytuł, zdjęcie, podpis zdjęcia, linie tekstu[], wyróżnienie)
 P = [
- ("N0", "", "CIEKAWOSTKI Z OGRODU", Z/"wyb_N0_rod.jpg", "fot. Adrian Grycuk, Wikimedia Commons, CC BY 3.0 pl", ["wydanie 1 · 29 września 2026", "10 rzeczy o działkach, o których mało kto wie"], "NOWY CYKL"),
+ ("N0", "", "CIEKAWOSTKI Z OGRODU", Z/"wyb_N0_ai.jpg", "grafika wygenerowana przez AI", ["wydanie 1 · 29 września 2026", "10 rzeczy o działkach, o których mało kto wie"], "NOWY CYKL"),
  ("C1a", "1", "PATRON NASZEGO OGRODU", Z/"wyb_C1a_lompa.jpg", "pomnik J. Lompy w Woźnikach — fot. Tobiasz Janus, Wikimedia Commons, CC BY-SA 4.0", ["Józef Lompa 1797–1863", "zmarł w Woźnikach", "nauczyciel, pisarz, tłumacz · 16 dzieci"], "NASZ PATRON"),
  ("C1b", "1", "PATRON NASZEGO OGRODU", Z/"wyb_C1b_lubsza.jpg", "Lubsza, szkoła Józefa Lompy — fot. Przykuta, Wikimedia Commons, CC BY-SA 3.0", ["ogród warzywny i owocowy z pasieką", "„Wskazówki do stosownej uprawy", "wiejskich warzywnych ogrodów”"], "DZIAŁKOWIEC PRZED DZIAŁKAMI"),
  ("C2", "2", "ŚLĄSK: DZIAŁKI OD GÓRNIKÓW", Z/"wyb_C2_wujek.jpg", "KWK Wujek — fot. Andrzej Otrębski, Wikimedia Commons, CC BY-SA 4.0", ["1905: Chorzów i Toszek", "1906: kopalnia Wujek — 1,7 ha", "dla swoich pracowników"], "PONAD 120 LAT TRADYCJI"),
