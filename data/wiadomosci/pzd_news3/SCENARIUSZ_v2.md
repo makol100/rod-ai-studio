@@ -1,0 +1,17 @@
+# v2 (po kontroli Zenka i Henia: N1a, N1b, N5, N6b, N7) — WIADOMOŚCI Z OGRODU — „Przegląd z ogrodów działkowych", wydanie 3 (29.09.2026, D-0640/D-0642: WSZYSTKIE 9 tematów, kolejność 1–9)
+Zasady: 0 zł, głos klon V2 (tools/glos_tomasz.py), bez słowa „prezes", pełna nazwa Związku raz, liczby słownie, zdania krótkie. Najpierw Śląsk (1–5), potem Polska (6–9).
+Źródła: /tmp/n_pzd3 (henio, zenek, belzebub, klaudek) + kontrola /tmp/n_pzd3_kontrola/henio.txt (6/6 POTWIERDZONE).
+
+N0  Dzień dobry, tu Tomasz. Trzeci przegląd wiadomości z ogrodów działkowych. Najpierw Śląsk, potem reszta kraju — dziewięć tematów. Zaczynamy.
+N1a Temat pierwszy — opłaty za grunt pod ogrodami trafiły do Kancelarii Prezydenta. Sławomir Barwiak z Okręgu Śląskiego Polskiego Związku Działkowców spotkał się z szefem Kancelarii, Zbigniewem Boguckim. Na jego ręce złożono pismo skierowane do Prezydenta Karola Nawrockiego.
+N1b W piśmie opisano skalę problemu i prośbę o ochronę działkowców przed wysokimi opłatami za użytkowanie wieczyste. Kolejne dokumenty mają trafiać przez posła Marka Wesołego. To dotyczy także nas — nasz ogród stoi na gruncie w użytkowaniu wieczystym.
+N2  Temat drugi — Gliwice. Miasto dało w tym roku milion pięćset czterdzieści tysięcy złotych na czterdzieści dwa ogrody działkowe. Ogród Szarotka za czterdzieści tysięcy złotych dotacji i własne pieniądze wyremontował salę w Domu Działkowca. Tak wygląda gmina, która pomaga.
+N3  Temat trzeci — Katowice. W budżecie obywatelskim remont alejki w ogrodzie Kościuszki zebrał tysiąc sto dwanaście głosów. Projekt za czterysta siedemdziesiąt pięć tysięcy złotych mimo to przepadł — w puli Śródmieścia zabrakło miejsca. Szkoda. My wiemy, ile znaczy dobra alejka.
+N4  Temat czwarty — Ruda Śląska. Ogród Promień w Orzegowie ma sto dwadzieścia lat. Powstał w tysiąc dziewięćset szóstym roku i należy do najstarszych ogrodów działkowych w Polsce. Gratulacje dla działkowców z Promienia.
+N5  Temat piąty — Bytom. W ogrodzie Pod Wierzbami, założonym w tysiąc dziewięćset czterdziestym czwartym roku, odbyły się Delegaturowe Dni Działkowca. Były odznaczenia i nagrody, także dla ogrodów, które wygrały konkurs „Segregujesz — wygrywasz". W Bytomiu działają trzydzieści dwa ogrody.
+N6a Temat szósty — opłaty za grunt, nowe przykłady z kraju. Ogród Nad Wartą w Luboniu dostał roczną opłatę ponad dwadzieścia jeden tysięcy złotych za cały teren. To około stu sześćdziesięciu złotych na działkę.
+N6b W jednym z ogrodów w Wieliczce to już około dziewięciuset złotych na działkę — niektórzy zapowiadają, że porzucą działki. Związek ostrzega: w dużych miastach może to być nawet trzy tysiące złotych rocznie. Uczestnicy Wojewódzkiego Dnia Działkowca w Namysłowie przyjęli stanowisko przeciw takim opłatom.
+N7  Temat siódmy — Lublin. Zarząd ogrodu Bystrzyca zaczął wypowiadać umowy dłużnikom. Zaległości za ten rok ma sześćdziesiąt osób, siedemnaście także za poprzedni. Najpierw ci, którzy unikają kontaktu z biurem ogrodu. Opłaty płaćmy w terminie.
+N8  Temat ósmy — opiekun działki. Gdy przez chorobę albo wyjazd nie możesz zajmować się działką, poproś zarząd o opiekuna. Najwyżej na dwa lata i tylko za zgodą zarządu. Za opiekuna odpowiadasz ty, a na walnym zebraniu cię nie zastąpi. Tak mówi paragraf siedemdziesiąty dziewiąty regulaminu.
+N9  Temat dziewiąty — dobra wiadomość z Nysy. Związek rozmawiał z burmistrzem o terenie pod nowy ogród działkowy. Powód jest prosty: mieszkańcy chcą działek, a chętnych przybywa.
+NK  To wszystko na dziś. Zaglądajcie na naszą stronę: rod woźniki kropka pe el. Do usłyszenia.

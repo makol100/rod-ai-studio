@@ -1,0 +1,72 @@
+## 1. POTWIERDZONE — werdykt N0–NK
+
+**N0 — OK.** Cytat ze scenariusza: „dziewięć tematów”. Plik zawiera tematy od N1 do N9. Poprawka: niepotrzebna. [Scenariusz](/root/rod-ai-studio/data/wiadomosci/pzd_news3/SCENARIUSZ_v1.md:5)
+
+**N1a — BŁĄD.** Źródło podaje: „złożono na ręce Szefa Kancelarii Prezydenta RP formalne pismo”. Nie podaje, że Barwiak osobiście złożył pismo bezpośrednio Prezydentowi. [Okręg Śląski PZD](https://slaski-ozpzd.pl/sprawa-rod-na-biurku-prezydenta-rzeczypospolitej-polskiej-pana-karola-nawrockiego/)
+
+Poprawka: „Sławomir Barwiak, członek Okręgowego Zarządu Polskiego Związku Działkowców w Katowicach, spotkał się z szefem Kancelarii, Zbigniewem Boguckim. W trakcie spotkania na ręce szefa Kancelarii złożono pismo skierowane do Prezydenta Karola Nawrockiego.”
+
+**N1b — BŁĄD.** Zgodne są „opis skali problemu oraz postulaty”. Niezgodna jest forma „poseł przekaże”: źródło mówi, że dokumenty „będą przekazywane za pośrednictwem Posła Marka Wesołego”. Fakt dotyczący gruntu ogrodu w Woźnikach potwierdza wewnętrzny zapis Tomasza. [Źródło N1](https://slaski-ozpzd.pl/sprawa-rod-na-biurku-prezydenta-rzeczypospolitej-polskiej-pana-karola-nawrockiego/), [zapis o gruncie](/root/rod-ai-studio/wiedza/narady/PZD_NEWS_1709.md:3)
+
+Poprawka: „W piśmie opisano skalę problemu i przedstawiono postulaty ochrony działkowców w sprawie opłat za użytkowanie wieczyste. Kolejne informacje i dokumenty mają być przekazywane za pośrednictwem posła Marka Wesołego. To dotyczy także nas — nasz ogród stoi na gruncie w użytkowaniu wieczystym.”
+
+**N2 — OK.** Cytaty: „dla 42 ROD łącznie 1 milion pięćset czterdzieści tysięcy złotych” oraz „dotacja w kwocie 40 tysięcy zł oraz środki własne”. Poprawka: niepotrzebna. [Okręg Śląski PZD](https://slaski-ozpzd.pl/otwarcie-sali-domu-dzialkowaca-w-rod-szarotka-w-gliwiach/)
+
+**N3 — OK.** Cytat: „modernizacja alejki w ROD Kościuszki z 1 112 głosami – projekt wart 475 000 zł”. Źródło potwierdza, że zabrakło miejsca w puli Śródmieścia. Poprawka: niepotrzebna. [Silesion](https://silesion.pl/dzielnica-po-dzielnicy-xiii-edycji-budzetu-obywatelskiego-co-naprawde-wybrali-mieszkancy-katowic/)
+
+**N4 — OK.** Cytat: „ROD „Promień” założony w 1906 r., należy do najstarszych ogrodów działkowych w Polsce.” Poprawka: niepotrzebna. [PZD](http://pzd.pl/artykuly/29979/188/120-lat-ROD-Promien-w-Rudzie-slaskiej-piekny-jubileusz-ogrodowej-wspolnoty.html)
+
+**N5 — BŁĄD nazwy wydarzenia.** Źródło nazywa je „Delegaturowe Dni Działkowca”, nie pojedynczym „Dniem Działkowca”. Potwierdza też: „Wręczono odznaczenia zasłużonym działkowcom”. Oficjalna strona miasta podaje: „Ogród przy ul Frenzla został założony w 1944 roku” oraz „W Bytomiu działają 32 ogrody działkowe”. [Okręg Śląski PZD](https://slaski-ozpzd.pl/delegaturowy-dzien-dzialkowca-w-bytomiu/), [Miasto Bytom](https://www.bytom.pl/aktualnosci/index/Zakonczenie-sezonu-w-ROD-Pod-Wierzbami/idn:47434)
+
+Poprawka: „Temat piąty — Bytom. W ogrodzie Pod Wierzbami, założonym w tysiąc dziewięćset czterdziestym czwartym roku, odbyły się Delegaturowe Dni Działkowca. Były odznaczenia i nagrody, także dla ogrodów, które wygrały konkurs „Segregujesz — wygrywasz”. W Bytomiu działają trzydzieści dwa ogrody.”
+
+**N6a — OK.** Cytaty: „Kwota 21 072,94 zł dotyczy całego terenu ogrodu” i „około 160 zł rocznie na jedną działkę”. Poprawka: niepotrzebna. [Gazeta Lubońska](https://www.gazeta-lubon.pl/2026/rod-nad-warta-oplaty/)
+
+**N6b — OK.** Cytat: „W jednym z ROD w Wieliczce jest to ok. 900 zł rocznie na każdą działkę.” PDF potwierdza również możliwość obciążenia rzędu trzech tysięcy złotych i zapowiedzi porzucania działek. Osobna publikacja potwierdza stanowisko uczestników dnia działkowca w Namysłowie. Poprawka: niepotrzebna. [Informator PZD](http://pzd.pl/uploads/cgblog/id29973/Informator_dziakowca_10_-_2026.pdf), [stanowisko z Namysłowa](http://pzd.pl/artykuly/29978/188/Stanowisko-uczestnikow-Wojewodzkiego-Dnia-Dzialkowca-w-Namyslowie-w-sprawie-zagrozenia-nalozenia-na-ROD-wysokich-oplat-z-tytulu-uzytkowania-wieczystego-gruntow.html)
+
+**N7 — OK.** Cytaty: „zaległości w opłatach za bieżący rok posiada 60 użytkowników działek” oraz „17 z nich” także za poprzedni rok. Źródło potwierdza pierwszeństwo osób unikających kontaktu. Poprawka: niepotrzebna. [Portal Samorządowy](https://www.portalsamorzadowy.pl/lubelskie/inwestycje/koniec-dzialek-na-rod-zaczelo-sie-wypowiadanie-umow,676907.html)
+
+**N8 — OK.** Cytaty: „na okres nieprzekraczający dwóch lat” i „Ustanowienie opiekuna wymaga zgody zarządu ROD.” PDF potwierdza także odpowiedzialność działkowca i brak prawa zastępowania go na walnym zebraniu. Poprawka: niepotrzebna. [Informator PZD](http://pzd.pl/uploads/cgblog/id29973/Informator_dziakowca_10_-_2026.pdf)
+
+**N9 — OK.** Cytat: „możliwości pozyskania przez PZD terenu pod utworzenie nowego Rodzinnego Ogrodu Działkowego”. Źródło wskazuje też „rosnące zapotrzebowanie”. Poprawka: niepotrzebna. [PZD](http://pzd.pl/artykuly/29974/188/Przedstawiciele-ogrodow-Nyskich-oraz-wladze-OZ-PZD-w-Opolu-u-Burmistrza-Nysy-Kordiana-Kolbiarza.html)
+
+**NK — OK.** Strona odpowiada kodem HTTP 200, a jej tytuł brzmi „ROD im. Józefa Lompy w Woźnikach”. Poprawka: niepotrzebna. [rodwozniki.pl](https://rodwozniki.pl/)
+
+## 2. (b) „Prezes” i pełna nazwa Związku
+
+W kwestiach lektorskich N0–NK słowo „prezes” występuje **zero razy**.
+
+W całym pliku występuje **raz**, ale wyłącznie w technicznej zasadzie: „bez słowa „prezes””. Nie jest to tekst lektora.
+
+Pełna nazwa „Polski Związek Działkowców” występuje **dokładnie raz** — w N1a.
+
+## 3. (c) Liczby i ryzyka TTS
+
+W samych kwestiach lektora wszystkie liczby są zapisane słownie. Po usunięciu oznaczeń N0–NK pozostaje **zero cyfr i zero skrótowców**.
+
+Jeżeli do TTS zostałby omyłkowo przekazany cały plik, ryzykowne są:
+
+- Nagłówek: `3`, `29.09.2026`, `D-0640/D-0642`, `9`, `1–9`.
+- Zasady: `0 zł`, `V2`, `tools/glos_tomasz.py`.
+- Metadane źródeł: `/tmp/n_pzd3`, `/tmp/n_pzd3_kontrola/henio.txt`, `6/6`.
+- Etykiety kwestii: `N0`, `N1a`, `N1b`, `N2`…`NK`.
+
+## 4. (d) Bytom
+
+**Tak.** Fakty Bytom już w tytule podają, że ogród „działa od 1944 roku”, a w treści: „powstały w 1944 roku” oraz „W Bytomiu działa łącznie 32 ogrody działkowe”. Oficjalna strona miasta niezależnie potwierdza założenie ogrodu w 1944 roku i 32 ogrody w Bytomiu. [Fakty Bytom](https://faktybytom.pl/20260926677451/rod-pod-wierzbami-zakonczyl-sezon-ogrod-w-miechowicach-dziala-od-1944-roku), [Miasto Bytom](https://www.bytom.pl/aktualnosci/index/Zakonczenie-sezonu-w-ROD-Pod-Wierzbami/idn:47434)
+
+## 5. (e) N1
+
+**„Złożył pismo do Prezydenta Karola Nawrockiego” — nie wynika dokładnie.** Źródło potwierdza pismo skierowane do Prezydenta, lecz złożone na ręce szefa Kancelarii. Nie wskazuje, kto fizycznie je wręczył.
+
+**„Kolejne dokumenty przekaże poseł Marek Wesoły” — nie wynika dokładnie.** Źródło mówi o przekazywaniu dokumentów „za pośrednictwem” posła, nie o osobistym przekazaniu przez niego.
+
+## HIPOTEZY
+
+N5: pojedyncze „Dzień Działkowca” można potraktować jako skrót redakcyjny, ale przy wymaganiu zgodności nazw bezpieczna jest źródłowa forma „Delegaturowe Dni Działkowca”.
+
+## NIE WIEM
+
+Źródło N1 nie pozwala ustalić, kto fizycznie wręczył pismo ani czy poseł Marek Wesoły osobiście będzie wręczał kolejne dokumenty.
+
+— **Zenek. Do zrobienia przed nagraniem: podmienić N1a, N1b i N5 na poprawione wersje powyżej.**

@@ -1,0 +1,68 @@
+# KONTROLA SCENARIUSZA „Przegląd z ogrodów działkowych" wyd. 3 — werdykt Henia
+
+Sprawdziłem wszystkie 9 tematów (N0–NK) na 9 źródłach + Informator PDF. Wszystkie źródła pobrane curl-em i otwarte w tej turze (kopie w /tmp/henio_pzd3/). Werdykt ogólny: **8 tematów w pełni zgodnych, 2 drobne zastrzeżenia, 1 zdanie bez pokrycia w źródle.**
+
+## (a) Werdykt per kwestia
+
+N0 — OK. "Dziewięć tematów" = N1–N9, zgadza się. (Zapowiedź, bez faktów do weryfikacji.)
+
+N1a — OK z 1 zastrzeżeniem.
+- "Sławomir Barwiak... spotkał się z szefem Kancelarii, Zbigniewem Boguckim" — OK. Cytat: „Sławomir Barwiak, członek Okręgowego Zarządu Polskiego Związku Działkowców w Katowicach odbył spotkanie z Szefem Kancelarii Prezydenta RP, Panem Zbigniewem Boguckim."
+- „złożył pismo do Prezydenta Karola Nawrockiego" — DROBNY SKRÓT. Cytat źródła: „złożono **na ręce Szefa Kancelarii Prezydenta RP** formalne pismo **skierowane do Prezydenta RP Pana Karola Nawrockiego**." Pismo było skierowane do Prezydenta, ale złożone Szefowi Kancelarii, nie Prezydentowi bezpośrednio. Poprawka (opcjonalna): „…i złożył pismo skierowane do Prezydenta Karola Nawrockiego."
+
+N1b — CZĘŚCIOWO.
+- „W piśmie jest skala problemu i prośba o ochronę działkowców przed wysokimi opłatami za użytkowanie wieczyste" — OK. Cytat: „Dokument zawiera szczegółową argumentację, opis skali problemu oraz postulaty dotyczące potrzeby ochrony interesów użytkowników ROD w sprawie zasad i wysokości opłat za użytkowanie wieczyste."
+- „Kolejne dokumenty przekaże poseł Marek Wesoły" — OK. Cytat: „kolejne informacje i dokumenty… będą przekazywane za pośrednictwem Posła Marka Wesołego."
+- „To dotyczy także nas — nasz ogród stoi na gruncie w użytkowaniu wieczystym" — **NIE MA TEGO W ŹRÓDLE N1.** To dopowiedzenie scenarzysty o ROD Woźniki; żadne z podanych źródeł N1 tego nie zawiera.
+
+N2 — OK. Cytat: „Rada Miasta Gliwice w roku 2026 przeznaczyła… dla 42 ROD łącznie 1 milion pięćset czterdzieści tysięcy złotych" oraz „dotacja w kwocie 40 tysięcy zł oraz środki własne ROD Szarotka… na wykonanie prac modernizacyjnych."
+
+N3 — OK. Cytat: „modernizacja alejki w ROD Kościuszki z 1 112 głosami – projekt wart 475 000 zł, na który po prostu zabrakło miejsca" + „w Śródmieściu przepadło aż czternaście zgłoszeń." (Scenariusz „remont alejki" = źródło „modernizacja alejki" — tożsame.)
+
+N4 — OK. Cytat: „ROD «Promień» założony w 1906 r., należy do najstarszych ogrodów działkowych w Polsce" + „120 lat" + „mieszkańców Orzegowa."
+
+N5 — OK. Szczegóły w (d).
+
+N6a — OK. Cytat: „roczną opłatą za użytkowanie wieczyste gruntu w wysokości 21 072 zł" + „Kwota 21 072,94 zł dotyczy całego terenu ogrodu… Daje to około 160 zł rocznie na jedną działkę."
+
+N6b — OK z 1 zastrzeżeniem (o Namysłowie niżej). Wieliczka: OK — cytat z Informatora: „W jednym z ROD w Wieliczce jest to ok. 900 zł rocznie na każdą działkę" + „W Wieliczce niektórzy zapowiadają porzucanie działek." Duże miasta: OK — „Tam obciążenie rzędu 3 tysięcy zł rocznie jest jak najbardziej realne." Namysłów: tytuł strony pzd.pl potwierdza temat („Stanowisko uczestników Wojewódzkiego Dnia Działkowca w Namysłowie w sprawie zagrożenia nałożenia na ROD wysokich opłat z tytułu użytkowania wieczystego gruntów"), ale **treść stanowiska nie jest w HTML tej strony — jest w skanach ozoopole.pzd.pl, których nie otwierałem.** „z Opolszczyzny" to interpretacja: Namysłów leży w woj. opolskim, ale tytuł nie używa tego słowa.
+
+N7 — OK. Cytat: „zaległości w opłatach za bieżący rok ma 60 użytkowników działek, a 17 osób nie uregulowało także należności za poprzedni rok" + „w pierwszej kolejności zostaną objęte osoby, które całkowicie unikają kontaktu z biurem ROD." (Scenariusz „z zarządem" — źródło „z biurem ROD"; drobna różnica, sens zachowany.)
+
+N8 — OK. Cytat z Informatora § 79 ust. 1: „w uzasadnionych przypadkach działkowiec może wystąpić do zarządu ROD o ustanowienie opiekuna działki na okres nieprzekraczający dwóch lat. Ustanowienie opiekuna wymaga zgody zarządu ROD… za skutki jego działania odpowiedzialność ponosi działkowiec… nie może w jego imieniu korzystać z prawa udziału w walnym zebraniu ROD."
+
+N9 — OK. Cytat: „poruszono kwestię możliwości pozyskania przez PZD terenu pod utworzenie nowego Rodzinnego Ogrodu Działkowego na terenie Nysy" + „duże zainteresowanie mieszkańców działkami oraz rosnące zapotrzebowanie na tego rodzaju tereny."
+
+NK — OK. (Zakończenie, bez faktów do weryfikacji; „rod woźniki kropka pe el" = adres strony.)
+
+## (b) „Prezes" i pełna nazwa Związku
+
+- Słowo „prezes": **NIE pada w tekście lektora (N0–NK).** Jedyne wystąpienie jest w nagłówku pliku (linia 2: „bez słowa «prezes»") — to zapis zasady, nie scenariusz. Zakaz zachowany.
+- Pełna nazwa „Polski Związek Działkowców": **pada dokładnie RAZ** — w N1a („Okręgu Śląskiego Polskiego Związku Działkowców"). Nigdzie indziej. Zgadza się z wymogiem.
+
+## (c) Liczby słownie / skróty dla TTS
+
+- **W tekście lektora NIE MA ani jednej cyfry arabskiej ani skrótu.** Wszystkie liczby zapisane słownie (milion pięćset czterdzieści tysięcy, tysiąc sto dwanaście, czterysta siedemdziesiąt pięć tysięcy, sto dwadzieścia, trzydzieści dwa, dwadzieścia jeden tysięcy, sto sześćdziesiąt, dziewięćset, trzy tysiące, sześćdziesiąt, siedemnaście, dwa, siedemdziesiąty dziewiąty). Cyfry występują tylko w nagłówku pliku (29.09.2026, D-0640, 9, 6/6) — nie wchodzą do lektora.
+- Skrótowce „ROD"/„PZD" — **nie występują w tekście lektora** (wszędzie „ogród/ogrody", „Związek").
+- Jedyny punkt ryzyka dla TTS: NK „rod woźniki kropka pe el" — celowe rozpisanie „.pl" na „kropka pe el". Lektor powinien przeczytać „pe el" jako dwie litery; istnieje ryzyko przeczytania „pel" jednym słowem. Do sprawdzenia na odsłuchu. Reszta (cudzysłów wokół „Segregujesz — wygrywasz", myślniki) neutralna.
+
+## (d) T5 Bytom — weryfikacja dwoma źródłami
+
+- „ROD Pod Wierzbami działa od 1944 r." — **POTWIERDZONE, 2 źródła.** faktybytom.pl: „Rodzinne Ogrody Działkowe Pod Wierzbami przy ulicy Frenzla **powstały w 1944 roku**" (tytuł: „Ogród w Miechowicach działa od 1944 roku"); bytom.pl: „Ogród przy ul Frenzla został **założony w 1944 roku**."
+- „W Bytomiu działają 32 ogrody" — **POTWIERDZONE, 2 źródła.** faktybytom.pl: „W Bytomiu **działa łącznie 32 ogrody działkowe** zrzeszone w PZD – Okręgu Śląskim"; bytom.pl: „W Bytomiu **działają 32 ogrody działkowe** zrzeszone w PZD – Okręg Śląski."
+- Uwaga: faktybytom/bytom.pl nazywają wydarzenie „dożynkami/zakończeniem sezonu", a „Dzień Działkowca" potwierdza dopiero slaski-ozpzd.pl („Delegaturowe Dni Działkowca", 26 września, ROD Pod Wierzbami). To ta sama impreza — OK, ale wyłącznie slaski-ozpzd używa nazwy „Dzień Działkowca".
+
+## (e) N1 — dwa pytania
+
+- „złożył pismo do Prezydenta Karola Nawrockiego" — **częściowo wynika.** Źródło mówi wprost „pismo skierowane do Prezydenta RP Pana Karola Nawrockiego", ale **złożone na ręce Szefa Kancelarii** (Boguckiego), nie Prezydentowi. Kierunek (do Prezydenta) zgodny; pominięty pośrednik. Zdanie jest do przyjęcia, ale precyzyjniejsze: „złożył pismo skierowane do Prezydenta".
+- „kolejne dokumenty przekaże poseł Marek Wesoły" — **wynika.** Cytat: „kolejne informacje i dokumenty… będą przekazywane za pośrednictwem Posła Marka Wesołego." (Źródło mówi „za pośrednictwem", scenariusz „przekaże" — sens zachowany.)
+
+## PODSUMOWANIE — co poprawić
+1. N1b: usunąć lub oznaczyć jako własne zdanie „To dotyczy także nas — nasz ogród stoi na gruncie w użytkowaniu wieczystym" (brak pokrycia w źródle).
+2. N1a: opcjonalnie doprecyzować „złożył pismo skierowane do Prezydenta" (fizycznie złożono je Szefowi Kancelarii).
+3. N6b: zweryfikować treść stanowiska Namysłów w skanach ozoopole.pzd.pl (HTML strony zawiera tylko tytuł); „z Opolszczyzny" to interpretacja geograficzna.
+4. NK: sprawdzić na odsłuchu, czy TTS czyta „pe el" jako litery.
+
+Reszta scenariusza — bez zastrzeżeń, liczby i nazwy zgodne ze źródłami.
+
+— Henio
