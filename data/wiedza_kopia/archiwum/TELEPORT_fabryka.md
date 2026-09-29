@@ -1863,3 +1863,10 @@ Protokoły L: nowy układ zatwierdzony próbą (duże zdjęcie ~8,7 cm wys., kad
 ==============================================================================
 
 Protokoły L: KOMPLET 8 szt. przebudowany (duże foto, granica odpowiedzialności, stany zaokrąglone w górę wg dekretu 28.09) i wysłany jedną paczką PACZKA_Protokoly_zdjecia_licznika.pdf (8 str.). Dane Oświadczeń Licznik zaktualizowane (zaokrąglone), PDF-y NIE przegenerowane — czekają na decyzję Tomasza czy dopisać klauzulę granicy odpowiedzialności.
+
+
+==============================================================================
+## SESJA 28.09.2026 20:55 CEST
+==============================================================================
+
+ZAMKNIĘTE 28.09 ~21:00: protokoły L (8) i Oświadczenia Licznik (9) w wersji ostatecznej wysłane dwiema paczkami. Protokół L: tabela = stan faktyczny + STAN DO ROZLICZENIA (ostatnia nota, zaokr. w górę), orzeczenie z wartością, granica odpowiedzialności, foto 8,7 cm. Oświadczenie: 'stan na dzień odłączenia: X,x kWh; do rozliczenia przyjęto Y kWh (zaokr. w górę)' + granica (1. os.). Stany faktyczne: 14=534,8 16=1606,2 17=1362,9 18=3076,9 22=5023,1 23=17377,5 30=5894,7 40=12624,4.
