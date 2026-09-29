@@ -36,6 +36,11 @@ TOOLS = [
  {"type":"function","function":{"name":"czytaj_notatnik","description":"Twoja pamięć: czyta wpis z notatnika (np. N3, BRIEF, HISTORIA) od znaku od, ile znaków (domyślnie 6000, max 12000).","parameters":{"type":"object","properties":{"id":{"type":"string"},"od":{"type":"integer","description":"od którego znaku (domyślnie 0)"},"ile":{"type":"integer","description":"ile znaków (max 12000)"}},"required":["id"]}}},
  {"type":"function","function":{"name":"szukaj_w_notatniku","description":"Przeszukuje CAŁĄ pamięć (notatnik: BRIEF, HISTORIA, przeniesione wyniki N…, oraz wszystkie przeczytane strony) po frazie lub kilku słowach. Zwraca trafienia z kontekstem i pozycją (id, od). Używaj ZAMIAST czytania długiego tekstu po kolei, gdy szukasz konkretnej informacji.","parameters":{"type":"object","properties":{"fraza":{"type":"string","description":"słowo lub słowa kluczowe (bez znaczenia wielkość liter)"}},"required":["fraza"]}}}]
 
+TOOL_TERMINAL = {"type":"function","function":{"name":"terminal","description":"PEŁNY DOSTĘP DO SERWERA VPS fabryki (D-0659, Tomasz 29.09: 'Dać pełen dostęp belzebubowi do WPS'): wykonuje polecenie bash jako root, katalog startowy /root/rod-ai-studio. Zwraca kod wyjścia oraz stdout+stderr (ostatnie 12000 znaków). Domyślny limit czasu 120 s (max 600). Każde polecenie jest zapisywane w dzienniku.","parameters":{"type":"object","properties":{"polecenie":{"type":"string","description":"polecenie bash do wykonania"},"timeout":{"type":"integer","description":"limit czasu w sekundach (domyślnie 120, max 600)"}},"required":["polecenie"]}}}
+SYSTEM_TERMINAL = (" MASZ PEŁNY DOSTĘP DO SERWERA (narzędzie terminal = bash jako root na VPS fabryki, repo /root/rod-ai-studio). "
+ "Używaj go, gdy Tomasz prosi o sprawdzenie, zmianę lub naprawę czegoś na serwerze. Zanim cokolwiek zmienisz: sprawdź stan, zrób kopię pliku (cp plik plik.bak-DATA). "
+ "Dekret Tomasza 2.08: NIKT NICZEGO NIE USUWA bez jego wyraźnego polecenia — nie kasuj plików, katalogów, baz ani kontenerów, nie restartuj serwera. "
+ "Sekretów (tokeny, klucze, hasła) nigdy nie wypisuj w odpowiedzi. Po każdej zmianie sprawdź wynik i podaj go wprost (albo NIE WIEM).")
 TOOL_OBRAZ = {"type":"function","function":{"name":"generuj_obraz","description":"Generuje zdjęcie/obraz (Stable Diffusion na naszym serwerze, ok. 30–60 s) i SAM wysyła je rozmówcy. Wołaj, gdy rozmówca prosi o zdjęcie, obraz, grafikę, rysunek, ilustrację. prompt = po ANGIELSKU, tagi oddzielone przecinkami, max 55 słów, najpierw główny obiekt, potem otoczenie, światło, styl.","parameters":{"type":"object","properties":{"prompt":{"type":"string"}},"required":["prompt"]}}}
 SYSTEM_OBRAZ = " Masz też narzędzie generuj_obraz(prompt): gdy rozmówca prosi o zdjęcie, obraz, grafikę lub rysunek — wywołaj je z angielskim promptem; obraz trafia do rozmówcy automatycznie, a ty odpisz krótko po polsku, co namalowałeś."
 
@@ -209,7 +214,7 @@ def _wywolaj(msgs, ses, klucz, model, narzedzia=True, tools=None):
         return d
     return d
 
-def odpowiedz(pytanie, historia, klucz, model=None, obraz_cb=None):
+def odpowiedz(pytanie, historia, klucz, model=None, obraz_cb=None, terminal_cb=None):
     """Zwraca (odpowiedz, slad). historia = lista wiadomosci user/assistant z archiwum (najstarsze pierwsze)."""
     model = model or MODEL_DOMYSLNY; ses = Sesja()
     # historia: najnowsza w kontekscie, starsza do notatnika (NIE ucinamy)
@@ -229,18 +234,19 @@ def odpowiedz(pytanie, historia, klucz, model=None, obraz_cb=None):
         naglowki = [l.strip()[:90] for l in pyt[granica:].splitlines() if l.strip().startswith(("#", "==", "---", "[")) or (l.strip().isupper() and 6 < len(l.strip()) < 90)][:40]
         pyt = (pyt[:granica] + f"\n\n[DALSZA CZĘŚĆ POLECENIA ({len(str(pytanie)) - granica} znaków) jest w notatniku jako BRIEF — przeczytaj ją: "
                f"czytaj_notatnik('BRIEF', od={granica}). Spis dalszej części: " + " | ".join(naglowki) + "]")
-    tools = TOOLS + ([TOOL_OBRAZ] if obraz_cb else [])
-    msgs = [{"role": "system", "content": SYSTEM.format(data=time.strftime("%d.%m.%Y")) + (SYSTEM_OBRAZ if obraz_cb else "")}] + hist + [{"role": "user", "content": wstep + pyt, "_chron": True}]
+    tools = TOOLS + ([TOOL_OBRAZ] if obraz_cb else []) + ([TOOL_TERMINAL] if terminal_cb else [])
+    max_rund = MAX_RUND * 3 if terminal_cb else MAX_RUND  # prace na serwerze wymagaja wiecej krokow
+    msgs = [{"role": "system", "content": SYSTEM.format(data=time.strftime("%d.%m.%Y")) + (SYSTEM_OBRAZ if obraz_cb else "") + (SYSTEM_TERMINAL if terminal_cb else "")}] + hist + [{"role": "user", "content": wstep + pyt, "_chron": True}]
     szukal = []; czytal = []; znane_urls = set(); notatki = []
-    for runda in range(MAX_RUND + 1):
-        if runda < MAX_RUND:
+    for runda in range(max_rund + 1):
+        if runda < max_rund:
             d = _wywolaj(msgs, ses, klucz, model, True, tools)
         else:
             msgs.append({"role": "user", "content": "KONIEC NARZĘDZI. Odpowiedz TERAZ na podstawie tego, co już znalazłeś i przeczytałeś. Jeśli czegoś nie ustaliłeś, napisz wprost NIE ZNALAZŁEM. Na końcu lista źródeł (tylko odwiedzone)."})
             d = _wywolaj(msgs, ses, klucz, model, False)
         if d.get("error"): return f"Belzebub: błąd API {str(d['error'])[:300]}", ""
         msg = d["choices"][0]["message"]; tcs = msg.get("tool_calls") or []
-        if runda >= MAX_RUND: tcs = []
+        if runda >= max_rund: tcs = []
         if not tcs:
             tresc = (msg.get("content") or "").strip()
             tresc = re.sub(r"(?s)<think>.*?</think>", "", tresc).strip()
@@ -274,6 +280,8 @@ def odpowiedz(pytanie, historia, klucz, model=None, obraz_cb=None):
                     i_ = str(args.get("id", "")); od = int(args.get("od") or 0); notatki.append(f"{i_}@{od}"); res = ses.czytaj(i_, od, args.get("ile") or PORCJA)
                 elif fn == "generuj_obraz" and obraz_cb:
                     pr = str(args.get("prompt", ""))[:600]; notatki.append("obraz"); res = obraz_cb(pr)
+                elif fn == "terminal" and terminal_cb:
+                    cmd = str(args.get("polecenie", "")); notatki.append("terminal: " + cmd[:80]); res = terminal_cb(cmd, int(args.get("timeout") or 120))
                 elif fn == "szukaj_w_notatniku":
                     fr = str(args.get("fraza", ""))[:200]; notatki.append(f"szukaj:{fr}"); res = ses.szukaj(fr)
                 else: res = f"nieznane narzędzie {fn}"

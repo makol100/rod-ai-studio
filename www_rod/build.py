@@ -565,7 +565,7 @@ def build() -> list[Path]:
             title=meta["title"],
             description=meta["description"],
             canonical=f'{site["url"]}/{meta["slug"]}/',
-            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{na_sprzedaz}}", na_sprzedaz_html()).replace("{{fb_posty}}", fb_posty_html()).replace("{{wideo_rolki}}", wideo_html("rolki")).replace("{{wideo_wiadomosci}}", wideo_html("wiadomosci")).replace("{{wideo_humor}}", wideo_html("humor")).replace("{{wideo_poradniki}}", wideo_html("poradniki")).replace("{{poradniki_apki}}", poradniki_apki_html())),
+            content=page_content(meta["title"], markdown(body).replace("{{tablica_ogloszen}}", tablica_html()).replace("{{na_sprzedaz}}", na_sprzedaz_html()).replace("{{fb_posty}}", fb_posty_html()).replace("{{wideo_rolki}}", wideo_html("rolki")).replace("{{wideo_wiadomosci}}", wideo_html("wiadomosci")).replace("{{wideo_humor}}", wideo_html("humor")).replace("{{wideo_poradniki}}", wideo_html("poradniki")).replace("{{wideo_ciekawostki}}", wideo_html("ciekawostki")).replace("{{poradniki_apki}}", poradniki_apki_html())),
         )
 
     paths = ["/", "/ogloszenia/"] + [f"/{parse_page(path)[0]['slug']}/" for path in sorted((CONTENT / "pages").glob("*.md"))]

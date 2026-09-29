@@ -1,0 +1,101 @@
+Zaczynam od pobrania wszystkich źródeł, potem weryfikuję kwestię po kwestii.
+
+Wszystkie źródła pobrane (oprócz allotmenttips.co.uk = 403, spróbuję obejścia). Konwertuję PDFy i zaczynam weryfikację C1 (Lompa).
+
+Kontrola gotowa. Wszystkie 11 źródeł pobrane (allotmenttips.co.uk blokował default UA — pobrany drugim podejściem z UA Safari, HTTP 200). Każdy fakt sprawdzony na otwartym źródle, cytaty dosłowne.
+
+WERDYKT OGÓLNY: 10/10 kwestii OK. Żadnego błędu faktycznego. Dwie uwagi do korekty + jedno „NIE MA W ŹRÓDLE".
+
+==========================
+KWESTIA PO KWESTII
+==========================
+
+N0 — OK. Intro, brak faktów.
+
+C1a — OK.
+- „ur. 29 czerwca 1797 w Oleśnie, zm. 29 marca 1863 w Woźnikach" (pl.wikipedia).
+- 16 dzieci: „Poeta był dwukrotnie żonaty i miał w sumie 16 dzieci" (pl.wikipedia).
+- zawód: infobox „nauczyciel, publicysta"; lead „polski działacz, poeta, tłumacz, publicysta… prozaik" + „pracował w Oleśnie jako pisarz, tłumacz sądowy". „nauczyciel, pisarz, tłumacz" — poprawne (choć infobox pisze „publicysta", nie „pisarz" — to wariant, nie błąd).
+
+C1b — OK.
+- „urządził bowiem Lompa wokół szkoły olbrzymi ogród warzywno-sadowniczy z pasieką, a posadzona obok szkoły grusza owocowała jeszcze pod koniec XX wieku" (krajoznawca.org).
+- „Wskazówki do stosownej uprawy wiejskich warzywnych ogrodów" (pl.wikipedia).
+- „Nowe udoskonalone pszczelarstwo ks plebana Dzierżona – przekład z niemieckiego" (pl.wikipedia).
+
+C2 — OK.
+- „Najstarsze, założone w 1905 r. i funkcjonujące do dzisiaj, to ogrody im. A. Czarneckiego w Chorzowie oraz Nadzieja w Toszku" (nettg.pl).
+- „W Katowicach w 1906 r. kopalnia «Wujek» wydzierżawiła swoim pracownikom teren o powierzchni 1,7 ha" (nettg.pl). „ponad półtora hektara" = 1,7 ha, poprawne.
+
+C3 — OK.
+- „Leipziger Arzt Moritz Schreber"; „Der Orthopäde Schreber war jedoch nicht der Erfinder der Schrebergartenbewegung" (de.wikipedia).
+- zgon: „† 10. November 1861" (de.wikipedia Moritz Schreber).
+- plac: „Im Jahre 1865 feierte man die Einweihung des ersten Schreberplatzes am Johannapark in Leipzig, einer Spielwiese" (de.wikipedia Schrebergarten).
+- „Erst ein Lehrer namens Heinrich Karl Gesell war es, der an diesem Platz Gärten anlegte" (tamże).
+- „In Deutschland gibt es mehr als eine Million Kleingärten" (tamże).
+
+C4 — OK.
+- Wiedeń: „Kleingartengebiet für ganzjähriges Wohnen Eklw" + „Kleingartenwohnhaus (ausschließlich in Eklw): max 50 m²" + „Keller: unter dem Kleingartenwohnhaus" (wien.gv.at PDF).
+- PL: „Obecnie powierzchnia zabudowy może wynosić do 35m²" + „na terenie działki obowiązuje zakaz zamieszkiwania" (art. 12 ustawy o ROD, cyt. na slaski-ozpzd.pl).
+- lata 80: „w okresie od 1.01.1982 r. do 31.12.1986 r. powierzchnia zabudowy nie mogła przekroczyć 20m² w ogrodach znajdujących się w granicach miast" (slaski-ozpzd.pl).
+
+C5 — OK, z jednym wyjątkiem.
+- „obejmuje 3800 działek położonych na 163 hektarach" (wazki.pl).
+- „tworzy jeden z największych tego typu kompleksów w Europie" (wazki.pl).
+- „nasz ogród w Woźnikach ma 51 działek" — NIE MA TEGO W ŹRÓDLE C5 (wazki.pl to strona o Kielcach). To lokalna wiedza z innego źródła — do potwierdzenia u Tomasza albo skreślenia, jeśli ma być ścisłe trzymanie się podanych linków.
+
+C6 — OK, z drobną uwagą.
+- §58 ust.1: „prowadzić na działce wyłącznie chów gołębi, kur i królików, których dopuszczalną liczbę określa zarząd. Hodowla gołębi wymaga uprzedniej zgody walnego zebrania ROD".
+- §58 ust.2: „Pomieszczenia dla zwierząt… stanowią integralną część altany działkowej i wliczane są do jej normatywnej powierzchni".
+- §53 ust.1: „Czereśnia i orzech włoski nie mogą być sadzone w odległości mniejszej niż 5 metrów od granicy działki".
+- UWAGA: §53 dodaje wyjątek — „z wyjątkiem szczepionych na podkładach słabo rosnących, które można sadzić w odległości nie mniejszej niż 3 metry". Scenariusz pomija wyjątek. Zasada ogólna 5 m jest prawdziwa, ale zdanie jest uproszczeniem.
+
+C7 — OK, z jedną uwagą.
+- „Analiza 143 ofert z 14 dużych miast… od ok. 6,2 tys. zł do 289 tys. zł" (farmer.pl).
+- „Przeciętna działka 65 000 – 73 000 zł" (farmer.pl). Uwaga: scenariusz mówi „najczęściej", źródło mówi „przeciętna" — bliskoznaczne.
+- „za działkę zlokalizowaną w poznańskiej dzielnicy Chartowo, musimy zapłacić aż 385 tys. złotych. Twórcy ogłoszenia mówią o całorocznej działce z murowanym domem o powierzchni 35 mkw" (bezprawnik.pl, art. z 29.03.2026).
+- „płaci się odstępne za przejęcie dzierżawy i elementy majątku" / „ziemi nie kupujesz" (farmer.pl).
+- UWAGA: „najdroższa oferta w kraju" to dopowiedzenie autora scenariusza — bezprawnik nie używa tego sformułowania, pisze „aż 385 tys." i że Poznań/Szczecin „przebijają Warszawę". Liczba i lokalizacja OK, etykieta „w kraju" nie jest cytatem.
+
+C8 — OK.
+- „606 ogrodami… z prawie 50 000 działek" (wielkahistoria.pl, „w przededniu kampanii wrześniowej").
+- „Z 300 m² uprawy obsadzonej 60 kilogramami ziemniaków można było uzyskać ich aż 900 kilogramów" (wielkahistoria.pl).
+- victory gardens: „United States, United Kingdom…"; „the United States Department of Agriculture encouraged the planting of victory gardens"; „In Britain, «digging for victory»" (en.wikipedia Victory garden).
+
+C9 — OK.
+- „A 1732 engraving of Birmingham, England, shows the town encircled by allotments" (en.wikipedia Allotment).
+- „In 1778, land was laid out outside the fortifications of the town of Fredericia for allotment gardens" (tamże).
+- 9 lat: „The longest published council averages are 9 years in Haringey and West Dunbartonshire" (allotmenttips.co.uk). Uwaga: Haringey to Londyn (Anglia), West Dunbartonshire to Szkocja — „w Anglii" trafne o tyle, o ile chodzi o Haringey.
+
+C10 — OK.
+- „prawie 5000 rodzinnych ogrodów działkowych… około 966 tysięcy zagospodarowanych działek" (pl.wikipedia ROD).
+- „najliczniejszą grupę wśród działkowców stanowią emeryci i renciści – 46,9%" (tamże) — „prawie połowa" OK.
+
+NK — OK. „rod woźniki kropka pe el" = poprawny zapis fonetyczny domeny.
+
+==========================
+(b) SŁOWO „PREZES"
+==========================
+NIE pada w tekście lektora. Jedyny zapis „prezes" jest w linii 2 nagłówka („Zasady jak Wiadomości: bez słowa «prezes»…") — to instrukcja, nie kwestia czytana. Zakaz dochowany.
+
+==========================
+(c) LICZBY SŁOWNIE
+==========================
+Wszystkie liczby w kwestiach (N0–NK) zapisane słownie. Cyfry arabskie występują tylko w nagłówku pliku (linie 1–3: data, D-numery, „0 zł") — nie w tekście lektora. OK.
+
+==========================
+(d) FONETYKA OBCYCH NAZW / RYZYKA TTS
+==========================
+- „szrebergarten", „Szrebera" — zapisane fonetycznie, TTS przeczyta poprawnie. OK.
+- „Moritza" — zostawione w pisowni oryginalnej, niespójnie z „Szreber". Polski TTS przeczyta najpewniej „mor-ic" (tz→c) i wyjdzie dobrze, ale dla spójności można zapisać „Moric" (jak Szreber). Drobiazg, nie błąd.
+- „Dzierżona" — poprawna polska odmiana (dopełniacz od Dzierżon). OK.
+- „kropka pe el" — rozdzielone, TTS przeczyta „pe" „el" osobno. OK.
+- Reszta nazw (Birmingham, Wujek, Żeromskiego, Lubsza, Oleśno, Toszek, Chorzów) — polskie lub powszechnie znane, TTS nie powinien mieć problemu.
+
+==========================
+DO DECYZJI TOMASZA (3 rzeczy)
+==========================
+1. C5 „51 działek" — bez pokrycia w podanym źródle. Potwierdzić liczbę albo skreślić porównanie.
+2. C6 — dodać „z wyjątkiem szczepionych na słabo rosnących podkładach" albo zostawić uproszczenie świadomie.
+3. C7 — „najdroższa oferta w kraju" to interpretacja, nie cytat. Zostawić czy złagodzić na „jedna z najdroższych".
+
+— Henio

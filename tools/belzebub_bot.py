@@ -36,6 +36,26 @@ def archiwizuj(kto, q, a):
     s = datetime.datetime.now().strftime("%Y%m%d_%H%M%S"); p = k / f"{s}.md"
     p.write_text(f"# Belzebub — wymiana {s} (bot @BelzebubV2_bot)\n\n## PYTANIE TOMASZA\n\n{q}\n\n## ODPOWIEDZ BELZEBUBA\n\n{a}\n", encoding="utf-8"); p.chmod(0o600)
     with (k / "SPIS.md").open("a", encoding="utf-8") as f: f.write(f"- {s}.md — {q[:90]}\n")
+def terminal_callback(czat, kto):
+    """D-0659 (Tomasz 29.09: 'Dać pełen dostęp belzebubowi do WPS. NATYCHMIAST'): bash jako root, dziennik kazdego polecenia."""
+    import subprocess
+    dz = Path("/root/rozmowy_belzebub/terminal.log")
+    def cb(cmd, timeout=120):
+        timeout = max(5, min(int(timeout or 120), 600)); t0 = datetime.datetime.now()
+        try:
+            r = subprocess.run(["bash", "-lc", cmd], cwd="/root/rod-ai-studio", capture_output=True, text=True, timeout=timeout)
+            kod, wyj = r.returncode, (r.stdout or "") + (("\n[stderr]\n" + r.stderr) if r.stderr else "")
+        except subprocess.TimeoutExpired as e:
+            kod, wyj = "TIMEOUT", f"przekroczony limit {timeout} s"
+        except Exception as e:
+            kod, wyj = "BLAD", f"{type(e).__name__}: {e}"
+        try:
+            with dz.open("a", encoding="utf-8") as f:
+                f.write(f"\n=== {t0:%Y-%m-%d %H:%M:%S} [{kto}] kod={kod}\n$ {cmd}\n{str(wyj)[:4000]}\n")
+            dz.chmod(0o600)
+        except Exception: pass
+        return f"kod wyjścia: {kod}\n" + str(wyj)[-12000:]
+    return cb
 def obsluz(czat, kto, q):
     stop = threading.Event()
     def pisze():
@@ -45,7 +65,7 @@ def obsluz(czat, kto, q):
             stop.wait(4)
     threading.Thread(target=pisze, daemon=True).start()
     try:
-        importlib.reload(bzb); a, slad = bzb.odpowiedz(q, historia(kto), KLUCZ, obraz_cb=sd_callback(czat, kto))
+        importlib.reload(bzb); a, slad = bzb.odpowiedz(q, historia(kto), KLUCZ, obraz_cb=sd_callback(czat, kto), terminal_cb=(terminal_callback(czat, kto) if kto == "tomasz" else None))
         if slad: a += "\n\n" + slad
     except Exception as e: a = f"Belzebub: błąd {str(e)[:300]}"
     finally: stop.set()
