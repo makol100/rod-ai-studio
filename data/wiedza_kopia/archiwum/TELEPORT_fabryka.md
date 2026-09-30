@@ -1870,3 +1870,10 @@ Protokoły L: KOMPLET 8 szt. przebudowany (duże foto, granica odpowiedzialnośc
 ==============================================================================
 
 ZAMKNIĘTE 28.09 ~21:00: protokoły L (8) i Oświadczenia Licznik (9) w wersji ostatecznej wysłane dwiema paczkami. Protokół L: tabela = stan faktyczny + STAN DO ROZLICZENIA (ostatnia nota, zaokr. w górę), orzeczenie z wartością, granica odpowiedzialności, foto 8,7 cm. Oświadczenie: 'stan na dzień odłączenia: X,x kWh; do rozliczenia przyjęto Y kWh (zaokr. w górę)' + granica (1. os.). Stany faktyczne: 14=534,8 16=1606,2 17=1362,9 18=3076,9 22=5023,1 23=17377,5 30=5894,7 40=12624,4.
+
+
+==============================================================================
+## SESJA 30.09.2026 08:10 CEST
+==============================================================================
+
+Mapa stanu przyłączy 30.09 (dekret Tomasza: protokół licznika = gotowa 100%, oświadczenie kablowe = 50%): dokumenty/elektryk/wystawione/Mapa_stan_przylaczy_2026-09-30.png, generowana z www_rod/static/img/mapa-ogrodu.jpg (siatka 1920x1080, kolumny/rzędy zapisane w skrypcie). 100%: 14,16,17,18,19,22,23,30,40; 50%: 6,8,9,15,20,24,28,34,35,45,46,49; brak: 30. Wysłana Hansem.
