@@ -1877,3 +1877,17 @@ ZAMKNIĘTE 28.09 ~21:00: protokoły L (8) i Oświadczenia Licznik (9) w wersji o
 ==============================================================================
 
 Mapa stanu przyłączy 30.09 (dekret Tomasza: protokół licznika = gotowa 100%, oświadczenie kablowe = 50%): dokumenty/elektryk/wystawione/Mapa_stan_przylaczy_2026-09-30.png, generowana z www_rod/static/img/mapa-ogrodu.jpg (siatka 1920x1080, kolumny/rzędy zapisane w skrypcie). 100%: 14,16,17,18,19,22,23,30,40; 50%: 6,8,9,15,20,24,28,34,35,45,46,49; brak: 30. Wysłana Hansem.
+
+
+==============================================================================
+## SESJA 30.09.2026 09:02 CEST
+==============================================================================
+
+0003 Wiadomości 61 dni: v1 gotowe 81.98 s, klatki 2456 OK, wysłane Tomaszowi; czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 30.09.2026 09:08 CEST
+==============================================================================
+
+0003 Wiadomości 61 dni OPUBLIKOWANE 30.09 09:05: FB reel 1099146932474010, rodwozniki.pl OK, reels/000112.
