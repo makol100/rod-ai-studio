@@ -1,6 +1,6 @@
 # INDEKS WIEDZY FABRYKI
 
-Wygenerowany automatycznie przez `tools/porzadek.py` — 29.09.2026 16:00.
+Wygenerowany automatycznie przez `tools/porzadek.py` — 30.09.2026 06:08.
 NIE EDYTOWAC RECZNIE: kazde uruchomienie skryptu nadpisuje ten plik stanem dysku.
 
 Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko ponizej plus teleporty.
@@ -11,7 +11,7 @@ Szukanie tresci: `python3 tools/szukaj.py <slowo>` — przeszukuje wszystko poni
 
 | plik | zmiana | rozmiar | o czym |
 |---|---|---|---|
-| `BRIEF_DLA_KLAUDKA.md` | 29.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-29 17:44:31 CEST |
+| `BRIEF_DLA_KLAUDKA.md` | 30.09 | 2K | 1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-30 07:44:42 CEST |
 | `TECZKA_REKLAMACJA_SSD.md` | 25.09 | 12K | 20.09.2026 ~23:59 — APELACJA ZŁOŻONA W CENTRUM POMOCY (przez telefon, Klaudek na zlecenie Tomasza "Wejdź") |
 | `STYL_MADRY_JAN.md` | 25.09 | 3K | STYL ROLEK „JAK MĄDRY JAN" — obowiązuje od 23.09.2026 (dekret Tomasza: „Wdrażamy 1–4 i 7") |
 | `MOZLIWOSCI_ZALOGI.md` | 24.09 | 2K | MOŻLIWOŚCI ZAŁOGI — kto co umie i ile to kosztuje (24.09.2026, dekret: „Takie coś masz wiedzieć sam… zapytać s |
