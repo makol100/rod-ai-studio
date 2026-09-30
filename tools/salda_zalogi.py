@@ -24,13 +24,38 @@ try:
 except urllib.error.HTTPError as e:
     wyn.append(("Google (Genek)", f"HTTP {e.code}" + (" — kredyty wyczerpane" if "depleted" in e.read().decode() else ""), True))
 except Exception: wyn.append(("Google (Genek)", "błąd", True))
-# Codex (Zenek) — limit subskrypcji: ostatnia sesja z bledem 'usage limit' w ciagu 24 h
+# Codex (Zenek) — limit subskrypcji AKTYWNY TERAZ (30.09.2026: stara wersja alarmowala 24 h po bledzie, choc limit 5 h juz minal)
+# Blad Codexa: "You've hit your usage limit ... try again at 11:04 AM" (czas UTC, jak zegar VPS). Alarm tylko gdy ta godzina jeszcze nie minela.
 try:
-    import glob, os, time
-    fs = sorted(glob.glob(os.path.expanduser("~/.codex/sessions/*/*/*/*.jsonl")), key=os.path.getmtime)[-5:]
-    lim = any("usage limit" in open(f, errors="ignore").read().lower() and time.time() - os.path.getmtime(f) < 86400 for f in fs)
-    wyn.append(("Codex (Zenek)", "LIMIT SUBSKRYPCJI — chatgpt.com/codex/settings/usage" if lim else "OK", lim))
-except Exception: wyn.append(("Codex (Zenek)", "?", False))
+    import glob, os, time, datetime as _dt
+    fs = sorted(glob.glob(os.path.expanduser("~/.codex/sessions/*/*/*/*.jsonl")), key=os.path.getmtime)[-8:]
+    lim, do_kiedy = False, ""
+    for f in reversed(fs):
+        tx = open(f, errors="ignore").read()
+        if "usage limit" not in tx.lower(): continue
+        mt = _dt.datetime.fromtimestamp(os.path.getmtime(f), _dt.timezone.utc)
+        m = re.findall(r"try again at ([^.\\\"]{3,40}?(?:AM|PM))", tx)
+        koniec = None
+        if m:
+            g = re.search(r"(\d{1,2}):(\d{2}) ?(AM|PM)", m[-1])
+            if g:
+                h = int(g.group(1)) % 12 + (12 if g.group(3) == "PM" else 0)
+                koniec = mt.replace(hour=h, minute=int(g.group(2)), second=0, microsecond=0)
+                if koniec < mt: koniec += _dt.timedelta(days=1)
+                dm = re.search(r"([A-Z][a-z]{2}) (\d{1,2})(?:st|nd|rd|th)?,", m[-1])   # limit tygodniowy: "Oct 5th, 2:30 PM"
+                if dm:
+                    try:
+                        mies = _dt.datetime.strptime(dm.group(1), "%b").month
+                        koniec = koniec.replace(month=mies, day=int(dm.group(2)))
+                        if koniec < mt: koniec = koniec.replace(year=koniec.year + 1)
+                    except ValueError: pass
+        if koniec is None: koniec = mt + _dt.timedelta(hours=6)   # brak godziny w komunikacie -> okno 5 h z zapasem
+        teraz = _dt.datetime.now(_dt.timezone.utc)
+        lim = teraz < koniec
+        do_kiedy = (koniec + _dt.timedelta(hours=2)).strftime("%d.%m %H:%M")   # czas polski (CEST)
+        break
+    wyn.append(("Codex (Zenek)", f"LIMIT SUBSKRYPCJI do {do_kiedy} — chatgpt.com/codex/settings/usage" if lim else "OK", lim))
+except Exception as e: wyn.append(("Codex (Zenek)", f"? ({e})", False))
 # /tmp (tmpfs w RAM) — >6 GB = ryzyko OOM dla Bielika (23.09.2026)
 try:
     import shutil as _sh
