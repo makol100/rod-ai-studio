@@ -1,4 +1,4 @@
-1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-30 18:44:51 CEST
+1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-30 19:14:52 CEST
 2. OSTATNIA DECYZJA: D-0678 | 2026-09-30 | Elektrośmieci: kartka A4 KARTKA_A4_elektrosmieci.pdf/png wysłana (druk na wiatę). Post FB gotowy: data/r…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
