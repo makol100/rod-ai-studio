@@ -1,11 +1,11 @@
-1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-30 10:14:44 CEST
-2. OSTATNIA DECYZJA: D-0673 | 2026-09-30 | Klaudek 30.09 09:08: Wiadomości 0003 (61 dni, mapa stanu 30.09) OPUBLIKOWANE — FB reel https://www.faceb…
+1. PRODUKCJA: STOP OBOWIAZUJE (D-0303) | wygenerowano 2026-09-30 15:14:48 CEST
+2. OSTATNIA DECYZJA: D-0674 | 2026-09-30 | Tomasz 30.09 10:13 dosłownie: 'Wysłałaś to mnie wiadomość z saldami przez Hansa dodałem ci tam dwa zdjęc…
 3. JAK PISZESZ: odpowiedź PIERWSZA, kroki numerowane, na końcu JEDNA rzecz do zrobienia, stan powtarzany co turę (krok 3 z 5), konkretne liczby zamiast ogólników. Bez pokrycia — NIE WIEM. Pełne: wiedza/JAK_PISZEMY.md
 4. TO JEST SKRÓT. Reszta na dysku, dociągaj sam gdy trzeba: pełny dziennik TELEPORT_fabryka.md · wszystkie decyzje `python3 tools/decyzje.py --lista` · nauki wiedza/NAUKI.md · kanon Izabeli wiedza/IZABELA_KANON_0.1.md · teczki wiedza/TECZKI/ · rozmowy /mnt/transcripts/journal.txt
 5. PRAWA RĘKA: HENIO | su - hermes -c 'cd /root/rod-ai-studio && timeout 400 hermes -z "zadanie"'
 6. HANS: Henia, nie Klaudka (D-0050)
-7. TELEPORTY: fabryka 0.0 dnia, Home Assistant 26.6 dnia
-8. /root/.claude/CLAUDE.md: 57.1 dnia bez zmian
+7. TELEPORTY: fabryka 0.3 dnia, Home Assistant 26.8 dnia
+8. /root/.claude/CLAUDE.md: 57.3 dnia bez zmian
 9. !! DO ZROBIENIA PRZEZ TOMASZA: WYMIANA KLUCZY API (FAL_KEY + ANTHROPIC_API_KEY) — wyswietlone w czacie 10.07, nadal jawnym tekstem w docker-compose.yml. Tomasz 4.08: "dzis wieczorem albo jutro rano".
 10. GENEK: oszczędzany — tylko oczy/uszy/grafika (D-0005: Gienka oszczedzac ze wzgledu na oczy i uszy i generowanie grafik.)
 11. KIEROWNIK: Klaudek, rozstrzygnięte 4.08 (D-0002)
