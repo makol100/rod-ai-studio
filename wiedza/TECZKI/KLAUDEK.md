@@ -280,3 +280,16 @@ Klaudek odczytał ze zrzutu umowy w oknie czatu nazwisko jako „MAKRYŚ" i podn
 ## 17.09.2026 — ZNOWU POMINĄŁEM BELZEBUBA (Tomasz: „Co z belzebubem? Kurwa zawsze zanim o nim zapomnisz")
 - Narada pzd_news odpalona na henio,genek,zenek — bez Belzebuba, mimo dekretu 02.09 (pełnoprawny głos w naradach). Dołożony osobno (/tmp/narada_pzd_news_bzb).
 - ZASADA: pełny skład narady to ZAWSZE `--kto henio,genek,zenek,belzebub`. Bez wyjątków, bez pytania. Przed każdym odpal.py sprawdzić, czy w --kto są cztery nazwiska.
+
+## 17.09.2026 — WYSŁAŁEM TOMASZOWI KLON Z UKRAIŃSKIM AKCENTEM („Nie rób mnie w chuja")
+- Klon Chatterbox N0: whisper 1.00, ucho Gemini na OGÓLNE pytanie „naturalnie? artefakty?" → „bez zastrzeżeń", porównanie 8/10. Tomasz: „darmowy jakiś huj z ukraińskim akcentem". Gemini zapytane WPROST o akcent: „TAK, ukraiński" z przykładami (miękkie sz/cz/dz).
+- LEKCJA: ucho Gemini odpowiada tylko na to, o co się pyta. BRAMKA AKCENTU obowiązkowa przed każdą próbką głosu do Tomasza: pytanie „czy rodowity Polak / jaki obcy akcent / które głoski" + whisper. Ogólne „czy brzmi naturalnie" NIE jest bramką. Do Tomasza idą tylko próbki z „akcent NIE".
+- Zapisane w decyzjach D-0407/D-0408. Kandydaci dalej: XTTS-v2, VoxCPM2 (Zenek, /tmp/narada_voxcpm), MOSS-Nano odpadł (whisper: przekręcone słowa).
+
+## 17.09.2026 — ZNOWU „PREZES" W WYDANIU („Kurwa ile razy mam bez prezesowania")
+- Karta końcowa PZD_NEWS_v1: „Głos prezentera to awatar AI wygenerowany za zgodą prezesa" + N2c „Prezesi naszego okręgu…" + podpis zdjęcia „pismo Prezesa PZD". Dekret 16.09 „Bez prezesa!!!" złamany drugi raz.
+- ZASADA TWARDA: przed każdym montażem wydania `grep -i prezes` po scenariuszu, kwestiach, planszach i podpisach — wynik musi być PUSTY. Etykieta AI bez tytułów: „Głos to awatar AI Tomasza Maksysia, wygenerowany za jego zgodą". Dopisać do tools jako bramkę (test_bramki).
+
+## 18.09.2026 — „GOTOWE" ZNIKNĘŁO PO GODZINIE (Tomasz: „Gdzie dałeś ostatnie wiadomości z kraju pzd? Na naszej stronie?")
+- 17.09 20:52 wpis PZD_NEWS ręcznie do wideo.json + deploy, curl potwierdził. 21:05 cron fb_na_strone.py (co 30 min) przepisał wideo.json z FB i WYRZUCIŁ film: filtr `dl > 150 s` (rolka ma 180 s). Rano 06:19 mój deploy podziękowań wypchnął stronę już bez filmu.
+- NAPRAWA: limit 300 s w fb_na_strone.py, film wrócił przez automat (kategoria wiadomosci z opisu). LEKCJA: przy publikacji na stronie sprawdzić, czy AUTOMAT (cron) zostawi wpis — uruchomić fb_na_strone.py ręcznie PO publikacji i sprawdzić curl po nim; „gotowe" = także po następnym ticku crona. Dopisać do SZEŚCIU SPRAWDZIANÓW.

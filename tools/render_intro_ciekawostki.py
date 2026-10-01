@@ -14,7 +14,7 @@ BAZA = Path("/root/rod-ai-studio/assets/intro_ciekawostki")
 KLATKI = BAZA / "klatki"
 FPS = 30
 CZAS = 5.0
-AUDIO = Path("/root/rod-ai-studio/assets/audio/kandydaci/mixkit_1145.mp3")
+AUDIO = Path("/root/rod-ai-studio/assets/audio/kandydaci_ciekawostki/mixkit_2984.mp3")  # D-0661: muzyka dopasowana do ciekawostek (Mixkit 2984 „Funny melody audio logo”, Genek 7/10)
 WYJSCIE = BAZA / "INTRO_CIEKAWOSTKI_v1.mp4"
 
 

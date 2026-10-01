@@ -1,5 +1,27 @@
 [
  {
+  "id": "1099146932474010",
+  "tytul": "WIADOMOŚCI Z OGRODU ⚡ 61 dni do odcięcia prądu. Sprawdź, czy Twoja działka jest zielona",
+  "opis": "",
+  "kategoria": "wiadomosci",
+  "link": "https://www.facebook.com/reel/1099146932474010/",
+  "wideo": "/static/wideo/1099146932474010.mp4",
+  "miniaturka": "/static/wideo/1099146932474010.jpg",
+  "date": "2026-09-30T09:05+02:00",
+  "display_date": "30.09.2026"
+ },
+ {
+  "id": "2154157915496710",
+  "tytul": "CIEKAWOSTKI Z OGRODU 💡 wydanie 1 (29 września 2026) — nowy cykl!",
+  "opis": "",
+  "kategoria": "ciekawostki",
+  "link": "https://www.facebook.com/reel/2154157915496710/",
+  "wideo": "/static/wideo/2154157915496710.mp4",
+  "miniaturka": "/static/wideo/2154157915496710.jpg",
+  "date": "2026-09-29T12:54+02:00",
+  "display_date": "29.09.2026"
+ },
+ {
   "id": "1768628344457335",
   "tytul": "WIADOMOŚCI Z OGRODU 🟢 Przegląd z ogrodów działkowych — wydanie 3 (29 września 2026)",
   "opis": "",
@@ -251,27 +273,5 @@
   "miniaturka": "/static/wideo/1510601727028522.jpg",
   "date": "2026-07-26T18:35+02:00",
   "display_date": "26.07.2026"
- },
- {
-  "id": "966556033068099",
-  "tytul": "Na działkach handluje się nie tylko plotkami. 🤫🍅",
-  "opis": "",
-  "kategoria": "humor",
-  "link": "https://www.facebook.com/reel/966556033068099/",
-  "wideo": "/static/wideo/966556033068099.mp4",
-  "miniaturka": "/static/wideo/966556033068099.jpg",
-  "date": "2026-07-26T09:30+02:00",
-  "display_date": "26.07.2026"
- },
- {
-  "id": "1705060647415101",
-  "tytul": "🌤️ Pogoda na działce pod kontrolą! W nowej rolce pokazujemy, jak domowa stacja pogodowa pomaga w ogrodzie:",
-  "opis": "",
-  "kategoria": "rolki",
-  "link": "https://www.facebook.com/reel/1705060647415101/",
-  "wideo": "/static/wideo/1705060647415101.mp4",
-  "miniaturka": "/static/wideo/1705060647415101.jpg",
-  "date": "2026-07-25T10:09+02:00",
-  "display_date": "25.07.2026"
  }
 ]

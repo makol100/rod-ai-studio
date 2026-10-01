@@ -53,7 +53,7 @@ const v = (k, dom) => (d[k] && String(d[k]).trim()) ? String(d[k]).trim() : (dom
 
 const F = 'Calibri';
 const t = (text, opts = {}) => new TextRun({ text, font: F, size: 22, ...opts });
-const p = (children, opts = {}) => new Paragraph({ children, spacing: { after: 160, line: 300 }, ...opts });
+const p = (children, opts = {}) => new Paragraph({ children, spacing: { after: 110, line: 270 }, ...opts });
 const NONE = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
 const nb = { top: NONE, bottom: NONE, left: NONE, right: NONE, insideHorizontal: NONE, insideVertical: NONE };
 
@@ -89,15 +89,15 @@ const doc = new Document({
     level: 0, format: LevelFormat.DECIMAL, text: '%1.', alignment: AlignmentType.LEFT,
     style: { paragraph: { indent: { left: 360, hanging: 360 } } } }] }] },
   sections: [{
-    properties: { page: { margin: { top: 1000, bottom: 1134, left: 1418, right: 1418 } } },
+    properties: { page: { margin: { top: 760, bottom: 760, left: 1300, right: 1300 } } },
     children: [
       naglowek,
       new Paragraph({ spacing: { before: 60, after: 200 }, border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: '1F5130' } }, children: [] }),
 
-      p([t(`Woźniki, dnia ${v('data')}`)], { alignment: AlignmentType.RIGHT, spacing: { after: 260 } }),
+      p([t(`Woźniki, dnia ${v('data')}`)], { alignment: AlignmentType.RIGHT, spacing: { after: 160 } }),
       p([t('OŚWIADCZENIE ELEKTRYKA', { bold: true, size: 30 })], { alignment: AlignmentType.CENTER, spacing: { after: 80 } }),
-      p([t('o odłączeniu działki od sieci wewnętrznej ROD i przyłączeniu do przyłącza indywidualnego', { italics: true })],
-        { alignment: AlignmentType.CENTER, spacing: { after: 300 } }),
+      p([t(v('podtytul', 'o odłączeniu działki od sieci wewnętrznej ROD i przyłączeniu do przyłącza indywidualnego'), { italics: true })],
+        { alignment: AlignmentType.CENTER, spacing: { after: 180 } }),
 
       p([
         t('Ja, niżej podpisany '),
@@ -110,7 +110,7 @@ const doc = new Document({
         { alignment: AlignmentType.LEFT, spacing: { after: 60 }, indent: { left: 360 } }),
       p([t('•  dozór (D) — świadectwo nr ', { bold: true }), t(v('swiadectwo_d', 'G1/D/470/1082/2025'), { bold: true }),
          ...(v('wazne_d', '') ? [t(', ważne do dnia '), t(v('wazne_d'))] : []), t(';')],
-        { alignment: AlignmentType.LEFT, spacing: { after: 200 }, indent: { left: 360 } }),
+        { alignment: AlignmentType.LEFT, spacing: { after: 140 }, indent: { left: 360 } }),
 
       p([
         t('oświadczam, że w dniu '),
@@ -120,8 +120,11 @@ const doc = new Document({
         t(' (użytkownik działki: '),
         t(v('uzytkownik'), { bold: true }),
         t(') wykonałem następujące prace:'),
-      ], { alignment: AlignmentType.JUSTIFIED, spacing: { after: 240 } }),
+      ], { alignment: AlignmentType.JUSTIFIED, spacing: { after: 160 } }),
 
+      ...((Array.isArray(d.prace) && d.prace.length) ? d.prace.map((u, i) =>
+        p([t(u)], { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.JUSTIFIED,
+                    spacing: i === d.prace.length - 1 ? { after: 300 } : undefined })) : [
       p([t('trwale odłączyłem instalację elektryczną działki (altany) od wewnętrznej sieci elektroenergetycznej ROD;')],
         { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.JUSTIFIED }),
       p([
@@ -129,17 +132,22 @@ const doc = new Document({
         t(v('licznik_nr'), { bold: true }),
         t('; stan podlicznika na dzień odłączenia: '),
         t(v('licznik_stan', '………………… kWh'), { bold: true }),
-        t(' — do rozliczenia końcowego z Zarządem ROD;'),
+        ...(d.licznik_stan_rozl ? [t('; do rozliczenia końcowego z Zarządem ROD przyjęto '), t(d.licznik_stan_rozl, { bold: true }), t(' (zaokrąglenie w górę do pełnej kWh);')] : [t(' — do rozliczenia końcowego z Zarządem ROD;')]),
       ], { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.JUSTIFIED }),
-      p([t('przyłączyłem instalację działki do indywidualnego przyłącza elektroenergetycznego (złącze kablowo-pomiarowe w granicy działki, sieć TAURON Dystrybucja S.A.), objętego indywidualną umową zawartą przez użytkownika działki ze sprzedawcą energii;')],
+      p([t(v('punkt3', 'przyłączyłem instalację działki do indywidualnego przyłącza elektroenergetycznego (złącze kablowo-pomiarowe w granicy działki, sieć TAURON Dystrybucja S.A.), objętego indywidualną umową zawartą przez użytkownika działki ze sprzedawcą energii;'))],
         { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.JUSTIFIED }),
       p([t('odłączone przewody sieci wewnętrznej zaizolowałem — są zabezpieczone przed porażeniem; wewnętrzna sieć działkowa pozostaje pod napięciem i zasila pozostałe działki;')],
         { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.JUSTIFIED }),
       p([t('od dnia przełączenia działka nie pobiera energii elektrycznej z sieci ogólnoogrodowej ROD.')],
-        { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { after: 300 } }),
+        { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { after: 180 } }),
+      ]),
 
+      new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 160, line: 260 },
+        border: { left: { style: BorderStyle.SINGLE, size: 18, color: '1F5130', space: 6 } }, indent: { left: 120 },
+        children: [t('Granica odpowiedzialności: ', { bold: true, size: 20 }), t(v('granica', 'odpowiadam wyłącznie za prace opisane w niniejszym oświadczeniu, tj. do punktu przyłączenia instalacji działki w miejscu przełączenia zasilania. Instalacja elektryczna za tym punktem — na terenie działki, w tym w altanie — nie była przedmiotem prac; za jej stan techniczny, eksploatację i bezpieczeństwo użytkowania odpowiada użytkownik (dzierżawca) działki.'), { size: 20 })] }),
       p([t('Prace wykonałem zgodnie z obowiązującymi przepisami oraz zasadami wiedzy technicznej. Po przełączeniu sprawdziłem poprawność działania instalacji — instalacja jest sprawna i nadaje się do dalszej eksploatacji.')],
-        { alignment: AlignmentType.JUSTIFIED, spacing: { after: 700 } }),
+        { alignment: AlignmentType.JUSTIFIED, spacing: { after: (d.uwagi && String(d.uwagi).trim()) ? 160 : 520 } }),
+      ...((d.uwagi && String(d.uwagi).trim()) ? [p([t('Uwagi: ', { bold: true }), t(String(d.uwagi).trim())], { alignment: AlignmentType.JUSTIFIED, spacing: { after: 350 } })] : []),
 
       new Paragraph({ tabStops: [{ type: TabStopType.RIGHT, position: 9070 }], spacing: { after: 60 },
         children: [t('…………………………………………'), new TextRun({ text: '\t', font: F, size: 22 }), t('…………………………………………')] }),
@@ -148,7 +156,7 @@ const doc = new Document({
         new TextRun({ text: '\t', font: F, size: 18 }),
         t(`${v('elektryk', 'Tomasz Maksyś')} — podpis i pieczęć elektryka`, { size: 18, italics: true }),
       ] }),
-      new Paragraph({ spacing: { before: 40 }, children: [t('(potwierdzam odczyt podlicznika)', { size: 18, italics: true })] }),
+      ...(d.bez_odczytu ? [] : [new Paragraph({ spacing: { before: 40 }, children: [t('(potwierdzam odczyt podlicznika)', { size: 18, italics: true })] })]),
     ],
   }],
 });

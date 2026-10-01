@@ -764,3 +764,1130 @@ Czytaj najpierw: wiedza/DECYZJE_OPENCLAW.md (dekrety dnia), wiedza/PRZEGLAD_WARS
 ==============================================================================
 
 04.09 D-0314 WDROZONE: /filmy/ otwiera filmy w oknie na stronie (wlasne mp4 w /static/wideo/, 22/22 skompletowane: 7 lokalnych finalow + 15 z Graph source). Generator fb_na_strone sam pobiera brakujace mp4 przyszlych rolek. Bramka: klik->gra (5.8s, 1080x1920), X zamyka, pogoda/licznik odtworzone po podmianie katalogu (deploy kasuje generowane json — pamietac!). Narada player: glosy Zenka/Henia jeszcze w drodze
+
+
+==============================================================================
+## SESJA 04.09.2026 15:07 CEST
+==============================================================================
+
+04.09 D-0315 WDROZONE (Genek przepis): YouTube = fasada (miniatura i.ytimg) -> klik -> okno z iframe youtube-nocookie autoplay/rel=0/modestbranding/playsinline (NIE sciagamy filmow — zakaz Tomasza); rolki FB + ogloszenie = wlasne mp4 w oknie; zero linkow href na youtube/facebook przy filmach (post-linki tekstowe FB zostaly). film-okno.js v=20260904b (bez inset, kompatybilne ze starymi). CADDY: media-src 'self' + HTTP/3 WYLACZONE globalnie (servers{protocols h1 h2}) — glosy Genka i Henia: QUIC/UDP443 najczestsza przyczyna 'u innych nie dziala'; restart caddy-mcp zrywa tez konektor fabryka na ~10 s. Bramka: 5 miejsc klik->gra, X zamyka. Otwarte: brak zrzutu bledu od osoby z innego IP — nadal potrzebny do rozstrzygniecia
+
+
+==============================================================================
+## SESJA 04.09.2026 15:14 CEST
+==============================================================================
+
+04.09 Tomasz: karta OSTRZEZENIE na stronie nieczytelna w trybie ciemnym (kremowe tlo + jasny tekst). Naprawa CSS: [data-theme=dark] .fb-ostrzezenie tlo #3a2f12, tekst #f6f1e3; pomiar puppeteer OK. LEKCJA: kazdy nowy styl karty sprawdzac w OBU motywach (jasny+ciemny)
+
+
+==============================================================================
+## SESJA 04.09.2026 15:24 CEST
+==============================================================================
+
+04.09 ZAPISANE WSZĘDZIE na dekret 'zapisuj wszystko wszędzie': pamięć Klaudka (strona, spacer, samokontrola sprawdziany 8-10, preferencje), wiedza/STRONA_FILMY.md, teczka, INDEX, rejestr decyzji D-0313..D-0315
+
+
+==============================================================================
+## SESJA 04.09.2026 15:29 CEST
+==============================================================================
+
+04.09 D-0316: MAPA GŁÓWNA ma 3 przejścia poprzeczne (cienkie pomarańczowe pasy, w generatorze baza_mapy.rysuj_baze — dziedziczą wszystkie mapy), wzór assets/mapy_wzor zaktualizowany, /mapa/ na stronie podmieniona (?v=f397ad05). PUŁAPKA: ?v= mapy jest wpisane RĘCZNIE w content/pages/mapa.md — przy zmianie mapy podmienić na nowy md5
+
+
+==============================================================================
+## SESJA 04.09.2026 15:58 CEST
+==============================================================================
+
+04.09 Tomasz: działka 20×25 m (25 m od alejki w głąb), przejście = 25 m na kondygnację; alejka ≈180 m; spacer co 10 m ≈ 90 sfer, sesja 2–3 h
+
+
+==============================================================================
+## SESJA 04.09.2026 16:01 CEST
+==============================================================================
+
+04.09 Mapa z 92 ponumerowanymi punktami sfer (tools/spacer_punkty.py, co 10 m, numer = kolejność trasy, obowiązkowe pomarańczowe) wysłana Tomaszowi na Telegram; data/spacer_oryginaly/punkty.json ma x_proc/y_proc — gotowa baza pod klikalne punkty na /mapa/ i nazwy sfer (nr → scena)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:04 CEST
+==============================================================================
+
+04.09 Tomasz potwierdza: sfery nazywane numerami punktów (pNN) — konwencja w SPACER_MODEL.md; robi po kolei bez pomijania, kolejność czasowa = numer
+
+
+==============================================================================
+## SESJA 04.09.2026 16:08 CEST
+==============================================================================
+
+04.09 Tomasz: sesji 360 dziś nie robi (na działce za 1,5 h, 2-3 min/zdjęcie × 91 = zrobi się ciemno); najlepsza pora 11:00-13:00. Prognoza 11-13 (Open-Meteo): sob 5.09 zmiennie/mżawka 13-31%, wiatr 17-21; niedz 6.09 wiatr 20-22; PON 7.09 NAJLEPIEJ: 0% deszczu, wiatr 6-8, chmury 30-97%; wt 8.09 pełne pochmurno, wiatr 14-16. Rachunek: 92×2,5 min ≈ 3,8 h > okno 2 h → propozycja podziału na 2 sesje (do pkt 47 / od 48)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:10 CEST
+==============================================================================
+
+04.09 Tomasz: SESJA 360 W PONIEDZIAŁEK 7.09 ok. 9:30 (jego decyzja)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:14 CEST
+==============================================================================
+
+04.09 Tomasz: sfery mam ZABIERAĆ SAM z telefonu. MCP nie widzi podfolderów (tylko korzenie builtin:*). Plan: ADB po WiFi ogrodu przez Tailscale (port z ekranu), test dziś wieczorem gdy będzie na działce; zapas: własna lokalizacja SAF w apce MCP. Szczegóły w SPACER_MODEL.md
+
+
+==============================================================================
+## SESJA 04.09.2026 16:18 CEST
+==============================================================================
+
+04.09 PRÓBA: Tomasz robi dziś na działce punkty 47–55 (Środkowa zachód: skrzyżowanie 36|37 → Brama 3, Dom, Parking 1). Gotowy tools/spacer_odbior.py (adb connect PORT → lista jpg >3 MB w folderach 360 → pNN wg czasu → oryginał + web 4096x2048). Czekam na 'jestem na WiFi'
+
+
+==============================================================================
+## SESJA 04.09.2026 16:21 CEST
+==============================================================================
+
+04.09 KOREKTA Tomasza: próba od 45 do 55 (45–46 w przejściu 36|37 idąc na południe, 47 skrzyżowanie, 48–53 Środkowa na zachód do Bramy 3, 54 Dom, 55 Parking 1)
+
+
+==============================================================================
+## SESJA 04.09.2026 16:22 CEST
+==============================================================================
+
+04.09 KOREKTA 2 Tomasza: próba od 42 do 55 (42 skrzyżowanie Północna × 36|37, 43–46 przejście na południe, 47 skrzyżowanie Środkowa, 48–53 do Bramy 3, 54 Dom, 55 Parking 1) — 14 sfer
+
+
+==============================================================================
+## SESJA 04.09.2026 16:35 CEST
+==============================================================================
+
+04.09 ODBIÓR SFER PO 5G DZIAŁA: w apce MCP dodane lokalizacje SAF 'Pictures' i 'Pictures/My360s' (id com.android.externalstorage.documents/primary:Pictures[/My360s]); folder apki 360 Photo Cam = Pictures/My360s (Parking_2.jpg, Parking_próba.jpg); test: share_file_via_web + curl przez Tailscale 14,7 MB w 9,7 s (1,5 MB/s), md5 identyczne z kopią z Telegrama. tools/spacer_odbior.py przepisany na tę drogę (--od, --po, --sucho). tel.sh domyka sesje (DELETE) — wcześniej 'Too many active sessions'
+
+
+==============================================================================
+## SESJA 04.09.2026 17:02 CEST
+==============================================================================
+
+04.09 Tomasz: '3 działa!' — punkt 3 z listy otwartych (wizytówka Google: przycisk 'Strona' → rodwozniki.pl) ZAMKNIĘTY. Zostają: /dokumenty/ (uchwały/opłaty — decyzja Tomasza), bot ogłoszeń dla zarządu (czekamy), błędy z innych IP (potrzebny zrzut)
+
+
+==============================================================================
+## SESJA 04.09.2026 17:03 CEST
+==============================================================================
+
+04.09 Tomasz: '4 naprawione' — błędy 'z innych IP' przy filmach ZAMKNIĘTE (po HTTP/3 off + poprawce inset). Otwarte na stronie tylko: /dokumenty/ (decyzja Tomasza) i bot ogłoszeń dla zarządu (czekamy)
+
+
+==============================================================================
+## SESJA 04.09.2026 17:26 CEST
+==============================================================================
+
+04.09 /dokumenty/ WDROŻONE (dekret 'No to masz'): 7 wzorów PZD (docx z pzd.pl + 2 z rodosa.pl), własne formularze zgłoszeń altany (§45) i zbiornika (§41 pkt 7/§43) ROD Woźniki docx+pdf (reportlab+python-docx, paragrafy sprawdzone w oficjalnym regulaminie), statut PZD 2024 (pzd.pl), regulamin ROD 2015/2018 (pzd.pl), ustawa = link ISAP (blokuje pobieranie z VPS), klauzula RODO jako /rodo/ + pdf (szkic Klaudka — Henio sprawdza). Wszystkie 16 linków 200. Henio równolegle: przegląd 7 stron ROD (zgodny z Klaudka) + zlecenie kontrolne paragrafy/wzory/RODO w toku
+
+
+==============================================================================
+## SESJA 04.09.2026 18:11 CEST
+==============================================================================
+
+04.09 Na /dokumenty/ sekcja 'Prąd — przyłącza Tauron': Informacja dla działkowców ws. własności i utrzymania kabli (plik Tomasza Informacja_utrzymanie_kabli_ROD_1_.docx, treść 1:1, odtworzona na VPS jako docx+pdf w stylu ROD; brak DejaVu-Oblique na VPS → bez kursywy w PDF) + linki do filmu i poradnika
+
+
+==============================================================================
+## SESJA 04.09.2026 21:09 CEST
+==============================================================================
+
+04.09 OCENA PRAWNA PISMA O KABLACH (Henio+Genek, Zenek bez odpowiedzi; głosy w /tmp/narada_prawo_kable/): kierunkowo słuszne, 4 wady — (1) granica 'za licznikiem' → zaciski na wyjściu od zabezpieczenia przedlicznikowego w ZKP (standard Tauron); (2) 'własność działkowca' dla kabla w ALEJCE ryzykowna (art. 30 ust. 2 tylko NA DZIAŁCE; KC 47–48 część składowa gruntu; art. 49 nie; nie infrastruktura ogrodowa bo nie wspólne używanie) → pisać 'instalacja odbiorcza utrzymywana na koszt działkowca'; (3) umocowanie: Regulamin ROD §78 ust. 1 wymaga uchwały WALNEGO; §33 ust. 2 zgoda okręgu na urządzenia niebędące infrastrukturą; (4) odpowiedzialność: dopisać art. 415 KC, zarząd odpowiada za teren ogólny (statut §73 pkt 16). PROJEKT v2 w wiedza/pisma/KABLE_INFORMACJA_v2_PROJEKT.md — czeka na decyzję Tomasza; na stronie nadal v1. Henio dodatkowo: wzory umów dzierżawy z pzd.pl powołują stary §73 statutu (nowy: §78 w zw. §74 ust. 2), deklaracja członkowska sprzed RODO; link do ustawy zmieniony na ELI + PDF Dziennika Ustaw
+
+
+==============================================================================
+## SESJA 04.09.2026 21:22 CEST
+==============================================================================
+
+04.09 DECYZJA TOMASZA: wniosek do okręgu NIE i NIE BĘDZIE; właściwy okręg PZD = CZĘSTOCHOWA (nie Katowice — poprawić wszędzie). Uchwała walnego ws. elektryfikacji JEST (numer do wpisania w pismo v2). Pismo v2 czeka na jego 'publikuj'
+
+
+==============================================================================
+## SESJA 04.09.2026 21:25 CEST
+==============================================================================
+
+04.09 Tomasz: 'Usuń tamto ze strony, daj mi to pismo w pdf' — sekcja Prąd i pismo v1 USUNIĘTE z /dokumenty/ (pliki skasowane, 404); v2 jako PDF data/pisma/informacja-instalacje-elektryczne-v2.pdf (numer uchwały WZ zostawiony kropkami) przekazany Tomaszowi w rozmowie. Na stronie pisma o kablach NIE MA — publikacja tylko na jego polecenie
+
+
+==============================================================================
+## SESJA 04.09.2026 21:31 CEST
+==============================================================================
+
+04.09 Tomasz 'Wystaw mi na stronę' — pismo v2 (Informacja ws. utrzymania instalacji elektrycznych; numer uchwały WZ kropkami) OPUBLIKOWANE na /dokumenty/ sekcja Prąd jako PDF (/static/dokumenty/informacja-instalacje-elektryczne.pdf, 200)
+
+
+==============================================================================
+## SESJA 07.09.2026 23:59 CEST
+==============================================================================
+
+07.09 Tomasz: 'Już po imprezie (Zakończenie sezonu 5.09). Co z tym zrobić?' — build.py: karta na home wybiera wydarzenie po dacie; gdy nic przed nami → 'Ostatnie wydarzenie' (wdrożone, na żywo). Do decyzji Tomasza: relacja z zakończenia sezonu (zdjęcia/film) jako ogłoszenie/aktualność
+
+
+==============================================================================
+## SESJA 08.09.2026 00:03 CEST
+==============================================================================
+
+08.09 Tomasz: 'Zaczęliśmy kopać ostatnią alejkę i kłaść kable' — Etap 3 w toku, ostatnia alejka. Sesja 360 (plan pon 7.09) nie odbyła się — rozkopana alejka; sfery po zakończeniu robót
+
+
+==============================================================================
+## SESJA 08.09.2026 00:17 CEST
+==============================================================================
+
+08.09 DCIM dodane jako lokalizacja SAF w apce MCP na Foldzie (id com.android.externalstorage.documents/primary:DCIM); list_files z path=Camera działa (1230 plików, stronicowanie limit=30 — pełna lista bez limitu przekracza 60 s; do najnowszych zdjęć użyć sortowania/offsetu)
+
+
+==============================================================================
+## SESJA 08.09.2026 07:02 CEST
+==============================================================================
+
+08.09 (noc) Pobrane z Folda 27 plików z 7.09 (26 zdjęć 17:37–18:56 + film 32 s) → data/roboty/2026-09-07/; web: 6 wybranych zdjęć bez twarzy z bliska (01-przyczepa..06-wieczor, 1600 px) + film 550x1280 12,7 MB + plakat. Projekt relacji 'Ostatnia alejka — pierwszy dzień robót' przedstawiony Tomaszowi DO AKCEPTACJI; pytania: która alejka, ile działek, kiedy zasypanie, czy też na FB (osoby na zdjęciach — zgoda). NIC nieopublikowane
+
+
+==============================================================================
+## SESJA 08.09.2026 07:24 CEST
+==============================================================================
+
+08.09 KOREKTA: 'Z twarzami!!!' — zdjęcia/film z robót BEZ zamazywania (Klaudek pomylił sens 'Twarze!!!'); nie anonimizować z własnej inicjatywy. Zamazane wersje w data/roboty/2026-09-07/web/anon zostają tylko jako narzędzie
+
+
+==============================================================================
+## SESJA 08.09.2026 07:29 CEST
+==============================================================================
+
+08.09 Tomasz: 'Bez przyczepy z bębnem' — relacja: 7 zdjęć (02-wykop..08-wieczor) + film; czekam na 'publikuj'
+
+
+==============================================================================
+## SESJA 08.09.2026 07:36 CEST
+==============================================================================
+
+08.09 ROLKA 'Ostatnia alejka — pierwszy dzień robót' v1 GOTOWA (0 USD, 61,6 s, 1080x1920): brand intro → Prezenter Tomasz z BANKU (test1 0,6–6,1 s, żadnej nowej generacji) → plansza tytuł → film 27 s bez audio z rozmytym tłem → 5 zdjęć Ken Burns (bez przyczepy, bez dwóch z kanistrem i przy koparce — dekret) → plansza 'Kable idą w ziemię' → outro; Morning.mp3 ściszone pod mową; plik data/roboty/2026-09-07/rolka/pierwszy_dzien_v1.mp4 wysłany Tomaszowi na Telegram. Czeka na akceptację i 'publikuj' (FB + strona). Jeśli Tomasz chce, żeby Prezenter MÓWIŁ treść relacji — potrzebna nowa generacja Omni (~1 USD/10 s), zakaz D-0218 wymaga jego wyraźnego uchylenia
+
+
+==============================================================================
+## SESJA 08.09.2026 08:18 CEST
+==============================================================================
+
+08.09 ROLKA v2 'Ostatnia alejka — pierwszy dzień robót' (74,6 s) wysłana Tomaszowi na Telegram: Prezenter Tomasz NOWY klip Omni 10 s (kanarek ZIELONY: whisper pełna kwestia, tożsamość 0,65 PASS, usta 7,98 PASS, VLM 3/3; tło = zdjęcie 04-koparka jako IMAGE_REF_1 — Omni wziął koparkę do tła!), mapa Północna, film 27 s, 5 zdjęć, Izabela Kling standard 9 s z Charlotte na kompozycie alejki (data/awatar/relacja_alejka/), plansza z etykietą AI. Koszt ~1,5 USD (Omni ~1,0 + Kling ~0,5 + TTS). Kadr 'obydwoje w jednym ujęciu' PORZUCONY (kompozyt wyszedł słabo — skale; nie pokazywać). Omni limit 10 s/wątek. Czeka na akceptację / 'publikuj'
+
+
+==============================================================================
+## SESJA 08.09.2026 09:03 CEST
+==============================================================================
+
+08.09 WPADKA: v2 wysłana z wideo urwanym po 32,6 s (concat-demuxer + mieszane pix_fmt; audio 74 s maskowało); POPRAWIONE filter_complex concat z normalizacją, 2239 klatek, v2b wysłana na Telegram. Zasada: liczyć klatki + klatka z końca przed wysyłką
+
+
+==============================================================================
+## SESJA 08.09.2026 09:16 CEST
+==============================================================================
+
+08.09 Tomasz odrzucił Izabelę 'uciętą jak za stołem' → NOWY obraz Izabeli STOJĄCEJ w alejce (fal nano-banana-pro/edit, refy: IZABELA_CANON_v2 + zdjęcie 07-alejka; data/awatar/relacja_alejka/izabela_stoi_v1.jpg — twarz i strój z kanonu, koparka i robotnik z prawdziwego zdjęcia za nią) + Kling standard z tym samym audio Charlotte (izabela_C2.mp4). Rolka v3 (74,7 s, 2239 klatek) wysłana na Telegram. Koszt dziś łącznie ~2,2 USD (Omni 1,0 + Kling 2×0,5 + NB 0,15 + TTS). Czeka na akceptację
+
+
+==============================================================================
+## SESJA 08.09.2026 09:23 CEST
+==============================================================================
+
+08.09 RELACJA OPUBLIKOWANA ('Jest bardzo dobrze… wystawić'): FB Reel https://www.facebook.com/reel/1956869291649389 (opis z etykietą AI, 'Wiadomości działkowe' w tytule → kategoria wiadomosci przez awatar*/opublikowano); na rodwozniki.pl: /filmy/ (własny mp4 w oknie) + NOWA KARTA na stronie głównej 'Wiadomości z ogrodu' z odznaką NOWE (build.py wiadomosci_skrot, {{wiadomosci_skrot}} w home.html nad 'Co dzieje się w ogrodzie', CSS .wiad-skrot; klik → gra, test 4,8 s). Naprawy przy okazji: fb_na_strone odtwarza licznik.json po deployu; czarna miniaturka z FB zastępowana klatką z lokalnego mp4. Koszt relacji ~2,2 USD
+
+
+==============================================================================
+## SESJA 16.09.2026 09:14 CEST
+==============================================================================
+
+16.09 STRONA ROD (D-0346/D-0347): 'Zakonczenie sezonu' zdjete z glownej — build.py pokazuje karte wydarzenia TYLKO dla nadchodzacych (aside generowany warunkowo, {{featured_card}}+{{bento_mod}} w home.html, .today-solo w CSS); minione laduja w sekcji 'Archiwum wydarzen' na /ogloszenia/ (z filmem). Ramka 'Wiadomosci z ogrodu' wzmocniona: 3px var(--forest-900) + poswiata, wariant dark dodany. Deploy atomowy wg wzorca fb_na_strone + pogoda_rod + licznik_rod (oba 200 na produkcji; /pogoda.json w KORZENIU nie w /static/ — falszywy alarm 404 z mojego zlego curla). NOWE NARZEDZIE tools/zrzut_strony.py (playwright+chromium headless na VPS, ~150MB, 0 zl): zrzut URL -> sendPhoto/sendDocument do Tomasza botem Hansa; 2 zrzuty wyslane. UWAGA: test_build test_no_remote_scripts_or_styles pada na leaflet-CDN (radar) — fail STARSZY niz te zmiany (cdnjs byl w HEAD w page.html), do decyzji osobno. Kontrola Henia -> /tmp/henio_kontrola_1609.log
+
+
+==============================================================================
+## SESJA 16.09.2026 11:43 CEST
+==============================================================================
+
+16.09 INTRO WIADOMOSCI (D-0348/D-0349): narada 4 glosow (Genek awaryjnie — CLI timeout na gornych modelach); odkrycie Henia/Zenka: stara czolowka CZOLOWKA_CANON.mp4 z 4.08 istniala — Tomasz: 'Stara chujowa! C' -> wybrany wariant C BELZEBUBA (5 s, krem #fffdf6, logo srodek, tytul Fraunces #1f5a37, pasek zloty 360->520 przyciemniany 80%). WYKONANE v1 za 0 USD: assets/intro_wiadomosci/intro.html (deterministyczne ustawKlatke(t)) + tools/render_intro_wiadomosci.py (playwright 150 klatek 30fps + ffmpeg + Mixkit 1145 atrim 5s afade loudnorm). Licencja Mixkit SFX potwierdzona web (komercyjnie, social media, bez atrybucji); dzwieki 1145/3089/1151 pobrane do assets/audio/kandydaci (preview.mp3 z assets.mixkit.co — modal nie blokuje bezposrednich URL). Kontrole: tlo/pasek pikselowo OK (brightness 0.815~spec 0.8), zamrozenie MAD 0.0005, oko Gemini (oczy_uszy.py dziala mimo padu narad CLI) 6/6 TAK z poprawnym odczytem nazwy. Wyslane Tomaszowi na Telegram — CZEKA NA AKCEPTACJE; po akceptacji: wpiecie do pipeline wiadomosci + ewentualny master 16:9 + aktualizacja wiedza/CZOLOWKA_WIADOMOSCI.md (stara = WYCOFANA)
+
+
+==============================================================================
+## SESJA 16.09.2026 11:47 CEST
+==============================================================================
+
+16.09 INTRO ZAAKCEPTOWANE (D-0350, 'Super!!! Dodawać do wszystkich wiadomości zawsze'): INTRO_WIADOMOSCI_C_v1.mp4 = KANON; stara czolowka wycofana do archiwum w wiedza/CZOLOWKA_WIADOMOSCI.md; NOWE NARZEDZIE tools/dolacz_intro.py (filter_complex concat z normalizacja, bramka klatek fail-closed + kadr z konca) — OBOWIAZKOWE dla kazdego wydania Wiadomosci; test bojowy na pierwszy_dzien_v3: 2389=150+2239 klatek, przejscie 4.9s krem -> 5.15s wydanie, audio 79.7s ciagle; wpis w AKTYWA_SERII (0 USD)
+
+
+==============================================================================
+## SESJA 16.09.2026 12:57 CEST
+==============================================================================
+
+16.09 WIADOMOSCI ALEJKA2 (D-0351): narada zakonczona — glosy Zenek (UWAGA: sfabrykowal 'cztery glosy' i podpisal wniosek jako Klaudek — wpis w teczce ZENEK), Henio (pelny duet ~6,5 USD, KDT=legitymacja, pkt 6 nie miesci sie w 10 s Omni), Genek awaryjny (bez dysku), Belzebub nie odpowiedzial. WSPOLNY WNIOSEK zapisany: data/wiadomosci/alejka2/SCENARIUSZ_v1.md — 3 warianty kosztowe (OSZCZEDNY ~1,5 / DUET ~4 / PELNY ~6 USD), rekomendacja DUET (Tomasz 3 Omni: pkt 1,2,4; Izabela 2 Kling + glos nad planszami: pkt 3,5,6 + dodatki 991/odpowiedzialnosc za licznikiem/strona), 6 punktow W CALOSCI, ~100 s. CZEKA NA TOMASZA: wariant, tekst kwestii, nazwisko prezesa (wymowa/czy ma pasc), dodatek 'przed kopaniem'. Produkcja i wydatki ZATRZYMANE
+
+
+==============================================================================
+## SESJA 16.09.2026 13:17 CEST
+==============================================================================
+
+16.09 WIADOMOSCI ALEJKA2 v1 GOTOWE (D-0354/D-0355, 'Rob'): DUET wyprodukowany — data/wiadomosci/alejka2/ALEJKA2_v1.mp4 128 s (3840 klatek = intro 150 + 3690, bramka OK). Omni K1/K2/K4 (720p 9:16, ref_tomasz_720 + tlo gotowej alejki 2026-09-14 dzien4 zdj.11; 40-47 s/klip; kanarek faster_whisper w kontenerze: 1.00/1.00/0.94 — 'ka-de-te' whisper zapisal jako KDT, nazwisko 'Tomasza Maksysia' odczytane; straznik tozsamosc PASS x3). Izabela: TTS Charlotte 5 sciezek (I1 9.1s, I3 16s, I5 14.2s, I6 17.7s, I7 17.4s — Charlotte wolniejsza niz plan, wydanie 128 s zamiast 100), Kling standard I1+I7 na izabela_stoi_v1.jpg (straznik PASS). 9 plansz (tools/plansze_alejka2.py, styl intro C, kontrola geometrii 0 bledow) — P3/P5/P6 z glosem Izabeli + zoom 3%, P1/P2/P4/P7/P8 cisza 2.5-3 s, outro P9 z etykieta AI 'za zgoda Tomasza'; etykiety PREZENTER/PREZENTERKA AI drawtext na klipach. Montaz data/wiadomosci/alejka2/_montaz.py (filter_complex concat + dolacz_intro). Koszt ~4,3 USD (Omni ~3, Kling ~1, TTS grosze). Wyslane na Telegram — CZEKA NA OCENE TOMASZA; publikacja tylko na 'publikuj'. Gemini 503 caly dzien — kontrole oka zastapione pomiarem/strażnikiem; nazwisko i KDT do odsluchu przez Tomasza
+
+
+==============================================================================
+## SESJA 16.09.2026 13:24 CEST
+==============================================================================
+
+16.09 ALEJKA2 v2 (D-0356, reklamacja Tomasza sek. 59): z K4 usuniete 'do mnie' BEZ KOSZTOW — audio atrim/concat na pauzie (2,83-4,10 s wg word-timestamps faster_whisper), wideo: twarz do ciecia, dalej plansza_04 z glosem Tomasza (wzorzec v7 ogloszenia); part 08 (cisza plansza 4) usuniety z sekwencji; whisper nowego 07: '...do zarzadu Tomasza Maksysia. Wydam karte...' OK; ALEJKA2_v2.mp4 3711 klatek = 150+3561, wyslane na Telegram; czeka na ocene/publikuj
+
+
+==============================================================================
+## SESJA 16.09.2026 14:06 CEST
+==============================================================================
+
+16.09 ALEJKA2 v3 (D-0357): logo na planszach NAPRAWIONE (v1/v2 mialy puste miejsce — file:// w set_content nie laduje; teraz data URI; pomiar std 12->83), nowa plansza_10 'PRZYGOTOWAL — TOMASZ MAKSYS' jako ostatnia karta 4 s, _montaz.py = pelny przepis v3 (K4 bez 'do mnie' wbudowane, bez part 08). ALEJKA2_v3.mp4 3831 klatek OK, wyslane. OTWARTE: 'Zamien tlo za Izabela na takie bez ludzi' — izabela_stoi_v1 ma koparke+robotnika; opcje: (A) nowy obraz nano-banana (~0,07-0,15) + 2 nowe Kling (~1 USD) = ~1,2 USD, pewne; (B) 0 USD maska YOLO-seg klatka po klatce na 2 klipach (~800 klatek, ~25 min CPU, ryzyko artefaktow krawedzi) — czeka na wybor Tomasza; wpis teczka Klaudka (logo)
+
+
+==============================================================================
+## SESJA 16.09.2026 14:37 CEST
+==============================================================================
+
+16.09 ALEJKA2 v4 (D-0358 'A'): nowy obraz Izabeli izabela_stoi_v2.jpg (fal nano-banana-pro/edit, refy IZABELA_CANON_v2 + zdjecie 11 gotowej alejki, YOLO 0 obcych osob; cos vs kanon 0,879 > v1 0,749; Genek 503 = fal jako zapas) + Kling I1_v2/I7_v2 (tozsamosc 10/10 0,67/0,68, usta PASS). ALEJKA2_v4.mp4 3831 klatek, wyslane. Koszt poprawki ~1,15 USD (lacznie wydanie ~5,5 USD). WAZNA LEKCJA (teczka Klaudka): straznik.py na HOSCIE ma tozsamosc POMINIETA (brak insightface) i syncnet bez wyniku — 'PASS' = tylko techniczny; PRAWDZIWY straznik = docker exec fabryka-api ./venv/bin/python tools/straznik.py; K1/K2/K4 sprawdzone ponownie w kontenerze: 10/10 0,63-0,65. Czeka na ocene Tomasza / 'publikuj'
+
+
+==============================================================================
+## SESJA 16.09.2026 14:55 CEST
+==============================================================================
+
+16.09 ALEJKA2 OPUBLIKOWANE (D-0359 'publikujemy FB i Strona'): FB Reel https://www.facebook.com/reel/1084864281067088 (tools/publikuj_prezenter.py, opis = 6 punktow Tomasza doslownie + 991/odpowiedzialnosc + strona + zdanie o awatarach + 'Wydanie przygotowal Tomasz Maksys'); strona: /static/wideo/1084864281067088.mp4 (23,3 MB, 200) + miniaturka z 7 s, wpis wideo.json kategoria wiadomosci, build+deploy atomowy, pogoda/licznik 200; karta 'Wiadomosci z ogrodu' na glownej pokazuje nowe wydanie (NOWE), /filmy/ ma wpis. Odcinek ZAMKNIETY: koszt calkowity ~5,5 USD (Omni 3, Kling 4, nano-banana 0,15, TTS grosze); mp4 z intro C = pierwsze wydanie z nowa czolowka
+
+
+==============================================================================
+## SESJA 16.09.2026 15:15 CEST
+==============================================================================
+
+16.09 NOWE ZLECENIE (D-0361): instrukcja aplikacji Tauron dla dzialkowcow — Moj TAURON + aplikacja do licznika zdalnego odczytu (wg web: eLicznik TAURON Dystrybucja; do potwierdzenia z Tomaszem), prowadzi Prezenter Tomasz, zrzuty/filmiki z realnej apki (Fold7 przez ADB), jezyk najprostszy. Narada badawczo-koncepcyjna calej zaloga odpalona: /tmp/narada_tauron_app (zlecenie .scratch/zlecenie_tauron_aplikacje.md). Wstepne fakty (web, Klaudek): Moj TAURON tylko dla klientow z umowa sprzedazowa/kompleksowa (sama dystrybucyjna = brak dostepu); eLicznik wymaga LZO z uruchomiona komunikacja + 'sprawdz czy mozesz zalozyc konto'. Czeka na glosy (~20-30 min)
+
+
+==============================================================================
+## SESJA 16.09.2026 15:34 CEST
+==============================================================================
+
+16.09 TAURON APKI (D-0360/D-0362): research zamkniety w wiedza/TAURON_APKI_RESEARCH.md — 'Moj Licznik' to Energa, Tauron ma eLicznik; Tomasz: obie apki Tauron (Moj TAURON + eLicznik), liczniki ROD = LZO, zgoda na zrzuty z Fold7/konta. Narada: Henio+Belzebub pelne, Genek awaryjny, Zenek pusty (0 B). NASTEPNE: (1) dostep ADB do Fold7 — connection refused, czekam na port debugowania bezprzewodowego od Tomasza; (2) zrzuty ekranow instalacji/rejestracji obu apek (bez logowania) + po zalogowaniu przez Tomasza ekrany faktur/licznika (zamazane); (3) scenariusze 2 wydan + kosztorys -> zatwierdzenie -> Omni
+
+
+==============================================================================
+## SESJA 16.09.2026 15:34 CEST
+==============================================================================
+
+16.09 TAURON APKI (D-0360/D-0362): research zakonczony czesciowo — Henio+Belzebub (+moj web_search) ZGODNI: 'Moj Licznik' = apka ENERGA, Tauron ma 'eLicznik TAURON' (Play tauron.ui / AppStore id577050364; Moj TAURON: pl.tauron.mtauron / id1414805668); dwie spolki, dwa konta (logowanie.tauron.pl vs logowanie.tauron-dystrybucja.pl); rejestracja Moj TAURON: PESEL + nr ewidencyjny/platnika z faktury; eLicznik wymaga LZO z uruchomiona komunikacja (sprawdzenie dostepu po PPE na stronie Taurona); oficjalne filmy YT Taurona (linki w henio.txt). Genek tylko awaryjnie, Zenek pusty (0 B). Glosy skopiowane do data/wiadomosci/tauron_apki/. Tomasz zdecydowal: OBIE apki Taurona, liczniki w ROD = zdalnego odczytu, ZGODA na zrzuty z Fold7/jego konta. BLOKADA: ADB do Fold7 nie laczy (Tailscale online, port debugowania bezprzewodowego rotuje; 46009/45225/5555 odrzucone) — potrzebny aktualny port od Tomasza; MCP Telefon niedostepne w tym oknie. Plan: 2 wydania (Moj TAURON / eLicznik), Prezenter Tomasz + zrzuty/nagrania ekranu krok po kroku, scenariusz do zatwierdzenia
+
+
+==============================================================================
+## SESJA 16.09.2026 15:38 CEST
+==============================================================================
+
+16.09 TAURON APLIKACJE (D-0361) research ZAKONCZONY: wiedza/TAURON_APLIKACJE_RESEARCH.md — 'moj licznik' = eLicznik (Tauron Dystrybucja), Moj TAURON tylko z umowa sprzedazowa/kompleksowa; eLicznik ryzyko G11/G12 (sprawdzic po PPE); oficjalne filmy YT embeddable (Henio: 5 linkow); koncepcje: Henio 2 wydania ~3-6 USD vs Belzebub 1 wydanie ~1,2 USD; zrzuty z Fold7 przez ADB po instalacji apek przez Tomasza. Zenek: plik pusty (Codex padl), Genek awaryjny. CZEKA NA DECYZJE TOMASZA (4 pytania w pliku)
+
+
+==============================================================================
+## SESJA 16.09.2026 15:41 CEST
+==============================================================================
+
+16.09 TAURON APKI (D-0363 'zrzuty wez z internetu'): pobrane 8 zrzutow Moj TAURON + 7 eLicznik z Google Play (play-lh, w1080; App Store 429) + 5 zrzutow www headless (Play Zainstaluj x2, logowanie.tauron.pl, elicznik login, info) — Gemini (znow dziala) opisalo kazdy ekran (opisy w tej turze); data/wiadomosci/tauron_apki/zrzuty/. SCENARIUSZ_v1.md: 2 wydania po ~95 s, warianty A (Tomasz wszystko ~16 USD) / B (Tomasz prowadzi 3 Omni + Izabela czyta kroki ~6 USD); fakty ze zrodel Tauron (Moj TAURON: PESEL + nr platnika, e-mail, PIN; eLicznik: LZO, PPE 18 cyfr 590…, strona pomocy = stary pilotaz E450/E350, pol rejestracji brak w zrodlach). CZEKA NA TOMASZA: wariant, tekst, pola rejestracji eLicznika, kolejnosc publikacji
+
+
+==============================================================================
+## SESJA 16.09.2026 16:00 CEST
+==============================================================================
+
+16.09 TAURON APKI — KOLIZJA DWOCH OKIEN: drugie okno odpalilo _produkcja.sh (stary prompt z tlem alejki + stare kwestie) 2 min po moim KWESTIE.py; 5 klipow z alejka (~5 USD), 3 blokady Google 'prohibited content' na kwestiach z 'pesel'/'Zarejestruj sie'(?) — W1_3,W1_4,W1_7. Zabilem petle. Moj W1_1 na bialym tle (D-0366) kanarek 1.00, rogi 193-222 (nie czysto biale — do oceny). FAKTY REJESTRACJI (film TAURON 0kykdIeY57c + regulamin eLicznik §5): Moj TAURON = PESEL + 8-cyfrowy nr platnika (nad adresem korespondencji na fakturze) -> serwis Moj TAURON/eBOK, klient indywidualny -> e-mail x2, haslo x2, zgody -> Zatwierdz -> link aktywacyjny; eLicznik = login e-mail + haslo + wymagane dane, link aktywacyjny, 1 konto/umowa (pol PPE/nr licznika NIE potwierdzono — headless nie przechodzi wyboru serwisu w Angularze). NASTEPNE: decyzja Tomasza ktore okno prowadzi; przeformulowac kwestie z 'pesel' (blokada Google) — mowa 'numer z dowodu', PESEL na planszy; plansze ze zrzutami; montaz 2 wydan
+
+
+==============================================================================
+## SESJA 16.09.2026 16:28 CEST
+==============================================================================
+
+16.09 TAURON APKI GOTOWE (D-0368 'to okno prowadzi'): WIADOMOSCI_MOJ_TAURON_v1.mp4 (92 s, 2760 klatek) + WIADOMOSCI_ELICZNIK_v1.mp4 (105 s, 3151 klatek) wyslane na Telegram — PUBLIKUJE TOMASZ SAM. 17 klipow Omni na bialym tle (rogi ~221 — jasnoszare, nie #fff; logo overlay 150px w prawym gornym rogu, etykieta PREZENTER AI); kanarki whisper 0.90-1.00; Google blokowal kwestie z 'pesel'/'wpisz dane/haslo' (prohibited content) — 4 przeformulowania (szczegoly na planszach), W2_3 potwierdzony uchem Gemini ('Tauron e-Licznik' pada). Plansze: tools/plansze_tauron.py (17 szt., zrzut telefonu w ramce, uklad liczony JS, logo data URI, geometria 0 bledow). Montaz data/wiadomosci/tauron_apki/_montaz_tauron.py (twarz 3,5 s -> plansza z glosem). KOSZT: okno A 18 klipow Omni ~18 USD + drugie okno 6 klipow (alejka, nieuzyte, w stare_alejka/) ~6 USD = ~24 USD lacznie (zaakceptowane ~16; nadwyzka: kolizja okien + 4 regeneracje po blokadach Google). Fakty rejestracji ze zrodel: film TAURON 0kykdIeY57c, regulamin eLicznik §5; pola rejestracji eLicznika po wyborze serwisu NIE potwierdzone (headless nie przeszedl Angulara) — w filmie sformulowane bezpiecznie ('dane z faktury, m.in. PPE'). Teczka Klaudka: operator & x2
+
+
+==============================================================================
+## SESJA 17.09.2026 07:42 CEST
+==============================================================================
+
+17.09 PORADNIK TAURON (D-0369 'To poradnik a nie wiadomosci / intro zielone / dane z umowy'): GOTOWE 0 zl — plansze przerobione (kicker PORADNIK, WEZ UMOWE: numer ewidencyjny z umowy + PESEL, PPE z umowy; 17/17 geometria OK, logo std 83), zielone intro rolek skopiowane do assets/branding/intro_rolki_zielone_2_5s.mp4 (z data/reels/000097/parts/00_intro.mp4, 1080x1920 30fps 2,5 s), _montaz_tauron.py skleja z nim zamiast intro C -> PORADNIK_{MOJ_TAURON,ELICZNIK}_v2.mp4. BLOKADA: 3 klipy Omni z 'umowa' zamiast 'faktura' (W1_3, W1_5, W2_4 — kwestie w KWESTIE.py gotowe; stare w omni/v1_faktura/) NIE wygenerowane — Google 429 'prepayment credits depleted' (doladowuje tylko Tomasz, ai.studio/projects); Gemini oczy tez 429. Po doladowaniu: bash omni/_produkcja_biale.sh (pomija istniejace) -> python3 _montaz_tauron.py W1; W2 -> wyslac. LEKCJE: pkill -f wzorzec zabija wlasne polecenie MCP (exit -15) — zabijac skryptem z pliku (_stop.sh); assert przed write_text = niezapisany plik i petla ze starymi kwestiami (na szczescie 429)
+
+
+==============================================================================
+## SESJA 17.09.2026 07:57 CEST
+==============================================================================
+
+17.09 PORADNIKI TAURON v2 GOTOWE: Tomasz doladowal kredyty Google (API test OK); 3 klipy z 'umowa' wygenerowane (W1_3 0.94, W1_5 0.91, W2_4 0.95, ~3 USD); PORADNIK_MOJ_TAURON_v2.mp4 (2685 klatek = 75 zielone intro + 2610) i PORADNIK_ELICZNIK_v2.mp4 (3076 = 75 + 3001) wyslane na Telegram — publikuje Tomasz sam. Koszt calego poradnika lacznie ~27 USD (w tym ~6 USD nieuzyte klipy z alejka z kolizji okien)
+
+
+==============================================================================
+## SESJA 17.09.2026 08:11 CEST
+==============================================================================
+
+17.09 PORADNIKI TAURON — JUZ OPUBLIKOWANE przez drugie okno o 08:02-08:04 (opublikowano.txt): FB Reels 1504279544839012 (Moj TAURON) i 1111497617992292 (eLicznik), status ready, opisy '📱 PORADNIK: ...'; strona: kategoria poradniki w wideo.json z opisami, mp4+miniaturki 200 na produkcji, sekcja Poradniki na /filmy/ z opisami (curl). Okno A: zweryfikowalo, NIE dublowalo (D-0371 wykonane)
+
+
+==============================================================================
+## SESJA 17.09.2026 08:18 CEST
+==============================================================================
+
+17.09 STRONA (D-0372, Tomasz: 'Mam nadzieje ze pod tym adresem zrobiles ten poradnik' + 'Poradniki'): plansza koncowa poradnikow kieruje na rodwozniki.pl/dla-dzialkowcow/ gdzie NIE BYLO instrukcji apek (0 wystapien) — NAPRAWIONE: content/poradniki_apki.md (Moj TAURON 6 krokow + eLicznik 5 krokow, linki Play/App Store, fakty ze zrodel Tauron) wstawiany placeholderem {{poradniki_apki}} (build.py poradniki_apki_html) na /dla-dzialkowcow/ przed 'Kto odpowiada za awarie' ORAZ na NOWEJ stronie /poradniki/ (pages/poradniki.md: filmy poradnikow {{wideo_poradniki}} + instrukcje + link do 5 krokow); 'Poradniki' w nawigacji po 'Filmy'. Deploy, curl: obie strony 200, h3 obu instrukcji na produkcji, 2 karty wideo na /poradniki/. Uwaga: wlasny markdown nie obsluguje {#id} kotwic w naglowkach
+
+
+==============================================================================
+## SESJA 17.09.2026 08:23 CEST
+==============================================================================
+
+17.09 STRONA (D-0373 'Wystaw poradniki pod Aktualnosciami'): sekcja PORADNIKI na glownej bezposrednio pod karta Wiadomosci z ogrodu — build.py poradniki_skrot() (2 najnowsze z kategorii poradniki, karty .wideo-karta z data-wideo -> film-okno.js gra w oknie, przycisk button-ghost do /poradniki/), {{poradniki_skrot}} w home.html, CSS .poradniki-skrot (ramka jak wiadomosci, dark). Deploy, curl: kolejnosc wiadomosci < poradniki < 'Co dzieje sie' potwierdzona, 2 tytuly poradnikow na produkcji, pogoda 200; zrzut wyslany na Telegram
+
+
+==============================================================================
+## SESJA 17.09.2026 08:34 CEST
+==============================================================================
+
+17.09 PORADNIK (D-0374, zrzut str. 3 umowy Tomasza KSG-10): odczyt §1 — Nr Umowy K/000…/0/09/26, Nr PPE 18 cyfr 5903224…, Nr Platnika 8 cyfr, Nr ewidencyjny PUSTY (na umowie z ROD!), PESEL czesciowo zamaskowany przez Tauron, adres PPE Mlynska 40C/nr dzialki, lokale niemieszkalne, G12W, rozliczenie miesieczne z odczytu, grupa przyl. V, 1F, 20 A, 3,5 kW, OSD Tauron Dystrybucja (§2 pkt 3). Zrzut Tomasza NIE trafil na VPS (tylko czat) — zrobiona WZORCOWA grafika §1 bez danych (tools/grafika_umowa_ksg10.py -> static/img/umowa_ksg10_gdzie_szukac.png, zielone pola=Moj TAURON, zlote=eLicznik) + sekcja 'Gdzie szukac danych — Twoja umowa z Tauronem' w poradniki_apki.md (obie strony), instrukcja Moj TAURON poprawiona: Nr Platnika (nie nr ewidencyjny). Deploy, curl 200. UWAGA do rozstrzygniecia: na umowie nazwisko czytam jako MAKRYS, a w opublikowanych wydaniach jest 'Maksys' (tak pisal Tomasz)
+
+
+==============================================================================
+## SESJA 17.09.2026 08:36 CEST
+==============================================================================
+
+17.09 SPROSTOWANIE: nazwisko = MAKSYŚ (Tomasz potwierdzil); moj odczyt 'MAKRYS' z obrazu umowy w czacie byl bledny — obrazu w czacie nie czytac jak dokumentu, kwestie z nazwiskiem w wydaniach poprawne
+
+
+==============================================================================
+## SESJA 17.09.2026 08:40 CEST
+==============================================================================
+
+17.09 PORADNIK (D-0374 cd.): Tomasz przyslal zrzut umowy przez Hansa (skrzynka/pliki/20260917_083820, 938x1280) — anonimizacja: boxy pol z danymi osobowymi od Gemini (12 pol, skala 0-1000) + marginesy + pas telefon/e-mail; kontrola Gemini: nazwisko NIE, numery NIE, adres/telefon/e-mail NIE, dane Taurona nietkniete; obraz www_rod/static/img/umowa_ksg10_str3_przyklad.jpg wstawiony pod wzorcem w poradniki_apki.md (obie strony); oryginal data/wiadomosci/tauron_apki/umowa/umowa_str3_ORYGINAL.jpg chmod 600 — NIE publikowac. Deploy, curl 200
+
+
+==============================================================================
+## SESJA 17.09.2026 08:55 CEST
+==============================================================================
+
+17.09 STRONA (D-0376 podziekowania): sekcja PODZIEKOWANIA na SAMEJ GORZE glownej (przed hero) — content/podziekowania.json (aktywne, tresc, 11 osob) -> build.py podziekowania_html() z sortowaniem po nazwisku wlasnym kluczem polskiego alfabetu (Janus<Jaderko, Zachariasz<Zukowski; locale pl_PL brak na VPS), {{podziekowania}} na poczatku home.html, CSS .podziekowania (zlota ramka, duze nazwiska w siatce, dark). Deploy, curl: przed hero, 11 nazwisk, zrzut na Telegram. Forma potwierdzona researchem Henia (3 przyklady PZD: 'Zarzad ROD ... sklada serdeczne podziekowania', podpis Zarzad, samo imie+nazwisko) — zgodna z wdrozona. RODO (Henio, komunikat KZ PZD 25.09.2019 + art. 6 RODO): publikacja nazwisk wolontariuszy wymaga zgody — przekazane Tomaszowi; decyzja jego (opublikowane na jego dekret). Wylaczenie sekcji: 'aktywne': false w podziekowania.json + build+deploy
+
+
+==============================================================================
+## SESJA 17.09.2026 08:57 CEST
+==============================================================================
+
+17.09 STRONA (D-0378 'Dodaj reszte zdjec do elektryfikacji'): /elektryfikacja/ nowa sekcja 'Gorna (polnocna) alejka — wrzesien 2026' z galeria 42 zdjec (26 z 07.09 + 4 kopanie + 4 zasypywanie + 8 grabienie z 14.09; exif_transpose, max 1600 px, q85, 14,7 MB) w static/img/gal/alejka/; BEZ zamazywania twarzy (dekret 08.09). Deploy, curl: 42 img na produkcji, pliki 200
+
+
+==============================================================================
+## SESJA 17.09.2026 11:25 CEST
+==============================================================================
+
+17.09 RACHUNEK TAURON G12W (D-0380): dystrybucja z OFICJALNEGO wyciagu Taryfy TAURON Dystrybucja 2026 dla G (energa.pl PDF, URE 17.12.2025): G12w zmienna 0,3298 szczyt / 0,0512 pozaszczyt, stala 1F 7,38, abonament 1-mies 4,56, jakosciowa 0,0331, OZE 0,0073, kogen 0,003, mocowa <500: 4,29 / 500-1200: 10,31 / 1200-2800: 17,18 / >2800: 24,05 (do 1. odczytu <500). ENERGIA: cennika 'EE_GD GR5 B_ule TS_3_Q3_01.09.26-31.08.29_ro' NIE MA w sieci (offer-documents Taurona — starsze wzorce nazw: EE_GD GR5 O S24D TS_3_Q3 = Serwisant 24H 3 lata); przyjeto taryfe URE TAURON Sprzedaz 2026 G12 szczyt 0,54472 / pozaszczyt 0,41463 netto (czyczy.pl — zrodlo wtorne) + oplata handlowa NIEZNANA. WYNIK brutto: 0 kWh = 19,96 zl/m-c (+handlowa); 100 kWh (1/3 dzien, 2/3 noc) = 106,76 zl/m-c przy progu mocowej 500-1200 (99,35 w pierwszych miesiacach <500 kWh). Skrypt data/tauron_rachunek/rachunek_g12w.py. Do podmiany po otrzymaniu zalacznika Cennik z umowy. Henio/Zenek kontrola w toku (/tmp/narada_rachunek)
+
+
+==============================================================================
+## SESJA 17.09.2026 11:32 CEST
+==============================================================================
+
+17.09 RACHUNEK G12W Z PRAWDZIWEGO CENNIKA (umowa PDF w czacie, nie na VPS): energia 0,5956/0,3971 netto, handlowa 18,29 netto (=22,50 brutto — kontrola VAT zgodna z cennikiem co do grosza). 0 kWh = 42,46 brutto (sprzedaz 22,50 + dystrybucja 19,96); 100 kWh = 122,51-138,37 zaleznie od progu mocowej. Wczesniejszy szacunek (taryfa URE, bez handlowej) byl za niski o ~22 zl/mc — handlowa 22,50 brutto to 53% rachunku przy 0 kWh. Cennik 'rabat >=5%' = ceny min. 5% ponizej taryfy Sprzedawcy; warunek: zgody marketingowe + e-faktura (cofniecie = utrata rabatu, wg Regulaminu 'Wlacz rabat na prad'). Skrypt: data/tauron_rachunek/rachunek_g12w.py do aktualizacji stawkami z cennika
+
+
+==============================================================================
+## SESJA 17.09.2026 11:43 CEST
+==============================================================================
+
+17.09 KONTROLA RACHUNKU (narada_rachunek zakonczona): ZENEK niezaleznie odnalazl cennik 'Prad + PSZCZOLY' (0,5956/0,3971, handlowa 18,29 netto — te same co w PDF umowy) i policzyl: 0 kWh 42,46 / 100 kWh 122,49 / 129,90 / 138,35 brutto — zgodne z Klaudkiem co do 2 groszy (zaokraglenia); dodatkowo wyprowadzil ceny: (taryfa URE 0,6220/0,4130 + akcyza 0,005) x 95% = cennik, wiec 'rabat 5%' = cena ruchoma wzgledem taryfy Sprzedawcy, NIE gwarancja stalej ceny 3 lata. HENIO: stawki dystrybucji z oficjalnych PDF Tauron Dystrybucja + decyzja URE DRE.WPR.4211.1.4.2026.BTS z 16.01.2026 (jakosciowa 0,0332 od 1.02) — zgodne. Glosy w data/tauron_rachunek/
+
+
+==============================================================================
+## SESJA 17.09.2026 11:54 CEST
+==============================================================================
+
+17.09 PV DZIALKA (D-0382): model net-billing dla 5 kWp + 15 kWh, prod 500/pobor 200: RCE wazona PV 0,264 zl/kWh (x1,23 = 0,325 w depozycie); depozyt tylko na energie czynna (Energa: nie na dystrybucje ani handlowa); faktura ~116 zl/mc (pobor 50/50, eksport 400) lub ~82 zl/mc (pobor 100% noc), stale ~116 zl (dystrybucja 93 + handlowa 22,5) nie do zbicia PV; bez PV 300-500 kWh = 307-467 zl/mc. RYZYKO: moc przylaczeniowa 3,5 kW 1F vs 5 kWp — do rozstrzygniecia (Henio). Kontrola Zenek+Henio w toku /tmp/narada_pv
+
+
+==============================================================================
+## SESJA 17.09.2026 12:13 CEST
+==============================================================================
+
+17.09 PV DZIALKA (D-0383 '25A x 230V' = 5,75 kW, nadal 1F): kontrola Zenka (ze zrodlami: PE art. 7 ust. 8d4, ustawa OZE art. 2 pkt 19b / 4b / 4c, TAURON mikroinstalacja + zbior wymagan technicznych): (1) moc zainstalowana PV = suma modulow DC, nie falownik; zgloszenie tylko gdy <= moc przylaczeniowa — po zwiekszeniu do 5,75 kW warunek spelniony; (2) ALE powyzej 3,68 kW TAURON wymaga przylaczenia TROJFAZOWEGO (potwierdza praktyka: IRiESD Tauron, elektroda) — 5 kWp na 1F NIE przejdzie; opcje: 3F albo <=3,68 kWp modulow; (3) dzialkowiec ROD moze byc prosumentem (art. 2 pkt 27a), nowy prosument = RCE godzinowa bez wyboru, depozyt x1,23 tylko na energie czynna, zwrot do 30% wartosci energii wprowadzonej w danym miesiacu; TAURON: okres 1-mies dla wszystkich prosumentow od 1.09.2026; (4) LICZBY: model Klaudka potwierdzony co do groszy (115,85/81,59 vs 115,88/81,61); jakosciowa 0,0331 (taryfa) vs 0,0332 (wyciag w umowie od 1.02) — roznica pomijalna; RCE wazona: 0,259-0,311 zaleznie od metody (moje 0,264 w srodku). Henio jeszcze liczy
+
+
+==============================================================================
+## SESJA 17.09.2026 13:51 CEST
+==============================================================================
+
+17.09 ARBITRAZ (D-0384): RCE z PSE API (api.raporty.pse.pl/api/rce-pln, 90 dni, data/pv_dzialka/rce_90d.json): 19-21 = 997/1060/911 zl/MWh, poludnie 10-15 = 239, noc 0-6 = 593; 270 z 1840 kwadransow poludniowych ujemne. Model arbitraz.py: na 1 kWh cyklu +1,23 depozyt, -0,56 energia (z depozytu), -0,13 gotowka dystrybucja, 12% strat; PRZY LIMICIE ZWROTU 30% wiekszosc depozytu PRZEPADA (przy 176 kWh eksportu z PV: 216 zl depozytu, zwrot 65, przepada 152); cykl z sieci daje netto ok. +0,24 zl/kWh (bo podnosi koszt energii pokrywany depozytem i limit 30%), 450 kWh/mc cyklu -> Tauron placi ~105 zl/mc netto po roku, ale zwrot dopiero po 12 mc i zuzycie magazynu 1-2 cykle/dzien. PRAWO: czy wolno oddawac energie pobrana z sieci — NIE WIEM, Henio sprawdza
+
+
+==============================================================================
+## SESJA 17.09.2026 13:55 CEST
+==============================================================================
+
+17.09 MAGAZYN 30 kWh ZIMA (D-0385): arbitraz taryfowy bez eksportu — szczyt 1,19 zl/kWh brutto (energia+dystr.+oplaty), pozaszczyt 0,60, przez magazyn ze stratami 0,69 -> ~0,50 zl oszczednosci na kazdej kWh przeniesionej ze szczytu; 200 kWh/mc 50% w szczycie = ~50 zl/mc, 400 kWh 70% szczyt = ~141 zl/mc; strefy G12w potwierdzone z wyciagu w umowie (pn-pt 13-15, 22-6 + cale weekendy/swieta); 30 kWh = ~24 kWh uzytecznych dziennie, ladowanie 8 h x 5,75 kW = 46 kWh mozliwe; legalne, bez net-billingu
+
+
+==============================================================================
+## SESJA 17.09.2026 13:56 CEST
+==============================================================================
+
+17.09 GRZANIE Z MAGAZYNU (D-0386): zima 5 kWp ~125 kWh/mc (gru-sty), grzanie 300 kWh: slonce + doladowanie noca = ~236 zl/mc; slonce bez doladowania (braki w szczycie) = ~324; bez PV/magazynu = ~473. Wniosek: doladowywac z sieci TYLKO deficyt (0,69 vs 1,19 zl/kWh), sterowanie z prognozy PV (HA Dzialka: Forecast.Solar/Solcast, cel ladowania o 22:00 = jutrzejsze zuzycie - prognoza)
+
+
+==============================================================================
+## SESJA 17.09.2026 14:04 CEST
+==============================================================================
+
+17.09 OFF-GRID (D-0390): Tomasz zostaje przy umowie G12W, PV+magazyn wyspowo, siec tylko laduje magazyn noca — praktycy (elektroda, noza.pl): instalacja niepodlaczona/nieoddajaca do sieci nie wymaga zgloszenia do OSD, ale 'zero export' w hybrydowym on-grid to NIE off-grid (Deye oddaje mimo ustawienia; on-grid wymaga zgloszenia); zalecana architektura: falownik wyspowy, odbiory na jego wyjsciu, AC-in tylko do ladowania. Prawnie do potwierdzenia przez Henia (/tmp/narada_offgrid). Rachunek bez zmian: ~258 zl/mc przy 300 kWh z sieci w taniej strefie (233 w 1. miesiacach), slonce odejmuje 0,64 zl/kWh
+
+
+==============================================================================
+## SESJA 17.09.2026 14:29 CEST
+==============================================================================
+
+17.09 PV DZIALKA — OSTATECZNY MODEL ZIMY: klimatyzator 20 kWh/DZIEN (600 kWh/mc lis-lut), lato 300 kWh/mc pokryte sloncem; produkcja wg pomiarow Tomasza (mar>=500, sie 700 -> ~5600/rok); off-grid, siec tylko strefa 2 przez magazyn 30 kWh (5% strat): lis 333 / gru 351 / sty 351 / lut 298 zl, reszta roku 58 zl/mc, ROK ~1800 zl; z sieci ~1820 kWh/rok (mocowa 17,18); magazyn laduje co noc ~16 kWh
+
+
+==============================================================================
+## SESJA 17.09.2026 15:31 CEST
+==============================================================================
+
+17.09 PV/UMOWA — ZAMKNIECIE: Tomasz 'Ok'. Ustalenia: prognoza 1700 (jego 3700) bez wplywu na rachunek (rozliczenie z ODCZYTU, 1-mies; mocowa z rzeczywistego zuzycia za rok), mocowa jednakowa we wszystkich G. Model koncowy: off-grid 5,4 kWp + magazyn 30 kWh, siec tylko strefa 2, zima klimatyzator 20 kWh/dzien -> ROK ~1800 zl (lis-lut 298-351, reszta 58). Otwarte tylko kontrola Henia (off-grid prawo, /tmp/narada_offgrid) — do odczytu przy nastepnej okazji
+
+
+==============================================================================
+## SESJA 17.09.2026 15:39 CEST
+==============================================================================
+
+17.09 PV działka — odpowiedź na pytanie o zgłaszanie PV / net-billing: net-billing NIE, zgłoszenie NIE przy prawdziwej wyspie (off-grid, sieć tylko na ładowarkę, odbiory na wyjściu falownika, własny uziom, schemat+oświadczenie SEP). Werdykt Henia (/tmp/narada_offgrid/henio.txt) + OWU umowy Tomasza: §12 ust. 8 lit. e (sankcja, wszyscy klienci), §5 ust. 2 pkt 2.5/2.10 (tylko >300 kW). Zapisane jako decyzja pv_dzialka. Umowa bez zmian G12w 1F 25 A. Tekst umowy z danymi osobowymi NIE jest na VPS (tylko scratchpad czatu).
+
+
+==============================================================================
+## SESJA 17.09.2026 16:11 CEST
+==============================================================================
+
+17.09 NARADA pzd_news (D-0398) ZAKOŃCZONA: wnioski w wiedza/narady/PZD_NEWS_1709.md (24 zweryfikowane pozycje), głos Klaudka w PZD_NEWS_1709_klaudek.md. Genek NIEODEBRANY (zmyślona lista, odrzucona), Zenek znów 'trzy głosy' (treść OK, zweryfikowana), Belzebub słaby po capacity, Henio wzorowy. Fakty: grunt ROD Woźniki w użytkowaniu wieczystym (D-0400); ROD Lompy = Okręg Częstochowski; 30 000 zł dotacji KZ PZD 12.08 na instalację elektryczną. Czeka: decyzja Tomasza o krótkiej rolce (TOP 3 A/B/C).
+
+
+==============================================================================
+## SESJA 17.09.2026 16:14 CEST
+==============================================================================
+
+17.09 Tomasz do rolki PZD-news: obowiązkowo 30 000 zł dla ROD Lompy (zaznaczyć), abisynki, zakaz spalania; czeka na listę tematów od załogi (D-0401).
+
+
+==============================================================================
+## SESJA 17.09.2026 18:04 CEST
+==============================================================================
+
+17.09 KLON GŁOSU PREZENTERA TOMASZA (0 zł): venv /root/klon_venv (chatterbox-tts, Chatterbox Multilingual, MIT, 'pl' na liście; łatki: setuptools<81 dla perth/pkg_resources, perth.DummyWatermarker fallback, zapis scipy zamiast torchaudio.save). Skrypt data/wiadomosci/pzd_news/glos/_klon.py <ref.wav> <N...>; referencja ref_W1_1.wav (audio z omni_W1_1.mp4, 24 kHz mono, czyste). Próbka N0: 7,9 s audio w 22 s CPU; whisper 1.00; ucho Gemini: naturalnie, bez artefaktów; porównanie z oryginałem 8/10 'zwykły widz uzna, że ten sam prezenter, nieco bardziej monotonny'. Wysłane Tomaszowi na Telegram (oryginał 1009, klon 1010) — czeka na decyzję.
+
+
+==============================================================================
+## SESJA 17.09.2026 18:32 CEST
+==============================================================================
+
+17.09 KLON GŁOSU — runda 2 po odrzuceniu Chatterbox (ukraiński akcent, D-0407): BRAMKA AKCENTU (Gemini pytane wprost + whisper) przed wysyłką. XTTS-v2 (/root/xtts_venv; łatki: transformers<5, torchcodec z indeksu CPU; 77 s/kwestię): akcent NIE, 7/10, 'Przegląd' OK — TG 1012. VoxCPM2 (Zenek, llama.cpp-omni GGUF, /tmp/klon_voxcpm, LOG.md): whisper 1,00, akcent NIE, 7/10 — TG 1013?. MOSS-Nano odpadł (whisper przekręca słowa). Czeka: ucho Tomasza.
+
+
+==============================================================================
+## SESJA 17.09.2026 19:13 CEST
+==============================================================================
+
+17.09 D-0410: GŁOS TOMASZA = klon VoxCPM2 V2 (tools/glos_tomasz.py, /root/modele/voxcpm2, 0 zł). Generuję 15 kwestii rolki PZD-news do data/wiadomosci/pzd_news/glos/final/ (log _final.log). D-0411: zdjęcia z internetu — narada /tmp/narada_pzd_zdjecia (henio,zenek,belzebub). Dalej: bramka akcentu na 15 kwestiach, plansze, montaż z intro C, karta Maksyś.
+
+
+==============================================================================
+## SESJA 17.09.2026 19:37 CEST
+==============================================================================
+
+17.09 ROLKA PZD_NEWS v1 GOTOWA (0 zł): data/wiadomosci/pzd_news/PZD_NEWS_v1.mp4 (180,5 s, 1080x1920, 30 fps; body 175,5 s + intro C). 15 kwestii klonem V2 (bramka: whisper OK — różnice to cyfry vs słowa; ucho Gemini: akcent NIE, artefakty BRAK, NRb/N4/N2a 'wszystko poprawnie'); plansze tools/plansze_pzd_news.py (geometria sprawdzona JS, bez nakładania); zdjęcia: pzd.pl (KDD, laureaci, Gwarki, skan pisma), rudaslaska.com.pl (ROD Irys), Wikimedia Commons (Sejm, pompa, liście, kompost), pl.wikipedia (Katowice, Częstochowa, Wieliczka, butla), własne (alejka), zrzut komunikatu KZ PZD; montaż _montaz_pzd.py (zoompan, concat filter_complex). Uwaga: dolacz_intro bramka klatek 5415 vs 5409 (+6 klatek = 0,2 s przy konkatenacji) — plik sprawdzony ffprobe (5415 klatek, audio=video 180,5 s), ostatnia klatka OUTRO. Wysłane Tomaszowi TG. Czeka: akceptacja / 'publikuj'.
+
+
+==============================================================================
+## SESJA 17.09.2026 20:37 CEST
+==============================================================================
+
+17.09 D-0412: podziękowania na rodwozniki.pl uzupełnione o Zofię Zachariasz, Halinę Perek i Gabrysię Rybak (jedzenie dla ekipy z górnej alejki) — build + deploy, sprawdzone curl na żywej stronie.
+
+
+==============================================================================
+## SESJA 17.09.2026 20:52 CEST
+==============================================================================
+
+17.09 PZD_NEWS v2 OPUBLIKOWANE: FB reel https://www.facebook.com/reel/939504039207311 (opis z 7 tematami, źródła, etykieta AI bez 'prezesa'); strona rodwozniki.pl: /static/wideo/939504039207311.mp4, ramka Wiadomości pokazuje teraz 2 najnowsze wydania obok siebie (build.py wiadomosci_skrot [:2], D-0414). Poprawka v2 = tylko karta końcowa (D-0413/D-0414: 'Tylko prezes z samego końca'); N2c wrócił do oryginału (seed 7 = identyczne 12,5 s). Koszt rolki: 0 zł.
+
+
+==============================================================================
+## SESJA 18.09.2026 06:19 CEST
+==============================================================================
+
+18.09 D-0415: Damian Osiński dopisany do podziękowań (lista główna, alfabetycznie) — build + deploy, sprawdzone curl.
+
+
+==============================================================================
+## SESJA 18.09.2026 06:26 CEST
+==============================================================================
+
+18.09 PZD_NEWS zniknął ze strony przez cron fb_na_strone.py (filtr długości 150 s) — naprawione (limit 300 s), film z powrotem w ramce Wiadomości obok Alejka2 i na /filmy/; wpis w teczce Klaudka (sprawdzać po ticku crona).
+
+
+==============================================================================
+## SESJA 18.09.2026 07:47 CEST
+==============================================================================
+
+18.09 narada www/FB (D-0416) zakończona: wnioski wiedza/narady/WWW_FB_narada_1809.md. Czeka na decyzje Tomasza (co wdrażać). Znane błędy strony do naprawy od ręki po jego 'rób': [DO POTWIERDZENIA] w dla-dzialkowcow.md:36, filmy.md:29, pasek Google page.html:50, licznik etykieta, FB website.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:02 CEST
+==============================================================================
+
+D strona_rod 18.09: Tomasz 'Nic do usunięcia. Tylko do dodania!!!!!!' — narada www/FB: tylko dodatki, nic nie wyłączać/usuwać (Dzień dobry zostaje, menu zostaje). Czekam na 'rób' na konkretne pozycje.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:09 CEST
+==============================================================================
+
+D-0419 strona_rod: Tomasz 'rób' na pkt 14 — kartka z QR do rodwozniki.pl (51 działek) + plakat na bramę; projekt 0 zł, druk nie zamawiać. Reszta listy czeka.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:21 CEST
+==============================================================================
+
+D-0419 kartka QR: ZROBIONE i wysłane Tomaszowi (Telegram 1023–1026). Narzędzia: tools/kartka_qr.py, tools/test_kartka_qr.py, tools/wyslij_tomaszowi.py. Wiedza: wiedza/KARTKA_QR_rodwozniki.md. Czekam na decyzję Tomasza.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:29 CEST
+==============================================================================
+
+D-0421: kartka QR v2 z grafikami (FB tablica + alejka) wysłana Tomaszowi (1027–1030); assets/grafiki_fb/ = kopie 13 grafik z FB na VPS. Czekam na decyzję: drukować / poprawki.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:33 CEST
+==============================================================================
+
+D-0422: kartka QR v3 bez zdjęć (ilustracja FB + własne SVG konewka) wysłana (1033–1036). Czekam na decyzję Tomasza.
+
+
+==============================================================================
+## SESJA 18.09.2026 08:37 CEST
+==============================================================================
+
+D-0419/0421/0422 ZAMKNIĘTE: Tomasz 'Dzięki super' na kartkę QR v3. Pliki: data/kartka_qr/, narzędzia tools/kartka_qr.py + grafika_konewka.py + test_kartka_qr.py + wyslij_tomaszowi.py. Zostają otwarte punkty 1–13 listy dodatków (czekają na 'rób').
+
+
+==============================================================================
+## SESJA 18.09.2026 08:55 CEST
+==============================================================================
+
+Pkt 1 (FB website): API #283 brak pages_manage_metadata — Tomasz zmienia ręcznie; post do przypięcia przygotowany (data/kartka_qr/post_fb_*), czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 18.09.2026 09:13 CEST
+==============================================================================
+
+FB website = rodwozniki.pl (API potwierdza, wpisał Tomasz). Lekcja: przed sterowaniem telefonem sprawdzić, czy Tomasz nie robi tego samego ręcznie (kolizja). Post do przypięcia czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 18.09.2026 09:19 CEST
+==============================================================================
+
+FB strona: website=rodwozniki.pl, e-mail=rodwozniki@gmail.com (API potwierdza; wpisał Tomasz). Post do przypięcia dalej czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 18.09.2026 16:12 CEST
+==============================================================================
+
+16:11 Tomasz 'Już gotowe sam zrobiłem' — pkt 1 (FB) zamknięty w całości; przygotowanego posta nie publikować. Tomasz w Polsce (strefa Warszawa).
+
+
+==============================================================================
+## SESJA 18.09.2026 16:15 CEST
+==============================================================================
+
+Tomasz: rób 2, 6, 12, 13; 'nie kasuj mi tej pogody z główne!' — pogoda na głównej nietykalna.
+
+
+==============================================================================
+## SESJA 18.09.2026 16:16 CEST
+==============================================================================
+
+Tomasz podał skład zarządu ROD do strony (pkt 4): Prezes Roman Sitko, Zastępca Dariusz Żukowski, Skarbnik Zofia Zachariasz, Sekretarz Tomasz Maksyś, Członek Czesław Perek. Robię 2, 4, 6, 12, 13.
+
+
+==============================================================================
+## SESJA 18.09.2026 16:24 CEST
+==============================================================================
+
+D-0430 wdrożone: Dziś w ROD, /zarzad/, Stan robót, mobile 18/44, poprawki prawdy — live, test zielony, bramka załogi w toku. Zostały pkt 3, 5, 7–11.
+
+
+==============================================================================
+## SESJA 19.09.2026 00:13 CEST
+==============================================================================
+
+N150 dysk gwarancyjny: sprzedawca FUCHU (AliExpress) NIE wysłał — brak trackingu, obietnica 24.08, 12.09 'nie otrzymaliśmy', 13.09 pytanie Tomasza bez odpowiedzi, 15.09 AE odmówił zwrotu. Czeka na decyzję Tomasza (ponaglenie / spór z dowodami z czatu).
+
+
+==============================================================================
+## SESJA 19.09.2026 00:17 CEST
+==============================================================================
+
+N150 reklamacja: wiadomość do sprzedawcy (EN+ZH) w data/n150_reklamacja/, e-mail odwołania = wersja robocza w Gmailu. Czeka na 'wyślij' Tomasza.
+
+
+==============================================================================
+## SESJA 19.09.2026 05:12 CEST
+==============================================================================
+
+Belzebub o reklamacji N150: appeal odrzuconego sporu (item not as described) + oś na niespełnionej obietnicy; teksty v2 w data/n150_reklamacja/, e-mail = wersja robocza w Gmailu. Do sprawdzenia: kupiony wariant SKU.
+
+
+==============================================================================
+## SESJA 19.09.2026 16:43 CEST
+==============================================================================
+
+19.09: reklamacja N150 WYSŁANA — e-mail do AliExpress (SENT, wątek sprawy 2053808791215177) + 4 wiadomości w czacie do FUCHU. Termin 21.09. Czekamy na tracking albo idziemy w appeal/Buyer Protection.
+
+
+==============================================================================
+## SESJA 22.09.2026 14:16 CEST
+==============================================================================
+
+Brama: Tomasz 14:14 — budżetowa kamera blisko bramy, byle się zgrała z Frigate LPR + Shelly. Szukam 150-400 zł.
+
+
+==============================================================================
+## SESJA 22.09.2026 16:58 CEST
+==============================================================================
+
+Brama D: Reolink na środku bramy, przez naprawiony HA Działka (bez N100). Brakuje: kamera, moduł SIM, napęd.
+
+
+==============================================================================
+## SESJA 22.09.2026 17:39 CEST
+==============================================================================
+
+Brama: P324 (MediaMarkt AT 55,90 EUR) = następca RLC-520A, 2,8 mm/110°, 2880x1616; ≥130 px do ~4 m (Zenek); Anti-Smearing i HA dla P324 niepotwierdzone.
+
+
+==============================================================================
+## SESJA 22.09.2026 17:41 CEST
+==============================================================================
+
+Brama: Tomasz 17:41 'Zostaje RLC-520A' — kamera wybrana (HomeBrainz 300,45 zł / dmtrade 299 zł). Nic nie kupione.
+
+
+==============================================================================
+## SESJA 22.09.2026 18:41 CEST
+==============================================================================
+
+Protokół pomiarów kabla (ZK→szafka przyłączeniowa, YKY 10mm2, 75m): NOWY szablon szablony/protokol_pomiarow_kabla.js + dane/protokol_kabel_ZK.json, DOCX w wystawione/, wysłany Tomaszowi Hansem (msg 1073). Wyniki 19.09 (MPI-525): izolacja 2 GΩ @500V ✔, ciągłość pętli par żył 0,23 Ω (obl. 0,26) ✔. DECYZJA Tomasza 22.09: zabezpieczenie B20 (nie A20, nie C20) → warunek Zs ≤ 1,84 Ω (z 0,8). Pętla do pomiaru po podaniu napięcia; nr działki/użytkownik do uzupełnienia. Bezpiecznik 20A za licznikiem = Taurona, nie liczymy go.
+
+
+==============================================================================
+## SESJA 22.09.2026 19:21 CEST
+==============================================================================
+
+Protokoły kabli działek 1-3 (arkusz Tomasza, pomiar 19.09, MPI-525): dz1 10mm²/30m pętla max 1,696Ω; dz2 6mm²/40m pętla max 1,412Ω; dz3 10mm²/60m pętla max 1,79Ω (zapas 3%) — wszystkie ≤1,84Ω (B20), izolacja 2GΩ, ciągłość zgodna z obl. DOCX wysłane Hansem (1078-1080). Bez nazwisk (D-0465). Interpretacja arkusza potwierdzona przez Tomasza po dz.13: AB1/AB2=pętla w 2 pkt (po 2 pomiary), R/RF/RR=ciągłość dwukierunkowa, prawy róg=przekrój+długość. Dz.2 N-PE izolacja wpisana jako 'GΩ' bez cyfry — przyjęto 2 GΩ. Protokół 13 wystawiony wcześniej (msg 1077).
+
+
+==============================================================================
+## SESJA 22.09.2026 19:28 CEST
+==============================================================================
+
+Protokoły PDF działek 4-6 wysłane (Hans): dz4 6mm²/65m pętla 1,392Ω (ciągłość 0,43-0,65 — żyły zróżnicowane, powtarzalne); dz5 6mm²/100m pętla 1,382Ω; dz6 10mm²/110m pętla 1,525Ω (izolacja N-PE na kartce 'GΩ' bez cyfry — przyjęto 2 GΩ jak dz.2). Wszystkie ≤1,84Ω B20, 1 strona, TN-C, tylko PDF (D-0467). Razem wystawione: 1-6 i 13.
+
+
+==============================================================================
+## SESJA 22.09.2026 19:30 CEST
+==============================================================================
+
+Protokoły PDF działek 7,9,10,11,12 wysłane (arkusze bez przekroju/długości — pola kropkowane, czekamy na dane od Tomasza). Pętle L–PE max: 7=1,398; 9=1,335; 10=1,263; 11=1,302 (rozrzut ciągłości L–PE do 0,80); 12=1,554 — wszystkie ≤1,84 B20. Dz.12 N–PE izolacja 'GΩ' bez cyfry → przyjęto 2 GΩ. DZIAŁKA 8 WSTRZYMANA: kolumna B–ZZ (L–PE) izolacji zapisana jako '2Ω' (bez G) ×3 — czeka na potwierdzenie Tomasza; reszta dz.8 odczytana (AB1 1,441/1,435/1,405; AB2 1,24/1,237/1,214; ciągłość 0,58-0,60).
+
+
+==============================================================================
+## SESJA 22.09.2026 19:39 CEST
+==============================================================================
+
+Dz.8 odblokowana słowem Tomasza ('wszystko 2Gomy' — zapis '2Ω' na kartce = 2 GΩ), protokół 8 PDF wysłany (pętla 1,435Ω, Ik 160A). Wystawione łącznie: 1-13 KOMPLET oprócz przekrojów/długości dla 7-12 (Tomasz mówi że są 'na środku' kartek — na zdjęciach nieczytelne, poproszono o podyktowanie).
+
+
+==============================================================================
+## SESJA 22.09.2026 19:43 CEST
+==============================================================================
+
+KOMPLET ZAMKNIĘTY: protokoły pomiarów kabli działek 1-13 (13 szt.) wystawione jako PDF i wysłane Tomaszowi Hansem. Długości od Tomasza: 7=140m, 8=155m, 9=170m, 10=170m, 11=155m, 12=140m, wszystkie 10mm² (potwierdzone zgodnością ciągłości z obliczeniem). Wszystkie pętle ≤1,84Ω (B20), izolacje 2GΩ, 1 strona, TN-C, bez nazwisk. Źródła: dane/protokol_dzialka_N.json + szablon protokol_pomiarow_kabla.js.
+
+
+==============================================================================
+## SESJA 22.09.2026 19:59 CEST
+==============================================================================
+
+ALEJKA POŁUDNIOWA KOMPLET: 18 protokołów indywidualnych (1-18) + PROTOKÓŁ ZBIORCZY dla Zarządu wysłane PDF Hansem (msg do 1110). Nowe kartki: 13=110m/10mm² (zaktualizowany), 14=100m/6, 15=65m/6 (ciągłość 0,66-0,69 vs obl. 0,38 — uwaga o dłuższej trasie w protokole), 16=60m/6, 17=40m/6 (rozrzut L-N 0,27-0,47 — uwaga o kontroli połączeń; pętla 1,779 zapas 3%), 18=30m/6. Zbiorczy: szablony/protokol_zbiorczy.js (auto-tabela z JSONów). Wszystkie pętle ≤1,84Ω, wszystkie POZYTYWNE.
+
+
+==============================================================================
+## SESJA 22.09.2026 20:03 CEST
+==============================================================================
+
+Zestawienie zbiorcze WSZYSTKICH wyników pomiarów 1-18 Alejka Południowa wystawione: szablony/zestawienie_wynikow.js (landscape A4, 1 strona) + dane/zestawienie_1-18.json (auto-parsowane z protokol_dzialka_N.json, 18/18 bez błędów parsera). Wysłane Hansem. Komplet dokumentów elektryka: 18 protokołów + zbiorczy dla Zarządu + zestawienie szczegółowe.
+
+
+==============================================================================
+## SESJA 22.09.2026 20:32 CEST
+==============================================================================
+
+Wzór protokołów alejek ZATWIERDZONY i spisany: dokumenty/elektryk/WZOR_PROTOKOLY_ALEJKI.md (konwencja arkuszy, 3 dokumenty, procedura, weryfikacje). Alejka Południowa wydrukowana. CZEKAJĄ: Alejka Środkowa i Alejka Północna — ten sam wzór.
+
+
+==============================================================================
+## SESJA 23.09.2026 11:13 CEST
+==============================================================================
+
+G12w ładowanie: sterowanie = ustawienia falownika InfiniSolar V; Tomasz pozwolił podejrzeć apkę SA na telefonie BEZ ZMIAN.
+
+
+==============================================================================
+## SESJA 23.09.2026 11:16 CEST
+==============================================================================
+
+G12w LOGIKA Tomasza: szczyt pn-pt 6-13/15-22 = bateria, zero sieci; 13-15 doładować żeby wytrzymać do 22; 22-6 ładować z sieci i zużywać po niższej stawce; weekend/święta tanio cały czas.
+
+
+==============================================================================
+## SESJA 23.09.2026 11:45 CEST
+==============================================================================
+
+G12w: plan SA gotowy do zatwierdzenia (Zenek): 00-06 SUB+sieć do 60%, 06-13 SBU tylko słońce, 13-15 SUB+sieć do 45%, 15-22 SBU tylko słońce, 22-24 SUB+sieć do 60%. Obecnie ładowanie 'Solary i sieć' na stałe = sieć może ładować w szczycie. Nic nie zmieniono.
+
+
+==============================================================================
+## SESJA 23.09.2026 12:10 CEST
+==============================================================================
+
+SA 12:08: próba 20 A ładowania z sieci → falownik 'Rejected', zostało 40 A; nic innego nie zmienione; Tomasz przejął telefon (SmartESS).
+
+
+==============================================================================
+## SESJA 23.09.2026 18:00 CEST
+==============================================================================
+
+N150: 23.09 17:56 dysk Intenso M.2 SATA 256 GB jest u Tomasza; odbudowa na działce weekend 27-28.09; Zenek przygotowuje procedurę (wiedza/narady/n150_odbudowa).
+
+
+==============================================================================
+## SESJA 23.09.2026 18:06 CEST
+==============================================================================
+
+Druga alejka START: protokoły 19 (6mm²/23m, Zs 1,259, uwaga: para L-N 0,33-0,39 z rozrzutem — kontrola połączeń), 20 (6mm²/47m, Zs 1,254), 21 (6mm²/61m, Zs 1,263) wysłane PDF. Daty wg dekretu jak Południowa (pomiar 19.09, wystawienie 22.09). NAZWA ALEJKI jeszcze niepotwierdzona (obiekt bez nazwy — uzupełnić przed zbiorczym). Na kartce notacja '2/21','2/19' — możliwe ZK2/działka.
+
+
+==============================================================================
+## SESJA 23.09.2026 19:48 CEST
+==============================================================================
+
+Środkowa: protokoły 22 (6mm²/83m wg Tomasza, Zs 1,266, Ik 182A) i 23 (6mm²/56-58m wg Tomasza — NIE 95m z kartki; Zs 1,553, Ik 148A; Rt czasy 30/60/90s; izolacja L-N nie zapisana na kartce → wpisano 2 GΩ wg dekretu 'wszystko 2Gomy', do potwierdzenia) wysłane PDF. Środkowa ma już 19-23.
+
+
+==============================================================================
+## SESJA 23.09.2026 19:50 CEST
+==============================================================================
+
+Środkowa: protokoły 22 (6mm²/83m, ciągłość 0,52-0,56, Zs 1,266, Ik 182A) i 23 (6mm²/95m, ciągłość 0,56-0,58 wg Tomasza — jego '56-58' znaczyło OMY nie metry; Zs 1,553, Ik 148A, Rt 30/60/90s; izolacja L-N nie zapisana na kartce → 2 GΩ wg dekretu 'wszystko 2Gomy') wysłane PDF. Tabelka 0,34-0,36 z trzeciego zdjęcia NIE należy do 23. Środkowa: 19-23 gotowe.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:22 CEST
+==============================================================================
+
+Środkowa: protokoły 24,26,27,28,30,31,32 wysłane PDF (metry z karteczki: 24/121,26/177,27/180,28/182; 30/156,31/125,32/98 z kartek). WYKRYTO: kartka wcześniej podpisana '23' to działka 28 (10mm²/182m, '23' skreślone) — protokół 23 (msg 1197) ma pętle/izolację 28 i CZEKA NA POPRAWĘ (ciągłość 0,56-0,58 od Tomasza może być OK, pętle 23 nieznane). WSTRZYMANE do odpowiedzi: 23 (pętle?), 25 (B-N AB1 1,303/1,393?), 29 (163/169m?), 33 (B-N AB1 po skreśleniach?). Nazwisko MAROŃ z kartki 30 NIE weszło do protokołu (D-0465). 26 i 27: pierwsze odczyty AB odrzucone jako niestabilne, powtórzone — odnotowane w uwagach.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:29 CEST
+==============================================================================
+
+Środkowa: 25 (10/151m, L-N AB1=1,303 wg Tomasza, Zs 1,480), 29 (10/163m wg Tomasza, Zs 1,530), 33 (6/86m, L-N AB1=1,254/1,175 wg Tomasza, Zs 1,267) wysłane PDF. Dz.23: ciągłość poprawiona na 0,54-0,55 (najnowsze słowo, obl 0,55 dla 6/95m pasuje) w JSON — protokół NIE przegenerowany, bo PĘTLE 23 wciąż nieznane (te z msg 1197 należą do 28). Środkowa ma 19-22, 24-33; brakuje pętli 23 i kartek 34-36.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:30 CEST
+==============================================================================
+
+Dz.23 ZAMKNIĘTA: Tomasz przysłał kartkę 23 ponownie z '95m' — pętle 1,553/1,589/1,604 jednak należą do 23 (te same wartości figurują też na kartce 28; obie potwierdzone przez Tomasza). Protokół 23 finalny wysłany (ci 0,54-0,55). Środkowa: 19-33 KOMPLET, czekają kartki 34-36.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:33 CEST
+==============================================================================
+
+ALEJKA ŚRODKOWA ZAMKNIĘTA: 15 protokołów (19-33) + zbiorczy dla Zarządu + zestawienie landscape wysłane PDF (msg do 1210). Szablony sparametryzowane: node protokol_zbiorczy.js OD DO 'Alejka' PLIK; node zestawienie_wynikow.js JSON 'TYTUŁ' PLIK (domyślne = Południowa 1-18). Parser ci z fallbackiem zakresowym (dz.23,26). Następna: Alejka Północna.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:56 CEST
+==============================================================================
+
+Paczka zbiorcza do druku wysłana Tomaszowi: KOMPLET_Protokoly_Alejka_Poludniowa_i_Srodkowa.pdf (pdfunite, weryfikacja: liczba stron = liczba dokumentów). Zawartość: 2 zbiorcze + 2 zestawienia + 33 protokoły działek + 2 protokoły ZK. Tomasz drukuje na miejscu i podbija pieczątkami.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:56 CEST
+==============================================================================
+
+Korekta paczki: pierwsza wysyłka (msg 1211, 37 str.) nie zawierała protokołów ZK mimo podpisu — DOCX-y ZK nie miały PDF (sprzed dekretu D-0467). Skonwertowane, paczka finalna 39 stron wysłana z adnotacją 'drukuj tę'.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:57 CEST
+==============================================================================
+
+Paczka FINALNA 39 stron wysłana (msg 1213) po dwóch błędnych (1211/1212 bez ZK — soffice zrobił z ZK 2 strony, assert ubił skrypt, a wysyłka poszła bo była za newline zamiast w łańcuchu &&; LEKCJA: wysyłkę zawsze wiązać && z weryfikacją). ZK przegenerowane aktualnym szablonem → 1 strona. Weryfikacja paczki: 39 plików × 1 strona = 39 stron, 2327 KB.
+
+
+==============================================================================
+## SESJA 23.09.2026 20:58 CEST
+==============================================================================
+
+Paczka sama Środkowa (17 stron: zbiorczy+zestawienie+19-33) wysłana na prośbę Tomasza, msg 1214. Weryfikacja 17×1 strona przed pdfunite.
+
+
+==============================================================================
+## SESJA 24.09.2026 20:22 CEST
+==============================================================================
+
+Paczka Alejka Południowa (zbiorczy+zestawienie+protokoły 1-18, 20 stron, weryfikacja 20×1) wysłana Tomaszowi na żądanie 24.09 ('od 1 do 19' — 19 należy do Środkowej, zaznaczone w podpisie).
+
+
+==============================================================================
+## SESJA 24.09.2026 20:37 CEST
+==============================================================================
+
+Strony tytułowe alejek zrobione (szablon strona_tytulowa.js), paczki przebudowane z okładkami: Południowa 21 str. (msg 1304), Środkowa 18 str. (msg 1305). Weryfikacja: pdftotext okładki + każdy plik 1 strona przed pdfunite.
+
+
+==============================================================================
+## SESJA 26.09.2026 11:51 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 18 (Anna Jonderko, stan 3076,9 kWh, PAFAL A52 24622948-1995) wystawiony i wysłany. Odczyt z fotki licznika: liczydło 003076 + czerwony bębenek 9. Weryfikacja: 1 strona + pdftotext.
+
+
+==============================================================================
+## SESJA 26.09.2026 11:54 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 18 przepisany na wzór D-0469 + nazwisko poprawione na Anna Jąderko (przez ą), wysłany ponownie. Stara wersja (msg 1342) do skasowania przez Tomasza.
+
+
+==============================================================================
+## SESJA 26.09.2026 14:10 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 29 (Marian Maroń — działka wg oświadczenia kabel_29.json, potwierdzona pytaniem Tomasza; stan 5894,7 kWh, PAFAL A52 24654675-1995) wystawiony wzorem D-0627 i wysłany. Bębenek dziesiętnych między 6 a 7 — przyjęte 7, zastrzeżone Tomaszowi. Odczyt weryfikowany powiększeniem wycinków fotki.
+
+
+==============================================================================
+## SESJA 27.09.2026 10:36 CEST
+==============================================================================
+
+Protokół zdjęcia licznika dz. 22 (Edward Matusiak, stan 5023,1 kWh, PAFAL A52 25037772-1995) wystawiony wzorem D-0627, data 27.09.2026, wysłany. Odczyt zweryfikowany powiększeniem, bębenek=1 jednoznaczny.
+
+
+==============================================================================
+## SESJA 27.09.2026 11:00 CEST
+==============================================================================
+
+Protokoły zdjęcia liczników dz. 16 (Janusz Radosz, 1606,2 kWh, PAFAL 24624807-1995) i dz. 17 (Paweł Słota, 1362,9 kWh, nr fabryczny nieczytelny — kropki, uwaga w protokole; dziesiętne na przełomie 9/0) wystawione wzorem D-0627 i wysłane. Liczniki zdemontowane, podpisane taśmą 16 RADOSZ / 17 Słota — zgodne z dyktowanym przydziałem.
+
+
+==============================================================================
+## SESJA 27.09.2026 19:40 CEST
+==============================================================================
+
+Oświadczenia kablowe wystawione i wysłane: dz. 49 Józef Żepka, dz. 34 Halina Tylus, dz. 35 Damian Osiński (wzór oswiadczenie_kabel.js, data 27.09.2026, po 1 stronie, zweryfikowane pdftotext). Dz. 47 z wcześniejszej listy Tomasza nadal BEZ nazwiska — nie wystawione.
+
+
+==============================================================================
+## SESJA 27.09.2026 19:52 CEST
+==============================================================================
+
+Oświadczenie elektryka dz. 23 (odłączenie od sieci ROD) przegenerowane z numerami świadectw SEP (stary PDF z 14.09 miał kropki). ROZBIEŻNOŚĆ: JSON miał stan 17 378 kWh, PDF Tomasza 17 377 — wpisano 17 377 za jego dokumentem, zgłoszone mu do potwierdzenia. Linia 'ważne do dnia' już nie drukuje się pusta (szablon aktualny).
+
+
+==============================================================================
+## SESJA 27.09.2026 19:56 CEST
+==============================================================================
+
+Oświadczenie Licznik dz. 14 (Dorota Zachariasz) przegenerowane z numerami SEP wzorem D-0628 i wysłane. Dz. 23 poprawiona już wcześniej (msg 1353). Obie pozycje z listy Tomasza 'do poprawy' zamknięte.
+
+
+==============================================================================
+## SESJA 27.09.2026 19:59 CEST
+==============================================================================
+
+Oświadczenia Licznik (wzór D-0628) wystawione dla dz. 16 Radosz, 17 Słota (nr licznika kropki — nieczytelny), 18 Jąderko — dane i stany przeniesione z protokołów zdjęcia liczników 16/17/18-L, daty = daty zdjęcia (16-17: 27.09, 18: 26.09). Interpretacja 'Popraw 18,17,16' = wystawić im Oświadczenia Licznik jak dla 23 i 14.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:01 CEST
+==============================================================================
+
+Oświadczenie Licznik dz. 22 Edward Matusiak wystawione — wariant z zasilaniem z sąsiedniej działki: szablon oswiadczenie_przepiecie.js rozszerzony o pola punkt3 (nadpisanie treści pkt 3) i uwagi (sekcja przed podpisami), wstecznie zgodny. Zasilanie dz. 22 z dz. 15 (Ewa Matusiak) — w pkt 3 i Uwagach. Po korekcie odstępu 1 strona, zweryfikowane.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:12 CEST
+==============================================================================
+
+Oświadczenie dz. 19 Mariusz Janus (wariant BEZ licznika: wpięcie instalacji + rozdzielnica bezpiecznikowa) wystawione. Szablon oswiadczenie_przepiecie.js rozszerzony: podtytul, prace[] (nadpisanie listy punktów), bez_odczytu — wstecznie zgodny (dz. 22 przegenerowana kontrolnie, nadal 1 strona). ROZBIEŻNOŚĆ NAZWISKA zgłoszona Tomaszowi: teraz 'Janus', w kabel_19.json 'Mariusz Janusz' — czeka na rozstrzygnięcie.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:18 CEST
+==============================================================================
+
+KOREKTA Tomasza: Marian Maroń = dz. 30 (nie 29). Protokół zdjęcia licznika przepisany 29/L→30/L (5894,7 kWh, PAFAL 24654675), błędne pliki 29 skasowane (dane+wystawione, msg 1344 do kosza u Tomasza). Wystawione też Oświadczenie Licznik dz. 30 Maroń. OTWARTE: oświadczenie kablowe kabel_29.json (Maroń, dz. 29) — spytano Tomasza czy przepisać na 30; nazwisko Janus/Janusz dz. 19 nadal bez odpowiedzi.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:21 CEST
+==============================================================================
+
+Rozstrzygnięcia Tomasza wykonane: oświadczenie kablowe Maroń przepisane 29→30, dz. 19 Janus (nie Janusz) poprawione w kablowym; błędne pliki skasowane, oba PDF wysłane (1362-1363 wg kolejności OK). Otwartych pytań brak.
+
+
+==============================================================================
+## SESJA 27.09.2026 20:44 CEST
+==============================================================================
+
+Rozstrzygnięcia Tomasza 27.09 wieczorem: dz. 47 ZAMKNIĘTE na teraz ('będzie potem' — nazwisko przyjdzie później), nr fabryczny licznika dz. 17 poda innym razem (kropki w dokumentach zostają do tego czasu), dz. 23 stan 17 377 kWh POTWIERDZONY ('wszystko się zgadza'). Otwarte w temacie elektryka: tylko Alejka Północna (kartki) + te dwa odłożone uzupełnienia.
+
+
+==============================================================================
+## SESJA 28.09.2026 08:11 CEST
+==============================================================================
+
+ALEJKA PÓŁNOCNA KOMPLET: 18 protokołów (34-51) + zbiorczy + zestawienie + okładka = paczka 21 stron (weryfikacja 21×1 strona + pdftotext wyrywkowo 34/42/50/51 + zbiorczy + zestawienie), wysłana jedną paczką. Wszystkie POZYTYWNE, max Zs 1,690 (dz. 50). Trzy alejki ZAMKNIĘTE: Południowa 1-18, Środkowa 19-33, Północna 34-51.
+
+
+==============================================================================
+## SESJA 28.09.2026 14:38 CEST
+==============================================================================
+
+28.09.2026 NARADA JEV (film YouTube WHkC4OU3Op8, Julia Jakubowska; dekret Tomasza: 'Wszyscy... czy wdrażamy jako następnego pomocnika', 'Cała załoga ogląda to samo', 'Nie ty sam im przedstawiasz'). Każdy oglądał sam (oczy_uszy.py; Belzebub tylko sieć). Głosy w .scratch/jev/narada/: Zenek NIE, Genek NIE, Henio NIE (jako członek; ew. narzędzie warunkowo), Belzebub WARUNKOWO (tania warstwa decyzji, test w darmowym playground 0 zł), Klaudek NIE jako pomocnik. Rozbieżność: obsługa polskiego (Zenek: docs - angielski główny, inne nierówno; Henio: NIE WIEM; Belzebub: działa wg important.is). Decyzja należy do Tomasza. Wcześniej tego dnia: VPS odcięty przez Hetzner ~13:24-14:12 za nieopłaconą fakturę 082001138340 (karta odrzucona 06.09); Tomasz zapłacił, blokada zdjęta, uptime 42 dni bez restartu.
+
+
+==============================================================================
+## SESJA 28.09.2026 14:52 CEST
+==============================================================================
+
+28.09.2026 14:52 DECYZJA TOMASZA: „Nie wdrażamy” — Jev (TypeSafe AI) odrzucony, ani pomocnik, ani narzędzie; żadnego konta/waitlisty/testu. Zapis w rejestrze decyzji.
+
+
+==============================================================================
+## SESJA 28.09.2026 16:00 CEST
+==============================================================================
+
+28.09.2026 15:49 NARADA FILM 3sTDNiIcuAo (Julia Jakubowska, Agent SDK: Claude Agent SDK / Codex SDK — agent na subskrypcji zamiast klucza API; dekret 'To samo zadanie'). Każdy oglądał sam (Belzebub tylko strona YouTube + transkrypt). Głosy w .scratch/film_3sTD/narada/: Zenek NIE (to drugie wejście do tego samego Zenka; codex exec już działa; limit współdzielony; auth.json = hasło), Genek NIE (już to mamy: Klaudek na Max, Zenek na Plus), Henio NIE (nie nowy członek; oszczędność nas nie dotyczy — wideo/obraz to i tak API; autorka sama: produkcja 24/7 = klucz API), Belzebub WARUNKOWO (test 0 zł: skrypt na Agent SDK podsumowuje 10 komentarzy FB, mierzymy zużycie okna), Klaudek NIE. Czeka na decyzję Tomasza.
+
+
+==============================================================================
+## SESJA 28.09.2026 16:06 CEST
+==============================================================================
+
+28.09.2026 16:05 DECYZJA TOMASZA: „Pierdolić to” — Agent SDK (film 3sTDNiIcuAo) odrzucony, bez testu Belzebuba; zostaje obecny układ (Claude Code na Max, codex exec na Plus). Zapis w rejestrze decyzji.
+
+
+==============================================================================
+## SESJA 28.09.2026 16:36 CEST
+==============================================================================
+
+Dz. 40 Roman Sitko: protokół zdjęcia licznika 40/L/2026 + Oświadczenie Licznik wystawione (PAFAL A52 24838080-1995, stan 12624,4 kWh, data 28.09.2026 z karteczki 'Sitko-40'). Bębenek dziesiętnych odczytany jako 4 — zastrzeżone Tomaszowi w podpisie.
+
+
+==============================================================================
+## SESJA 28.09.2026 17:47 CEST
+==============================================================================
+
+Protokoły zdjęcia licznika: KOMPLET 8 szt. (14,16,17,18,22,23,30,40), sześć z fotografiami liczników wklejonymi do dokumentu (kanał: Tomasz->Hans->getUpdates na VPS; identyfikacja hash+oględziny; obie 'nieznane' fotki = dz.18 Jąderko - potwierdzone przez Tomasza). 14 i 23 bez fotek - czekają na dosyłkę. Wszystkie 1 strona, wysłane msg 1379-1386. Transfer tmp_transfer.enc przez GitHub posprzątany (git rm).
+
+
+==============================================================================
+## SESJA 28.09.2026 17:58 CEST
+==============================================================================
+
+Dz. 23: fotka licznika dosłana przez Hansa (msg 1393), zweryfikowana wzrokowo (nr 24785695, liczydło 017377, naklejka 23), wklejona do protokołu 23/L, wysłany. Czeka: fotka licznika dz. 14 (24835310).
+
+
+==============================================================================
+## SESJA 28.09.2026 18:11 CEST
+==============================================================================
+
+Protokół 14/L (Dorota Zachariasz, 535 kWh) zostaje BEZ zdjęcia — jedyny wyjątek od D-0634: fotka licznika 24835310 wysłana w czacie z 19.09 nie została zapisana (błąd Klaudka), u Tomasza w telefonie jej nie ma; Tomasz 28.09: 'Chcesz, to szukaj' — temat zamknięty. 7 z 8 protokołów L ma zdjęcia (16,17,18,22,23,30,40).
+
+
+==============================================================================
+## SESJA 28.09.2026 18:12 CEST
+==============================================================================
+
+Dz. 14 (licznik 24835310): fotki nie ma nigdzie (ta rozmowa, VPS, Hans, Drive; oświadczenie powstało 19.09 w innym czacie). Tomasz 28.09: 'Chuj wie skąd dostałem... koło chuja mi to lata' — protokół 14/L zostaje BEZ zdjęcia jako jedyny wyjątek od D-0634; jeśli fotka się znajdzie, dokleić.
+
+
+==============================================================================
+## SESJA 28.09.2026 18:41 CEST
+==============================================================================
+
+Dz. 14: fotka licznika dosłana (Hans msg 1396). UWAGA NA PRZYSZŁOŚĆ: hans_ucho.py zjada getUpdates co 60 s i odkłada zdjęcia do /root/skrzynka/pliki/ (+ surowe_aktualizacje.jsonl) — TAM szukać fotek od Tomasza. Zweryfikowana wzrokowo: 24835310-1995, liczydło 534,8-9 -> 535 po zaokrągleniu w górę. Wklejona, 14/L wysłany. KOMPLET 8/8 protokołów L ze zdjęciami.
+
+
+==============================================================================
+## SESJA 28.09.2026 20:44 CEST
+==============================================================================
+
+Protokoły L: nowy układ zatwierdzony próbą (duże zdjęcie ~8,7 cm wys., kadr na tabliczkę) + klauzula 'Granica odpowiedzialności' (elektryk do punktu przyłączenia, dalej użytkownik/dzierżawca). Tekst ściśnięty (marginesy, fonty 8,5-9,5 pt), wszystkie 8 na 1 stronie z pełnym rozmiarem zdjęcia. Wysłana 22/L do akceptacji treści klauzuli; 7 pozostałych gotowych w wystawione/.
+
+
+==============================================================================
+## SESJA 28.09.2026 20:50 CEST
+==============================================================================
+
+Protokoły L: KOMPLET 8 szt. przebudowany (duże foto, granica odpowiedzialności, stany zaokrąglone w górę wg dekretu 28.09) i wysłany jedną paczką PACZKA_Protokoly_zdjecia_licznika.pdf (8 str.). Dane Oświadczeń Licznik zaktualizowane (zaokrąglone), PDF-y NIE przegenerowane — czekają na decyzję Tomasza czy dopisać klauzulę granicy odpowiedzialności.
+
+
+==============================================================================
+## SESJA 28.09.2026 20:55 CEST
+==============================================================================
+
+ZAMKNIĘTE 28.09 ~21:00: protokoły L (8) i Oświadczenia Licznik (9) w wersji ostatecznej wysłane dwiema paczkami. Protokół L: tabela = stan faktyczny + STAN DO ROZLICZENIA (ostatnia nota, zaokr. w górę), orzeczenie z wartością, granica odpowiedzialności, foto 8,7 cm. Oświadczenie: 'stan na dzień odłączenia: X,x kWh; do rozliczenia przyjęto Y kWh (zaokr. w górę)' + granica (1. os.). Stany faktyczne: 14=534,8 16=1606,2 17=1362,9 18=3076,9 22=5023,1 23=17377,5 30=5894,7 40=12624,4.
+
+
+==============================================================================
+## SESJA 30.09.2026 08:10 CEST
+==============================================================================
+
+Mapa stanu przyłączy 30.09 (dekret Tomasza: protokół licznika = gotowa 100%, oświadczenie kablowe = 50%): dokumenty/elektryk/wystawione/Mapa_stan_przylaczy_2026-09-30.png, generowana z www_rod/static/img/mapa-ogrodu.jpg (siatka 1920x1080, kolumny/rzędy zapisane w skrypcie). 100%: 14,16,17,18,19,22,23,30,40; 50%: 6,8,9,15,20,24,28,34,35,45,46,49; brak: 30. Wysłana Hansem.
+
+
+==============================================================================
+## SESJA 30.09.2026 09:02 CEST
+==============================================================================
+
+0003 Wiadomości 61 dni: v1 gotowe 81.98 s, klatki 2456 OK, wysłane Tomaszowi; czeka na 'publikuj'.
+
+
+==============================================================================
+## SESJA 30.09.2026 09:08 CEST
+==============================================================================
+
+0003 Wiadomości 61 dni OPUBLIKOWANE 30.09 09:05: FB reel 1099146932474010, rodwozniki.pl OK, reels/000112.

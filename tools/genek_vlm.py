@@ -1,26 +1,38 @@
-import json, os, sys
-from google.genai import Client
-from google.genai.types import Part
+import urllib.request
+import json
+import base64
+import os
 
-K=""
-for p in ("/root/.gemini/.env","/root/rod-ai-studio/.env"):
-    try:
-        for l in open(p):
-            if l.startswith("GEMINI_API_KEY="): K=l.split("=",1)[1].strip().strip('"\''); break
-    except FileNotFoundError: pass
-    if K: break
+images = [
+    "data/reels/prad_rolka/ai/straszak1.jpg",
+    "data/reels/prad_rolka/ai/straszak2.jpg",
+    "data/reels/prad_rolka/ai/straszak3.jpg",
+    "data/reels/prad_rolka/ai/straszak4.jpg"
+]
+out_file = "data/reels/prad_rolka/ai/opisy.txt"
 
-c = Client(api_key=K)
-img_path = "data/izabela/relacja2/izabela_stoi_v2.png"
-with open(img_path, "rb") as f:
-    img_data = f.read()
-    
-img_part = Part.from_bytes(data=img_data, mime_type="image/png")
-
-prompt = "Opisz krótko tę postać i tło. Czy to kobieta z blond włosami w jasnej marynarce (ecru linen blazer)? Czy tło to zagrabiona ziemia, bez żadnej koparki w kadrze?"
-
-resp = c.models.generate_content(
-    model="gemini-2.5-flash",
-    contents=[img_part, prompt]
-)
-print(resp.text)
+with open(out_file, "w", encoding="utf-8") as f_out:
+    for img_path in images:
+        if not os.path.exists(img_path):
+            continue
+        with open(img_path, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+        payload = {
+            "model": "qwen2.5vl:7b",
+            "prompt": "Opisz krótko, co przedstawia ten obraz (czy to 1. ciemna altana ze świeczką, 2. lodówka bez światła z zepsutym jedzeniem, 3. zimna altana i czajnik, czy 4. ciemna alejka i jedna oświetlona altana). Wymień tylko jedną z tych czterech opcji.",
+            "images": [encoded_string],
+            "stream": False,
+            "options": {
+                "temperature": 0.1
+            }
+        }
+        try:
+            req = urllib.request.Request("http://localhost:11434/api/generate", data=json.dumps(payload).encode('utf-8'), headers={'Content-Type': 'application/json'})
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode('utf-8'))
+            desc = result.get("response", "").strip()
+            f_out.write(f"--- {os.path.basename(img_path)} ---\n{desc}\n\n")
+            print(f"Described {img_path}")
+        except Exception as e:
+            print(f"Error {img_path}: {e}")
+            f_out.write(f"--- {os.path.basename(img_path)} ---\nBlad VLM: {e}\n\n")
